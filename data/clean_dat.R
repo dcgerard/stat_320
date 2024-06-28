@@ -69,6 +69,7 @@ write_csv(diabetes, "./diabetes.csv")
 ear <- read_csv("../data_raw/ear.csv")
 ear |>
   mutate(
+    Clear = recode(Clear, '1' = 'yes', '0' = 'no'),
     Antibo = recode(Antibo, '1' = 'CEF', '2' = 'AMO'),
     Age = recode(Age, '1' = '<2', '2' = '2-5', '3' = '6+')) ->
   ear

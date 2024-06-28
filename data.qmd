@@ -5,8 +5,11 @@ bibliography: bib.bib
 
 Unless otherwise noted, all data are from @rosner2015fundamentals, downloaded from the book's [companion site](https://www.cengage.com/cgi-wadsworth/course_products_wp.pl?fid=M20b&product_isbn_issn=9781305268920).
 
+I did some cleaning (changing `9`'s to `NA`'s, recoding numerics to informative characters, etc).
 
 # betacar
+
+High doses of beta-carotene in food have been linked to a reduced cancer risk in some observational studies. A clinical trial was planned to compare cancer incidence between a group taking beta-carotene capsules and a placebo group. The study considered four beta-carotene capsule preparations: Solatene (30 mg), Roche (60 mg), and two from BASF (30 mg and 60 mg). To test their effectiveness in raising plasma-carotene levels, 23 volunteers were randomized to one of the four preparations, taking one pill every other day for 12 weeks. The primary endpoint was the plasma carotene level after prolonged ingestion.
 
 - [betacar.csv](./data/betacar.csv)
   - `Prepar`: Preparation.
@@ -21,9 +24,15 @@ Unless otherwise noted, all data are from @rosner2015fundamentals, downloaded fr
 
 # birthweight
 
+The birthweights of 1000 consecutive infants born at Boston City Hospital, which serves a low-income population.
+
 - [birthweight.csv](./data/birthweight.csv)
+  - `id`: ID
+  - `weight`: Birthweight (oz)
 
 # blood
+
+Data from a case-control study investigated various plasma risk factors for breast cancer. The women were matched approximately by age at the time of blood draw, fasting status, and, when possible, current postmenopausal hormone (PMH) use at the time of blood draw. Each matched set included one case and either one or two controls, although some sets are incomplete due to missing data. The matching variable is `matchid`.
 
 - [blood.csv](./data/blood.csv)
   - `Id`: ID
@@ -39,6 +48,8 @@ Unless otherwise noted, all data are from @rosner2015fundamentals, downloaded fr
   - `prolactn`: Prolactin
 
 # boneden
+
+A study in Australia examined the relationship between bone density and cigarette smoking in middle-aged female twins with different smoking histories. Forty-one pairs of twins visited a hospital in Victoria, Australia, where their bone density was measured. Participants also completed questionnaires providing information on their tobacco use, alcohol, coffee, and tea consumption, calcium intake from dairy products, menopausal and reproductive history, fracture history, use of oral contraceptives or estrogen replacement therapy, and physical activity levels. Tobacco consumption was measured in pack-years, with one pack-year defined as smoking one pack of cigarettes per day for one year.
 
 - [boneden.csv](./data/boneden.csv)
   - `ID`: ID
@@ -74,6 +85,8 @@ Unless otherwise noted, all data are from @rosner2015fundamentals, downloaded fr
 
 # botox
 
+A study on patients with piriformis syndrome compared the effects of three types of injections: triamcinolone with lidocaine (Group 1), a placebo (Group 2), and Botox (Group 3). The patients were randomly assigned to these groups in a 3:1:2 ratio and received injections directly into the piriformis muscle. They were evaluated at 2 weeks, 1 month, and monthly up to 17 months, though many missed visits. Improvement in pain was measured on a scale from 0% to 100%. The study involved 69 patients, with one having the condition in both legs. The goal was to compare the efficacy between the groups, considering age, gender, and affected side as potential influencing factors.
+
 - [botox.csv](./data/botox.csv)
   - `ID`: ID
   - `group`: 
@@ -103,6 +116,8 @@ Unless otherwise noted, all data are from @rosner2015fundamentals, downloaded fr
 
 # breast
 
+The data set includes 1200 postmenopausal women from the NHS, free of cancer in 1990. Of these, 200 were using postmenopausal hormones (PMH) in 1990, and 1000 had never used them. The study aimed to link PMH use in 1990 to breast cancer incidence from 1990 to 2000. Fifty-three women developed breast cancer during this period. PMH use was categorized by current use and duration of use in 1990, with separate durations for estrogen and estrogen plus progesterone. Each woman has a return date for the 1990 questionnaire and a follow-up date, which is either the date of breast cancer diagnosis or the date of the last questionnaire by 2000. The file also includes data on other breast cancer risk factors as of 1990.
+
 - [breast.csv](./data/breast.csv)
   - `Id`: ID
   - `case`: Treatment
@@ -131,9 +146,21 @@ Unless otherwise noted, all data are from @rosner2015fundamentals, downloaded fr
 
 # cholesterol
 
+Cholesterol levels from 24 hospital employees who switched from a standard American diet to a vegetarian diet for one month. Their serum cholesterol was measured before and after the diet change.
+
 - [cholesterol.csv](./data/cholesterol.csv)
+  - `Subject`: ID
+  - `Before`: Serum-cholesterol levels before diet change (mg/dL)
+  - `After`: Serum-cholesterol levels after diet change (mg/dL)
+  - `Difference`: Difference in serum-cholesterol levels, `Before - After`, where positive numbers indicate a reduction in serum-cholesterol levels.
 
 # corneal
+
+Fluoroquinolones, antibiotics for bacterial infections, are FDA-approved for systemic use. However, post-approval studies indicate a risk of peripheral neuropathy, leading to updated safety labeling.
+
+A small clinical trial tested the safety and effectiveness of two fluoroquinolone eye drops (drugs `M` and `G`) and a placebo (drug `P`) for bacterial eye infections. Ninety-three subjects were randomly assigned to three groups, each receiving one active drug and a placebo in opposite eyes. Participants used the drops four times daily for 10 days. The primary outcome was corneal sensitivity, measured in millimeters, with higher values indicating more normal sensitivity.
+
+Corneal sensitivity was assessed at baseline, 7 days, and 14 days, with measurements taken from the central cornea and four quadrants (superior, inferior, temporal, nasal).
 
 - [corneal.csv](./data/corneal.csv)
   - `id`: ID
@@ -157,6 +184,12 @@ Unless otherwise noted, all data are from @rosner2015fundamentals, downloaded fr
 
 # diabetes
 
+Type I diabetes is common in children and requires regular insulin shots to prevent long-term complications like neurologic, vision, kidney issues, heart disease, and premature death.
+
+The impact of diabetes control on childhood growth is less clear. To study this, adolescent boys aged 9−15 were examined about every 3 months. Each exam measured diabetes control using glycosylated hemoglobin (HgbA1c), where higher HgbA1c indicates poorer control (normal <7.0). Age, height, and weight were also recorded. Data includes 94 boys over 910 visits.
+
+The main question is the overall relationship between glycemic control and growth, primarily weight, for the entire group, not individual cases.
+
 - [diabetes.csv](./data/diabetes.csv)
   - `ID`: ID
   - `mon_a1c`: Month A1c
@@ -169,9 +202,12 @@ Unless otherwise noted, all data are from @rosner2015fundamentals, downloaded fr
 
 # ear
 
+This dataset includes 203 children with acute otitis media (OME) from a randomized clinical trial. Each child had OME in one or both ears and received a 14-day course of either cefaclor (CEF) or amoxicillin (AMO). Middle-ear status was assessed after the 14-day treatment.
+
 - [ear.csv](./data/ear.csv)
  - `Id`: ID
- - `Clear`: Clearance by 14 days, 1=yes/0=no
+ - `Clear`: Clearance by 14 days, 
+  - Possible values: `yes`, `no`
  - `Antibo`: Antibiotic. 
   - Possible values: `CEF`, `AMO`
  - `Age`: Age. 
@@ -180,7 +216,11 @@ Unless otherwise noted, all data are from @rosner2015fundamentals, downloaded fr
    - `1` = 1st ear
    - `2` = 2nd ear
 
-# eff
+# eff, nephro, and oto
+
+Aminoglycoside antibiotics are crucial for treating severe gram-negative bacterial infections in hospitalized patients. Despite their toxicity and the development of new antibiotics, aminoglycosides remain widely used. Choosing the right aminoglycoside depends on the clinical situation, antimicrobial spectrum, cost, and side effects like nephrotoxicity and auditory toxicity. Numerous trials comparing these antibiotics have varied in design and conclusions, often lacking sufficient sample sizes to detect small differences. 
+
+To better understand their true effects, a meta-analysis of all randomized trials was conducted. This analysis included 45 trials from 1975 to 1985, comparing amikacin, gentamicin, netilmicin, sisomicin, and tobramycin. Data from 37 trials were suitable for comparison, focusing on efficacy, nephrotoxicity, and auditory toxicity. Efficacy was defined by bacterial or clinical response as reported by each trial, nephrotoxicity by the percentage of kidney-related toxic events reported, and auditory toxicity by the diffence in pre- and post-treatment audiograms. The data is organized into three sets: eff.csv, nephro.csv, and oto.csv, with separate records for each antibiotic and endpoint.
 
 - [eff.csv](./data/eff.csv)
   - `Name`: Study name
@@ -191,7 +231,28 @@ Unless otherwise noted, all data are from @rosner2015fundamentals, downloaded fr
   - `Samp_sz`: Sample Size
   - `Cured`: Number Cured
 
+- [nephro.csv](./data/nephro.csv)
+  - `name`: Study name
+  - `id`: Study number
+  - `Endpnt`: Endpoint  `2` = nephrotoxicity
+  - `Antibio`: Antibiotic. 
+    - Possible values: `Amikacin`, `Gentamicin`, `Netilmicin`, `Sisomycin`, `Tobramycin`
+  - `Samp_sz`: Sample size
+  - `Side_eff`: Number with side effects
+
+- [oto.csv](./data/oto.csv)
+  - `Name`: Study Name
+  - `Id`: Study Number
+  - `Endpnt`: Endpoint. 
+    - Possible values: `efficacy`, `nephrotoxicity`, `ototoxicity`.
+  - `Antibio`: Antibiotic. 
+    - Possible values: `Amikacin`, `Gentamicin`, `Netilmicin`, `Sisomycin`, `Tobramycin`.
+  - `Samp_sz`: Sample Size
+  - `Side_eff`: Number with side effect
+
 # endocrin
+
+The data set contains split-sample plasma measurements of four hormones for each of five subjects, all from one laboratory.
 
 - [endocrin.csv](./data/endocrin.csv)
   - `Subject`: SUBJECT #
@@ -435,17 +496,6 @@ Unless otherwise noted, all data are from @rosner2015fundamentals, downloaded fr
   - `B_amp`: B AMP
   - `A_amp`: A AMP
 
-# nephro
-
-- [nephro.csv](./data/nephro.csv)
-  - `name`: Study name
-  - `id`: Study number
-  - `Endpnt`: Endpoint  `2` = nephrotoxicity
-  - `Antibio`: Antibiotic. 
-    - Possible values: `Amikacin`, `Gentamicin`, `Netilmicin`, `Sisomycin`, `Tobramycin`
-  - `Samp_sz`: Sample size
-  - `Side_eff`: Number with side effects
-
 # nifed
 
 - [nifed.csv](./data/nifed.csv)
@@ -466,18 +516,6 @@ Missing values indicate that either
 (a) the patient withdrew from the study prior to entering this level of therapy
 (b) the patient achieved pain relief prior to reaching this level or therapy,
 (c) the patient encountered this level of therapy, but this particular piece of data was missing.
-
-# oto
-
-- [oto.csv](./data/oto.csv)
-  - `Name`: Study Name
-  - `Id`: Study Number
-  - `Endpnt`: Endpoint. 
-    - Possible values: `efficacy`, `nephrotoxicity`, `ototoxicity`.
-  - `Antibio`: Antibiotic. 
-    - Possible values: `Amikacin`, `Gentamicin`, `Netilmicin`, `Sisomycin`, `Tobramycin`.
-  - `Samp_sz`: Sample Size
-  - `Side_eff`: Number with side effect
 
 # piriform
 

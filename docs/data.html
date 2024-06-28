@@ -174,7 +174,7 @@ window.Quarto = {
   <li><a href="#corneal" id="toc-corneal" class="nav-link" data-scroll-target="#corneal">corneal</a></li>
   <li><a href="#diabetes" id="toc-diabetes" class="nav-link" data-scroll-target="#diabetes">diabetes</a></li>
   <li><a href="#ear" id="toc-ear" class="nav-link" data-scroll-target="#ear">ear</a></li>
-  <li><a href="#eff" id="toc-eff" class="nav-link" data-scroll-target="#eff">eff</a></li>
+  <li><a href="#eff-nephro-and-oto" id="toc-eff-nephro-and-oto" class="nav-link" data-scroll-target="#eff-nephro-and-oto">eff, nephro, and oto</a></li>
   <li><a href="#endocrin" id="toc-endocrin" class="nav-link" data-scroll-target="#endocrin">endocrin</a></li>
   <li><a href="#estradl" id="toc-estradl" class="nav-link" data-scroll-target="#estradl">estradl</a></li>
   <li><a href="#estrogen" id="toc-estrogen" class="nav-link" data-scroll-target="#estrogen">estrogen</a></li>
@@ -187,9 +187,7 @@ window.Quarto = {
   <li><a href="#lead" id="toc-lead" class="nav-link" data-scroll-target="#lead">lead</a></li>
   <li><a href="#lmv" id="toc-lmv" class="nav-link" data-scroll-target="#lmv">lmv</a></li>
   <li><a href="#mice" id="toc-mice" class="nav-link" data-scroll-target="#mice">mice</a></li>
-  <li><a href="#nephro" id="toc-nephro" class="nav-link" data-scroll-target="#nephro">nephro</a></li>
   <li><a href="#nifed" id="toc-nifed" class="nav-link" data-scroll-target="#nifed">nifed</a></li>
-  <li><a href="#oto" id="toc-oto" class="nav-link" data-scroll-target="#oto">oto</a></li>
   <li><a href="#piriform" id="toc-piriform" class="nav-link" data-scroll-target="#piriform">piriform</a></li>
   <li><a href="#sexrat" id="toc-sexrat" class="nav-link" data-scroll-target="#sexrat">sexrat</a></li>
   <li><a href="#smoke" id="toc-smoke" class="nav-link" data-scroll-target="#smoke">smoke</a></li>
@@ -227,8 +225,10 @@ window.Quarto = {
 
 
 <p>Unless otherwise noted, all data are from <span class="citation" data-cites="rosner2015fundamentals">Rosner (<a href="#ref-rosner2015fundamentals" role="doc-biblioref">2015</a>)</span>, downloaded from the book’s <a href="https://www.cengage.com/cgi-wadsworth/course_products_wp.pl?fid=M20b&amp;product_isbn_issn=9781305268920">companion site</a>.</p>
+<p>I did some cleaning (changing <code>9</code>’s to <code>NA</code>’s, recoding numerics to informative characters, etc).</p>
 <section id="betacar" class="level1">
 <h1>betacar</h1>
+<p>High doses of beta-carotene in food have been linked to a reduced cancer risk in some observational studies. A clinical trial was planned to compare cancer incidence between a group taking beta-carotene capsules and a placebo group. The study considered four beta-carotene capsule preparations: Solatene (30 mg), Roche (60 mg), and two from BASF (30 mg and 60 mg). To test their effectiveness in raising plasma-carotene levels, 23 volunteers were randomized to one of the four preparations, taking one pill every other day for 12 weeks. The primary endpoint was the plasma carotene level after prolonged ingestion.</p>
 <ul>
 <li><a href="./data/betacar.csv">betacar.csv</a>
 <ul>
@@ -248,12 +248,18 @@ window.Quarto = {
 </section>
 <section id="birthweight" class="level1">
 <h1>birthweight</h1>
+<p>The birthweights of 1000 consecutive infants born at Boston City Hospital, which serves a low-income population.</p>
 <ul>
-<li><a href="./data/birthweight.csv">birthweight.csv</a></li>
+<li><a href="./data/birthweight.csv">birthweight.csv</a>
+<ul>
+<li><code>id</code>: ID</li>
+<li><code>weight</code>: Birthweight (oz)</li>
+</ul></li>
 </ul>
 </section>
 <section id="blood" class="level1">
 <h1>blood</h1>
+<p>Data from a case-control study investigated various plasma risk factors for breast cancer. The women were matched approximately by age at the time of blood draw, fasting status, and, when possible, current postmenopausal hormone (PMH) use at the time of blood draw. Each matched set included one case and either one or two controls, although some sets are incomplete due to missing data. The matching variable is <code>matchid</code>.</p>
 <ul>
 <li><a href="./data/blood.csv">blood.csv</a>
 <ul>
@@ -277,6 +283,7 @@ window.Quarto = {
 </section>
 <section id="boneden" class="level1">
 <h1>boneden</h1>
+<p>A study in Australia examined the relationship between bone density and cigarette smoking in middle-aged female twins with different smoking histories. Forty-one pairs of twins visited a hospital in Victoria, Australia, where their bone density was measured. Participants also completed questionnaires providing information on their tobacco use, alcohol, coffee, and tea consumption, calcium intake from dairy products, menopausal and reproductive history, fracture history, use of oral contraceptives or estrogen replacement therapy, and physical activity levels. Tobacco consumption was measured in pack-years, with one pack-year defined as smoking one pack of cigarettes per day for one year.</p>
 <ul>
 <li><a href="./data/boneden.csv">boneden.csv</a>
 <ul>
@@ -325,6 +332,7 @@ window.Quarto = {
 </section>
 <section id="botox" class="level1">
 <h1>botox</h1>
+<p>A study on patients with piriformis syndrome compared the effects of three types of injections: triamcinolone with lidocaine (Group 1), a placebo (Group 2), and Botox (Group 3). The patients were randomly assigned to these groups in a 3:1:2 ratio and received injections directly into the piriformis muscle. They were evaluated at 2 weeks, 1 month, and monthly up to 17 months, though many missed visits. Improvement in pain was measured on a scale from 0% to 100%. The study involved 69 patients, with one having the condition in both legs. The goal was to compare the efficacy between the groups, considering age, gender, and affected side as potential influencing factors.</p>
 <ul>
 <li><a href="./data/botox.csv">botox.csv</a>
 <ul>
@@ -360,6 +368,7 @@ window.Quarto = {
 </section>
 <section id="breast" class="level1">
 <h1>breast</h1>
+<p>The data set includes 1200 postmenopausal women from the NHS, free of cancer in 1990. Of these, 200 were using postmenopausal hormones (PMH) in 1990, and 1000 had never used them. The study aimed to link PMH use in 1990 to breast cancer incidence from 1990 to 2000. Fifty-three women developed breast cancer during this period. PMH use was categorized by current use and duration of use in 1990, with separate durations for estrogen and estrogen plus progesterone. Each woman has a return date for the 1990 questionnaire and a follow-up date, which is either the date of breast cancer diagnosis or the date of the last questionnaire by 2000. The file also includes data on other breast cancer risk factors as of 1990.</p>
 <ul>
 <li><a href="./data/breast.csv">breast.csv</a>
 <ul>
@@ -404,12 +413,22 @@ window.Quarto = {
 </section>
 <section id="cholesterol" class="level1">
 <h1>cholesterol</h1>
+<p>Cholesterol levels from 24 hospital employees who switched from a standard American diet to a vegetarian diet for one month. Their serum cholesterol was measured before and after the diet change.</p>
 <ul>
-<li><a href="./data/cholesterol.csv">cholesterol.csv</a></li>
+<li><a href="./data/cholesterol.csv">cholesterol.csv</a>
+<ul>
+<li><code>Subject</code>: ID</li>
+<li><code>Before</code>: Serum-cholesterol levels before diet change (mg/dL)</li>
+<li><code>After</code>: Serum-cholesterol levels after diet change (mg/dL)</li>
+<li><code>Difference</code>: Difference in serum-cholesterol levels, <code>Before - After</code>, where positive numbers indicate a reduction in serum-cholesterol levels.</li>
+</ul></li>
 </ul>
 </section>
 <section id="corneal" class="level1">
 <h1>corneal</h1>
+<p>Fluoroquinolones, antibiotics for bacterial infections, are FDA-approved for systemic use. However, post-approval studies indicate a risk of peripheral neuropathy, leading to updated safety labeling.</p>
+<p>A small clinical trial tested the safety and effectiveness of two fluoroquinolone eye drops (drugs <code>M</code> and <code>G</code>) and a placebo (drug <code>P</code>) for bacterial eye infections. Ninety-three subjects were randomly assigned to three groups, each receiving one active drug and a placebo in opposite eyes. Participants used the drops four times daily for 10 days. The primary outcome was corneal sensitivity, measured in millimeters, with higher values indicating more normal sensitivity.</p>
+<p>Corneal sensitivity was assessed at baseline, 7 days, and 14 days, with measurements taken from the central cornea and four quadrants (superior, inferior, temporal, nasal).</p>
 <ul>
 <li><a href="./data/corneal.csv">corneal.csv</a>
 <ul>
@@ -438,6 +457,9 @@ window.Quarto = {
 </section>
 <section id="diabetes" class="level1">
 <h1>diabetes</h1>
+<p>Type I diabetes is common in children and requires regular insulin shots to prevent long-term complications like neurologic, vision, kidney issues, heart disease, and premature death.</p>
+<p>The impact of diabetes control on childhood growth is less clear. To study this, adolescent boys aged 9−15 were examined about every 3 months. Each exam measured diabetes control using glycosylated hemoglobin (HgbA1c), where higher HgbA1c indicates poorer control (normal &lt;7.0). Age, height, and weight were also recorded. Data includes 94 boys over 910 visits.</p>
+<p>The main question is the overall relationship between glycemic control and growth, primarily weight, for the entire group, not individual cases.</p>
 <ul>
 <li><a href="./data/diabetes.csv">diabetes.csv</a>
 <ul>
@@ -454,10 +476,12 @@ window.Quarto = {
 </section>
 <section id="ear" class="level1">
 <h1>ear</h1>
+<p>This dataset includes 203 children with acute otitis media (OME) from a randomized clinical trial. Each child had OME in one or both ears and received a 14-day course of either cefaclor (CEF) or amoxicillin (AMO). Middle-ear status was assessed after the 14-day treatment.</p>
 <ul>
 <li><a href="./data/ear.csv">ear.csv</a></li>
 <li><code>Id</code>: ID</li>
-<li><code>Clear</code>: Clearance by 14 days, 1=yes/0=no</li>
+<li><code>Clear</code>: Clearance by 14 days,</li>
+<li>Possible values: <code>yes</code>, <code>no</code></li>
 <li><code>Antibo</code>: Antibiotic.</li>
 <li>Possible values: <code>CEF</code>, <code>AMO</code></li>
 <li><code>Age</code>: Age.</li>
@@ -469,8 +493,10 @@ window.Quarto = {
 </ul></li>
 </ul>
 </section>
-<section id="eff" class="level1">
-<h1>eff</h1>
+<section id="eff-nephro-and-oto" class="level1">
+<h1>eff, nephro, and oto</h1>
+<p>Aminoglycoside antibiotics are crucial for treating severe gram-negative bacterial infections in hospitalized patients. Despite their toxicity and the development of new antibiotics, aminoglycosides remain widely used. Choosing the right aminoglycoside depends on the clinical situation, antimicrobial spectrum, cost, and side effects like nephrotoxicity and auditory toxicity. Numerous trials comparing these antibiotics have varied in design and conclusions, often lacking sufficient sample sizes to detect small differences.</p>
+<p>To better understand their true effects, a meta-analysis of all randomized trials was conducted. This analysis included 45 trials from 1975 to 1985, comparing amikacin, gentamicin, netilmicin, sisomicin, and tobramycin. Data from 37 trials were suitable for comparison, focusing on efficacy, nephrotoxicity, and auditory toxicity. Efficacy was defined by bacterial or clinical response as reported by each trial, nephrotoxicity by the percentage of kidney-related toxic events reported, and auditory toxicity by the diffence in pre- and post-treatment audiograms. The data is organized into three sets: eff.csv, nephro.csv, and oto.csv, with separate records for each antibiotic and endpoint.</p>
 <ul>
 <li><a href="./data/eff.csv">eff.csv</a>
 <ul>
@@ -484,10 +510,38 @@ window.Quarto = {
 <li><code>Samp_sz</code>: Sample Size</li>
 <li><code>Cured</code>: Number Cured</li>
 </ul></li>
+<li><a href="./data/nephro.csv">nephro.csv</a>
+<ul>
+<li><code>name</code>: Study name</li>
+<li><code>id</code>: Study number</li>
+<li><code>Endpnt</code>: Endpoint <code>2</code> = nephrotoxicity</li>
+<li><code>Antibio</code>: Antibiotic.
+<ul>
+<li>Possible values: <code>Amikacin</code>, <code>Gentamicin</code>, <code>Netilmicin</code>, <code>Sisomycin</code>, <code>Tobramycin</code></li>
+</ul></li>
+<li><code>Samp_sz</code>: Sample size</li>
+<li><code>Side_eff</code>: Number with side effects</li>
+</ul></li>
+<li><a href="./data/oto.csv">oto.csv</a>
+<ul>
+<li><code>Name</code>: Study Name</li>
+<li><code>Id</code>: Study Number</li>
+<li><code>Endpnt</code>: Endpoint.
+<ul>
+<li>Possible values: <code>efficacy</code>, <code>nephrotoxicity</code>, <code>ototoxicity</code>.</li>
+</ul></li>
+<li><code>Antibio</code>: Antibiotic.
+<ul>
+<li>Possible values: <code>Amikacin</code>, <code>Gentamicin</code>, <code>Netilmicin</code>, <code>Sisomycin</code>, <code>Tobramycin</code>.</li>
+</ul></li>
+<li><code>Samp_sz</code>: Sample Size</li>
+<li><code>Side_eff</code>: Number with side effect</li>
+</ul></li>
 </ul>
 </section>
 <section id="endocrin" class="level1">
 <h1>endocrin</h1>
+<p>The data set contains split-sample plasma measurements of four hormones for each of five subjects, all from one laboratory.</p>
 <ul>
 <li><a href="./data/endocrin.csv">endocrin.csv</a>
 <ul>
@@ -845,23 +899,6 @@ window.Quarto = {
 </ul></li>
 </ul>
 </section>
-<section id="nephro" class="level1">
-<h1>nephro</h1>
-<ul>
-<li><a href="./data/nephro.csv">nephro.csv</a>
-<ul>
-<li><code>name</code>: Study name</li>
-<li><code>id</code>: Study number</li>
-<li><code>Endpnt</code>: Endpoint <code>2</code> = nephrotoxicity</li>
-<li><code>Antibio</code>: Antibiotic.
-<ul>
-<li>Possible values: <code>Amikacin</code>, <code>Gentamicin</code>, <code>Netilmicin</code>, <code>Sisomycin</code>, <code>Tobramycin</code></li>
-</ul></li>
-<li><code>Samp_sz</code>: Sample size</li>
-<li><code>Side_eff</code>: Number with side effects</li>
-</ul></li>
-</ul>
-</section>
 <section id="nifed" class="level1">
 <h1>nifed</h1>
 <ul>
@@ -884,26 +921,6 @@ window.Quarto = {
 </ul></li>
 </ul>
 <p>Missing values indicate that either (a) the patient withdrew from the study prior to entering this level of therapy (b) the patient achieved pain relief prior to reaching this level or therapy, (c) the patient encountered this level of therapy, but this particular piece of data was missing.</p>
-</section>
-<section id="oto" class="level1">
-<h1>oto</h1>
-<ul>
-<li><a href="./data/oto.csv">oto.csv</a>
-<ul>
-<li><code>Name</code>: Study Name</li>
-<li><code>Id</code>: Study Number</li>
-<li><code>Endpnt</code>: Endpoint.
-<ul>
-<li>Possible values: <code>efficacy</code>, <code>nephrotoxicity</code>, <code>ototoxicity</code>.</li>
-</ul></li>
-<li><code>Antibio</code>: Antibiotic.
-<ul>
-<li>Possible values: <code>Amikacin</code>, <code>Gentamicin</code>, <code>Netilmicin</code>, <code>Sisomycin</code>, <code>Tobramycin</code>.</li>
-</ul></li>
-<li><code>Samp_sz</code>: Sample Size</li>
-<li><code>Side_eff</code>: Number with side effect</li>
-</ul></li>
-</ul>
 </section>
 <section id="piriform" class="level1">
 <h1>piriform</h1>
