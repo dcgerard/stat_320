@@ -20,7 +20,27 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-</style>
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
@@ -69,6 +89,35 @@ ul.task-list li input[type="checkbox"] {
   }
 }</script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <link rel="stylesheet" href="styles.css">
 </head>
@@ -111,7 +160,48 @@ ul.task-list li input[type="checkbox"] {
 <!-- sidebar -->
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#betacar" id="toc-betacar" class="nav-link active" data-scroll-target="#betacar">betacar</a></li>
+  <li><a href="#birthweight" id="toc-birthweight" class="nav-link" data-scroll-target="#birthweight">birthweight</a></li>
+  <li><a href="#blood" id="toc-blood" class="nav-link" data-scroll-target="#blood">blood</a></li>
+  <li><a href="#boneden" id="toc-boneden" class="nav-link" data-scroll-target="#boneden">boneden</a></li>
+  <li><a href="#botox" id="toc-botox" class="nav-link" data-scroll-target="#botox">botox</a></li>
+  <li><a href="#breast" id="toc-breast" class="nav-link" data-scroll-target="#breast">breast</a></li>
+  <li><a href="#cholesterol" id="toc-cholesterol" class="nav-link" data-scroll-target="#cholesterol">cholesterol</a></li>
+  <li><a href="#corneal" id="toc-corneal" class="nav-link" data-scroll-target="#corneal">corneal</a></li>
+  <li><a href="#diabetes" id="toc-diabetes" class="nav-link" data-scroll-target="#diabetes">diabetes</a></li>
+  <li><a href="#ear" id="toc-ear" class="nav-link" data-scroll-target="#ear">ear</a></li>
+  <li><a href="#eff" id="toc-eff" class="nav-link" data-scroll-target="#eff">eff</a></li>
+  <li><a href="#endocrin" id="toc-endocrin" class="nav-link" data-scroll-target="#endocrin">endocrin</a></li>
+  <li><a href="#estradl" id="toc-estradl" class="nav-link" data-scroll-target="#estradl">estradl</a></li>
+  <li><a href="#estrogen" id="toc-estrogen" class="nav-link" data-scroll-target="#estrogen">estrogen</a></li>
+  <li><a href="#fev" id="toc-fev" class="nav-link" data-scroll-target="#fev">fev</a></li>
+  <li><a href="#field" id="toc-field" class="nav-link" data-scroll-target="#field">field</a></li>
+  <li><a href="#heart" id="toc-heart" class="nav-link" data-scroll-target="#heart">heart</a></li>
+  <li><a href="#hormone" id="toc-hormone" class="nav-link" data-scroll-target="#hormone">hormone</a></li>
+  <li><a href="#hospital" id="toc-hospital" class="nav-link" data-scroll-target="#hospital">hospital</a></li>
+  <li><a href="#lead" id="toc-lead" class="nav-link" data-scroll-target="#lead">lead</a></li>
+  <li><a href="#lmv" id="toc-lmv" class="nav-link" data-scroll-target="#lmv">lmv</a></li>
+  <li><a href="#mice" id="toc-mice" class="nav-link" data-scroll-target="#mice">mice</a></li>
+  <li><a href="#nephro" id="toc-nephro" class="nav-link" data-scroll-target="#nephro">nephro</a></li>
+  <li><a href="#nifed" id="toc-nifed" class="nav-link" data-scroll-target="#nifed">nifed</a></li>
+  <li><a href="#oto" id="toc-oto" class="nav-link" data-scroll-target="#oto">oto</a></li>
+  <li><a href="#piriform" id="toc-piriform" class="nav-link" data-scroll-target="#piriform">piriform</a></li>
+  <li><a href="#sexrat" id="toc-sexrat" class="nav-link" data-scroll-target="#sexrat">sexrat</a></li>
+  <li><a href="#smoke" id="toc-smoke" class="nav-link" data-scroll-target="#smoke">smoke</a></li>
+  <li><a href="#swiss" id="toc-swiss" class="nav-link" data-scroll-target="#swiss">swiss</a></li>
+  <li><a href="#tear" id="toc-tear" class="nav-link" data-scroll-target="#tear">tear</a></li>
+  <li><a href="#temperat" id="toc-temperat" class="nav-link" data-scroll-target="#temperat">temperat</a></li>
+  <li><a href="#tennis1" id="toc-tennis1" class="nav-link" data-scroll-target="#tennis1">tennis1</a></li>
+  <li><a href="#tennis2" id="toc-tennis2" class="nav-link" data-scroll-target="#tennis2">tennis2</a></li>
+  <li><a href="#valid" id="toc-valid" class="nav-link" data-scroll-target="#valid">valid</a></li>
+  <li><a href="#wales" id="toc-wales" class="nav-link" data-scroll-target="#wales">wales</a></li>
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -135,10 +225,1155 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
+<p>Unless otherwise noted, all data are from <span class="citation" data-cites="rosner2015fundamentals">Rosner (<a href="#ref-rosner2015fundamentals" role="doc-biblioref">2015</a>)</span>, downloaded from the book’s <a href="https://www.cengage.com/cgi-wadsworth/course_products_wp.pl?fid=M20b&amp;product_isbn_issn=9781305268920">companion site</a>.</p>
+<section id="betacar" class="level1">
+<h1>betacar</h1>
+<ul>
+<li><a href="./data/betacar.csv">betacar.csv</a>
+<ul>
+<li><code>Prepar</code>: Preparation
+<ul>
+<li>1 = SOL</li>
+<li>2 = ROCHE</li>
+<li>3 = BASF-30</li>
+<li>4 = BASF-60</li>
+</ul></li>
+<li><code>Id</code>: Subject #</li>
+<li><code>Base1lvl</code>: 1st Baseline Level</li>
+<li><code>Base2lvl</code>: 2nd Baseline Level</li>
+<li><code>Wk6lvl</code>: Week 6 Level</li>
+<li><code>Wk8lvl</code>: Week 8 Level</li>
+<li><code>Wk10lvl</code>: Week 10 Level<br>
+</li>
+<li><code>Wk12lvl</code>: Week 12 Level</li>
+</ul></li>
+</ul>
+</section>
+<section id="birthweight" class="level1">
+<h1>birthweight</h1>
+<ul>
+<li><a href="./data/birthweight.csv">birthweight.csv</a></li>
+</ul>
+</section>
+<section id="blood" class="level1">
+<h1>blood</h1>
+<ul>
+<li><a href="./data/blood.csv">blood.csv</a>
+<ul>
+<li><code>Id</code>: ID</li>
+<li><code>matchid</code>: Matched ID</li>
+<li><code>case</code>: Case/control
+<ul>
+<li>1 = case</li>
+<li>0 = control</li>
+</ul></li>
+<li><code>curpmh</code>: Current PMH use
+<ul>
+<li>1 = yes</li>
+<li>0 = no</li>
+</ul></li>
+<li><code>ageblood</code>: Age at blood draw</li>
+<li><code>estradol</code>: Estradiol</li>
+<li><code>estrone</code>: Estrone missing=999</li>
+<li><code>testost</code>: Testosterone missing=999</li>
+<li><code>prolactn</code>: Prolactin missing=99.99</li>
+</ul></li>
+</ul>
+</section>
+<section id="boneden" class="level1">
+<h1>boneden</h1>
+<ul>
+<li><a href="./data/boneden.csv">boneden.csv</a>
+<ul>
+<li><code>ID</code>: ID</li>
+<li><code>Age</code>: Age (yrs)</li>
+<li><code>zyg</code>:
+<ul>
+<li>1 = mz</li>
+<li>2 = dz</li>
+</ul></li>
+<li>Twin 1 Lighter Smoking Twin
+<ul>
+<li><code>ht1</code>: Height (cm)</li>
+<li><code>wt1</code>: Weight (kg)</li>
+<li><code>tea1</code>: Tea (cups/week)</li>
+<li><code>cof1</code>: Coffee (cups/week)</li>
+<li><code>alc1</code>: Alcohol (drinks/week)</li>
+<li><code>cur1</code>: Current Smoking (cigarettes/day)</li>
+<li><code>men1</code>: Menopause Status
+<ul>
+<li>0 = pre</li>
+<li>1 = post</li>
+<li>2 = unknown hysterectomy</li>
+</ul></li>
+<li><code>pyr1</code>: Pack-years smoking</li>
+<li><code>ls1</code>: Lumbar spine (g/cm**2)</li>
+<li><code>fn1</code>: Femoral neck (g/cm**2)</li>
+<li><code>fs1</code>: Femoral shaft (g/cm**2)</li>
+</ul></li>
+<li>Twin 2 Heavier Smoking Twin
+<ul>
+<li><code>ht2</code>: Height (cm)</li>
+<li><code>wt2</code>: Weight (kg)</li>
+<li><code>tea2</code>: Tea (cups/week)</li>
+<li><code>cof2</code>: Coffee (cups/week)</li>
+<li><code>alc2</code>: Alcohol (drinks/week)</li>
+<li><code>cur2</code>: Current Smoking (cigarettes/day)</li>
+<li><code>men2</code>: Menopause Status
+<ul>
+<li>0 = pre</li>
+<li>1 = post</li>
+<li>2 = unknown hysterectomy</li>
+</ul></li>
+<li><code>pyr2</code>: Pack-years smoking</li>
+<li><code>ls2</code>: Lumbar spine (g/cm**2)</li>
+<li><code>fn2</code>: Femoral neck (g/cm**2)</li>
+<li><code>fs2</code>: Femoral shaft (g/cm**2)</li>
+</ul></li>
+</ul></li>
+</ul>
+</section>
+<section id="botox" class="level1">
+<h1>botox</h1>
+<ul>
+<li><a href="./data/botox.csv">botox.csv</a>
+<ul>
+<li><code>ID</code>: ID</li>
+<li><code>group</code>:
+<ul>
+<li>1 = TL</li>
+<li>2 = Placebo</li>
+<li>3 = Botox</li>
+</ul></li>
+<li><code>pain0</code>: pain score month 0 missing=999</li>
+<li><code>pain05</code>: pain score month 0.5 missing=999</li>
+<li><code>pain1</code>: pain score month 1 missing=999</li>
+<li><code>pain2</code>: pain score month 2 mising=999</li>
+<li><code>pain3</code>: pain score month 3 missing=999</li>
+<li><code>pain4</code>: pain score month 4 missing=999</li>
+<li><code>pain5</code>: pain score month 5 missing=999</li>
+<li><code>pain6</code>: pain score month 6 missing=999</li>
+<li><code>pain7</code>: pain score month 7 missing=999</li>
+<li><code>pain8</code>: pain score month 8 missing=999</li>
+<li><code>pain9</code>: pain score month 9 missing=999</li>
+<li><code>pain10</code>: pain score month 10 missing=999</li>
+<li><code>pain11</code>: pain score month 11 missing=999</li>
+<li><code>pain12</code>: pain score month 12 missing=999</li>
+<li><code>pain13</code>: pain score month 13 missing=999</li>
+<li><code>pain14</code>: pain score month 14 missing=999</li>
+<li><code>pain15</code>: pain score month 15 missing=999</li>
+<li><code>pain16</code>: pain score month 16 missing=999</li>
+<li><code>pain17</code>: pain score month 17 missing=999</li>
+</ul></li>
+</ul>
+</section>
+<section id="breast" class="level1">
+<h1>breast</h1>
+<ul>
+<li><a href="./data/breast.csv">breast.csv</a>
+<ul>
+<li><code>Id</code>: ID</li>
+<li><code>case</code>: case
+<ul>
+<li>1 = case</li>
+<li>0 = control</li>
+</ul></li>
+<li><code>age</code>: age</li>
+<li><code>agemenar</code>: age at menarche</li>
+<li><code>agemenop</code>: age at menopause</li>
+<li><code>afb</code>: age at first birth 98=nullip</li>
+<li><code>parity</code>: parity</li>
+<li><code>bbd</code>: Benign Breast disease
+<ul>
+<li>1 = yes</li>
+<li>0 = no</li>
+</ul></li>
+<li><code>famhx</code>: family history breast cancer
+<ul>
+<li>1 = yes</li>
+<li>0 = no</li>
+</ul></li>
+<li><code>bmi</code>: BMI (kg/m**2)</li>
+<li><code>hgt</code>: Height (inches)</li>
+<li><code>alcohol</code>: Alcohol use (grams/day)</li>
+<li><code>pmh</code>: PMH status
+<ul>
+<li>2 = never user</li>
+<li>3 = current user</li>
+</ul></li>
+<li><code>dur3</code>: Duration of Estrogen use (months)</li>
+<li><code>dur4</code>: Duration of Estrogen + progesterone use (months)</li>
+<li><code>csmk</code>: Current Smoker
+<ul>
+<li>1 = yes</li>
+<li>0 = no</li>
+</ul></li>
+<li><code>psmk</code>: Past smoker
+<ul>
+<li>1 = yes</li>
+<li>0 = no</li>
+</ul></li>
+<li><code>foluptm</code>: Months of follow up Note: Some subjects provided no follow up after the 1990 questionnaire: foluptm=0 for these people</li>
+</ul></li>
+</ul>
+</section>
+<section id="cholesterol" class="level1">
+<h1>cholesterol</h1>
+<ul>
+<li><a href="./data/cholesterol.csv">cholesterol.csv</a></li>
+</ul>
+</section>
+<section id="corneal" class="level1">
+<h1>corneal</h1>
+<ul>
+<li><a href="./data/corneal.csv">corneal.csv</a>
+<ul>
+<li><code>id</code>: ID</li>
+<li><code>tr</code>: Treatment
+<ul>
+<li>1 = M</li>
+<li>2 = G</li>
+<li>3 = P<br>
+</li>
+</ul></li>
+<li><code>c1</code>: Central visit 1<br>
+</li>
+<li><code>s1</code>: Superior visit 1<br>
+</li>
+<li><code>i1</code>: Inferior Visit 1<br>
+</li>
+<li><code>t1</code>: Temporal visit 1<br>
+</li>
+<li><code>n1</code>: Nasal Visit 1<br>
+</li>
+<li><code>c2</code>: Central Visit 2(day 7)<br>
+</li>
+<li><code>s2</code>: Superior Visit 2<br>
+</li>
+<li><code>i2</code>: Inferior Visit 2<br>
+</li>
+<li><code>t2</code>: Temporal Visit 2<br>
+</li>
+<li><code>n2</code>: Nasal Visit 2<br>
+</li>
+<li><code>c3</code>: Central Visit 3(day 14) missing=99<br>
+</li>
+<li><code>s3</code>: Superior Visit 3 missing=99<br>
+</li>
+<li><code>i3</code>: Inferior Visit 3 missing=99<br>
+</li>
+<li><code>t3</code>: Temporal Visit 3 missing=99<br>
+</li>
+<li><code>n3</code>: Nasal Visit 3 missing=99</li>
+</ul></li>
+</ul>
+</section>
+<section id="diabetes" class="level1">
+<h1>diabetes</h1>
+<ul>
+<li><a href="./data/diabetes.csv">diabetes.csv</a>
+<ul>
+<li><code>ID</code>: ID</li>
+<li><code>mon_a1c</code>: Month A1c</li>
+<li><code>day_a1c</code>: Day A1c</li>
+<li><code>yr_a1c</code>: Yr A1c</li>
+<li><code>age_yrs</code>: Age in years<br>
+</li>
+<li><code>gly_a1c</code>: Hemoglobin A1c<br>
+</li>
+<li><code>ht_cm</code>: Height in cm missing=999.9<br>
+</li>
+<li><code>wt_kg</code>: Weight in kg</li>
+</ul></li>
+</ul>
+</section>
+<section id="ear" class="level1">
+<h1>ear</h1>
+<ul>
+<li><a href="./data/ear.csv">ear.csv</a></li>
+<li><code>Id</code>: ID</li>
+<li><code>Clear</code>: Clearance by 14 days, 1=yes/0=no</li>
+<li><code>Antibo</code>: Antibiotic,
+<ul>
+<li>1 = CEF</li>
+<li>2 = AMO</li>
+</ul></li>
+<li><code>Age</code>: Age,
+<ul>
+<li>1 = &lt;2 yrs</li>
+<li>2 = 2-5 yrs</li>
+<li>3 = 6+ yrs</li>
+</ul></li>
+<li><code>Ear</code>: Ear,
+<ul>
+<li>1 = 1st ear</li>
+<li>2 = 2nd ear</li>
+</ul></li>
+</ul>
+</section>
+<section id="eff" class="level1">
+<h1>eff</h1>
+<ul>
+<li><a href="./data/eff.csv">eff.csv</a>
+<ul>
+<li><code>Name</code>: Study name</li>
+<li><code>Id</code>: Study Number</li>
+<li><code>Endpnt</code>: Endpoint 1=efficacy<br>
+</li>
+<li><code>Antibio</code>: Antibiotic
+<ul>
+<li>1 = Amikacin</li>
+<li>2 = Gentamicin</li>
+<li>3 = Netilmicin</li>
+<li>4 = Sisomycin</li>
+<li>5 = Tobramycin</li>
+</ul></li>
+<li><code>Samp_sz</code>: Sample Size</li>
+<li><code>Cured</code>: Number Cured</li>
+</ul></li>
+</ul>
+</section>
+<section id="endocrin" class="level1">
+<h1>endocrin</h1>
+<ul>
+<li><a href="./data/endocrin.csv">endocrin.csv</a>
+<ul>
+<li><code>Subject</code>: SUBJECT #</li>
+<li><code>Replicat</code>: REPLICATE #</li>
+<li><code>Estrone</code>: ESTRONE</li>
+<li><code>Estradol</code>: ESTRADIOL</li>
+<li><code>Androste</code>: ANDROSTENEDIONE</li>
+<li><code>Testost</code>: TESTOSTERONE</li>
+</ul></li>
+</ul>
+</section>
+<section id="estradl" class="level1">
+<h1>estradl</h1>
+<ul>
+<li><a href="./data/estradl.csv">estradl.csv</a>
+<ul>
+<li><code>Id</code>: Identification number</li>
+<li><code>Estradl</code>: Estradiol</li>
+<li><code>Ethnic</code>: Ethnicity
+<ul>
+<li>0 = African-American</li>
+<li>1 = Caucasian</li>
+</ul></li>
+<li><code>Entage</code>: Age</li>
+<li><code>Numchild</code>: Parity, number of children 9=missing</li>
+<li><code>Agefbo</code>: Age at 1st birth (=0 if numchild=0) 99=missing</li>
+<li><code>Anykids</code>: any children
+<ul>
+<li>1 = yes</li>
+<li>0 = no</li>
+<li>9 = missing</li>
+</ul></li>
+<li><code>Agemenar</code>: age at menarche 99=missing</li>
+<li><code>BMI</code>: Body Mass Index</li>
+<li><code>WHR</code>: waist-hip ratio</li>
+</ul></li>
+</ul>
+</section>
+<section id="estrogen" class="level1">
+<h1>estrogen</h1>
+<ul>
+<li><a href="./data/estrogen.csv">estrogen.csv</a>
+<ul>
+<li><code>Id</code>: ID</li>
+<li><code>std_typ</code>: STUDY TYPE
+<ul>
+<li>1 = 0.625MG VS PLACEBO</li>
+<li>2 = 1.25MG VS PLACEBO</li>
+<li>3 = 1.25MG VS 0.625MG</li>
+</ul></li>
+<li><code>period</code>: PERIOD</li>
+<li><code>trtgrp</code>: TREATMENT
+<ul>
+<li>1 = PLACEBO</li>
+<li>2 = 0.625MG</li>
+<li>3 = 1.25MG</li>
+</ul></li>
+<li><code>sysd1r1</code>: SYSTOLIC BP DAY 1 READING 1 MISSING=999</li>
+<li><code>diasd1r1</code>: DIASTOLIC BP DAY 1 READING 1 MISSING=999</li>
+<li><code>sysd1r2</code>: SYSTOLIC BP DAY 1 READING 2 MISSING=999</li>
+<li><code>diasd1r2</code>: DIASTOLIC BP DAY 1 READING 2 MISSING=999</li>
+<li><code>sysd1r3</code>: SYSTOLIC BP DAY 1 READING 3 MISSING=999</li>
+<li><code>diasd1r3</code>: DIASTOLIC BP DAY 1 READING 3 MISSING=999</li>
+<li><code>sysd2r1</code>: SYSTOLIC BP DAY 2 READING 1 MISSING=999</li>
+<li><code>diasd2r1</code>: DIASTOLIC BP DAY 2 READING 1</li>
+<li><code>sysd2r2</code>: SYSTOLIC BP DAY 2 READING 2</li>
+<li><code>diasd2r2</code>: DIASTOLIC BP DAY 2 READING 2</li>
+<li><code>sysd2r3</code>: SYSTOLIC BP DAY 2 READING 3</li>
+<li><code>diasd2r3</code>: DIASTOLIC BP DAY 2 READING 3</li>
+<li><code>sysd3r1</code>: SYSTOLIC BP DAY 3 READING 1</li>
+<li><code>diasd3r1</code>: DIASTOLIC BP DAY 3 READING 1</li>
+<li><code>sysd3r2</code>: SYSTOLIC BP DAY 3 READING 2</li>
+<li><code>diasd3r2</code>: DIASTOLIC BP DAY 3 READING 2</li>
+<li><code>sysd3r3</code>: SYSTOLIC BP DAY 3 READING 3</li>
+<li><code>diasd3r3</code>: DIASTOLIC BP DAY 3 READING 3</li>
+</ul></li>
+</ul>
+</section>
+<section id="fev" class="level1">
+<h1>fev</h1>
+<ul>
+<li><a href="./data/fev.csv">fev.csv</a>
+<ul>
+<li><code>Id</code>: ID number</li>
+<li><code>Age</code>: Age (yrs)</li>
+<li><code>FEV</code>: FEV (liters)</li>
+<li><code>Hgt</code>: Height (inches)</li>
+<li><code>Sex</code>: Sex
+<ul>
+<li>0 = female</li>
+<li>1 = male</li>
+</ul></li>
+<li><code>Smoke</code>: Smoking Status
+<ul>
+<li>0 = non-current smoker</li>
+<li>1 = current smoker</li>
+</ul></li>
+</ul></li>
+</ul>
+</section>
+<section id="field" class="level1">
+<h1>field</h1>
+<ul>
+<li><a href="./data/field.csv">field.csv</a>
+<ul>
+<li><code>id</code>: ID</li>
+<li><code>group</code>: group
+<ul>
+<li>1 = RHO</li>
+<li>2 = RPGR</li>
+</ul></li>
+<li><code>age</code>: age at visit (years)</li>
+<li><code>gender</code>: gender. Note: all RPGR individuals have to be male
+<ul>
+<li>1 = male</li>
+<li>2 = female</li>
+</ul></li>
+<li><code>dtvisit</code>: date of visit (month/day/year)</li>
+<li><code>folowup</code>: time from 1st visit in years</li>
+<li><code>totfldod</code>: total field area right eye (OD) in degrees</li>
+<li><code>totfldos</code>: total field area left eye (OS) in degrees</li>
+</ul></li>
+</ul>
+</section>
+<section id="heart" class="level1">
+<h1>heart</h1>
+<ul>
+<li><a href="./data/heart.csv">heart.csv</a>
+<ul>
+<li><code>Diagnosis</code>: 1-2
+<ul>
+<li>Y1 = normal</li>
+<li>Y2 = atrial septal defect without pulmonary stenosis or pulmonary hypertension</li>
+<li>Y3 = ventricular septal defect with valvular pulmonary stenosis</li>
+<li>Y4=isolated pulmonary hypertension</li>
+<li>Y5=transposed great vessels</li>
+<li>Y6=ventricular septal defect without pulmonary hypertension</li>
+<li>Y7=ventricular septal defect with pulmonary hypertension</li>
+</ul></li>
+<li><code>Prevalence</code>: Prevalence</li>
+<li><code>X1</code>: age 1-20 years old</li>
+<li><code>X2</code>: age&gt;20 years old</li>
+<li><code>X3</code>: mild cyanosis</li>
+<li><code>X4</code>: easy fatigue</li>
+<li><code>X5</code>: chest pain</li>
+<li><code>X6</code>: repeated respiratory infections</li>
+<li><code>X7</code>: EKG axis more than 110</li>
+</ul></li>
+</ul>
+</section>
+<section id="hormone" class="level1">
+<h1>hormone</h1>
+<ul>
+<li><a href="./data/hormone.csv">hormone.csv</a>
+<ul>
+<li><code>ID</code>: ID</li>
+<li><code>Bilsecpr</code>: Biliary secretion-pre<br>
+</li>
+<li><code>Bilphpr</code>: Biliary pH-pre<br>
+</li>
+<li><code>Pansecpr</code>: Pancreatic secretion-pre<br>
+</li>
+<li><code>Panphpr</code>: Pancreatic pH-pre<br>
+</li>
+<li><code>Dose</code>: Dose</li>
+<li><code>Bilsecpt</code>: Biliary secretion-post<br>
+</li>
+<li><code>Bilphpt</code>: Biliary pH-post<br>
+</li>
+<li><code>Pansecpt</code>: Pancreatic secretion-post<br>
+</li>
+<li><code>Panphpt</code>: Pancreatic pH-post</li>
+<li><code>Hormone</code>: Hormone
+<ul>
+<li>1 = SAL</li>
+<li>2 = APP</li>
+<li>3 = CCK</li>
+<li>4 = SEC</li>
+<li>5 = VIP</li>
+</ul></li>
+</ul></li>
+</ul>
+</section>
+<section id="hospital" class="level1">
+<h1>hospital</h1>
+<ul>
+<li><a href="./data/hospital.csv">hospital.csv</a>
+<ul>
+<li><code>Id</code>: id no.</li>
+<li><code>Dur_stay</code>: Duration of hospital stay</li>
+<li><code>Age</code>: Age</li>
+<li><code>Sex</code>: Sex
+<ul>
+<li>1 = male</li>
+<li>2 = female</li>
+</ul></li>
+<li><code>Temp</code>: First temperature following admission</li>
+<li><code>WBC</code>: First WBC(x1000) following admission</li>
+<li><code>Antibio</code>: Received antibiotic
+<ul>
+<li>1 = yes</li>
+<li>2 = no</li>
+</ul></li>
+<li><code>Bact_cul</code>: Received bacterial culture
+<ul>
+<li>1 = yes</li>
+<li>2 = no</li>
+</ul></li>
+<li><code>Service</code>: Service
+<ul>
+<li>1 = med</li>
+<li>2 = surg.</li>
+</ul></li>
+</ul></li>
+</ul>
+<p>$infantbp</p>
+<ul>
+<li><a href="./data/infantbp.csv">infantbp.csv</a>
+<ul>
+<li><code>ID</code>:ID -Salt Taste Variables
+<ul>
+<li><code>Mn_sbp</code>: Mean SBP 99.99=missing</li>
+<li><code>Mn_dbp</code>: Mean DBP 99.99=missing</li>
+<li><code>MSB1slt</code>: MSB-trial 1 water</li>
+<li><code>MSB2slt</code>: MSB-trial 2 water</li>
+<li><code>MSB3slt</code>: MSB-trial 3 0.1 molar salt + water</li>
+<li><code>MSB4slt</code>: MSB-trial 4 0.1 molar salt + water</li>
+<li><code>MSB5slt</code>: MSB-trial 5 water</li>
+<li><code>MSB6slt</code>: MSB-trial 6 water</li>
+<li><code>MSB7slt</code>: MSB-trial 7 0.3 molar salt + water</li>
+<li><code>MSB8slt</code>: MSB-trial 8 0.3 molar salt + water</li>
+<li><code>MSB9slt</code>: MSB-trial 9 water</li>
+<li><code>MSB10slt</code>: MSB-trial 10 water</li>
+</ul></li>
+<li>Sugar Taste Variables
+<ul>
+<li><code>MSB1sug</code>: MSB-trial 1 non-nutritive sucking</li>
+<li><code>MSB2sug</code>: MSB-trial 2 water</li>
+<li><code>MSB3sug</code>: MSB-trial 3 5% sucrose + water</li>
+<li><code>MSB4sug</code>: MSB-trial 4 15% sucrose + water</li>
+<li><code>MSB5sug</code>: MSB-trial 5 non-nutritive sucking</li>
+</ul></li>
+<li>For MSB data 999.99 is a missing value; 0 indicates the baby did not suck.</li>
+</ul></li>
+</ul>
+</section>
+<section id="lead" class="level1">
+<h1>lead</h1>
+<ul>
+<li><a href="./data/lead.csv">lead.csv</a>
+<ul>
+<li><code>id</code>: IDENTIFICATION NUMBER</li>
+<li><code>area</code>: AREA - RESIDENCE ON AUG’72,
+<ul>
+<li>1 = 0-1 MILES FROM SMELTER</li>
+<li>2 = 1-2.5 MILES</li>
+<li>3 = 2.5-4.1 MILES</li>
+</ul></li>
+<li><code>ageyrs</code>: AGE in years</li>
+<li><code>sex</code>: SEX
+<ul>
+<li>1 = MALE</li>
+<li>2 = FEMALE</li>
+</ul></li>
+<li>IQ TEST RESULTS
+<ul>
+<li><code>iqv_inf</code>: INF - INFORMATION SUBTEST IN WISC AND WPPSI</li>
+<li><code>iqv_comp</code>: COMP - COMPREHENSION SUBTEST IN WISC AND WPPSI</li>
+<li><code>iqv_ar</code>: AR - ARITHMETIC SUBTEST IN WISC AND WPPSI</li>
+<li><code>iqv_ds</code>: DS - DIGIT SPAN SUBTEST(WISC) AND SENTENCE COMPLETION(WPPSI)</li>
+<li><code>iqv_raw</code>: V/RAW - RAW SCORE/VERBAL IQ</li>
+<li><code>iqp_pc</code>: PC - PICTURE COMPLETION SUBTEST IN WISC AND WPPSI</li>
+<li><code>iqp_bd</code>: BD - BLOCK DESIGN SUBTEST IN WISC AND WPPSI</li>
+<li><code>iqp_oa</code>: OA - OBJECT ASSEMBLY SUBTEST(WISC), ANIMAL HOUSE SUBTEST(WPPSI)</li>
+<li><code>iqp_cod</code>: COD - CODING SUBTEST(WISC), GEOMETRIC DESIGN SUBTEST(WPPSI)</li>
+<li><code>iqp_raw</code>: P/RAW - RAW SCORE/PERFORMANCE IQ (TOTAL OF SCORES PC, BD, OA, &amp; COD)</li>
+<li><code>hh_index</code>: HH/INDEX - HOLLINGSHEAD INDEX OF SOCIAL STATUS</li>
+<li><code>iqv</code>: IQV - VERBAL IQ</li>
+<li><code>iqp</code>: IQP - PERFORMANCE IQ</li>
+<li><code>iqf</code>: IQF - FULL SCALE IQ (NOT SUM OR AVERAGE OF IQV D IQP)</li>
+<li><code>iq_type</code>: TYPE OF IQ TEST (WISC USUALLY GIVEN TO CHILDREN GE 5 YRS 1 MONTH OF AGE WPPSI USUALLY GIVEN TO CHILDREN LE 5YRS OF AGE)
+<ul>
+<li>1 = WISC<br>
+</li>
+<li>2 = WPPSI</li>
+</ul></li>
+<li><code>lead_grp</code>: GROUP - BLOOD LEAD LEVEL GROUP
+<ul>
+<li>1=BLOOD LEAD LEVELS BELOW 40 MICROGRAMS/100ML IN BOTH 1972 &amp; 1973 (control group),</li>
+<li>2=BLOOD LEAD LEVELS GREATER THAN OR EQUAL TO 40 MICROGRAMS/100ML IN BOTH 72 &amp; 73 OR A LEVEL GREATER THAN OR EQUAL TO 40 IN 73 ALONE (3 CASES ONLY) (currently exposed Group),</li>
+<li>3=BLOOD LEAD LEVELS GREATER THAN OR EQUAL TO 40 MICROGRAMS/100ML IN 72 AND LESS THAN 40 IN 73 (previously exposed group)</li>
+</ul></li>
+<li><code>Group</code>: group
+<ul>
+<li>1 = control group</li>
+<li>2 = exposed group</li>
+</ul></li>
+<li><code>ld72</code>: LD72 - BLOOD LEAD VALUES (MICROGRAMS/100ML) IN72 MISSING=99</li>
+<li><code>ld73</code>: LD73 - BLOOD LEAD VALUES (MICROGRAMS/100ML) IN 73</li>
+<li><code>fst2yrs</code>: FST2YRS - DID CHILD LIVE FOR 1ST 2 YRS WITHIN 1 MILE OF SMELTER
+<ul>
+<li>1 = YES</li>
+<li>2 = NO</li>
+</ul></li>
+<li><code>totyrs</code>: TOTYRS - TOTAL NUMBER OF YEARS SPENT WITHIN 4.1 MILES OF SMELTER</li>
+</ul></li>
+<li>SYMPTOM DATA (AS REPORTED BY PARENTS)
+<ul>
+<li><code>pica</code>: PICA
+<ul>
+<li>1 = YES</li>
+<li>2 = NO</li>
+</ul></li>
+<li><code>colic</code>: COLIC
+<ul>
+<li>1 = YES</li>
+<li>2 = NO</li>
+</ul></li>
+<li><code>clumsi</code>: CLUMSINESS
+<ul>
+<li>1 = YES<br>
+</li>
+<li>2 = NO</li>
+</ul></li>
+<li><code>irrit</code>: IRRITABILITY
+<ul>
+<li>1 = YES<br>
+</li>
+<li>2 = NO</li>
+</ul></li>
+<li><code>convul</code>: CONVULSIONS
+<ul>
+<li>1 = YES<br>
+</li>
+<li>2 = NO</li>
+</ul></li>
+</ul></li>
+<li>CONTAIN NEUROLOGICAL TEST DATA
+<ul>
+<li><code>_2plat_r</code>: # OF TAPS FOR RIGHT HAND IN THE 2-PLATE TAPPING TEST (#TAPS IN ONE 10 SECOND TRIAL) MISSING=99</li>
+<li><code>_2plat_l</code>: # OF TAPS FOR LEFT HAND IN THE 2-PLATE TAPPING TEST (#TAPS IN ONE 10 SECOND TRIAL) MISSING=99</li>
+<li><code>visrea_r</code>: VISUAL REACTION TIME RIGHT HAND (MILLISECONDS) MISSING=99</li>
+<li><code>visrea_l</code>: VISUAL REATION TIME LEFT HAND (MILLISECONDS) MISSING=99</li>
+<li><code>audrea_r</code>: AUDITORY REACTION TIME RIGHT HAND (MILLISECONDS) MISSING=99</li>
+<li><code>audrea_l</code>: AUDITORY REACTION TIME LEFT HAND (MILLISECONDS) MISSING=99</li>
+<li><code>fwt_r</code>: FINGER-WRIST TAPPING TEST RIGHT HAND (# TAPS IN ONE 10 SECOND TRIAL) MISSING=99</li>
+<li><code>fwt_l</code>: FINGER-WRIST TAPPING TEST LEFT HAND (#TAPS IN ONE 10 SECOND TRIAL) MISSING=99</li>
+<li><code>hyperact</code>: WWPS - WERRY-WEISS-PETERS SCALE FOR HYPERACTIVITY 0=NO ACTIVITY . . . . 4=SEVERLY HYPERACTIVE (AS REPORTED BY PARENTS) MISSING=99</li>
+<li><code>maxfwt</code>: Finger-wrist tapping test in dominant hand(max of <code>fwt_r</code>,<code>fwt_l</code>)</li>
+</ul></li>
+</ul></li>
+</ul>
+</section>
+<section id="lmv" class="level1">
+<h1>lmv</h1>
+<ul>
+<li><a href="./data/lmv.csv">lmv.csv</a>
+<ul>
+<li><code>ID</code>: ID</li>
+<li><code>lvmht27</code>: Left ventricular mass – height corrected = Left Ventricular Mass/Height(m)<span class="math inline">\(^{2.7}\)</span>, <span class="math inline">\(g/m^{2.7}\)</span></li>
+<li><code>bpcat</code>:
+<ul>
+<li>1 = normal</li>
+<li>2 = pre-hypertensive</li>
+<li>3 = nypertensive</li>
+</ul></li>
+<li><code>gender</code>: gender
+<ul>
+<li>1 = male</li>
+<li>2 = female</li>
+</ul></li>
+<li><code>age</code>: yrs</li>
+<li><code>BMI</code>: kg/m<span class="math inline">\(^2\)</span></li>
+</ul></li>
+</ul>
+</section>
+<section id="mice" class="level1">
+<h1>mice</h1>
+<ul>
+<li><a href="./data/mice.csv">mice.csv</a>
+<ul>
+<li><code>Id</code>: ID</li>
+<li><code>Group</code>: GROUP
+<ul>
+<li>1 = RP<br>
+</li>
+<li>2 = NORMAL</li>
+</ul></li>
+<li><code>Trtgrp</code>: TREATMENT GROUP
+<ul>
+<li>A = LIGHT</li>
+<li>B = DIM</li>
+<li>C = DARK</li>
+</ul></li>
+<li><code>Age</code>: AGE (days)</li>
+<li><code>B_amp</code>: B AMP 9999=missing</li>
+<li><code>A_amp</code>: A AMP 9999=missing</li>
+</ul></li>
+</ul>
+</section>
+<section id="nephro" class="level1">
+<h1>nephro</h1>
+<ul>
+<li><a href="./data/nephro.csv">nephro.csv</a>
+<ul>
+<li><code>name</code>: Study name</li>
+<li><code>id</code>: Study number</li>
+<li><code>Endpnt</code>: Endpoint 2=nephrotoxicity</li>
+<li><code>Antibio</code>: Antibiotic
+<ul>
+<li>1 = Amikacin</li>
+<li>2 = Gentamicin</li>
+<li>3 = Netilmicin</li>
+<li>4 = Sisomycin</li>
+<li>5 = Tobramycin</li>
+</ul></li>
+<li><code>Samp_sz</code>: Sample size</li>
+<li><code>Side_eff</code>: Number with side effects</li>
+</ul></li>
+</ul>
+</section>
+<section id="nifed" class="level1">
+<h1>nifed</h1>
+<ul>
+<li><a href="./data/nifed.csv">nifed.csv</a>
+<ul>
+<li><code>Id</code>: ID</li>
+<li><code>trtgrp</code>: Treatment group,
+<ul>
+<li>N = nifedipine</li>
+<li>P = placebo</li>
+</ul></li>
+<li><code>bashrtrt</code>: Baseline heart rate immediately prior to randomization (beats/min)</li>
+<li><code>lv1hrtrt</code>: Level 1 heart rate, Highest heart rate and systolic blood pressure at baseline and each level of therapy respectively (beats/min)</li>
+<li><code>lv2hrtrt</code>: Level 2 heart rate (beats/min)</li>
+<li><code>lv3hrtrt</code>: Level 3 heart rate (beats/min)</li>
+<li><code>bassys</code>: Baseline systolic bp immediately prior to randomization (mm Hg)</li>
+<li><code>lv1sys</code>: Level 1 systolic bp (mm Hg)</li>
+<li><code>lv2sys</code>: Level 2 systolic bp (mm Hg)</li>
+<li><code>lv3sys</code>: Level 3 systolic bp (mm Hg)</li>
+</ul></li>
+</ul>
+<p>Values of 999 indicates that either (a) the patient withdrew from the study prior to entering this level of therapy (b) the patient achieved pain relief prior to reaching this level or therapy, (c) the patient encountered this level of therapy, but this particular piece of data was missing.</p>
+</section>
+<section id="oto" class="level1">
+<h1>oto</h1>
+<ul>
+<li><a href="./data/oto.csv">oto.csv</a>
+<ul>
+<li><code>Name</code>: Study Name</li>
+<li><code>Id</code>: Study Number</li>
+<li><code>Endpnt</code>: Endpoint
+<ul>
+<li>1 = efficacy</li>
+<li>2 = nephrotoxicity</li>
+<li>3 = ototoxicity</li>
+</ul></li>
+<li><code>Antibio</code>: Antibiotic
+<ul>
+<li>1 = Amikacin</li>
+<li>2 = Gentamicin</li>
+<li>3 = Netilmicin</li>
+<li>4 = Sisomycin</li>
+<li>5 = Tobramycin</li>
+</ul></li>
+<li><code>Samp_sz</code>: Sample Size</li>
+<li><code>Side_eff</code>: Number with side effect</li>
+</ul></li>
+</ul>
+</section>
+<section id="piriform" class="level1">
+<h1>piriform</h1>
+<ul>
+<li><a href="./data/piriform.csv">piriform.csv</a>
+<ul>
+<li><code>ID</code>: ID</li>
+<li><code>piriform</code>: Piriformis Syndrome
+<ul>
+<li>1 = Negative</li>
+<li>2 = Positive</li>
+</ul></li>
+<li><code>sex</code>: Sex
+<ul>
+<li>1 = Male</li>
+<li>2 = Female</li>
+</ul></li>
+<li><code>age</code>: Age</li>
+<li><code>maxchg</code>: Max change between tibia and peroneal</li>
+</ul></li>
+</ul>
+</section>
+<section id="sexrat" class="level1">
+<h1>sexrat</h1>
+<ul>
+<li><a href="./data/sexrat.csv">sexrat.csv</a>
+<ul>
+<li><code>nm_chld</code>: Number of children. For families with 5+ children, the sex of the first 5 children are listed. The number of children is given as 5 for such families.</li>
+<li><code>sx_1</code>: Sex of 1st born</li>
+<li><code>sx_2</code>: Sex of 2nd born</li>
+<li><code>sx_3</code>: Sex of 3rd born</li>
+<li><code>sx_4</code>: sex of 4th born</li>
+<li><code>sx_5</code>: sex of 5th born</li>
+<li><code>sexchldn</code>: Sex of all children. The sex of successive births is given. Thus, MMMF means that the first three children were males and the fourth child was a female. There were 484 such families.</li>
+<li><code>num_fam</code>: Number of families. Number of families with specific gender contribution of children</li>
+</ul></li>
+</ul>
+</section>
+<section id="smoke" class="level1">
+<h1>smoke</h1>
+<ul>
+<li><a href="./data/smoke.csv">smoke.csv</a>
+<ul>
+<li><code>ID</code>: ID number</li>
+<li><code>Age</code>: age</li>
+<li><code>Gender</code>: Gender
+<ul>
+<li>1 = male</li>
+<li>2 = female</li>
+</ul></li>
+<li><code>Cig_day</code>: Cigarettes/day<br>
+</li>
+<li><code>CO</code>: Carbon monoxide (CO) (X 10) missing=999<br>
+</li>
+<li><code>Min_last</code>: Minutes elapsed since last cigarette missing=9999<br>
+</li>
+<li><code>LogCOadj</code>: Log CO Adj * (X 1000) missing=9999. This variable represents adjusted carbon monoxide (CO) values. CO values were adjusted for minutes elapsed since last cigarette smoked using the formula Log 10 CO (Adjusted) = Log 10 CO - (-0.000638) X (Min - 80), where Min is the number of minutes elapsed since the last cigarette smoked.</li>
+<li><code>Day_abs</code>: Days abstinent Those abstinent less than 1 day were given a value of zero.</li>
+</ul></li>
+</ul>
+</section>
+<section id="swiss" class="level1">
+<h1>swiss</h1>
+<ul>
+<li><a href="./data/swiss.csv">swiss.csv</a>
+<ul>
+<li><code>ID</code>: ID<br>
+</li>
+<li><code>age</code>: age (yrs)<br>
+</li>
+<li><code>group</code>: Group
+<ul>
+<li>1 = High NAPAP</li>
+<li>2 = Low NAPAP</li>
+<li>3 = control</li>
+</ul></li>
+<li><code>creat_68</code>: Serum Creatinine 1968 (mg/dL) 9.99=missing</li>
+<li><code>creat_69</code>: Serum Creatinine 1969 (mg/dL) 9.99=missing</li>
+<li><code>creat_70</code>: Serum Creatinine 1970 (mg/dL) 9.99=missing</li>
+<li><code>creat_71</code>: Serum Creatinine 1971 (mg/dL) 9.99=missing</li>
+<li><code>creat_72</code>: Serum Creatinine 1972 (mg/dL) 9.99=missing</li>
+<li><code>creat_75</code>: Serum Creatinine 1975 (mg/dL) 9.99=missing</li>
+<li><code>creat_78</code>: Serum Creatinine 1978 (mg/dL) 9.99=missing</li>
+</ul></li>
+</ul>
+</section>
+<section id="tear" class="level1">
+<h1>tear</h1>
+<ul>
+<li><a href="./data/tear.csv">tear.csv</a>
+<ul>
+<li><code>ID</code>: ID</li>
+<li><code>od3bas1</code>: OD 3sec baseline 1<br>
+</li>
+<li><code>od3bas2</code>: OD 3 sec baseline 2<br>
+</li>
+<li><code>od3im1</code>: OD 3 sec immediately post 1</li>
+<li><code>od3im2</code>: OD 3 sec immediately post 2<br>
+</li>
+<li><code>od3pst51</code>: OD 3 sec 5min post 1</li>
+<li><code>od3pst52</code>: OD 3 sec 5min post 2</li>
+<li><code>od3pt101</code>: OD 3 sec 10min post 1</li>
+<li><code>od3pt102</code>: OD 3 sec 10min post 2</li>
+<li><code>od3pt151</code>: OD 3 sec 15min post 1</li>
+<li><code>od3pt152</code>: OD 3 sec 15min post 2</li>
+<li><code>os3bas1</code>: OS 3sec baseline 1<br>
+</li>
+<li><code>os3bas2</code>: OS 3 sec baseline 2<br>
+</li>
+<li><code>os3im1</code>: OS 3 sec immediately post 1</li>
+<li><code>os3im2</code>: OS 3 sec immediately post 2<br>
+</li>
+<li><code>os3pst51</code>: OS 3 sec 5min post 1</li>
+<li><code>os3pst52</code>: OS 3 sec 5min post 2</li>
+<li><code>os3pt101</code>: OS 3 sec 10min post 1</li>
+<li><code>os3pt102</code>: OS 3 sec 10min post 2</li>
+<li><code>os3pt151</code>: OS 3 sec 15min post 1</li>
+<li><code>os3pt152</code>: OS 3 sec 15min post 2</li>
+<li><code>od6bas1</code>: OD 6 sec baseline 1<br>
+</li>
+<li><code>od6bas2</code>: OD 6 sec baseline 2<br>
+</li>
+<li><code>od6im1</code>: OD 6 sec immediately post 1</li>
+<li><code>od6im2</code>: OD 6 sec immediately post 2<br>
+</li>
+<li><code>od6pst51</code>: OD 6 sec 5min post 1</li>
+<li><code>od6pst52</code>: OD 6 sec 5min post 2</li>
+<li><code>od6pt101</code>: OD 6 sec 10min post 1</li>
+<li><code>od6pt102</code>: OD 6 sec 10min post 2</li>
+<li><code>od6pt151</code>: OD 6 sec 15min post 1</li>
+<li><code>od6pt152</code>: OD 6 sec 15min post 2</li>
+<li><code>os6bas1</code>: OS 6 sec baseline 1<br>
+</li>
+<li><code>os6bas2</code>: OS 6 sec baseline 2<br>
+</li>
+<li><code>os6im1</code>: OS 6 sec immediately post 1</li>
+<li><code>os6im2</code>: OS 6 sec immediately post 2<br>
+</li>
+<li><code>os6pst51</code>: OS 6 sec 5min post 1</li>
+<li><code>os6pst52</code>: OS 6 sec 5min post 2</li>
+<li><code>os6pt101</code>: OS 6 sec 10min post 1</li>
+<li><code>os6pt102</code>: OS 6 sec 10min post 2</li>
+<li><code>os6pt151</code>: OS 6 sec 15min post 1</li>
+<li><code>os6pt152</code>: OS 6 sec 15min post 2</li>
+<li><code>od10bas1</code>: OD 10 sec baseline 1<br>
+</li>
+<li><code>od10bas2</code>: OD 10 sec baseline 2<br>
+</li>
+<li><code>od10im1</code>: OD 10 sec immediately post 1</li>
+<li><code>od10im2</code>: OD 10 sec immediately post 2<br>
+</li>
+<li><code>od10ps51</code>: OD 10 sec 5min post 1</li>
+<li><code>od10ps52</code>: OD 10 sec 5min post 2</li>
+<li><code>od10p101</code>: OD 10 sec 10min post 1</li>
+<li><code>od10p102</code>: OD 10 sec 10min post 2</li>
+<li><code>od10p151</code>: OD 10 sec 15min post 1</li>
+<li><code>od10p152</code>: OD 10 sec 15min post 2</li>
+<li><code>os10bas1</code>: OS 10 sec baseline 1<br>
+</li>
+<li><code>os10bas2</code>: OS 10 sec baseline 2<br>
+</li>
+<li><code>os10im1</code>: OS 10 sec immediately post 1</li>
+<li><code>os10im2</code>: OS 10 sec immediately post 2<br>
+</li>
+<li><code>os10ps51</code>: OS 10 sec 5min post 1</li>
+<li><code>os10ps52</code>: OS 10 sec 5min post 2</li>
+<li><code>os10p101</code>: OS 10 sec 10min post 1</li>
+<li><code>os10p102</code>: OS 10 sec 10min post 2</li>
+<li><code>os10p151</code>: OS 10 sec 15min post 1</li>
+<li><code>os10p152</code>: OS 10 sec 15min post 2</li>
+</ul></li>
+</ul>
+</section>
+<section id="temperat" class="level1">
+<h1>temperat</h1>
+<ul>
+<li><a href="./data/temperat.csv">temperat.csv</a>
+<ul>
+<li><code>Date</code>: DATE (MDY)</li>
+<li><code>Out_temp</code>: OUTSIDE TEMERATURE Degrees Fahrenheit</li>
+<li><code>Room</code>: ROOM LOCATION</li>
+<li><code>In_temp</code>: INSIDE TEMPERATURE Degrees Fahrenheit</li>
+<li><code>Cor_fac</code>: CORRECTION FACTOR ADDED
+<ul>
+<li>1 = YES</li>
+<li>0 = NO</li>
+</ul></li>
+<li><code>Typ_wea</code>: TYPE OF WEATHER
+<ul>
+<li>1 = SUNNY</li>
+<li>2 = PARTLY CLOUDY</li>
+<li>3 = CLOUDY</li>
+<li>4 = RAINY</li>
+<li>5 = FOGGY</li>
+<li>9 = MISSING</li>
+</ul></li>
+</ul></li>
+</ul>
+</section>
+<section id="tennis1" class="level1">
+<h1>tennis1</h1>
+<ul>
+<li><a href="./data/tennis1.csv">tennis1.csv</a>
+<ul>
+<li><code>Id</code>: ID</li>
+<li><code>Age</code>: AGE 99=MISSING</li>
+<li><code>Sex</code>: SEX
+<ul>
+<li>1 = MALE</li>
+<li>2 = FEMALE</li>
+</ul></li>
+<li><code>Num_epis</code>: NUMBER OF EPISODES OF TENNIS ELBOW 9=MISSING<br>
+</li>
+<li><code>Typ_last</code>: TYPE OF RACQUET USED DURING LAST EPISODE
+<ul>
+<li>1 = CONVENTIONAL SIZE</li>
+<li>2 = MID-SIZE</li>
+<li>3 = OVER-SIZE</li>
+<li>9 = MISSING</li>
+</ul></li>
+<li><code>Wgt_last</code>: WEIGHT OF RACQUET USED DURING LAST EPISODE
+<ul>
+<li>1 = HEAVY</li>
+<li>2 = MEDIUM</li>
+<li>3 = LIGHT</li>
+<li>4 = DON’T KNOW</li>
+<li>9 = MISSING</li>
+</ul></li>
+<li><code>Mat_last</code>: MATERIAL OF RACQUET USED DURING LAST EPISODE
+<ul>
+<li>1 = WOOD</li>
+<li>2 = ALUMINUM</li>
+<li>3 = FIBERGLASS AND COMPOSITE</li>
+<li>4 = GRAPHITE</li>
+<li>5 = STEEL</li>
+<li>6 = COMPOSITE</li>
+<li>7 = OTHER</li>
+<li>9 = MISSING</li>
+</ul></li>
+<li><code>Str_last</code>: STRING TYPE OF RACQUET USED DURING LAST EPISODE
+<ul>
+<li>1 = NYLON</li>
+<li>2 = GUT</li>
+<li>3 = DON’T KNOW</li>
+<li>9 = MISSING</li>
+</ul></li>
+<li><code>Typ_curr</code>: TYPE OF RACQUET USED CURRENTLY
+<ul>
+<li>1 = CONVENTIONAL SIZE</li>
+<li>2 = MID-SIZE</li>
+<li>3 = OVER-SIZE</li>
+<li>9 = MISSING</li>
+</ul></li>
+<li><code>Wgt_curr</code>: WEIGHT OF RACQUET USED CURRENTLY
+<ul>
+<li>1 = HEAVY</li>
+<li>2 = MEDIUM</li>
+<li>3 = LIGHT</li>
+<li>4 = DON’T KNOW</li>
+<li>9 = MISSING</li>
+</ul></li>
+<li><code>Mat_curr</code>: MATERIAL OF RACQUET USED CURRENTLY
+<ul>
+<li>1 = WOOD</li>
+<li>2 = ALUMINUM</li>
+<li>3 = FIBERGLASS AND COMPOSITE</li>
+<li>4 = GRAPHITE</li>
+<li>5 = STEEL</li>
+<li>6 = COMPOSITE</li>
+<li>7 = OTHER</li>
+<li>9 = MISSING</li>
+</ul></li>
+<li><code>Str_curr</code>: STRING TYPE OF RACQUET USED CURRENTLY
+<ul>
+<li>1 = NYLON</li>
+<li>2 = GUT</li>
+<li>3 = DON’T KNOW</li>
+<li>9 = MISSING</li>
+</ul></li>
+</ul></li>
+</ul>
+</section>
+<section id="tennis2" class="level1">
+<h1>tennis2</h1>
+<ul>
+<li><a href="./data/tennis2.csv">tennis2.csv</a>
+<ul>
+<li><code>id</code>: ID</li>
+<li><code>age</code>: AGE</li>
+<li><code>sex</code>: SEX
+<ul>
+<li>1 = MALE</li>
+<li>2 = FEMALE</li>
+<li>9 = MISSING</li>
+</ul></li>
+<li><code>drg_ord</code>: DRUG ORDER
+<ul>
+<li>1 = MOTRIN-PLACEBO</li>
+<li>2 = PLACEBO-MOTRIN</li>
+</ul></li>
+<li>PERIOD 2 = PAIN SCORES AFTER THE FIRST ACTIVE DRUG PERIOD COMPARED WITH BASELINE
+<ul>
+<li><code>painmx_2</code>: DURING STUDY PERIOD, PAIN DURING MAXIMUM ACTIVITY VS BAESLINE
+<ul>
+<li>1 = WORST</li>
+<li>2 = UNCHANGED</li>
+<li>3 = SLIGHTLY IMPROVED (25%)</li>
+<li>4 = MODERATELY IMPROVED (50%)</li>
+<li>5 = MOSTLY IMPROVED (75%)</li>
+<li>6 = COMPLETELY IMPROVED</li>
+<li>9 = MISSING</li>
+</ul></li>
+<li><code>pain12_2</code>: WITHIN 12 HOURS FOLLOWING MAXIMAL ACTIVITY, COMPARED TO SAME PERIOD AT BASELINE (SAME CODE AS <code>painmx_2</code>)</li>
+<li><code>painav_2</code>: DURING THE AVERAGE DAY OF STUDY PERIOD PAIN VS. BASELINE (SAME CODE AS <code>painmx_2</code>)<br>
+</li>
+<li><code>painov_2</code>: OVERALL IMPRESSION OF DRUG EFFICACY VS. BASELINE (SAME CODE AS <code>painmx_2</code>)</li>
+</ul></li>
+<li>PERIOD 3 = PAIN SCORES AFTER THE WASHOUT PERIOD COMPARED WITH BASELINE
+<ul>
+<li><code>painmx_3</code>: DURING STUDY PERIOD, PAIN DURING MAXIMUM ACTIVITY VS BASELINE (SAME CODE AS <code>painmx_2</code>)</li>
+<li><code>pain12_3</code>: WITHIN 12 HOURS FOLLOWING MAXIMAL ACTIVITY, COMPARED TO SAME PERIOD AT BASELINE (SAME CODE AS <code>painmx_2</code>)</li>
+<li><code>painav_3</code>: DURING THE AVERAGE DAY OF STUDY PERIOD PAIN VS BASELINE (SAME CODE AS <code>painmx_2</code>)</li>
+<li><code>painov_3</code>: OVERALL IMPRESSION OF DRUG EFFICACY VS BASELINE (SAME CODE AS <code>painmx_2</code>)</li>
+</ul></li>
+<li>PERIOD 4 = PAIN SCORES AFTER THE SECOND ACTIVE DRUG PERIOD COMPARED WITH BASELINE
+<ul>
+<li><code>painmx_4</code>: DURING STUDY PERIOD, PAIN DURING MAXIMUM ACTIVITY VS BASELINE (SAME CODE AS <code>painmx_2</code>)</li>
+<li><code>pain12_4</code>: WITHIN 12 HOURS FOLLOWING MAXIMAL ACTIVITY, COMPARED TO SAME PERIOD AT BASELINE (SAME CODE AS <code>painmx_2</code>)</li>
+<li><code>painav_4</code>: DURING THE AVERAGE DAY OF STUDY PERIOD PAIN VS BASELINE (SAME CODE AS <code>painmx_2</code>)</li>
+<li><code>painov_4</code>: OVERALL IMPRESSION OF DRUG EFFICACY VS BASELINE (SAME CODE AS <code>painmx_2</code>)</li>
+</ul></li>
+</ul></li>
+</ul>
+</section>
+<section id="valid" class="level1">
+<h1>valid</h1>
+<ul>
+<li><a href="./data/valid.csv">valid.csv</a>
+<ul>
+<li><code>Id</code>: ID number</li>
+<li><code>sfat_dr</code>: Saturated fat-DR</li>
+<li><code>sfat_ffq</code>: Saturated fat-FFQ</li>
+<li><code>tfat_dr</code>: Total fat-DR</li>
+<li><code>tfat_ffq</code>: Total fat-FFQ</li>
+<li><code>alco_dr</code>: Alcohol consumption-DR</li>
+<li><code>alco_ffq</code>: Alcohol consumption-FFQ</li>
+<li><code>cal_dr</code>: Total calories-DR</li>
+<li><code>cal_ffq</code>: Total calories-FFQ</li>
+</ul></li>
+</ul>
+</section>
+<section id="wales" class="level1">
+<h1>wales</h1>
+<ul>
+<li><a href="./data/wales.csv">wales.csv</a></li>
+</ul>
+</section>
+<section id="references" class="level1">
 
 
 
-</main> <!-- /main -->
+
+</section>
+
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-rosner2015fundamentals" class="csl-entry" role="listitem">
+Rosner, B. 2015. <em>Fundamentals of Biostatistics</em>. 8th ed. Cengage Learning.
+</div>
+</div></section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
