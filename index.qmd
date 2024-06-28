@@ -1,0 +1,10 @@
+---
+title: "Stat 320: Biostatistics"
+---
+
+[Syllabus](syllabus.qmd)
+
+- 01 R
+  - [Introduction to R](./01_r/01_r_intro.qmd)
+  - [Plotting in R](./01_r/01_ggplot.qmd)
+  - [Documents in R](./01_r/01_quarto.qmd)

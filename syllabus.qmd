@@ -1,0 +1,92 @@
+---
+title: "STAT 320 - Biostatistics"
+date: "Fall 2024"
+output: html_document
+urlcolor: blue
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+- **Instructor**: Dr. David Gerard
+- **Email**: <dgerard@american.edu>
+- **Office**: DMTI 106E
+- **Office hours**: TBD
+
+## Required Text
+> Rosner, B. (2016) [*Fundamentals of Biostatistics*](https://a.co/aGy3VyN), Eighth Edition. Brooks/Cole, Boston, MA, USA. 
+
+- There will be occasional readings from other sources, such as journal articles, for class discussion or for homework assignments. These will be posted in Blackboard or links will be given to find these online.
+													
+## Course Content and Learning Objectives
+STAT-320 is an introduction to the statistical methodology commonly used in public health, medical, and biological studies. This course emphasizes working with data and communicating statistical ideas. A breadth of topics will be covered including: study design, tests of significance, confidence intervals, t-procedures, chi-square and Fisher's exact test, linear regression, logistic regression, analysis of variance, nonparametric methods, and more advanced topics as time permits. The R computer program will be used to conduct analyses. 
+
+The major focus for this course is the ideas behind, and the methods for, drawing conclusions about a population from a sample. At the end of this course you will be expected to identify the major concepts related to statistical reasoning and to statistical inferences for drawing such conclusions, recognize how these concepts are used in disciplines related to health and medicine, and implement the methods yourself in statistical analyses using the methods covered. In particular, you are expected to be able to (1) identify the appropriate statistical model or models for a given analysis, (2) write the model in the correct notation, (3) implement the model in the R software package on a given set of data, (4) interpret the output in the context of the study, (5) diagnose model deficiences, (6) suggest improvements to the model if necessary, and (7) summarize the results of the analysis. Work will be a balance between understanding the concepts underlying a method, implementation of the method, and interpretation of the results.
+													
+## Grading
+
+```{r, echo = FALSE}
+gradedf <- data.frame(Assignment = c("Homeworks", "Midterm 1", "Midterm 2", "Midterm 3"),
+                      Percent = c("40%", "20%", "20%", "20%"))
+knitr::kable(gradedf)
+```
+
+- Midterms: 
+    - Not officially cumulative. But all material in Statistics builds off of previous material, so effectively cumulative.
+    - You can bring a 1 page (8.5'' by 11'' piece of paper) cheat sheet that is handwritten (no typing). You can use both sides.
+    - No other resources are allowed. If you touch your phone/computer/smart watch/etc during the midterm then that is an automatic fail for the course.
+    
+- Homeworks:
+    - Homeworks are really just meant to help you prepare for the midterms. You can use generative AI if you want. But you won't get any other study aids, so I wouldn't except to check my work after I've done all of the problems.
+
+Usual grade cutoffs will be used:
+```{r, echo = FALSE}
+curve_df <- data.frame(Grade = c("A", "A-", "B+", "B", "B-", "C+", "C", "C-", "D", "F"),
+                       Lower = c(93, 90, 88, 83, 80, 78, 73, 70, 60, 0),
+                       Upper = c(100, 92, 89, 87, 82, 79, 77, 72, 69, 59))
+knitr::kable(curve_df)
+```
+
+Individual assignments will not be curved. However, at the discretion of the instructor, the overall course grade at the end of the semester may be curved.
+
+# Late Work Policy
+
+- All assignments must be submitted on the day they are due.
+- Homeworks will typically be due on Mondays by end-of-day. 
+- Each student will have **two** three-day extensions, where you can turn in the assignment on Thursday by end-of-day. 
+- Please just let me know ahead of time that you will be using one of your two extensions. 
+- Please do **not** tell me why you need the extension. Any reason is a fine reason.
+- Any homeworks not submitted by the due date will receive a grade of 0.
+													
+## Computing and Software
+
+We will use the R computing language to complete some assignment questions. R is free and may be downloaded from the R website (<http://cran.r-project.org/>). In addition, I highly recommend you interface with R through the free RStudio IDE (<https://www.rstudio.com/>). R and RStudio are also available on computers in the Anderson Computing Complex, the Center for Teaching, Research, and Learning Lab (CTRL) in Hurst Hall, in addition to various labs across campus. R Studio may also be run from your web browser using American University's [Virtual Applications System](https://americanuniversity.service-now.com/help/?id=sc_cat_item&sys_id=1fdf972fdbb3db00771cfce9af961985). Please see me during office hours if you have questions regarding R.
+													
+## Data
+Data sets for homeworks assignments and examples from the textbook are available on the [book's companion website](http://www.cengage.com/cgi-wadsworth/course_products_wp.pl?fid=M20b&product_isbn_issn=9781305268920&token=). You will want the R or ASCII formats. Other data sets needed for classtime activities will be posted in Canvas 
+													
+### Computers, phones, other electronic devices in class
+Use common sense and be courteous of your peers. You may take notes electronically if that is your preferred method. Phones and other devices should be off or set to silent during class. 
+
+### Academic Integrity
+- Standards of academic conduct are set forth in the university’s [Academic Integrity Code](http://www.american.edu/academics/integrity/index.cfm). By registering for this course, students have acknowledged their awareness of the Academic Integrity Code and they are obliged to become familiar with their rights and responsibilities as defined by the Code. Violations of the Academic Integrity Code will not be treated lightly and disciplinary action will be taken should violations occur. This includes cheating, fabrication, and plagiarism.
+
+- I expect you to work with others and me, and I expect you to use online resources as you work on your assignments However, your submissions must be composed of your own thoughts, coding, and words. You should be able to explain your work on assignments/projects and your rationale.  **Based on your explanation (or lack thereof), I may modify your grade.** 
+
+- You can use generative AI (e.g. ChatGPT, CoPilot, etc) on the homeworks if you want. But
+    - These are your only study exercises for the midterms. So I wouldn't use AI to do them for me except to check my work after I am done.
+    - You are still expected to "own" all of your responses. I reserve the right to ask you to explain any of your solutions. If you write something weird or too advanced in the homework, I'll call you in and ask you questions about it. **Based on your explanation (or lack thereof), I may modify your grade.**
+    
+- No resources are allowed for the midterm except the 1 page (8.5'' by 11'') handwritten cheat sheet (and a pen or pencil, of course). If you touch your phone/computer/smart watch/etc during the midterm then that is an automatic fail for the course.
+    
+- All solutions that I provide are under my copyright. These solutions are for personal use only and may not be distributed to anyone else. Giving these solutions to others, including other students or posting them on the internet, is a violation of my copyright and a violation of the student code of conduct.
+
+# Sharing Course Content: 
+
+Students are not permitted to make visual or audio recordings (including livestreams) of lectures or any class-related content or use any type of recording device unless prior permission from the instructor is obtained and there are no objections from any student in the class. If permission is granted, only students registered in the course may use or share recordings and any electronic copies of course materials (e.g., PowerPoints, formulas, lecture notes, and any discussions – online or otherwise). Use is limited to educational purposes even after the end of the course. Exceptions will be made for students who present a signed Letter of Accommodation from the Academic Support and Access Center. Further details are available from the [ASAC website](https://www.american.edu/provost/academic-access/index.cfm).
+
+# Syllabus Change Policy
+
+This syllabus is a guide for the course and is subject to change with advanced notice. These changes may come via Canvas. Make sure to check Canvas announcements regularly. You are accountable for all such communications.
+

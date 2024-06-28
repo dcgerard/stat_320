@@ -1,0 +1,212 @@
+[
+  {
+    "objectID": "01_r/01_r_intro.html",
+    "href": "01_r/01_r_intro.html",
+    "title": "Introduction to R",
+    "section": "",
+    "text": "R is a statistical programming language designed to analyze data.\nThis is not an R course. But you need to know some tools to summarize/plot/model data.\nR is free, widely used, more generally applicable (beyond linear regression), and a useful tool for reproducibility. So this is what we will use.\nPython would have been a good choice too, but it is worse at basic stats (this is controversial)."
+  },
+  {
+    "objectID": "01_r/01_r_intro.html#variables",
+    "href": "01_r/01_r_intro.html#variables",
+    "title": "Introduction to R",
+    "section": "Variables",
+    "text": "Variables\n\nA variable stores a value. You use the assignment operator “&lt;-” to assign values to variables. For example, we can assign the value of 10 to the variable x.\n\nx &lt;- 10\n\n\nIt is possible to use =, and I think there is nothing wrong with that. But for some reason the field has decided to only use &lt;-, so you should too.\n\nWhenever we use x later, it will use the value of 10\n\nx\n\n[1] 10\n\n\nThis is useful because you can reuse this value over and over again:\n\ny &lt;- 0\nx + y\nx * y\nx / y\nx - y\n\nTo assign a “string” (a fancy way to say a word) to x, put the string in quotes. For example, we can assign the value of \"Hello World\" to x.\n\nx &lt;- \"Hello World\"\nx\n\n[1] \"Hello World\""
+  },
+  {
+    "objectID": "01_r/01_r_intro.html#functions",
+    "href": "01_r/01_r_intro.html#functions",
+    "title": "Introduction to R",
+    "section": "Functions",
+    "text": "Functions\n\nFunctions take objects (such as numbers or variables) as input and output new objects. Let’s look at a simple function that takes the log of a number:\n\nlog(x = 4, base = 2)\n\nThe inputs are called “arguments”. Generally, every function will be for the form:\n\nfunction_name(arg1 = val1, arg2 = val2, ...)\n\nIf you do not specify the name of the argument, R will assume you are assigning in their order.\n\nlog(4, 2)\n\nYou can change the order of the arguments if you specify them.\n\nlog(base = 2, x = 4)\n\nTo see the list of all possible arguments of a function, use the help() function:\n\nhelp(log)\n\nIn the help file, there are often default values for an argument. For example, the following indicates the the default value of base is exp(1).\n\nlog(x, base = exp(1))\n\nThis indicates that you can omit the base argument and R will assume that it should be exp(1).\n\nlog(x = 4, base = exp(1))\n\n[1] 1.386\n\nlog(x = 4)\n\n[1] 1.386\n\n\nIf an argument does not have a default, then it must be specified when calling a function.\nType this:\n\nlog(x = 4,\n\nThe “+” indicates that R is expecting more input (you forgot either a parentheses or a quotation mark). You can get back to the prompt by hitting the ESCAPE key."
+  },
+  {
+    "objectID": "01_r/01_r_intro.html#useful-functions",
+    "href": "01_r/01_r_intro.html#useful-functions",
+    "title": "Introduction to R",
+    "section": "Useful Functions",
+    "text": "Useful Functions\n\nc() creates a vector (sequence of values)\n\ny &lt;- c(8, 1, 3, 4, 2)\ny\n\n[1] 8 1 3 4 2\n\n\nYou can perform vectorized operations on these vectors\n\ny + 2\n\n[1] 10  3  5  6  4\n\ny / 2\n\n[1] 4.0 0.5 1.5 2.0 1.0\n\ny - 2\n\n[1]  6 -1  1  2  0\n\n\nexp(): Exponentiation. This is the inverse of log().\n\nexp(10)\n\n[1] 22026\n\nlog(exp(10))\n\n[1] 10\n\n\nmean(): The mean of a vector\n\nmean(y)\n\n[1] 3.6\n\n\nsd() The standard deviation of a vector\n\nsd(y)\n\n[1] 2.702\n\n\nsum(): Sum the values of a vector.\n\nsum(y)\n\n[1] 18\n\n\nseq(): Create a sequence of numbers\n\nseq(from = 1, to = 10)\n\n [1]  1  2  3  4  5  6  7  8  9 10\n\n\nExercise: What does the by argument do in seq()? Read the help file and modify it to 2 in the example code above.\nhead(): Show the first six values of an object."
+  },
+  {
+    "objectID": "01_r/01_r_intro.html#r-packages",
+    "href": "01_r/01_r_intro.html#r-packages",
+    "title": "Introduction to R",
+    "section": "R Packages",
+    "text": "R Packages\n\nA package is a collection of functions that don’t come with R by default.\nThere are many many packages available. If you need to do any data analysis, there is probably an R package for it.\nUsing install.packages(), you can install packages that contain functions and datasets that are not available by default. Do this now with the tidyverse package:\n\ninstall.packages(\"tidyverse\")\n\nYou will only need to install a package once per computer. Once it is installed you can gain access to all of the functions and datasets in a package by using the library() function.\n\nlibrary(tidyverse)\n\nYou will need to run library() at the start of every R session if you want to use the functions in a package.\nWhen I want to write the name of a function, I will write it like this()."
+  },
+  {
+    "objectID": "01_r/01_r_intro.html#data-frames",
+    "href": "01_r/01_r_intro.html#data-frames",
+    "title": "Introduction to R",
+    "section": "Data Frames",
+    "text": "Data Frames\n\nThe fundamental unit object of data analysis is the data frame.\nA data frame has variables in the columns, and observations in the rows.\n \nR comes with a bunch of famous datasets in the form of a data frame. Such as the mtcars dataset.\n\ndata(\"mtcars\")\nmtcars\n\n                     mpg cyl  disp  hp drat    wt  qsec vs am gear carb\nMazda RX4           21.0   6 160.0 110 3.90 2.620 16.46  0  1    4    4\nMazda RX4 Wag       21.0   6 160.0 110 3.90 2.875 17.02  0  1    4    4\nDatsun 710          22.8   4 108.0  93 3.85 2.320 18.61  1  1    4    1\nHornet 4 Drive      21.4   6 258.0 110 3.08 3.215 19.44  1  0    3    1\nHornet Sportabout   18.7   8 360.0 175 3.15 3.440 17.02  0  0    3    2\nValiant             18.1   6 225.0 105 2.76 3.460 20.22  1  0    3    1\nDuster 360          14.3   8 360.0 245 3.21 3.570 15.84  0  0    3    4\nMerc 240D           24.4   4 146.7  62 3.69 3.190 20.00  1  0    4    2\nMerc 230            22.8   4 140.8  95 3.92 3.150 22.90  1  0    4    2\nMerc 280            19.2   6 167.6 123 3.92 3.440 18.30  1  0    4    4\nMerc 280C           17.8   6 167.6 123 3.92 3.440 18.90  1  0    4    4\nMerc 450SE          16.4   8 275.8 180 3.07 4.070 17.40  0  0    3    3\nMerc 450SL          17.3   8 275.8 180 3.07 3.730 17.60  0  0    3    3\nMerc 450SLC         15.2   8 275.8 180 3.07 3.780 18.00  0  0    3    3\nCadillac Fleetwood  10.4   8 472.0 205 2.93 5.250 17.98  0  0    3    4\nLincoln Continental 10.4   8 460.0 215 3.00 5.424 17.82  0  0    3    4\nChrysler Imperial   14.7   8 440.0 230 3.23 5.345 17.42  0  0    3    4\nFiat 128            32.4   4  78.7  66 4.08 2.200 19.47  1  1    4    1\nHonda Civic         30.4   4  75.7  52 4.93 1.615 18.52  1  1    4    2\nToyota Corolla      33.9   4  71.1  65 4.22 1.835 19.90  1  1    4    1\nToyota Corona       21.5   4 120.1  97 3.70 2.465 20.01  1  0    3    1\nDodge Challenger    15.5   8 318.0 150 2.76 3.520 16.87  0  0    3    2\nAMC Javelin         15.2   8 304.0 150 3.15 3.435 17.30  0  0    3    2\nCamaro Z28          13.3   8 350.0 245 3.73 3.840 15.41  0  0    3    4\nPontiac Firebird    19.2   8 400.0 175 3.08 3.845 17.05  0  0    3    2\nFiat X1-9           27.3   4  79.0  66 4.08 1.935 18.90  1  1    4    1\nPorsche 914-2       26.0   4 120.3  91 4.43 2.140 16.70  0  1    5    2\nLotus Europa        30.4   4  95.1 113 3.77 1.513 16.90  1  1    5    2\nFord Pantera L      15.8   8 351.0 264 4.22 3.170 14.50  0  1    5    4\nFerrari Dino        19.7   6 145.0 175 3.62 2.770 15.50  0  1    5    6\nMaserati Bora       15.0   8 301.0 335 3.54 3.570 14.60  0  1    5    8\nVolvo 142E          21.4   4 121.0 109 4.11 2.780 18.60  1  1    4    2\n\n\nYou can extract individual variables from a data frame using $\n\nmtcars$mpg\n\n [1] 21.0 21.0 22.8 21.4 18.7 18.1 14.3 24.4 22.8 19.2 17.8 16.4 17.3 15.2 10.4\n[16] 10.4 14.7 32.4 30.4 33.9 21.5 15.5 15.2 13.3 19.2 27.3 26.0 30.4 15.8 19.7\n[31] 15.0 21.4\n\n\nYou can explore these in a spreadsheet format using View() (note the capital “V”).\n\nView(mtcars)"
+  },
+  {
+    "objectID": "01_r/01_r_intro.html#reading-in-data-frames",
+    "href": "01_r/01_r_intro.html#reading-in-data-frames",
+    "title": "Introduction to R",
+    "section": "Reading in Data Frames",
+    "text": "Reading in Data Frames\n\nMost datasets will nead to be loaded into R. To do so, we will use the {readr} package.\n\nlibrary(readr)\n\nThe only function I will require you to know from this package is read_csv(), which loads in data from a CSV file (“Comma-separated values”), a very popular format for storing data.\nIf you have the CSV file somewhere on your computer, then specify the path from the current working directory, and assign the data frame to a variable.\nFor other file formats, you need to use other functions, such as read_tsv(), read_table(), read_fwf(), etc. I will try to make sure read_csv() works for all datasets in this course.\nI will typicaly post course datasets at https://dcgerard.github.io/stat_415_615/data.html. You can load those data into R by pasting their URL’s into read_csv().\n\ncopiers &lt;- read_csv(\"https://dcgerard.github.io/stat_415_615/data/copiers.csv\")\n\nRows: 45 Columns: 3\n── Column specification ────────────────────────────────────────────────────────\nDelimiter: \",\"\nchr (1): model\ndbl (2): minutes, copiers\n\nℹ Use `spec()` to retrieve the full column specification for this data.\nℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.\n\nhead(copiers)\n\n# A tibble: 6 × 3\n  minutes copiers model\n    &lt;dbl&gt;   &lt;dbl&gt; &lt;chr&gt;\n1      20       2 S    \n2      60       4 L    \n3      46       3 L    \n4      41       2 L    \n5      12       1 L    \n6     137      10 L    \n\n\nExercise: Load in the County Demographic Information data into R and print out the first six rows."
+  },
+  {
+    "objectID": "01_r/01_r_intro.html#basic-data-frame-manipulations",
+    "href": "01_r/01_r_intro.html#basic-data-frame-manipulations",
+    "title": "Introduction to R",
+    "section": "Basic Data Frame Manipulations",
+    "text": "Basic Data Frame Manipulations\n\nYou will need to know just a few data frame manipulations, which we will perform using the {dplyr} package.\n\nlibrary(dplyr)\n\nThe first argument for {dplyr} functions is always the data frame you are modifying. The following arguments typically involve the columns of that data frame.\nUse the mutate() function from the {dplyr} package to make variable transformations.\n\nmtcars &lt;- mutate(mtcars, kpg = mpg * 1.61)\nhead(mtcars)\n\n                   mpg cyl disp  hp drat    wt  qsec vs am gear carb   kpg\nMazda RX4         21.0   6  160 110 3.90 2.620 16.46  0  1    4    4 33.81\nMazda RX4 Wag     21.0   6  160 110 3.90 2.875 17.02  0  1    4    4 33.81\nDatsun 710        22.8   4  108  93 3.85 2.320 18.61  1  1    4    1 36.71\nHornet 4 Drive    21.4   6  258 110 3.08 3.215 19.44  1  0    3    1 34.45\nHornet Sportabout 18.7   8  360 175 3.15 3.440 17.02  0  0    3    2 30.11\nValiant           18.1   6  225 105 2.76 3.460 20.22  1  0    3    1 29.14\n\n\nUse glimpse() to get a brief look at the data frame.\n\nglimpse(mtcars)\n\nRows: 32\nColumns: 12\n$ mpg  &lt;dbl&gt; 21.0, 21.0, 22.8, 21.4, 18.7, 18.1, 14.3, 24.4, 22.8, 19.2, 17.8,…\n$ cyl  &lt;dbl&gt; 6, 6, 4, 6, 8, 6, 8, 4, 4, 6, 6, 8, 8, 8, 8, 8, 8, 4, 4, 4, 4, 8,…\n$ disp &lt;dbl&gt; 160.0, 160.0, 108.0, 258.0, 360.0, 225.0, 360.0, 146.7, 140.8, 16…\n$ hp   &lt;dbl&gt; 110, 110, 93, 110, 175, 105, 245, 62, 95, 123, 123, 180, 180, 180…\n$ drat &lt;dbl&gt; 3.90, 3.90, 3.85, 3.08, 3.15, 2.76, 3.21, 3.69, 3.92, 3.92, 3.92,…\n$ wt   &lt;dbl&gt; 2.620, 2.875, 2.320, 3.215, 3.440, 3.460, 3.570, 3.190, 3.150, 3.…\n$ qsec &lt;dbl&gt; 16.46, 17.02, 18.61, 19.44, 17.02, 20.22, 15.84, 20.00, 22.90, 18…\n$ vs   &lt;dbl&gt; 0, 0, 1, 1, 0, 1, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0,…\n$ am   &lt;dbl&gt; 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0,…\n$ gear &lt;dbl&gt; 4, 4, 4, 3, 3, 3, 3, 4, 4, 4, 4, 3, 3, 3, 3, 3, 3, 4, 4, 4, 3, 3,…\n$ carb &lt;dbl&gt; 4, 4, 1, 1, 2, 1, 4, 2, 2, 4, 4, 3, 3, 3, 4, 4, 4, 1, 2, 1, 1, 2,…\n$ kpg  &lt;dbl&gt; 33.81, 33.81, 36.71, 34.45, 30.11, 29.14, 23.02, 39.28, 36.71, 30…\n\n\nUse View() to see a spreadsheet of the data frame (never put this in an R Markdown file). Note the capital “V”.\n\nView(mtcars)\n\nUse rename() to rename variables.\n\nmtcars &lt;- rename(mtcars, auto_man = am)\nhead(mtcars)\n\n                   mpg cyl disp  hp drat    wt  qsec vs auto_man gear carb\nMazda RX4         21.0   6  160 110 3.90 2.620 16.46  0        1    4    4\nMazda RX4 Wag     21.0   6  160 110 3.90 2.875 17.02  0        1    4    4\nDatsun 710        22.8   4  108  93 3.85 2.320 18.61  1        1    4    1\nHornet 4 Drive    21.4   6  258 110 3.08 3.215 19.44  1        0    3    1\nHornet Sportabout 18.7   8  360 175 3.15 3.440 17.02  0        0    3    2\nValiant           18.1   6  225 105 2.76 3.460 20.22  1        0    3    1\n                    kpg\nMazda RX4         33.81\nMazda RX4 Wag     33.81\nDatsun 710        36.71\nHornet 4 Drive    34.45\nHornet Sportabout 30.11\nValiant           29.14\n\n\nUse filter() to remove rows.\n\nUse == to select rows based on equality\nUse &lt; and &gt; to select rows based on inequality\nUse &lt;= and &gt;= to select rows based on inequality/equality.\n\n\nfilter(mtcars, auto_man == 1)\n\n                mpg cyl  disp  hp drat    wt  qsec vs auto_man gear carb   kpg\nMazda RX4      21.0   6 160.0 110 3.90 2.620 16.46  0        1    4    4 33.81\nMazda RX4 Wag  21.0   6 160.0 110 3.90 2.875 17.02  0        1    4    4 33.81\nDatsun 710     22.8   4 108.0  93 3.85 2.320 18.61  1        1    4    1 36.71\nFiat 128       32.4   4  78.7  66 4.08 2.200 19.47  1        1    4    1 52.16\nHonda Civic    30.4   4  75.7  52 4.93 1.615 18.52  1        1    4    2 48.94\nToyota Corolla 33.9   4  71.1  65 4.22 1.835 19.90  1        1    4    1 54.58\nFiat X1-9      27.3   4  79.0  66 4.08 1.935 18.90  1        1    4    1 43.95\nPorsche 914-2  26.0   4 120.3  91 4.43 2.140 16.70  0        1    5    2 41.86\nLotus Europa   30.4   4  95.1 113 3.77 1.513 16.90  1        1    5    2 48.94\nFord Pantera L 15.8   8 351.0 264 4.22 3.170 14.50  0        1    5    4 25.44\nFerrari Dino   19.7   6 145.0 175 3.62 2.770 15.50  0        1    5    6 31.72\nMaserati Bora  15.0   8 301.0 335 3.54 3.570 14.60  0        1    5    8 24.15\nVolvo 142E     21.4   4 121.0 109 4.11 2.780 18.60  1        1    4    2 34.45\n\nfilter(mtcars, mpg &lt; 15)  \n\n                     mpg cyl disp  hp drat    wt  qsec vs auto_man gear carb\nDuster 360          14.3   8  360 245 3.21 3.570 15.84  0        0    3    4\nCadillac Fleetwood  10.4   8  472 205 2.93 5.250 17.98  0        0    3    4\nLincoln Continental 10.4   8  460 215 3.00 5.424 17.82  0        0    3    4\nChrysler Imperial   14.7   8  440 230 3.23 5.345 17.42  0        0    3    4\nCamaro Z28          13.3   8  350 245 3.73 3.840 15.41  0        0    3    4\n                      kpg\nDuster 360          23.02\nCadillac Fleetwood  16.74\nLincoln Continental 16.74\nChrysler Imperial   23.67\nCamaro Z28          21.41\n\n\nExercise: Calculate the log-displacement, add this to the mtcars data frame.\nExercise: Filter out cars with only one carborator (keep cars with more than 1 carborator).\nExercise: Rename the hp variable to horse."
+  },
+  {
+    "objectID": "syllabus.html",
+    "href": "syllabus.html",
+    "title": "STAT 320 - Biostatistics",
+    "section": "",
+    "text": "Instructor: Dr. David Gerard\nEmail: dgerard@american.edu\nOffice: DMTI 106E\nOffice hours: TBD"
+  },
+  {
+    "objectID": "syllabus.html#required-text",
+    "href": "syllabus.html#required-text",
+    "title": "STAT 320 - Biostatistics",
+    "section": "Required Text",
+    "text": "Required Text\n\nRosner, B. (2016) Fundamentals of Biostatistics, Eighth Edition. Brooks/Cole, Boston, MA, USA.\n\n\nThere will be occasional readings from other sources, such as journal articles, for class discussion or for homework assignments. These will be posted in Blackboard or links will be given to find these online."
+  },
+  {
+    "objectID": "syllabus.html#course-content-and-learning-objectives",
+    "href": "syllabus.html#course-content-and-learning-objectives",
+    "title": "STAT 320 - Biostatistics",
+    "section": "Course Content and Learning Objectives",
+    "text": "Course Content and Learning Objectives\nSTAT-320 is an introduction to the statistical methodology commonly used in public health, medical, and biological studies. This course emphasizes working with data and communicating statistical ideas. A breadth of topics will be covered including: study design, tests of significance, confidence intervals, t-procedures, chi-square and Fisher’s exact test, linear regression, logistic regression, analysis of variance, nonparametric methods, and more advanced topics as time permits. The R computer program will be used to conduct analyses.\nThe major focus for this course is the ideas behind, and the methods for, drawing conclusions about a population from a sample. At the end of this course you will be expected to identify the major concepts related to statistical reasoning and to statistical inferences for drawing such conclusions, recognize how these concepts are used in disciplines related to health and medicine, and implement the methods yourself in statistical analyses using the methods covered. In particular, you are expected to be able to (1) identify the appropriate statistical model or models for a given analysis, (2) write the model in the correct notation, (3) implement the model in the R software package on a given set of data, (4) interpret the output in the context of the study, (5) diagnose model deficiences, (6) suggest improvements to the model if necessary, and (7) summarize the results of the analysis. Work will be a balance between understanding the concepts underlying a method, implementation of the method, and interpretation of the results."
+  },
+  {
+    "objectID": "syllabus.html#grading",
+    "href": "syllabus.html#grading",
+    "title": "STAT 320 - Biostatistics",
+    "section": "Grading",
+    "text": "Grading\n\n\n\n\n\nAssignment\nPercent\n\n\n\n\nHomeworks\n40%\n\n\nMidterm 1\n20%\n\n\nMidterm 2\n20%\n\n\nMidterm 3\n20%\n\n\n\n\n\n\nMidterms:\n\nNot officially cumulative. But all material in Statistics builds off of previous material, so effectively cumulative.\nYou can bring a 1 page (8.5’’ by 11’’ piece of paper) cheat sheet that is handwritten (no typing). You can use both sides.\nNo other resources are allowed. If you touch your phone/computer/smart watch/etc during the midterm then that is an automatic fail for the course.\n\nHomeworks:\n\nHomeworks are really just meant to help you prepare for the midterms. You can use generative AI if you want. But you won’t get any other study aids, so I wouldn’t except to check my work after I’ve done all of the problems.\n\n\nUsual grade cutoffs will be used:\n\n\n\n\n\nGrade\nLower\nUpper\n\n\n\n\nA\n93\n100\n\n\nA-\n90\n92\n\n\nB+\n88\n89\n\n\nB\n83\n87\n\n\nB-\n80\n82\n\n\nC+\n78\n79\n\n\nC\n73\n77\n\n\nC-\n70\n72\n\n\nD\n60\n69\n\n\nF\n0\n59\n\n\n\n\n\nIndividual assignments will not be curved. However, at the discretion of the instructor, the overall course grade at the end of the semester may be curved."
+  },
+  {
+    "objectID": "syllabus.html#computing-and-software",
+    "href": "syllabus.html#computing-and-software",
+    "title": "STAT 320 - Biostatistics",
+    "section": "Computing and Software",
+    "text": "Computing and Software\nWe will use the R computing language to complete some assignment questions. R is free and may be downloaded from the R website (http://cran.r-project.org/). In addition, I highly recommend you interface with R through the free RStudio IDE (https://www.rstudio.com/). R and RStudio are also available on computers in the Anderson Computing Complex, the Center for Teaching, Research, and Learning Lab (CTRL) in Hurst Hall, in addition to various labs across campus. R Studio may also be run from your web browser using American University’s Virtual Applications System. Please see me during office hours if you have questions regarding R."
+  },
+  {
+    "objectID": "syllabus.html#data",
+    "href": "syllabus.html#data",
+    "title": "STAT 320 - Biostatistics",
+    "section": "Data",
+    "text": "Data\nData sets for homeworks assignments and examples from the textbook are available on the book’s companion website. You will want the R or ASCII formats. Other data sets needed for classtime activities will be posted in Canvas\n\nComputers, phones, other electronic devices in class\nUse common sense and be courteous of your peers. You may take notes electronically if that is your preferred method. Phones and other devices should be off or set to silent during class.\n\n\nAcademic Integrity\n\nStandards of academic conduct are set forth in the university’s Academic Integrity Code. By registering for this course, students have acknowledged their awareness of the Academic Integrity Code and they are obliged to become familiar with their rights and responsibilities as defined by the Code. Violations of the Academic Integrity Code will not be treated lightly and disciplinary action will be taken should violations occur. This includes cheating, fabrication, and plagiarism.\nI expect you to work with others and me, and I expect you to use online resources as you work on your assignments However, your submissions must be composed of your own thoughts, coding, and words. You should be able to explain your work on assignments/projects and your rationale. Based on your explanation (or lack thereof), I may modify your grade.\nYou can use generative AI (e.g. ChatGPT, CoPilot, etc) on the homeworks if you want. But\n\nThese are your only study exercises for the midterms. So I wouldn’t use AI to do them for me except to check my work after I am done.\nYou are still expected to “own” all of your responses. I reserve the right to ask you to explain any of your solutions. If you write something weird or too advanced in the homework, I’ll call you in and ask you questions about it. Based on your explanation (or lack thereof), I may modify your grade.\n\nNo resources are allowed for the midterm except the 1 page (8.5’’ by 11’’) handwritten cheat sheet (and a pen or pencil, of course). If you touch your phone/computer/smart watch/etc during the midterm then that is an automatic fail for the course.\nAll solutions that I provide are under my copyright. These solutions are for personal use only and may not be distributed to anyone else. Giving these solutions to others, including other students or posting them on the internet, is a violation of my copyright and a violation of the student code of conduct."
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Stat 320: Biostatistics",
+    "section": "",
+    "text": "Syllabus\n\n01 R\n\nIntroduction to R\nPlotting in R\nDocuments in R"
+  },
+  {
+    "objectID": "01_r/01_quarto.html",
+    "href": "01_r/01_quarto.html",
+    "title": "Introduction to Quarto",
+    "section": "",
+    "text": "Quarto is a file format that is a combination of plain text and R code.\nLots of great educational material is available at https://quarto.org/\nYou write code and commentary of code in one file. You may then compile (RStudio calls this “rendering”) the Quarto file to many different kinds of output: pdf (including beamer presentations), html (including various presentation formats), Word, PowerPoint, etc.\nQuarto is useful for:\n\nCommunication of statistical results.\nCollaborating with other data scientists.\nUsing it as a modern lab notebook to do data science.\n\nQuarto can also make “literate programming” documents for python, Julia, JavaScript, etc…\n\n\n\n\nInstall Quarto via: https://quarto.org/docs/get-started/\nTo make PDF files, you will need to install \\(\\LaTeX\\) if you don’t have it already. To install it, type in R:\n\ninstall.packages(\"tinytex\")\ntinytex::install_tinytex()\n\nIf you get an error while trying to install tinytex, try manually installing  instead:\n\nFor Windows users, go to http://miktex.org/download\nFor OS users, go to https://tug.org/mactex/\nFor Linux users, go to https://www.tug.org/texlive/\n\n\n\n\n\n\nOpen up a new Quarto file:\n\n \n\nChoose the options for the type of output you want\n\n \n\nYou should now have a rudimentary Quarto file.\nSave a copy of this file in your “analysis” folder in the “week1” project.\nQuarto contains three things\n\nA YAML (Yet Another Markup Language) header that controls options for the Quarto document. These are surrounded by ---.\nCode chunks — bits of R code that that are surrounded by ```{r} and ```. Only valid R code should go in here.\nPlain text that contains simple formatting options.\n\nAll of these are are displayed in the default Quarto file. You can compile this file by clicking the “Render” button at the top of the screen or by typing CONTROL + SHIFT + K. Do this now.\n\n\n\n\nHere is Hadley’s brief intro to formatting text in Quarto:\n\n\nText formatting \n------------------------------------------------------------\n\n*italic*  or _italic_\n**bold**   __bold__\n`code`\nsuperscript^2^ and subscript~2~\n\nHeadings\n------------------------------------------------------------\n\n# 1st Level Header\n\n## 2nd Level Header\n\n### 3rd Level Header\n\nLists\n------------------------------------------------------------\n\n*   Bulleted list item 1\n\n*   Item 2\n\n    * Item 2a\n\n    * Item 2b\n\n1.  Numbered list item 1\n\n1.  Item 2. The numbers are incremented automatically in the output.\n\nLinks and images\n------------------------------------------------------------\n\n&lt;http://example.com&gt;\n\n[linked phrase](http://example.com)\n\n![optional caption text](path/to/img.png)\n\nTables \n------------------------------------------------------------\n\nFirst Header  | Second Header\n------------- | -------------\nContent Cell  | Content Cell\nContent Cell  | Content Cell\n\n\n\n\n\n\n\nYou can insert new code-chunks using CONTROL + ALT + I (or using the “Insert” button at the top of RStudio).\nYou write all R code in chunks. You can send the current line of R code (the line where the cursor is) using CONTROL + ENTER (or the “Run” button at the top of RStudio).\nYou can run all of the code in a chunk using CONTROL + ALT + C (or using the “Run” button at the top of RStudio).\nYou can run all of the code in the next chunk using CONTROL + ALT + N (or using the “Run” button at the top of RStudio).\n\n\n\n\n\nMy typical YAML header will looks like this\n\n\n---\ntitle: \"Week 1 Worksheet: Installing R, Rmarkdown, Rbasics\"\nauthor: \"David Gerard\"\ndate: \"`r Sys.Date()`\"\nformat: pdf\nurlcolor: \"blue\"\n---\n\n\nAll of those settings are fairly self-explanatory.\nThe `r Sys.Date()` will insert the current date.\n\n\n\n\n\nSometimes, you want to write the output of some R code inline (rather than as the output of some chunk). You can do this by placing code within `r `.\nI used this in the previous section for automatically writing the date.\n\nmy_name &lt;- \"David\"\n\nThen “my name is `r my_name`” will result in “my name is David”.\nFor a more realistic example, you might calculate the \\(p\\)-value from a linear regression, then write this \\(p\\)-value in the paragraph of a report."
+  },
+  {
+    "objectID": "01_r/01_quarto.html#getting-statrted",
+    "href": "01_r/01_quarto.html#getting-statrted",
+    "title": "Introduction to Quarto",
+    "section": "",
+    "text": "Install Quarto via: https://quarto.org/docs/get-started/\nTo make PDF files, you will need to install \\(\\LaTeX\\) if you don’t have it already. To install it, type in R:\n\ninstall.packages(\"tinytex\")\ntinytex::install_tinytex()\n\nIf you get an error while trying to install tinytex, try manually installing  instead:\n\nFor Windows users, go to http://miktex.org/download\nFor OS users, go to https://tug.org/mactex/\nFor Linux users, go to https://www.tug.org/texlive/"
+  },
+  {
+    "objectID": "01_r/01_quarto.html#playing-with-quarto",
+    "href": "01_r/01_quarto.html#playing-with-quarto",
+    "title": "Introduction to Quarto",
+    "section": "",
+    "text": "Open up a new Quarto file:\n\n \n\nChoose the options for the type of output you want\n\n \n\nYou should now have a rudimentary Quarto file.\nSave a copy of this file in your “analysis” folder in the “week1” project.\nQuarto contains three things\n\nA YAML (Yet Another Markup Language) header that controls options for the Quarto document. These are surrounded by ---.\nCode chunks — bits of R code that that are surrounded by ```{r} and ```. Only valid R code should go in here.\nPlain text that contains simple formatting options.\n\nAll of these are are displayed in the default Quarto file. You can compile this file by clicking the “Render” button at the top of the screen or by typing CONTROL + SHIFT + K. Do this now.\n\n\n\n\nHere is Hadley’s brief intro to formatting text in Quarto:\n\n\nText formatting \n------------------------------------------------------------\n\n*italic*  or _italic_\n**bold**   __bold__\n`code`\nsuperscript^2^ and subscript~2~\n\nHeadings\n------------------------------------------------------------\n\n# 1st Level Header\n\n## 2nd Level Header\n\n### 3rd Level Header\n\nLists\n------------------------------------------------------------\n\n*   Bulleted list item 1\n\n*   Item 2\n\n    * Item 2a\n\n    * Item 2b\n\n1.  Numbered list item 1\n\n1.  Item 2. The numbers are incremented automatically in the output.\n\nLinks and images\n------------------------------------------------------------\n\n&lt;http://example.com&gt;\n\n[linked phrase](http://example.com)\n\n![optional caption text](path/to/img.png)\n\nTables \n------------------------------------------------------------\n\nFirst Header  | Second Header\n------------- | -------------\nContent Cell  | Content Cell\nContent Cell  | Content Cell\n\n\n\n\n\n\n\nYou can insert new code-chunks using CONTROL + ALT + I (or using the “Insert” button at the top of RStudio).\nYou write all R code in chunks. You can send the current line of R code (the line where the cursor is) using CONTROL + ENTER (or the “Run” button at the top of RStudio).\nYou can run all of the code in a chunk using CONTROL + ALT + C (or using the “Run” button at the top of RStudio).\nYou can run all of the code in the next chunk using CONTROL + ALT + N (or using the “Run” button at the top of RStudio).\n\n\n\n\n\nMy typical YAML header will looks like this\n\n\n---\ntitle: \"Week 1 Worksheet: Installing R, Rmarkdown, Rbasics\"\nauthor: \"David Gerard\"\ndate: \"`r Sys.Date()`\"\nformat: pdf\nurlcolor: \"blue\"\n---\n\n\nAll of those settings are fairly self-explanatory.\nThe `r Sys.Date()` will insert the current date.\n\n\n\n\n\nSometimes, you want to write the output of some R code inline (rather than as the output of some chunk). You can do this by placing code within `r `.\nI used this in the previous section for automatically writing the date.\n\nmy_name &lt;- \"David\"\n\nThen “my name is `r my_name`” will result in “my name is David”.\nFor a more realistic example, you might calculate the \\(p\\)-value from a linear regression, then write this \\(p\\)-value in the paragraph of a report."
+  },
+  {
+    "objectID": "01_r/01_ggplot.html",
+    "href": "01_r/01_ggplot.html",
+    "title": "R Graphics with {ggplot2}",
+    "section": "",
+    "text": "Basic plotting in R using the {ggplot2} package."
+  },
+  {
+    "objectID": "01_r/01_ggplot.html#continuous",
+    "href": "01_r/01_ggplot.html#continuous",
+    "title": "R Graphics with {ggplot2}",
+    "section": "Continuous",
+    "text": "Continuous\n\nHistogram:\n\nVariable should be on the \\(x\\)-axis.\nUse the geom_histogram() function.\n\n\nggplot(data = mpg, mapping = aes(x = hwy)) +\n  geom_histogram()\n\n\n\n\n\n\n\n\nMake the bin lines black and the fill white, and change the number of bins.\n\nggplot(data = mpg, mapping = aes(x = hwy)) +\n  geom_histogram(bins = 10, color = \"black\", fill = \"white\")\n\n\n\n\n\n\n\n\nExercise: Load in the estate data (see here for a description) and make a histogram of price with 20 bins. Make the bins red."
+  },
+  {
+    "objectID": "01_r/01_ggplot.html#discrete",
+    "href": "01_r/01_ggplot.html#discrete",
+    "title": "R Graphics with {ggplot2}",
+    "section": "Discrete",
+    "text": "Discrete\n\nBarplot:\n\nPut the variable on the \\(x\\)-axis.\nUse geom_bar().\n\n\nggplot(data = mpg, mapping = aes(x = drv)) +\n  geom_bar()\n\n\n\n\n\n\n\n\nExercise: What variables from the estate data are appropriately plotted using a bar plot? Plot them."
+  },
+  {
+    "objectID": "01_r/01_ggplot.html#continuous-x-continuous-y",
+    "href": "01_r/01_ggplot.html#continuous-x-continuous-y",
+    "title": "R Graphics with {ggplot2}",
+    "section": "Continuous X, Continuous Y",
+    "text": "Continuous X, Continuous Y\n\nScatterplot:\n\nSay what variables should be on the \\(x\\)- and \\(y\\)-axes.\nUse geom_point().\n\n\nggplot(data = mpg, mapping = aes(x = cty, y = hwy)) +\n  geom_point()\n\n\n\n\n\n\n\n\nJitter points to account for overlaying points.\n\nUse geom_jitter() instead of geom_point().\n\n\nggplot(data = mpg, mapping = aes(x = cty, y = hwy)) +\n  geom_jitter()\n\n\n\n\n\n\n\n\nAdd a Loess Smoother by adding geom_smooth().\n\nggplot(data = mpg, mapping = aes(x = cty, y = hwy)) +\n  geom_point() +\n  geom_smooth(se = FALSE)\n\n\n\n\n\n\n\n\nExercise: Using the estate data, make a scatterplot of number of bedrooms versus number of bathrooms. Adjust for any overplotting."
+  },
+  {
+    "objectID": "01_r/01_ggplot.html#discrete-x-continuous-y",
+    "href": "01_r/01_ggplot.html#discrete-x-continuous-y",
+    "title": "R Graphics with {ggplot2}",
+    "section": "Discrete X, Continuous Y",
+    "text": "Discrete X, Continuous Y\n\nBoxplot\n\nPlace one variable on \\(x\\)-axis and other on \\(y\\)-axis.\nTypically, but not always, continuous goes on \\(y\\)-axis.\nUse geom_boxplot().\n\n\nggplot(data = mpg, mapping = aes(x = class, y = hwy)) +\n  geom_boxplot()\n\n\n\n\n\n\n\n\nExercise: Using the estate data, plot sales price versus style. (hint: you need to first convert style to a factor using as.factor())"
+  },
+  {
+    "objectID": "01_r/01_figures/formatting.html",
+    "href": "01_r/01_figures/formatting.html",
+    "title": "1st Level Header",
+    "section": "",
+    "text": "italic or italic bold bold code superscript2 and subscript2"
+  },
+  {
+    "objectID": "01_r/01_figures/formatting.html#text-formatting",
+    "href": "01_r/01_figures/formatting.html#text-formatting",
+    "title": "1st Level Header",
+    "section": "",
+    "text": "italic or italic bold bold code superscript2 and subscript2"
+  },
+  {
+    "objectID": "01_r/01_figures/formatting.html#headings",
+    "href": "01_r/01_figures/formatting.html#headings",
+    "title": "1st Level Header",
+    "section": "Headings",
+    "text": "Headings"
+  },
+  {
+    "objectID": "01_r/01_figures/formatting.html#nd-level-header",
+    "href": "01_r/01_figures/formatting.html#nd-level-header",
+    "title": "1st Level Header",
+    "section": "2nd Level Header",
+    "text": "2nd Level Header\n\n3rd Level Header"
+  },
+  {
+    "objectID": "01_r/01_figures/formatting.html#lists",
+    "href": "01_r/01_figures/formatting.html#lists",
+    "title": "1st Level Header",
+    "section": "Lists",
+    "text": "Lists\n\nBulleted list item 1\nItem 2\n\nItem 2a\nItem 2b\n\n\n\nNumbered list item 1\nItem 2. The numbers are incremented automatically in the output."
+  },
+  {
+    "objectID": "01_r/01_figures/formatting.html#links-and-images",
+    "href": "01_r/01_figures/formatting.html#links-and-images",
+    "title": "1st Level Header",
+    "section": "Links and images",
+    "text": "Links and images\nhttp://example.com\nlinked phrase\n\n\n\noptional caption text"
+  },
+  {
+    "objectID": "01_r/01_figures/formatting.html#tables",
+    "href": "01_r/01_figures/formatting.html#tables",
+    "title": "1st Level Header",
+    "section": "Tables",
+    "text": "Tables\n\n\n\nFirst Header\nSecond Header\n\n\n\n\nContent Cell\nContent Cell\n\n\nContent Cell\nContent Cell"
+  }
+]
