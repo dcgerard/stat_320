@@ -9,7 +9,8 @@ Unless otherwise noted, all data are from @rosner2015fundamentals, downloaded fr
 # betacar
 
 - [betacar.csv](./data/betacar.csv)
-  - `Prepar`: Preparation, possible values: `SOL`, `ROCHE`, `BASF-30`, `BASF-60`.
+  - `Prepar`: Preparation.
+    - Possible values: `SOL`, `ROCHE`, `BASF-30`, `BASF-60`.
   - `Id`: Subject #
   - `Base1lvl`: 1st Baseline Level
   - `Base2lvl`: 2nd Baseline Level
@@ -27,8 +28,10 @@ Unless otherwise noted, all data are from @rosner2015fundamentals, downloaded fr
 - [blood.csv](./data/blood.csv)
   - `Id`: ID
   - `matchid`: Matched ID
-  - `case`: Case/control. Possible values: `case`, `control`.
-  - `curpmh`: Current PMH use. Possible values: `yes`, `no`.
+  - `case`: Case/control. 
+    - Possible values: `case`, `control`.
+  - `curpmh`: Current PMH use. 
+    - Possible values: `yes`, `no`.
   - `ageblood`: Age at blood draw
   - `estradol`: Estradiol
   - `estrone`: Estrone
@@ -40,7 +43,8 @@ Unless otherwise noted, all data are from @rosner2015fundamentals, downloaded fr
 - [boneden.csv](./data/boneden.csv)
   - `ID`: ID
   - `Age`:  Age (yrs)
-  - `zyg`: Possible values: `mz`, `dz`
+  - `zyg`: Twin type.
+    - Possible values: `mz`, `dz`
   - Twin 1  Lighter Smoking Twin
     - `ht1`: Height (cm)
     - `wt1`: Weight (kg)
@@ -48,7 +52,8 @@ Unless otherwise noted, all data are from @rosner2015fundamentals, downloaded fr
     - `cof1`: Coffee  (cups/week)
     - `alc1`: Alcohol  (drinks/week)
     - `cur1`: Current Smoking (cigarettes/day)
-    - `men1`: Menopause Status. Possible values: `pre`, `post`, `unknown`
+    - `men1`: Menopause Status. 
+      - Possible values: `pre`, `post`, `unknown`
     - `pyr1`: Pack-years smoking
     - `ls1`: Lumbar spine (g/cm$^2$)
     - `fn1`: Femoral neck (g/cm$^2$)
@@ -60,7 +65,8 @@ Unless otherwise noted, all data are from @rosner2015fundamentals, downloaded fr
     - `cof2`: Coffee  (cups/week)
     - `alc2`: Alcohol  (drinks/week)
     - `cur2`: Current Smoking (cigarettes/day)
-    - `men2`: Menopause Status. Possible values: `pre`, `post`, `unknown`
+    - `men2`: Menopause Status. 
+      - Possible values: `pre`, `post`, `unknown`
     - `pyr2`: Pack-years smoking
     - `ls2`: Lumbar spine (g/cm$^2$)
     - `fn2`: Femoral neck (g/cm$^2$)
@@ -70,7 +76,8 @@ Unless otherwise noted, all data are from @rosner2015fundamentals, downloaded fr
 
 - [botox.csv](./data/botox.csv)
   - `ID`: ID
-  - `group`: Possible values: `TL`, `Placebo`, `Botox`
+  - `group`: 
+    - Possible values: `TL`, `Placebo`, `Botox`
   - `side`: left (`L`), middle (`M`), or right (`R`).
   - `gender`: `male` or `female`
   - `age`: in years
@@ -98,22 +105,28 @@ Unless otherwise noted, all data are from @rosner2015fundamentals, downloaded fr
 
 - [breast.csv](./data/breast.csv)
   - `Id`: ID
-  - `case`: Possible values: `case`,`control`
+  - `case`: Treatment
+    - Possible values: `case`,`control`
   - `age`: age
   - `agemenar`: age at menarche
   - `agemenop`: age at menopause
   - `afb`: age at first birth  98=nullip
   - `parity`: parity
-  - `bbd`: Benign Breast disease. Possible values: `yes`, `no`
-  - `famhx`: family history breast cancer. Possible values: `yes`, `no`
+  - `bbd`: Benign Breast disease. 
+    - Possible values: `yes`, `no`
+  - `famhx`: family history breast cancer. 
+    - Possible values: `yes`, `no`
   - `bmi`: BMI (kg/m**2)
   - `hgt`: Height (inches)
   - `alcohol`: Alcohol use (grams/day)
-  - `pmh`: PMH status. Possible values: `never user`, `current user`
+  - `pmh`: PMH status. 
+    - Possible values: `never user`, `current user`
   - `dur3`: Duration of Estrogen use  (months)
   - `dur4`: Duration of Estrogen + progesterone use  (months)
-  - `csmk`: Current Smoker. Possible values: `yes`, `no`
-  - `psmk`: Past smoker. Possible values: `yes`, `no`
+  - `csmk`: Current Smoker. 
+    - Possible values: `yes`, `no`
+  - `psmk`: Past smoker. 
+    - Possible values: `yes`, `no`
   - `foluptm`: Months of follow up. Note: Some subjects provided no follow up after the 1990 questionnaire and `foluptm` = 0 for these people
 
 # cholesterol
@@ -124,7 +137,8 @@ Unless otherwise noted, all data are from @rosner2015fundamentals, downloaded fr
 
 - [corneal.csv](./data/corneal.csv)
   - `id`: ID
-  - `tr`: Treatment. Possible values: `M`, `G`, `P`
+  - `tr`: Treatment. 
+    - Possible values: `M`, `G`, `P`
   - `c1`: Central  visit 1
   - `s1`: Superior visit 1
   - `i1`: Inferior Visit 1
@@ -158,8 +172,10 @@ Unless otherwise noted, all data are from @rosner2015fundamentals, downloaded fr
 - [ear.csv](./data/ear.csv)
  - `Id`: ID
  - `Clear`: Clearance by 14 days, 1=yes/0=no
- - `Antibo`: Antibiotic. Possible values: `CEF`, `AMO`
- - `Age`: Age. Possible values: `<2` yrs, `2-5` yrs, `6+` yrs.
+ - `Antibo`: Antibiotic. 
+  - Possible values: `CEF`, `AMO`
+ - `Age`: Age. 
+  - Possible values: `<2` yrs, `2-5` yrs, `6+` yrs.
  - `Ear`: Ear,
    - `1` = 1st ear
    - `2` = 2nd ear
@@ -170,7 +186,8 @@ Unless otherwise noted, all data are from @rosner2015fundamentals, downloaded fr
   - `Name`: Study name
   - `Id`: Study Number
   - `Endpnt`: Endpoint, `1` = efficacy
-  - `Antibio`: Antibiotic. Possible values: `Amikacin`, `Gentamicin`, `Netilmicin`, `Sisomycin`, `Tobramycin`.
+  - `Antibio`: Antibiotic. 
+    - Possible values: `Amikacin`, `Gentamicin`, `Netilmicin`, `Sisomycin`, `Tobramycin`.
   - `Samp_sz`: Sample Size
   - `Cured`: Number Cured
 
@@ -189,11 +206,13 @@ Unless otherwise noted, all data are from @rosner2015fundamentals, downloaded fr
 - [estradl.csv](./data/estradl.csv)
   - `Id`: Identification number
   - `Estradl`: Estradiol
-  - `Ethnic`: Ethnicity. Possible values: `African-American`, `Caucasian`
+  - `Ethnic`: Ethnicity. 
+    - Possible values: `African-American`, `Caucasian`
   - `Entage`: Age
   - `Numchild`: Parity, number of children
   - `Agefbo`: Age at 1st birth (=0 if numchild=0)
-  - `Anykids`: any children. Possible values: `yes`, `no`.
+  - `Anykids`: any children. 
+    - Possible values: `yes`, `no`.
   - `Agemenar`: age at menarche
   - `BMI`: Body Mass Index
   - `WHR`: waist-hip ratio
@@ -202,9 +221,11 @@ Unless otherwise noted, all data are from @rosner2015fundamentals, downloaded fr
 
 - [estrogen.csv](./data/estrogen.csv)
   - `Id`: ID
-  - `std_typ`: STUDY TYPE. Possible values: `0.625MG VS PLACEBO`, `1.25MG VS PLACEBO`, `1.25MG VS 0.625MG`
+  - `std_typ`: STUDY TYPE. 
+    - Possible values: `0.625MG VS PLACEBO`, `1.25MG VS PLACEBO`, `1.25MG VS 0.625MG`
   - `period`: PERIOD
-  - `trtgrp`: TREATMENT. Possible values: `PLACEBO`, `0.625MG`, `1.25MG`
+  - `trtgrp`: TREATMENT. 
+    - Possible values: `PLACEBO`, `0.625MG`, `1.25MG`
   - `sysd1r1`: SYSTOLIC BP DAY 1 READING 1
   - `diasd1r1`: DIASTOLIC BP DAY 1 READING 1
   - `sysd1r2`: SYSTOLIC BP DAY 1 READING 2
@@ -231,16 +252,20 @@ Unless otherwise noted, all data are from @rosner2015fundamentals, downloaded fr
   - `Age`: Age (yrs)
   - `FEV`: FEV (liters)
   - `Hgt`: Height (inches)
-  - `Sex`: Sex. Possible values: `female`, `male`
-  - `Smoke`: Smoking Status. Possible values: `non-current`, `current smoker`.
+  - `Sex`: Sex. 
+    - Possible values: `female`, `male`
+  - `Smoke`: Smoking Status. 
+    - Possible values: `non-current`, `current smoker`.
 
 # field
 
 - [field.csv](./data/field.csv)
   - `id`: ID
-  - `group`: group. Possible values: `RHO`, `RPGR`
+  - `group`: group. 
+    - Possible values: `RHO`, `RPGR`
   - `age`: age at visit  (years)
-  - `gender`: gender. Note: all RPGR individuals have to be male. Possible values: `male`, `female`.
+  - `gender`: gender. Note: all RPGR individuals have to be male. 
+    - Possible values: `male`, `female`.
   - `dtvisit`: date of visit (YYYY-MM-DD)
   - `folowup`: time from 1st visit in years
   - `totfldod`: total field area right eye (OD) in degrees
@@ -279,7 +304,8 @@ Unless otherwise noted, all data are from @rosner2015fundamentals, downloaded fr
   - `Bilphpt`: Biliary pH-post
   - `Pansecpt`: Pancreatic secretion-post
   - `Panphpt`: Pancreatic pH-post
-  - `Hormone`: Hormone. Possible values: `SAL`, `APP`, `CCK`, `SEC`, `VIP`.
+  - `Hormone`: Hormone. 
+    - Possible values: `SAL`, `APP`, `CCK`, `SEC`, `VIP`.
 
 # hospital
 
@@ -287,12 +313,16 @@ Unless otherwise noted, all data are from @rosner2015fundamentals, downloaded fr
   - `Id`: id no.
   - `Dur_stay`: Duration of hospital stay
   - `Age`: Age
-  - `Sex`: Sex. Possible values: `male`, `female`
+  - `Sex`: Sex. 
+    - Possible values: `male`, `female`
   - `Temp`: First temperature following admission
   - `WBC`: First WBC(x1000) following admission
-  - `Antibio`: Received antibiotic. Possible values: `yes`, `no`
-  - `Bact_cul`: Received bacterial culture. Possible values: `yes`, `no`
-  - `Service`: Service. Possible values: `med`, `surg`
+  - `Antibio`: Received antibiotic. 
+    - Possible values: `yes`, `no`
+  - `Bact_cul`: Received bacterial culture. 
+    - Possible values: `yes`, `no`
+  - `Service`: Service. 
+    - Possible values: `med`, `surg`
 
 # infantbp
 
@@ -328,7 +358,8 @@ Unless otherwise noted, all data are from @rosner2015fundamentals, downloaded fr
     - `1-2.5` MILES
     - `2.5-4.1` MILES
   - `ageyrs`: AGE in years
-  - `sex`: SEX. Possible values: `male`, `female`
+  - `sex`: SEX. 
+    - Possible values: `male`, `female`
   - IQ TEST RESULTS
     - `iqv_inf`: INF - INFORMATION SUBTEST IN WISC AND WPPSI
     - `iqv_comp`: COMP - COMPREHENSION SUBTEST IN WISC AND WPPSI
@@ -344,22 +375,30 @@ Unless otherwise noted, all data are from @rosner2015fundamentals, downloaded fr
     - `iqv`: IQV - VERBAL IQ
     - `iqp`: IQP - PERFORMANCE IQ
     - `iqf`: IQF - FULL SCALE IQ (NOT SUM OR AVERAGE OF IQV D IQP)
-    - `iq_type`: TYPE OF IQ TEST (WISC USUALLY GIVEN TO CHILDREN GE 5 YRS 1 MONTH OF AGE WPPSI USUALLY GIVEN TO CHILDREN LE 5YRS OF AGE). Possible values: `WISC`, `WPPSI`
+    - `iq_type`: TYPE OF IQ TEST (WISC USUALLY GIVEN TO CHILDREN GE 5 YRS 1 MONTH OF AGE WPPSI USUALLY GIVEN TO CHILDREN LE 5YRS OF AGE). 
+      - Possible values: `WISC`, `WPPSI`
     - `lead_grp`: GROUP - BLOOD LEAD LEVEL GROUP
       - `1` = BLOOD LEAD LEVELS BELOW 40 MICROGRAMS/100ML IN BOTH 1972 & 1973 (control group),
       - `2` = BLOOD LEAD LEVELS GREATER THAN OR EQUAL TO 40 MICROGRAMS/100ML IN BOTH 72 & 73 OR A LEVEL GREATER THAN OR EQUAL TO 40 IN 73 ALONE (3 CASES ONLY) (currently exposed Group),
       - `3` = BLOOD LEAD LEVELS GREATER THAN OR EQUAL TO 40 MICROGRAMS/100ML IN 72 AND LESS THAN 40 IN 73 (previously exposed group)
-    - `Group`: group. Possible values: `control`, `exposed`
+    - `Group`: group. 
+      - Possible values: `control`, `exposed`
     - `ld72`: LD72 - BLOOD LEAD VALUES (MICROGRAMS/100ML) IN72
     - `ld73`: LD73 - BLOOD LEAD VALUES (MICROGRAMS/100ML) IN 73
-    - `fst2yrs`: FST2YRS - DID CHILD LIVE FOR 1ST 2 YRS WITHIN 1 MILE OF SMELTER. Possible values: `yes`, `no`.
+    - `fst2yrs`: FST2YRS - DID CHILD LIVE FOR 1ST 2 YRS WITHIN 1 MILE OF SMELTER. 
+      - Possible values: `yes`, `no`.
     - `totyrs`: TOTYRS - TOTAL NUMBER OF YEARS SPENT WITHIN 4.1 MILES OF SMELTER
   - SYMPTOM DATA (AS REPORTED BY PARENTS)
-    - `pica`: PICA. Possible values: `yes`, `no`.
-    - `colic`: COLIC. Possible values: `yes`, `no`.
-    - `clumsi`: CLUMSINESS. Possible values: `yes`, `no`.
-    - `irrit`: IRRITABILITY. Possible values: `yes`, `no`.
-    - `convul`: CONVULSIONS. Possible values: `yes`, `no`.
+    - `pica`: PICA. 
+      - Possible values: `yes`, `no`.
+    - `colic`: COLIC. 
+      - Possible values: `yes`, `no`.
+    - `clumsi`: CLUMSINESS. 
+      - Possible values: `yes`, `no`.
+    - `irrit`: IRRITABILITY. 
+      - Possible values: `yes`, `no`.
+    - `convul`: CONVULSIONS. 
+      - Possible values: `yes`, `no`.
   - CONTAIN NEUROLOGICAL TEST DATA
     - `_2plat_r`: # OF TAPS FOR RIGHT HAND IN THE 2-PLATE TAPPING TEST  (#TAPS IN ONE 10 SECOND TRIAL)
     - `_2plat_l`: # OF TAPS FOR LEFT HAND IN THE 2-PLATE TAPPING TEST (#TAPS IN ONE 10 SECOND TRIAL)
@@ -377,8 +416,10 @@ Unless otherwise noted, all data are from @rosner2015fundamentals, downloaded fr
 - [lmv.csv](./data/lmv.csv)
   - `ID`:	ID
   - `lvmht27`: Left ventricular mass – height corrected = Left Ventricular Mass/Height(m)$^{2.7}$, $g/m^{2.7}$
-  - `bpcat`: blood pressure category. Possible values: `normal`, `pre-hypertensive`, `hypertensive`.
-  - `gender`: gender. Possible values: `male`, `female`
+  - `bpcat`: blood pressure category. 
+    - Possible values: `normal`, `pre-hypertensive`, `hypertensive`.
+  - `gender`: gender. 
+    - Possible values: `male`, `female`
   - `age`: yrs
   - `BMI`: kg/m$^2$
 
@@ -386,29 +427,22 @@ Unless otherwise noted, all data are from @rosner2015fundamentals, downloaded fr
 
 - [mice.csv](./data/mice.csv)
   - `Id`: ID
-  - `Group`: GROUP
-    - 1 = RP
-    - 2 = NORMAL
-  - `Trtgrp`: TREATMENT GROUP
-    - A = LIGHT
-    - B = DIM
-    - C = DARK
+  - `Group`: GROUP. 
+    - Possible values: `RP`, `NORMAL`
+  - `Trtgrp`: TREATMENT GROUP. 
+    - Possible values: `LIGHT`, `DIM`, `DARK`.
   - `Age`: AGE (days)
-  - `B_amp`: B AMP  9999=missing
-  - `A_amp`: A AMP  9999=missing
+  - `B_amp`: B AMP
+  - `A_amp`: A AMP
 
 # nephro
 
 - [nephro.csv](./data/nephro.csv)
   - `name`: Study name
   - `id`: Study number
-  - `Endpnt`: Endpoint  2=nephrotoxicity
-  - `Antibio`: Antibiotic
-    - 1 = Amikacin
-    - 2 = Gentamicin
-    - 3 = Netilmicin
-    - 4 = Sisomycin
-    - 5 = Tobramycin
+  - `Endpnt`: Endpoint  `2` = nephrotoxicity
+  - `Antibio`: Antibiotic. 
+    - Possible values: `Amikacin`, `Gentamicin`, `Netilmicin`, `Sisomycin`, `Tobramycin`
   - `Samp_sz`: Sample size
   - `Side_eff`: Number with side effects
 
@@ -417,11 +451,10 @@ Unless otherwise noted, all data are from @rosner2015fundamentals, downloaded fr
 - [nifed.csv](./data/nifed.csv)
   - `Id`: ID
   - `trtgrp`: Treatment group,
-    - N = nifedipine
-    - P = placebo
+    - `N` = nifedipine
+    - `P` = placebo
   - `bashrtrt`: Baseline heart rate immediately prior to randomization (beats/min)
-  - `lv1hrtrt`: Level 1 heart rate, Highest heart rate and systolic blood pressure at baseline and each level of
-    therapy respectively (beats/min)
+  - `lv1hrtrt`: Level 1 heart rate, Highest heart rate and systolic blood pressure at baseline and each level of therapy respectively (beats/min)
   - `lv2hrtrt`: Level 2 heart rate (beats/min)
   - `lv3hrtrt`: Level 3 heart rate (beats/min)
   - `bassys`: Baseline systolic bp immediately prior to randomization (mm Hg)
@@ -429,7 +462,7 @@ Unless otherwise noted, all data are from @rosner2015fundamentals, downloaded fr
   - `lv2sys`: Level 2 systolic bp (mm Hg)
   - `lv3sys`: Level 3 systolic bp (mm Hg)
 
-Values of 999 indicates that either
+Missing values indicate that either
 (a) the patient withdrew from the study prior to entering this level of therapy
 (b) the patient achieved pain relief prior to reaching this level or therapy,
 (c) the patient encountered this level of therapy, but this particular piece of data was missing.
@@ -439,16 +472,10 @@ Values of 999 indicates that either
 - [oto.csv](./data/oto.csv)
   - `Name`: Study Name
   - `Id`: Study Number
-  - `Endpnt`: Endpoint
-    - 1 = efficacy
-    - 2 = nephrotoxicity
-    - 3 = ototoxicity
-  - `Antibio`: Antibiotic
-    - 1 = Amikacin
-    - 2 = Gentamicin
-    - 3 = Netilmicin
-    - 4 = Sisomycin
-    - 5 = Tobramycin
+  - `Endpnt`: Endpoint. 
+    - Possible values: `efficacy`, `nephrotoxicity`, `ototoxicity`.
+  - `Antibio`: Antibiotic. 
+    - Possible values: `Amikacin`, `Gentamicin`, `Netilmicin`, `Sisomycin`, `Tobramycin`.
   - `Samp_sz`: Sample Size
   - `Side_eff`: Number with side effect
 
@@ -456,12 +483,10 @@ Values of 999 indicates that either
 
 - [piriform.csv](./data/piriform.csv)
   - `ID`: ID
-  - `piriform`: Piriformis Syndrome
-    - 1 = Negative
-    - 2 = Positive
-  - `sex`: Sex
-    - 1 = Male
-    - 2 = Female
+  - `piriform`: Piriformis Syndrome. 
+    - Possible values: `Negative`, `Positive`
+  - `sex`: Sex. 
+    - Possible values: `male`, `female`
   - `age`: Age
   - `maxchg`: Max change between tibia and peroneal
 
@@ -482,13 +507,12 @@ Values of 999 indicates that either
 - [smoke.csv](./data/smoke.csv)
   - `ID`: ID number
   - `Age`: age
-  - `Gender`: Gender
-    - 1 = male
-    - 2 = female
+  - `Gender`: Gender. 
+    - Possible values: `male`, `female`
   - `Cig_day`: Cigarettes/day
-  - `CO`: Carbon monoxide (CO) (X 10) missing=999
-  - `Min_last`: Minutes elapsed since last cigarette missing=9999
-  - `LogCOadj`: Log CO Adj * (X 1000)  missing=9999. This variable represents adjusted carbon monoxide (CO) values. CO values were adjusted for minutes elapsed since last cigarette smoked using the formula Log 10 CO (Adjusted) = Log 10 CO - (-0.000638) X (Min - 80), where Min is the number of minutes elapsed since the last cigarette smoked.
+  - `CO`: Carbon monoxide (CO) (X 10)
+  - `Min_last`: Minutes elapsed since last cigarette
+  - `LogCOadj`: Log CO Adj * (X 1000). This variable represents adjusted carbon monoxide (CO) values. CO values were adjusted for minutes elapsed since last cigarette smoked using the formula Log 10 CO (Adjusted) = Log 10 CO - (-0.000638) X (Min - 80), where Min is the number of minutes elapsed since the last cigarette smoked.
   - `Day_abs`: Days abstinent  Those abstinent less than 1 day were given a value of zero.
 
 # swiss
@@ -496,17 +520,15 @@ Values of 999 indicates that either
 - [swiss.csv](./data/swiss.csv)
   - `ID`: ID
   - `age`: age (yrs)
-  - `group`: Group
-    - 1 = High NAPAP
-    - 2 = Low NAPAP
-    - 3 = control
-  - `creat_68`: Serum Creatinine 1968 (mg/dL) 9.99=missing
-  - `creat_69`: Serum Creatinine 1969 (mg/dL) 9.99=missing
-  - `creat_70`: Serum Creatinine 1970 (mg/dL) 9.99=missing
-  - `creat_71`: Serum Creatinine 1971 (mg/dL) 9.99=missing
-  - `creat_72`: Serum Creatinine 1972 (mg/dL) 9.99=missing
-  - `creat_75`: Serum Creatinine 1975 (mg/dL) 9.99=missing
-  - `creat_78`: Serum Creatinine 1978 (mg/dL) 9.99=missing
+  - `group`: Group. 
+    - Possible values: `High NAPAP`, `Low NAPAP`, `control`
+  - `creat_68`: Serum Creatinine 1968 (mg/dL)
+  - `creat_69`: Serum Creatinine 1969 (mg/dL)
+  - `creat_70`: Serum Creatinine 1970 (mg/dL)
+  - `creat_71`: Serum Creatinine 1971 (mg/dL)
+  - `creat_72`: Serum Creatinine 1972 (mg/dL)
+  - `creat_75`: Serum Creatinine 1975 (mg/dL)
+  - `creat_78`: Serum Creatinine 1978 (mg/dL)
 
 # tear
 
@@ -581,98 +603,53 @@ Values of 999 indicates that either
   - `Out_temp`: OUTSIDE TEMERATURE  Degrees Fahrenheit
   - `Room`: ROOM LOCATION
   - `In_temp`: INSIDE TEMPERATURE  Degrees Fahrenheit
-  - `Cor_fac`: CORRECTION FACTOR ADDED
-    - 1 = YES
-    - 0 = NO
-  - `Typ_wea`: TYPE OF WEATHER
-    - 1 = SUNNY
-    - 2 = PARTLY CLOUDY
-    - 3 = CLOUDY
-    - 4 = RAINY
-    - 5 = FOGGY
-    - 9 = MISSING
+  - `Cor_fac`: CORRECTION FACTOR ADDED. 
+    - Possible values: `yes`, `no`
+  - `Typ_wea`: TYPE OF WEATHER. 
+    - Possible values: `SUNNY`, `PARTLY CLOUDY`, `CLOUDY`, `RAINY`, `FOGGY`
 
 # tennis1
 
 - [tennis1.csv](./data/tennis1.csv)
   - `Id`: ID
-  - `Age`: AGE    99=MISSING
-  - `Sex`: SEX
-    - 1 = MALE
-    - 2 = FEMALE
-  - `Num_epis`: NUMBER OF EPISODES OF TENNIS ELBOW 9=MISSING
-  - `Typ_last`: TYPE OF RACQUET USED DURING LAST EPISODE
-    - 1 = CONVENTIONAL SIZE
-    - 2 = MID-SIZE
-    - 3 = OVER-SIZE
-    - 9 = MISSING
-  - `Wgt_last`: WEIGHT OF RACQUET USED DURING LAST EPISODE
-    - 1 = HEAVY
-    - 2 = MEDIUM
-    - 3 = LIGHT
-    - 4 = DON'T KNOW
-    - 9 = MISSING
-  - `Mat_last`: MATERIAL OF RACQUET USED DURING LAST EPISODE
-    - 1 = WOOD
-    - 2 = ALUMINUM
-    - 3 = FIBERGLASS AND COMPOSITE
-    - 4 = GRAPHITE
-    - 5 = STEEL
-    - 6 = COMPOSITE
-    - 7 = OTHER
-    - 9 = MISSING
-  - `Str_last`: STRING TYPE OF RACQUET USED DURING LAST EPISODE
-    - 1 = NYLON
-    - 2 = GUT
-    - 3 = DON'T KNOW
-    - 9 = MISSING
-  - `Typ_curr`: TYPE OF RACQUET USED CURRENTLY
-    - 1 = CONVENTIONAL SIZE
-    - 2 = MID-SIZE
-    - 3 = OVER-SIZE
-    - 9 = MISSING
-  - `Wgt_curr`: WEIGHT OF RACQUET USED CURRENTLY
-    - 1 = HEAVY
-    - 2 = MEDIUM
-    - 3 = LIGHT
-    - 4 = DON'T KNOW
-    - 9 = MISSING
-  - `Mat_curr`: MATERIAL OF RACQUET USED CURRENTLY
-    - 1 = WOOD
-    - 2 = ALUMINUM
-    - 3 = FIBERGLASS AND COMPOSITE
-    - 4 = GRAPHITE
-    - 5 = STEEL
-    - 6 = COMPOSITE
-    - 7 = OTHER
-    - 9 = MISSING
-  - `Str_curr`: STRING TYPE OF RACQUET USED CURRENTLY
-    - 1 = NYLON
-    - 2 = GUT
-    - 3 = DON'T KNOW
-    - 9 = MISSING
+  - `Age`: AGE
+  - `Sex`: SEX. 
+    - Possible values: `male`, `female`
+  - `Num_epis`: NUMBER OF EPISODES OF TENNIS ELBOW
+  - `Typ_last`: TYPE OF RACQUET USED DURING LAST EPISODE. 
+    - Possible values: `CONVENTIONAL SIZE`, `MID-SIZE`, `OVER-SIZE`
+  - `Wgt_last`: WEIGHT OF RACQUET USED DURING LAST EPISODE. 
+    - Possible values: `HEAVY`, `MEDIUM`, `LIGHT`, `DO NOT KNOW`
+  - `Mat_last`: MATERIAL OF RACQUET USED DURING LAST EPISODE. 
+    - Possible values: `WOOD`, `ALUMINUM`, `FIBERGLASS AND COMPOSITE`, `GRAPHITE`, `STEEL`, `COMPOSITE`, `OTHER`
+  - `Str_last`: STRING TYPE OF RACQUET USED DURING LAST EPISODE. 
+    - Possible values: `NYLON`, `GUT`, `DON'T KNOW`
+  - `Typ_curr`: TYPE OF RACQUET USED CURRENTLY. 
+    - Possible values: `CONVENTIONAL SIZE`, `MID-SIZE`, `OVER-SIZE`
+  - `Wgt_curr`: WEIGHT OF RACQUET USED CURRENTLY. 
+    - Possible values: `HEAVY`, `MEDIUM`, `LIGHT`, `DO NOT KNOW`
+  - `Mat_curr`: MATERIAL OF RACQUET USED CURRENTLY. 
+    - Possible values: `WOOD`, `ALUMINUM`, `FIBERGLASS AND COMPOSITE`, `GRAPHITE`, `STEEL`, `COMPOSITE`, `OTHER`
+  - `Str_curr`: STRING TYPE OF RACQUET USED CURRENTLY. 
+    - Possible values: `NYLON`, `GUT`, `DON'T KNOW`
 
 # tennis2
 
 - [tennis2.csv](./data/tennis2.csv)
   - `id`: ID
   - `age`: AGE
-  - `sex`: SEX
-    - 1 = MALE
-    - 2 = FEMALE
-    - 9 = MISSING
-  - `drg_ord`: DRUG ORDER
-    - 1 = MOTRIN-PLACEBO
-    - 2 = PLACEBO-MOTRIN
+  - `sex`: SEX. 
+    - Possible values: `male`, `female`
+  - `drg_ord`: DRUG ORDER. 
+    - Possible values: `MOTRIN-PLACEBO`, `PLACEBO-MOTRIN`
   - PERIOD 2 = PAIN SCORES AFTER THE FIRST ACTIVE DRUG PERIOD COMPARED WITH BASELINE
     - `painmx_2`: DURING STUDY PERIOD, PAIN DURING MAXIMUM ACTIVITY VS BAESLINE
-      - 1 = WORST
-      - 2 = UNCHANGED
-      - 3 = SLIGHTLY IMPROVED (25%)
-      - 4 = MODERATELY IMPROVED (50%)
-      - 5 = MOSTLY IMPROVED (75%)
-      - 6 = COMPLETELY IMPROVED
-      - 9 = MISSING
+      - `1` = WORST
+      - `2` = UNCHANGED
+      - `3` = SLIGHTLY IMPROVED (25%)
+      - `4` = MODERATELY IMPROVED (50%)
+      - `5` = MOSTLY IMPROVED (75%)
+      - `6` = COMPLETELY IMPROVED
     - `pain12_2`: WITHIN 12 HOURS FOLLOWING MAXIMAL ACTIVITY, COMPARED TO SAME PERIOD AT BASELINE  (SAME CODE AS `painmx_2`)
     - `painav_2`: DURING THE AVERAGE DAY OF STUDY PERIOD PAIN VS. BASELINE (SAME CODE AS `painmx_2`)
     - `painov_2`: OVERALL IMPRESSION OF DRUG EFFICACY VS. BASELINE (SAME CODE AS `painmx_2`)

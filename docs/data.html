@@ -183,6 +183,7 @@ window.Quarto = {
   <li><a href="#heart" id="toc-heart" class="nav-link" data-scroll-target="#heart">heart</a></li>
   <li><a href="#hormone" id="toc-hormone" class="nav-link" data-scroll-target="#hormone">hormone</a></li>
   <li><a href="#hospital" id="toc-hospital" class="nav-link" data-scroll-target="#hospital">hospital</a></li>
+  <li><a href="#infantbp" id="toc-infantbp" class="nav-link" data-scroll-target="#infantbp">infantbp</a></li>
   <li><a href="#lead" id="toc-lead" class="nav-link" data-scroll-target="#lead">lead</a></li>
   <li><a href="#lmv" id="toc-lmv" class="nav-link" data-scroll-target="#lmv">lmv</a></li>
   <li><a href="#mice" id="toc-mice" class="nav-link" data-scroll-target="#mice">mice</a></li>
@@ -231,20 +232,16 @@ window.Quarto = {
 <ul>
 <li><a href="./data/betacar.csv">betacar.csv</a>
 <ul>
-<li><code>Prepar</code>: Preparation
+<li><code>Prepar</code>: Preparation.
 <ul>
-<li>1 = SOL</li>
-<li>2 = ROCHE</li>
-<li>3 = BASF-30</li>
-<li>4 = BASF-60</li>
+<li>Possible values: <code>SOL</code>, <code>ROCHE</code>, <code>BASF-30</code>, <code>BASF-60</code>.</li>
 </ul></li>
 <li><code>Id</code>: Subject #</li>
 <li><code>Base1lvl</code>: 1st Baseline Level</li>
 <li><code>Base2lvl</code>: 2nd Baseline Level</li>
 <li><code>Wk6lvl</code>: Week 6 Level</li>
 <li><code>Wk8lvl</code>: Week 8 Level</li>
-<li><code>Wk10lvl</code>: Week 10 Level<br>
-</li>
+<li><code>Wk10lvl</code>: Week 10 Level</li>
 <li><code>Wk12lvl</code>: Week 12 Level</li>
 </ul></li>
 </ul>
@@ -262,21 +259,19 @@ window.Quarto = {
 <ul>
 <li><code>Id</code>: ID</li>
 <li><code>matchid</code>: Matched ID</li>
-<li><code>case</code>: Case/control
+<li><code>case</code>: Case/control.
 <ul>
-<li>1 = case</li>
-<li>0 = control</li>
+<li>Possible values: <code>case</code>, <code>control</code>.</li>
 </ul></li>
-<li><code>curpmh</code>: Current PMH use
+<li><code>curpmh</code>: Current PMH use.
 <ul>
-<li>1 = yes</li>
-<li>0 = no</li>
+<li>Possible values: <code>yes</code>, <code>no</code>.</li>
 </ul></li>
 <li><code>ageblood</code>: Age at blood draw</li>
 <li><code>estradol</code>: Estradiol</li>
-<li><code>estrone</code>: Estrone missing=999</li>
-<li><code>testost</code>: Testosterone missing=999</li>
-<li><code>prolactn</code>: Prolactin missing=99.99</li>
+<li><code>estrone</code>: Estrone</li>
+<li><code>testost</code>: Testosterone</li>
+<li><code>prolactn</code>: Prolactin</li>
 </ul></li>
 </ul>
 </section>
@@ -287,10 +282,9 @@ window.Quarto = {
 <ul>
 <li><code>ID</code>: ID</li>
 <li><code>Age</code>: Age (yrs)</li>
-<li><code>zyg</code>:
+<li><code>zyg</code>: Twin type.
 <ul>
-<li>1 = mz</li>
-<li>2 = dz</li>
+<li>Possible values: <code>mz</code>, <code>dz</code></li>
 </ul></li>
 <li>Twin 1 Lighter Smoking Twin
 <ul>
@@ -300,16 +294,14 @@ window.Quarto = {
 <li><code>cof1</code>: Coffee (cups/week)</li>
 <li><code>alc1</code>: Alcohol (drinks/week)</li>
 <li><code>cur1</code>: Current Smoking (cigarettes/day)</li>
-<li><code>men1</code>: Menopause Status
+<li><code>men1</code>: Menopause Status.
 <ul>
-<li>0 = pre</li>
-<li>1 = post</li>
-<li>2 = unknown hysterectomy</li>
+<li>Possible values: <code>pre</code>, <code>post</code>, <code>unknown</code></li>
 </ul></li>
 <li><code>pyr1</code>: Pack-years smoking</li>
-<li><code>ls1</code>: Lumbar spine (g/cm**2)</li>
-<li><code>fn1</code>: Femoral neck (g/cm**2)</li>
-<li><code>fs1</code>: Femoral shaft (g/cm**2)</li>
+<li><code>ls1</code>: Lumbar spine (g/cm<span class="math inline">\(^2\)</span>)</li>
+<li><code>fn1</code>: Femoral neck (g/cm<span class="math inline">\(^2\)</span>)</li>
+<li><code>fs1</code>: Femoral shaft (g/cm<span class="math inline">\(^2\)</span>)</li>
 </ul></li>
 <li>Twin 2 Heavier Smoking Twin
 <ul>
@@ -319,16 +311,14 @@ window.Quarto = {
 <li><code>cof2</code>: Coffee (cups/week)</li>
 <li><code>alc2</code>: Alcohol (drinks/week)</li>
 <li><code>cur2</code>: Current Smoking (cigarettes/day)</li>
-<li><code>men2</code>: Menopause Status
+<li><code>men2</code>: Menopause Status.
 <ul>
-<li>0 = pre</li>
-<li>1 = post</li>
-<li>2 = unknown hysterectomy</li>
+<li>Possible values: <code>pre</code>, <code>post</code>, <code>unknown</code></li>
 </ul></li>
 <li><code>pyr2</code>: Pack-years smoking</li>
-<li><code>ls2</code>: Lumbar spine (g/cm**2)</li>
-<li><code>fn2</code>: Femoral neck (g/cm**2)</li>
-<li><code>fs2</code>: Femoral shaft (g/cm**2)</li>
+<li><code>ls2</code>: Lumbar spine (g/cm<span class="math inline">\(^2\)</span>)</li>
+<li><code>fn2</code>: Femoral neck (g/cm<span class="math inline">\(^2\)</span>)</li>
+<li><code>fs2</code>: Femoral shaft (g/cm<span class="math inline">\(^2\)</span>)</li>
 </ul></li>
 </ul></li>
 </ul>
@@ -341,29 +331,30 @@ window.Quarto = {
 <li><code>ID</code>: ID</li>
 <li><code>group</code>:
 <ul>
-<li>1 = TL</li>
-<li>2 = Placebo</li>
-<li>3 = Botox</li>
+<li>Possible values: <code>TL</code>, <code>Placebo</code>, <code>Botox</code></li>
 </ul></li>
-<li><code>pain0</code>: pain score month 0 missing=999</li>
-<li><code>pain05</code>: pain score month 0.5 missing=999</li>
-<li><code>pain1</code>: pain score month 1 missing=999</li>
-<li><code>pain2</code>: pain score month 2 mising=999</li>
-<li><code>pain3</code>: pain score month 3 missing=999</li>
-<li><code>pain4</code>: pain score month 4 missing=999</li>
-<li><code>pain5</code>: pain score month 5 missing=999</li>
-<li><code>pain6</code>: pain score month 6 missing=999</li>
-<li><code>pain7</code>: pain score month 7 missing=999</li>
-<li><code>pain8</code>: pain score month 8 missing=999</li>
-<li><code>pain9</code>: pain score month 9 missing=999</li>
-<li><code>pain10</code>: pain score month 10 missing=999</li>
-<li><code>pain11</code>: pain score month 11 missing=999</li>
-<li><code>pain12</code>: pain score month 12 missing=999</li>
-<li><code>pain13</code>: pain score month 13 missing=999</li>
-<li><code>pain14</code>: pain score month 14 missing=999</li>
-<li><code>pain15</code>: pain score month 15 missing=999</li>
-<li><code>pain16</code>: pain score month 16 missing=999</li>
-<li><code>pain17</code>: pain score month 17 missing=999</li>
+<li><code>side</code>: left (<code>L</code>), middle (<code>M</code>), or right (<code>R</code>).</li>
+<li><code>gender</code>: <code>male</code> or <code>female</code></li>
+<li><code>age</code>: in years</li>
+<li><code>pain0</code>: pain score month 0</li>
+<li><code>pain05</code>: pain score month 0.5</li>
+<li><code>pain1</code>: pain score month 1</li>
+<li><code>pain2</code>: pain score month 2</li>
+<li><code>pain3</code>: pain score month 3</li>
+<li><code>pain4</code>: pain score month 4</li>
+<li><code>pain5</code>: pain score month 5</li>
+<li><code>pain6</code>: pain score month 6</li>
+<li><code>pain7</code>: pain score month 7</li>
+<li><code>pain8</code>: pain score month 8</li>
+<li><code>pain9</code>: pain score month 9</li>
+<li><code>pain10</code>: pain score month 10</li>
+<li><code>pain11</code>: pain score month 11</li>
+<li><code>pain12</code>: pain score month 12</li>
+<li><code>pain13</code>: pain score month 13</li>
+<li><code>pain14</code>: pain score month 14</li>
+<li><code>pain15</code>: pain score month 15</li>
+<li><code>pain16</code>: pain score month 16</li>
+<li><code>pain17</code>: pain score month 17</li>
 </ul></li>
 </ul>
 </section>
@@ -373,47 +364,41 @@ window.Quarto = {
 <li><a href="./data/breast.csv">breast.csv</a>
 <ul>
 <li><code>Id</code>: ID</li>
-<li><code>case</code>: case
+<li><code>case</code>: Treatment
 <ul>
-<li>1 = case</li>
-<li>0 = control</li>
+<li>Possible values: <code>case</code>,<code>control</code></li>
 </ul></li>
 <li><code>age</code>: age</li>
 <li><code>agemenar</code>: age at menarche</li>
 <li><code>agemenop</code>: age at menopause</li>
 <li><code>afb</code>: age at first birth 98=nullip</li>
 <li><code>parity</code>: parity</li>
-<li><code>bbd</code>: Benign Breast disease
+<li><code>bbd</code>: Benign Breast disease.
 <ul>
-<li>1 = yes</li>
-<li>0 = no</li>
+<li>Possible values: <code>yes</code>, <code>no</code></li>
 </ul></li>
-<li><code>famhx</code>: family history breast cancer
+<li><code>famhx</code>: family history breast cancer.
 <ul>
-<li>1 = yes</li>
-<li>0 = no</li>
+<li>Possible values: <code>yes</code>, <code>no</code></li>
 </ul></li>
 <li><code>bmi</code>: BMI (kg/m**2)</li>
 <li><code>hgt</code>: Height (inches)</li>
 <li><code>alcohol</code>: Alcohol use (grams/day)</li>
-<li><code>pmh</code>: PMH status
+<li><code>pmh</code>: PMH status.
 <ul>
-<li>2 = never user</li>
-<li>3 = current user</li>
+<li>Possible values: <code>never user</code>, <code>current user</code></li>
 </ul></li>
 <li><code>dur3</code>: Duration of Estrogen use (months)</li>
 <li><code>dur4</code>: Duration of Estrogen + progesterone use (months)</li>
-<li><code>csmk</code>: Current Smoker
+<li><code>csmk</code>: Current Smoker.
 <ul>
-<li>1 = yes</li>
-<li>0 = no</li>
+<li>Possible values: <code>yes</code>, <code>no</code></li>
 </ul></li>
-<li><code>psmk</code>: Past smoker
+<li><code>psmk</code>: Past smoker.
 <ul>
-<li>1 = yes</li>
-<li>0 = no</li>
+<li>Possible values: <code>yes</code>, <code>no</code></li>
 </ul></li>
-<li><code>foluptm</code>: Months of follow up Note: Some subjects provided no follow up after the 1990 questionnaire: foluptm=0 for these people</li>
+<li><code>foluptm</code>: Months of follow up. Note: Some subjects provided no follow up after the 1990 questionnaire and <code>foluptm</code> = 0 for these people</li>
 </ul></li>
 </ul>
 </section>
@@ -429,42 +414,25 @@ window.Quarto = {
 <li><a href="./data/corneal.csv">corneal.csv</a>
 <ul>
 <li><code>id</code>: ID</li>
-<li><code>tr</code>: Treatment
+<li><code>tr</code>: Treatment.
 <ul>
-<li>1 = M</li>
-<li>2 = G</li>
-<li>3 = P<br>
-</li>
+<li>Possible values: <code>M</code>, <code>G</code>, <code>P</code></li>
 </ul></li>
-<li><code>c1</code>: Central visit 1<br>
-</li>
-<li><code>s1</code>: Superior visit 1<br>
-</li>
-<li><code>i1</code>: Inferior Visit 1<br>
-</li>
-<li><code>t1</code>: Temporal visit 1<br>
-</li>
-<li><code>n1</code>: Nasal Visit 1<br>
-</li>
-<li><code>c2</code>: Central Visit 2(day 7)<br>
-</li>
-<li><code>s2</code>: Superior Visit 2<br>
-</li>
-<li><code>i2</code>: Inferior Visit 2<br>
-</li>
-<li><code>t2</code>: Temporal Visit 2<br>
-</li>
-<li><code>n2</code>: Nasal Visit 2<br>
-</li>
-<li><code>c3</code>: Central Visit 3(day 14) missing=99<br>
-</li>
-<li><code>s3</code>: Superior Visit 3 missing=99<br>
-</li>
-<li><code>i3</code>: Inferior Visit 3 missing=99<br>
-</li>
-<li><code>t3</code>: Temporal Visit 3 missing=99<br>
-</li>
-<li><code>n3</code>: Nasal Visit 3 missing=99</li>
+<li><code>c1</code>: Central visit 1</li>
+<li><code>s1</code>: Superior visit 1</li>
+<li><code>i1</code>: Inferior Visit 1</li>
+<li><code>t1</code>: Temporal visit 1</li>
+<li><code>n1</code>: Nasal Visit 1</li>
+<li><code>c2</code>: Central Visit 2(day 7)</li>
+<li><code>s2</code>: Superior Visit 2</li>
+<li><code>i2</code>: Inferior Visit 2</li>
+<li><code>t2</code>: Temporal Visit 2</li>
+<li><code>n2</code>: Nasal Visit 2</li>
+<li><code>c3</code>: Central Visit 3(day 14)</li>
+<li><code>s3</code>: Superior Visit 3</li>
+<li><code>i3</code>: Inferior Visit 3</li>
+<li><code>t3</code>: Temporal Visit 3</li>
+<li><code>n3</code>: Nasal Visit 3</li>
 </ul></li>
 </ul>
 </section>
@@ -477,12 +445,9 @@ window.Quarto = {
 <li><code>mon_a1c</code>: Month A1c</li>
 <li><code>day_a1c</code>: Day A1c</li>
 <li><code>yr_a1c</code>: Yr A1c</li>
-<li><code>age_yrs</code>: Age in years<br>
-</li>
-<li><code>gly_a1c</code>: Hemoglobin A1c<br>
-</li>
-<li><code>ht_cm</code>: Height in cm missing=999.9<br>
-</li>
+<li><code>age_yrs</code>: Age in years</li>
+<li><code>gly_a1c</code>: Hemoglobin A1c</li>
+<li><code>ht_cm</code>: Height in cm</li>
 <li><code>wt_kg</code>: Weight in kg</li>
 </ul></li>
 </ul>
@@ -493,21 +458,14 @@ window.Quarto = {
 <li><a href="./data/ear.csv">ear.csv</a></li>
 <li><code>Id</code>: ID</li>
 <li><code>Clear</code>: Clearance by 14 days, 1=yes/0=no</li>
-<li><code>Antibo</code>: Antibiotic,
-<ul>
-<li>1 = CEF</li>
-<li>2 = AMO</li>
-</ul></li>
-<li><code>Age</code>: Age,
-<ul>
-<li>1 = &lt;2 yrs</li>
-<li>2 = 2-5 yrs</li>
-<li>3 = 6+ yrs</li>
-</ul></li>
+<li><code>Antibo</code>: Antibiotic.</li>
+<li>Possible values: <code>CEF</code>, <code>AMO</code></li>
+<li><code>Age</code>: Age.</li>
+<li>Possible values: <code>&lt;2</code> yrs, <code>2-5</code> yrs, <code>6+</code> yrs.</li>
 <li><code>Ear</code>: Ear,
 <ul>
-<li>1 = 1st ear</li>
-<li>2 = 2nd ear</li>
+<li><code>1</code> = 1st ear</li>
+<li><code>2</code> = 2nd ear</li>
 </ul></li>
 </ul>
 </section>
@@ -518,15 +476,10 @@ window.Quarto = {
 <ul>
 <li><code>Name</code>: Study name</li>
 <li><code>Id</code>: Study Number</li>
-<li><code>Endpnt</code>: Endpoint 1=efficacy<br>
-</li>
-<li><code>Antibio</code>: Antibiotic
+<li><code>Endpnt</code>: Endpoint, <code>1</code> = efficacy</li>
+<li><code>Antibio</code>: Antibiotic.
 <ul>
-<li>1 = Amikacin</li>
-<li>2 = Gentamicin</li>
-<li>3 = Netilmicin</li>
-<li>4 = Sisomycin</li>
-<li>5 = Tobramycin</li>
+<li>Possible values: <code>Amikacin</code>, <code>Gentamicin</code>, <code>Netilmicin</code>, <code>Sisomycin</code>, <code>Tobramycin</code>.</li>
 </ul></li>
 <li><code>Samp_sz</code>: Sample Size</li>
 <li><code>Cured</code>: Number Cured</li>
@@ -554,21 +507,18 @@ window.Quarto = {
 <ul>
 <li><code>Id</code>: Identification number</li>
 <li><code>Estradl</code>: Estradiol</li>
-<li><code>Ethnic</code>: Ethnicity
+<li><code>Ethnic</code>: Ethnicity.
 <ul>
-<li>0 = African-American</li>
-<li>1 = Caucasian</li>
+<li>Possible values: <code>African-American</code>, <code>Caucasian</code></li>
 </ul></li>
 <li><code>Entage</code>: Age</li>
-<li><code>Numchild</code>: Parity, number of children 9=missing</li>
-<li><code>Agefbo</code>: Age at 1st birth (=0 if numchild=0) 99=missing</li>
-<li><code>Anykids</code>: any children
+<li><code>Numchild</code>: Parity, number of children</li>
+<li><code>Agefbo</code>: Age at 1st birth (=0 if numchild=0)</li>
+<li><code>Anykids</code>: any children.
 <ul>
-<li>1 = yes</li>
-<li>0 = no</li>
-<li>9 = missing</li>
+<li>Possible values: <code>yes</code>, <code>no</code>.</li>
 </ul></li>
-<li><code>Agemenar</code>: age at menarche 99=missing</li>
+<li><code>Agemenar</code>: age at menarche</li>
 <li><code>BMI</code>: Body Mass Index</li>
 <li><code>WHR</code>: waist-hip ratio</li>
 </ul></li>
@@ -580,26 +530,22 @@ window.Quarto = {
 <li><a href="./data/estrogen.csv">estrogen.csv</a>
 <ul>
 <li><code>Id</code>: ID</li>
-<li><code>std_typ</code>: STUDY TYPE
+<li><code>std_typ</code>: STUDY TYPE.
 <ul>
-<li>1 = 0.625MG VS PLACEBO</li>
-<li>2 = 1.25MG VS PLACEBO</li>
-<li>3 = 1.25MG VS 0.625MG</li>
+<li>Possible values: <code>0.625MG VS PLACEBO</code>, <code>1.25MG VS PLACEBO</code>, <code>1.25MG VS 0.625MG</code></li>
 </ul></li>
 <li><code>period</code>: PERIOD</li>
-<li><code>trtgrp</code>: TREATMENT
+<li><code>trtgrp</code>: TREATMENT.
 <ul>
-<li>1 = PLACEBO</li>
-<li>2 = 0.625MG</li>
-<li>3 = 1.25MG</li>
+<li>Possible values: <code>PLACEBO</code>, <code>0.625MG</code>, <code>1.25MG</code></li>
 </ul></li>
-<li><code>sysd1r1</code>: SYSTOLIC BP DAY 1 READING 1 MISSING=999</li>
-<li><code>diasd1r1</code>: DIASTOLIC BP DAY 1 READING 1 MISSING=999</li>
-<li><code>sysd1r2</code>: SYSTOLIC BP DAY 1 READING 2 MISSING=999</li>
-<li><code>diasd1r2</code>: DIASTOLIC BP DAY 1 READING 2 MISSING=999</li>
-<li><code>sysd1r3</code>: SYSTOLIC BP DAY 1 READING 3 MISSING=999</li>
-<li><code>diasd1r3</code>: DIASTOLIC BP DAY 1 READING 3 MISSING=999</li>
-<li><code>sysd2r1</code>: SYSTOLIC BP DAY 2 READING 1 MISSING=999</li>
+<li><code>sysd1r1</code>: SYSTOLIC BP DAY 1 READING 1</li>
+<li><code>diasd1r1</code>: DIASTOLIC BP DAY 1 READING 1</li>
+<li><code>sysd1r2</code>: SYSTOLIC BP DAY 1 READING 2</li>
+<li><code>diasd1r2</code>: DIASTOLIC BP DAY 1 READING 2</li>
+<li><code>sysd1r3</code>: SYSTOLIC BP DAY 1 READING 3</li>
+<li><code>diasd1r3</code>: DIASTOLIC BP DAY 1 READING 3</li>
+<li><code>sysd2r1</code>: SYSTOLIC BP DAY 2 READING 1</li>
 <li><code>diasd2r1</code>: DIASTOLIC BP DAY 2 READING 1</li>
 <li><code>sysd2r2</code>: SYSTOLIC BP DAY 2 READING 2</li>
 <li><code>diasd2r2</code>: DIASTOLIC BP DAY 2 READING 2</li>
@@ -623,15 +569,13 @@ window.Quarto = {
 <li><code>Age</code>: Age (yrs)</li>
 <li><code>FEV</code>: FEV (liters)</li>
 <li><code>Hgt</code>: Height (inches)</li>
-<li><code>Sex</code>: Sex
+<li><code>Sex</code>: Sex.
 <ul>
-<li>0 = female</li>
-<li>1 = male</li>
+<li>Possible values: <code>female</code>, <code>male</code></li>
 </ul></li>
-<li><code>Smoke</code>: Smoking Status
+<li><code>Smoke</code>: Smoking Status.
 <ul>
-<li>0 = non-current smoker</li>
-<li>1 = current smoker</li>
+<li>Possible values: <code>non-current</code>, <code>current smoker</code>.</li>
 </ul></li>
 </ul></li>
 </ul>
@@ -642,18 +586,16 @@ window.Quarto = {
 <li><a href="./data/field.csv">field.csv</a>
 <ul>
 <li><code>id</code>: ID</li>
-<li><code>group</code>: group
+<li><code>group</code>: group.
 <ul>
-<li>1 = RHO</li>
-<li>2 = RPGR</li>
+<li>Possible values: <code>RHO</code>, <code>RPGR</code></li>
 </ul></li>
 <li><code>age</code>: age at visit (years)</li>
-<li><code>gender</code>: gender. Note: all RPGR individuals have to be male
+<li><code>gender</code>: gender. Note: all RPGR individuals have to be male.
 <ul>
-<li>1 = male</li>
-<li>2 = female</li>
+<li>Possible values: <code>male</code>, <code>female</code>.</li>
 </ul></li>
-<li><code>dtvisit</code>: date of visit (month/day/year)</li>
+<li><code>dtvisit</code>: date of visit (YYYY-MM-DD)</li>
 <li><code>folowup</code>: time from 1st visit in years</li>
 <li><code>totfldod</code>: total field area right eye (OD) in degrees</li>
 <li><code>totfldos</code>: total field area left eye (OS) in degrees</li>
@@ -665,15 +607,15 @@ window.Quarto = {
 <ul>
 <li><a href="./data/heart.csv">heart.csv</a>
 <ul>
-<li><code>Diagnosis</code>: 1-2
+<li><code>Diagnosis</code>: Possible values:
 <ul>
-<li>Y1 = normal</li>
-<li>Y2 = atrial septal defect without pulmonary stenosis or pulmonary hypertension</li>
-<li>Y3 = ventricular septal defect with valvular pulmonary stenosis</li>
-<li>Y4=isolated pulmonary hypertension</li>
-<li>Y5=transposed great vessels</li>
-<li>Y6=ventricular septal defect without pulmonary hypertension</li>
-<li>Y7=ventricular septal defect with pulmonary hypertension</li>
+<li><code>Y1</code> = normal</li>
+<li><code>Y2</code> = atrial septal defect without pulmonary stenosis or pulmonary hypertension</li>
+<li><code>Y3</code> = ventricular septal defect with valvular pulmonary stenosis</li>
+<li><code>Y4</code> = isolated pulmonary hypertension</li>
+<li><code>Y5</code> = transposed great vessels</li>
+<li><code>Y6</code> = ventricular septal defect without pulmonary hypertension</li>
+<li><code>Y7</code> = ventricular septal defect with pulmonary hypertension</li>
 </ul></li>
 <li><code>Prevalence</code>: Prevalence</li>
 <li><code>X1</code>: age 1-20 years old</li>
@@ -692,29 +634,18 @@ window.Quarto = {
 <li><a href="./data/hormone.csv">hormone.csv</a>
 <ul>
 <li><code>ID</code>: ID</li>
-<li><code>Bilsecpr</code>: Biliary secretion-pre<br>
-</li>
-<li><code>Bilphpr</code>: Biliary pH-pre<br>
-</li>
-<li><code>Pansecpr</code>: Pancreatic secretion-pre<br>
-</li>
-<li><code>Panphpr</code>: Pancreatic pH-pre<br>
-</li>
+<li><code>Bilsecpr</code>: Biliary secretion-pre</li>
+<li><code>Bilphpr</code>: Biliary pH-pre</li>
+<li><code>Pansecpr</code>: Pancreatic secretion-pre</li>
+<li><code>Panphpr</code>: Pancreatic pH-pre</li>
 <li><code>Dose</code>: Dose</li>
-<li><code>Bilsecpt</code>: Biliary secretion-post<br>
-</li>
-<li><code>Bilphpt</code>: Biliary pH-post<br>
-</li>
-<li><code>Pansecpt</code>: Pancreatic secretion-post<br>
-</li>
+<li><code>Bilsecpt</code>: Biliary secretion-post</li>
+<li><code>Bilphpt</code>: Biliary pH-post</li>
+<li><code>Pansecpt</code>: Pancreatic secretion-post</li>
 <li><code>Panphpt</code>: Pancreatic pH-post</li>
-<li><code>Hormone</code>: Hormone
+<li><code>Hormone</code>: Hormone.
 <ul>
-<li>1 = SAL</li>
-<li>2 = APP</li>
-<li>3 = CCK</li>
-<li>4 = SEC</li>
-<li>5 = VIP</li>
+<li>Possible values: <code>SAL</code>, <code>APP</code>, <code>CCK</code>, <code>SEC</code>, <code>VIP</code>.</li>
 </ul></li>
 </ul></li>
 </ul>
@@ -727,38 +658,36 @@ window.Quarto = {
 <li><code>Id</code>: id no.</li>
 <li><code>Dur_stay</code>: Duration of hospital stay</li>
 <li><code>Age</code>: Age</li>
-<li><code>Sex</code>: Sex
+<li><code>Sex</code>: Sex.
 <ul>
-<li>1 = male</li>
-<li>2 = female</li>
+<li>Possible values: <code>male</code>, <code>female</code></li>
 </ul></li>
 <li><code>Temp</code>: First temperature following admission</li>
 <li><code>WBC</code>: First WBC(x1000) following admission</li>
-<li><code>Antibio</code>: Received antibiotic
+<li><code>Antibio</code>: Received antibiotic.
 <ul>
-<li>1 = yes</li>
-<li>2 = no</li>
+<li>Possible values: <code>yes</code>, <code>no</code></li>
 </ul></li>
-<li><code>Bact_cul</code>: Received bacterial culture
+<li><code>Bact_cul</code>: Received bacterial culture.
 <ul>
-<li>1 = yes</li>
-<li>2 = no</li>
+<li>Possible values: <code>yes</code>, <code>no</code></li>
 </ul></li>
-<li><code>Service</code>: Service
+<li><code>Service</code>: Service.
 <ul>
-<li>1 = med</li>
-<li>2 = surg.</li>
+<li>Possible values: <code>med</code>, <code>surg</code></li>
 </ul></li>
 </ul></li>
 </ul>
-<p>$infantbp</p>
+</section>
+<section id="infantbp" class="level1">
+<h1>infantbp</h1>
 <ul>
 <li><a href="./data/infantbp.csv">infantbp.csv</a>
 <ul>
 <li><code>ID</code>:ID -Salt Taste Variables
 <ul>
-<li><code>Mn_sbp</code>: Mean SBP 99.99=missing</li>
-<li><code>Mn_dbp</code>: Mean DBP 99.99=missing</li>
+<li><code>Mn_sbp</code>: Mean SBP</li>
+<li><code>Mn_dbp</code>: Mean DBP</li>
 <li><code>MSB1slt</code>: MSB-trial 1 water</li>
 <li><code>MSB2slt</code>: MSB-trial 2 water</li>
 <li><code>MSB3slt</code>: MSB-trial 3 0.1 molar salt + water</li>
@@ -778,7 +707,7 @@ window.Quarto = {
 <li><code>MSB4sug</code>: MSB-trial 4 15% sucrose + water</li>
 <li><code>MSB5sug</code>: MSB-trial 5 non-nutritive sucking</li>
 </ul></li>
-<li>For MSB data 999.99 is a missing value; 0 indicates the baby did not suck.</li>
+<li>For MSB, 0 indicates the baby did not suck.</li>
 </ul></li>
 </ul>
 </section>
@@ -788,17 +717,16 @@ window.Quarto = {
 <li><a href="./data/lead.csv">lead.csv</a>
 <ul>
 <li><code>id</code>: IDENTIFICATION NUMBER</li>
-<li><code>area</code>: AREA - RESIDENCE ON AUG’72,
+<li><code>area</code>: AREA - RESIDENCE ON AUG 1972. Possible values:
 <ul>
-<li>1 = 0-1 MILES FROM SMELTER</li>
-<li>2 = 1-2.5 MILES</li>
-<li>3 = 2.5-4.1 MILES</li>
+<li><code>0-1</code> MILES FROM SMELTER</li>
+<li><code>1-2.5</code> MILES</li>
+<li><code>2.5-4.1</code> MILES</li>
 </ul></li>
 <li><code>ageyrs</code>: AGE in years</li>
-<li><code>sex</code>: SEX
+<li><code>sex</code>: SEX.
 <ul>
-<li>1 = MALE</li>
-<li>2 = FEMALE</li>
+<li>Possible values: <code>male</code>, <code>female</code></li>
 </ul></li>
 <li>IQ TEST RESULTS
 <ul>
@@ -816,74 +744,62 @@ window.Quarto = {
 <li><code>iqv</code>: IQV - VERBAL IQ</li>
 <li><code>iqp</code>: IQP - PERFORMANCE IQ</li>
 <li><code>iqf</code>: IQF - FULL SCALE IQ (NOT SUM OR AVERAGE OF IQV D IQP)</li>
-<li><code>iq_type</code>: TYPE OF IQ TEST (WISC USUALLY GIVEN TO CHILDREN GE 5 YRS 1 MONTH OF AGE WPPSI USUALLY GIVEN TO CHILDREN LE 5YRS OF AGE)
+<li><code>iq_type</code>: TYPE OF IQ TEST (WISC USUALLY GIVEN TO CHILDREN GE 5 YRS 1 MONTH OF AGE WPPSI USUALLY GIVEN TO CHILDREN LE 5YRS OF AGE).
 <ul>
-<li>1 = WISC<br>
-</li>
-<li>2 = WPPSI</li>
+<li>Possible values: <code>WISC</code>, <code>WPPSI</code></li>
 </ul></li>
 <li><code>lead_grp</code>: GROUP - BLOOD LEAD LEVEL GROUP
 <ul>
-<li>1=BLOOD LEAD LEVELS BELOW 40 MICROGRAMS/100ML IN BOTH 1972 &amp; 1973 (control group),</li>
-<li>2=BLOOD LEAD LEVELS GREATER THAN OR EQUAL TO 40 MICROGRAMS/100ML IN BOTH 72 &amp; 73 OR A LEVEL GREATER THAN OR EQUAL TO 40 IN 73 ALONE (3 CASES ONLY) (currently exposed Group),</li>
-<li>3=BLOOD LEAD LEVELS GREATER THAN OR EQUAL TO 40 MICROGRAMS/100ML IN 72 AND LESS THAN 40 IN 73 (previously exposed group)</li>
+<li><code>1</code> = BLOOD LEAD LEVELS BELOW 40 MICROGRAMS/100ML IN BOTH 1972 &amp; 1973 (control group),</li>
+<li><code>2</code> = BLOOD LEAD LEVELS GREATER THAN OR EQUAL TO 40 MICROGRAMS/100ML IN BOTH 72 &amp; 73 OR A LEVEL GREATER THAN OR EQUAL TO 40 IN 73 ALONE (3 CASES ONLY) (currently exposed Group),</li>
+<li><code>3</code> = BLOOD LEAD LEVELS GREATER THAN OR EQUAL TO 40 MICROGRAMS/100ML IN 72 AND LESS THAN 40 IN 73 (previously exposed group)</li>
 </ul></li>
-<li><code>Group</code>: group
+<li><code>Group</code>: group.
 <ul>
-<li>1 = control group</li>
-<li>2 = exposed group</li>
+<li>Possible values: <code>control</code>, <code>exposed</code></li>
 </ul></li>
-<li><code>ld72</code>: LD72 - BLOOD LEAD VALUES (MICROGRAMS/100ML) IN72 MISSING=99</li>
+<li><code>ld72</code>: LD72 - BLOOD LEAD VALUES (MICROGRAMS/100ML) IN72</li>
 <li><code>ld73</code>: LD73 - BLOOD LEAD VALUES (MICROGRAMS/100ML) IN 73</li>
-<li><code>fst2yrs</code>: FST2YRS - DID CHILD LIVE FOR 1ST 2 YRS WITHIN 1 MILE OF SMELTER
+<li><code>fst2yrs</code>: FST2YRS - DID CHILD LIVE FOR 1ST 2 YRS WITHIN 1 MILE OF SMELTER.
 <ul>
-<li>1 = YES</li>
-<li>2 = NO</li>
+<li>Possible values: <code>yes</code>, <code>no</code>.</li>
 </ul></li>
 <li><code>totyrs</code>: TOTYRS - TOTAL NUMBER OF YEARS SPENT WITHIN 4.1 MILES OF SMELTER</li>
 </ul></li>
 <li>SYMPTOM DATA (AS REPORTED BY PARENTS)
 <ul>
-<li><code>pica</code>: PICA
+<li><code>pica</code>: PICA.
 <ul>
-<li>1 = YES</li>
-<li>2 = NO</li>
+<li>Possible values: <code>yes</code>, <code>no</code>.</li>
 </ul></li>
-<li><code>colic</code>: COLIC
+<li><code>colic</code>: COLIC.
 <ul>
-<li>1 = YES</li>
-<li>2 = NO</li>
+<li>Possible values: <code>yes</code>, <code>no</code>.</li>
 </ul></li>
-<li><code>clumsi</code>: CLUMSINESS
+<li><code>clumsi</code>: CLUMSINESS.
 <ul>
-<li>1 = YES<br>
-</li>
-<li>2 = NO</li>
+<li>Possible values: <code>yes</code>, <code>no</code>.</li>
 </ul></li>
-<li><code>irrit</code>: IRRITABILITY
+<li><code>irrit</code>: IRRITABILITY.
 <ul>
-<li>1 = YES<br>
-</li>
-<li>2 = NO</li>
+<li>Possible values: <code>yes</code>, <code>no</code>.</li>
 </ul></li>
-<li><code>convul</code>: CONVULSIONS
+<li><code>convul</code>: CONVULSIONS.
 <ul>
-<li>1 = YES<br>
-</li>
-<li>2 = NO</li>
+<li>Possible values: <code>yes</code>, <code>no</code>.</li>
 </ul></li>
 </ul></li>
 <li>CONTAIN NEUROLOGICAL TEST DATA
 <ul>
-<li><code>_2plat_r</code>: # OF TAPS FOR RIGHT HAND IN THE 2-PLATE TAPPING TEST (#TAPS IN ONE 10 SECOND TRIAL) MISSING=99</li>
-<li><code>_2plat_l</code>: # OF TAPS FOR LEFT HAND IN THE 2-PLATE TAPPING TEST (#TAPS IN ONE 10 SECOND TRIAL) MISSING=99</li>
-<li><code>visrea_r</code>: VISUAL REACTION TIME RIGHT HAND (MILLISECONDS) MISSING=99</li>
-<li><code>visrea_l</code>: VISUAL REATION TIME LEFT HAND (MILLISECONDS) MISSING=99</li>
-<li><code>audrea_r</code>: AUDITORY REACTION TIME RIGHT HAND (MILLISECONDS) MISSING=99</li>
-<li><code>audrea_l</code>: AUDITORY REACTION TIME LEFT HAND (MILLISECONDS) MISSING=99</li>
-<li><code>fwt_r</code>: FINGER-WRIST TAPPING TEST RIGHT HAND (# TAPS IN ONE 10 SECOND TRIAL) MISSING=99</li>
-<li><code>fwt_l</code>: FINGER-WRIST TAPPING TEST LEFT HAND (#TAPS IN ONE 10 SECOND TRIAL) MISSING=99</li>
-<li><code>hyperact</code>: WWPS - WERRY-WEISS-PETERS SCALE FOR HYPERACTIVITY 0=NO ACTIVITY . . . . 4=SEVERLY HYPERACTIVE (AS REPORTED BY PARENTS) MISSING=99</li>
+<li><code>_2plat_r</code>: # OF TAPS FOR RIGHT HAND IN THE 2-PLATE TAPPING TEST (#TAPS IN ONE 10 SECOND TRIAL)</li>
+<li><code>_2plat_l</code>: # OF TAPS FOR LEFT HAND IN THE 2-PLATE TAPPING TEST (#TAPS IN ONE 10 SECOND TRIAL)</li>
+<li><code>visrea_r</code>: VISUAL REACTION TIME RIGHT HAND (MILLISECONDS)</li>
+<li><code>visrea_l</code>: VISUAL REATION TIME LEFT HAND (MILLISECONDS)</li>
+<li><code>audrea_r</code>: AUDITORY REACTION TIME RIGHT HAND (MILLISECONDS)</li>
+<li><code>audrea_l</code>: AUDITORY REACTION TIME LEFT HAND (MILLISECONDS)</li>
+<li><code>fwt_r</code>: FINGER-WRIST TAPPING TEST RIGHT HAND (# TAPS IN ONE 10 SECOND TRIAL)</li>
+<li><code>fwt_l</code>: FINGER-WRIST TAPPING TEST LEFT HAND (#TAPS IN ONE 10 SECOND TRIAL)</li>
+<li><code>hyperact</code>: WWPS - WERRY-WEISS-PETERS SCALE FOR HYPERACTIVITY 0=NO ACTIVITY . . . . 4=SEVERLY HYPERACTIVE (AS REPORTED BY PARENTS)</li>
 <li><code>maxfwt</code>: Finger-wrist tapping test in dominant hand(max of <code>fwt_r</code>,<code>fwt_l</code>)</li>
 </ul></li>
 </ul></li>
@@ -896,16 +812,13 @@ window.Quarto = {
 <ul>
 <li><code>ID</code>: ID</li>
 <li><code>lvmht27</code>: Left ventricular mass – height corrected = Left Ventricular Mass/Height(m)<span class="math inline">\(^{2.7}\)</span>, <span class="math inline">\(g/m^{2.7}\)</span></li>
-<li><code>bpcat</code>:
+<li><code>bpcat</code>: blood pressure category.
 <ul>
-<li>1 = normal</li>
-<li>2 = pre-hypertensive</li>
-<li>3 = nypertensive</li>
+<li>Possible values: <code>normal</code>, <code>pre-hypertensive</code>, <code>hypertensive</code>.</li>
 </ul></li>
-<li><code>gender</code>: gender
+<li><code>gender</code>: gender.
 <ul>
-<li>1 = male</li>
-<li>2 = female</li>
+<li>Possible values: <code>male</code>, <code>female</code></li>
 </ul></li>
 <li><code>age</code>: yrs</li>
 <li><code>BMI</code>: kg/m<span class="math inline">\(^2\)</span></li>
@@ -918,21 +831,17 @@ window.Quarto = {
 <li><a href="./data/mice.csv">mice.csv</a>
 <ul>
 <li><code>Id</code>: ID</li>
-<li><code>Group</code>: GROUP
+<li><code>Group</code>: GROUP.
 <ul>
-<li>1 = RP<br>
-</li>
-<li>2 = NORMAL</li>
+<li>Possible values: <code>RP</code>, <code>NORMAL</code></li>
 </ul></li>
-<li><code>Trtgrp</code>: TREATMENT GROUP
+<li><code>Trtgrp</code>: TREATMENT GROUP.
 <ul>
-<li>A = LIGHT</li>
-<li>B = DIM</li>
-<li>C = DARK</li>
+<li>Possible values: <code>LIGHT</code>, <code>DIM</code>, <code>DARK</code>.</li>
 </ul></li>
 <li><code>Age</code>: AGE (days)</li>
-<li><code>B_amp</code>: B AMP 9999=missing</li>
-<li><code>A_amp</code>: A AMP 9999=missing</li>
+<li><code>B_amp</code>: B AMP</li>
+<li><code>A_amp</code>: A AMP</li>
 </ul></li>
 </ul>
 </section>
@@ -943,14 +852,10 @@ window.Quarto = {
 <ul>
 <li><code>name</code>: Study name</li>
 <li><code>id</code>: Study number</li>
-<li><code>Endpnt</code>: Endpoint 2=nephrotoxicity</li>
-<li><code>Antibio</code>: Antibiotic
+<li><code>Endpnt</code>: Endpoint <code>2</code> = nephrotoxicity</li>
+<li><code>Antibio</code>: Antibiotic.
 <ul>
-<li>1 = Amikacin</li>
-<li>2 = Gentamicin</li>
-<li>3 = Netilmicin</li>
-<li>4 = Sisomycin</li>
-<li>5 = Tobramycin</li>
+<li>Possible values: <code>Amikacin</code>, <code>Gentamicin</code>, <code>Netilmicin</code>, <code>Sisomycin</code>, <code>Tobramycin</code></li>
 </ul></li>
 <li><code>Samp_sz</code>: Sample size</li>
 <li><code>Side_eff</code>: Number with side effects</li>
@@ -965,8 +870,8 @@ window.Quarto = {
 <li><code>Id</code>: ID</li>
 <li><code>trtgrp</code>: Treatment group,
 <ul>
-<li>N = nifedipine</li>
-<li>P = placebo</li>
+<li><code>N</code> = nifedipine</li>
+<li><code>P</code> = placebo</li>
 </ul></li>
 <li><code>bashrtrt</code>: Baseline heart rate immediately prior to randomization (beats/min)</li>
 <li><code>lv1hrtrt</code>: Level 1 heart rate, Highest heart rate and systolic blood pressure at baseline and each level of therapy respectively (beats/min)</li>
@@ -978,7 +883,7 @@ window.Quarto = {
 <li><code>lv3sys</code>: Level 3 systolic bp (mm Hg)</li>
 </ul></li>
 </ul>
-<p>Values of 999 indicates that either (a) the patient withdrew from the study prior to entering this level of therapy (b) the patient achieved pain relief prior to reaching this level or therapy, (c) the patient encountered this level of therapy, but this particular piece of data was missing.</p>
+<p>Missing values indicate that either (a) the patient withdrew from the study prior to entering this level of therapy (b) the patient achieved pain relief prior to reaching this level or therapy, (c) the patient encountered this level of therapy, but this particular piece of data was missing.</p>
 </section>
 <section id="oto" class="level1">
 <h1>oto</h1>
@@ -987,19 +892,13 @@ window.Quarto = {
 <ul>
 <li><code>Name</code>: Study Name</li>
 <li><code>Id</code>: Study Number</li>
-<li><code>Endpnt</code>: Endpoint
+<li><code>Endpnt</code>: Endpoint.
 <ul>
-<li>1 = efficacy</li>
-<li>2 = nephrotoxicity</li>
-<li>3 = ototoxicity</li>
+<li>Possible values: <code>efficacy</code>, <code>nephrotoxicity</code>, <code>ototoxicity</code>.</li>
 </ul></li>
-<li><code>Antibio</code>: Antibiotic
+<li><code>Antibio</code>: Antibiotic.
 <ul>
-<li>1 = Amikacin</li>
-<li>2 = Gentamicin</li>
-<li>3 = Netilmicin</li>
-<li>4 = Sisomycin</li>
-<li>5 = Tobramycin</li>
+<li>Possible values: <code>Amikacin</code>, <code>Gentamicin</code>, <code>Netilmicin</code>, <code>Sisomycin</code>, <code>Tobramycin</code>.</li>
 </ul></li>
 <li><code>Samp_sz</code>: Sample Size</li>
 <li><code>Side_eff</code>: Number with side effect</li>
@@ -1012,15 +911,13 @@ window.Quarto = {
 <li><a href="./data/piriform.csv">piriform.csv</a>
 <ul>
 <li><code>ID</code>: ID</li>
-<li><code>piriform</code>: Piriformis Syndrome
+<li><code>piriform</code>: Piriformis Syndrome.
 <ul>
-<li>1 = Negative</li>
-<li>2 = Positive</li>
+<li>Possible values: <code>Negative</code>, <code>Positive</code></li>
 </ul></li>
-<li><code>sex</code>: Sex
+<li><code>sex</code>: Sex.
 <ul>
-<li>1 = Male</li>
-<li>2 = Female</li>
+<li>Possible values: <code>male</code>, <code>female</code></li>
 </ul></li>
 <li><code>age</code>: Age</li>
 <li><code>maxchg</code>: Max change between tibia and peroneal</li>
@@ -1050,18 +947,14 @@ window.Quarto = {
 <ul>
 <li><code>ID</code>: ID number</li>
 <li><code>Age</code>: age</li>
-<li><code>Gender</code>: Gender
+<li><code>Gender</code>: Gender.
 <ul>
-<li>1 = male</li>
-<li>2 = female</li>
+<li>Possible values: <code>male</code>, <code>female</code></li>
 </ul></li>
-<li><code>Cig_day</code>: Cigarettes/day<br>
-</li>
-<li><code>CO</code>: Carbon monoxide (CO) (X 10) missing=999<br>
-</li>
-<li><code>Min_last</code>: Minutes elapsed since last cigarette missing=9999<br>
-</li>
-<li><code>LogCOadj</code>: Log CO Adj * (X 1000) missing=9999. This variable represents adjusted carbon monoxide (CO) values. CO values were adjusted for minutes elapsed since last cigarette smoked using the formula Log 10 CO (Adjusted) = Log 10 CO - (-0.000638) X (Min - 80), where Min is the number of minutes elapsed since the last cigarette smoked.</li>
+<li><code>Cig_day</code>: Cigarettes/day</li>
+<li><code>CO</code>: Carbon monoxide (CO) (X 10)</li>
+<li><code>Min_last</code>: Minutes elapsed since last cigarette</li>
+<li><code>LogCOadj</code>: Log CO Adj * (X 1000). This variable represents adjusted carbon monoxide (CO) values. CO values were adjusted for minutes elapsed since last cigarette smoked using the formula Log 10 CO (Adjusted) = Log 10 CO - (-0.000638) X (Min - 80), where Min is the number of minutes elapsed since the last cigarette smoked.</li>
 <li><code>Day_abs</code>: Days abstinent Those abstinent less than 1 day were given a value of zero.</li>
 </ul></li>
 </ul>
@@ -1071,23 +964,19 @@ window.Quarto = {
 <ul>
 <li><a href="./data/swiss.csv">swiss.csv</a>
 <ul>
-<li><code>ID</code>: ID<br>
-</li>
-<li><code>age</code>: age (yrs)<br>
-</li>
-<li><code>group</code>: Group
+<li><code>ID</code>: ID</li>
+<li><code>age</code>: age (yrs)</li>
+<li><code>group</code>: Group.
 <ul>
-<li>1 = High NAPAP</li>
-<li>2 = Low NAPAP</li>
-<li>3 = control</li>
+<li>Possible values: <code>High NAPAP</code>, <code>Low NAPAP</code>, <code>control</code></li>
 </ul></li>
-<li><code>creat_68</code>: Serum Creatinine 1968 (mg/dL) 9.99=missing</li>
-<li><code>creat_69</code>: Serum Creatinine 1969 (mg/dL) 9.99=missing</li>
-<li><code>creat_70</code>: Serum Creatinine 1970 (mg/dL) 9.99=missing</li>
-<li><code>creat_71</code>: Serum Creatinine 1971 (mg/dL) 9.99=missing</li>
-<li><code>creat_72</code>: Serum Creatinine 1972 (mg/dL) 9.99=missing</li>
-<li><code>creat_75</code>: Serum Creatinine 1975 (mg/dL) 9.99=missing</li>
-<li><code>creat_78</code>: Serum Creatinine 1978 (mg/dL) 9.99=missing</li>
+<li><code>creat_68</code>: Serum Creatinine 1968 (mg/dL)</li>
+<li><code>creat_69</code>: Serum Creatinine 1969 (mg/dL)</li>
+<li><code>creat_70</code>: Serum Creatinine 1970 (mg/dL)</li>
+<li><code>creat_71</code>: Serum Creatinine 1971 (mg/dL)</li>
+<li><code>creat_72</code>: Serum Creatinine 1972 (mg/dL)</li>
+<li><code>creat_75</code>: Serum Creatinine 1975 (mg/dL)</li>
+<li><code>creat_78</code>: Serum Creatinine 1978 (mg/dL)</li>
 </ul></li>
 </ul>
 </section>
@@ -1097,78 +986,60 @@ window.Quarto = {
 <li><a href="./data/tear.csv">tear.csv</a>
 <ul>
 <li><code>ID</code>: ID</li>
-<li><code>od3bas1</code>: OD 3sec baseline 1<br>
-</li>
-<li><code>od3bas2</code>: OD 3 sec baseline 2<br>
-</li>
+<li><code>od3bas1</code>: OD 3sec baseline 1</li>
+<li><code>od3bas2</code>: OD 3 sec baseline 2</li>
 <li><code>od3im1</code>: OD 3 sec immediately post 1</li>
-<li><code>od3im2</code>: OD 3 sec immediately post 2<br>
-</li>
+<li><code>od3im2</code>: OD 3 sec immediately post 2</li>
 <li><code>od3pst51</code>: OD 3 sec 5min post 1</li>
 <li><code>od3pst52</code>: OD 3 sec 5min post 2</li>
 <li><code>od3pt101</code>: OD 3 sec 10min post 1</li>
 <li><code>od3pt102</code>: OD 3 sec 10min post 2</li>
 <li><code>od3pt151</code>: OD 3 sec 15min post 1</li>
 <li><code>od3pt152</code>: OD 3 sec 15min post 2</li>
-<li><code>os3bas1</code>: OS 3sec baseline 1<br>
-</li>
-<li><code>os3bas2</code>: OS 3 sec baseline 2<br>
-</li>
+<li><code>os3bas1</code>: OS 3sec baseline 1</li>
+<li><code>os3bas2</code>: OS 3 sec baseline 2</li>
 <li><code>os3im1</code>: OS 3 sec immediately post 1</li>
-<li><code>os3im2</code>: OS 3 sec immediately post 2<br>
-</li>
+<li><code>os3im2</code>: OS 3 sec immediately post 2</li>
 <li><code>os3pst51</code>: OS 3 sec 5min post 1</li>
 <li><code>os3pst52</code>: OS 3 sec 5min post 2</li>
 <li><code>os3pt101</code>: OS 3 sec 10min post 1</li>
 <li><code>os3pt102</code>: OS 3 sec 10min post 2</li>
 <li><code>os3pt151</code>: OS 3 sec 15min post 1</li>
 <li><code>os3pt152</code>: OS 3 sec 15min post 2</li>
-<li><code>od6bas1</code>: OD 6 sec baseline 1<br>
-</li>
-<li><code>od6bas2</code>: OD 6 sec baseline 2<br>
-</li>
+<li><code>od6bas1</code>: OD 6 sec baseline 1</li>
+<li><code>od6bas2</code>: OD 6 sec baseline 2</li>
 <li><code>od6im1</code>: OD 6 sec immediately post 1</li>
-<li><code>od6im2</code>: OD 6 sec immediately post 2<br>
-</li>
+<li><code>od6im2</code>: OD 6 sec immediately post 2</li>
 <li><code>od6pst51</code>: OD 6 sec 5min post 1</li>
 <li><code>od6pst52</code>: OD 6 sec 5min post 2</li>
 <li><code>od6pt101</code>: OD 6 sec 10min post 1</li>
 <li><code>od6pt102</code>: OD 6 sec 10min post 2</li>
 <li><code>od6pt151</code>: OD 6 sec 15min post 1</li>
 <li><code>od6pt152</code>: OD 6 sec 15min post 2</li>
-<li><code>os6bas1</code>: OS 6 sec baseline 1<br>
-</li>
-<li><code>os6bas2</code>: OS 6 sec baseline 2<br>
-</li>
+<li><code>os6bas1</code>: OS 6 sec baseline 1</li>
+<li><code>os6bas2</code>: OS 6 sec baseline 2</li>
 <li><code>os6im1</code>: OS 6 sec immediately post 1</li>
-<li><code>os6im2</code>: OS 6 sec immediately post 2<br>
-</li>
+<li><code>os6im2</code>: OS 6 sec immediately post 2</li>
 <li><code>os6pst51</code>: OS 6 sec 5min post 1</li>
 <li><code>os6pst52</code>: OS 6 sec 5min post 2</li>
 <li><code>os6pt101</code>: OS 6 sec 10min post 1</li>
 <li><code>os6pt102</code>: OS 6 sec 10min post 2</li>
 <li><code>os6pt151</code>: OS 6 sec 15min post 1</li>
 <li><code>os6pt152</code>: OS 6 sec 15min post 2</li>
-<li><code>od10bas1</code>: OD 10 sec baseline 1<br>
-</li>
-<li><code>od10bas2</code>: OD 10 sec baseline 2<br>
-</li>
+<li><code>od10bas1</code>: OD 10 sec baseline 1</li>
+<li><code>od10bas2</code>: OD 10 sec baseline 2</li>
 <li><code>od10im1</code>: OD 10 sec immediately post 1</li>
-<li><code>od10im2</code>: OD 10 sec immediately post 2<br>
-</li>
+<li><code>od10im2</code>: OD 10 sec immediately post 2</li>
 <li><code>od10ps51</code>: OD 10 sec 5min post 1</li>
 <li><code>od10ps52</code>: OD 10 sec 5min post 2</li>
 <li><code>od10p101</code>: OD 10 sec 10min post 1</li>
 <li><code>od10p102</code>: OD 10 sec 10min post 2</li>
 <li><code>od10p151</code>: OD 10 sec 15min post 1</li>
 <li><code>od10p152</code>: OD 10 sec 15min post 2</li>
-<li><code>os10bas1</code>: OS 10 sec baseline 1<br>
-</li>
-<li><code>os10bas2</code>: OS 10 sec baseline 2<br>
-</li>
+<li><code>os10bas1</code>: OS 10 sec baseline 1</li>
+<li><code>os10bas2</code>: OS 10 sec baseline 2</li>
 <li><code>os10im1</code>: OS 10 sec immediately post 1</li>
-<li><code>os10im2</code>: OS 10 sec immediately post 2<br>
-</li>
+<li><code>os10im2</code>: OS 10 sec immediately post 2</li>
 <li><code>os10ps51</code>: OS 10 sec 5min post 1</li>
 <li><code>os10ps52</code>: OS 10 sec 5min post 2</li>
 <li><code>os10p101</code>: OS 10 sec 10min post 1</li>
@@ -1187,19 +1058,13 @@ window.Quarto = {
 <li><code>Out_temp</code>: OUTSIDE TEMERATURE Degrees Fahrenheit</li>
 <li><code>Room</code>: ROOM LOCATION</li>
 <li><code>In_temp</code>: INSIDE TEMPERATURE Degrees Fahrenheit</li>
-<li><code>Cor_fac</code>: CORRECTION FACTOR ADDED
+<li><code>Cor_fac</code>: CORRECTION FACTOR ADDED.
 <ul>
-<li>1 = YES</li>
-<li>0 = NO</li>
+<li>Possible values: <code>yes</code>, <code>no</code></li>
 </ul></li>
-<li><code>Typ_wea</code>: TYPE OF WEATHER
+<li><code>Typ_wea</code>: TYPE OF WEATHER.
 <ul>
-<li>1 = SUNNY</li>
-<li>2 = PARTLY CLOUDY</li>
-<li>3 = CLOUDY</li>
-<li>4 = RAINY</li>
-<li>5 = FOGGY</li>
-<li>9 = MISSING</li>
+<li>Possible values: <code>SUNNY</code>, <code>PARTLY CLOUDY</code>, <code>CLOUDY</code>, <code>RAINY</code>, <code>FOGGY</code></li>
 </ul></li>
 </ul></li>
 </ul>
@@ -1210,79 +1075,43 @@ window.Quarto = {
 <li><a href="./data/tennis1.csv">tennis1.csv</a>
 <ul>
 <li><code>Id</code>: ID</li>
-<li><code>Age</code>: AGE 99=MISSING</li>
-<li><code>Sex</code>: SEX
+<li><code>Age</code>: AGE</li>
+<li><code>Sex</code>: SEX.
 <ul>
-<li>1 = MALE</li>
-<li>2 = FEMALE</li>
+<li>Possible values: <code>male</code>, <code>female</code></li>
 </ul></li>
-<li><code>Num_epis</code>: NUMBER OF EPISODES OF TENNIS ELBOW 9=MISSING<br>
-</li>
-<li><code>Typ_last</code>: TYPE OF RACQUET USED DURING LAST EPISODE
+<li><code>Num_epis</code>: NUMBER OF EPISODES OF TENNIS ELBOW</li>
+<li><code>Typ_last</code>: TYPE OF RACQUET USED DURING LAST EPISODE.
 <ul>
-<li>1 = CONVENTIONAL SIZE</li>
-<li>2 = MID-SIZE</li>
-<li>3 = OVER-SIZE</li>
-<li>9 = MISSING</li>
+<li>Possible values: <code>CONVENTIONAL SIZE</code>, <code>MID-SIZE</code>, <code>OVER-SIZE</code></li>
 </ul></li>
-<li><code>Wgt_last</code>: WEIGHT OF RACQUET USED DURING LAST EPISODE
+<li><code>Wgt_last</code>: WEIGHT OF RACQUET USED DURING LAST EPISODE.
 <ul>
-<li>1 = HEAVY</li>
-<li>2 = MEDIUM</li>
-<li>3 = LIGHT</li>
-<li>4 = DON’T KNOW</li>
-<li>9 = MISSING</li>
+<li>Possible values: <code>HEAVY</code>, <code>MEDIUM</code>, <code>LIGHT</code>, <code>DO NOT KNOW</code></li>
 </ul></li>
-<li><code>Mat_last</code>: MATERIAL OF RACQUET USED DURING LAST EPISODE
+<li><code>Mat_last</code>: MATERIAL OF RACQUET USED DURING LAST EPISODE.
 <ul>
-<li>1 = WOOD</li>
-<li>2 = ALUMINUM</li>
-<li>3 = FIBERGLASS AND COMPOSITE</li>
-<li>4 = GRAPHITE</li>
-<li>5 = STEEL</li>
-<li>6 = COMPOSITE</li>
-<li>7 = OTHER</li>
-<li>9 = MISSING</li>
+<li>Possible values: <code>WOOD</code>, <code>ALUMINUM</code>, <code>FIBERGLASS AND COMPOSITE</code>, <code>GRAPHITE</code>, <code>STEEL</code>, <code>COMPOSITE</code>, <code>OTHER</code></li>
 </ul></li>
-<li><code>Str_last</code>: STRING TYPE OF RACQUET USED DURING LAST EPISODE
+<li><code>Str_last</code>: STRING TYPE OF RACQUET USED DURING LAST EPISODE.
 <ul>
-<li>1 = NYLON</li>
-<li>2 = GUT</li>
-<li>3 = DON’T KNOW</li>
-<li>9 = MISSING</li>
+<li>Possible values: <code>NYLON</code>, <code>GUT</code>, <code>DON'T KNOW</code></li>
 </ul></li>
-<li><code>Typ_curr</code>: TYPE OF RACQUET USED CURRENTLY
+<li><code>Typ_curr</code>: TYPE OF RACQUET USED CURRENTLY.
 <ul>
-<li>1 = CONVENTIONAL SIZE</li>
-<li>2 = MID-SIZE</li>
-<li>3 = OVER-SIZE</li>
-<li>9 = MISSING</li>
+<li>Possible values: <code>CONVENTIONAL SIZE</code>, <code>MID-SIZE</code>, <code>OVER-SIZE</code></li>
 </ul></li>
-<li><code>Wgt_curr</code>: WEIGHT OF RACQUET USED CURRENTLY
+<li><code>Wgt_curr</code>: WEIGHT OF RACQUET USED CURRENTLY.
 <ul>
-<li>1 = HEAVY</li>
-<li>2 = MEDIUM</li>
-<li>3 = LIGHT</li>
-<li>4 = DON’T KNOW</li>
-<li>9 = MISSING</li>
+<li>Possible values: <code>HEAVY</code>, <code>MEDIUM</code>, <code>LIGHT</code>, <code>DO NOT KNOW</code></li>
 </ul></li>
-<li><code>Mat_curr</code>: MATERIAL OF RACQUET USED CURRENTLY
+<li><code>Mat_curr</code>: MATERIAL OF RACQUET USED CURRENTLY.
 <ul>
-<li>1 = WOOD</li>
-<li>2 = ALUMINUM</li>
-<li>3 = FIBERGLASS AND COMPOSITE</li>
-<li>4 = GRAPHITE</li>
-<li>5 = STEEL</li>
-<li>6 = COMPOSITE</li>
-<li>7 = OTHER</li>
-<li>9 = MISSING</li>
+<li>Possible values: <code>WOOD</code>, <code>ALUMINUM</code>, <code>FIBERGLASS AND COMPOSITE</code>, <code>GRAPHITE</code>, <code>STEEL</code>, <code>COMPOSITE</code>, <code>OTHER</code></li>
 </ul></li>
-<li><code>Str_curr</code>: STRING TYPE OF RACQUET USED CURRENTLY
+<li><code>Str_curr</code>: STRING TYPE OF RACQUET USED CURRENTLY.
 <ul>
-<li>1 = NYLON</li>
-<li>2 = GUT</li>
-<li>3 = DON’T KNOW</li>
-<li>9 = MISSING</li>
+<li>Possible values: <code>NYLON</code>, <code>GUT</code>, <code>DON'T KNOW</code></li>
 </ul></li>
 </ul></li>
 </ul>
@@ -1294,32 +1123,27 @@ window.Quarto = {
 <ul>
 <li><code>id</code>: ID</li>
 <li><code>age</code>: AGE</li>
-<li><code>sex</code>: SEX
+<li><code>sex</code>: SEX.
 <ul>
-<li>1 = MALE</li>
-<li>2 = FEMALE</li>
-<li>9 = MISSING</li>
+<li>Possible values: <code>male</code>, <code>female</code></li>
 </ul></li>
-<li><code>drg_ord</code>: DRUG ORDER
+<li><code>drg_ord</code>: DRUG ORDER.
 <ul>
-<li>1 = MOTRIN-PLACEBO</li>
-<li>2 = PLACEBO-MOTRIN</li>
+<li>Possible values: <code>MOTRIN-PLACEBO</code>, <code>PLACEBO-MOTRIN</code></li>
 </ul></li>
 <li>PERIOD 2 = PAIN SCORES AFTER THE FIRST ACTIVE DRUG PERIOD COMPARED WITH BASELINE
 <ul>
 <li><code>painmx_2</code>: DURING STUDY PERIOD, PAIN DURING MAXIMUM ACTIVITY VS BAESLINE
 <ul>
-<li>1 = WORST</li>
-<li>2 = UNCHANGED</li>
-<li>3 = SLIGHTLY IMPROVED (25%)</li>
-<li>4 = MODERATELY IMPROVED (50%)</li>
-<li>5 = MOSTLY IMPROVED (75%)</li>
-<li>6 = COMPLETELY IMPROVED</li>
-<li>9 = MISSING</li>
+<li><code>1</code> = WORST</li>
+<li><code>2</code> = UNCHANGED</li>
+<li><code>3</code> = SLIGHTLY IMPROVED (25%)</li>
+<li><code>4</code> = MODERATELY IMPROVED (50%)</li>
+<li><code>5</code> = MOSTLY IMPROVED (75%)</li>
+<li><code>6</code> = COMPLETELY IMPROVED</li>
 </ul></li>
 <li><code>pain12_2</code>: WITHIN 12 HOURS FOLLOWING MAXIMAL ACTIVITY, COMPARED TO SAME PERIOD AT BASELINE (SAME CODE AS <code>painmx_2</code>)</li>
-<li><code>painav_2</code>: DURING THE AVERAGE DAY OF STUDY PERIOD PAIN VS. BASELINE (SAME CODE AS <code>painmx_2</code>)<br>
-</li>
+<li><code>painav_2</code>: DURING THE AVERAGE DAY OF STUDY PERIOD PAIN VS. BASELINE (SAME CODE AS <code>painmx_2</code>)</li>
 <li><code>painov_2</code>: OVERALL IMPRESSION OF DRUG EFFICACY VS. BASELINE (SAME CODE AS <code>painmx_2</code>)</li>
 </ul></li>
 <li>PERIOD 3 = PAIN SCORES AFTER THE WASHOUT PERIOD COMPARED WITH BASELINE
