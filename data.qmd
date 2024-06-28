@@ -9,7 +9,7 @@ I did some cleaning (changing `9`'s to `NA`'s, recoding numerics to informative 
 
 # betacar
 
-High doses of beta-carotene in food have been linked to a reduced cancer risk in some observational studies. A clinical trial was planned to compare cancer incidence between a group taking beta-carotene capsules and a placebo group. The study considered four beta-carotene capsule preparations: Solatene (30 mg), Roche (60 mg), and two from BASF (30 mg and 60 mg). To test their effectiveness in raising plasma-carotene levels, 23 volunteers were randomized to one of the four preparations, taking one pill every other day for 12 weeks. The primary endpoint was the plasma carotene level after prolonged ingestion.
+High doses of beta-carotene in food have been linked to a reduced cancer risk in some observational studies. A study considered four beta-carotene capsule preparations: Solatene (30 mg), Roche (60 mg), and two from BASF (30 mg and 60 mg). To test their effectiveness in raising plasma-carotene levels, 23 volunteers were randomized to one of the four preparations, taking one pill every other day for 12 weeks. The primary endpoint was the plasma carotene level after prolonged ingestion.
 
 - [betacar.csv](./data/betacar.csv)
   - `Prepar`: Preparation.
@@ -85,7 +85,7 @@ A study in Australia examined the relationship between bone density and cigarett
 
 # botox
 
-A study on patients with piriformis syndrome compared the effects of three types of injections: triamcinolone with lidocaine (Group 1), a placebo (Group 2), and Botox (Group 3). The patients were randomly assigned to these groups in a 3:1:2 ratio and received injections directly into the piriformis muscle. They were evaluated at 2 weeks, 1 month, and monthly up to 17 months, though many missed visits. Improvement in pain was measured on a scale from 0% to 100%. The study involved 69 patients, with one having the condition in both legs. The goal was to compare the efficacy between the groups, considering age, gender, and affected side as potential influencing factors.
+A study on patients with piriformis syndrome compared the effects of three types of injections: triamcinolone with lidocaine (`TL`), a placebo (`Placebo`), and Botox (`Botox`). The patients were randomly assigned to these groups in a 3:1:2 ratio and received injections directly into the piriformis muscle. They were evaluated at 2 weeks, 1 month, and monthly up to 17 months, though many missed visits. Improvement in pain was measured on a scale from 0% to 100% (higher means more improved). The study involved 69 patients, with one having the condition in both legs. The goal was to compare the efficacy between the groups, considering age, gender, and affected side as potential influencing factors.
 
 - [botox.csv](./data/botox.csv)
   - `ID`: ID
@@ -205,14 +205,14 @@ The main question is the overall relationship between glycemic control and growt
 This dataset includes 203 children with acute otitis media (OME) from a randomized clinical trial. Each child had OME in one or both ears and received a 14-day course of either cefaclor (CEF) or amoxicillin (AMO). Middle-ear status was assessed after the 14-day treatment.
 
 - [ear.csv](./data/ear.csv)
- - `Id`: ID
- - `Clear`: Clearance by 14 days, 
-  - Possible values: `yes`, `no`
- - `Antibo`: Antibiotic. 
-  - Possible values: `CEF`, `AMO`
- - `Age`: Age. 
-  - Possible values: `<2` yrs, `2-5` yrs, `6+` yrs.
- - `Ear`: Ear,
+  - `Id`: ID
+  - `Clear`: Clearance by 14 days, 
+    - Possible values: `yes`, `no`
+  - `Antibo`: Antibiotic. 
+    - Possible values: `CEF`, `AMO`
+  - `Age`: Age. 
+     Possible values: `<2` yrs, `2-5` yrs, `6+` yrs.
+  - `Ear`: Ear,
    - `1` = 1st ear
    - `2` = 2nd ear
 
@@ -388,6 +388,8 @@ The data set "hormone.csv" includes data for the four hormones and saline, with 
 
 # hospital
 
+These data are part of a larger data set gathered from individuals discharged from a specific Pennsylvania hospital. It was collected as part of a retrospective chart review focusing on antibiotic usage in hospitals.
+
 - [hospital.csv](./data/hospital.csv)
   - `Id`: id no.
   - `Dur_stay`: Duration of hospital stay
@@ -404,6 +406,8 @@ The data set "hormone.csv" includes data for the four hormones and saline, with 
     - Possible values: `med`, `surg`
 
 # infantbp
+
+Researchers investigated the link between high blood pressure and sodium intake by measuring infants' responses to salt and sugar solutions. They measured the vigor of infants' sucking (mean sucks per burst, MSB) when exposed to different solutions: water, 0.1 molar salt, 0.3 molar salt, and sugar. The responses were recorded over a series of periods using different stimuli: (i) nonnutritive sucking (ii) water, (iii) 5% sucrose + water, (iv) 15% sucrose + water, and (v) nonnutritive sucking.
 
 - [infantbp.csv](./data/infantbp.csv)
   - `ID`:ID
@@ -430,7 +434,7 @@ The data set "hormone.csv" includes data for the four hormones and saline, with 
 
 # lead
 
-A study examined the psychological and neurological effects of lead exposure on children near a lead smelter in El Paso, Texas. Blood lead levels were measured, categorizing 46 children with levels ≥ 40 μg/mL as the exposed group and 78 children with levels < 40 μg/mL as the control group. Key outcomes included finger–wrist taps (neurological function) and Wechsler full-scale IQ scores.
+A study examined the psychological and neurological effects of lead exposure on children near a lead smelter in El Paso, Texas. Blood lead levels were measured, categorizing 46 children with levels ≥ 40 μg/mL as the exposed group. Another 78 children with levels < 40 μg/mL functioned as the control group. Key outcomes included finger–wrist taps (neurological function) and Wechsler full-scale IQ scores.
 
 Other behavioral effects of lead include hyperactivity. In this study, parents also rated their children’s hyperactivity on a scale from 0 (normal) to 3 (very hyperactive). Hyperactivity measures are available for 49 control children and 35 exposed children.
 
@@ -494,9 +498,11 @@ Other behavioral effects of lead include hyperactivity. In this study, parents a
     - `hyperact`: WWPS - WERRY-WEISS-PETERS SCALE FOR HYPERACTIVITY 0=NO ACTIVITY . . . . 4=SEVERLY HYPERACTIVE (AS REPORTED BY PARENTS)
     - `maxfwt`: Finger-wrist tapping test in dominant hand(max of `fwt_r`,`fwt_l`)
 
-# lmv
+# lvm
 
-- [lmv.csv](./data/lmv.csv)
+The Left Ventricular Mass Index (LVMI) measures the enlargement of the heart's left side, expressed in gm/ht(m)^2.7. High LVMI values can predict future cardiovascular disease in children. A study investigated the relationship between LVMI levels and blood pressure categories in children and adolescents aged 10-18. Blood pressure was categorized as Normal (`bpcat` = `normal`, bp percentile < 80%), Pre-Hypertensive (`bpcat` = `pre-hypertensive`, bp percentile ≥ 80% and < 90%), or Hypertensive (`bpcat` = `hypertensive`, bp percentile ≥ 90%)..
+
+- [lvm.csv](./data/lvm.csv)
   - `ID`:	ID
   - `lvmht27`: Left ventricular mass – height corrected = Left Ventricular Mass/Height(m)$^{2.7}$, $g/m^{2.7}$
   - `bpcat`: blood pressure category. 
@@ -507,6 +513,10 @@ Other behavioral effects of lead include hyperactivity. In this study, parents a
   - `BMI`: kg/m$^2$
 
 # mice
+
+Retinitis pigmentosa (RP) is a hereditary eye condition causing night blindness and visual field loss, typically between ages 10 and 40. Some patients become legally blind by 30, while others retain central vision past 60. A specific gene linked RP has been identified whose transmision is autosomal dominant. The disease progression is tracked using electroretinogram (ERG), measuring retinal electrical activity, which decreases as RP advances, affecting routine activities like driving and walking at night.
+
+To test if sunlight exposure harms RP patients, researchers introduced the RP gene into mice, creating "RP mice." These mice were divided into light, dim, and dark lighting conditions from birth. A control group of normal mice was also subjected to similar conditions. ERG amplitudes (BAMP and AAMP) were measured at 15, 20, and 35 days of life for RP mice, and only BAMP was measured for normal mice.
 
 - [mice.csv](./data/mice.csv)
   - `Id`: ID
@@ -519,6 +529,8 @@ Other behavioral effects of lead include hyperactivity. In this study, parents a
   - `A_amp`: A AMP
 
 # nifed
+
+A clinical trial tested the effectiveness of nifedipine in reducing chest pain in hospitalized angina patients. The study lasted 14 days unless patients were withdrawn, discharged, or died. Patients were randomly assigned to receive either nifedipine or propranolol, starting at a standard dosage. If pain persisted or recurred, the dosage was increased in pre-specified steps. Patients in both groups could also receive nitrates as needed to control pain. The primary goal was to compare pain relief between nifedipine and propranolol, with a secondary goal of examining their effects on heart rate and blood pressure.
 
 - [nifed.csv](./data/nifed.csv)
   - `Id`: ID
@@ -541,6 +553,8 @@ Missing values indicate that either
 
 # piriform
 
+A study evaluated the FAIR test (hip flexion, adduction, and internal rotation) for diagnosing piriformis syndrome (PS), which affects the piriformis muscle in the buttock, causing lumbar and sciatic pain. The test measures nerve-conduction velocity differences between an aggravating and a neutral posture, with higher scores indicating a greater likelihood of PS. Data from 142 participants without PS and 489 with PS (diagnosed clinically) are available. A FAIR test score of ≥ 1.86 ms is proposed to define a positive result. The FAIR test value, MAXCHG, is recorded in milliseconds.
+
 - [piriform.csv](./data/piriform.csv)
   - `ID`: ID
   - `piriform`: Piriformis Syndrome. 
@@ -551,6 +565,8 @@ Missing values indicate that either
   - `maxchg`: Max change between tibia and peroneal
 
 # sexrat
+
+It is often assumed that the gender distribution of consecutive children is independent. To test this hypothesis, birth records from the first five children in 51,868 families were analyzed. These data contain the frequency of how many times a pattern of child sexes showed up. E.g., MM (only two males) showed up 4400 times.
 
 - [sexrat.csv](./data/sexrat.csv)
   - `nm_chld`: Number of children. For families with 5+ children, the sex of the first 5 children are listed. The number of children is given as 5 for such families.
@@ -564,6 +580,8 @@ Missing values indicate that either
 
 # smoke
 
+A study was conducted among 234 individuals who wanted to quit smoking but had not yet done so. On the day they quit, their carbon monoxide (CO) levels were measured, and the time since their last cigarette was recorded. This CO level serves as an indicator of the number of cigarettes smoked daily before quitting but is influenced by the time since the last cigarette. Therefore, a "corrected CO level" was provided, adjusted for this time. Participant age, sex, and self-reported daily cigarette consumption were also recorded. The participants were followed for a year to determine the number of days they remained abstinent, ranging from 0 to 365 days.
+
 - [smoke.csv](./data/smoke.csv)
   - `ID`: ID number
   - `Age`: age
@@ -576,6 +594,8 @@ Missing values indicate that either
   - `Day_abs`: Days abstinent  Those abstinent less than 1 day were given a value of zero.
 
 # swiss
+
+The Swiss Analgesic Study aimed to evaluate the impact of phenacetin-containing analgesics on kidney function and health. It involved 624 women from Basel, Switzerland, who had high phenacetin intake (study group) and 626 women with low or no phenacetin intake (control group). The study used urine N-acetyl-P-aminophenyl (NAPAP) levels to measure recent phenacetin use, dividing the study group into high-NAPAP and low-NAPAP subgroups. Both subgroups had higher NAPAP levels than the control group. The women were examined in 1967-1968 and again in 1969, 1970, 1971, 1972, 1975, and 1978, with kidney function assessed through various laboratory tests, including serum-creatinine levels.
 
 - [swiss.csv](./data/swiss.csv)
   - `ID`: ID
@@ -591,6 +611,14 @@ Missing values indicate that either
   - `creat_78`: Serum Creatinine 1978 (mg/dL)
 
 # tear
+
+A pilot study was conducted to evaluate an eye drop's effectiveness in preventing dry eye, measured by tear breakup time (TBUT). Fourteen participants tested three protocols:
+
+- Protocol A: No blinking for 3 seconds before placebo instillation.
+- Protocol B: No blinking for 6 seconds before placebo instillation (standard protocol).
+- Protocol C: No blinking for 10 seconds before placebo instillation.
+
+TBUT was recorded at baseline, immediately after, and at 5, 10, and 15 minutes post-instillation in a low-humidity environment. Each protocol was tested on the same participants, measuring both eyes with two replicates.
 
 - [tear.csv](./data/tear.csv)
   - `ID`: ID
@@ -658,6 +686,8 @@ Missing values indicate that either
 
 # temperat
 
+A student records temperatures at 20 sites within her house for 30 days each. She records the outside temperature and the weather condition.
+
 - [temperat.csv](./data/temperat.csv)
   - `Date`: DATE (MDY)
   - `Out_temp`: OUTSIDE TEMERATURE  Degrees Fahrenheit
@@ -669,6 +699,8 @@ Missing values indicate that either
     - Possible values: `SUNNY`, `PARTLY CLOUDY`, `CLOUDY`, `RAINY`, `FOGGY`
 
 # tennis1
+
+A survey of tennis club members in the Boston area examined the occurrence of tennis elbow. Subjects reported anywhere from 0 to 8 episodes of tennis elbow. They were also asked about demographic factors and racquet characteristics. 
 
 - [tennis1.csv](./data/tennis1.csv)
   - `Id`: ID
@@ -694,6 +726,8 @@ Missing values indicate that either
     - Possible values: `NYLON`, `GUT`, `DON'T KNOW`
 
 # tennis2
+
+Tennis elbow is a painful condition common among tennis players. Treatments include rest, heat, and anti-inflammatory medications like Motrin (ibuprofen). A clinical trial with 87 participants compared the effectiveness of Motrin vs. placebo. Participants were randomly divided into two groups: Group A received Motrin for 3 weeks, followed by a 2-week washout period, and then placebo for 3 weeks; Group B received the treatments in reverse order. Pain levels were measured on a 1-6 scale (1 = worse, 6 = completely improved) at the end of each treatment and washout period. The comparison was made (i) during  maximum  activity, (ii) 12  hours following maximum activity, (iii) during the average day, and  (iv) by overall impression of drug efficacy. 
 
 - [tennis2.csv](./data/tennis2.csv)
   - `id`: ID
@@ -726,6 +760,8 @@ Missing values indicate that either
 
 # valid
 
+The food-frequency questionnaire (FFQ) is a common tool in dietary epidemiology to assess food consumption. It asks individuals to report their typical daily servings of over 100 food items from the past year, and a food-composition table calculates nutrient intakes. While FFQs are inexpensive, they are less accurate than diet records (DR), where participants document their weekly food intake, and a nutritionist calculates nutrient intakes. In a validation study, 173 nurses from the Nurses' Health Study completed 4 weeks of diet records and an FFQ. Data for saturated fat, total fat, alcohol consumption, and caloric intake from both methods recorded here.
+
 - [valid.csv](./data/valid.csv)
   - `Id`: ID number
   - `sfat_dr`: Saturated fat-DR
@@ -739,6 +775,38 @@ Missing values indicate that either
 
 # wales
 
+A study in South Wales investigated the hereditary factors of blood pressure in 623 individuals (propositii) over age 5 from two populations. The participants and their first-degree relatives had their blood pressure measured at home by one observer, with a baseline and three follow-up exams from the mid-1950s to the early 1960s. The dataset WALES.DAT includes familial blood pressure data from the Rhondda Fach and Vale of Glamorgan communities.
+
 - [wales.csv](./data/wales.csv)
+  - `ID`: ID
+  - `record`:
+  - `sex`:
+  - `area`:
+  - `propositus`:
+  - `sexofprop`:
+  - `relationship`:
+  - `doubler`:
+  - `surveystat`:
+  - `maritalstt`:
+  - `age`:
+  - `parity`:
+  - `height`:
+  - `weight`:
+  - `armgrth`:
+  - `triceps`:
+  - `sysbp`:
+  - `diasbp`:
+  - `pulse`:
+  - `albumin`:
+  - `glucose`:
+  - `bacteria`:
+  - `occupation`:
+  - `hypertension`:
+  - `diabetes`:
+  - `pregnancy`:
+  - `pet_fibroids`:
+  - `angina`:
+  - `pmi`:
+  - `inter_claud`:
 
 # References

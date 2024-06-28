@@ -170,7 +170,7 @@ lmv |>
   mutate(bpcat = recode(bpcat, '1' = 'normal', '2' = 'pre-hypertensive', '3' = 'hypertensive'),
          gender = recode(gender, '1' = 'male', '2' = 'female')) ->
   lmv
-write_csv(lmv, "./lmv.csv")
+write_csv(lmv, "./lvm.csv")
 
 # mice
 mice <- read_csv("../data_raw/mice.csv", na = "9999")

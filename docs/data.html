@@ -185,7 +185,7 @@ window.Quarto = {
   <li><a href="#hospital" id="toc-hospital" class="nav-link" data-scroll-target="#hospital">hospital</a></li>
   <li><a href="#infantbp" id="toc-infantbp" class="nav-link" data-scroll-target="#infantbp">infantbp</a></li>
   <li><a href="#lead" id="toc-lead" class="nav-link" data-scroll-target="#lead">lead</a></li>
-  <li><a href="#lmv" id="toc-lmv" class="nav-link" data-scroll-target="#lmv">lmv</a></li>
+  <li><a href="#lvm" id="toc-lvm" class="nav-link" data-scroll-target="#lvm">lvm</a></li>
   <li><a href="#mice" id="toc-mice" class="nav-link" data-scroll-target="#mice">mice</a></li>
   <li><a href="#nifed" id="toc-nifed" class="nav-link" data-scroll-target="#nifed">nifed</a></li>
   <li><a href="#piriform" id="toc-piriform" class="nav-link" data-scroll-target="#piriform">piriform</a></li>
@@ -228,7 +228,7 @@ window.Quarto = {
 <p>I did some cleaning (changing <code>9</code>’s to <code>NA</code>’s, recoding numerics to informative characters, etc).</p>
 <section id="betacar" class="level1">
 <h1>betacar</h1>
-<p>High doses of beta-carotene in food have been linked to a reduced cancer risk in some observational studies. A clinical trial was planned to compare cancer incidence between a group taking beta-carotene capsules and a placebo group. The study considered four beta-carotene capsule preparations: Solatene (30 mg), Roche (60 mg), and two from BASF (30 mg and 60 mg). To test their effectiveness in raising plasma-carotene levels, 23 volunteers were randomized to one of the four preparations, taking one pill every other day for 12 weeks. The primary endpoint was the plasma carotene level after prolonged ingestion.</p>
+<p>High doses of beta-carotene in food have been linked to a reduced cancer risk in some observational studies. A study considered four beta-carotene capsule preparations: Solatene (30 mg), Roche (60 mg), and two from BASF (30 mg and 60 mg). To test their effectiveness in raising plasma-carotene levels, 23 volunteers were randomized to one of the four preparations, taking one pill every other day for 12 weeks. The primary endpoint was the plasma carotene level after prolonged ingestion.</p>
 <ul>
 <li><a href="./data/betacar.csv">betacar.csv</a>
 <ul>
@@ -332,7 +332,7 @@ window.Quarto = {
 </section>
 <section id="botox" class="level1">
 <h1>botox</h1>
-<p>A study on patients with piriformis syndrome compared the effects of three types of injections: triamcinolone with lidocaine (Group 1), a placebo (Group 2), and Botox (Group 3). The patients were randomly assigned to these groups in a 3:1:2 ratio and received injections directly into the piriformis muscle. They were evaluated at 2 weeks, 1 month, and monthly up to 17 months, though many missed visits. Improvement in pain was measured on a scale from 0% to 100%. The study involved 69 patients, with one having the condition in both legs. The goal was to compare the efficacy between the groups, considering age, gender, and affected side as potential influencing factors.</p>
+<p>A study on patients with piriformis syndrome compared the effects of three types of injections: triamcinolone with lidocaine (<code>TL</code>), a placebo (<code>Placebo</code>), and Botox (<code>Botox</code>). The patients were randomly assigned to these groups in a 3:1:2 ratio and received injections directly into the piriformis muscle. They were evaluated at 2 weeks, 1 month, and monthly up to 17 months, though many missed visits. Improvement in pain was measured on a scale from 0% to 100% (higher means more improved). The study involved 69 patients, with one having the condition in both legs. The goal was to compare the efficacy between the groups, considering age, gender, and affected side as potential influencing factors.</p>
 <ul>
 <li><a href="./data/botox.csv">botox.csv</a>
 <ul>
@@ -478,16 +478,19 @@ window.Quarto = {
 <h1>ear</h1>
 <p>This dataset includes 203 children with acute otitis media (OME) from a randomized clinical trial. Each child had OME in one or both ears and received a 14-day course of either cefaclor (CEF) or amoxicillin (AMO). Middle-ear status was assessed after the 14-day treatment.</p>
 <ul>
-<li><a href="./data/ear.csv">ear.csv</a></li>
-<li><code>Id</code>: ID</li>
-<li><code>Clear</code>: Clearance by 14 days,</li>
-<li>Possible values: <code>yes</code>, <code>no</code></li>
-<li><code>Antibo</code>: Antibiotic.</li>
-<li>Possible values: <code>CEF</code>, <code>AMO</code></li>
-<li><code>Age</code>: Age.</li>
-<li>Possible values: <code>&lt;2</code> yrs, <code>2-5</code> yrs, <code>6+</code> yrs.</li>
-<li><code>Ear</code>: Ear,
+<li><a href="./data/ear.csv">ear.csv</a>
 <ul>
+<li><code>Id</code>: ID</li>
+<li><code>Clear</code>: Clearance by 14 days,
+<ul>
+<li>Possible values: <code>yes</code>, <code>no</code></li>
+</ul></li>
+<li><code>Antibo</code>: Antibiotic.
+<ul>
+<li>Possible values: <code>CEF</code>, <code>AMO</code></li>
+</ul></li>
+<li><code>Age</code>: Age. Possible values: <code>&lt;2</code> yrs, <code>2-5</code> yrs, <code>6+</code> yrs.</li>
+<li><code>Ear</code>: Ear,</li>
 <li><code>1</code> = 1st ear</li>
 <li><code>2</code> = 2nd ear</li>
 </ul></li>
@@ -556,6 +559,7 @@ window.Quarto = {
 </section>
 <section id="estradl" class="level1">
 <h1>estradl</h1>
+<p>Obesity is common in American society and a risk factor for breast cancer in postmenopausal women, possibly due to increased estrogen levels, particularly serum estradiol. Researchers studied 151 African American and 60 Caucasian premenopausal women, measuring adiposity using body mass index (BMI) (a measure of overall adioposity) and waist-hip ratio (WHR) (a measure of abdominal adioposity). They also obtained a complete hormonal profile, including serum estradiol, and assessed other breast cancer risk factors: ethnicity, age, number of children, age at first birth, presence of children, and age at menarche.</p>
 <ul>
 <li><a href="./data/estradl.csv">estradl.csv</a>
 <ul>
@@ -580,6 +584,7 @@ window.Quarto = {
 </section>
 <section id="estrogen" class="level1">
 <h1>estrogen</h1>
+<p>Three distinct two-period crossover studies were conducted with different subject groups, measuring systolic and diastolic blood pressure. In Study 1, 0.625 mg of estrogen was compared with a placebo. Study 2 compared 1.25 mg of estrogen with a placebo. Study 3 compared 1.25 mg of estrogen with 0.625 mg of estrogen. Each active treatment period lasted for four weeks, with a two-week washout period between them.</p>
 <ul>
 <li><a href="./data/estrogen.csv">estrogen.csv</a>
 <ul>
@@ -616,6 +621,7 @@ window.Quarto = {
 </section>
 <section id="fev" class="level1">
 <h1>fev</h1>
+<p>Forced expiratory volume (FEV) is a measure of pulmonary function that quantifies the volume of air expelled in one second of sustained effort. This dataset includes FEV measurements from 1980 for 654 children aged 3 to 19 who participated in the Childhood Respiratory Disease (CRD) Study in East Boston, Massachusetts. The data are part of a longitudinal study aimed at tracking changes in pulmonary function over time in children.</p>
 <ul>
 <li><a href="./data/fev.csv">fev.csv</a>
 <ul>
@@ -636,6 +642,8 @@ window.Quarto = {
 </section>
 <section id="field" class="level1">
 <h1>field</h1>
+<p>Retinitis pigmentosa (RP) is a hereditary eye disease that can lead to substantial vision loss or blindness. It has dominant, recessive, and sex-linked forms, with mutations in the rhodopsin (RHO) gene linked to dominant cases and RPGR gene mutations linked to sex-linked cases.</p>
+<p>The data file field.csv contains visual field data for approximately 100 patients each from the RHO and RPGR groups. Visual field, measured in degrees<span class="math inline">\(^2\)</span>, indicates the area of vision. The dataset includes longitudinal data with varying follow-up times from a minimum of 3 years to a maximum of about 25-30 years. Measurements are provided separately for the right eye (OD) and the left eye (OS).</p>
 <ul>
 <li><a href="./data/field.csv">field.csv</a>
 <ul>
@@ -684,6 +692,10 @@ window.Quarto = {
 </section>
 <section id="hormone" class="level1">
 <h1>hormone</h1>
+<p>An experiment was conducted to study the effects of avian pancreatic polypeptide (aPP), cholecystokinin (CCK), vasoactive intestinal peptide (VIP), and secretin on pancreatic and biliary secretions in laying hens. Researchers aimed to determine how these hormones affect the flow rates and pH values of these secretions.</p>
+<p>White Leghorn hens, aged 14-29 weeks, were surgically fitted with cannulas for collecting secretions and a jugular cannula for hormone infusion. Each hen underwent one trial per day, as long as her cannulas remained functional, leading to varying trial numbers per hen.</p>
+<p>Each trial started with a 20-minute saline infusion, followed by the collection of pancreatic and biliary secretions. The flow rates and pH values were measured. This was followed by a 40-minute hormone infusion, with measurements repeated afterward.</p>
+<p>The data set “hormone.csv” includes data for the four hormones and saline, with each trial recorded as one entry and 11 associated variables.</p>
 <ul>
 <li><a href="./data/hormone.csv">hormone.csv</a>
 <ul>
@@ -706,6 +718,7 @@ window.Quarto = {
 </section>
 <section id="hospital" class="level1">
 <h1>hospital</h1>
+<p>These data are part of a larger data set gathered from individuals discharged from a specific Pennsylvania hospital. It was collected as part of a retrospective chart review focusing on antibiotic usage in hospitals.</p>
 <ul>
 <li><a href="./data/hospital.csv">hospital.csv</a>
 <ul>
@@ -735,6 +748,7 @@ window.Quarto = {
 </section>
 <section id="infantbp" class="level1">
 <h1>infantbp</h1>
+<p>Researchers investigated the link between high blood pressure and sodium intake by measuring infants’ responses to salt and sugar solutions. They measured the vigor of infants’ sucking (mean sucks per burst, MSB) when exposed to different solutions: water, 0.1 molar salt, 0.3 molar salt, and sugar. The responses were recorded over a series of periods using different stimuli: (i) nonnutritive sucking (ii) water, (iii) 5% sucrose + water, (iv) 15% sucrose + water, and (v) nonnutritive sucking.</p>
 <ul>
 <li><a href="./data/infantbp.csv">infantbp.csv</a>
 <ul>
@@ -767,6 +781,8 @@ window.Quarto = {
 </section>
 <section id="lead" class="level1">
 <h1>lead</h1>
+<p>A study examined the psychological and neurological effects of lead exposure on children near a lead smelter in El Paso, Texas. Blood lead levels were measured, categorizing 46 children with levels ≥ 40 μg/mL as the exposed group. Another 78 children with levels &lt; 40 μg/mL functioned as the control group. Key outcomes included finger–wrist taps (neurological function) and Wechsler full-scale IQ scores.</p>
+<p>Other behavioral effects of lead include hyperactivity. In this study, parents also rated their children’s hyperactivity on a scale from 0 (normal) to 3 (very hyperactive). Hyperactivity measures are available for 49 control children and 35 exposed children.</p>
 <ul>
 <li><a href="./data/lead.csv">lead.csv</a>
 <ul>
@@ -859,10 +875,11 @@ window.Quarto = {
 </ul></li>
 </ul>
 </section>
-<section id="lmv" class="level1">
-<h1>lmv</h1>
+<section id="lvm" class="level1">
+<h1>lvm</h1>
+<p>The Left Ventricular Mass Index (LVMI) measures the enlargement of the heart’s left side, expressed in gm/ht(m)^2.7. High LVMI values can predict future cardiovascular disease in children. A study investigated the relationship between LVMI levels and blood pressure categories in children and adolescents aged 10-18. Blood pressure was categorized as Normal (<code>bpcat</code> = <code>normal</code>, bp percentile &lt; 80%), Pre-Hypertensive (<code>bpcat</code> = <code>pre-hypertensive</code>, bp percentile ≥ 80% and &lt; 90%), or Hypertensive (<code>bpcat</code> = <code>hypertensive</code>, bp percentile ≥ 90%)..</p>
 <ul>
-<li><a href="./data/lmv.csv">lmv.csv</a>
+<li><a href="./data/lvm.csv">lvm.csv</a>
 <ul>
 <li><code>ID</code>: ID</li>
 <li><code>lvmht27</code>: Left ventricular mass – height corrected = Left Ventricular Mass/Height(m)<span class="math inline">\(^{2.7}\)</span>, <span class="math inline">\(g/m^{2.7}\)</span></li>
@@ -881,6 +898,8 @@ window.Quarto = {
 </section>
 <section id="mice" class="level1">
 <h1>mice</h1>
+<p>Retinitis pigmentosa (RP) is a hereditary eye condition causing night blindness and visual field loss, typically between ages 10 and 40. Some patients become legally blind by 30, while others retain central vision past 60. A specific gene linked RP has been identified whose transmision is autosomal dominant. The disease progression is tracked using electroretinogram (ERG), measuring retinal electrical activity, which decreases as RP advances, affecting routine activities like driving and walking at night.</p>
+<p>To test if sunlight exposure harms RP patients, researchers introduced the RP gene into mice, creating “RP mice.” These mice were divided into light, dim, and dark lighting conditions from birth. A control group of normal mice was also subjected to similar conditions. ERG amplitudes (BAMP and AAMP) were measured at 15, 20, and 35 days of life for RP mice, and only BAMP was measured for normal mice.</p>
 <ul>
 <li><a href="./data/mice.csv">mice.csv</a>
 <ul>
@@ -901,6 +920,7 @@ window.Quarto = {
 </section>
 <section id="nifed" class="level1">
 <h1>nifed</h1>
+<p>A clinical trial tested the effectiveness of nifedipine in reducing chest pain in hospitalized angina patients. The study lasted 14 days unless patients were withdrawn, discharged, or died. Patients were randomly assigned to receive either nifedipine or propranolol, starting at a standard dosage. If pain persisted or recurred, the dosage was increased in pre-specified steps. Patients in both groups could also receive nitrates as needed to control pain. The primary goal was to compare pain relief between nifedipine and propranolol, with a secondary goal of examining their effects on heart rate and blood pressure.</p>
 <ul>
 <li><a href="./data/nifed.csv">nifed.csv</a>
 <ul>
@@ -924,6 +944,7 @@ window.Quarto = {
 </section>
 <section id="piriform" class="level1">
 <h1>piriform</h1>
+<p>A study evaluated the FAIR test (hip flexion, adduction, and internal rotation) for diagnosing piriformis syndrome (PS), which affects the piriformis muscle in the buttock, causing lumbar and sciatic pain. The test measures nerve-conduction velocity differences between an aggravating and a neutral posture, with higher scores indicating a greater likelihood of PS. Data from 142 participants without PS and 489 with PS (diagnosed clinically) are available. A FAIR test score of ≥ 1.86 ms is proposed to define a positive result. The FAIR test value, MAXCHG, is recorded in milliseconds.</p>
 <ul>
 <li><a href="./data/piriform.csv">piriform.csv</a>
 <ul>
@@ -943,6 +964,7 @@ window.Quarto = {
 </section>
 <section id="sexrat" class="level1">
 <h1>sexrat</h1>
+<p>It is often assumed that the gender distribution of consecutive children is independent. To test this hypothesis, birth records from the first five children in 51,868 families were analyzed. These data contain the frequency of how many times a pattern of child sexes showed up. E.g., MM (only two males) showed up 4400 times.</p>
 <ul>
 <li><a href="./data/sexrat.csv">sexrat.csv</a>
 <ul>
@@ -959,6 +981,7 @@ window.Quarto = {
 </section>
 <section id="smoke" class="level1">
 <h1>smoke</h1>
+<p>A study was conducted among 234 individuals who wanted to quit smoking but had not yet done so. On the day they quit, their carbon monoxide (CO) levels were measured, and the time since their last cigarette was recorded. This CO level serves as an indicator of the number of cigarettes smoked daily before quitting but is influenced by the time since the last cigarette. Therefore, a “corrected CO level” was provided, adjusted for this time. Participant age, sex, and self-reported daily cigarette consumption were also recorded. The participants were followed for a year to determine the number of days they remained abstinent, ranging from 0 to 365 days.</p>
 <ul>
 <li><a href="./data/smoke.csv">smoke.csv</a>
 <ul>
@@ -978,6 +1001,7 @@ window.Quarto = {
 </section>
 <section id="swiss" class="level1">
 <h1>swiss</h1>
+<p>The Swiss Analgesic Study aimed to evaluate the impact of phenacetin-containing analgesics on kidney function and health. It involved 624 women from Basel, Switzerland, who had high phenacetin intake (study group) and 626 women with low or no phenacetin intake (control group). The study used urine N-acetyl-P-aminophenyl (NAPAP) levels to measure recent phenacetin use, dividing the study group into high-NAPAP and low-NAPAP subgroups. Both subgroups had higher NAPAP levels than the control group. The women were examined in 1967-1968 and again in 1969, 1970, 1971, 1972, 1975, and 1978, with kidney function assessed through various laboratory tests, including serum-creatinine levels.</p>
 <ul>
 <li><a href="./data/swiss.csv">swiss.csv</a>
 <ul>
@@ -999,6 +1023,13 @@ window.Quarto = {
 </section>
 <section id="tear" class="level1">
 <h1>tear</h1>
+<p>A pilot study was conducted to evaluate an eye drop’s effectiveness in preventing dry eye, measured by tear breakup time (TBUT). Fourteen participants tested three protocols:</p>
+<ul>
+<li>Protocol A: No blinking for 3 seconds before placebo instillation.</li>
+<li>Protocol B: No blinking for 6 seconds before placebo instillation (standard protocol).</li>
+<li>Protocol C: No blinking for 10 seconds before placebo instillation.</li>
+</ul>
+<p>TBUT was recorded at baseline, immediately after, and at 5, 10, and 15 minutes post-instillation in a low-humidity environment. Each protocol was tested on the same participants, measuring both eyes with two replicates.</p>
 <ul>
 <li><a href="./data/tear.csv">tear.csv</a>
 <ul>
@@ -1068,6 +1099,7 @@ window.Quarto = {
 </section>
 <section id="temperat" class="level1">
 <h1>temperat</h1>
+<p>A student records temperatures at 20 sites within her house for 30 days each. She records the outside temperature and the weather condition.</p>
 <ul>
 <li><a href="./data/temperat.csv">temperat.csv</a>
 <ul>
@@ -1088,6 +1120,7 @@ window.Quarto = {
 </section>
 <section id="tennis1" class="level1">
 <h1>tennis1</h1>
+<p>A survey of tennis club members in the Boston area examined the occurrence of tennis elbow. Subjects reported anywhere from 0 to 8 episodes of tennis elbow. They were also asked about demographic factors and racquet characteristics.</p>
 <ul>
 <li><a href="./data/tennis1.csv">tennis1.csv</a>
 <ul>
@@ -1135,6 +1168,7 @@ window.Quarto = {
 </section>
 <section id="tennis2" class="level1">
 <h1>tennis2</h1>
+<p>Tennis elbow is a painful condition common among tennis players. Treatments include rest, heat, and anti-inflammatory medications like Motrin (ibuprofen). A clinical trial with 87 participants compared the effectiveness of Motrin vs.&nbsp;placebo. Participants were randomly divided into two groups: Group A received Motrin for 3 weeks, followed by a 2-week washout period, and then placebo for 3 weeks; Group B received the treatments in reverse order. Pain levels were measured on a 1-6 scale (1 = worse, 6 = completely improved) at the end of each treatment and washout period. The comparison was made (i) during maximum activity, (ii) 12 hours following maximum activity, (iii) during the average day, and (iv) by overall impression of drug efficacy.</p>
 <ul>
 <li><a href="./data/tennis2.csv">tennis2.csv</a>
 <ul>
@@ -1182,6 +1216,7 @@ window.Quarto = {
 </section>
 <section id="valid" class="level1">
 <h1>valid</h1>
+<p>The food-frequency questionnaire (FFQ) is a common tool in dietary epidemiology to assess food consumption. It asks individuals to report their typical daily servings of over 100 food items from the past year, and a food-composition table calculates nutrient intakes. While FFQs are inexpensive, they are less accurate than diet records (DR), where participants document their weekly food intake, and a nutritionist calculates nutrient intakes. In a validation study, 173 nurses from the Nurses’ Health Study completed 4 weeks of diet records and an FFQ. Data for saturated fat, total fat, alcohol consumption, and caloric intake from both methods recorded here.</p>
 <ul>
 <li><a href="./data/valid.csv">valid.csv</a>
 <ul>
@@ -1199,8 +1234,41 @@ window.Quarto = {
 </section>
 <section id="wales" class="level1">
 <h1>wales</h1>
+<p>A study in South Wales investigated the hereditary factors of blood pressure in 623 individuals (propositii) over age 5 from two populations. The participants and their first-degree relatives had their blood pressure measured at home by one observer, with a baseline and three follow-up exams from the mid-1950s to the early 1960s. The dataset WALES.DAT includes familial blood pressure data from the Rhondda Fach and Vale of Glamorgan communities.</p>
 <ul>
-<li><a href="./data/wales.csv">wales.csv</a></li>
+<li><a href="./data/wales.csv">wales.csv</a>
+<ul>
+<li><code>ID</code>: ID</li>
+<li><code>record</code>:</li>
+<li><code>sex</code>:</li>
+<li><code>area</code>:</li>
+<li><code>propositus</code>:</li>
+<li><code>sexofprop</code>:</li>
+<li><code>relationship</code>:</li>
+<li><code>doubler</code>:</li>
+<li><code>surveystat</code>:</li>
+<li><code>maritalstt</code>:</li>
+<li><code>age</code>:</li>
+<li><code>parity</code>:</li>
+<li><code>height</code>:</li>
+<li><code>weight</code>:</li>
+<li><code>armgrth</code>:</li>
+<li><code>triceps</code>:</li>
+<li><code>sysbp</code>:</li>
+<li><code>diasbp</code>:</li>
+<li><code>pulse</code>:</li>
+<li><code>albumin</code>:</li>
+<li><code>glucose</code>:</li>
+<li><code>bacteria</code>:</li>
+<li><code>occupation</code>:</li>
+<li><code>hypertension</code>:</li>
+<li><code>diabetes</code>:</li>
+<li><code>pregnancy</code>:</li>
+<li><code>pet_fibroids</code>:</li>
+<li><code>angina</code>:</li>
+<li><code>pmi</code>:</li>
+<li><code>inter_claud</code>:</li>
+</ul></li>
 </ul>
 </section>
 <section id="references" class="level1">
