@@ -264,6 +264,8 @@ The data set contains split-sample plasma measurements of four hormones for each
 
 # estradl
 
+Obesity is common in American society and a risk factor for breast cancer in postmenopausal women, possibly due to increased estrogen levels, particularly serum estradiol. Researchers studied 151 African American and 60 Caucasian premenopausal women, measuring adiposity using body mass index (BMI) (a measure of overall adioposity) and waist-hip ratio (WHR) (a measure of abdominal adioposity). They also obtained a complete hormonal profile, including serum estradiol, and assessed other breast cancer risk factors: ethnicity, age, number of children, age at first birth, presence of children, and age at menarche.
+
 - [estradl.csv](./data/estradl.csv)
   - `Id`: Identification number
   - `Estradl`: Estradiol
@@ -279,6 +281,8 @@ The data set contains split-sample plasma measurements of four hormones for each
   - `WHR`: waist-hip ratio
 
 # estrogen
+
+Three distinct two-period crossover studies were conducted with different subject groups, measuring systolic and diastolic blood pressure. In Study 1, 0.625 mg of estrogen was compared with a placebo. Study 2 compared 1.25 mg of estrogen with a placebo. Study 3 compared 1.25 mg of estrogen with 0.625 mg of estrogen. Each active treatment period lasted for four weeks, with a two-week washout period between them.
 
 - [estrogen.csv](./data/estrogen.csv)
   - `Id`: ID
@@ -308,6 +312,8 @@ The data set contains split-sample plasma measurements of four hormones for each
 
 # fev
 
+Forced expiratory volume (FEV) is a measure of pulmonary function that quantifies the volume of air expelled in one second of sustained effort. This dataset includes FEV measurements from 1980 for 654 children aged 3 to 19 who participated in the Childhood Respiratory Disease (CRD) Study in East Boston, Massachusetts. The data are part of a longitudinal study aimed at tracking changes in pulmonary function over time in children.
+
 - [fev.csv](./data/fev.csv)
   - `Id`: ID number
   - `Age`: Age (yrs)
@@ -319,6 +325,10 @@ The data set contains split-sample plasma measurements of four hormones for each
     - Possible values: `non-current`, `current smoker`.
 
 # field
+
+Retinitis pigmentosa (RP) is a hereditary eye disease that can lead to substantial vision loss or blindness. It has dominant, recessive, and sex-linked forms, with mutations in the rhodopsin (RHO) gene linked to dominant cases and RPGR gene mutations linked to sex-linked cases. 
+
+The data file field.csv contains visual field data for approximately 100 patients each from the RHO and RPGR groups. Visual field, measured in degrees$^2$, indicates the area of vision. The dataset includes longitudinal data with varying follow-up times from a minimum of 3 years to a maximum of about 25-30 years. Measurements are provided separately for the right eye (OD) and the left eye (OS). 
 
 - [field.csv](./data/field.csv)
   - `id`: ID
@@ -353,6 +363,14 @@ The data set contains split-sample plasma measurements of four hormones for each
   - `X7`: EKG axis more than 110
 
 # hormone
+
+An experiment was conducted to study the effects of avian pancreatic polypeptide (aPP), cholecystokinin (CCK), vasoactive intestinal peptide (VIP), and secretin on pancreatic and biliary secretions in laying hens. Researchers aimed to determine how these hormones affect the flow rates and pH values of these secretions.
+
+White Leghorn hens, aged 14-29 weeks, were surgically fitted with cannulas for collecting secretions and a jugular cannula for hormone infusion. Each hen underwent one trial per day, as long as her cannulas remained functional, leading to varying trial numbers per hen. 
+
+Each trial started with a 20-minute saline infusion, followed by the collection of pancreatic and biliary secretions. The flow rates and pH values were measured. This was followed by a 40-minute hormone infusion, with measurements repeated afterward.
+
+The data set "hormone.csv" includes data for the four hormones and saline, with each trial recorded as one entry and 11 associated variables.
 
 - [hormone.csv](./data/hormone.csv)
   - `ID`: ID
@@ -411,6 +429,10 @@ The data set contains split-sample plasma measurements of four hormones for each
   - For MSB, 0 indicates the baby did not suck.
 
 # lead
+
+A study examined the psychological and neurological effects of lead exposure on children near a lead smelter in El Paso, Texas. Blood lead levels were measured, categorizing 46 children with levels ≥ 40 μg/mL as the exposed group and 78 children with levels < 40 μg/mL as the control group. Key outcomes included finger–wrist taps (neurological function) and Wechsler full-scale IQ scores.
+
+Other behavioral effects of lead include hyperactivity. In this study, parents also rated their children’s hyperactivity on a scale from 0 (normal) to 3 (very hyperactive). Hyperactivity measures are available for 49 control children and 35 exposed children.
 
 - [lead.csv](./data/lead.csv)
   - `id`: IDENTIFICATION NUMBER
