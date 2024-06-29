@@ -39,7 +39,7 @@ set.seed(1)
   library(dplyr)
   ```
 
-- I will use the `lead` dataset to demonstrate plots
+- I will use the `lead` dataset to demonstrate plots (description [here](../data.qmd#lead))
 
   ```{r}
   #| message: false
@@ -90,7 +90,7 @@ set.seed(1)
     geom_histogram(bins = 20, color = "black", fill = "white")
   ```
 
-- **Exercise**: Load in the [boneden](https://dcgerard.github.io/stat_320/data/boneden.csv) data (see [here](https://dcgerard.github.io/stat_320/data.html#boneden) for a description) and make a histogram of lumbar spine density for the lighter smoking twin with 20 bins. Make the bins red.
+- **Exercise**: Load in the [boneden](../data/boneden.csv) data (see [here](../data.qmd#boneden) for a description) and make a histogram of lumbar spine density for the lighter smoking twin with 20 bins. Make the bins red.
 
   ```{r, echo = FALSE, eval = FALSE}
   library(readr)
