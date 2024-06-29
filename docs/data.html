@@ -786,24 +786,29 @@ window.Quarto = {
 <ul>
 <li><a href="./data/lead.csv">lead.csv</a>
 <ul>
-<li><code>id</code>: Identification number</li>
-<li><code>area</code>: Area - residence on aug 1972. possible values:
+<li>Patient information
 <ul>
-<li><code>0-1</code> Miles from smelter</li>
-<li><code>1-2.5</code> Miles</li>
-<li><code>2.5-4.1</code> Miles</li>
-</ul></li>
+<li><code>id</code>: Identification number</li>
 <li><code>ageyrs</code>: Age in years</li>
 <li><code>sex</code>: Sex.
 <ul>
 <li>Possible values: <code>male</code>, <code>female</code></li>
 </ul></li>
+</ul></li>
 <li>Lead data
 <ul>
-<li><code>lead_grp</code>: Blood lead level group. possible values:</li>
+<li><code>area</code>: Distance of esidence from smelter on august 1972. Possible values:
+<ul>
+<li><code>0-1</code> Miles from smelter</li>
+<li><code>1-2.5</code> Miles</li>
+<li><code>2.5-4.1</code> Miles</li>
+</ul></li>
+<li><code>lead_grp</code>: Blood lead level group. possible values:
+<ul>
 <li><code>control</code> = Blood lead levels below 40 micrograms/100ml in both 1972 &amp; 1973 (control group),</li>
 <li><code>current exposed</code> = Blood lead levels greater than or equal to 40 micrograms/100ml in both 72 &amp; 73 or a level greater than or equal to 40 in 73 alone (3 cases only) (currently exposed group),</li>
 <li><code>previous exposed</code> = Blood lead levels greater than or equal to 40 micrograms/100ml in 72 and less than 40 in 73 (previously exposed group)</li>
+</ul></li>
 <li><code>Group</code>: group.
 <ul>
 <li>Possible values: <code>control</code>, <code>exposed</code></li>

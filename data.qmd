@@ -439,16 +439,17 @@ A study examined the psychological and neurological effects of lead exposure on 
 Other behavioral effects of lead include hyperactivity. In this study, parents also rated their children’s hyperactivity on a scale from 0 (normal) to 3 (very hyperactive). Hyperactivity measures are available for 49 control children and 35 exposed children.
 
 - [lead.csv](./data/lead.csv)
-  - `id`: Identification number
-  - `area`: Area - residence on aug 1972. possible values:
-    - `0-1` Miles from smelter
-    - `1-2.5` Miles
-    - `2.5-4.1` Miles
-  - `ageyrs`: Age in years
-  - `sex`: Sex.
-    - Possible values: `male`, `female`
+  - Patient information
+    - `id`: Identification number
+    - `ageyrs`: Age in years
+    - `sex`: Sex.
+      - Possible values: `male`, `female`
   - Lead data
-      - `lead_grp`: Blood lead level group. possible values:
+    - `area`: Distance of esidence from smelter on august 1972. Possible values:
+      - `0-1` Miles from smelter
+      - `1-2.5` Miles
+      - `2.5-4.1` Miles
+    - `lead_grp`: Blood lead level group. possible values:
       - `control` = Blood lead levels below 40 micrograms/100ml in both 1972 & 1973 (control group),
       - `current exposed` = Blood lead levels greater than or equal to 40 micrograms/100ml in both 72 & 73 or a level greater than or equal to 40 in 73 alone (3 cases only) (currently exposed group),
       - `previous exposed` = Blood lead levels greater than or equal to 40 micrograms/100ml in 72 and less than 40 in 73 (previously exposed group)
