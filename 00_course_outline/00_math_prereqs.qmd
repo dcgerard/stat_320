@@ -1,0 +1,32 @@
+---
+title: "00 Math Prerequisites"
+author: "David Gerard"
+date: "`r Sys.Date()`"
+format: html
+urlcolor: "blue"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+We do not emphasize the mathematics underlying statistics in this course. However, you should have some familiarity with pre-calculus topics. Here are some facts you should know off the top of your head:
+
+
+# Powers, Exponentials, Logarithms
+- $e^{ab} = {e^{a}}^{b} = {e^{b}}^{a}$
+- $e^{a+b+c} = e^a(e^{b+c}) = e^ae^be^c$
+- $\log(ab) = \log(a) + \log(b)$
+- $\log(a/b) = \log(a) - \log(b)$
+- $x^ny^n = (xy)^n$
+
+# Summations
+
+- Capital-sigma notation is useful for writing sums of many numbers/variables:
+    $$\sum_{i = 1}^n x_i = x_1 + x_2 + \cdots x_n$$
+- If you sum a constant $n$ times, you get $n$ times that constant:
+    $$\sum_{i = 1}^n a = an$$
+- You can factor out multiplicative constants that don't depend on the summing index:
+    $$\sum_{i = 1}^n cx_i = c\sum_{i = 1}^n x_i$$
+- The order that you sum elements does not matter:
+    $$\sum_{i = 1}^n (x_i + y_i) = \sum_{i = 1}^n x_i + \sum_{i = 1}^n y_i$$

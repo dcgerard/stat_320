@@ -74,7 +74,7 @@
     "href": "index.html",
     "title": "Stat 320: Biostatistics",
     "section": "",
-    "text": "Syllabus\n\n01 R\n\nIntroduction to R\nPlotting in R\nDocuments in R"
+    "text": "Syllabus\n\n00 Overview\n\nMath Prereqs\nCourse Outline\n\n01 R\n\nIntroduction to R\nPlotting in R\nDocuments in R"
   },
   {
     "objectID": "01_r/01_quarto.html",
@@ -137,14 +137,14 @@
     "href": "01_r/01_figures/formatting.html",
     "title": "1st Level Header",
     "section": "",
-    "text": "italic or italic bold bold code superscript2 and subscript2"
+    "text": "italic bold strikeout code\nsuperscript2 subscript2\nunderline small caps"
   },
   {
     "objectID": "01_r/01_figures/formatting.html#text-formatting",
     "href": "01_r/01_figures/formatting.html#text-formatting",
     "title": "1st Level Header",
     "section": "",
-    "text": "italic or italic bold bold code superscript2 and subscript2"
+    "text": "italic bold strikeout code\nsuperscript2 subscript2\nunderline small caps"
   },
   {
     "objectID": "01_r/01_figures/formatting.html#headings",
@@ -180,5 +180,96 @@
     "title": "1st Level Header",
     "section": "Tables",
     "text": "Tables\n\n\n\nFirst Header\nSecond Header\n\n\n\n\nContent Cell\nContent Cell\n\n\nContent Cell\nContent Cell"
+  },
+  {
+    "objectID": "00_course_outline/00_math_prereqs.html",
+    "href": "00_course_outline/00_math_prereqs.html",
+    "title": "00 Math Prerequisites",
+    "section": "",
+    "text": "We do not emphasize the mathematics underlying statistics in this course. However, you should have some familiarity with pre-calculus topics. Here are some facts you should know off the top of your head:\n\nPowers, Exponentials, Logarithms\n\n\\(e^{ab} = {e^{a}}^{b} = {e^{b}}^{a}\\)\n\\(e^{a+b+c} = e^a(e^{b+c}) = e^ae^be^c\\)\n\\(\\log(ab) = \\log(a) + \\log(b)\\)\n\\(\\log(a/b) = \\log(a) - \\log(b)\\)\n\\(x^ny^n = (xy)^n\\)\n\n\n\nSummations\n\nCapital-sigma notation is useful for writing sums of many numbers/variables: \\[\\sum_{i = 1}^n x_i = x_1 + x_2 + \\cdots x_n\\]\nIf you sum a constant \\(n\\) times, you get \\(n\\) times that constant: \\[\\sum_{i = 1}^n a = an\\]\nYou can factor out multiplicative constants that don’t depend on the summing index: \\[\\sum_{i = 1}^n cx_i = c\\sum_{i = 1}^n x_i\\]\nThe order that you sum elements does not matter: \\[\\sum_{i = 1}^n (x_i + y_i) = \\sum_{i = 1}^n x_i + \\sum_{i = 1}^n y_i\\]"
+  },
+  {
+    "objectID": "00_course_outline/00_course_outline.html",
+    "href": "00_course_outline/00_course_outline.html",
+    "title": "00 Course Outline for Stat 320",
+    "section": "",
+    "text": "Three aspects of Statistics\nPopulation/Sample"
+  },
+  {
+    "objectID": "00_course_outline/00_course_outline.html#learning-objectives",
+    "href": "00_course_outline/00_course_outline.html#learning-objectives",
+    "title": "Course Outline for Stat 320",
+    "section": "Learning Objectives",
+    "text": "Learning Objectives\n\nThree aspects of Statistics\nPopulation/Sample"
+  },
+  {
+    "objectID": "00_course_outline/00_course_outline.html#statistics",
+    "href": "00_course_outline/00_course_outline.html#statistics",
+    "title": "Course Outline for Stat 320",
+    "section": "Statistics",
+    "text": "Statistics\nStatistics — the field of answering questions using data}.\nData — Numerical or qualitative descriptions of people/places/things that we want to study."
+  },
+  {
+    "objectID": "00_course_outline/00_course_outline.html#statistics-1",
+    "href": "00_course_outline/00_course_outline.html#statistics-1",
+    "title": "Course Outline for Stat 320",
+    "section": "Statistics",
+    "text": "Statistics\nStatistics — the field of answering questions using data}.\nSome examples\n\nLead Exposure\n\nData: Retrospective study measuring lead exposure in children along with variou outcome variables like IQ score, different measures of neurological function, and hyperactivity assessmenets.\nQuestion: What are the neurological and behavioral effects of lead exposure in young children?\n\nSmoking and bone density\n\nData: Pairs of twins, one of whom is a lighter smoker and one of whome is a heavier smoker. Different bone density measures were taken.\nQuestion: Do individuals who smoke have lower densities?"
+  },
+  {
+    "objectID": "00_course_outline/00_course_outline.html#statistics-2",
+    "href": "00_course_outline/00_course_outline.html#statistics-2",
+    "title": "Course Outline for Stat 320",
+    "section": "Statistics",
+    "text": "Statistics\nThree aspects:\n\nData Design\nData Description\nData Inference — informed by Probability"
+  },
+  {
+    "objectID": "00_course_outline/00_course_outline.html#data-design",
+    "href": "00_course_outline/00_course_outline.html#data-design",
+    "title": "Course Outline for Stat 320",
+    "section": "Data Design",
+    "text": "Data Design\nWhere do we get data?\n\nWhat is the proper way to collect data?\nWhen can we claim a causal connection between variables? (e.g. Does smoking lead to lower bone density? Does lead lead to increased neurological and behavioral problems?)\nWhat are some sources of bias (unwanted systematic tendencies in the data collection)?\nOnly touched on in this course."
+  },
+  {
+    "objectID": "00_course_outline/00_course_outline.html#data-description",
+    "href": "00_course_outline/00_course_outline.html#data-description",
+    "title": "Course Outline for Stat 320",
+    "section": "Data Description",
+    "text": "Data Description\nHow do we describe the data we have?\n\nNumerical summaries — use numbers to describe the data.\nGraphical summaries — use pictures to describe the data.\nExploratory data analysis — play with the data to get a “feel” for it.\nLots of R.\nFirst week of the semester."
+  },
+  {
+    "objectID": "00_course_outline/00_course_outline.html#data-inference-probability",
+    "href": "00_course_outline/00_course_outline.html#data-inference-probability",
+    "title": "Course Outline for Stat 320",
+    "section": "Data Inference (Probability)",
+    "text": "Data Inference (Probability)\nHow can we tell if our conclusions from the exploratory data analysis are real?\n\nLast thirteen weeks of the semester.\nProbability — subdiscipline of Mathematics that provides a foundation for modeling chance events.\nInference — describing a population (probabilistically) by using information from sample."
+  },
+  {
+    "objectID": "00_course_outline/00_course_outline.html#population",
+    "href": "00_course_outline/00_course_outline.html#population",
+    "title": "Course Outline for Stat 320",
+    "section": "Population",
+    "text": "Population\nStatisticians (among others) are interested in characteristics of a large group of people/countries/objects\n\nCharacterize/describe neurological and behavioral health of young children\nCharacterize/describe bone health of smokers.\nCharacterize/describe the effectiveness of a drug on a all adults.\n\nA population is a group of individuals/objects/locations for which you want information."
+  },
+  {
+    "objectID": "00_course_outline/00_course_outline.html#sample",
+    "href": "00_course_outline/00_course_outline.html#sample",
+    "title": "Course Outline for Stat 320",
+    "section": "Sample",
+    "text": "Sample\nIt is usually expensive/impossible to measure characteristics of every case in a population.\nA sample is a subgroup of individuals/objects/locations of the population.\n\nMeasure lead intake and different measures of neurological and behavioral health in a sample of 124 children.\nFind a group of 41 twins who have different smoking behaviors and compare their bone densities."
+  },
+  {
+    "objectID": "00_course_outline/00_course_outline.html#inference",
+    "href": "00_course_outline/00_course_outline.html#inference",
+    "title": "Course Outline for Stat 320",
+    "section": "Inference",
+    "text": "Inference\nFrom the sample, describe the population using probability.\n\nWe have strong evidence that lighter smoking twins have heavier lumbar spine bone density than heavier smoking twins (pair \\(t\\)-test \\(p = 0.006494\\)). The corresponding 95% confidence interval for the difference in bone density is 0.00799 g/cm2 0.06372 g/cm2. Since the twins are not a random sample, the generalizability of this result depends on how representative the twins are of the general population of interest. Since this is an observational study and not an experiment, the statistics alone cannot make a claim for causality — such claims would have depend on other arguments."
+  },
+  {
+    "objectID": "00_course_outline/00_course_outline.html#inference-1",
+    "href": "00_course_outline/00_course_outline.html#inference-1",
+    "title": "Course Outline for Stat 320",
+    "section": "Inference",
+    "text": "Inference\n\nIn this class, we will learn how to formulate such statements and interpret them."
   }
 ]

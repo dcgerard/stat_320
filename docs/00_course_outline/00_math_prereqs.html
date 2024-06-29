@@ -6,8 +6,10 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="David Gerard">
+<meta name="dcterms.date" content="2024-06-29">
 
-<title>Stat 320: Biostatistics</title>
+<title>Stat 320: Biostatistics - 00 Math Prerequisites</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -23,24 +25,24 @@ ul.task-list li input[type="checkbox"] {
 </style>
 
 
-<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
-<script src="../../site_libs/clipboard/clipboard.min.js"></script>
-<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="../../site_libs/quarto-search/fuse.min.js"></script>
-<script src="../../site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="../../">
-<script src="../../site_libs/quarto-html/quarto.js"></script>
-<script src="../../site_libs/quarto-html/popper.min.js"></script>
-<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="../../site_libs/quarto-html/anchor.min.js"></script>
-<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../../site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -69,8 +71,37 @@ ul.task-list li input[type="checkbox"] {
   }
 }</script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
-<link rel="stylesheet" href="../../styles.css">
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="../styles.css">
 </head>
 
 <body class="nav-fixed">
@@ -80,7 +111,7 @@ ul.task-list li input[type="checkbox"] {
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a class="navbar-brand" href="../../index.html">
+    <a class="navbar-brand" href="../index.html">
     <span class="navbar-title">Stat 320: Biostatistics</span>
     </a>
   </div>
@@ -91,11 +122,11 @@ ul.task-list li input[type="checkbox"] {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="../../index.html"> 
+    <a class="nav-link" href="../index.html"> 
 <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../../data.html"> 
+    <a class="nav-link" href="../data.html"> 
 <span class="menu-text">Data</span></a>
   </li>  
 </ul>
@@ -115,93 +146,66 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#text-formatting" id="toc-text-formatting" class="nav-link active" data-scroll-target="#text-formatting">Text formatting</a></li>
-  <li><a href="#headings" id="toc-headings" class="nav-link" data-scroll-target="#headings">Headings</a></li>
-  <li><a href="#st-level-header" id="toc-st-level-header" class="nav-link" data-scroll-target="#st-level-header">1st Level Header</a>
-  <ul class="collapse">
-  <li><a href="#nd-level-header" id="toc-nd-level-header" class="nav-link" data-scroll-target="#nd-level-header">2nd Level Header</a>
-  <ul class="collapse">
-  <li><a href="#rd-level-header" id="toc-rd-level-header" class="nav-link" data-scroll-target="#rd-level-header">3rd Level Header</a></li>
-  </ul></li>
-  <li><a href="#lists" id="toc-lists" class="nav-link" data-scroll-target="#lists">Lists</a></li>
-  <li><a href="#links-and-images" id="toc-links-and-images" class="nav-link" data-scroll-target="#links-and-images">Links and images</a></li>
-  <li><a href="#tables" id="toc-tables" class="nav-link" data-scroll-target="#tables">Tables</a></li>
-  </ul></li>
+  <li><a href="#powers-exponentials-logarithms" id="toc-powers-exponentials-logarithms" class="nav-link active" data-scroll-target="#powers-exponentials-logarithms">Powers, Exponentials, Logarithms</a></li>
+  <li><a href="#summations" id="toc-summations" class="nav-link" data-scroll-target="#summations">Summations</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-
-
-
-<section id="text-formatting" class="level2">
-<h2 class="anchored" data-anchor-id="text-formatting">Text formatting</h2>
-<p><em>italic</em> <strong>bold</strong> <del>strikeout</del> <code>code</code></p>
-<p>superscript<sup>2</sup> subscript<sub>2</sub></p>
-<p><u>underline</u> <span class="smallcaps">small caps</span></p>
-</section>
-<section id="headings" class="level2">
-<h2 class="anchored" data-anchor-id="headings">Headings</h2>
-</section>
-<section id="st-level-header" class="level1">
-<h1>1st Level Header</h1>
-<section id="nd-level-header" class="level2">
-<h2 class="anchored" data-anchor-id="nd-level-header">2nd Level Header</h2>
-<section id="rd-level-header" class="level3">
-<h3 class="anchored" data-anchor-id="rd-level-header">3rd Level Header</h3>
-</section>
-</section>
-<section id="lists" class="level2">
-<h2 class="anchored" data-anchor-id="lists">Lists</h2>
-<ul>
-<li><p>Bulleted list item 1</p></li>
-<li><p>Item 2</p>
-<ul>
-<li><p>Item 2a</p></li>
-<li><p>Item 2b</p></li>
-</ul></li>
-</ul>
-<ol type="1">
-<li><p>Numbered list item 1</p></li>
-<li><p>Item 2. The numbers are incremented automatically in the output.</p></li>
-</ol>
-</section>
-<section id="links-and-images" class="level2">
-<h2 class="anchored" data-anchor-id="links-and-images">Links and images</h2>
-<p><a href="http://example.com" class="uri">http://example.com</a></p>
-<p><a href="http://example.com">linked phrase</a></p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="img.png" class="img-fluid figure-img" alt="accessibility text"></p>
-<figcaption>optional caption text</figcaption>
-</figure>
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">00 Math Prerequisites</h1>
 </div>
-</section>
-<section id="tables" class="level2">
-<h2 class="anchored" data-anchor-id="tables">Tables</h2>
-<table class="caption-top table">
-<thead>
-<tr class="header">
-<th>First Header</th>
-<th>Second Header</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>Content Cell</td>
-<td>Content Cell</td>
-</tr>
-<tr class="even">
-<td>Content Cell</td>
-<td>Content Cell</td>
-</tr>
-</tbody>
-</table>
 
 
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>David Gerard </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">June 29, 2024</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p>We do not emphasize the mathematics underlying statistics in this course. However, you should have some familiarity with pre-calculus topics. Here are some facts you should know off the top of your head:</p>
+<section id="powers-exponentials-logarithms" class="level1">
+<h1>Powers, Exponentials, Logarithms</h1>
+<ul>
+<li><span class="math inline">\(e^{ab} = {e^{a}}^{b} = {e^{b}}^{a}\)</span></li>
+<li><span class="math inline">\(e^{a+b+c} = e^a(e^{b+c}) = e^ae^be^c\)</span></li>
+<li><span class="math inline">\(\log(ab) = \log(a) + \log(b)\)</span></li>
+<li><span class="math inline">\(\log(a/b) = \log(a) - \log(b)\)</span></li>
+<li><span class="math inline">\(x^ny^n = (xy)^n\)</span></li>
+</ul>
 </section>
+<section id="summations" class="level1">
+<h1>Summations</h1>
+<ul>
+<li>Capital-sigma notation is useful for writing sums of many numbers/variables: <span class="math display">\[\sum_{i = 1}^n x_i = x_1 + x_2 + \cdots x_n\]</span></li>
+<li>If you sum a constant <span class="math inline">\(n\)</span> times, you get <span class="math inline">\(n\)</span> times that constant: <span class="math display">\[\sum_{i = 1}^n a = an\]</span></li>
+<li>You can factor out multiplicative constants that don’t depend on the summing index: <span class="math display">\[\sum_{i = 1}^n cx_i = c\sum_{i = 1}^n x_i\]</span></li>
+<li>The order that you sum elements does not matter: <span class="math display">\[\sum_{i = 1}^n (x_i + y_i) = \sum_{i = 1}^n x_i + \sum_{i = 1}^n y_i\]</span></li>
+</ul>
+
+
 </section>
 
 </main> <!-- /main -->

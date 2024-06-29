@@ -1,0 +1,95 @@
+---
+title: "Course Outline for Stat 320"
+author: "David Gerard"
+date: "`r Sys.Date()`"
+format: revealjs
+editor: source
+urlcolor: "blue"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, fig.height = 2.3, fig.width = 3, fig.align = "center")
+```
+
+## Learning Objectives 
+
+- Three aspects of Statistics
+- Population/Sample
+
+## Statistics
+**Statistics** --- the field of answering questions using **data**}.
+
+**Data** --- Numerical or qualitative descriptions of people/places/things that we want to study.
+
+
+## Statistics 
+Statistics --- the field of answering questions using **data**}.
+
+Some examples
+
+- Lead Exposure
+    - Data: Retrospective study measuring lead exposure in children along with variou outcome variables like IQ score, different measures of neurological function, and hyperactivity assessmenets.
+    - Question: What are the neurological and behavioral effects of lead exposure in young children?
+- Smoking and bone density
+    - Data: Pairs of twins, one of whom is a lighter smoker and one of whome is a heavier smoker. Different bone density measures were taken.
+    - Question: Do individuals who smoke have lower densities?
+
+## Statistics 
+Three aspects:
+
+1. Data Design
+2. Data Description
+3. Data Inference --- informed by Probability
+
+## Data Design
+Where do we get data?
+
+- What is the proper way to collect data?
+- When can we claim a causal connection between variables? (e.g. Does smoking lead to lower bone density? Does lead lead to increased neurological and behavioral problems?)
+- What are some sources of bias (unwanted systematic tendencies in the data collection)?
+- Only touched on in this course.
+
+## Data Description
+How do we describe the data we have?
+
+- Numerical summaries --- use numbers to describe the data.
+- Graphical summaries --- use pictures to describe the data.
+- Exploratory data analysis --- play with the data to get a "feel" for it.
+- Lots of R.
+- First week of the semester.
+
+
+## Data Inference (Probability)
+How can we tell if our conclusions from the exploratory data analysis are **real**?
+
+- Last thirteen weeks of the semester.
+- Probability --- subdiscipline of Mathematics that provides a foundation for modeling chance events.
+- Inference --- describing a **population** (probabilistically) by using information from **sample**.
+
+
+## Population
+Statisticians (among others) are interested in characteristics of a large group of people/countries/objects
+
+- Characterize/describe neurological and behavioral health of young children
+- Characterize/describe bone health of smokers.
+- Characterize/describe the effectiveness of a drug on a all adults.
+
+| A **population** is a group of individuals/objects/locations for which you want information.
+
+## Sample
+
+It is usually expensive/impossible to measure characteristics of every case in a population.
+
+| A **sample** is a subgroup of individuals/objects/locations of the population.
+
+- Measure lead intake and different measures of neurological and behavioral health in a sample of 124 children.
+- Find a group of 41 twins who have different smoking behaviors and compare their bone densities.
+
+## Inference
+From the **sample**, describe the **population** using **probability**.
+
+- We have strong evidence that lighter smoking twins have heavier lumbar spine bone density than heavier smoking twins (pair $t$-test $p = 0.006494$). The corresponding 95\% confidence interval for the difference in bone density is 0.00799 g/cm^2^ 0.06372 g/cm^2^. Since the twins are not a random sample, the generalizability of this result depends on how representative the twins are of the general population of interest. Since this is an observational study and not an experiment, the statistics alone cannot make a claim for causality --- such claims would have depend on other arguments.
+
+## Inference
+
+- In this class, we will learn how to formulate such statements and interpret them.
