@@ -46,7 +46,7 @@ the `help()` function. For example, to learn more about `log()` type
 Google the functionality you want. Googling coding solutions is a
 lot of what real data scientists do. Just append what you are Googling with "in R". So, for example, "linear mixed effects models in R".
 
-- Nowadays, folks also use generative AI. You are all familiar with this. I think this is fine, but make sure you understand the output.
+- Nowadays, folks also use generative AI. You are all familiar with this. I think this is fine, but make sure you understand its output. Remember, **I can call you in and reduce your grade if it spits out something weird and you can't explain it to me.**
 
 # R Basics
 
@@ -261,23 +261,23 @@ this categorization).
 
   ![](./01_figures/dataframe.png){width=50%}\ 
   
-- R comes with a bunch of famous datasets in the form of a data frame. Such as the `mtcars` dataset.
+- R comes with a bunch of famous datasets in the form of a data frame. Such as the `airquality` dataset, which contains daily air quality measurements in New York from 1973.
 
   ```{r}
-  data("mtcars")
-  mtcars
+  data("airquality")
+  head(airquality)
   ```
   
 - You can extract individual variables from a data frame using `$`
 
   ```{r}
-  mtcars$mpg
+  airquality$Ozone
   ```
 
-- You can explore these in a spreadsheet format using `View()` (note the capital "V").
+- You can explore these in a spreadsheet format using `View()` (note the capital "V"). Don't ever have this in a file though, directly write it in the console.
 
   ```{r, eval = FALSE}
-  View(mtcars)
+  View(airquality)
   ```
 
 ## Reading in Data Frames
@@ -294,18 +294,22 @@ this categorization).
 
 - For other file formats, you need to use other functions, such as `read_tsv()`, `read_table()`, `read_fwf()`, etc. I will try to make sure `read_csv()` works for all datasets in this course.
 
-- I will typicaly post course datasets at <https://dcgerard.github.io/stat_415_615/data.html>. You can load those data into R by pasting their URL's into `read_csv()`.
-
+- I will typicaly post course datasets at <https://dcgerard.github.io/stat_320/data.html>. You can load those data into R by pasting their URL's into `read_csv()`.
+  
   ```{r}
-  copiers <- read_csv("https://dcgerard.github.io/stat_415_615/data/copiers.csv")
-  head(copiers)
+  #| message: false
+  lead <- read_csv("https://dcgerard.github.io/stat_320/data/lead.csv")
+  head(lead)
   ```
   
-- **Exercise**: Load in the County Demographic Information data into R and print out the first six rows.
+- **Exercise**: Load in the `birthweight` data into R and print out the first six rows.
 
-  ```{r, eval = FALSE, echo = FALSE}
-  cdi <- read_csv("https://dcgerard.github.io/stat_415_615/data/cdi.csv")
-  head(cdi)
+  ```{r}
+  #| eval: true
+  #| echo: false
+  #| message: false
+  birthweight <- read_csv("https://dcgerard.github.io/stat_320/data/birthweight.csv")
+  # head(birthweight)
   ```
 
 ## Basic Data Frame Manipulations
@@ -321,27 +325,27 @@ this categorization).
 - Use the `mutate()` function from the `{dplyr}` package to make variable transformations.
 
   ```{r}
-  mtcars <- mutate(mtcars, kpg = mpg * 1.61)
-  head(mtcars)
+  lead <- mutate(lead, log_iqv_inf = log(iqv_inf))
+  head(lead)
   ```
 
 - Use `glimpse()` to get a brief look at the data frame.
 
   ```{r}
-  glimpse(mtcars)
+  glimpse(lead)
   ```
 
 - Use `View()` to see a spreadsheet of the data frame (never put this in an R Markdown file). Note the capital "V".
   
   ```{r, eval=FALSE}
-  View(mtcars)
+  View(lead)
   ```
 
 - Use `rename()` to rename variables.
 
   ```{r}
-  mtcars <- rename(mtcars, auto_man = am)
-  head(mtcars)
+  lead <- rename(lead, ID = id)
+  head(lead)
   ```
 
 - Use `filter()` to remove rows.
@@ -351,16 +355,46 @@ this categorization).
   - Use `<=` and `>=` to select rows based on inequality/equality.
 
   ```{r}
-  filter(mtcars, auto_man == 1)
-
-  filter(mtcars, mpg < 15)  
+  filter(lead, Group == "control")
+  
+  filter(lead, ageyrs < 4)  
+  
+  filter(lead, ageyrs > 4, ageyrs < 5)
   ```
   
-- **Exercise**: Calculate the log-displacement, add this to the `mtcars` data frame.
+- **Exercise**: The `birthweight` data is in ounces. There are abour 28.3495 grams in an ounce. Create a new variable called `weight_g` that is the weight of the baby in grams.
 
-- **Exercise**: Filter out cars with only one carborator (keep cars with more than 1 carborator).
+  ```{r}
+  #| eval: false
+  #| echo: false
+  birthweight <- mutate(birthweight, weight_g = 28.3495 * weight)
+  glimpse(birthweight)
+  ```
 
-- **Exercise**: Rename the `hp` variable to `horse`.
+- **Exercise**: From the birthweight data, select just babies that are greater than or equal to 150 ounces.
+
+  ```{r}
+  #| eval: false
+  #| echo: false
+  filter(birthweight, weight > 150)
+  ```
+
+- **Exercise**: From the `lead` data, select individuals who are both in the control group and are at least 15.
+
+  ```{r}
+  #| eval: false
+  #| echo: false
+  filter(lead, Group == "control", ageyrs >= 15)
+  ```
+
+
+- **Exercise**: From the `lead` data, rename `ageyrs` to just `age`
+
+  ```{r}
+  #| eval: false
+  #| echo: false
+  rename(lead, age = ageyrs)
+  ```
   
 # Summary
 

@@ -7,9 +7,9 @@ urlcolor: "blue"
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE, 
-            fig.width = 4, 
-            fig.height = 3, 
+knitr::opts_chunk$set(echo = TRUE,
+            fig.width = 4,
+            fig.height = 3,
             fig.align = "center")
 ggplot2::theme_set(ggplot2::theme_bw() + ggplot2::theme(strip.background = ggplot2::element_rect(fill = "white")))
 ```
@@ -35,14 +35,15 @@ set.seed(1)
 - In this vignette, we'll also make some variable transformations, so we will need the `{dplyr}` package.
 
   ```{r, message=FALSE}
+  library(readr)
   library(dplyr)
   ```
 
-- I will use the `mpg` dataset to demonstrate plots
+- I will use the `lead` dataset to demonstrate plots
 
   ```{r}
-  data(mpg, package = "ggplot2")
-  glimpse(mpg)
+  #| message: false
+  lead <- read_csv("https://dcgerard.github.io/stat_320/data/lead.csv")
   ```
 
 # `ggplot()`
@@ -52,17 +53,17 @@ set.seed(1)
 - It takes two main arguments:
   - `data`: The data frame that holds the variables you want to plot.
   - `mapping`: The "aesthetic map"
-  
+
 - An "aesthetic map" says what variables go on the $x$-axis, what variables go on the $y$-axis, what variables are represented by color, or size, or point shape, etc...
 
 - You place all aesthetic maps inside an `aes()` function.
 
-- E.g. here, we are mapping `hwy` to be on the $x$-axis, and different values of `drv` should be different colors.
+- E.g. here, we are mapping `iqf` to be on the $x$-axis, and different values of `lead_grp` should be different colors.
 
   ```{r, eval = FALSE}
-  ggplot(data = mpg, mapping = aes(x = hwy, color = drv))
+  ggplot(data = lead, mapping = aes(x = iqf, color = lead_grp))
   ```
-  
+
 - This function just sets the data and the aesthetic mapping, but it won't produce any useful plot by itself.
 
 - You add additional functions to the plot to state the type of plot you want.
@@ -76,24 +77,26 @@ set.seed(1)
   - Use the `geom_histogram()` function.
 
   ```{r, message=FALSE}
-  ggplot(data = mpg, mapping = aes(x = hwy)) +
+  #| warning: false
+  ggplot(data = lead, mapping = aes(x = iqf)) +
     geom_histogram()
   ```
 
 - Make the bin lines black and the fill white, and change the number of bins.
 
   ```{r}
-  ggplot(data = mpg, mapping = aes(x = hwy)) +
-    geom_histogram(bins = 10, color = "black", fill = "white")
+  #| warning: false
+  ggplot(data = lead, mapping = aes(x = iqf)) +
+    geom_histogram(bins = 20, color = "black", fill = "white")
   ```
 
-- **Exercise**: Load in the [estate](https://dcgerard.github.io/stat_415_615/data/estate.csv) data (see [here](https://dcgerard.github.io/stat_415_615/data.html#real-estate-sales) for a description) and make a histogram of price with 20 bins. Make the bins red.
+- **Exercise**: Load in the [boneden](https://dcgerard.github.io/stat_320/data/boneden.csv) data (see [here](https://dcgerard.github.io/stat_320/data.html#boneden) for a description) and make a histogram of lumbar spine density for the lighter smoking twin with 20 bins. Make the bins red.
 
   ```{r, echo = FALSE, eval = FALSE}
   library(readr)
   library(ggplot2)
-  estate <- read_csv("https://dcgerard.github.io/stat_415_615/data/estate.csv")
-  ggplot(data = estate, mapping = aes(x = price)) +
+  boneden <- read_csv("https://dcgerard.github.io/stat_320/data/boneden.csv")
+  ggplot(data = boneden, mapping = aes(x = ls1)) +
     geom_histogram(bins = 20, fill = "red")
   ```
 
@@ -104,22 +107,39 @@ set.seed(1)
   - Use `geom_bar()`.
 
   ```{r}
-  ggplot(data = mpg, mapping = aes(x = drv)) +
+  #| warning: false
+  ggplot(data = lead, mapping = aes(x = hyperact)) +
     geom_bar()
   ```
 
-- **Exercise**: What variables from the `estate` data are appropriately plotted using a bar plot? Plot them.
+- **Exercise**: What variables from the `lead` data are appropriately plotted using a bar plot? Plot a couple of them.
 
   ```{r, eval = FALSE, echo = FALSE}
-  ggplot(data = estate, mapping = aes(x = quality)) +
+  ggplot(data = lead, mapping = aes(x = sex)) +
     geom_bar()
-  ggplot(data = estate, mapping = aes(x = style)) +
+  ggplot(data = lead, mapping = aes(x = area)) +
     geom_bar()
-  ggplot(data = estate, mapping = aes(x = ac)) +
+  ggplot(data = lead, mapping = aes(x = lead_grp)) +
     geom_bar()
-  ggplot(data = estate, mapping = aes(x = pool)) +
+  ggplot(data = lead, mapping = aes(x = Group)) +
     geom_bar()
-  ggplot(data = estate, mapping = aes(x = highway)) +
+  ggplot(data = lead, mapping = aes(x = fst2yrs)) +
+    geom_bar()
+  ggplot(data = lead, mapping = aes(x = iq_type)) +
+    geom_bar()
+  ggplot(data = lead, mapping = aes(x = pica)) +
+    geom_bar()
+  ggplot(data = lead, mapping = aes(x = colic)) +
+    geom_bar()
+  ggplot(data = lead, mapping = aes(x = clumsi)) +
+    geom_bar()
+  ggplot(data = lead, mapping = aes(x = irrit)) +
+    geom_bar()
+  ggplot(data = lead, mapping = aes(x = convul)) +
+    geom_bar()
+  ggplot(data = lead, mapping = aes(x = hyperact)) +
+    geom_bar()
+  ggplot(data = lead, mapping = aes(x = maxfwt)) +
     geom_bar()
   ```
 
@@ -128,11 +148,12 @@ set.seed(1)
 ## Continuous X, Continuous Y
 
 - Scatterplot:
-  - Say what variables should be on the $x$- and $y$-axes. 
+  - Say what variables should be on the $x$- and $y$-axes.
   - Use `geom_point()`.
 
   ```{r}
-  ggplot(data = mpg, mapping = aes(x = cty, y = hwy)) +
+  #| warning: false
+  ggplot(data = lead, mapping = aes(x = ld73, y = iqf)) +
     geom_point()
   ```
 
@@ -140,23 +161,25 @@ set.seed(1)
   - Use `geom_jitter()` instead of `geom_point()`.
 
   ```{r}
-  ggplot(data = mpg, mapping = aes(x = cty, y = hwy)) +
+  #| warning: false
+  ggplot(data = lead, mapping = aes(x = totyrs, y = hyperact)) +
     geom_jitter()
   ```
 
 - Add a Loess Smoother by adding `geom_smooth()`.
 
   ```{r, message=FALSE}
-  ggplot(data = mpg, mapping = aes(x = cty, y = hwy)) +
+  #| warning: false
+  ggplot(data = lead, mapping = aes(x = ld73, y = iqf)) +
     geom_point() +
     geom_smooth(se = FALSE)
   ```
 
-- **Exercise**: Using the `estate` data, make a scatterplot of number of bedrooms versus number of bathrooms. Adjust for any overplotting.
+- **Exercise**: Using the `boneden` data, make a scatterplot exploring the association between the lumbar spine densities for the two twin types (smoking status).
 
   ```{r, echo = FALSE, eval = FALSE}
-  ggplot(data = estate, mapping = aes(x = bed, y = bath)) +
-    geom_jitter()
+  ggplot(data = boneden, mapping = aes(x = ls1, y = ls2)) +
+    geom_point()
   ```
 
 ## Discrete X, Continuous Y
@@ -167,15 +190,16 @@ set.seed(1)
   - Use `geom_boxplot()`.
 
   ```{r}
-  ggplot(data = mpg, mapping = aes(x = class, y = hwy)) +
+  #| warning: false
+  ggplot(data = lead, mapping = aes(x = Group, y = iqf)) +
     geom_boxplot()
   ```
 
-- **Exercise**: Using the `estate` data, plot sales price versus style. (*hint*: you need to first convert `style` to a factor using `as.factor()`)
+- **Exercise**: Using the `boneden` data, first calculate the difference in lumbar spine densities between the two twins (you'll need to use `mutate()` here). Then plot this difference versus zygosity (monozygotic versus dizygotic).
 
   ```{r, eval = FALSE, echo = FALSE}
-  estate <- mutate(estate, style = as.factor(style))
-  ggplot(data = estate, mapping = aes(x = style, y = price)) +
+  boneden <- mutate(boneden, ls_diff = ls1 - ls2)
+  ggplot(data = boneden, mapping = aes(x = zyg, y = ls_diff)) +
     geom_boxplot()
   ```
 
@@ -185,15 +209,16 @@ set.seed(1)
   - Just add a color mapping.
 
   ```{r}
-  ggplot(data = mpg, mapping = aes(x = cty, y = hwy, color = drv)) +
-    geom_jitter()
+  #| warning: false
+  ggplot(data = lead, mapping = aes(x = ld73, y = iqf, color = lead_grp)) +
+    geom_point()
   ```
 
-- **Exercise**: Using the `estate` data, create a boxplot of price versus ac, color coding by pool.
+- **Exercise**: Using the `boneden` data, create a scatterplot between the lumbar spine densities of the two twin types (smoking status), color coding by zygosity.
 
   ```{r, echo = FALSE, eval = FALSE}
-  ggplot(data = estate, mapping = aes(x = ac, y = price, color = pool)) +
-    geom_boxplot()
+  ggplot(data = boneden, mapping = aes(x = ls1, y = ls2, color = zyg)) +
+    geom_point()
   ```
 
 # Changing a legend title
@@ -201,12 +226,10 @@ set.seed(1)
 - Add a `scale_*()` call to change the name:
 
   ```{r}
-  ggplot(data = mpg, mapping = aes(x = cty, y = hwy, color = drv)) +
-    geom_jitter() +
-    scale_color_discrete(name = "New Name1")
-  ggplot(data = mpg, mapping = aes(x = cty, y = hwy, shape = drv)) +
-    geom_jitter() +
-    scale_shape_discrete(name = "New Name2")
+  #| warning: false
+  ggplot(data = lead, mapping = aes(x = ld73, y = iqf, color = lead_grp)) +
+    geom_point() +
+    scale_color_discrete(name = "New Name")
   ```
 
 # Faceting
@@ -216,26 +239,28 @@ set.seed(1)
 - The variable to the left of the tilde ("`~`") indexes the row facets, the variable to the right of the tilde indexes the column facets. Using a dot ("`.`") in place of a variable means that there will only be one row/column facet.
 
   ```{r}
-  ggplot(data = mpg, mapping = aes(x = cty, y = hwy)) +
+  #| warning: false
+  ggplot(data = lead, mapping = aes(x = ld73, y = iqf)) +
     geom_point() +
-    facet_grid(. ~ drv)
-  ggplot(data = mpg, mapping = aes(x = cty, y = hwy)) +
+    facet_grid(. ~ area)
+  ggplot(data = lead, mapping = aes(x = ld73, y = iqf)) +
     geom_point() +
-    facet_grid(drv ~ .)
-  ```
-  
-  ```{r, fig.height=2.7, fig.width=3.5}
-  ggplot(data = mpg, mapping = aes(x = cty, y = hwy)) +
-    geom_point() +
-    facet_grid(fl ~ drv)
+    facet_grid(area ~ .)
   ```
 
-- **Exercise**: Using the `estate` data, plot price versus area, faceting by ac, color coding by pool.
+  ```{r, fig.height=2.7, fig.width=3.5}
+  #| warning: false
+  ggplot(data = lead, mapping = aes(x = ld73, y = iqf)) +
+    geom_point() +
+    facet_grid(area ~ Group)
+  ```
+
+- **Exercise**: Using the `boneden` data, create a histogram of the difference in lumbar spine densities, faceting by zygosity.
 
   ```{r, echo = FALSE, eval = FALSE}
-  ggplot(data = estate, mapping = aes(x = area, y = price, color = pool)) +
-    geom_point() +
-    facet_wrap(. ~ ac)
+  ggplot(data = boneden, mapping = aes(x = ls_diff)) +
+    geom_histogram(bins = 10) +
+    facet_wrap(. ~ zyg)
   ```
 
 # Change Theme
@@ -243,7 +268,8 @@ set.seed(1)
 - Add a `theme_*()` function to change the theme:
 
   ```{r}
-  ggplot(data = mpg, mapping = aes(x = cty, y = hwy)) +
-    geom_point() + 
+  #| warning: false
+  ggplot(data = lead, mapping = aes(x = ld73, y = iqf)) +
+    geom_point() +
     theme_classic()
   ```
