@@ -160,7 +160,8 @@ lead |>
          colic = recode(colic, '1' = 'yes', '2' = 'no'),
          clumsi = recode(clumsi, '1' = 'yes', '2' = 'no'),
          irrit = recode(irrit, '1' = 'yes', '2' = 'no'),
-         convul = recode(convul, '1' = 'yes', '2' = 'no')) ->
+         convul = recode(convul, '1' = 'yes', '2' = 'no'),
+         lead_grp = recode(lead_grp, '1' = 'control', '2' = 'current exposed', '3' = 'previous exposed')) ->
   lead
 write_csv(lead, "./lead.csv")
 

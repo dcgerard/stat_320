@@ -548,12 +548,12 @@ window.Quarto = {
 <ul>
 <li><a href="./data/endocrin.csv">endocrin.csv</a>
 <ul>
-<li><code>Subject</code>: SUBJECT #</li>
-<li><code>Replicat</code>: REPLICATE #</li>
-<li><code>Estrone</code>: ESTRONE</li>
-<li><code>Estradol</code>: ESTRADIOL</li>
-<li><code>Androste</code>: ANDROSTENEDIONE</li>
-<li><code>Testost</code>: TESTOSTERONE</li>
+<li><code>Subject</code>: Subject number</li>
+<li><code>Replicat</code>: Replicate number</li>
+<li><code>Estrone</code>: Estrone</li>
+<li><code>Estradol</code>: Estradiol</li>
+<li><code>Androste</code>: Androstenedione</li>
+<li><code>Testost</code>: Testosterone</li>
 </ul></li>
 </ul>
 </section>
@@ -589,33 +589,33 @@ window.Quarto = {
 <li><a href="./data/estrogen.csv">estrogen.csv</a>
 <ul>
 <li><code>Id</code>: ID</li>
-<li><code>std_typ</code>: STUDY TYPE.
+<li><code>std_typ</code>: Study type.
 <ul>
 <li>Possible values: <code>0.625MG VS PLACEBO</code>, <code>1.25MG VS PLACEBO</code>, <code>1.25MG VS 0.625MG</code></li>
 </ul></li>
-<li><code>period</code>: PERIOD</li>
-<li><code>trtgrp</code>: TREATMENT.
+<li><code>period</code>: Period</li>
+<li><code>trtgrp</code>: Treatment.
 <ul>
 <li>Possible values: <code>PLACEBO</code>, <code>0.625MG</code>, <code>1.25MG</code></li>
 </ul></li>
-<li><code>sysd1r1</code>: SYSTOLIC BP DAY 1 READING 1</li>
-<li><code>diasd1r1</code>: DIASTOLIC BP DAY 1 READING 1</li>
-<li><code>sysd1r2</code>: SYSTOLIC BP DAY 1 READING 2</li>
-<li><code>diasd1r2</code>: DIASTOLIC BP DAY 1 READING 2</li>
-<li><code>sysd1r3</code>: SYSTOLIC BP DAY 1 READING 3</li>
-<li><code>diasd1r3</code>: DIASTOLIC BP DAY 1 READING 3</li>
-<li><code>sysd2r1</code>: SYSTOLIC BP DAY 2 READING 1</li>
-<li><code>diasd2r1</code>: DIASTOLIC BP DAY 2 READING 1</li>
-<li><code>sysd2r2</code>: SYSTOLIC BP DAY 2 READING 2</li>
-<li><code>diasd2r2</code>: DIASTOLIC BP DAY 2 READING 2</li>
-<li><code>sysd2r3</code>: SYSTOLIC BP DAY 2 READING 3</li>
-<li><code>diasd2r3</code>: DIASTOLIC BP DAY 2 READING 3</li>
-<li><code>sysd3r1</code>: SYSTOLIC BP DAY 3 READING 1</li>
-<li><code>diasd3r1</code>: DIASTOLIC BP DAY 3 READING 1</li>
-<li><code>sysd3r2</code>: SYSTOLIC BP DAY 3 READING 2</li>
-<li><code>diasd3r2</code>: DIASTOLIC BP DAY 3 READING 2</li>
-<li><code>sysd3r3</code>: SYSTOLIC BP DAY 3 READING 3</li>
-<li><code>diasd3r3</code>: DIASTOLIC BP DAY 3 READING 3</li>
+<li><code>sysd1r1</code>: Systolic blood pressure day 1 reading 1</li>
+<li><code>diasd1r1</code>: Diastolic blood pressure day 1 reading 1</li>
+<li><code>sysd1r2</code>: Systolic blood pressure day 1 reading 2</li>
+<li><code>diasd1r2</code>: Diastolic blood pressure day 1 reading 2</li>
+<li><code>sysd1r3</code>: SYSTOLIC BP DAY 1 reading 3</li>
+<li><code>diasd1r3</code>: Diastolic blood pressure day 1 reading 3</li>
+<li><code>sysd2r1</code>: Systolic blood pressure day 2 reading 1</li>
+<li><code>diasd2r1</code>: Diastolic blood pressure day 2 reading 1</li>
+<li><code>sysd2r2</code>: Systolic blood pressure day 2 reading 2</li>
+<li><code>diasd2r2</code>: Diastolic blood pressure day 2 reading 2</li>
+<li><code>sysd2r3</code>: Systolic blood pressure day 2 reading 3</li>
+<li><code>diasd2r3</code>: Diastolic blood pressure day 2 reading 3</li>
+<li><code>sysd3r1</code>: Systolic blood pressure day 3 reading 1</li>
+<li><code>diasd3r1</code>: Diastolic blood pressure day 3 reading 1</li>
+<li><code>sysd3r2</code>: Systolic blood pressure day 3 reading 2</li>
+<li><code>diasd3r2</code>: Diastolic blood pressure day 3 reading 2</li>
+<li><code>sysd3r3</code>: Systolic blood pressure day 3 reading 3</li>
+<li><code>diasd3r3</code>: Diastolic blood pressure day 3 reading 3</li>
 </ul></li>
 </ul>
 </section>
@@ -786,91 +786,95 @@ window.Quarto = {
 <ul>
 <li><a href="./data/lead.csv">lead.csv</a>
 <ul>
-<li><code>id</code>: IDENTIFICATION NUMBER</li>
-<li><code>area</code>: AREA - RESIDENCE ON AUG 1972. Possible values:
+<li><code>id</code>: Identification number</li>
+<li><code>area</code>: Area - residence on aug 1972. possible values:
 <ul>
-<li><code>0-1</code> MILES FROM SMELTER</li>
-<li><code>1-2.5</code> MILES</li>
-<li><code>2.5-4.1</code> MILES</li>
+<li><code>0-1</code> Miles from smelter</li>
+<li><code>1-2.5</code> Miles</li>
+<li><code>2.5-4.1</code> Miles</li>
 </ul></li>
-<li><code>ageyrs</code>: AGE in years</li>
-<li><code>sex</code>: SEX.
+<li><code>ageyrs</code>: Age in years</li>
+<li><code>sex</code>: Sex.
 <ul>
 <li>Possible values: <code>male</code>, <code>female</code></li>
 </ul></li>
-<li>IQ TEST RESULTS
+<li>Lead data
 <ul>
-<li><code>iqv_inf</code>: INF - INFORMATION SUBTEST IN WISC AND WPPSI</li>
-<li><code>iqv_comp</code>: COMP - COMPREHENSION SUBTEST IN WISC AND WPPSI</li>
-<li><code>iqv_ar</code>: AR - ARITHMETIC SUBTEST IN WISC AND WPPSI</li>
-<li><code>iqv_ds</code>: DS - DIGIT SPAN SUBTEST(WISC) AND SENTENCE COMPLETION(WPPSI)</li>
-<li><code>iqv_raw</code>: V/RAW - RAW SCORE/VERBAL IQ</li>
-<li><code>iqp_pc</code>: PC - PICTURE COMPLETION SUBTEST IN WISC AND WPPSI</li>
-<li><code>iqp_bd</code>: BD - BLOCK DESIGN SUBTEST IN WISC AND WPPSI</li>
-<li><code>iqp_oa</code>: OA - OBJECT ASSEMBLY SUBTEST(WISC), ANIMAL HOUSE SUBTEST(WPPSI)</li>
-<li><code>iqp_cod</code>: COD - CODING SUBTEST(WISC), GEOMETRIC DESIGN SUBTEST(WPPSI)</li>
-<li><code>iqp_raw</code>: P/RAW - RAW SCORE/PERFORMANCE IQ (TOTAL OF SCORES PC, BD, OA, &amp; COD)</li>
-<li><code>hh_index</code>: HH/INDEX - HOLLINGSHEAD INDEX OF SOCIAL STATUS</li>
-<li><code>iqv</code>: IQV - VERBAL IQ</li>
-<li><code>iqp</code>: IQP - PERFORMANCE IQ</li>
-<li><code>iqf</code>: IQF - FULL SCALE IQ (NOT SUM OR AVERAGE OF IQV D IQP)</li>
-<li><code>iq_type</code>: TYPE OF IQ TEST (WISC USUALLY GIVEN TO CHILDREN GE 5 YRS 1 MONTH OF AGE WPPSI USUALLY GIVEN TO CHILDREN LE 5YRS OF AGE).
-<ul>
-<li>Possible values: <code>WISC</code>, <code>WPPSI</code></li>
-</ul></li>
-<li><code>lead_grp</code>: GROUP - BLOOD LEAD LEVEL GROUP
-<ul>
-<li><code>1</code> = BLOOD LEAD LEVELS BELOW 40 MICROGRAMS/100ML IN BOTH 1972 &amp; 1973 (control group),</li>
-<li><code>2</code> = BLOOD LEAD LEVELS GREATER THAN OR EQUAL TO 40 MICROGRAMS/100ML IN BOTH 72 &amp; 73 OR A LEVEL GREATER THAN OR EQUAL TO 40 IN 73 ALONE (3 CASES ONLY) (currently exposed Group),</li>
-<li><code>3</code> = BLOOD LEAD LEVELS GREATER THAN OR EQUAL TO 40 MICROGRAMS/100ML IN 72 AND LESS THAN 40 IN 73 (previously exposed group)</li>
-</ul></li>
+<li><code>lead_grp</code>: Blood lead level group. possible values:</li>
+<li><code>control</code> = Blood lead levels below 40 micrograms/100ml in both 1972 &amp; 1973 (control group),</li>
+<li><code>current exposed</code> = Blood lead levels greater than or equal to 40 micrograms/100ml in both 72 &amp; 73 or a level greater than or equal to 40 in 73 alone (3 cases only) (currently exposed group),</li>
+<li><code>previous exposed</code> = Blood lead levels greater than or equal to 40 micrograms/100ml in 72 and less than 40 in 73 (previously exposed group)</li>
 <li><code>Group</code>: group.
 <ul>
 <li>Possible values: <code>control</code>, <code>exposed</code></li>
 </ul></li>
-<li><code>ld72</code>: LD72 - BLOOD LEAD VALUES (MICROGRAMS/100ML) IN72</li>
-<li><code>ld73</code>: LD73 - BLOOD LEAD VALUES (MICROGRAMS/100ML) IN 73</li>
-<li><code>fst2yrs</code>: FST2YRS - DID CHILD LIVE FOR 1ST 2 YRS WITHIN 1 MILE OF SMELTER.
+<li><code>ld72</code>: Blood lead values (micrograms/100ml) in 72</li>
+<li><code>ld73</code>: Blood lead values (micrograms/100ml) in 73</li>
+<li><code>fst2yrs</code>: Did child live for 1st 2 years within 1 mile of smelter.
 <ul>
 <li>Possible values: <code>yes</code>, <code>no</code>.</li>
 </ul></li>
-<li><code>totyrs</code>: TOTYRS - TOTAL NUMBER OF YEARS SPENT WITHIN 4.1 MILES OF SMELTER</li>
+<li><code>totyrs</code>: Total number of years spent within 4.1 miles of smelter</li>
 </ul></li>
-<li>SYMPTOM DATA (AS REPORTED BY PARENTS)
+<li>IQ Test Results
 <ul>
-<li><code>pica</code>: PICA.
+<li><code>iqv_inf</code>: INF - information subtest in WISC and WPPSI</li>
+<li><code>iqv_comp</code>: COMP - comprehension subtest in WISC and WPPSI</li>
+<li><code>iqv_ar</code>: AR - arithmetic subtest in WISC and WPPSI</li>
+<li><code>iqv_ds</code>: DS - digit span subtest(WISC) and sentence completion(WPPSI)</li>
+<li><code>iqv_raw</code>: V/RAW - raw score/verbal IQ</li>
+<li><code>iqp_pc</code>: PC - picture completion subtest in WISC and WPPSI</li>
+<li><code>iqp_bd</code>: BD - block design subtest in WISC and WPPSI</li>
+<li><code>iqp_oa</code>: OA - object assembly subtest(WISC), animal house subtest(WPPSI)</li>
+<li><code>iqp_cod</code>: COD - coding subtest(WISC), geometric design subtest(WPPSI)</li>
+<li><code>iqp_raw</code>: P/RAW - raw score/performance IQ (total of scores PC, BD, OA, &amp; COD)</li>
+<li><code>hh_index</code>: HH/INDEX - Hollingshead index of social status</li>
+<li><code>iqv</code>: IQV - verbal IQ</li>
+<li><code>iqp</code>: IQP - performance IQ</li>
+<li><code>iqf</code>: IQF - full scale IQ (not sum or average of IQV D IQP)</li>
+<li><code>iq_type</code>: Type of IQ test (WISC usually given to children <span class="math inline">\(\geq\)</span> 5 years and 1 month of age WPPSI usually given to children <span class="math inline">\(\leq\)</span> 5 years of age).
+<ul>
+<li>Possible values: <code>WISC</code>, <code>WPPSI</code></li>
+</ul></li>
+</ul></li>
+<li>Symptom data (as reported by parents)
+<ul>
+<li><code>pica</code>: Pica.
 <ul>
 <li>Possible values: <code>yes</code>, <code>no</code>.</li>
 </ul></li>
-<li><code>colic</code>: COLIC.
+<li><code>colic</code>: Colic.
 <ul>
 <li>Possible values: <code>yes</code>, <code>no</code>.</li>
 </ul></li>
-<li><code>clumsi</code>: CLUMSINESS.
+<li><code>clumsi</code>: Clumsiness.
 <ul>
 <li>Possible values: <code>yes</code>, <code>no</code>.</li>
 </ul></li>
-<li><code>irrit</code>: IRRITABILITY.
+<li><code>irrit</code>: Irritability.
 <ul>
 <li>Possible values: <code>yes</code>, <code>no</code>.</li>
 </ul></li>
-<li><code>convul</code>: CONVULSIONS.
+<li><code>convul</code>: Convulsions.
 <ul>
 <li>Possible values: <code>yes</code>, <code>no</code>.</li>
 </ul></li>
 </ul></li>
-<li>CONTAIN NEUROLOGICAL TEST DATA
+<li>Neurological test data
 <ul>
-<li><code>_2plat_r</code>: # OF TAPS FOR RIGHT HAND IN THE 2-PLATE TAPPING TEST (#TAPS IN ONE 10 SECOND TRIAL)</li>
-<li><code>_2plat_l</code>: # OF TAPS FOR LEFT HAND IN THE 2-PLATE TAPPING TEST (#TAPS IN ONE 10 SECOND TRIAL)</li>
-<li><code>visrea_r</code>: VISUAL REACTION TIME RIGHT HAND (MILLISECONDS)</li>
-<li><code>visrea_l</code>: VISUAL REATION TIME LEFT HAND (MILLISECONDS)</li>
-<li><code>audrea_r</code>: AUDITORY REACTION TIME RIGHT HAND (MILLISECONDS)</li>
-<li><code>audrea_l</code>: AUDITORY REACTION TIME LEFT HAND (MILLISECONDS)</li>
-<li><code>fwt_r</code>: FINGER-WRIST TAPPING TEST RIGHT HAND (# TAPS IN ONE 10 SECOND TRIAL)</li>
-<li><code>fwt_l</code>: FINGER-WRIST TAPPING TEST LEFT HAND (#TAPS IN ONE 10 SECOND TRIAL)</li>
-<li><code>hyperact</code>: WWPS - WERRY-WEISS-PETERS SCALE FOR HYPERACTIVITY 0=NO ACTIVITY . . . . 4=SEVERLY HYPERACTIVE (AS REPORTED BY PARENTS)</li>
-<li><code>maxfwt</code>: Finger-wrist tapping test in dominant hand(max of <code>fwt_r</code>,<code>fwt_l</code>)</li>
+<li><code>_2plat_r</code>: Number of taps for right hand in the 2-plate tapping test (number of taps in one 10 second trial)</li>
+<li><code>_2plat_l</code>: Number OF taps for left hand in the 2-plate tapping test (number taps in one 10 second trial)</li>
+<li><code>visrea_r</code>: Visual reaction time right hand (milliseconds)</li>
+<li><code>visrea_l</code>: Visual reation time left hand (milliseconds)</li>
+<li><code>audrea_r</code>: Auditory reaction time right hand (milliseconds)</li>
+<li><code>audrea_l</code>: Auditory reaction time left hand (milliseconds)</li>
+<li><code>fwt_r</code>: Finger-wrist tapping test right hand (number of taps in one 10 second trial)</li>
+<li><code>fwt_l</code>: Finger-wrist tapping test left hand (#taps in one 10 second trial)</li>
+<li><code>hyperact</code>: WWPS - Werry-Weiss-Peters scale for hyperactivity
+<ul>
+<li><code>0</code> = no activity, <span class="math inline">\(\ldots\)</span>, <code>4</code> = severly hyperactive (as reported by parents)</li>
+</ul></li>
+<li><code>maxfwt</code>: Finger-wrist tapping test in dominant hand (max of <code>fwt_r</code>,<code>fwt_l</code>)</li>
 </ul></li>
 </ul></li>
 </ul>
@@ -883,15 +887,15 @@ window.Quarto = {
 <ul>
 <li><code>ID</code>: ID</li>
 <li><code>lvmht27</code>: Left ventricular mass – height corrected = Left Ventricular Mass/Height(m)<span class="math inline">\(^{2.7}\)</span>, <span class="math inline">\(g/m^{2.7}\)</span></li>
-<li><code>bpcat</code>: blood pressure category.
+<li><code>bpcat</code>: Blood pressure category.
 <ul>
 <li>Possible values: <code>normal</code>, <code>pre-hypertensive</code>, <code>hypertensive</code>.</li>
 </ul></li>
-<li><code>gender</code>: gender.
+<li><code>gender</code>: Bender.
 <ul>
 <li>Possible values: <code>male</code>, <code>female</code></li>
 </ul></li>
-<li><code>age</code>: yrs</li>
+<li><code>age</code>: in years</li>
 <li><code>BMI</code>: kg/m<span class="math inline">\(^2\)</span></li>
 </ul></li>
 </ul>
@@ -1103,15 +1107,15 @@ window.Quarto = {
 <ul>
 <li><a href="./data/temperat.csv">temperat.csv</a>
 <ul>
-<li><code>Date</code>: DATE (MDY)</li>
-<li><code>Out_temp</code>: OUTSIDE TEMERATURE Degrees Fahrenheit</li>
-<li><code>Room</code>: ROOM LOCATION</li>
-<li><code>In_temp</code>: INSIDE TEMPERATURE Degrees Fahrenheit</li>
-<li><code>Cor_fac</code>: CORRECTION FACTOR ADDED.
+<li><code>Date</code>: Date (MDY)</li>
+<li><code>Out_temp</code>: Outside temerature (Degrees Fahrenheit)</li>
+<li><code>Room</code>: Room location</li>
+<li><code>In_temp</code>: Inside temperature (Degrees Fahrenheit)</li>
+<li><code>Cor_fac</code>: Correction factor added.
 <ul>
 <li>Possible values: <code>yes</code>, <code>no</code></li>
 </ul></li>
-<li><code>Typ_wea</code>: TYPE OF WEATHER.
+<li><code>Typ_wea</code>: Type of weather.
 <ul>
 <li>Possible values: <code>SUNNY</code>, <code>PARTLY CLOUDY</code>, <code>CLOUDY</code>, <code>RAINY</code>, <code>FOGGY</code></li>
 </ul></li>
@@ -1125,41 +1129,41 @@ window.Quarto = {
 <li><a href="./data/tennis1.csv">tennis1.csv</a>
 <ul>
 <li><code>Id</code>: ID</li>
-<li><code>Age</code>: AGE</li>
-<li><code>Sex</code>: SEX.
+<li><code>Age</code>: Age</li>
+<li><code>Sex</code>: Sex.
 <ul>
 <li>Possible values: <code>male</code>, <code>female</code></li>
 </ul></li>
-<li><code>Num_epis</code>: NUMBER OF EPISODES OF TENNIS ELBOW</li>
-<li><code>Typ_last</code>: TYPE OF RACQUET USED DURING LAST EPISODE.
+<li><code>Num_epis</code>: Number of episodes of tennis elbow</li>
+<li><code>Typ_last</code>: Type of racquet used during last episode.
 <ul>
 <li>Possible values: <code>CONVENTIONAL SIZE</code>, <code>MID-SIZE</code>, <code>OVER-SIZE</code></li>
 </ul></li>
-<li><code>Wgt_last</code>: WEIGHT OF RACQUET USED DURING LAST EPISODE.
+<li><code>Wgt_last</code>: Weight of racquet used during last episode.
 <ul>
 <li>Possible values: <code>HEAVY</code>, <code>MEDIUM</code>, <code>LIGHT</code>, <code>DO NOT KNOW</code></li>
 </ul></li>
-<li><code>Mat_last</code>: MATERIAL OF RACQUET USED DURING LAST EPISODE.
+<li><code>Mat_last</code>: Material of racquet used during last episode.
 <ul>
 <li>Possible values: <code>WOOD</code>, <code>ALUMINUM</code>, <code>FIBERGLASS AND COMPOSITE</code>, <code>GRAPHITE</code>, <code>STEEL</code>, <code>COMPOSITE</code>, <code>OTHER</code></li>
 </ul></li>
-<li><code>Str_last</code>: STRING TYPE OF RACQUET USED DURING LAST EPISODE.
+<li><code>Str_last</code>: String type of racquet used during last episode.
 <ul>
 <li>Possible values: <code>NYLON</code>, <code>GUT</code>, <code>DON'T KNOW</code></li>
 </ul></li>
-<li><code>Typ_curr</code>: TYPE OF RACQUET USED CURRENTLY.
+<li><code>Typ_curr</code>: Type of racquet used currently.
 <ul>
 <li>Possible values: <code>CONVENTIONAL SIZE</code>, <code>MID-SIZE</code>, <code>OVER-SIZE</code></li>
 </ul></li>
-<li><code>Wgt_curr</code>: WEIGHT OF RACQUET USED CURRENTLY.
+<li><code>Wgt_curr</code>: Weight of racquet used currently.
 <ul>
 <li>Possible values: <code>HEAVY</code>, <code>MEDIUM</code>, <code>LIGHT</code>, <code>DO NOT KNOW</code></li>
 </ul></li>
-<li><code>Mat_curr</code>: MATERIAL OF RACQUET USED CURRENTLY.
+<li><code>Mat_curr</code>: Material of racquet used currently.
 <ul>
 <li>Possible values: <code>WOOD</code>, <code>ALUMINUM</code>, <code>FIBERGLASS AND COMPOSITE</code>, <code>GRAPHITE</code>, <code>STEEL</code>, <code>COMPOSITE</code>, <code>OTHER</code></li>
 </ul></li>
-<li><code>Str_curr</code>: STRING TYPE OF RACQUET USED CURRENTLY.
+<li><code>Str_curr</code>: String type of racquet used currently.
 <ul>
 <li>Possible values: <code>NYLON</code>, <code>GUT</code>, <code>DON'T KNOW</code></li>
 </ul></li>
@@ -1173,43 +1177,43 @@ window.Quarto = {
 <li><a href="./data/tennis2.csv">tennis2.csv</a>
 <ul>
 <li><code>id</code>: ID</li>
-<li><code>age</code>: AGE</li>
-<li><code>sex</code>: SEX.
+<li><code>age</code>: Age</li>
+<li><code>sex</code>: Sex.
 <ul>
 <li>Possible values: <code>male</code>, <code>female</code></li>
 </ul></li>
-<li><code>drg_ord</code>: DRUG ORDER.
+<li><code>drg_ord</code>: Drug order.
 <ul>
 <li>Possible values: <code>MOTRIN-PLACEBO</code>, <code>PLACEBO-MOTRIN</code></li>
 </ul></li>
-<li>PERIOD 2 = PAIN SCORES AFTER THE FIRST ACTIVE DRUG PERIOD COMPARED WITH BASELINE
+<li>Period 2 = Pain scores after the first active drug period compared with baseline
 <ul>
-<li><code>painmx_2</code>: DURING STUDY PERIOD, PAIN DURING MAXIMUM ACTIVITY VS BAESLINE
+<li><code>painmx_2</code>: During study period, pain during maximum activity vs baesline
 <ul>
-<li><code>1</code> = WORST</li>
-<li><code>2</code> = UNCHANGED</li>
-<li><code>3</code> = SLIGHTLY IMPROVED (25%)</li>
-<li><code>4</code> = MODERATELY IMPROVED (50%)</li>
-<li><code>5</code> = MOSTLY IMPROVED (75%)</li>
-<li><code>6</code> = COMPLETELY IMPROVED</li>
+<li><code>1</code> = Worse</li>
+<li><code>2</code> = Unchanged</li>
+<li><code>3</code> = Slightly improved (25%)</li>
+<li><code>4</code> = Moderately improved (50%)</li>
+<li><code>5</code> = Mostly improved (75%)</li>
+<li><code>6</code> = Completely improved</li>
 </ul></li>
-<li><code>pain12_2</code>: WITHIN 12 HOURS FOLLOWING MAXIMAL ACTIVITY, COMPARED TO SAME PERIOD AT BASELINE (SAME CODE AS <code>painmx_2</code>)</li>
-<li><code>painav_2</code>: DURING THE AVERAGE DAY OF STUDY PERIOD PAIN VS. BASELINE (SAME CODE AS <code>painmx_2</code>)</li>
-<li><code>painov_2</code>: OVERALL IMPRESSION OF DRUG EFFICACY VS. BASELINE (SAME CODE AS <code>painmx_2</code>)</li>
+<li><code>pain12_2</code>: Within 12 hours following maximal activity, compared to same period at baseline (same code as <code>painmx_2</code>)</li>
+<li><code>painav_2</code>: During the average day of study period pain vs.&nbsp;baseline (same code as <code>painmx_2</code>)</li>
+<li><code>painov_2</code>: Overall impression of drug efficacy vs.&nbsp;baseline (same code as <code>painmx_2</code>)</li>
 </ul></li>
-<li>PERIOD 3 = PAIN SCORES AFTER THE WASHOUT PERIOD COMPARED WITH BASELINE
+<li>Period 3 = Pain scores after the washout period compared with baseline
 <ul>
-<li><code>painmx_3</code>: DURING STUDY PERIOD, PAIN DURING MAXIMUM ACTIVITY VS BASELINE (SAME CODE AS <code>painmx_2</code>)</li>
-<li><code>pain12_3</code>: WITHIN 12 HOURS FOLLOWING MAXIMAL ACTIVITY, COMPARED TO SAME PERIOD AT BASELINE (SAME CODE AS <code>painmx_2</code>)</li>
-<li><code>painav_3</code>: DURING THE AVERAGE DAY OF STUDY PERIOD PAIN VS BASELINE (SAME CODE AS <code>painmx_2</code>)</li>
-<li><code>painov_3</code>: OVERALL IMPRESSION OF DRUG EFFICACY VS BASELINE (SAME CODE AS <code>painmx_2</code>)</li>
+<li><code>painmx_3</code>: During study period, pain during maximum activity vs baseline (same code as <code>painmx_2</code>)</li>
+<li><code>pain12_3</code>: Within 12 hours following maximal activity, compared to same period at baseline (same code as <code>painmx_2</code>)</li>
+<li><code>painav_3</code>: During the average day of study period pain vs baseline (same code as <code>painmx_2</code>)</li>
+<li><code>painov_3</code>: Overall impression of drug efficacy vs baseline (same code as <code>painmx_2</code>)</li>
 </ul></li>
-<li>PERIOD 4 = PAIN SCORES AFTER THE SECOND ACTIVE DRUG PERIOD COMPARED WITH BASELINE
+<li>Period 4 = Pain scores after the second active drug period compared with baseline
 <ul>
-<li><code>painmx_4</code>: DURING STUDY PERIOD, PAIN DURING MAXIMUM ACTIVITY VS BASELINE (SAME CODE AS <code>painmx_2</code>)</li>
-<li><code>pain12_4</code>: WITHIN 12 HOURS FOLLOWING MAXIMAL ACTIVITY, COMPARED TO SAME PERIOD AT BASELINE (SAME CODE AS <code>painmx_2</code>)</li>
-<li><code>painav_4</code>: DURING THE AVERAGE DAY OF STUDY PERIOD PAIN VS BASELINE (SAME CODE AS <code>painmx_2</code>)</li>
-<li><code>painov_4</code>: OVERALL IMPRESSION OF DRUG EFFICACY VS BASELINE (SAME CODE AS <code>painmx_2</code>)</li>
+<li><code>painmx_4</code>: During study period, pain during maximum activity vs baseline (same code as <code>painmx_2</code>)</li>
+<li><code>pain12_4</code>: Within 12 hours following maximal activity, compared to same period at baseline (same code as <code>painmx_2</code>)</li>
+<li><code>painav_4</code>: During the average day of study period pain vs baseline (same code as <code>painmx_2</code>)</li>
+<li><code>painov_4</code>: Overall impression of drug efficacy vs baseline (same code as <code>painmx_2</code>)</li>
 </ul></li>
 </ul></li>
 </ul>
