@@ -1,13 +1,12 @@
-Text formatting 
-------------------------------------------------------------
+## Text formatting
 
-*italic*  or _italic_
-**bold**   __bold__
-`code`
-superscript^2^ and subscript~2~
+*italic* **bold** ~~strikeout~~ `code`
 
-Headings
-------------------------------------------------------------
+superscript^2^ subscript~2~
+
+[underline]{.underline} [small caps]{.smallcaps}
+
+## Headings
 
 # 1st Level Header
 
@@ -15,34 +14,32 @@ Headings
 
 ### 3rd Level Header
 
-Lists
-------------------------------------------------------------
+## Lists
 
-*   Bulleted list item 1
+-   Bulleted list item 1
 
-*   Item 2
+-   Item 2
 
-    * Item 2a
+    -   Item 2a
 
-    * Item 2b
+    -   Item 2b
 
 1.  Numbered list item 1
 
-1.  Item 2. The numbers are incremented automatically in the output.
+2.  Item 2.
+    The numbers are incremented automatically in the output.
 
-Links and images
-------------------------------------------------------------
+## Links and images
 
 <http://example.com>
 
 [linked phrase](http://example.com)
 
-![optional caption text](path/to/img.png)
+![optional caption text](img.png){fig-alt="accessibility text"}
 
-Tables 
-------------------------------------------------------------
+## Tables
 
-First Header  | Second Header
-------------- | -------------
-Content Cell  | Content Cell
-Content Cell  | Content Cell
+| First Header | Second Header |
+|--------------|---------------|
+| Content Cell | Content Cell  |
+| Content Cell | Content Cell  |
