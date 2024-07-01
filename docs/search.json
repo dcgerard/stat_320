@@ -207,14 +207,14 @@
     "href": "00_course_outline/00_course_outline.html#statistics",
     "title": "Course Outline for Stat 320",
     "section": "Statistics",
-    "text": "Statistics\nStatistics — the field of answering questions using data}.\nData — Numerical or qualitative descriptions of people/places/things that we want to study."
+    "text": "Statistics\nStatistics — the field of answering questions using data.\nData — Numerical or qualitative descriptions of people/places/things that we want to study."
   },
   {
     "objectID": "00_course_outline/00_course_outline.html#statistics-1",
     "href": "00_course_outline/00_course_outline.html#statistics-1",
     "title": "Course Outline for Stat 320",
     "section": "Statistics",
-    "text": "Statistics\nStatistics — the field of answering questions using data}.\nSome examples\n\nLead Exposure\n\nData: Retrospective study measuring lead exposure in children along with variou outcome variables like IQ score, different measures of neurological function, and hyperactivity assessmenets.\nQuestion: What are the neurological and behavioral effects of lead exposure in young children?\n\nSmoking and bone density\n\nData: Pairs of twins, one of whom is a lighter smoker and one of whome is a heavier smoker. Different bone density measures were taken.\nQuestion: Do individuals who smoke have lower densities?"
+    "text": "Statistics\nStatistics — the field of answering questions using data.\nSome examples\n\nLead Exposure\n\nData: Retrospective study measuring lead exposure in children along with variou outcome variables like IQ score, different measures of neurological function, and hyperactivity assessmenets.\nQuestion: What are the neurological and behavioral effects of lead exposure in young children?\n\nSmoking and bone density\n\nData: Pairs of twins, one of whom is a lighter smoker and one of whome is a heavier smoker. Different bone density measures were taken.\nQuestion: Do individuals who smoke have lower densities?"
   },
   {
     "objectID": "00_course_outline/00_course_outline.html#statistics-2",
@@ -263,7 +263,7 @@
     "href": "00_course_outline/00_course_outline.html#inference",
     "title": "Course Outline for Stat 320",
     "section": "Inference",
-    "text": "Inference\nFrom the sample, describe the population using probability.\n\nWe have strong evidence that lighter smoking twins have heavier lumbar spine bone density than heavier smoking twins (pair \\(t\\)-test \\(p = 0.006494\\)). The corresponding 95% confidence interval for the difference in bone density is 0.00799 g/cm2 0.06372 g/cm2. Since the twins are not a random sample, the generalizability of this result depends on how representative the twins are of the general population of interest. Since this is an observational study and not an experiment, the statistics alone cannot make a claim for causality — such claims would have depend on other arguments."
+    "text": "Inference\nFrom the sample, describe the population using probability.\n\nWe have strong evidence that lighter smoking twins have heavier lumbar spine bone density than heavier smoking twins (pair \\(t\\)-test \\(p = 0.006494\\)). The corresponding 95% confidence interval for the difference in bone density is 0.00799 g/cm2 0.06372 g/cm2. Since the twins are not a random sample, the generalizability of this result depends on how representative the twins are of the general population of interest. Since this is an observational study and not an experiment, the statistics alone cannot make a claim for causality — such a claim would have to depend on other arguments."
   },
   {
     "objectID": "00_course_outline/00_course_outline.html#inference-1",

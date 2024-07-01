@@ -11,19 +11,28 @@ urlcolor: "blue"
 knitr::opts_chunk$set(echo = TRUE, fig.height = 2.3, fig.width = 3, fig.align = "center")
 ```
 
+<style>
+    .reveal section li {
+    display: inline-block;
+    font-size: 0.8em;
+    line-height: 1.2em;
+    vertical-align: top;
+  }
+</style>
+
 ## Learning Objectives 
 
 - Three aspects of Statistics
 - Population/Sample
 
 ## Statistics
-**Statistics** --- the field of answering questions using **data**}.
+**Statistics** --- the field of answering questions using **data**.
 
 **Data** --- Numerical or qualitative descriptions of people/places/things that we want to study.
 
 
 ## Statistics 
-Statistics --- the field of answering questions using **data**}.
+Statistics --- the field of answering questions using **data**.
 
 Some examples
 
@@ -88,7 +97,7 @@ It is usually expensive/impossible to measure characteristics of every case in a
 ## Inference
 From the **sample**, describe the **population** using **probability**.
 
-- We have strong evidence that lighter smoking twins have heavier lumbar spine bone density than heavier smoking twins (pair $t$-test $p = 0.006494$). The corresponding 95\% confidence interval for the difference in bone density is 0.00799 g/cm^2^ 0.06372 g/cm^2^. Since the twins are not a random sample, the generalizability of this result depends on how representative the twins are of the general population of interest. Since this is an observational study and not an experiment, the statistics alone cannot make a claim for causality --- such claims would have depend on other arguments.
+- We have strong evidence that lighter smoking twins have heavier lumbar spine bone density than heavier smoking twins (pair $t$-test $p = 0.006494$). The corresponding 95\% confidence interval for the difference in bone density is 0.00799 g/cm^2^ 0.06372 g/cm^2^. Since the twins are not a random sample, the generalizability of this result depends on how representative the twins are of the general population of interest. Since this is an observational study and not an experiment, the statistics alone cannot make a claim for causality --- such a claim would have to depend on other arguments.
 
 ## Inference
 
