@@ -1,0 +1,131 @@
+---
+title: "Summary Statistics in R"
+author: "David Gerard"
+date: "`r Sys.Date()`"
+---
+
+- We'll use the lead data as an example. Read about it [here](../data.qmd#lead).
+
+  ```{r}
+  #| message: false
+  library(tidyverse)
+  lead <- read_csv("https://dcgerard.github.io/stat_320/data/lead.csv")
+  ```
+
+- You calculate the summary statistics (mean/median/quantiles/variance/standard deviation) all within a `summarize()` call.
+
+  ```{r}
+  summarize(
+    lead, 
+    Mean = mean(iqf, na.rm = TRUE), 
+    Min = min(iqf, na.rm = TRUE),
+    Q25 = quantile(iqf, probs = 0.25, na.rm = TRUE),
+    Med = median(iqf, na.rm = TRUE), 
+    Q75 = quantile(iqf, probs = 0.75, na.rm = TRUE),
+    Max = max(iqf, na.rm = TRUE),
+    Var = var(iqf, na.rm = TRUE),
+    SD = sd(iqf, na.rm = TRUE)
+  )
+  ```
+
+- The values on the left of `=` are the names of the summaries and are up to you.
+
+- The values on the right of `=` are the function calls for the summaries.
+  - `mean()`: the arithmetic mean.
+  - `min()`: the minimum. Same as `quantile(x, probs = 0)`
+  - `quantile()`: the quantiles. You specify which quantile with the `probs` argument.
+  - `median()`: the median. Same as `quantile(x, probs = 0.5)`
+  - `max()`: the maximum. Same as `quantile(x, probs = 1)`
+  - `var()`: the sample variance.
+  - `sd()`: the sample standard deviation.
+
+- I have the `na.rm = TRUE` argument because there are some children who did not have a `iqf` score. These are "missing" and encoded with `NA`. If you do not provide that argument, R doesn't know what those values are and so returns an `NA` or errors.
+  ```{r}
+  summarize(
+    lead, 
+    Mean = mean(iqf), 
+    Min = min(iqf),
+    # Q25 = quantile(iqf, probs = 0.25), # errors
+    Med = median(iqf), 
+    # Q75 = quantile(iqf, probs = 0.75), # errors
+    Max = max(iqf),
+    Var = var(iqf),
+    SD = sd(iqf)
+  )
+  ```
+
+
+- You can also apply these functions on vectors that you extract from the data frame.
+
+  ```{r}
+  var(lead$iqf, na.rm = TRUE)
+  ```
+ 
+- Let's demonstrate some properties. Variance is invariant to shift
+  ```{r}
+  var(lead$iqf + 10000, na.rm = TRUE)
+  ```
+  but scales with the square of the multiplicative factor
+  ```{r}
+  var(10 * lead$iqf, na.rm = TRUE)
+  10^2 * var(lead$iqf, na.rm = TRUE)
+  ```
+
+- The standard deviation scales with the multiplicative factor because it is the square root of the variance.
+  ```{r}
+  sd(10 * lead$iqf, na.rm = TRUE)
+  10 * sd(lead$iqf, na.rm = TRUE)
+  ```
+
+- The mean and quantiles shift and scale with the additive and multiplicative factors.
+  ```{r}
+  mean(lead$iqf * 10 + 20, na.rm = TRUE)
+  10 * mean(lead$iqf, na.rm = TRUE) + 20
+  
+  quantile(lead$iqf * 10 + 20, probs = c(0.25, 0.5, 0.75), na.rm = TRUE)
+  10 * quantile(lead$iqf, probs = c(0.25, 0.5, 0.75), na.rm = TRUE) + 20
+  ```
+
+- **Exercise**: Calculate the mean and median of the [birthweight data](../data.qmd#birthweight). What is the more appropriate measure of center?
+
+  ```{r}
+  #| echo: false
+  #| eval: false
+  birthweight <- read_csv("https://dcgerard.github.io/stat_320/data/birthweight.csv")
+  ggplot(birthweight, aes(x = weight)) +
+    geom_histogram()
+  ## looks skewed left, so medium?
+  summarize(
+    birthweight,
+    Mean = mean(weight),
+    Med = median(weight)
+  )
+  ## But is also bimodal, so maybe need multiple measures of center (for premies and normals).
+  ```
+
+- You can calculate grouped summaries (a summary for each group) by grouping the data first.
+  ```{r}
+  lead |>
+    group_by(Group) |>
+    summarize(
+      Mean = mean(iqf, na.rm = TRUE),
+      SD = sd(iqf, na.rm = TRUE)
+    )
+  ```
+
+- Group summaries are where the power of descriptive statistics really comes into play. Here, we see that the exposed group has a lower IQ on average than the control group. Whether this is real signal will have to be answered via a formal hypothesis test. But the descriptive statistics gives us some initial information on the data.
+
+- **Exercise**: What about different lead groups? Calculate descriptive statistics for the different lead groups.
+
+  ```{r}
+  #| echo: false
+  #| eval: false
+  lead |>
+    group_by(lead_grp) |>
+    summarize(
+      Mean = mean(iqf, na.rm = TRUE),
+      SD = sd(iqf, na.rm = TRUE)
+    )
+  ```
+
+ 

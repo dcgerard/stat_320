@@ -11,3 +11,5 @@ title: "Stat 320: Biostatistics"
   - [Introduction to R](./01_r/01_r_intro.qmd)
   - [Plotting in R](./01_r/01_ggplot.qmd)
   - [Documents in R](./01_r/01_quarto.qmd)
+- 02 Descriptive Statistics
+  - [Descriptive Statistics in R](./02_descriptive/02_descriptive.qmd)
