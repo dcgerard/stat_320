@@ -1,5 +1,5 @@
 ---
-title: "Basic Statistics"
+title: "Course Overview"
 author: "David Gerard"
 date: "`r Sys.Date()`"
 urlcolor: "blue"
@@ -19,19 +19,10 @@ ggplot2::theme_set(ggplot2::theme_bw())
 
 # Learning Objectives
 
-- Review Basic Statistics (STAT 202/203/204).
+- Overview of the course plus some reminders from STAT 202/203/204
 - P-values/confidence intervals.
 - $t$-tests for means in R.
 - Proportion tests in R.
-
-# A Note on this Review
-
-- You should have seen most of this stuff before in your first statistics course.
-  
-- If you are having difficulty remembering these topics, then you can review
-  them in the free OpenIntro book: <https://leanpub.com/openintro-statistics>.
-  The most pertinent sections (from the third edition) 
-  are 3.1, 4.1, 4.2, 4.3, 5.1, 5.2, 5.3, 6.1, 6.2, and 6.5.
 
 # Probability and Distributions in R.
 

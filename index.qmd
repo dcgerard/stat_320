@@ -5,9 +5,8 @@ title: "Stat 320: Biostatistics"
 [Syllabus](syllabus.qmd)
 
 - 00 Overview
-  - [Course Outline](./00_course_outline/00_course_outline.qmd)
   - [Math Prereqs](./00_course_outline/00_math_prereqs.qmd)
-  - [Basic Stat Review](./00_course_outline/00_review.qmd)
+  - [Course Overview](./00_course_outline/00_overview.qmd)
 - 01 R
   - [Introduction to R](./01_r/01_r_intro.qmd)
   - [Plotting in R](./01_r/01_ggplot.qmd)
