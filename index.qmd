@@ -1,5 +1,8 @@
 ---
 title: "Stat 320: Biostatistics"
+author: "David Gerard"
+date: today
+format: html
 ---
 
 [Syllabus](syllabus.qmd)
@@ -13,3 +16,6 @@ title: "Stat 320: Biostatistics"
   - [Course Overview](./00_course_outline/00_overview.qmd)
 - 02 Descriptive Statistics
   - [Descriptive Statistics in R](./02_descriptive/02_descriptive.qmd)
+- 03 Probability
+  - [Confusion Matrix](./03_prob/03_confusion.qmd)
+  - [Discrete Probability in R](./03_prob/03_prob_discrete.qmd)

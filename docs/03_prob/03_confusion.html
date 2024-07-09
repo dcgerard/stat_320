@@ -9,7 +9,7 @@
 <meta name="author" content="David Gerard">
 <meta name="dcterms.date" content="2024-07-09">
 
-<title>Stat 320: Biostatistics</title>
+<title>Confusion Matrix – Stat 320: Biostatistics</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -25,24 +25,24 @@ ul.task-list li input[type="checkbox"] {
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<script src="site_libs/quarto-html/quarto.js"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -71,8 +71,37 @@ ul.task-list li input[type="checkbox"] {
   }
 }</script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
-<link rel="stylesheet" href="styles.css">
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="../styles.css">
 </head>
 
 <body class="nav-fixed">
@@ -82,7 +111,7 @@ ul.task-list li input[type="checkbox"] {
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a class="navbar-brand" href="./index.html">
+    <a class="navbar-brand" href="../index.html">
     <span class="navbar-title">Stat 320: Biostatistics</span>
     </a>
   </div>
@@ -93,11 +122,11 @@ ul.task-list li input[type="checkbox"] {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link active" href="./index.html" aria-current="page"> 
+    <a class="nav-link" href="../index.html"> 
 <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./data.html"> 
+    <a class="nav-link" href="../data.html"> 
 <span class="menu-text">Data</span></a>
   </li>  
 </ul>
@@ -120,7 +149,7 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Stat 320: Biostatistics</h1>
+<h1 class="title">Confusion Matrix</h1>
 </div>
 
 
@@ -149,29 +178,105 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p><a href="./syllabus.html">Syllabus</a></p>
-<ul>
-<li>00 R
-<ul>
-<li><a href="./01_r/01_r_intro.html">Introduction to R</a></li>
-<li><a href="./01_r/01_ggplot.html">Plotting in R</a></li>
-<li><a href="./01_r/01_quarto.html">Documents in R</a></li>
-</ul></li>
-<li>01 Overview
-<ul>
-<li><a href="./00_course_outline/00_math_prereqs.html">Math Prereqs</a></li>
-<li><a href="./00_course_outline/00_overview.html">Course Overview</a></li>
-</ul></li>
-<li>02 Descriptive Statistics
-<ul>
-<li><a href="./02_descriptive/02_descriptive.html">Descriptive Statistics in R</a></li>
-</ul></li>
-<li>03 Probability
-<ul>
-<li><a href="./03_prob/03_confusion.html">Confusion Matrix</a></li>
-<li><a href="./03_prob/03_prob_discrete.html">Discrete Probability in R</a></li>
-</ul></li>
-</ul>
+<p>The below is a simplified version of the Confusion matrix table from <a href="https://en.wikipedia.org/wiki/Confusion_matrix#Table_of_confusion">Wikipedia</a> that emphasizes the terminology more common to biostatistics (e.g.&nbsp;sensitivity/specificity/<span class="math inline">\(PV^+\)</span>/<span class="math inline">\(PV^-\)</span>)</p>
+<table align="center" style="border:none; background:transparent; text-align:center;">
+<tbody>
+<tr>
+<td style="border:none;" rowspan="2">
+</td>
+<td style="border:none;">
+</td>
+<td style="background:#bbeeee;" colspan="2">
+<b>Test</b>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td>
+</td>
+<td style="background:#ccffff;">
+Test Positive <span class="math inline">\(T^+\)</span>
+</td>
+<td style="background:#aadddd;">
+Test Negative <span class="math inline">\(T^-\)</span>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td rowspan="2">
+<b>Truth</b>
+
+</td>
+<td style="background:#ffffcc;">
+Positive <span class="math inline">\(D^+\)</span>
+</td>
+<td style="background:#ccffcc;">
+True Positive (TP)
+</td>
+<td style="background:#ffdddd;">
+False Negative (FN) <br> (Type II Error)
+</td>
+<td style="background:#eeffee;">
+Sensitivity <br> (True Positive Rate, Recall) <br> <span class="math inline">\(\frac{TP}{D^+}\)</span>
+</td>
+<td style="background:#ffeeee;">
+False Negative Rate <br> (Type II Error Rate) <br> <span class="math inline">\(\frac{FN}{D^+}\)</span>
+</td>
+</tr>
+<tr>
+<td style="background:#ddddaa;">
+Negative <span class="math inline">\(D^-\)</span>
+</td>
+<td style="background:#ffcccc;">
+False Positive (FP) <br> (Type I Error)
+</td>
+<td style="background:#bbeebb;">
+True Negative (TN)
+</td>
+<td style="background:#eedddd;">
+False Positive Rate <br> (Type I Error Rate) <br> <span class="math inline">\(\frac{FP}{D^-}\)</span>
+</td>
+<td style="background:#ddeedd;">
+Specificity <br>(True Negative Rate) <br> <span class="math inline">\(\frac{TN}{D^-}\)</span>
+</td>
+</tr>
+<tr>
+<td style="border:none;" rowspan="2">
+</td>
+<td style="border-top:double silver; border-right:double silver;">
+Prevalence <br> <span class="math inline">\(\frac{D^+}{D^+ + D^-}\)</span>
+</td>
+<td style="background:#eeffee;">
+Positive Predictive Value <br> (Precision) <br> <span class="math inline">\(PV^+ = \frac{TP}{T^+}\)</span>
+</td>
+<td style="background:#ffeeee;border-right:double silver;">
+False Omission Rate <br> <span class="math inline">\(\frac{FN}{T^-}\)</span>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td>
+</td>
+<td style="background:#eedddd;">
+False Discovery Rate <br> <span class="math inline">\(\frac{FP}{T^+}\)</span>
+</td>
+<td style="background:#ddeedd;">
+Negative Predictive Value <br> <span class="math inline">\(PV^- = \frac{TN}{T^-}\)</span>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+</tbody>
+</table>
 
 
 

@@ -1,0 +1,84 @@
+---
+title: "Confusion Matrix"
+author: "David Gerard"
+date: today
+---
+
+The below is a simplified version of the Confusion matrix table from [Wikipedia](https://en.wikipedia.org/wiki/Confusion_matrix#Table_of_confusion) that emphasizes the terminology more common to biostatistics (e.g. sensitivity/specificity/$PV^+$/$PV^-$)
+
+<table align="center" style="border:none; background:transparent; text-align:center;">
+<tbody><tr>
+<td style="border:none;" rowspan="2">
+</td>
+<td style="border:none;">
+</td>
+<td style="background:#bbeeee;" colspan="2"><b>Test</b>
+</td>
+<td>
+</td></tr>
+<tr>
+<td></td>
+<td style="background:#ccffff;">Test Positive $T^+$
+</td>
+<td style="background:#aadddd;">Test Negative $T^-$
+</td>
+<td></td>
+<td></td>
+</tr>
+
+<tr>
+<td rowspan="2"><b>Truth</b></div>
+</td>
+<td style="background:#ffffcc;">Positive $D^+$
+</td>
+<td style="background:#ccffcc;">True Positive (TP)
+</td>
+<td style="background:#ffdddd;">False Negative (FN) <br> (Type II Error)
+</td>
+<td style="background:#eeffee;">Sensitivity <br> (True Positive Rate, Recall) <br> $\frac{TP}{D^+}$
+</td>
+<td style="background:#ffeeee;">False Negative Rate <br> (Type II Error Rate) <br> $\frac{FN}{D^+}$
+</td>
+</tr>
+
+<tr>
+<td style="background:#ddddaa;">Negative $D^-$
+</td>
+<td style="background:#ffcccc;">False Positive (FP) <br> (Type I Error)
+</td>
+<td style="background:#bbeebb;">True Negative (TN)
+</td>
+<td style="background:#eedddd;">False Positive Rate <br> (Type I Error Rate) <br> $\frac{FP}{D^-}$
+</td>
+<td style="background:#ddeedd;"> Specificity <br>(True Negative Rate) <br> $\frac{TN}{D^-}$
+</td>
+</tr>
+
+<tr>
+<td style="border:none;" rowspan="2">
+</td>
+<td style="border-top:double silver; border-right:double silver;">Prevalence <br> $\frac{D^+}{D^+ + D^-}$
+</td>
+<td style="background:#eeffee;">Positive Predictive Value <br> (Precision) <br> $PV^+ = \frac{TP}{T^+}$
+</td>
+<td style="background:#ffeeee;border-right:double silver;">False Omission Rate <br> $\frac{FN}{T^-}$
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+
+<tr>
+<td>
+</td>
+<td style="background:#eedddd;">False Discovery Rate <br> $\frac{FP}{T^+}$
+</td>
+<td style="background:#ddeedd;">Negative Predictive Value <br> $PV^- = \frac{TN}{T^-}$
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+</tbody></table>

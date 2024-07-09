@@ -4,6 +4,14 @@ author: "David Gerard"
 date: "`r Sys.Date()`"
 ---
 
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, 
+            fig.width = 4, 
+            fig.height = 3, 
+            fig.align = "center")
+ggplot2::theme_set(ggplot2::theme_bw() + ggplot2::theme(strip.background = ggplot2::element_rect(fill = "white")))
+```
+
 - We'll use the lead data as an example. Read about it [here](../data.qmd#lead).
 
   ```{r}

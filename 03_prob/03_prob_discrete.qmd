@@ -1,0 +1,180 @@
+---
+title: "Probability Definitions and Properties"
+author: "David Gerard"
+date: "`r Sys.Date()`"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, 
+            fig.width = 4, 
+            fig.height = 3, 
+            fig.align = "center")
+ggplot2::theme_set(ggplot2::theme_bw() + ggplot2::theme(strip.background = ggplot2::element_rect(fill = "white")))
+```
+
+```{r}
+#| message: false
+library(tidyverse)
+```
+
+
+# Provided Distribution
+
+If given a probability mass function, can create a data frame of it
+```{r}
+pmf <- tibble(r = 0:4,
+       pr = c(0.008, 0.076, 0.265, 0.411, 0.240)
+)
+```
+
+We can verify that the PMF sums to 1
+```{r}
+sum(pmf$pr)
+```
+
+We can calculate the mean and variance like so
+```{r}
+mu <- sum(pmf$r * pmf$pr)
+mu
+sigma2 <- sum((pmf$r - mu)^2 * pmf$pr)
+sigma2
+```
+
+You can get the CDF via `cumsum()`
+```{r}
+pmf |>
+  mutate(cdf = cumsum(pr))
+```
+
+
+We can plot it
+```{r}
+ggplot(pmf, aes(x = r, y = pr)) +
+  geom_col(fill = "black")
+```
+
+
+# Binomial Distribution
+
+- The PMF is `dbinom()`. 
+
+  About 60% of all white blood cells are neutrophils. If we observe 10 white blood cells, the probability of seeing 4 neutrophils is
+  
+  $$
+  \binom{10}{4} 0.6^4 0.4^6
+  $$
+  
+  ```{r}
+  dbinom(x = 4, size = 10, prob = 0.6)
+  ```
+  
+  ```{r}
+  #| echo: false
+  n <- 10
+  tibble(r = 0:n,
+         prob = stats::dbinom(x = 0:n, size = n, prob = 0.6)) |>
+    mutate(is_four = r == 4) |>
+    ggplot(aes(x = r, y = prob, fill = is_four)) +
+    geom_col() +
+    scale_fill_manual(values = palette.colors(n = 2, palette = "Okabe-Ito")) +
+    scale_x_continuous(breaks = 0:n) +
+    guides(fill = "none")
+  ```
+
+- The CDF is `pbinom()`:
+
+  $$
+  Pr(X \leq x) = \sum_{r=0}^x\binom{10}{r} 0.6^r 0.4^{n-r}
+  $$
+  ```{r}
+  pbinom(q = 4, size = 10, prob = 0.6)
+  ```
+  
+  ```{r}
+  #| echo: false
+  n <- 10
+  tibble(r = 0:n,
+         prob = stats::dbinom(x = 0:n, size = n, prob = 0.6)) |>
+    mutate(is_four = r <= 4) |>
+    ggplot(aes(x = r, y = prob, fill = is_four)) +
+    geom_col() +
+    scale_fill_manual(values = palette.colors(n = 2, palette = "Okabe-Ito")) +
+    scale_x_continuous(breaks = 0:n) +
+    guides(fill = "none")
+  ```
+
+- The quantile function is `qbinom()`.
+
+  $$
+  f(p) = \min(x) \text{ such that } p \leq Pr(X \leq x)
+  $$
+  
+  E.g., the quantile function applied at 0.55 is 6
+  ```{r}
+  qbinom(p = 0.55, size = 10, prob = 0.6)
+  ```
+  because the CDF at 6 is above 0.55 and the CDF at 5 is below 0.55.
+  ```{r}
+  pbinom(q = 5, size = 10, prob = 0.6)
+  pbinom(q = 6, size = 10, prob = 0.6)
+  ```
+
+- You generate random samples from the binomial distribution with `rbinom()`
+
+  ```{r}
+  #| echo: false
+  set.seed(3)
+  ```
+
+
+  ```{r}
+  x <- rbinom(n = 100, size = 10, prob = 0.6)
+  ```
+  
+  ```{r}
+  #| echo: false
+  tibble(x = x) |>
+    ggplot(aes(x = x)) +
+    geom_bar(fill = "black") +
+    scale_x_continuous(breaks = 0:n) 
+  ```
+
+  ```{r}
+  x <- rbinom(n = 10000, size = 10, prob = 0.6)
+  ```
+  
+  ```{r}
+  #| echo: false
+  tibble(x = x) |>
+    ggplot(aes(x = x)) +
+    geom_bar(fill = "black") +
+    scale_x_continuous(breaks = 0:n) 
+  ```
+
+- **Exercise**: The underlying incidence rate of chronic bronchitis in the first year of life is 0.05. What is the probability of obtaining at least 75 cases of chronic bronchitis in the first year of life among 1500 families?
+
+```{r}
+#| eval: false
+#| echo: false
+1 - pbinom(q = 74, size = 1500, prob = 0.05)
+pbinom(q = 74, size = 1500, prob = 0.05, lower.tail = FALSE)
+```
+
+- **Exercise**: Suppose a group of 100 women ages 60--64 received a new flu vaccine in 2004, and 5 of them died within the next year. Is this event unusual? According to life tables, the probability of death for this age group in the next year is 0.009. Calculate the probability that five or more such women would die under normal circumstances if the flu vaccine had no effect.
+  - What is the expected number of such women (out of 100) that we would expect to die in th next year?
+
+```{r}
+#| echo: false
+#| eval: false
+1 - stats::pbinom(q = 4, size = 100, prob = 0.009)
+## yes very unusual.
+```
+  
+```{block}
+#| eval: false
+#| echo: false
+100 * 0.009 = 0.9. So about 1 woman out of 100.
+```
+  
+
+# Poisson Distribution
