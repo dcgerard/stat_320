@@ -178,3 +178,98 @@ pbinom(q = 74, size = 1500, prob = 0.05, lower.tail = FALSE)
   
 
 # Poisson Distribution
+
+- The PMF is `dpois()`. 
+
+  Number of deaths from typhoid-fever is over a 1-year period approximately Poisson with rate $\lambda = 4.6$. The probability of exactly 3 deaths is
+  
+  $$
+  e^{-4.6}\frac{4.6^3}{3!}
+  $$
+
+  ```{r}
+  dpois(x = 3, lambda = 4.6)
+  ```
+  
+  ```{r}
+  #| echo: false
+  n <- 15
+  tibble(k = 0:n,
+         prob = stats::dpois(x = 0:n, lambda = 4.6)) |>
+    mutate(is_three = k == 3) |>
+    ggplot(aes(x = k, y = prob, fill = is_three)) +
+    geom_col() +
+    scale_fill_manual(values = palette.colors(n = 2, palette = "Okabe-Ito")) +
+    scale_x_continuous(breaks = 0:n) +
+    guides(fill = "none")
+  ```
+
+- The CDF is `ppois()`:
+
+  $$
+  Pr(X \leq x) = \sum_{k=0}^{x}e^{-4.6}\frac{4.6^k}{k!}
+  $$
+  ```{r}
+  ppois(q = 3, lambda = 4.6)
+  ```
+
+  ```{r}
+  #| echo: false
+  n <- 15
+  tibble(k = 0:n,
+         prob = stats::dpois(x = 0:n, lambda = 4.6)) |>
+    mutate(is_three = k <= 3) |>
+    ggplot(aes(x = k, y = prob, fill = is_three)) +
+    geom_col() +
+    scale_fill_manual(values = palette.colors(n = 2, palette = "Okabe-Ito")) +
+    scale_x_continuous(breaks = 0:n) +
+    guides(fill = "none")
+  ```
+
+- The quantile function is `qpois()`.
+
+  $$
+  f(p) = \min(x) \text{ such that } p \leq Pr(X \leq x)
+  $$
+  
+  E.g., the quantile function applied at 0.55 is 5
+  ```{r}
+  qpois(p = 0.55, lambda = 4.6)
+  ```
+  because the CDF at 5 is above 0.55 and the CDF at 4 is below 0.55.
+  ```{r}
+  ppois(q = 4, lambda = 4.6)
+  ppois(q = 5, lambda = 4.6)
+  ```
+
+- You generate random samples from the poisson distribution with `rpois()`
+
+  ```{r}
+  #| echo: false
+  set.seed(3)
+  ```
+
+
+  ```{r}
+  x <- rpois(n = 100, lambda = 4.6)
+  ```
+  
+  ```{r}
+  #| echo: false
+  tibble(x = x) |>
+    ggplot(aes(x = x)) +
+    geom_bar(fill = "black") +
+    scale_x_continuous(breaks = 0:n) 
+  ```
+
+  ```{r}
+  x <- rpois(n = 10000, lambda = 4.6)
+  ```
+  
+  ```{r}
+  #| echo: false
+  tibble(x = x) |>
+    ggplot(aes(x = x)) +
+    geom_bar(fill = "black") +
+    scale_x_continuous(breaks = 0:n) 
+  ```
