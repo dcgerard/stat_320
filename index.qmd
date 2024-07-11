@@ -19,3 +19,4 @@ format: html
 - 03 Probability
   - [Confusion Matrix](./03_prob/03_confusion.qmd)
   - [Discrete Probability in R](./03_prob/03_prob_discrete.qmd)
+  - [Normal Distribution in R](./03_prob/03_prob_cont.qmd)

@@ -1,5 +1,5 @@
 ---
-title: "Probability Definitions and Properties"
+title: "Discrete Probability Distributions"
 author: "David Gerard"
 date: "`r Sys.Date()`"
 ---
@@ -273,3 +273,50 @@ pbinom(q = 74, size = 1500, prob = 0.05, lower.tail = FALSE)
     geom_bar(fill = "black") +
     scale_x_continuous(breaks = 0:n) 
   ```
+  
+# Poisson Approximation to Binomial
+
+- For $n$ large, $p$ small, and $np$ intermediate, we have that if $X \sim Binom(n, p)$ then we also have approximately that $X \sim Pois(np)$.
+
+- Rule of thumb: $n \geq 100$ and $p \leq 0.01$
+
+- Example:
+
+  ```{r}
+  #| eval: false
+  n <- 100
+  p <- 0.01
+  tibble(
+    Binom = dbinom(x = 0:5, size = n, prob = p),
+    Pois = dpois(x = 0:5, lambda = n * p)
+  )
+  ```
+
+  ```{r}
+  #| eval: true
+  #| echo: false
+  n <- 100
+  p <- 0.01
+  tibble(
+    Binom = dbinom(x = 0:5, size = n, prob = p),
+    Pois = dpois(x = 0:5, lambda = n * p)
+  ) |>
+    gt::gt() |>
+    gt::fmt_number()
+  ```
+  
+- You don't use this anymore to actually calculate binomial probabilities, since computers do that efficiently without resorting to an approximation.
+
+- This is mostly useful in cases to justify using the Poisson.
+
+- E.g., we see monthly number of cases of Guillain-Barré syndrome in Finland
+  - April 1984:  3 
+  - May 1984:  7  
+  - June 1984:  0  
+  - July 1984:  3  
+  - August 1984:  4  
+  - September 1984:  4  
+  - October 1984:  2
+  
+  The distribution of the number of cases during a month is likely well approximated by a binomial, with $n$ equaling the population of Finland. But we don't know $n$, so we can use a Poisson distribution to model these counts.
+
