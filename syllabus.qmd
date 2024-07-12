@@ -12,7 +12,6 @@ knitr::opts_chunk$set(echo = TRUE)
 - **Instructor**: Dr. David Gerard
 - **Email**: <dgerard@american.edu>
 - **Office**: DMTI 106E
-- **Office hours**: TBD
 
 # Required Text
 > Rosner, B. (2016) [*Fundamentals of Biostatistics*](https://a.co/aGy3VyN), Eighth Edition. Brooks/Cole, Boston, MA, USA. 
