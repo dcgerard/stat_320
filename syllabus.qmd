@@ -1,6 +1,6 @@
 ---
 title: "STAT 320 - Biostatistics"
-date: "Fall 2024"
+date: today
 output: html_document
 urlcolor: blue
 ---
@@ -39,12 +39,17 @@ knitr::kable(gradedf)
 
 - Exams: 
     - Not officially cumulative. But all material in Statistics builds off of previous material, so effectively cumulative.
-    - You can bring a 1 page (8.5'' by 11'' piece of paper) cheat sheet that is handwritten (no typing). You can use both sides.
+    - You can bring a 1 page (8.5'' by 11'' piece of paper) reference sheet that is handwritten (no typing). You can use both sides.
     - No other resources are allowed. If you touch your phone/computer/smart watch/etc during the exam then that is an automatic fail for the course.
+    - I will drop your lowest exam score. Because of this:
+        - There will be no make up exams. You will just use your drop if you have to miss one.
+        - You cannot leave the room during the exam unless you turn it in. If it is an emergency and you need to leave the room, then you can use your drop.
+    - If you miss two exams, you should consider withdrawing from the class. The last day to withdraw from the course is 11/01/2024.
     
 - Homeworks:
-    - To me (and some of you), homeworks are meant to solidify your understanding. To (some of) you, homeworks are meant to help you prepare for the exams. You can use generative AI if you want. But you won't get any other study aids, so I wouldn't except to check my work after I've done all of the problems.
+    - To me (and most of you), homeworks are meant to solidify your understanding. To (some of) you, homeworks are meant to help you prepare for the exams. You can use generative AI for the homeworks if you want. But you won't get any other study aids, so I wouldn't use it except to check my work after I've done all of the problems.
     - Lots of education research points to practice problems as the best form of learning, and just reading solutions (e.g. created by AI) as the worst form of learning. If you just use AI to get solutions on the homeworks, you should expect to have bad exam grades.
+    - I will drop your lowest homework score.
 
 Usual grade cutoffs will be used:
 ```{r, echo = FALSE}
@@ -64,24 +69,31 @@ Individual assignments will not be curved. However, at the discretion of the ins
 - Please just let me know ahead of time that you will be using one of your two extensions. 
 - Please do **not** tell me why you need the extension. Any reason is a fine reason.
 - Any homeworks not submitted by the due date will receive a grade of 0.
-													
+
+# Important Dates
+
+- 09/27 (tentative): First exam
+- 10/11: Fall break (no class)
+- 11/01 (tentative): Second exam
+- 11/01: Last day to withdraw
+- 11/05: Election day (no class)
+- 11/26: Class meets via Zoom
+- 11/29: Thanksgiving break (no class)
+- Either 12/10 or 12/13 (registrar has not yet released the schedule): Third exam
+
 # Computing and Software
 
 We will use the R computing language to complete some assignment questions. R is free and may be downloaded from the R website (<http://cran.r-project.org/>). In addition, I highly recommend you interface with R through the free RStudio IDE (<https://www.rstudio.com/>). R and RStudio are also available on computers in the Anderson Computing Complex, the Center for Teaching, Research, and Learning Lab (CTRL) in Hurst Hall, in addition to various labs across campus. R Studio may also be run from your web browser using American University's [Virtual Applications System](https://americanuniversity.service-now.com/help/?id=sc_cat_item&sys_id=1fdf972fdbb3db00771cfce9af961985). Please see me during office hours if you have questions regarding R.
 													
 # Data
 
-Data sets for homeworks assignments and examples from the textbook are available on the [Data page](data.qmd). These are cleaned versions of the data from the book's [companion website](http://www.cengage.com/cgi-wadsworth/course_products_wp.pl?fid=M20b&product_isbn_issn=9781305268920). Other data sets needed for class will be posted in Canvas 
-													
-# Computers, phones, other electronic devices in class
-
-Use common sense and be courteous of your peers. You may take notes electronically if that is your preferred method. Phones and other devices should be off or set to silent during class. 
+Data sets for homeworks assignments and examples from the textbook are available on the [Data page](data.qmd). Almost all of these are cleaned versions of the data from the book's [companion website](http://www.cengage.com/cgi-wadsworth/course_products_wp.pl?fid=M20b&product_isbn_issn=9781305268920).
 
 # Academic Integrity
 
 - Standards of academic conduct are set forth in the university’s [Academic Integrity Code](http://www.american.edu/academics/integrity/index.cfm). By registering for this course, students have acknowledged their awareness of the Academic Integrity Code and they are obliged to become familiar with their rights and responsibilities as defined by the Code. Violations of the Academic Integrity Code will not be treated lightly and disciplinary action will be taken should violations occur. This includes cheating, fabrication, and plagiarism.
 
-- I expect you to work with others and me, and I expect you to use online resources as you work on your assignments However, your submissions must be composed of your own thoughts, coding, and words. You should be able to explain your work on assignments/projects and your rationale.  **Based on your explanation (or lack thereof), I may modify your grade.** 
+- I expect you to work with others and me, and I expect you to use online resources as you work on your assignments. However, your submissions must be composed of your own thoughts, coding, and words. You should be able to explain your work on assignments/projects and your rationale.  **Based on your explanation (or lack thereof), I may modify your grade.** 
 
 - You can use generative AI (e.g. ChatGPT, CoPilot, etc) on the homeworks if you want. But
     - These are your only study exercises for the exams. So I wouldn't use AI to do them for me except to check my work after I am done.
