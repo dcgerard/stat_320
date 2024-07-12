@@ -2,12 +2,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.5.53">
+<meta name="generator" content="quarto-1.5.54">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="David Gerard">
-<meta name="dcterms.date" content="2024-07-02">
+<meta name="dcterms.date" content="2024-07-12">
 
 <title>Introduction to Quarto – Stat 320: Biostatistics</title>
 <style>
@@ -191,6 +191,7 @@ window.Quarto = {
   <li><a href="#inline-r-code" id="toc-inline-r-code" class="nav-link" data-scroll-target="#inline-r-code">Inline R Code</a></li>
   </ul></li>
   </ul></li>
+  <li><a href="#writing-math" id="toc-writing-math" class="nav-link" data-scroll-target="#writing-math">Writing Math</a></li>
   </ul>
 </nav>
     </div>
@@ -216,7 +217,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">July 2, 2024</p>
+      <p class="date">July 12, 2024</p>
     </div>
   </div>
   
@@ -374,10 +375,95 @@ urlcolor: "blue"
 <li><p>Then “my name is <code>`r my_name`</code>” will result in “my name is David”.</p></li>
 <li><p>For a more realistic example, you might calculate the <span class="math inline">\(p\)</span>-value from a linear regression, then write this <span class="math inline">\(p\)</span>-value in the paragraph of a report.</p></li>
 </ul>
-
-
 </section>
 </section>
+</section>
+<section id="writing-math" class="level1">
+<h1>Writing Math</h1>
+<ul>
+<li><p>You can use the <span class="math inline">\(\LaTeX\)</span> language to write math in Quarto documents.</p></li>
+<li><p>You put inline math between single dollar signs <code>$math code here$</code>.</p></li>
+<li><p>You put display math (equations on a separate line) between two dollar signs</p>
+<pre><code>$$
+math code here
+$$</code></pre></li>
+<li><p>Subscripts are written with an underscore <code>_</code> with braces <code>{}</code> surrounding the subscript.</p>
+<ul>
+<li><span class="math inline">\(x_{ik}\)</span> is <code>$x_{ik}$</code></li>
+</ul></li>
+<li><p>Superscripts are written with a caret <code>^</code> with braces <code>{}</code> surrounding the subscript.</p>
+<ul>
+<li><span class="math inline">\(x^{2p}\)</span> is <code>$x^{2p}$</code></li>
+</ul></li>
+<li><p>Big sigma notation is <code>\sum</code></p>
+<ul>
+<li><span class="math inline">\(\sum_{i=1}^{n}\)</span> is <code>$\sum_{i=1}^{n}$</code></li>
+</ul></li>
+<li><p>Square root: <code>\sqrt{}</code></p>
+<ul>
+<li><span class="math inline">\(\sqrt{x^2 + 1}\)</span> is <code>$\sqrt{x^2 + 1}$</code></li>
+</ul></li>
+<li><p>log and exponentiation: <code>\log()</code> and <code>\exp()</code> (note the parentheses, not braces)</p>
+<ul>
+<li><span class="math inline">\(\log(x^2 + 1)\)</span> is <code>$\log(x^2 + 1)$</code></li>
+<li><span class="math inline">\(\exp(x^2 + 1)\)</span> is <code>$\exp(x^2 + 1)$</code></li>
+</ul></li>
+<li><p>Greek letters are typically just their spelling beginning with a backslash <code>\</code></p>
+<ul>
+<li><span class="math inline">\(\sigma\)</span> is <code>$\sigma$</code></li>
+<li><span class="math inline">\(\mu\)</span> is <code>$\mu$</code></li>
+<li><span class="math inline">\(\alpha\)</span> is <code>$\alpha$</code></li>
+<li><span class="math inline">\(\beta\)</span> is <code>$\beta$</code></li>
+<li><span class="math inline">\(\pi\)</span> is <code>$\pi$</code></li>
+<li><span class="math inline">\(\tau\)</span> is <code>$\tau$</code></li>
+<li>etc</li>
+</ul></li>
+<li><p>The tilde, denoting “is distributed as” is <code>\sim</code></p>
+<ul>
+<li><span class="math inline">\(X \sim N(\mu, \sigma^2)\)</span> is <code>$X \sim N(\mu, \sigma^2)$</code></li>
+</ul></li>
+<li><p>These are the inequality operations</p>
+<ul>
+<li><span class="math inline">\(&lt;\)</span> is <code>$&lt;$</code></li>
+<li><span class="math inline">\(\leq\)</span> is <code>$\leq$</code></li>
+<li><span class="math inline">\(&gt;\)</span> is <code>$&gt;$</code></li>
+<li><span class="math inline">\(\geq\)</span> is <code>$\geq$</code></li>
+</ul></li>
+<li><p>You use a vertical pipe <code>|</code> for conditional statements.</p>
+<ul>
+<li><span class="math inline">\(Pr(X|Y)\)</span> is <code>$Pr(X|Y)$</code></li>
+</ul></li>
+<li><p>Here are some “and” and “or” statements</p>
+<ul>
+<li><span class="math inline">\(\cup\)</span> is <code>$\cup$</code></li>
+<li><span class="math inline">\(\cap\)</span> is <code>$\cap$</code></li>
+</ul></li>
+<li><p>Fractions are written with <code>\frac{}{}</code></p>
+<ul>
+<li><span class="math inline">\(\frac{x^2 + 1}{\sqrt{2}}\)</span> is <code>$\frac{x^2 + 1}{\sqrt{2}}$</code></li>
+</ul></li>
+<li><p>Binomial coefficients are <code>\binom{}{}</code></p>
+<ul>
+<li><span class="math inline">\(\binom{n}{2}\)</span> is <code>$\binom{n}{2}$</code></li>
+</ul></li>
+<li><p>Let’s do a more complicated example:</p>
+<p><span class="math display">\[
+\frac{1}{\sqrt{2\pi\sigma^2}}\exp(-\frac{1}{2\sigma^2}(x - \mu)^2)
+\]</span></p>
+<pre><code>$$
+\frac{1}{\sqrt{2\pi\sigma^2}}\exp(-\frac{1}{2\sigma^2}(x - \mu)^2)
+$$</code></pre></li>
+<li><p><strong>Exercise</strong>: write this equation using <span class="math inline">\(\LaTeX\)</span></p>
+<p><span class="math display">\[
+\binom{n}{k}p^k(1-p)^{n-k}
+\]</span></p></li>
+<li><p><strong>Exercise</strong>: write this equation using <span class="math inline">\(\LaTeX\)</span></p>
+<p><span class="math display">\[
+-\frac{n}{2}\log(2\pi\sigma^2) - \frac{1}{2\sigma^2}\sum_{i=1}^{n}(x_i-\mu)^2
+\]</span></p></li>
+</ul>
+
+
 </section>
 
 </main> <!-- /main -->

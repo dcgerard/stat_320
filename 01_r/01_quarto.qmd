@@ -129,3 +129,88 @@ as the output of some chunk). You can do this by placing code within
 
 - For a more realistic example, you might calculate the $p$-value from a linear
   regression, then write this $p$-value in the paragraph of a report.
+  
+# Writing Math
+
+- You can use the $\LaTeX$ language to write math in Quarto documents.
+
+- You put inline math between single dollar signs `$math code here$`.
+
+- You put display math (equations on a separate line) between two dollar signs
+
+  ```
+  $$
+  math code here
+  $$
+  ```
+  
+- Subscripts are written with an underscore `_` with braces `{}` surrounding the subscript.
+  - $x_{ik}$ is `$x_{ik}$`
+  
+- Superscripts are written with a caret `^` with braces `{}` surrounding the subscript.
+  - $x^{2p}$ is `$x^{2p}$`
+
+- Big sigma notation is `\sum`
+  - $\sum_{i=1}^{n}$ is `$\sum_{i=1}^{n}$`
+  
+- Square root: `\sqrt{}`
+  - $\sqrt{x^2 + 1}$ is `$\sqrt{x^2 + 1}$`
+  
+- log and exponentiation: `\log()` and `\exp()` (note the parentheses, not braces)
+  - $\log(x^2 + 1)$ is `$\log(x^2 + 1)$`
+  - $\exp(x^2 + 1)$ is `$\exp(x^2 + 1)$`
+  
+- Greek letters are typically just their spelling beginning with a backslash `\`
+  - $\sigma$ is `$\sigma$`
+  - $\mu$ is `$\mu$`
+  - $\alpha$ is `$\alpha$`
+  - $\beta$ is `$\beta$`
+  - $\pi$ is `$\pi$`
+  - $\tau$ is `$\tau$`
+  - etc
+  
+- The tilde, denoting "is distributed as" is `\sim`
+  - $X \sim N(\mu, \sigma^2)$ is `$X \sim N(\mu, \sigma^2)$`
+  
+- These are the inequality operations
+  - $<$ is `$<$`
+  - $\leq$ is `$\leq$`
+  - $>$ is `$>$`
+  - $\geq$ is `$\geq$`
+  
+- You use a vertical pipe `|` for conditional statements.
+  - $Pr(X|Y)$ is `$Pr(X|Y)$`
+
+- Here are some "and" and "or" statements
+  - $\cup$ is `$\cup$`
+  - $\cap$ is `$\cap$`
+  
+- Fractions are written with `\frac{}{}`
+  - $\frac{x^2 + 1}{\sqrt{2}}$ is `$\frac{x^2 + 1}{\sqrt{2}}$`
+
+- Binomial coefficients are `\binom{}{}`
+  - $\binom{n}{2}$ is `$\binom{n}{2}$`
+
+- Let's do a more complicated example:
+
+  $$
+  \frac{1}{\sqrt{2\pi\sigma^2}}\exp(-\frac{1}{2\sigma^2}(x - \mu)^2)
+  $$
+  
+  ```
+  $$
+  \frac{1}{\sqrt{2\pi\sigma^2}}\exp(-\frac{1}{2\sigma^2}(x - \mu)^2)
+  $$
+  ```
+  
+- **Exercise**: write this equation using $\LaTeX$
+
+  $$
+  \binom{n}{k}p^k(1-p)^{n-k}
+  $$
+
+- **Exercise**: write this equation using $\LaTeX$
+
+  $$
+  -\frac{n}{2}\log(2\pi\sigma^2) - \frac{1}{2\sigma^2}\sum_{i=1}^{n}(x_i-\mu)^2
+  $$
