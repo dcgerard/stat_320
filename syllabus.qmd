@@ -28,18 +28,23 @@ The major focus for this course is the ideas behind, and the methods for, drawin
 # Grading
 
 ```{r, echo = FALSE}
-gradedf <- data.frame(Assignment = c("Homeworks", "Midterm 1", "Midterm 2", "Midterm 3"),
-                      Percent = c("40%", "20%", "20%", "20%"))
+gradedf <- data.frame(Assignment = c("Quarto Notes", "Homeworks", "Exam 1", "Exam 2", "Exam 3"),
+                      Percent = c("10%", "30%", "20%", "20%", "20%"))
 knitr::kable(gradedf)
 ```
 
-- Midterms: 
+- Quarto Notes:
+    - Most of my notes are handwritten. Each week, I will assign one student to convert my hand-written notes into a quarto document that can be parsed to HTML. I will (lightly) modify these notes and post them on the course website. You will only have to do this once this semester.
+    - I think we have more students than classes, so for some of you I will ask that you convert your exam reference sheets into a Quarto document.
+
+- Exams: 
     - Not officially cumulative. But all material in Statistics builds off of previous material, so effectively cumulative.
     - You can bring a 1 page (8.5'' by 11'' piece of paper) cheat sheet that is handwritten (no typing). You can use both sides.
-    - No other resources are allowed. If you touch your phone/computer/smart watch/etc during the midterm then that is an automatic fail for the course.
+    - No other resources are allowed. If you touch your phone/computer/smart watch/etc during the exam then that is an automatic fail for the course.
     
 - Homeworks:
-    - Homeworks are really just meant to help you prepare for the midterms. You can use generative AI if you want. But you won't get any other study aids, so I wouldn't except to check my work after I've done all of the problems.
+    - To me (and some of you), homeworks are meant to solidify your understanding. To (some of) you, homeworks are meant to help you prepare for the exams. You can use generative AI if you want. But you won't get any other study aids, so I wouldn't except to check my work after I've done all of the problems.
+    - Lots of education research points to practice problems as the best form of learning, and just reading solutions (e.g. created by AI) as the worst form of learning. If you just use AI to get solutions on the homeworks, you should expect to have bad exam grades.
 
 Usual grade cutoffs will be used:
 ```{r, echo = FALSE}
@@ -79,10 +84,10 @@ Use common sense and be courteous of your peers. You may take notes electronical
 - I expect you to work with others and me, and I expect you to use online resources as you work on your assignments However, your submissions must be composed of your own thoughts, coding, and words. You should be able to explain your work on assignments/projects and your rationale.  **Based on your explanation (or lack thereof), I may modify your grade.** 
 
 - You can use generative AI (e.g. ChatGPT, CoPilot, etc) on the homeworks if you want. But
-    - These are your only study exercises for the midterms. So I wouldn't use AI to do them for me except to check my work after I am done.
+    - These are your only study exercises for the exams. So I wouldn't use AI to do them for me except to check my work after I am done.
     - You are still expected to "own" all of your responses. I reserve the right to ask you to explain any of your solutions. If you write something weird or too advanced in the homework, I'll call you in and ask you questions about it. **Based on your explanation (or lack thereof), I may modify your grade.**
     
-- No resources are allowed for the midterm except the 1 page (8.5'' by 11'') handwritten cheat sheet (and a pen or pencil, of course). If you touch your phone/computer/smart watch/etc during the midterm then that is an automatic fail for the course.
+- No resources are allowed for the exam except the 1 page (8.5'' by 11'') handwritten cheat sheet (and a pen or pencil, of course). If you touch your phone/computer/smart watch/etc during the exam then that is an automatic fail for the course.
     
 - All solutions that I provide are under my copyright. These solutions are for personal use only and may not be distributed to anyone else. Giving these solutions to others, including other students or posting them on the internet, is a violation of my copyright and a violation of the student code of conduct.
 
