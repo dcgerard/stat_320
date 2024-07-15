@@ -1,0 +1,112 @@
+---
+title: "Bone Density Case Study"
+author: "David Gerard"
+date: today
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, 
+            fig.width = 4, 
+            fig.height = 3, 
+            fig.align = "center")
+ggplot2::theme_set(ggplot2::theme_bw() + ggplot2::theme(strip.background = ggplot2::element_rect(fill = "white")))
+```
+
+- Twin study with $n=41$ where one smoked more than the other. Bone density was measured in both twins. More detail [here](../data.qmd#boneden).
+
+  ```{r}
+  #| message: false
+  library(tidyverse)
+  boneden <- read_csv("https://dcgerard.github.io/stat_320/data/boneden.csv")
+  ```
+
+- Let's explore if lumbar spine bone density differed between the twins. First, we'll calculate the difference in density between the twins:
+  ```{r}
+  boneden |>
+    mutate(diff = ls1 - ls2) -> #ls1 = lighter smoking, ls2 = heavy smoking
+    boneden 
+  ```
+
+- Let's plot the data
+  ```{r}
+  ggplot(boneden, aes(x = diff)) +
+    geom_histogram(bins = 7, fill = "white", color = "black")
+  ```
+
+- The mean and standard deviation of the difference
+  ```{r}
+  boneden |>
+    summarize(xbar = mean(diff), s = sd(diff), n = n())
+  ```
+
+- We can use this to get a 95% confidence interval for the mean difference in lumbar spine bone density between heavy and light smoking twins.
+
+- The standard error is 
+  ```{r}
+  0.08829 / sqrt(41)
+  ```
+
+- The appropriate quantile of the t-distribution is
+
+  ```{r}
+  qt(p = 0.975, df = 41 - 1)
+  ```
+
+- So, the 95% confidence interval is 
+  ```{r}
+  0.03585 - 2.021 * 0.01379 # lower
+  0.03585 + 2.021 * 0.01379 # upper
+  ```
+
+- Since the lower bound of the 95% CI is above 0, we can be fairly confident that the true mean difference is greater than 0. That is, we are pretty sure that the lighter smoking twin has heavier bone density. We will formalize what "pretty sure" means in Chapter 7.
+
+# Real Way
+
+- It would be crazy to do the above calculations, by hand, every time. For this class, I'll occasionally ask you do that to solidify your understanding. But in real data analysis we use code to automate inference.
+
+- We will use the `{broom}` package to summarize inference output.
+
+  ```{r}
+  library(broom)
+  ```
+
+- You calculate an interval for a mean using `t.test()` using one of two ways:
+  ```{r}
+  ## tout <- t.test(boneden$diff)
+  tout <- t.test(diff ~ 1, data = boneden)
+  ```
+
+- You get a summary of the output with `broom::tidy()`
+  ```{r}
+  tidy(tout) |>
+    select(estimate, conf.low, conf.high)
+  ```
+  
+- You can change the level with the `conf.level` argument in `t.test()`
+
+  ```{r}
+  t.test(diff ~ 1, data = boneden, conf.level = 0.9) |>
+    tidy() |>
+    select(estimate, conf.low, conf.high)
+  ```
+  
+- **Exercise**: Calculate an 80% confidence interval for the mean birth weight of newborns using the [birth weight data](../data.qmd#birthweight) that you can download from here: <https://dcgerard.github.io/stat_320/data/birthweight.csv>. Do this both "by hand" (after calculating the summary statistics and t-quantile) and using R's automated functions.
+
+```{r}
+#| echo: false
+#| eval: false
+birthweight <- read_csv("https://dcgerard.github.io/stat_320/data/birthweight.csv")
+n <- nrow(birthweight)
+mult <- qt(p = 0.9, df = n - 1)
+xbar <- mean(birthweight$weight)
+se <- sd(birthweight$weight) / sqrt(n)
+xbar - mult * se
+xbar + mult * se
+
+t.test(weight ~ 1, data = birthweight, conf.level = 0.8) |>
+  tidy() |>
+  select(estimate, conf.low, conf.high)
+```
+
+
+

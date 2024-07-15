@@ -81,7 +81,7 @@
     "href": "index.html",
     "title": "Stat 320: Biostatistics",
     "section": "",
-    "text": "Syllabus\n\n00 R\n\nIntroduction to R\nPlotting in R\nDocuments in R\n\n01 Overview\n\nMath Prereqs\nCourse Overview\n\n02 Descriptive Statistics\n\nDescriptive Statistics in R\n\n03 Probability\n\nConfusion Matrix\nDiscrete Probability in R\nNormal Distribution in R\n\n04 Estimation\n\nRandom Selection/Assignment\nCentral Limit Theorem Illustration"
+    "text": "Syllabus\n\n00 R\n\nIntroduction to R\nPlotting in R\nDocuments in R\n\n01 Overview\n\nMath Prereqs\nCourse Overview\n\n02 Descriptive Statistics\n\nDescriptive Statistics in R\n\n03 Probability\n\nConfusion Matrix\nDiscrete Probability in R\nNormal Distribution in R\n\n04 Estimation\n\nRandom Selection/Assignment\nCentral Limit Theorem Illustration\nCI Interpretation\nt-distribution\nBone Density Case Study"
   },
   {
     "objectID": "syllabus.html",
@@ -334,5 +334,26 @@
     "title": "Central Limit Theorem",
     "section": "",
     "text": "Consider the birthweight data:\n\nlibrary(tidyverse)\nbirthweight &lt;- read_csv(\"https://dcgerard.github.io/stat_320/data/birthweight.csv\")\nggplot(birthweight, aes(x = weight)) +\n  geom_histogram(bins = 30, fill = \"white\", color = \"black\")\n\n\n\n\n\n\n\n\nLet’s take samples of size \\(n\\) = 1, 5, 10, 20, 50, 100 from this distribution with replacement. For each sample size, we college 10000 repeat samples, each time calculating the sample mean \\(\\bar{X}\\), to obtain \\(\\bar{X}_1,\\bar{X}_2,\\ldots,\\bar{X}_{10000}\\). Below are histograms of these \\(\\bar{X}\\)’s\nThe distribution of the \\(\\bar{X}\\)’s has smaller and smaller variance as the sample size increases since \\(\\mathrm{var}(\\bar{X}) = \\sigma^2/n\\).\n \nThe distribution of the \\(\\bar{X}\\)’s gets closer to a normal as the sample size increases. Though it’s already sufficiently normal for most purposes once \\(n = 10\\).\n \nThe true mean \\(\\mu\\) is the vertical dashed red line. You see that the distribution of the sample mean has a mean of \\(\\mu\\), \\(\\mathrm{E}[\\bar{X}] = \\mu\\)."
+  },
+  {
+    "objectID": "04_est/04_t.html",
+    "href": "04_est/04_t.html",
+    "title": "t-distribution",
+    "section": "",
+    "text": "Work with \\(t\\)-distribution\nUnderstand \\(t\\)-distribution"
+  },
+  {
+    "objectID": "04_est/04_t.html#learning-objectives",
+    "href": "04_est/04_t.html#learning-objectives",
+    "title": "t-distribution",
+    "section": "",
+    "text": "Work with \\(t\\)-distribution\nUnderstand \\(t\\)-distribution"
+  },
+  {
+    "objectID": "04_est/04_boneden.html",
+    "href": "04_est/04_boneden.html",
+    "title": "Bone Density Case Study",
+    "section": "",
+    "text": "Twin study with \\(n=41\\) where one smoked more than the other. Bone density was measured in both twins. More detail here.\n\nlibrary(tidyverse)\nboneden &lt;- read_csv(\"https://dcgerard.github.io/stat_320/data/boneden.csv\")\n\nLet’s explore if lumbar spine bone density differed between the twins. First, we’ll calculate the difference in density between the twins:\n\nboneden |&gt;\n  mutate(diff = ls1 - ls2) -&gt; #ls1 = lighter smoking, ls2 = heavy smoking\n  boneden \n\nLet’s plot the data\n\nggplot(boneden, aes(x = diff)) +\n  geom_histogram(bins = 7, fill = \"white\", color = \"black\")\n\n\n\n\n\n\n\n\nThe mean and standard deviation of the difference\n\nboneden |&gt;\n  summarize(xbar = mean(diff), s = sd(diff), n = n())\n\n# A tibble: 1 × 3\n    xbar      s     n\n   &lt;dbl&gt;  &lt;dbl&gt; &lt;int&gt;\n1 0.0359 0.0883    41\n\n\nWe can use this to get a 95% confidence interval for the mean difference in lumbar spine bone density between heavy and light smoking twins.\nThe standard error is\n\n0.08829 / sqrt(41)\n\n[1] 0.01379\n\n\nThe appropriate quantile of the t-distribution is\n\nqt(p = 0.975, df = 41 - 1)\n\n[1] 2.021\n\n\nSo, the 95% confidence interval is\n\n0.03585 - 2.021 * 0.01379 # lower\n\n[1] 0.00798\n\n0.03585 + 2.021 * 0.01379 # upper\n\n[1] 0.06372\n\n\nSince the lower bound of the 95% CI is above 0, we can be fairly confident that the true mean difference is greater than 0. That is, we are pretty sure that the lighter smoking twin has heavier bone density. We will formalize what “pretty sure” means in Chapter 7.\n\n\nReal Way\n\nIt would be crazy to do the above calculations, by hand, every time. For this class, I’ll occasionally ask you do that to solidify your understanding. But in real data analysis we use code to automate inference.\nWe will use the {broom} package to summarize inference output.\n\nlibrary(broom)\n\nYou calculate an interval for a mean using t.test() using one of two ways:\n\n## tout &lt;- t.test(boneden$diff)\ntout &lt;- t.test(diff ~ 1, data = boneden)\n\nYou get a summary of the output with broom::tidy()\n\ntidy(tout) |&gt;\n  select(estimate, conf.low, conf.high)\n\n# A tibble: 1 × 3\n  estimate conf.low conf.high\n     &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;\n1   0.0359  0.00799    0.0637\n\n\nYou can change the level with the conf.level argument in t.test()\n\nt.test(diff ~ 1, data = boneden, conf.level = 0.9) |&gt;\n  tidy() |&gt;\n  select(estimate, conf.low, conf.high)\n\n# A tibble: 1 × 3\n  estimate conf.low conf.high\n     &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;\n1   0.0359   0.0126    0.0591\n\n\nExercise: Calculate an 80% confidence interval for the mean birth weight of newborns using the birth weight data that you can download from here: https://dcgerard.github.io/stat_320/data/birthweight.csv. Do this both “by hand” (after calculating the summary statistics and t-quantile) and using R’s automated functions."
   }
 ]

@@ -23,3 +23,6 @@ format: html
 - 04 Estimation
   - [Random Selection/Assignment](./04_est/04_sample.qmd)
   - [Central Limit Theorem Illustration](./04_est/04_clt.qmd)
+  - [CI Interpretation](./04_est/04_figs/ci_graphic.png)
+  - [t-distribution](./04_est/04_t.qmd)
+  - [Bone Density Case Study](./04_est/04_boneden.qmd)

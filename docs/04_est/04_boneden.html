@@ -9,7 +9,7 @@
 <meta name="author" content="David Gerard">
 <meta name="dcterms.date" content="2024-07-15">
 
-<title>Stat 320: Biostatistics - Confusion Matrix</title>
+<title>Stat 320: Biostatistics - Bone Density Case Study</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -21,6 +21,40 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -142,14 +176,20 @@ window.Quarto = {
 <!-- sidebar -->
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#real-way" id="toc-real-way" class="nav-link active" data-scroll-target="#real-way">Real Way</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Confusion Matrix</h1>
+<h1 class="title">Bone Density Case Study</h1>
 </div>
 
 
@@ -178,107 +218,110 @@ window.Quarto = {
 </header>
 
 
-<p>The below is a simplified version of the Confusion matrix table from <a href="https://en.wikipedia.org/wiki/Confusion_matrix#Table_of_confusion">Wikipedia</a> that emphasizes the terminology more common to biostatistics (e.g.&nbsp;sensitivity/specificity/<span class="math inline">\(PV^+\)</span>/<span class="math inline">\(PV^-\)</span>)</p>
-<table align="center" style="border:none; background:transparent; text-align:center;">
-<tbody>
-<tr>
-<td style="border:none;" rowspan="2">
-</td>
-<td style="border:none;">
-</td>
-<td style="background:#bbeeee;" colspan="2">
-<b>Test</b>
-</td>
-<td>
-</td>
-</tr>
-<tr>
-<td>
-</td>
-<td style="background:#ccffff;">
-Test Positive <span class="math inline">\(T^+\)</span>
-</td>
-<td style="background:#aadddd;">
-Test Negative <span class="math inline">\(T^-\)</span>
-</td>
-<td>
-</td>
-<td>
-</td>
-</tr>
-<tr>
-<td rowspan="2">
-<b>Truth</b>
+<ul>
+<li><p>Twin study with <span class="math inline">\(n=41\)</span> where one smoked more than the other. Bone density was measured in both twins. More detail <a href="../data.html#boneden">here</a>.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>boneden <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"https://dcgerard.github.io/stat_320/data/boneden.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div></li>
+<li><p>Let’s explore if lumbar spine bone density differed between the twins. First, we’ll calculate the difference in density between the twins:</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>boneden <span class="sc">|&gt;</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">diff =</span> ls1 <span class="sc">-</span> ls2) <span class="ot">-&gt;</span> <span class="co">#ls1 = lighter smoking, ls2 = heavy smoking</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  boneden </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div></li>
+<li><p>Let’s plot the data</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(boneden, <span class="fu">aes</span>(<span class="at">x =</span> diff)) <span class="sc">+</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins =</span> <span class="dv">7</span>, <span class="at">fill =</span> <span class="st">"white"</span>, <span class="at">color =</span> <span class="st">"black"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="04_boneden_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="384"></p>
+</figure>
+</div>
+</div>
+</div></li>
+<li><p>The mean and standard deviation of the difference</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>boneden <span class="sc">|&gt;</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">xbar =</span> <span class="fu">mean</span>(diff), <span class="at">s =</span> <span class="fu">sd</span>(diff), <span class="at">n =</span> <span class="fu">n</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 3
+    xbar      s     n
+   &lt;dbl&gt;  &lt;dbl&gt; &lt;int&gt;
+1 0.0359 0.0883    41</code></pre>
+</div>
+</div></li>
+<li><p>We can use this to get a 95% confidence interval for the mean difference in lumbar spine bone density between heavy and light smoking twins.</p></li>
+<li><p>The standard error is</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fl">0.08829</span> <span class="sc">/</span> <span class="fu">sqrt</span>(<span class="dv">41</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.01379</code></pre>
+</div>
+</div></li>
+<li><p>The appropriate quantile of the t-distribution is</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">qt</span>(<span class="at">p =</span> <span class="fl">0.975</span>, <span class="at">df =</span> <span class="dv">41</span> <span class="sc">-</span> <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 2.021</code></pre>
+</div>
+</div></li>
+<li><p>So, the 95% confidence interval is</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fl">0.03585</span> <span class="sc">-</span> <span class="fl">2.021</span> <span class="sc">*</span> <span class="fl">0.01379</span> <span class="co"># lower</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.00798</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fl">0.03585</span> <span class="sc">+</span> <span class="fl">2.021</span> <span class="sc">*</span> <span class="fl">0.01379</span> <span class="co"># upper</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.06372</code></pre>
+</div>
+</div></li>
+<li><p>Since the lower bound of the 95% CI is above 0, we can be fairly confident that the true mean difference is greater than 0. That is, we are pretty sure that the lighter smoking twin has heavier bone density. We will formalize what “pretty sure” means in Chapter 7.</p></li>
+</ul>
+<section id="real-way" class="level1">
+<h1>Real Way</h1>
+<ul>
+<li><p>It would be crazy to do the above calculations, by hand, every time. For this class, I’ll occasionally ask you do that to solidify your understanding. But in real data analysis we use code to automate inference.</p></li>
+<li><p>We will use the <code>{broom}</code> package to summarize inference output.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(broom)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div></li>
+<li><p>You calculate an interval for a mean using <code>t.test()</code> using one of two ways:</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="do">## tout &lt;- t.test(boneden$diff)</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>tout <span class="ot">&lt;-</span> <span class="fu">t.test</span>(diff <span class="sc">~</span> <span class="dv">1</span>, <span class="at">data =</span> boneden)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div></li>
+<li><p>You get a summary of the output with <code>broom::tidy()</code></p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tidy</span>(tout) <span class="sc">|&gt;</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(estimate, conf.low, conf.high)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 3
+  estimate conf.low conf.high
+     &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;
+1   0.0359  0.00799    0.0637</code></pre>
+</div>
+</div></li>
+<li><p>You can change the level with the <code>conf.level</code> argument in <code>t.test()</code></p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(diff <span class="sc">~</span> <span class="dv">1</span>, <span class="at">data =</span> boneden, <span class="at">conf.level =</span> <span class="fl">0.9</span>) <span class="sc">|&gt;</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tidy</span>() <span class="sc">|&gt;</span></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(estimate, conf.low, conf.high)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 3
+  estimate conf.low conf.high
+     &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;
+1   0.0359   0.0126    0.0591</code></pre>
+</div>
+</div></li>
+<li><p><strong>Exercise</strong>: Calculate an 80% confidence interval for the mean birth weight of newborns using the <a href="../data.html#birthweight">birth weight data</a> that you can download from here: <a href="https://dcgerard.github.io/stat_320/data/birthweight.csv" class="uri">https://dcgerard.github.io/stat_320/data/birthweight.csv</a>. Do this both “by hand” (after calculating the summary statistics and t-quantile) and using R’s automated functions.</p></li>
+</ul>
 
-</td>
-<td style="background:#ffffcc;">
-Positive <span class="math inline">\(D^+\)</span>
-</td>
-<td style="background:#ccffcc;">
-True Positive (TP)
-</td>
-<td style="background:#ffdddd;">
-False Negative (FN) <br> (Type II Error)
-</td>
-<td style="background:#eeffee;">
-Sensitivity <br> (True Positive Rate, Recall) <br> <span class="math inline">\(\frac{TP}{D^+}\)</span>
-</td>
-<td style="background:#ffeeee;">
-False Negative Rate <br> (Type II Error Rate) <br> <span class="math inline">\(\frac{FN}{D^+}\)</span>
-</td>
-</tr>
-<tr>
-<td style="background:#ddddaa;">
-Negative <span class="math inline">\(D^-\)</span>
-</td>
-<td style="background:#ffcccc;">
-False Positive (FP) <br> (Type I Error)
-</td>
-<td style="background:#bbeebb;">
-True Negative (TN)
-</td>
-<td style="background:#eedddd;">
-False Positive Rate <br> (Type I Error Rate) <br> <span class="math inline">\(\frac{FP}{D^-}\)</span>
-</td>
-<td style="background:#ddeedd;">
-Specificity <br>(True Negative Rate) <br> <span class="math inline">\(\frac{TN}{D^-}\)</span>
-</td>
-</tr>
-<tr>
-<td style="border:none;" rowspan="2">
-</td>
-<td style="border-top:double silver; border-right:double silver;">
-Prevalence <br> <span class="math inline">\(\frac{D^+}{D^+ + D^-}\)</span>
-</td>
-<td style="background:#eeffee;">
-Positive Predictive Value <br> (Precision) <br> <span class="math inline">\(PV^+ = \frac{TP}{T^+}\)</span>
-</td>
-<td style="background:#ffeeee;border-right:double silver;">
-False Omission Rate <br> <span class="math inline">\(\frac{FN}{T^-}\)</span>
-</td>
-<td>
-</td>
-<td>
-</td>
-</tr>
-<tr>
-<td>
-</td>
-<td style="background:#eedddd;">
-False Discovery Rate <br> <span class="math inline">\(\frac{FP}{T^+}\)</span>
-</td>
-<td style="background:#ddeedd;">
-Negative Predictive Value <br> <span class="math inline">\(PV^- = \frac{TN}{T^-}\)</span>
-</td>
-<td>
-</td>
-<td>
-</td>
-</tr>
-</tbody>
-</table>
 
-
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">

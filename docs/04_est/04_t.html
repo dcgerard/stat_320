@@ -9,7 +9,7 @@
 <meta name="author" content="David Gerard">
 <meta name="dcterms.date" content="2024-07-15">
 
-<title>Stat 320: Biostatistics - Confusion Matrix</title>
+<title>Stat 320: Biostatistics - t-distribution</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -21,6 +21,40 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -142,14 +176,22 @@ window.Quarto = {
 <!-- sidebar -->
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#learning-objectives" id="toc-learning-objectives" class="nav-link active" data-scroll-target="#learning-objectives">Learning Objectives</a></li>
+  <li><a href="#t-distribution" id="toc-t-distribution" class="nav-link" data-scroll-target="#t-distribution"><span class="math inline">\(t\)</span>-distribution</a></li>
+  <li><a href="#working-with-t-distribution-in-r" id="toc-working-with-t-distribution-in-r" class="nav-link" data-scroll-target="#working-with-t-distribution-in-r">Working with <span class="math inline">\(t\)</span> Distribution in R:</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Confusion Matrix</h1>
+<h1 class="title">t-distribution</h1>
 </div>
 
 
@@ -178,107 +220,123 @@ window.Quarto = {
 </header>
 
 
-<p>The below is a simplified version of the Confusion matrix table from <a href="https://en.wikipedia.org/wiki/Confusion_matrix#Table_of_confusion">Wikipedia</a> that emphasizes the terminology more common to biostatistics (e.g.&nbsp;sensitivity/specificity/<span class="math inline">\(PV^+\)</span>/<span class="math inline">\(PV^-\)</span>)</p>
-<table align="center" style="border:none; background:transparent; text-align:center;">
-<tbody>
-<tr>
-<td style="border:none;" rowspan="2">
-</td>
-<td style="border:none;">
-</td>
-<td style="background:#bbeeee;" colspan="2">
-<b>Test</b>
-</td>
-<td>
-</td>
-</tr>
-<tr>
-<td>
-</td>
-<td style="background:#ccffff;">
-Test Positive <span class="math inline">\(T^+\)</span>
-</td>
-<td style="background:#aadddd;">
-Test Negative <span class="math inline">\(T^-\)</span>
-</td>
-<td>
-</td>
-<td>
-</td>
-</tr>
-<tr>
-<td rowspan="2">
-<b>Truth</b>
+<section id="learning-objectives" class="level2">
+<h2 class="anchored" data-anchor-id="learning-objectives">Learning Objectives</h2>
+<ul>
+<li>Work with <span class="math inline">\(t\)</span>-distribution</li>
+<li>Understand <span class="math inline">\(t\)</span>-distribution</li>
+</ul>
+</section>
+<section id="t-distribution" class="level1">
+<h1><span class="math inline">\(t\)</span>-distribution</h1>
+<ul>
+<li><p><span class="math inline">\(t\)</span> vs Normal(0, 1)</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="04_t_files/figure-html/unnamed-chunk-1-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="384"></p>
+</figure>
+</div>
+</div>
+</div></li>
+<li><p>A lot more extreme values in a t</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="04_t_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="384"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="04_t_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="384"></p>
+</figure>
+</div>
+</div>
+</div></li>
+</ul>
+</section>
+<section id="working-with-t-distribution-in-r" class="level1">
+<h1>Working with <span class="math inline">\(t\)</span> Distribution in R:</h1>
+<ul>
+<li><p>Density Function</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dt</span>(<span class="at">x =</span> <span class="sc">-</span><span class="dv">6</span>, <span class="at">df =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.004269</code></pre>
+</div>
+</div>
+<div class="cell" data-layout-align="center">
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: `qplot()` was deprecated in ggplot2 3.4.0.</code></pre>
+</div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="04_t_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="384"></p>
+</figure>
+</div>
+</div>
+</div></li>
+<li><p>Random Generation</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>samp <span class="ot">&lt;-</span> <span class="fu">rt</span>(<span class="at">n =</span> <span class="dv">1000</span>, <span class="at">df =</span> <span class="dv">2</span>)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(samp)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] -10.5221   0.1255   2.1381  -0.3495   1.6396   0.7834</code></pre>
+</div>
+</div>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="04_t_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="384"></p>
+</figure>
+</div>
+</div>
+</div></li>
+<li><p>Cumulative Distribution Function</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pt</span>(<span class="at">q =</span> <span class="dv">2</span>, <span class="at">df =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.9082</code></pre>
+</div>
+</div>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="04_t_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="384"></p>
+</figure>
+</div>
+</div>
+</div></li>
+<li><p>Quantile Function: Rosner denotes the following <span class="math inline">\(t_{2,0.9082}\)</span></p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">qt</span>(<span class="at">p =</span> <span class="fl">0.9082</span>, <span class="at">df =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1.999</code></pre>
+</div>
+</div>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="04_t_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="384"></p>
+</figure>
+</div>
+</div>
+</div></li>
+<li><p><strong>Exercise</strong>: In the Rosner notation, what does <span class="math inline">\(t_{20, 0.95}\)</span> mean? Calculate it.</p></li>
+</ul>
 
-</td>
-<td style="background:#ffffcc;">
-Positive <span class="math inline">\(D^+\)</span>
-</td>
-<td style="background:#ccffcc;">
-True Positive (TP)
-</td>
-<td style="background:#ffdddd;">
-False Negative (FN) <br> (Type II Error)
-</td>
-<td style="background:#eeffee;">
-Sensitivity <br> (True Positive Rate, Recall) <br> <span class="math inline">\(\frac{TP}{D^+}\)</span>
-</td>
-<td style="background:#ffeeee;">
-False Negative Rate <br> (Type II Error Rate) <br> <span class="math inline">\(\frac{FN}{D^+}\)</span>
-</td>
-</tr>
-<tr>
-<td style="background:#ddddaa;">
-Negative <span class="math inline">\(D^-\)</span>
-</td>
-<td style="background:#ffcccc;">
-False Positive (FP) <br> (Type I Error)
-</td>
-<td style="background:#bbeebb;">
-True Negative (TN)
-</td>
-<td style="background:#eedddd;">
-False Positive Rate <br> (Type I Error Rate) <br> <span class="math inline">\(\frac{FP}{D^-}\)</span>
-</td>
-<td style="background:#ddeedd;">
-Specificity <br>(True Negative Rate) <br> <span class="math inline">\(\frac{TN}{D^-}\)</span>
-</td>
-</tr>
-<tr>
-<td style="border:none;" rowspan="2">
-</td>
-<td style="border-top:double silver; border-right:double silver;">
-Prevalence <br> <span class="math inline">\(\frac{D^+}{D^+ + D^-}\)</span>
-</td>
-<td style="background:#eeffee;">
-Positive Predictive Value <br> (Precision) <br> <span class="math inline">\(PV^+ = \frac{TP}{T^+}\)</span>
-</td>
-<td style="background:#ffeeee;border-right:double silver;">
-False Omission Rate <br> <span class="math inline">\(\frac{FN}{T^-}\)</span>
-</td>
-<td>
-</td>
-<td>
-</td>
-</tr>
-<tr>
-<td>
-</td>
-<td style="background:#eedddd;">
-False Discovery Rate <br> <span class="math inline">\(\frac{FP}{T^+}\)</span>
-</td>
-<td style="background:#ddeedd;">
-Negative Predictive Value <br> <span class="math inline">\(PV^- = \frac{TN}{T^-}\)</span>
-</td>
-<td>
-</td>
-<td>
-</td>
-</tr>
-</tbody>
-</table>
 
-
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
