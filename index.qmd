@@ -22,3 +22,4 @@ format: html
   - [Normal Distribution in R](./03_prob/03_prob_cont.qmd)
 - 04 Estimation
   - [Random Selection/Assignment](./04_est/04_sample.qmd)
+  - [Central Limit Theorem Illustration](./04_est/04_clt.qmd)

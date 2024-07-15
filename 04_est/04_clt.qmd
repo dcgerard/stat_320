@@ -1,0 +1,85 @@
+---
+title: "Central Limit Theorem"
+author: "David Gerard"
+date: today
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, 
+            fig.width = 4, 
+            fig.height = 3, 
+            fig.align = "center")
+ggplot2::theme_set(ggplot2::theme_bw() + ggplot2::theme(strip.background = ggplot2::element_rect(fill = "white")))
+```
+
+```{r}
+#| echo: false
+#| eval: false
+# set.seed(100)
+# library(tidyverse)
+# library(animation)
+# birthweight <- read_csv("https://dcgerard.github.io/stat_320/data/birthweight.csv")
+# 
+# nrep <- 10000
+# nseq <- c(1, 5, 10, 20, 50, 100) 
+# plist1 <- list()
+# plist2 <- list()
+# for (i in seq_along(nseq)) {
+#   xbarout <- replicate(
+#     n = nrep, expr = 
+#       {
+#         mean(sample(x = birthweight$weight, size = nseq[[i]], replace = TRUE))
+#       }
+#   )
+#   tibble(xbar = xbarout) |>
+#     ggplot(aes(x = xbar)) +
+#     geom_histogram(bins = 40, fill = "white", color = "black") +
+#     geom_vline(xintercept = mean(birthweight$weight), lty = 2, col = 2) +
+#     theme_bw() +
+#     ggtitle(paste0("n=", nseq[[i]], ", SE=", round(sd(birthweight$weight) / sqrt(nseq[[i]]), digits = 2))) +
+#     xlab(expression(bar(x))) ->
+#     plist1[[i]]
+#   
+#   plist1[[i]] +
+#     xlim(min(birthweight$weight), max(birthweight$weight)) ->
+#     plist2[[i]]
+# }
+# animation::saveGIF(expr = {
+#   for (i in seq_along(plist1)) {
+#    print(plist1[[i]])
+#   }
+# },
+# ani.width = 300,
+# ani.height = 200,
+# movie.name = "clt.gif")
+# animation::saveGIF(expr = {
+#   for (i in seq_along(plist2)) {
+#    print(plist2[[i]])
+#   }
+# },
+# ani.width = 300,
+# ani.height = 200,
+# movie.name = "var_decrease.gif")
+```
+
+- Consider the birthweight data:
+  ```{r}
+  #| message: false
+  library(tidyverse)
+  birthweight <- read_csv("https://dcgerard.github.io/stat_320/data/birthweight.csv")
+  ggplot(birthweight, aes(x = weight)) +
+    geom_histogram(bins = 30, fill = "white", color = "black")
+  ```
+
+- Let's take samples of size $n$ = 1, 5, 10, 20, 50, 100 from this distribution *with replacement*. For each sample size, we college 10000 repeat samples, each time calculating the sample mean $\bar{X}$, to obtain $\bar{X}_1,\bar{X}_2,\ldots,\bar{X}_{10000}$. Below are histograms of these $\bar{X}$'s
+
+- The distribution of the $\bar{X}$'s has smaller and smaller variance as the sample size increases since $\mathrm{var}(\bar{X}) = \sigma^2/n$.
+
+  ![](./04_figs/var_decrease.gif)\ 
+  
+- The distribution of the $\bar{X}$'s gets closer to a normal as the sample size increases. Though it's already sufficiently normal for most purposes once $n = 10$.
+
+  ![](./04_figs/clt.gif)\ 
+  
+- The true mean $\mu$ is the vertical dashed red line. You see that the distribution of the sample mean has a mean of $\mu$, $\mathrm{E}[\bar{X}] = \mu$.
+
