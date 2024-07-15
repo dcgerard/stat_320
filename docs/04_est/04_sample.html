@@ -6,9 +6,10 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="David Gerard">
 <meta name="dcterms.date" content="2024-07-15">
 
-<title>Stat 320: Biostatistics - STAT 320 - Biostatistics</title>
+<title>Stat 320: Biostatistics - Random Sampling</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -21,27 +22,61 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<script src="site_libs/quarto-html/quarto.js"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -71,7 +106,7 @@ ul.task-list li input[type="checkbox"] {
 }</script>
 
 
-<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="../styles.css">
 </head>
 
 <body class="nav-fixed">
@@ -81,7 +116,7 @@ ul.task-list li input[type="checkbox"] {
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a class="navbar-brand" href="./index.html">
+    <a class="navbar-brand" href="../index.html">
     <span class="navbar-title">Stat 320: Biostatistics</span>
     </a>
   </div>
@@ -92,11 +127,11 @@ ul.task-list li input[type="checkbox"] {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="./index.html"> 
+    <a class="nav-link" href="../index.html"> 
 <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./data.html"> 
+    <a class="nav-link" href="../data.html"> 
 <span class="menu-text">Data</span></a>
   </li>  
 </ul>
@@ -112,35 +147,26 @@ ul.task-list li input[type="checkbox"] {
 <!-- sidebar -->
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">On this page</h2>
-   
-  <ul>
-  <li><a href="#required-text" id="toc-required-text" class="nav-link active" data-scroll-target="#required-text">Required Text</a></li>
-  <li><a href="#course-content-and-learning-objectives" id="toc-course-content-and-learning-objectives" class="nav-link" data-scroll-target="#course-content-and-learning-objectives">Course Content and Learning Objectives</a></li>
-  <li><a href="#grading" id="toc-grading" class="nav-link" data-scroll-target="#grading">Grading</a></li>
-  <li><a href="#late-work-policy" id="toc-late-work-policy" class="nav-link" data-scroll-target="#late-work-policy">Late Work Policy</a></li>
-  <li><a href="#important-dates" id="toc-important-dates" class="nav-link" data-scroll-target="#important-dates">Important Dates</a></li>
-  <li><a href="#computing-and-software" id="toc-computing-and-software" class="nav-link" data-scroll-target="#computing-and-software">Computing and Software</a></li>
-  <li><a href="#data" id="toc-data" class="nav-link" data-scroll-target="#data">Data</a></li>
-  <li><a href="#academic-integrity" id="toc-academic-integrity" class="nav-link" data-scroll-target="#academic-integrity">Academic Integrity</a></li>
-  <li><a href="#sharing-course-content" id="toc-sharing-course-content" class="nav-link" data-scroll-target="#sharing-course-content">Sharing Course Content:</a></li>
-  <li><a href="#syllabus-change-policy" id="toc-syllabus-change-policy" class="nav-link" data-scroll-target="#syllabus-change-policy">Syllabus Change Policy</a></li>
-  </ul>
-</nav>
+        
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">STAT 320 - Biostatistics</h1>
+<h1 class="title">Random Sampling</h1>
 </div>
 
 
 
 <div class="quarto-title-meta">
 
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>David Gerard </p>
+          </div>
+  </div>
     
     <div>
     <div class="quarto-title-meta-heading">Published</div>
@@ -158,209 +184,90 @@ ul.task-list li input[type="checkbox"] {
 
 
 <ul>
-<li><strong>Instructor</strong>: Dr.&nbsp;David Gerard</li>
-<li><strong>Email</strong>: <a href="mailto:dgerard@american.edu" class="email">dgerard@american.edu</a></li>
-<li><strong>Office</strong>: DMTI 106E</li>
-</ul>
-<section id="required-text" class="level1">
-<h1>Required Text</h1>
-<blockquote class="blockquote">
-<p>Rosner, B. (2016) <a href="https://a.co/aGy3VyN"><em>Fundamentals of Biostatistics</em></a>, Eighth Edition. Brooks/Cole, Boston, MA, USA.</p>
-</blockquote>
-<ul>
-<li>There will be occasional readings from other sources, such as journal articles, for class discussion or for homework assignments. These will be posted in Blackboard or links will be given to find these online.</li>
-</ul>
-</section>
-<section id="course-content-and-learning-objectives" class="level1">
-<h1>Course Content and Learning Objectives</h1>
-<p>STAT-320 is an introduction to the statistical methodology commonly used in public health, medical, and biological studies. This course emphasizes working with data and communicating statistical ideas. A breadth of topics will be covered including: study design, tests of significance, confidence intervals, t-procedures, chi-square and Fisher’s exact test, linear regression, logistic regression, analysis of variance, nonparametric methods, and more advanced topics as time permits. The R computer program will be used to conduct analyses.</p>
-<p>The major focus for this course is the ideas behind, and the methods for, drawing conclusions about a population from a sample. At the end of this course you will be expected to identify the major concepts related to statistical reasoning and to statistical inferences for drawing such conclusions, recognize how these concepts are used in disciplines related to health and medicine, and implement the methods yourself in statistical analyses using the methods covered. In particular, you are expected to be able to (1) identify the appropriate statistical model or models for a given analysis, (2) write the model in the correct notation, (3) implement the model in the R software package on a given set of data, (4) interpret the output in the context of the study, (5) diagnose model deficiences, (6) suggest improvements to the model if necessary, and (7) summarize the results of the analysis. Work will be a balance between understanding the concepts underlying a method, implementation of the method, and interpretation of the results.</p>
-</section>
-<section id="grading" class="level1">
-<h1>Grading</h1>
-<div class="cell">
-<div class="cell-output-display">
-<table class="caption-top table table-sm table-striped small">
-<thead>
-<tr class="header">
-<th style="text-align: left;">Assignment</th>
-<th style="text-align: left;">Percent</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">Quarto Notes</td>
-<td style="text-align: left;">10%</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Homeworks</td>
-<td style="text-align: left;">30%</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Exam 1</td>
-<td style="text-align: left;">20%</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Exam 2</td>
-<td style="text-align: left;">20%</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Exam 3</td>
-<td style="text-align: left;">20%</td>
-</tr>
-</tbody>
-</table>
+<li><p>Before doing sampling, make sure you set the seed so that you have reproducible results. E.g., this makes it so that your “random selection” is the same every time you first run the seed.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">3574927</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div></li>
+<li><p>If you are having trouble coming up with a random seed, you could NIST’s <a href="https://csrc.nist.gov/Projects/interoperable-randomness-beacons/beacon-20">Interoperable Randomness Beacons API</a>, which generates a new truly random number every 60 seconds. You would only run this once and copy the resulting number in your script. You would not include this script anywhere in any code you have.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="do">## HTTP request for a random number</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(httr2)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>reqout <span class="ot">&lt;-</span> <span class="fu">request</span>(<span class="at">base_url =</span> <span class="st">"https://beacon.nist.gov/beacon/2.0/pulse/last"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">req_perform</span>()</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="do">## A random value represented as a 64-byte (512 bits) hex string</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>hex <span class="ot">&lt;-</span> <span class="fu">resp_body_json</span>(reqout)<span class="sc">$</span>pulse<span class="sc">$</span>localRandomValue </span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="do">## select only first few digits to make number small. You can increase this.</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>hexsmall <span class="ot">&lt;-</span> <span class="fu">substr</span>(hex, <span class="at">start =</span> <span class="dv">1</span>, <span class="at">stop =</span> <span class="dv">6</span>) </span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="do">## convert to an integer. This is your seed.</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="fu">strtoi</span>(<span class="at">x =</span> hexsmall, <span class="at">base =</span> <span class="dv">16</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div></li>
+<li><p>You generate ID’s for with <code>seq()</code> or <code>:</code></p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 1:100</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>idvec <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="at">from =</span> <span class="dv">1</span>, <span class="at">to =</span> <span class="dv">20</span>)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>idvec</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1]  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20</code></pre>
+</div>
+</div></li>
+<li><p>You can sample (without replacement) from this vector with <code>sample()</code></p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sample</span>(<span class="at">x =</span> idvec, <span class="at">size =</span> <span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1]  6 18 11  1  3</code></pre>
+</div>
+</div></li>
+<li><p>If you don’t give an argument for <code>size</code>, then sample will randomly permute the values.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sample</span>(<span class="at">x =</span> idvec)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1]  1  5  6 16 13 18 19 17 20 12  7  8  3  2 14 11  4 10  9 15</code></pre>
 </div>
 </div>
-<ul>
-<li>Quarto Notes:
-<ul>
-<li>Most of my notes are handwritten. Each week, I will assign one student to convert my hand-written notes into a quarto document that can be parsed to HTML. I will (lightly) modify these notes and post them on the course website. You will only have to do this once this semester.</li>
-<li>I think we have more students than classes, so for some of you I will ask that you convert your exam reference sheets into a Quarto document.</li>
-</ul></li>
-<li>Exams:
-<ul>
-<li>Not officially cumulative. But all material in Statistics builds off of previous material, so effectively cumulative.</li>
-<li>You can bring a 1 page (8.5’’ by 11’’ piece of paper) reference sheet that is handwritten (no typing). You can use both sides.</li>
-<li>No other resources are allowed. If you touch your phone/computer/smart watch/etc during the exam then that is an automatic fail for the course.</li>
-<li>I will drop your lowest exam score. Because of this:
-<ul>
-<li>There will be no make up exams. You will just use your drop if you have to miss one.</li>
-<li>You cannot leave the room during the exam unless you turn it in. If it is an emergency and you need to leave the room, then you can use your drop.</li>
-</ul></li>
-<li>If you miss two exams, you should consider withdrawing from the class. The last day to withdraw from the course is 11/01/2024.</li>
-</ul></li>
-<li>Homeworks:
-<ul>
-<li>To me (and most of you), homeworks are meant to solidify your understanding. To (some of) you, homeworks are meant to help you prepare for the exams. You can use generative AI for the homeworks if you want. But you won’t get any other study aids, so I wouldn’t use it except to check my work after I’ve done all of the problems.</li>
-<li>Lots of education research points to practice problems as the best form of learning, and just reading solutions (e.g.&nbsp;created by AI) as the worst form of learning. If you just use AI to get solutions on the homeworks, you should expect to have bad exam grades.</li>
-<li>I will drop your lowest homework score.</li>
-</ul></li>
-</ul>
-<p>Usual grade cutoffs will be used:</p>
-<div class="cell">
-<div class="cell-output-display">
-<table class="caption-top table table-sm table-striped small">
-<thead>
-<tr class="header">
-<th style="text-align: left;">Grade</th>
-<th style="text-align: right;">Lower</th>
-<th style="text-align: right;">Upper</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">A</td>
-<td style="text-align: right;">93</td>
-<td style="text-align: right;">100</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">A-</td>
-<td style="text-align: right;">90</td>
-<td style="text-align: right;">92</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">B+</td>
-<td style="text-align: right;">88</td>
-<td style="text-align: right;">89</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">B</td>
-<td style="text-align: right;">83</td>
-<td style="text-align: right;">87</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">B-</td>
-<td style="text-align: right;">80</td>
-<td style="text-align: right;">82</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">C+</td>
-<td style="text-align: right;">78</td>
-<td style="text-align: right;">79</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">C</td>
-<td style="text-align: right;">73</td>
-<td style="text-align: right;">77</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">C-</td>
-<td style="text-align: right;">70</td>
-<td style="text-align: right;">72</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">D</td>
-<td style="text-align: right;">60</td>
-<td style="text-align: right;">69</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">F</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">59</td>
-</tr>
-</tbody>
-</table>
+<p>This is useful for random assignment.</p></li>
+<li><p>You should generally also randomize order, but if you need to see the group ID’s in an easier to read format, use <code>sort()</code>.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sample</span>(<span class="at">x =</span> idvec, <span class="at">size =</span> <span class="dv">5</span>) <span class="sc">|&gt;</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">sort</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1]  4 10 12 13 15</code></pre>
 </div>
+</div></li>
+<li><p>If you are doing random assignment, you have a data frame of individuals. E.g., from the <code>birthweight</code> data.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>birthweight <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"https://dcgerard.github.io/stat_320/data/birthweight.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Individual assignments will not be curved. However, at the discretion of the instructor, the overall course grade at the end of the semester may be curved.</p>
-</section>
-<section id="late-work-policy" class="level1">
-<h1>Late Work Policy</h1>
-<ul>
-<li>All assignments must be submitted on the day they are due.</li>
-<li>Homeworks will typically be due on Mondays by end-of-day.</li>
-<li>Each student will have <strong>two</strong> three-day extensions, where you can turn in the assignment on Thursday by end-of-day.</li>
-<li>Please just let me know ahead of time that you will be using one of your two extensions.</li>
-<li>Please do <strong>not</strong> tell me why you need the extension. Any reason is a fine reason.</li>
-<li>Any homeworks not submitted by the due date will receive a grade of 0.</li>
+<p>Then you create a column with the number of groups via <code>rep()</code>, and then randomly permute it with <code>sample()</code>. E.g., suppose we want three groups:</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>birthweight <span class="sc">|&gt;</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">group =</span> <span class="fu">rep</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>, <span class="at">length.out =</span> <span class="fu">n</span>())) <span class="sc">|&gt;</span> <span class="do">## choose groups of equal size</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">group =</span> <span class="fu">sample</span>(group)) <span class="do">## randomly assign</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1,000 × 3
+      id weight group
+   &lt;dbl&gt;  &lt;dbl&gt; &lt;int&gt;
+ 1     0    116     2
+ 2     1    124     1
+ 3     2    119     2
+ 4     3    100     1
+ 5     4    127     3
+ 6     5    103     2
+ 7     6    140     1
+ 8     7     82     3
+ 9     8    107     3
+10     9    132     1
+# ℹ 990 more rows</code></pre>
+</div>
+</div></li>
+<li><p><strong>Exercise</strong>: Randomly assign 400 individuals (with IDs 1 through 400) into two groups, <code>"treatment"</code> and <code>"control"</code>.</p></li>
+<li><p><strong>Exercise</strong>: The treatment is way more expensive than the control, so randomly assign only 100 to <code>"treatment"</code> and 300 to <code>"control"</code>.</p></li>
 </ul>
-</section>
-<section id="important-dates" class="level1">
-<h1>Important Dates</h1>
-<ul>
-<li>09/27 (tentative): First exam (Chapters 1 through 5)</li>
-<li>10/11: Fall break (no class)</li>
-<li>11/01 (tentative): Second exam (Chapters 6 through 8)</li>
-<li>11/01: Last day to withdraw</li>
-<li>11/05: Election day (no class)</li>
-<li>11/26: Class meets via Zoom</li>
-<li>11/29: Thanksgiving break (no class)</li>
-<li>Either 12/10 or 12/13 (registrar has not yet released the schedule): Third exam (Chapters 10 through 12)</li>
-</ul>
-</section>
-<section id="computing-and-software" class="level1">
-<h1>Computing and Software</h1>
-<p>We will use the R computing language to complete some assignment questions. R is free and may be downloaded from the R website (<a href="http://cran.r-project.org/" class="uri">http://cran.r-project.org/</a>). In addition, I highly recommend you interface with R through the free RStudio IDE (<a href="https://www.rstudio.com/" class="uri">https://www.rstudio.com/</a>). R and RStudio are also available on computers in the Anderson Computing Complex, the Center for Teaching, Research, and Learning Lab (CTRL) in Hurst Hall, in addition to various labs across campus. R Studio may also be run from your web browser using American University’s <a href="https://americanuniversity.service-now.com/help/?id=sc_cat_item&amp;sys_id=1fdf972fdbb3db00771cfce9af961985">Virtual Applications System</a>. Please see me during office hours if you have questions regarding R.</p>
-</section>
-<section id="data" class="level1">
-<h1>Data</h1>
-<p>Data sets for homeworks assignments and examples from the textbook are available on the <a href="./data.html">Data page</a>. Almost all of these are cleaned versions of the data from the book’s <a href="http://www.cengage.com/cgi-wadsworth/course_products_wp.pl?fid=M20b&amp;product_isbn_issn=9781305268920">companion website</a>.</p>
-</section>
-<section id="academic-integrity" class="level1">
-<h1>Academic Integrity</h1>
-<ul>
-<li><p>Standards of academic conduct are set forth in the university’s <a href="http://www.american.edu/academics/integrity/index.cfm">Academic Integrity Code</a>. By registering for this course, students have acknowledged their awareness of the Academic Integrity Code and they are obliged to become familiar with their rights and responsibilities as defined by the Code. Violations of the Academic Integrity Code will not be treated lightly and disciplinary action will be taken should violations occur. This includes cheating, fabrication, and plagiarism.</p></li>
-<li><p>I expect you to work with others and me, and I expect you to use online resources as you work on your assignments. However, your submissions must be composed of your own thoughts, coding, and words. You should be able to explain your work on assignments/projects and your rationale. <strong>Based on your explanation (or lack thereof), I may modify your grade.</strong></p></li>
-<li><p>You can use generative AI (e.g.&nbsp;ChatGPT, CoPilot, etc) on the homeworks if you want. But</p>
-<ul>
-<li>These are your only study exercises for the exams. So I wouldn’t use AI to do them for me except to check my work after I am done.</li>
-<li>You are still expected to “own” all of your responses. I reserve the right to ask you to explain any of your solutions. If you write something weird or too advanced in the homework, I’ll call you in and ask you questions about it. <strong>Based on your explanation (or lack thereof), I may modify your grade.</strong></li>
-</ul></li>
-<li><p>No resources are allowed for the exam except the 1 page (8.5’’ by 11’’) handwritten cheat sheet (and a pen or pencil, of course). If you touch your phone/computer/smart watch/etc during the exam then that is an automatic fail for the course.</p></li>
-<li><p>All solutions that I provide are under my copyright. These solutions are for personal use only and may not be distributed to anyone else. Giving these solutions to others, including other students or posting them on the internet, is a violation of my copyright and a violation of the student code of conduct.</p></li>
-</ul>
-</section>
-<section id="sharing-course-content" class="level1">
-<h1>Sharing Course Content:</h1>
-<p>Students are not permitted to make visual or audio recordings (including livestreams) of lectures or any class-related content or use any type of recording device unless prior permission from the instructor is obtained and there are no objections from any student in the class. If permission is granted, only students registered in the course may use or share recordings and any electronic copies of course materials (e.g., PowerPoints, formulas, lecture notes, and any discussions – online or otherwise). Use is limited to educational purposes even after the end of the course. Exceptions will be made for students who present a signed Letter of Accommodation from the Academic Support and Access Center. Further details are available from the <a href="https://www.american.edu/provost/academic-access/index.cfm">ASAC website</a>.</p>
-</section>
-<section id="syllabus-change-policy" class="level1">
-<h1>Syllabus Change Policy</h1>
-<p>This syllabus is a guide for the course and is subject to change with advanced notice. These changes may come via Canvas. Make sure to check Canvas announcements regularly. You are accountable for all such communications.</p>
 
 
-</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
