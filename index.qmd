@@ -27,3 +27,4 @@ format: html
   - [t-distribution](./04_est/04_t.qmd)
   - [Bone Density Case Study](./04_est/04_boneden.qmd)
   - [chi-squared distribution](./04_est/04_chi2.qmd)
+  - [Estimating Binomial Proportion](./04_est/04_binom.qmd)
