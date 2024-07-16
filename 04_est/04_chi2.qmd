@@ -1,0 +1,118 @@
+---
+title: "chi-squared distribution"
+author: "David Gerard"
+date: today
+format: html
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, 
+            fig.width = 4, 
+            fig.height = 3, 
+            fig.align = "center")
+ggplot2::theme_set(ggplot2::theme_bw() + ggplot2::theme(strip.background = ggplot2::element_rect(fill = "white")))
+```
+
+## Learning Objectives
+
+- Work with $\chi^2$-distribution
+- Understand $\chi^2$-distribution
+
+# $\chi^2$-distribution
+
+- $\chi^2$ with different degrees of freedom
+
+  ```{r, echo = FALSE, message=FALSE, warning=FALSE}
+  library(tidyverse)
+  library(ggthemes)
+  x <- seq(0,20, length = 200)
+  data.frame(df = as.factor(c(rep(2, length(x)), rep(3, length(x)), rep(4, length(x)))),
+             x = c(x, x, x),
+             y = c(dchisq(x = x, df = 2),
+                   dchisq(x = x, df = 3),
+                   dchisq(x = x, df = 4))) ->
+    dfdat
+  ggplot(dfdat, mapping = aes(x = x, y = y, color = df, lty = df)) +
+    geom_line() +
+    scale_color_colorblind() +
+    ylab("f(x)")
+  ```
+
+# Working with $t$ Distribution in R:
+
+- Density Function
+
+  ```{r}
+  dchisq(x = 3, df = 3)
+  ```
+  
+  ```{r, echo = FALSE}
+  library(ggplot2)
+  x <- seq(0, 12, length = 100)
+  y <- dchisq(x, df = 3)
+  data.frame(x = x, y = y) |>
+    ggplot(aes(x = x, y = y)) +
+    geom_line() +
+    ylab("f(x)") +
+    geom_segment(dat = data.frame(x = 3, xend = 3, y = 0, yend = dchisq(x = 3, df = 3)), aes(x = x, y = y, xend = xend, yend = yend), lty = 2, col = 2)
+  ```
+
+- Random Generation
+
+  ```{r}
+  samp <- rchisq(n = 1000, df = 3)
+  head(samp)
+  ```
+  
+  ```{r, echo = FALSE}
+  ggplot(tibble(samp), aes(x = samp)) +
+    geom_histogram(fill = "white", color = "black", bins = 20)
+  ```
+
+
+- Cumulative Distribution Function
+
+  ```{r}
+  pchisq(q = 3, df = 3)
+  ```
+  
+  ```{r, echo = FALSE}
+  x <- seq(0, 12, length = 500)
+  y <- dchisq(x,  df = 3)
+  polydf <- data.frame(x = c(min(x), x[x < 3], 3, 0), 
+                       y = c(0, y[x < 3], 0, 0))
+  ggplot(tibble(x, y), aes(x = x, y = y)) +
+    geom_line() +
+    ylab("f(x)") +
+    geom_polygon(data = polydf, mapping = aes(x = x, y = y), 
+                 fill = "red", alpha = 3/4)
+  ```
+
+- Quantile Function: Rosner denotes the following $t_{2,0.9082}$
+
+  ```{r}
+  qchisq(p = 0.6083, df = 3)
+  ```
+  
+  ```{r, echo = FALSE}
+  x <- seq(0, 12, length = 500)
+  y <- dchisq(x,  df = 3)
+  polydf <- data.frame(x = c(min(x), x[x < 3], 3, 0), 
+                       y = c(0, y[x < 3], 0, 0))
+  ggplot(tibble(x, y), aes(x = x, y = y)) +
+    geom_line() +
+    ylab("f(x)") +
+    geom_polygon(data = polydf, mapping = aes(x = x, y = y), 
+                 fill = "red", alpha = 3/4) +
+    annotate(geom = "text", x = 1.5, y = 0.1, label = "0.6083", color = "white")
+  ```
+  
+- **Exercise**: In the Rosner notation, what does $\chi^2_{20, 0.95}$ mean? Calculate it.
+
+```{r}
+#| echo: false
+#| eval: false
+# 0.95 quantile of a chi-squared distribution with 20 degrees of freedom
+qchisq(p = 0.95, df = 20)
+```
+
