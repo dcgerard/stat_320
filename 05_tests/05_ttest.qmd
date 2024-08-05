@@ -1,0 +1,75 @@
+---
+title: "One Sample Hypothesis Tests in R"
+author: "David Gerard"
+format: html
+---
+
+# One Sample $t$-tests
+
+Suppose we know the average birthweight in America is 110 oz. We are curious if the babies in a Boston area hospital have a different birthweight. Let $X_i$ be the birthweight of the $i$ Boston baby, then we assume that $X_i \sim N(\mu, \sigma^2)$ and are independent. We want to test
+
+\begin{algin}
+H_0: \mu &= 110\\
+H_1: \mu &\neq 110
+\end{align}
+
+Let's first read in the data on the $n = 1000$ babies:
+
+```{r}
+#| message: false
+library(tidyverse)
+library(broom)
+birthweight <- read_csv("https://dcgerard.github.io/stat_320/data/birthweight.csv")
+```
+
+We then use `t.test()` to run the $t$-test. The arguments are:
+
+- `formula`: a formula object (generated with a tilde `~`). 
+    - We put the name of the variable we are exploring to the left of the tilde.
+    - We put the number `1` to the right of the tilde.
+- `data`: the name of the data frame containing the variable.
+- `mu`: The null value. The default is `0` since this is the most common test.
+- `alternative`: We use the default `"two.sided"`, since our alternative hypothesis is of the form parameter $\neq$ value.
+
+```{r}
+tout <- t.test(weight ~ 1, data = birthweight, mu = 110)
+```
+
+We then use `broom::tidy()` to get a summary of the $t$-test output.
+
+```{r}
+bout <- tidy(tout)
+bout
+```
+
+We can manually verify these results (though, you wouldn't do this step in real life):
+
+```{r}
+xbar <- mean(birthweight$weight)
+s <- sd(birthweight$weight)
+n <- length(birthweight$weight)
+mu0 <- 110
+tstat <- (xbar - mu0) / (s / sqrt(n))
+pval <- 2 * pt(-abs(tstat), df = n - 1)
+tstat
+pval
+```
+
+
+If instead we had the alternative of $H_1: \mu < \mu_0$, then we would use the `alternative = "less"` argument.
+
+```{r}
+tout <- t.test(weight ~ 1, data = birthweight, mu = 110, alternative = "less")
+bout <- tidy(tout)
+bout$p.value
+```
+
+If instead we had the alternative of $H_1: \mu > \mu_0$, then we would use the `alternative = "greater"` argument.
+
+```{r}
+tout <- t.test(weight ~ 1, data = birthweight, mu = 110, alternative = "greater")
+bout <- tidy(tout)
+bout$p.value
+```
+
+
