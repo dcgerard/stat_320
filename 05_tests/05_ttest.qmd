@@ -72,4 +72,33 @@ bout <- tidy(tout)
 bout$p.value
 ```
 
+- **Exercise**: Consider the lead data that you can read about [here](../data.qmd#lead) and download from <https://dcgerard.github.io/stat_320/data/lead.csv>. IQ tests are designed to have a mean of 100. Use `iqf` to test if the control group has an average IQ value of 100. Separately test if the exposed group has an average IQ less than 100. State the hypotheses, test results, and conclusions.
+
+```{r}
+#| echo: false
+#| eval: false
+lead <- read_csv("https://dcgerard.github.io/stat_320/data/lead.csv")
+
+# Control
+lead |>
+  filter(Group == "control", !is.na(iqf)) ->
+  df_control
+
+# Null mu = 100, alternative mu neq 100.
+t.test(iqf ~ 1, data = df_control, mu = 100) |>
+  tidy()
+
+# p = 0.0001128, so we have strong evidence that mean IQ is not 100
+
+lead |>
+  filter(Group == "exposed", !is.na(iqf)) ->
+  df_exposed
+
+# Null mu = 100, alternative mu < 100.
+t.test(iqf ~ 1, data = df_exposed, mu = 100, alternative = "less") |>
+  tidy()
+
+# p = 1.7e-08, so we have very strong evidence that mu < 100
+```
+
 
