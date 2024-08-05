@@ -8,7 +8,7 @@ format: html
 
 Suppose we know the average birthweight in America is 110 oz. We are curious if the babies in a Boston area hospital have a different birthweight. Let $X_i$ be the birthweight of the $i$ Boston baby, then we assume that $X_i \sim N(\mu, \sigma^2)$ and are independent. We want to test
 
-\begin{algin}
+\begin{align}
 H_0: \mu &= 110\\
 H_1: \mu &\neq 110
 \end{align}

@@ -214,7 +214,10 @@ window.Quarto = {
 <section id="one-sample-t-tests" class="level1">
 <h1>One Sample <span class="math inline">\(t\)</span>-tests</h1>
 <p>Suppose we know the average birthweight in America is 110 oz. We are curious if the babies in a Boston area hospital have a different birthweight. Let <span class="math inline">\(X_i\)</span> be the birthweight of the <span class="math inline">\(i\)</span> Boston baby, then we assume that <span class="math inline">\(X_i \sim N(\mu, \sigma^2)\)</span> and are independent. We want to test</p>
-<p>\begin{algin} H_0: &amp;= 110\ H_1: &amp; \end{align}</p>
+<p><span class="math display">\[\begin{align}
+H_0: \mu &amp;= 110\\
+H_1: \mu &amp;\neq 110
+\end{align}\]</span></p>
 <p>Let’s first read in the data on the <span class="math inline">\(n = 1000\)</span> babies:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
