@@ -1,0 +1,80 @@
+---
+title: "Power Calculations"
+author: "David Gerard"
+format: html
+date: today
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, 
+            fig.width = 4, 
+            fig.height = 3, 
+            fig.align = "center")
+ggplot2::theme_set(ggplot2::theme_bw() + ggplot2::theme(strip.background = ggplot2::element_rect(fill = "white")))
+```
+
+- For $t$-methods, you use `power.t.test()` to calculate do power and smaple size calculations. It takes as input four of the following:
+    - `n`: The sample size $n$
+    - `delta`: The effect size (difference in means) $|\mu_1 - \mu_0|$
+    - `sd`: The standard deviation of the data $\sigma$
+    - `sig.level`: The signficicance level $\alpha$
+    - `power`: The power $1 - \beta$.
+    
+- You must put values for exactly four of the above. The fifth should be `NULL` and the function will return the fifth value.
+    
+- Other inputs are for the type of test:
+    - `type`: Use `"one.sample"` for one-sample $t$-tests and `"two.sample"` for two-sample $t$-tests.
+    - `alternative`: Either `"two.sided"` or `"one.sided"`. 
+    
+- Suppose we plan on running a study with 100 participants of low socioeconomic status (SES). The mean birthweight in america is 120 oz. A pilot study suggested that the average birthweight of low SES babies is 115 oz with a standard deviation of 24 oz. What is the power of a test with a significance level of 0.05?
+
+  ```{r}
+  power.t.test(
+    n = 100, 
+    delta = 5, 
+    sd = 24, 
+    sig.level = 0.05, 
+    type = "one.sample", 
+    alternative = "one.sided")
+  ```
+
+- Let's compare that power to the $z$-test calculation from Rosner
+
+  ```{r}
+  pnorm(qnorm(0.05) + sqrt(100) * 5 / 24)
+  ```
+
+- It's a little different because Rosner uses $z$-methods instead of $t$-methods for power and sample size calculations. But it's not too different to be practically important, especially since power and sample size calculations are mostly just ~~wild~~ educated guesses.
+
+
+- **Exercise**: What sample size would be needed for a power of at least 0.8?
+
+```{r}
+#| echo: false
+#| eval: false
+power.t.test(
+  power = 0.8, 
+  delta = 5, 
+  sd = 24, 
+  sig.level = 0.05, 
+  type = "one.sample", 
+  alternative = "one.sided")
+```
+  
+- **Exercise**: A new drug is proposed to prevent glaucoma among people with high intraocular pressure (IOP). A pilot study is conducted with 10 individuals. After 1 month of using the drug, their IOP decreases by 5 mm HG with a standard deviation of 10 mm HG. What is the sample size needed to achieve 90% power for a *two-sided* test with significance level of 0.05.
+
+```{r}
+#| echo: false
+#| eval: false
+## 44 individuals
+power.t.test(
+  delta = 5, 
+  sd = 10,
+  sig.level = 0.05,
+  power = 0.9,
+  type = "one.sample",
+  alternative = "two.sided")
+```
+
+  
+  
