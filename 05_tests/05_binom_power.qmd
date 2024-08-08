@@ -1,0 +1,127 @@
+---
+title: "Power Calculations for Binomial Tests"
+author: "David Gerard"
+format: html
+date: today
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, 
+            fig.width = 4, 
+            fig.height = 3, 
+            fig.align = "center")
+ggplot2::theme_set(ggplot2::theme_bw() + ggplot2::theme(strip.background = ggplot2::element_rect(fill = "white")))
+```
+
+
+There are no base R functions that do power and sample size calculations. But I created some for you:
+
+```{r}
+#' Power/sample size calculation of 1-sample proportion test
+#' 
+#' Uses central limit theorem, so make sure `p0 * (1 - p0) * n >= 5`
+#' 
+#' Exactly one of `n`, `power`, `p0`, `p1`, or `alpha` needs to be `NULL`.
+#' 
+#' @param n The sample size
+#' @param power The power
+#' @param p0 The null proportion
+#' @param p1 The alternative proportion
+#' @param alpha The significance level
+#' @param TOL Tolerance level
+#' 
+#' @author David Gerard
+#' 
+#' @examples
+#' b1power(n = 500, power = NULL, p0 = 0.02, p1 = 0.05, alpha = 0.05)
+#' b1power(n = NULL, power = 0.9, p0 = 0.02, p1 = 0.05, alpha = 0.05)
+#' 
+#' ## two p1's
+#' b1power(n = 500, power = 0.9, p0 = 0.02, p1 = NULL, alpha = 0.05)
+#' b1power(n = 500, power = NULL, p0 = 0.02, p1 = 0.00406, alpha = 0.05)$power
+#' b1power(n = 500, power = NULL, p0 = 0.02, p1 = 0.044, alpha = 0.05)$power
+b1power <- function(
+    n = NULL, 
+    power = NULL,
+    p0 = NULL,
+    p1 = NULL, 
+    alpha = 0.05,
+    TOL = 1e-6) {
+  
+  if (is.null(n) + is.null(power) + is.null(p0) + is.null(p1) + is.null(alpha) != 1) {
+    stop("exactly one of n, power, p0, p1, and alpha need to be NULL")
+  }
+  
+  oout <- list(n = n, power = power, p0 = p0, p1 = p1, alpha = alpha)
+  
+  pfun <- function(n, p0, p1, alpha) {
+    za2 <- stats::qnorm(alpha / 2)
+    stats::pnorm(sqrt(p0 * (1 - p0) / (p1 * (1 - p1))) * (za2 +
+                   abs(p0 - p1) * sqrt(n) / sqrt(p0 * (1 - p0))))
+  }
+  
+  if (is.null(power)) {
+    oout$power <- pfun(n = n, p0 = p0, p1 = p1, alpha = alpha)
+  } else if (is.null(n)) {
+    z1a2 <- stats::qnorm(1 - alpha / 2)
+    zp <- stats::qnorm(power)
+    oout$n <- p0 * (1 - p0) * (z1a2 + zp * sqrt(p1 * (1 - p1) / (p0 * (1 - p0))))^2 / (p1 - p0)^2
+    oout$n <- ceiling(oout$n)
+  } else if (is.null(p0)) {
+    rp0 <- function(p0) {power - pfun(n = n, p0 = p0, p1 = p1, alpha = alpha)}
+    
+    if (sign(rp0(p0 = TOL)) * sign(rp0(p0 = p1)) < 0) {
+      r1 <- stats::uniroot(f = rp0, interval = c(TOL, p1))
+    } else {
+      r1 <- list(root = NA)
+    }
+    if (sign(rp0(p0 = 1 - TOL)) * sign(rp0(p0 = p1)) < 0) {
+      r2 <- stats::uniroot(f = rp0, interval = c(p1, 1 - TOL))
+    } else {
+      r2 <- list(root = NA)
+    }
+    oout$p0 <- c(r1$root, r2$root)  
+  } else if (is.null(p1)) {
+    rp1 <- function(p1) {power - pfun(n = n, p0 = p0, p1 = p1, alpha = alpha)}
+    
+    if (sign(rp1(p1 = TOL)) * sign(rp1(p1 = p0)) < 0) {
+      r1 <- stats::uniroot(f = rp1, interval = c(TOL, p0))
+    } else {
+      r1 <- list(root = NA)
+    }
+    if (sign(rp1(p1 = 1 - TOL)) * sign(rp1(p1 = p0)) < 0) {
+      r2 <- stats::uniroot(f = rp1, interval = c(p0, 1 - TOL))
+    } else {
+      r2 <- list(root = NA)
+    }
+    oout$p1 <- c(r1$root, r2$root)  
+  } else if (is.null(alpha)) {
+    ralpha <- function(alpha) {power - pfun(n = n, p0 = p0, p1 = p1, alpha = alpha)}
+    rout <- stats::uniroot(f = ralpha, interval = c(TOL, 1-TOL))
+    oout$alpha <- rout$root
+  }
+  
+  if (any(oout$p0[!is.na(oout$p0)] * (1 - oout$p0[!is.na(oout$p0)]) * oout$n < 5)) {
+    warning("too small sample size")
+  }
+  return(oout)
+}
+```
+
+
+- Assumes the sample size is large enough to use the central limit theorem ($np_0(1-p_0) \geq 5$).
+
+- Suppose we wish to test the hypothesis that women with a sister history of breast cancer are at higher risk of developing breast cancer themselves. Suppose the prevalence rate of breast cancer is 2% among 50 to 54 year-old US women, whereas it is 5% among women with a sister history. We wish to interval 500 women 50 to 54 years old with a sistory history of the disease. What is the power of such a study assuming that we conduct a two-sided test with $\alpha = 0.05$?
+
+  ```{r}
+  # 0.9655
+  b1power(n = 500, power = NULL, p0 = 0.02, p1 = 0.05, alpha = 0.05)
+  ```
+
+- How many women should we interview in the study proposed to achieve 90% power?
+
+  ```{r}
+  # 341
+  b1power(n = NULL, power = 0.9, p0 = 0.02, p1 = 0.05, alpha = 0.05)
+  ```
+
