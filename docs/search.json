@@ -81,7 +81,7 @@
     "href": "index.html",
     "title": "Stat 320: Biostatistics",
     "section": "",
-    "text": "Syllabus\n\n00 R\n\nIntroduction to R\nPlotting in R\nDocuments in R\n\n01 Overview\n\nMath Prereqs\nCourse Overview\n\n02 Descriptive Statistics\n\nDescriptive Statistics in R\n\n03 Probability\n\nConfusion Matrix\nDiscrete Probability in R\nNormal Distribution in R\n\n04 Estimation\n\nRandom Selection/Assignment\nCentral Limit Theorem Illustration\nCI Interpretation\nt-distribution\nBone Density Case Study\nchi-squared distribution\nEstimating Binomial Proportion\n\n05 Testing\n\nOne Sample Tests in R\nPower Calculations in R"
+    "text": "Syllabus\n\n00 R\n\nIntroduction to R\nPlotting in R\nDocuments in R\n\n01 Overview\n\nMath Prereqs\nCourse Overview\n\n02 Descriptive Statistics\n\nDescriptive Statistics in R\n\n03 Probability\n\nConfusion Matrix\nDiscrete Probability in R\nNormal Distribution in R\n\n04 Estimation\n\nRandom Selection/Assignment\nCentral Limit Theorem Illustration\nCI Interpretation\nt-distribution\nBone Density Case Study\nchi-squared distribution\nEstimating Binomial Proportion\n\n05 Testing\n\nOne Sample \\(t\\)-Tests in R\nPower Calculations in R\nOne Sample Binomial Tests in R"
   },
   {
     "objectID": "syllabus.html",
@@ -387,9 +387,9 @@
   {
     "objectID": "05_tests/05_ttest.html",
     "href": "05_tests/05_ttest.html",
-    "title": "One Sample Hypothesis Tests in R",
+    "title": "One Sample t-Tests in R",
     "section": "",
-    "text": "One Sample \\(t\\)-tests\nSuppose we know the average birthweight in America is 110 oz. We are curious if the babies in a Boston area hospital have a different birthweight. Let \\(X_i\\) be the birthweight of the \\(i\\) Boston baby, then we assume that \\(X_i \\sim N(\\mu, \\sigma^2)\\) and are independent. We want to test\n\\[\\begin{align}\nH_0: \\mu &= 110\\\\\nH_1: \\mu &\\neq 110\n\\end{align}\\]\nLet’s first read in the data on the \\(n = 1000\\) babies:\n\nlibrary(tidyverse)\nlibrary(broom)\nbirthweight &lt;- read_csv(\"https://dcgerard.github.io/stat_320/data/birthweight.csv\")\n\nWe then use t.test() to run the \\(t\\)-test. The arguments are:\n\nformula: a formula object (generated with a tilde ~).\n\nWe put the name of the variable we are exploring to the left of the tilde.\nWe put the number 1 to the right of the tilde.\n\ndata: the name of the data frame containing the variable.\nmu: The null value. The default is 0 since this is the most common test.\nalternative: We use the default \"two.sided\", since our alternative hypothesis is of the form parameter \\(\\neq\\) value.\n\n\ntout &lt;- t.test(weight ~ 1, data = birthweight, mu = 110)\n\nWe then use broom::tidy() to get a summary of the \\(t\\)-test output.\n\nbout &lt;- tidy(tout)\nbout\n\n# A tibble: 1 × 8\n  estimate statistic  p.value parameter conf.low conf.high method    alternative\n     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt; &lt;chr&gt;     &lt;chr&gt;      \n1     107.     -3.32 0.000920       999     105.      109. One Samp… two.sided  \n\n\nWe can manually verify these results (though, you wouldn’t do this step in real life):\n\nxbar &lt;- mean(birthweight$weight)\ns &lt;- sd(birthweight$weight)\nn &lt;- length(birthweight$weight)\nmu0 &lt;- 110\ntstat &lt;- (xbar - mu0) / (s / sqrt(n))\npval &lt;- 2 * pt(-abs(tstat), df = n - 1)\ntstat\n\n[1] -3.324\n\npval\n\n[1] 0.0009204\n\n\nIf instead we had the alternative of \\(H_1: \\mu &lt; \\mu_0\\), then we would use the alternative = \"less\" argument.\n\ntout &lt;- t.test(weight ~ 1, data = birthweight, mu = 110, alternative = \"less\")\nbout &lt;- tidy(tout)\nbout$p.value\n\n[1] 0.0004602\n\n\nIf instead we had the alternative of \\(H_1: \\mu &gt; \\mu_0\\), then we would use the alternative = \"greater\" argument.\n\ntout &lt;- t.test(weight ~ 1, data = birthweight, mu = 110, alternative = \"greater\")\nbout &lt;- tidy(tout)\nbout$p.value\n\n[1] 0.9995\n\n\n\nExercise: Consider the lead data that you can read about here and download from https://dcgerard.github.io/stat_320/data/lead.csv. IQ tests are designed to have a mean of 100. Use iqf to test if the control group has an average IQ value of 100. Separately test if the exposed group has an average IQ less than 100. State the hypotheses, test results, and conclusions."
+    "text": "Suppose we know the average birthweight in America is 110 oz. We are curious if the babies in a Boston area hospital have a different birthweight. Let \\(X_i\\) be the birthweight of the \\(i\\) Boston baby, then we assume that \\(X_i \\sim N(\\mu, \\sigma^2)\\) and are independent. We want to test\n\\[\\begin{align}\nH_0: \\mu &= 110\\\\\nH_1: \\mu &\\neq 110\n\\end{align}\\]\nLet’s first read in the data on the \\(n = 1000\\) babies:\n\nlibrary(tidyverse)\nlibrary(broom)\nbirthweight &lt;- read_csv(\"https://dcgerard.github.io/stat_320/data/birthweight.csv\")\n\nWe then use t.test() to run the \\(t\\)-test. The arguments are:\n\nformula: a formula object (generated with a tilde ~).\n\nWe put the name of the variable we are exploring to the left of the tilde.\nWe put the number 1 to the right of the tilde.\n\ndata: the name of the data frame containing the variable.\nmu: The null value. The default is 0 since this is the most common test.\nalternative: We use the default \"two.sided\", since our alternative hypothesis is of the form parameter \\(\\neq\\) value.\n\n\ntout &lt;- t.test(weight ~ 1, data = birthweight, mu = 110)\n\nWe then use broom::tidy() to get a summary of the \\(t\\)-test output.\n\nbout &lt;- tidy(tout)\nbout\n\n# A tibble: 1 × 8\n  estimate statistic  p.value parameter conf.low conf.high method    alternative\n     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt; &lt;chr&gt;     &lt;chr&gt;      \n1     107.     -3.32 0.000920       999     105.      109. One Samp… two.sided  \n\n\nWe can manually verify these results (though, you wouldn’t do this step in real life):\n\nxbar &lt;- mean(birthweight$weight)\ns &lt;- sd(birthweight$weight)\nn &lt;- length(birthweight$weight)\nmu0 &lt;- 110\ntstat &lt;- (xbar - mu0) / (s / sqrt(n))\npval &lt;- 2 * pt(-abs(tstat), df = n - 1)\ntstat\n\n[1] -3.324\n\npval\n\n[1] 0.0009204\n\n\nIf instead we had the alternative of \\(H_1: \\mu &lt; \\mu_0\\), then we would use the alternative = \"less\" argument.\n\ntout &lt;- t.test(weight ~ 1, data = birthweight, mu = 110, alternative = \"less\")\nbout &lt;- tidy(tout)\nbout$p.value\n\n[1] 0.0004602\n\n\nIf instead we had the alternative of \\(H_1: \\mu &gt; \\mu_0\\), then we would use the alternative = \"greater\" argument.\n\ntout &lt;- t.test(weight ~ 1, data = birthweight, mu = 110, alternative = \"greater\")\nbout &lt;- tidy(tout)\nbout$p.value\n\n[1] 0.9995\n\n\n\nExercise: Consider the lead data that you can read about here and download from https://dcgerard.github.io/stat_320/data/lead.csv. IQ tests are designed to have a mean of 100. Use iqf to test if the control group has an average IQ value of 100. Separately test if the exposed group has an average IQ less than 100. State the hypotheses, test results, and conclusions."
   },
   {
     "objectID": "05_tests/05_power.html",
@@ -397,5 +397,145 @@
     "title": "Power Calculations",
     "section": "",
     "text": "For \\(t\\)-methods, you use power.t.test() to calculate do power and smaple size calculations. It takes as input four of the following:\n\nn: The sample size \\(n\\)\ndelta: The effect size (difference in means) \\(|\\mu_1 - \\mu_0|\\)\nsd: The standard deviation of the data \\(\\sigma\\)\nsig.level: The signficicance level \\(\\alpha\\)\npower: The power \\(1 - \\beta\\).\n\nYou must put values for exactly four of the above. The fifth should be NULL and the function will return the fifth value.\nOther inputs are for the type of test:\n\ntype: Use \"one.sample\" for one-sample \\(t\\)-tests and \"two.sample\" for two-sample \\(t\\)-tests.\nalternative: Either \"two.sided\" or \"one.sided\".\n\nSuppose we plan on running a study with 100 participants of low socioeconomic status (SES). The mean birthweight in america is 120 oz. A pilot study suggested that the average birthweight of low SES babies is 115 oz with a standard deviation of 24 oz. What is the power of a test with a significance level of 0.05?\n\npower.t.test(\n  n = 100, \n  delta = 5, \n  sd = 24, \n  sig.level = 0.05, \n  type = \"one.sample\", \n  alternative = \"one.sided\")\n\n\n     One-sample t test power calculation \n\n              n = 100\n          delta = 5\n             sd = 24\n      sig.level = 0.05\n          power = 0.6643\n    alternative = one.sided\n\n\nLet’s compare that power to the \\(z\\)-test calculation from Rosner\n\npnorm(qnorm(0.05) + sqrt(100) * 5 / 24)\n\n[1] 0.6695\n\n\nIt’s a little different because Rosner uses \\(z\\)-methods instead of \\(t\\)-methods for power and sample size calculations. But it’s not too different to be practically important, especially since power and sample size calculations are mostly just wild educated guesses.\nExercise: What sample size would be needed for a power of at least 0.8?\n\n\nExercise: A new drug is proposed to prevent glaucoma among people with high intraocular pressure (IOP). A pilot study is conducted with 10 individuals. After 1 month of using the drug, their IOP decreases by 5 mm HG with a standard deviation of 10 mm HG. What is the sample size needed to achieve 90% power for a two-sided test with significance level of 0.05."
+  },
+  {
+    "objectID": "05_tests/05_binom.html#example",
+    "href": "05_tests/05_binom.html#example",
+    "title": "One Sample Binomial Tests in R",
+    "section": "Example",
+    "text": "Example\nSuppose \\(x\\) = 5 and \\(n\\) = 8.\n\nx &lt;- 5\nn &lt;- 8\nbinom.test(x = x, n = n)\n\n\n    Exact binomial test\n\ndata:  x and n\nnumber of successes = 5, number of trials = 8, p-value = 0.7\nalternative hypothesis: true probability of success is not equal to 0.5\n95 percent confidence interval:\n 0.2449 0.9148\nsample estimates:\nprobability of success \n                 0.625"
+  },
+  {
+    "objectID": "05_tests/05_binom.html#finding-lower-bound",
+    "href": "05_tests/05_binom.html#finding-lower-bound",
+    "title": "One Sample Binomial Tests in R",
+    "section": "Finding Lower Bound",
+    "text": "Finding Lower Bound\n\nBlack line = observed value\nBlue line = expected Value (\\(np_1\\))"
+  },
+  {
+    "objectID": "05_tests/05_binom.html#finding-lower-bound-1",
+    "href": "05_tests/05_binom.html#finding-lower-bound-1",
+    "title": "One Sample Binomial Tests in R",
+    "section": "Finding Lower Bound",
+    "text": "Finding Lower Bound\n\nBlack line = observed value\nBlue line = expected Value (\\(np_1\\))"
+  },
+  {
+    "objectID": "05_tests/05_binom.html#finding-lower-bound-2",
+    "href": "05_tests/05_binom.html#finding-lower-bound-2",
+    "title": "One Sample Binomial Tests in R",
+    "section": "Finding Lower Bound",
+    "text": "Finding Lower Bound\n\nBlack line = observed value\nBlue line = expected Value (\\(np_1\\))"
+  },
+  {
+    "objectID": "05_tests/05_binom.html#finding-lower-bound-3",
+    "href": "05_tests/05_binom.html#finding-lower-bound-3",
+    "title": "One Sample Binomial Tests in R",
+    "section": "Finding Lower Bound",
+    "text": "Finding Lower Bound\n\nBlack line = observed value\nBlue line = expected Value (\\(np_1\\))"
+  },
+  {
+    "objectID": "05_tests/05_binom.html#finding-lower-bound-4",
+    "href": "05_tests/05_binom.html#finding-lower-bound-4",
+    "title": "One Sample Binomial Tests in R",
+    "section": "Finding Lower Bound",
+    "text": "Finding Lower Bound\n\nBlack line = observed value\nBlue line = expected Value (\\(np_1\\))"
+  },
+  {
+    "objectID": "05_tests/05_binom.html#finding-lower-bound-5",
+    "href": "05_tests/05_binom.html#finding-lower-bound-5",
+    "title": "One Sample Binomial Tests in R",
+    "section": "Finding Lower Bound",
+    "text": "Finding Lower Bound\n\nBlack line = observed value\nBlue line = expected Value (\\(np_1\\))"
+  },
+  {
+    "objectID": "05_tests/05_binom.html#finding-lower-bound-6",
+    "href": "05_tests/05_binom.html#finding-lower-bound-6",
+    "title": "One Sample Binomial Tests in R",
+    "section": "Finding Lower Bound",
+    "text": "Finding Lower Bound\n\nBlack line = observed value\nBlue line = expected Value (\\(np_1\\))"
+  },
+  {
+    "objectID": "05_tests/05_binom.html#finding-lower-bound-7",
+    "href": "05_tests/05_binom.html#finding-lower-bound-7",
+    "title": "One Sample Binomial Tests in R",
+    "section": "Finding Lower Bound",
+    "text": "Finding Lower Bound\n\nBlack line = observed value\nBlue line = expected Value (\\(np_1\\))"
+  },
+  {
+    "objectID": "05_tests/05_binom.html#finding-upper-bound",
+    "href": "05_tests/05_binom.html#finding-upper-bound",
+    "title": "One Sample Binomial Tests in R",
+    "section": "Finding Upper Bound",
+    "text": "Finding Upper Bound\n\nBlack line = observed value\nBlue line = expected Value (\\(np_2\\))"
+  },
+  {
+    "objectID": "05_tests/05_binom.html#finding-upper-bound-1",
+    "href": "05_tests/05_binom.html#finding-upper-bound-1",
+    "title": "One Sample Binomial Tests in R",
+    "section": "Finding Upper Bound",
+    "text": "Finding Upper Bound\n\nBlack line = observed value\nBlue line = expected Value (\\(np_2\\))"
+  },
+  {
+    "objectID": "05_tests/05_binom.html#finding-upper-bound-2",
+    "href": "05_tests/05_binom.html#finding-upper-bound-2",
+    "title": "One Sample Binomial Tests in R",
+    "section": "Finding Upper Bound",
+    "text": "Finding Upper Bound\n\nBlack line = observed value\nBlue line = expected Value (\\(np_2\\))"
+  },
+  {
+    "objectID": "05_tests/05_binom.html#finding-upper-bound-3",
+    "href": "05_tests/05_binom.html#finding-upper-bound-3",
+    "title": "One Sample Binomial Tests in R",
+    "section": "Finding Upper Bound",
+    "text": "Finding Upper Bound\n\nBlack line = observed value\nBlue line = expected Value (\\(np_2\\))"
+  },
+  {
+    "objectID": "05_tests/05_binom.html#finding-upper-bound-4",
+    "href": "05_tests/05_binom.html#finding-upper-bound-4",
+    "title": "One Sample Binomial Tests in R",
+    "section": "Finding Upper Bound",
+    "text": "Finding Upper Bound\n\nBlack line = observed value\nBlue line = expected Value (\\(np_2\\))"
+  },
+  {
+    "objectID": "05_tests/05_binom.html#finding-upper-bound-5",
+    "href": "05_tests/05_binom.html#finding-upper-bound-5",
+    "title": "One Sample Binomial Tests in R",
+    "section": "Finding Upper Bound",
+    "text": "Finding Upper Bound\n\nBlack line = observed value\nBlue line = expected Value (\\(np_2\\))"
+  },
+  {
+    "objectID": "05_tests/05_binom.html#finding-upper-bound-6",
+    "href": "05_tests/05_binom.html#finding-upper-bound-6",
+    "title": "One Sample Binomial Tests in R",
+    "section": "Finding Upper Bound",
+    "text": "Finding Upper Bound\n\nBlack line = observed value\nBlue line = expected Value (\\(np_2\\))"
+  },
+  {
+    "objectID": "05_tests/05_binom.html#finding-upper-bound-7",
+    "href": "05_tests/05_binom.html#finding-upper-bound-7",
+    "title": "One Sample Binomial Tests in R",
+    "section": "Finding Upper Bound",
+    "text": "Finding Upper Bound\n\nBlack line = observed value\nBlue line = expected Value (\\(np_2\\))"
+  },
+  {
+    "objectID": "05_tests/05_binom.html#final-confidence-interval",
+    "href": "05_tests/05_binom.html#final-confidence-interval",
+    "title": "One Sample Binomial Tests in R",
+    "section": "Final Confidence Interval",
+    "text": "Final Confidence Interval\n\nLeft: \\(np_1\\)\nRight: \\(np_2\\)"
+  },
+  {
+    "objectID": "05_tests/05_binom.html#final-confidence-interval-1",
+    "href": "05_tests/05_binom.html#final-confidence-interval-1",
+    "title": "One Sample Binomial Tests in R",
+    "section": "Final Confidence Interval",
+    "text": "Final Confidence Interval\n\nLeft: \\(p_1\\)\nRight: \\(p_2\\)"
+  },
+  {
+    "objectID": "05_tests/05_binom.html",
+    "href": "05_tests/05_binom.html",
+    "title": "One Sample Binomial Tests in R",
+    "section": "",
+    "text": "library(tidyverse)\nlibrary(broom)\n\n\nWe have \\[\n  X \\sim \\mathrm{Binom}(n,p)\n  \\] and we are testing\n\n\\(H_0\\): \\(p = p_0\\)\n\\(H_1\\): \\(p \\neq p_0\\) or \\(p &gt; p_0\\) or \\(p &lt; p_0\\)\n\n\n\nApproximate Approach\n\nWe use the central limit theorem. If (rule-of-thumb) \\(np_0(1-p_0) \\geq 5\\) then \\[\n  X \\sim N(p_0, p_0(1-p_0)/n)\n  \\] and we calculate the tail probabilities of (for \\(\\hat{p} = X/n\\)) \\[\n  Z = \\frac{\\hat{p} - p_0}{\\sqrt{p_0(1-p_0)/n}}\n  \\]\nThis is done via prop.test(), which you can feed into broom::tidy()\n\nx: the observed number of successes\nn: The total number of trials\np: The null value of the success probability\nalternative: Either \"two.sided\", \"less\", or \"greater\"\n\nSuppose that about 20% of women who are trying to concieve take 12 months or more to get pregnant, which we will call infertility. Researchers are interested in if a genetic marker is associated with infertility. Of 40 women with this marker, 10 were infertile. Is this marker associated with infertility?\n\n\\(X \\sim \\mathrm{Binom}(40, p)\\)\n\\(H_0\\): \\(p = 0.2\\)\n\\(H_1\\): \\(p &gt; 0.2\\)\n\n\npout &lt;- prop.test(x = 10, n = 40, p = 0.2, alternative = \"greater\")\ntidy(pout) |&gt;\n  select(p.value)\n\n# A tibble: 1 × 1\n  p.value\n    &lt;dbl&gt;\n1   0.277\n\n\nSince the \\(p\\)-value is 0.2766, we don’t have evidence that the marker is associated with infertility.\nWe can do this calculation by hand (but you would never do this):\n\nphat &lt;- 10 / 40 \np0 &lt;- 0.2\nz &lt;- (phat - p0 - 1/80) / sqrt(p0 * (1 - p0) / 40) ## continuity correction\npnorm(q = z, lower.tail = FALSE)\n\n[1] 0.2766\n\n\n\n\n\nExact Approach\n\nThe exact approach calculates the probability under the null of being as more supportive of the alternative as the data we observed.\nE.g., for our infertility example, we would calculate \\(\\mathrm{Pr}(X \\geq 10 | p = 0.2)\\)\n\n1 - pbinom(q = 9, size = 40, prob = 0.2)\n\n[1] 0.2682\n\n\nThis procedure is implemented in the binom.test() function, which has the same inputs as prop.test().\n\nbout &lt;- binom.test(x = 10, n = 40, p = 0.2, alternative = \"greater\")\ntidy(bout) |&gt;\n  select(p.value)\n\n# A tibble: 1 × 1\n  p.value\n    &lt;dbl&gt;\n1   0.268\n\n\nWhen the alternative is 2-sided, \\(H_1 \\neq p_0\\), R is a little different than the procedure Rosner proposes. It calculates the sums the probabilities under the null of all \\(X\\) that are less probable than our observed \\(x\\)\n\\[\n  \\sum_{k \\text{ s.t. } Pr(k) \\leq Pr(x)}\\binom{n}{k} p_0^k(1-p_0)^{n-k}\n  \\]\nIn the infertility example, this would be\n\nprob &lt;- dbinom(x = 0:40, size = 40, prob = 0.2)\nsum(prob[prob &lt;= dbinom(x = 10, size = 40, prob = 0.2)])\n\n[1] 0.4296\n\n\n\nbout &lt;- binom.test(x = 10, n = 40, p = 0.2)\ntidy(bout) |&gt;\n  select(p.value)\n\n# A tibble: 1 × 1\n  p.value\n    &lt;dbl&gt;\n1   0.430\n\n\nExercise: Out of 13 deaths at a nuclear facility among men aged 55-64, 5 of them were due to cancer. The proportion of deaths caused by cancer in that group in the greater population is 0.2. Is there more cancer deaths in this nuclear facility? Use both the normal and exact approaches."
   }
 ]

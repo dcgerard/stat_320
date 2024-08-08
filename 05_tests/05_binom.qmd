@@ -1,0 +1,131 @@
+---
+title: "One Sample Binomial Tests in R"
+author: "David Gerard"
+format: html
+date: today
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, 
+            fig.width = 4, 
+            fig.height = 3, 
+            fig.align = "center")
+ggplot2::theme_set(ggplot2::theme_bw() + ggplot2::theme(strip.background = ggplot2::element_rect(fill = "white")))
+```
+
+```{r}
+#| message: false
+library(tidyverse)
+library(broom)
+```
+
+
+- We have
+    $$
+    X \sim \mathrm{Binom}(n,p)
+    $$
+    and we are testing
+
+    - $H_0$: $p = p_0$
+    - $H_1$: $p \neq p_0$ or $p > p_0$ or $p < p_0$
+
+# Approximate Approach
+
+- We use the central limit theorem. If (rule-of-thumb) $np_0(1-p_0) \geq 5$ then
+    $$
+    X \sim N(p_0, p_0(1-p_0)/n)
+    $$
+    and we calculate the tail probabilities of (for $\hat{p} = X/n$)
+    $$
+    Z = \frac{\hat{p} - p_0}{\sqrt{p_0(1-p_0)/n}}
+    $$
+
+- This is done via `prop.test()`, which you can feed into `broom::tidy()`
+    - `x`: the observed number of successes
+    - `n`: The total number of trials
+    - `p`: The null value of the success probability
+    - `alternative`: Either `"two.sided"`, `"less"`, or `"greater"`
+
+- Suppose that about 20% of women who are trying to concieve take 12 months or more to get pregnant, which we will call infertility. Researchers are interested in if a genetic marker is associated with infertility. Of 40 women with this marker, 10 were infertile. Is this marker associated with infertility?
+
+    - $X \sim \mathrm{Binom}(40, p)$
+    - $H_0$: $p = 0.2$
+    - $H_1$: $p > 0.2$
+
+
+  ```{r}
+  pout <- prop.test(x = 10, n = 40, p = 0.2, alternative = "greater")
+  tidy(pout) |>
+    select(p.value)
+  ```
+
+- Since the $p$-value is 0.2766, we don't have evidence that the marker is associated with infertility.
+
+- We can do this calculation by hand (but you would never do this):
+
+  ```{r}
+  phat <- 10 / 40 
+  p0 <- 0.2
+  z <- (phat - p0 - 1/80) / sqrt(p0 * (1 - p0) / 40) ## continuity correction
+  pnorm(q = z, lower.tail = FALSE)
+  ```
+
+# Exact Approach
+
+- The exact approach calculates the probability under the null of being as more supportive of the alternative as the data we observed.
+
+- E.g., for our infertility example, we would calculate $\mathrm{Pr}(X \geq 10 | p = 0.2)$
+
+  ```{r}
+  1 - pbinom(q = 9, size = 40, prob = 0.2)
+  ```
+
+- This procedure is implemented in the `binom.test()` function, which has the same inputs as `prop.test()`.
+
+  ```{r}
+  bout <- binom.test(x = 10, n = 40, p = 0.2, alternative = "greater")
+  tidy(bout) |>
+    select(p.value)
+  ```
+
+- When the alternative is 2-sided, $H_1 \neq p_0$, R is a little different than the procedure Rosner proposes. It calculates the sums the probabilities under the null of all $X$ that are less probable than our observed $x$
+
+    $$
+    \sum_{k \text{ s.t. } Pr(k) \leq Pr(x)}\binom{n}{k} p_0^k(1-p_0)^{n-k}
+    $$
+
+- In the infertility example, this would be
+
+  ```{r}
+  prob <- dbinom(x = 0:40, size = 40, prob = 0.2)
+  sum(prob[prob <= dbinom(x = 10, size = 40, prob = 0.2)])
+  ```
+  
+  ```{r}
+  bout <- binom.test(x = 10, n = 40, p = 0.2)
+  tidy(bout) |>
+    select(p.value)
+  ```
+
+- **Exercise**: Out of 13 deaths at a nuclear facility among men aged 55-64, 5 of them were due to cancer. The proportion of deaths caused by cancer in that group in the greater population is 0.2. Is there more cancer deaths in this nuclear facility? Use both the normal and exact approaches.
+
+```{r}
+#| echo: false
+#| eval: false
+#H_0: p = 0.2, H_1: p > 0.2, X ~ Binom(13, p)
+prop.test(x = 5, n = 13, p = 0.2, alternative = "greater") |>
+  tidy() |>
+  select(p.value)
+
+binom.test(x = 5, n = 13, p = 0.2, alternative = "greater") |>
+  tidy() |>
+  select(p.value)
+
+## p-value about 0.1, so no real evidence of more cancer deaths.
+```
+
+
+
+
+
+
