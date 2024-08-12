@@ -182,6 +182,7 @@ window.Quarto = {
   <ul>
   <li><a href="#paired-t-tests" id="toc-paired-t-tests" class="nav-link active" data-scroll-target="#paired-t-tests">Paired <span class="math inline">\(t\)</span>-tests</a></li>
   <li><a href="#unpaired-equal-variance" id="toc-unpaired-equal-variance" class="nav-link" data-scroll-target="#unpaired-equal-variance">Unpaired (Equal Variance)</a></li>
+  <li><a href="#test-for-equal-variance" id="toc-test-for-equal-variance" class="nav-link" data-scroll-target="#test-for-equal-variance">Test for Equal Variance</a></li>
   <li><a href="#unpaired-unequal-variance" id="toc-unpaired-unequal-variance" class="nav-link" data-scroll-target="#unpaired-unequal-variance">Unpaired (Unequal Variance)</a></li>
   </ul>
 </nav>
@@ -354,6 +355,57 @@ window.Quarto = {
 </ul>
 <ul>
 <li><strong>Exercise</strong>: A sample of eight 35- to 39-year-old non-pregnant, premenoposaul OC users have a mean systoolic blood pressure (SBP) of 132.82 mm Hg and a sample standard deviation of 15.34 mm Hg. A different sample of 21 non-pregnant, premenopausal, non-OC users have a mean SBP of 127.44 mm Hg and a sample standard deviation of 18.23 mm Hg. What can be said about the underlying mean difference in blood pressure between the two groups? Provide a measure of how sure we are that there is a difference, and provide some interval estimate for this difference. Assume equal variances.</li>
+</ul>
+</section>
+<section id="test-for-equal-variance" class="level1">
+<h1>Test for Equal Variance</h1>
+<ul>
+<li><p>Suppose we have <span class="math inline">\(X_i \sim N(\mu_1, \sigma_1^2)\)</span> and <span class="math inline">\(Y_i \sim N(\mu_2,\sigma_2^2)\)</span>.</p></li>
+<li><p>It is possible to test <span class="math inline">\(H_0: \sigma_1 = \sigma_2\)</span> versus <span class="math inline">\(H_1: \sigma_1 \neq \sigma_2\)</span>.</p></li>
+<li><p>Folks don’t typically do this test because:</p>
+<ol type="1">
+<li>It is very sensitive to the normality assumption. Conversely, the <span class="math inline">\(t\)</span>-test is not.</li>
+<li>The <span class="math inline">\(t\)</span>-test with equal variances is relatively robust to violations in the equal variance assumption.</li>
+<li>Folks typically just use the unequal variances <span class="math inline">\(t\)</span>-test below.</li>
+</ol></li>
+<li><p>But if your boss asks you do run such a test, use <code>var.test()</code>.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">var.test</span>(iqf <span class="sc">~</span> Group, <span class="at">data =</span> lead) <span class="sc">|&gt;</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tidy</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Multiple parameters; naming those columns num.df, den.df</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 9
+  estimate num.df den.df statistic p.value conf.low conf.high method alternative
+     &lt;dbl&gt;  &lt;int&gt;  &lt;int&gt;     &lt;dbl&gt;   &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt; &lt;chr&gt;  &lt;chr&gt;      
+1     1.65     73     45      1.65  0.0719    0.955      2.76 F tes… two.sided  </code></pre>
+</div>
+</div></li>
+<li><p>This test is based on the ratio of the variances <span class="math inline">\(s_1^2 / s_2^2\)</span>. Under the null, this follows a <span class="math inline">\(F\)</span>-distribution with <span class="math inline">\(n_1 - 1\)</span> numerator degrees of freedom and <span class="math inline">\(n_2 - 1\)</span> denominator degrees of freedom.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>lead <span class="sc">|&gt;</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Group) <span class="sc">|&gt;</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">var =</span> <span class="fu">var</span>(iqf), <span class="at">n =</span> <span class="fu">n</span>()) <span class="ot">-&gt;</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>  sumdf</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>var1 <span class="ot">&lt;-</span> sumdf<span class="sc">$</span>var[[<span class="dv">1</span>]]</span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>var2 <span class="ot">&lt;-</span> sumdf<span class="sc">$</span>var[[<span class="dv">2</span>]]</span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>n1 <span class="ot">&lt;-</span> sumdf<span class="sc">$</span>n[[<span class="dv">1</span>]]</span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>n2 <span class="ot">&lt;-</span> sumdf<span class="sc">$</span>n[[<span class="dv">2</span>]]</span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a><span class="do">## for fstat &gt; 1</span></span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a>fstat1 <span class="ot">&lt;-</span> var1 <span class="sc">/</span> var2</span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span> <span class="sc">*</span> <span class="fu">pf</span>(<span class="at">q =</span> fstat1, <span class="at">df1 =</span> n1 <span class="sc">-</span> <span class="dv">1</span>, <span class="at">df2 =</span> n2 <span class="sc">-</span> <span class="dv">1</span>, <span class="at">lower.tail =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.07194</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="do">## For fstat &lt; 1</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>fstat2 <span class="ot">&lt;-</span> var2 <span class="sc">/</span> var1</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span> <span class="sc">*</span> <span class="fu">pf</span>(<span class="at">q =</span> fstat2, <span class="at">df1 =</span> n2 <span class="sc">-</span> <span class="dv">1</span>, <span class="at">df2 =</span> n1 <span class="sc">-</span> <span class="dv">1</span>, <span class="at">lower.tail =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.07194</code></pre>
+</div>
+</div></li>
 </ul>
 </section>
 <section id="unpaired-unequal-variance" class="level1">

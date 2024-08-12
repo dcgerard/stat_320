@@ -197,5 +197,42 @@ upper <- (xbar - ybar) + qt(0.975, df = n1 + n2 - 2) * s * sqrt(1 / n1 + 1 / n2)
 c(pval = pval, lower = lower, upper = upper)
 ```
 
+# Test for Equal Variance
+
+- Suppose we have $X_i \sim N(\mu_1, \sigma_1^2)$ and $Y_i \sim N(\mu_2,\sigma_2^2)$. 
+- It is possible to test $H_0: \sigma_1 = \sigma_2$ versus $H_1: \sigma_1 \neq \sigma_2$. 
+
+- Folks don't typically do this test because:
+    1. It is very sensitive to the normality assumption. Conversely, the $t$-test is not.
+    2. The $t$-test with equal variances is relatively robust to violations in the equal variance assumption.
+    3. Folks typically just use the unequal variances $t$-test below.
+
+- But if your boss asks you do run such a test, use `var.test()`.
+
+  ```{r}
+  var.test(iqf ~ Group, data = lead) |>
+    tidy()
+  ```
+
+- This test is based on the ratio of the variances $s_1^2 / s_2^2$. Under the null, this follows a $F$-distribution with $n_1 - 1$ numerator degrees of freedom and $n_2 - 1$ denominator degrees of freedom.
+
+  ```{r}
+  lead |>
+    group_by(Group) |>
+    summarize(var = var(iqf), n = n()) ->
+    sumdf
+  var1 <- sumdf$var[[1]]
+  var2 <- sumdf$var[[2]]
+  n1 <- sumdf$n[[1]]
+  n2 <- sumdf$n[[2]]
+  
+  ## for fstat > 1
+  fstat1 <- var1 / var2
+  2 * pf(q = fstat1, df1 = n1 - 1, df2 = n2 - 1, lower.tail = FALSE)
+  
+  ## For fstat < 1
+  fstat2 <- var2 / var1
+  2 * pf(q = fstat2, df1 = n2 - 1, df2 = n1 - 1, lower.tail = TRUE)
+  ```
 
 # Unpaired (Unequal Variance)
