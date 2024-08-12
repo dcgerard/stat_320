@@ -33,3 +33,4 @@ format: html
   - [Power Calculations in R](./05_tests/05_power.qmd)
   - [One Sample Binomial Tests in R](./05_tests/05_binom.qmd)
   - [One Sample Binomial Power Calculations](./05_tests/05_binom_power.qmd)
+  - [Two Sample $t$-Tests in R](./05_tests/05_two_sample_t.qmd)
