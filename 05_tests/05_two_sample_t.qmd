@@ -94,4 +94,108 @@ upper <- xbar + qt(p = 0.975, df = n - 1) * s / sqrt(n)
 c(p_value, lower, upper)
 ```   
 
+# Unpaired (Equal Variance)
 
+- Consider the lead data that you can read about [here](../data.qmd#lead).
+
+  ```{r}
+  #| message: false
+  lead <- read_csv("https://dcgerard.github.io/stat_320/data/lead.csv")
+  lead <- filter(lead, !is.na(iqf))
+  ```
+
+- We are interested in if the exposed and control groups have the same mean full scale IQ. Let's explore the data
+
+  ```{r}
+  ggplot(lead, aes(x = Group, y = iqf)) +
+    geom_boxplot()
+  ```
+
+- Let $X_i$ be the $i$th IQ score in the control group, let $Y_i$ be the $i$th IQ score in the exposed group. 
+
+- Then we assume that $X_i \sim \mathrm{N}(\mu_1, \sigma^2)$ and $Y_i \sim \mathrm{N}(\mu_2, \sigma^2)$, and that all observations are independent.
+
+- We use `t.test()` to run a two-sample $t$-test.
+    - The quantitative variable is to the left of the tilde `~`
+    - The variable encoding the two groups is to the right of the tilde
+    - If we assume equal variances in each group, we set `var.equal = TRUE`
+
+  ```{r}
+  t.test(iqf ~ Group, data = lead, var.equal = TRUE) |>
+    tidy()
+  ```
+
+- We can verify this result manually (you would never do this in real life, but you might on an exam).
+
+  ```{r}
+  ## Get summary statistics of the two groups
+  lead |>
+    group_by(Group) |>
+    summarize(mean = mean(iqf), var = var(iqf), n = n()) ->
+    sumdf
+  xbar <- sumdf$mean[[1]]
+  ybar <- sumdf$mean[[2]]
+  s2x <- sumdf$var[[1]]
+  s2y <- sumdf$var[[2]]
+  n1 <- sumdf$n[[1]]
+  n2 <- sumdf$n[[2]]
+  
+  ## Calculate pooled sample standard deviation
+  s <- sqrt(((n1 - 1) * s2x + (n2 - 1) * s2y) / (n1 + n2 - 2))
+  
+  ## Calculate t-statistic
+  tstat <- (xbar - ybar) / (s * sqrt(1 / n1 + 1 / n2))
+  
+  ## compare to t distribution with n1 + n2 - 2 df
+  pval <- 2 * pt(-abs(tstat), df = n1 + n2 - 2)
+  
+  ## Get confidence intervals
+  lower <- (xbar - ybar) - qt(0.975, df = n1 + n2 - 2) * s * sqrt(1 / n1 + 1 / n2)
+  upper <- (xbar - ybar) + qt(0.975, df = n1 + n2 - 2) * s * sqrt(1 / n1 + 1 / n2)
+  
+  c(pval = pval, lower = lower, upper = upper)
+  ```
+
+
+- **Exercise**: Is there any difference between exposed and control groups when it comes to the finger-wrist tapping test in dominant hand (`maxfwt`)? Assume equal variances.
+
+```{r}
+#| eval: false
+#| echo: false
+lead <- read_csv("https://dcgerard.github.io/stat_320/data/lead.csv")
+lead |>
+  filter(!is.na(maxfwt)) |>
+  ggplot(aes(x = Group, y = maxfwt)) +
+  geom_boxplot()
+t.test(maxfwt ~ Group, data = lead, var.equal = TRUE) |> 
+  tidy()
+## Yes, we have strong evidence of a difference between groups (p = 0.005). 
+## We estimate that the control group taps about 7 more times on average
+## (95% CI of 1.8 to 12.2 more times).
+```
+
+- **Exercise**: A sample of eight 35- to 39-year-old non-pregnant, premenoposaul OC users have a mean systoolic blood pressure (SBP) of 132.82 mm Hg and a sample standard deviation of 15.34 mm Hg. A different sample of 21 non-pregnant, premenopausal, non-OC users have a mean SBP of 127.44 mm Hg and a sample standard deviation of 18.23 mm Hg. What can be said about the underlying mean difference in blood pressure between the two groups? Provide a measure of how sure we are that there is a difference, and provide some interval estimate for this difference. Assume equal variances.
+
+```{r}
+#| eval: false
+#| echo: false
+xbar <- 132.82
+s2x <- 15.34^2
+n1 <- 8
+
+ybar <- 127.44
+s2y <- 18.23^2
+n2 <- 21
+
+## Calculate pooled sample standard deviation
+s <- sqrt(((n1 - 1) * s2x + (n2 - 1) * s2y) / (n1 + n2 - 2))
+tstat <- (xbar - ybar) / (s * sqrt(1 / n1 + 1 / n2))
+pval <- 2 * pt(-abs(tstat), df = n1 + n2 - 2)
+lower <- (xbar - ybar) - qt(0.975, df = n1 + n2 - 2) * s * sqrt(1 / n1 + 1 / n2)
+upper <- (xbar - ybar) + qt(0.975, df = n1 + n2 - 2) * s * sqrt(1 / n1 + 1 / n2)
+
+c(pval = pval, lower = lower, upper = upper)
+```
+
+
+# Unpaired (Unequal Variance)

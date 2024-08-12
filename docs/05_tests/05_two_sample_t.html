@@ -181,6 +181,8 @@ window.Quarto = {
    
   <ul>
   <li><a href="#paired-t-tests" id="toc-paired-t-tests" class="nav-link active" data-scroll-target="#paired-t-tests">Paired <span class="math inline">\(t\)</span>-tests</a></li>
+  <li><a href="#unpaired-equal-variance" id="toc-unpaired-equal-variance" class="nav-link" data-scroll-target="#unpaired-equal-variance">Unpaired (Equal Variance)</a></li>
+  <li><a href="#unpaired-unequal-variance" id="toc-unpaired-unequal-variance" class="nav-link" data-scroll-target="#unpaired-unequal-variance">Unpaired (Unequal Variance)</a></li>
   </ul>
 </nav>
     </div>
@@ -275,6 +277,87 @@ window.Quarto = {
 <span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></li>
 </ul>
+</section>
+<section id="unpaired-equal-variance" class="level1">
+<h1>Unpaired (Equal Variance)</h1>
+<ul>
+<li><p>Consider the lead data that you can read about <a href="../data.html#lead">here</a>.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>lead <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"https://dcgerard.github.io/stat_320/data/lead.csv"</span>)</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>lead <span class="ot">&lt;-</span> <span class="fu">filter</span>(lead, <span class="sc">!</span><span class="fu">is.na</span>(iqf))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div></li>
+<li><p>We are interested in if the exposed and control groups have the same mean full scale IQ. Let’s explore the data</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(lead, <span class="fu">aes</span>(<span class="at">x =</span> Group, <span class="at">y =</span> iqf)) <span class="sc">+</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="05_two_sample_t_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="384"></p>
+</figure>
+</div>
+</div>
+</div></li>
+<li><p>Let <span class="math inline">\(X_i\)</span> be the <span class="math inline">\(i\)</span>th IQ score in the control group, let <span class="math inline">\(Y_i\)</span> be the <span class="math inline">\(i\)</span>th IQ score in the exposed group.</p></li>
+<li><p>Then we assume that <span class="math inline">\(X_i \sim \mathrm{N}(\mu_1, \sigma^2)\)</span> and <span class="math inline">\(Y_i \sim \mathrm{N}(\mu_2, \sigma^2)\)</span>, and that all observations are independent.</p></li>
+<li><p>We use <code>t.test()</code> to run a two-sample <span class="math inline">\(t\)</span>-test.</p>
+<ul>
+<li>The quantitative variable is to the left of the tilde <code>~</code></li>
+<li>The variable encoding the two groups is to the right of the tilde</li>
+<li>If we assume equal variances in each group, we set <code>var.equal = TRUE</code></li>
+</ul>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(iqf <span class="sc">~</span> Group, <span class="at">data =</span> lead, <span class="at">var.equal =</span> <span class="cn">TRUE</span>) <span class="sc">|&gt;</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tidy</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 10
+  estimate estimate1 estimate2 statistic p.value parameter conf.low conf.high
+     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;
+1     4.53      92.6      88.0      1.67  0.0977       118   -0.845      9.91
+# ℹ 2 more variables: method &lt;chr&gt;, alternative &lt;chr&gt;</code></pre>
+</div>
+</div></li>
+<li><p>We can verify this result manually (you would never do this in real life, but you might on an exam).</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Get summary statistics of the two groups</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>lead <span class="sc">|&gt;</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Group) <span class="sc">|&gt;</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">mean =</span> <span class="fu">mean</span>(iqf), <span class="at">var =</span> <span class="fu">var</span>(iqf), <span class="at">n =</span> <span class="fu">n</span>()) <span class="ot">-&gt;</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>  sumdf</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>xbar <span class="ot">&lt;-</span> sumdf<span class="sc">$</span>mean[[<span class="dv">1</span>]]</span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>ybar <span class="ot">&lt;-</span> sumdf<span class="sc">$</span>mean[[<span class="dv">2</span>]]</span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>s2x <span class="ot">&lt;-</span> sumdf<span class="sc">$</span>var[[<span class="dv">1</span>]]</span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>s2y <span class="ot">&lt;-</span> sumdf<span class="sc">$</span>var[[<span class="dv">2</span>]]</span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>n1 <span class="ot">&lt;-</span> sumdf<span class="sc">$</span>n[[<span class="dv">1</span>]]</span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>n2 <span class="ot">&lt;-</span> sumdf<span class="sc">$</span>n[[<span class="dv">2</span>]]</span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a><span class="do">## Calculate pooled sample standard deviation</span></span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a>s <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(((n1 <span class="sc">-</span> <span class="dv">1</span>) <span class="sc">*</span> s2x <span class="sc">+</span> (n2 <span class="sc">-</span> <span class="dv">1</span>) <span class="sc">*</span> s2y) <span class="sc">/</span> (n1 <span class="sc">+</span> n2 <span class="sc">-</span> <span class="dv">2</span>))</span>
+<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a><span class="do">## Calculate t-statistic</span></span>
+<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a>tstat <span class="ot">&lt;-</span> (xbar <span class="sc">-</span> ybar) <span class="sc">/</span> (s <span class="sc">*</span> <span class="fu">sqrt</span>(<span class="dv">1</span> <span class="sc">/</span> n1 <span class="sc">+</span> <span class="dv">1</span> <span class="sc">/</span> n2))</span>
+<span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-19"><a href="#cb12-19" aria-hidden="true" tabindex="-1"></a><span class="do">## compare to t distribution with n1 + n2 - 2 df</span></span>
+<span id="cb12-20"><a href="#cb12-20" aria-hidden="true" tabindex="-1"></a>pval <span class="ot">&lt;-</span> <span class="dv">2</span> <span class="sc">*</span> <span class="fu">pt</span>(<span class="sc">-</span><span class="fu">abs</span>(tstat), <span class="at">df =</span> n1 <span class="sc">+</span> n2 <span class="sc">-</span> <span class="dv">2</span>)</span>
+<span id="cb12-21"><a href="#cb12-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-22"><a href="#cb12-22" aria-hidden="true" tabindex="-1"></a><span class="do">## Get confidence intervals</span></span>
+<span id="cb12-23"><a href="#cb12-23" aria-hidden="true" tabindex="-1"></a>lower <span class="ot">&lt;-</span> (xbar <span class="sc">-</span> ybar) <span class="sc">-</span> <span class="fu">qt</span>(<span class="fl">0.975</span>, <span class="at">df =</span> n1 <span class="sc">+</span> n2 <span class="sc">-</span> <span class="dv">2</span>) <span class="sc">*</span> s <span class="sc">*</span> <span class="fu">sqrt</span>(<span class="dv">1</span> <span class="sc">/</span> n1 <span class="sc">+</span> <span class="dv">1</span> <span class="sc">/</span> n2)</span>
+<span id="cb12-24"><a href="#cb12-24" aria-hidden="true" tabindex="-1"></a>upper <span class="ot">&lt;-</span> (xbar <span class="sc">-</span> ybar) <span class="sc">+</span> <span class="fu">qt</span>(<span class="fl">0.975</span>, <span class="at">df =</span> n1 <span class="sc">+</span> n2 <span class="sc">-</span> <span class="dv">2</span>) <span class="sc">*</span> s <span class="sc">*</span> <span class="fu">sqrt</span>(<span class="dv">1</span> <span class="sc">/</span> n1 <span class="sc">+</span> <span class="dv">1</span> <span class="sc">/</span> n2)</span>
+<span id="cb12-25"><a href="#cb12-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-26"><a href="#cb12-26" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="at">pval =</span> pval, <span class="at">lower =</span> lower, <span class="at">upper =</span> upper)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>    pval    lower    upper 
+ 0.09772 -0.84454  9.90917 </code></pre>
+</div>
+</div></li>
+<li><p><strong>Exercise</strong>: Is there any difference between exposed and control groups when it comes to the finger-wrist tapping test in dominant hand (<code>maxfwt</code>)? Assume equal variances.</p></li>
+</ul>
+<ul>
+<li><strong>Exercise</strong>: A sample of eight 35- to 39-year-old non-pregnant, premenoposaul OC users have a mean systoolic blood pressure (SBP) of 132.82 mm Hg and a sample standard deviation of 15.34 mm Hg. A different sample of 21 non-pregnant, premenopausal, non-OC users have a mean SBP of 127.44 mm Hg and a sample standard deviation of 18.23 mm Hg. What can be said about the underlying mean difference in blood pressure between the two groups? Provide a measure of how sure we are that there is a difference, and provide some interval estimate for this difference. Assume equal variances.</li>
+</ul>
+</section>
+<section id="unpaired-unequal-variance" class="level1">
+<h1>Unpaired (Unequal Variance)</h1>
 
 
 </section>
