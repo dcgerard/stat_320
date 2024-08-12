@@ -39,10 +39,10 @@ knitr::kable(gradedf)
 - Exams: 
     - Not officially cumulative. But all material in Statistics builds off of previous material, so effectively cumulative.
     - You can bring a 1 page (8.5'' by 11'' piece of paper) reference sheet that is handwritten (no typing). You can use both sides.
-    - No other resources are allowed. If you touch your phone/computer/smart watch/etc during the exam then that is an automatic fail for the course.
+    - No other resources are allowed. If you touch your phone/computer/smart watch/smart glasses/etc during the exam then that is an automatic fail for the course.
     - I will drop your lowest exam score. Because of this:
         - There will be no make up exams. You will just use your drop if you have to miss one.
-        - You cannot leave the room during the exam unless you turn it in. If it is an emergency and you need to leave the room, then you can use your drop.
+        - You cannot leave the room during the exam unless you turn it in. If it is an emergency and you need to leave the room, then you can use your drop. You will need to be in contact with [ASAC](https://www.american.edu/provost/academic-access/) for an official accommodation if you are unable to stay in the room for 1 hour and 15 minutes.
     - If you miss two exams, you should consider withdrawing from the class. The last day to withdraw from the course is 11/01/2024.
     
 - Homeworks:
@@ -98,7 +98,7 @@ Data sets for homeworks assignments and examples from the textbook are available
     - These are your only study exercises for the exams. So I wouldn't use AI to do them for me except to check my work after I am done.
     - You are still expected to "own" all of your responses. I reserve the right to ask you to explain any of your solutions. If you write something weird or too advanced in the homework, I'll call you in and ask you questions about it. **Based on your explanation (or lack thereof), I may modify your grade.**
     
-- No resources are allowed for the exam except the 1 page (8.5'' by 11'') handwritten cheat sheet (and a pen or pencil, of course). If you touch your phone/computer/smart watch/etc during the exam then that is an automatic fail for the course.
+- No resources are allowed for the exam except the 1 page (8.5'' by 11'') handwritten cheat sheet (and a pen or pencil, of course). If you touch your phone/computer/smart watch/smart glasses/etc during the exam then that is an automatic fail for the course.
     
 - All solutions that I provide are under my copyright. These solutions are for personal use only and may not be distributed to anyone else. Giving these solutions to others, including other students or posting them on the internet, is a violation of my copyright and a violation of the student code of conduct.
 
