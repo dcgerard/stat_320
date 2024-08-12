@@ -236,3 +236,93 @@ c(pval = pval, lower = lower, upper = upper)
   ```
 
 # Unpaired (Unequal Variance)
+
+- When you don't want to assume equal variances (typically the case), just use the default settings of `t.test()` that has `var.equal = FALSE`.
+
+
+```{r}
+#| message: false
+lead <- read_csv("https://dcgerard.github.io/stat_320/data/lead.csv")
+lead <- filter(lead, !is.na(iqf))
+t.test(iqf ~ Group, data = lead) |>
+  tidy()
+```
+- Don't bother memorizing Satterthwaite's approximation for the degrees of freedom. Just do this in the computer.
+
+- **Exercise**: Is there a difference in finger tapping between groups? Don't assume equal variances.
+
+```{r}
+#| message: false
+#| echo: false
+#| eval: false
+lead <- read_csv("https://dcgerard.github.io/stat_320/data/lead.csv")
+lead <- filter(lead, !is.na(maxfwt))
+t.test(maxfwt ~ Group, data = lead) |>
+  tidy()
+
+## Some evidence of a difference (p = 0.01125). Estimate that control 
+## group has 7 more taps on average (95% CI of 1.6 to 12.3 more taps on average).
+```
+
+# Power and Sample Size Calculations in Two-sample $t$-tests
+
+- Use `power.t.test()`. 
+
+- In the two-sample case, `n` means the sample size **per group**. It assumes the sample sizes are equal, so the total sample size is `2 * n`.
+
+- It also assumes the standard deviations are equal, so you need to use a pooled estimate of the standard deviation.
+
+- If you need more precise power or sample size calculations, then those exist. 
+    - But I think these calculations are so much guess work that the error of assuming equal sample sizes is less than the error of the wild guesses you are giving it.
+
+- E.g., suppose we have the OC user exercise above as a pilot experiment.
+
+  ```{r}
+  xbar <- 132.82
+  s2x <- 15.34^2
+  n1 <- 8
+  
+  ybar <- 127.44
+  s2y <- 18.23^2
+  n2 <- 21
+  ```
+
+- Let's calculate a pooled estimate of the variance, and we will assume that is the true variance for the power calculations.
+
+  ```{r}
+  s <- sqrt(((n1 - 1) * s2x + (n2 - 1) * s2y) / (n1 + n2 - 2))
+  s
+  ```
+
+
+- Let's suppose we want a power of 0.8. Then the sample size we would need is 168 **per group**:
+
+  ```{r}
+  power.t.test(
+    delta = xbar - ybar, 
+    sd = s, 
+    sig.level = 0.05,
+    power = 0.8, 
+    type = "two.sample")
+  ```
+
+- If a researcher can only afford $n = 100$ per gropu, then the power calculation would be 0.58:
+
+  ```{r}
+  power.t.test(
+    n = 100,
+    delta = xbar - ybar, 
+    sd = s, 
+    sig.level = 0.05,
+    type = "two.sample")
+  ```
+
+- **Exercise**: Suppose a new drug is proposed to lower intraocular pressure (IOP) among people with glaucoma. It is anticipated that mean IOP will drop by 8 mm Hg after 1 month with the new drug. The comparison group will get the standard drug, which is anticipated to have a mean drop in IOP of 5 mm Hg after 1 month. It is expected that the sd of change within each group will be 10 mm Hg. How many subjects need to be enrolled to achieve 90% power if an equal sample size is planned within each group and a two-sided test with $\alpha$ = 0.05 will be used?
+
+```{r}
+#| echo: false
+#| eval: false
+# 235 subjects per group
+power.t.test(delta = 3, sd = 10, sig.level = 0.05, power = 0.9)
+```
+

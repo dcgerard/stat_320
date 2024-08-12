@@ -184,6 +184,7 @@ window.Quarto = {
   <li><a href="#unpaired-equal-variance" id="toc-unpaired-equal-variance" class="nav-link" data-scroll-target="#unpaired-equal-variance">Unpaired (Equal Variance)</a></li>
   <li><a href="#test-for-equal-variance" id="toc-test-for-equal-variance" class="nav-link" data-scroll-target="#test-for-equal-variance">Test for Equal Variance</a></li>
   <li><a href="#unpaired-unequal-variance" id="toc-unpaired-unequal-variance" class="nav-link" data-scroll-target="#unpaired-unequal-variance">Unpaired (Unequal Variance)</a></li>
+  <li><a href="#power-and-sample-size-calculations-in-two-sample-t-tests" id="toc-power-and-sample-size-calculations-in-two-sample-t-tests" class="nav-link" data-scroll-target="#power-and-sample-size-calculations-in-two-sample-t-tests">Power and Sample Size Calculations in Two-sample <span class="math inline">\(t\)</span>-tests</a></li>
   </ul>
 </nav>
     </div>
@@ -410,6 +411,101 @@ window.Quarto = {
 </section>
 <section id="unpaired-unequal-variance" class="level1">
 <h1>Unpaired (Unequal Variance)</h1>
+<ul>
+<li>When you don’t want to assume equal variances (typically the case), just use the default settings of <code>t.test()</code> that has <code>var.equal = FALSE</code>.</li>
+</ul>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>lead <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"https://dcgerard.github.io/stat_320/data/lead.csv"</span>)</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>lead <span class="ot">&lt;-</span> <span class="fu">filter</span>(lead, <span class="sc">!</span><span class="fu">is.na</span>(iqf))</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(iqf <span class="sc">~</span> Group, <span class="at">data =</span> lead) <span class="sc">|&gt;</span></span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tidy</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 10
+  estimate estimate1 estimate2 statistic p.value parameter conf.low conf.high
+     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;
+1     4.53      92.6      88.0      1.77  0.0797      112.   -0.545      9.61
+# ℹ 2 more variables: method &lt;chr&gt;, alternative &lt;chr&gt;</code></pre>
+</div>
+</div>
+<ul>
+<li><p>Don’t bother memorizing Satterthwaite’s approximation for the degrees of freedom. Just do this in the computer.</p></li>
+<li><p><strong>Exercise</strong>: Is there a difference in finger tapping between groups? Don’t assume equal variances.</p></li>
+</ul>
+</section>
+<section id="power-and-sample-size-calculations-in-two-sample-t-tests" class="level1">
+<h1>Power and Sample Size Calculations in Two-sample <span class="math inline">\(t\)</span>-tests</h1>
+<ul>
+<li><p>Use <code>power.t.test()</code>.</p></li>
+<li><p>In the two-sample case, <code>n</code> means the sample size <strong>per group</strong>. It assumes the sample sizes are equal, so the total sample size is <code>2 * n</code>.</p></li>
+<li><p>It also assumes the standard deviations are equal, so you need to use a pooled estimate of the standard deviation.</p></li>
+<li><p>If you need more precise power or sample size calculations, then those exist.</p>
+<ul>
+<li>But I think these calculations are so much guess work that the error of assuming equal sample sizes is less than the error of the wild guesses you are giving it.</li>
+</ul></li>
+<li><p>E.g., suppose we have the OC user exercise above as a pilot experiment.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>xbar <span class="ot">&lt;-</span> <span class="fl">132.82</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>s2x <span class="ot">&lt;-</span> <span class="fl">15.34</span><span class="sc">^</span><span class="dv">2</span></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>n1 <span class="ot">&lt;-</span> <span class="dv">8</span></span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>ybar <span class="ot">&lt;-</span> <span class="fl">127.44</span></span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>s2y <span class="ot">&lt;-</span> <span class="fl">18.23</span><span class="sc">^</span><span class="dv">2</span></span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>n2 <span class="ot">&lt;-</span> <span class="dv">21</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div></li>
+<li><p>Let’s calculate a pooled estimate of the variance, and we will assume that is the true variance for the power calculations.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>s <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(((n1 <span class="sc">-</span> <span class="dv">1</span>) <span class="sc">*</span> s2x <span class="sc">+</span> (n2 <span class="sc">-</span> <span class="dv">1</span>) <span class="sc">*</span> s2y) <span class="sc">/</span> (n1 <span class="sc">+</span> n2 <span class="sc">-</span> <span class="dv">2</span>))</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>s</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 17.53</code></pre>
+</div>
+</div></li>
+<li><p>Let’s suppose we want a power of 0.8. Then the sample size we would need is 168 <strong>per group</strong>:</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">power.t.test</span>(</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">delta =</span> xbar <span class="sc">-</span> ybar, </span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">sd =</span> s, </span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">sig.level =</span> <span class="fl">0.05</span>,</span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">power =</span> <span class="fl">0.8</span>, </span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">type =</span> <span class="st">"two.sample"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+     Two-sample t test power calculation 
+
+              n = 167.6
+          delta = 5.38
+             sd = 17.53
+      sig.level = 0.05
+          power = 0.8
+    alternative = two.sided
+
+NOTE: n is number in *each* group</code></pre>
+</div>
+</div></li>
+<li><p>If a researcher can only afford <span class="math inline">\(n = 100\)</span> per gropu, then the power calculation would be 0.58:</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">power.t.test</span>(</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">n =</span> <span class="dv">100</span>,</span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">delta =</span> xbar <span class="sc">-</span> ybar, </span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">sd =</span> s, </span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">sig.level =</span> <span class="fl">0.05</span>,</span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">type =</span> <span class="st">"two.sample"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+     Two-sample t test power calculation 
+
+              n = 100
+          delta = 5.38
+             sd = 17.53
+      sig.level = 0.05
+          power = 0.5793
+    alternative = two.sided
+
+NOTE: n is number in *each* group</code></pre>
+</div>
+</div></li>
+<li><p><strong>Exercise</strong>: Suppose a new drug is proposed to lower intraocular pressure (IOP) among people with glaucoma. It is anticipated that mean IOP will drop by 8 mm Hg after 1 month with the new drug. The comparison group will get the standard drug, which is anticipated to have a mean drop in IOP of 5 mm Hg after 1 month. It is expected that the sd of change within each group will be 10 mm Hg. How many subjects need to be enrolled to achieve 90% power if an equal sample size is planned within each group and a two-sided test with <span class="math inline">\(\alpha\)</span> = 0.05 will be used?</p></li>
+</ul>
 
 
 </section>
