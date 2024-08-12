@@ -369,7 +369,7 @@ window.Quarto = {
 <li>The <span class="math inline">\(t\)</span>-test with equal variances is relatively robust to violations in the equal variance assumption.</li>
 <li>Folks typically just use the unequal variances <span class="math inline">\(t\)</span>-test below.</li>
 </ol></li>
-<li><p>But if your boss asks you do run such a test, use <code>var.test()</code>.</p>
+<li><p>But if your boss asks you run such a test, use <code>var.test()</code>.</p>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">var.test</span>(iqf <span class="sc">~</span> Group, <span class="at">data =</span> lead) <span class="sc">|&gt;</span></span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tidy</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>

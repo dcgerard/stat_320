@@ -207,7 +207,7 @@ c(pval = pval, lower = lower, upper = upper)
     2. The $t$-test with equal variances is relatively robust to violations in the equal variance assumption.
     3. Folks typically just use the unequal variances $t$-test below.
 
-- But if your boss asks you do run such a test, use `var.test()`.
+- But if your boss asks you run such a test, use `var.test()`.
 
   ```{r}
   var.test(iqf ~ Group, data = lead) |>
