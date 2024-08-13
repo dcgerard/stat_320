@@ -411,9 +411,9 @@ Researchers investigated the link between high blood pressure and sodium intake 
 
 - [infantbp.csv](./data/infantbp.csv)
   - `ID`: Infant ID
+  - `Mn_sbp`: Mean Systolic Blood Pressure
+  - `Mn_dbp`: Mean Diastolic Blood Pressure
   - Salt Taste Variables
-    - `Mn_sbp`: Mean Systolic Blood Pressure
-    - `Mn_dbp`: Mean Diastolic Blood Pressure
     - `MSB1slt`: MSB-trial 1 water
     - `MSB2slt`: MSB-trial 2 water
     - `MSB3slt`: MSB-trial 3 0.1 molar salt + water
