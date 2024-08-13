@@ -410,10 +410,10 @@ These data are part of a larger data set gathered from individuals discharged fr
 Researchers investigated the link between high blood pressure and sodium intake by measuring infants' responses to salt and sugar solutions. They measured the vigor of infants' sucking (mean sucks per burst, MSB) when exposed to different solutions: water, 0.1 molar salt, 0.3 molar salt, and sugar. The responses were recorded over a series of periods using different stimuli: (i) nonnutritive sucking (ii) water, (iii) 5% sucrose + water, (iv) 15% sucrose + water, and (v) nonnutritive sucking.
 
 - [infantbp.csv](./data/infantbp.csv)
-  - `ID`:ID
-  -Salt Taste Variables
-    - `Mn_sbp`: Mean SBP
-    - `Mn_dbp`: Mean DBP
+  - `ID`: Infant ID
+  - Salt Taste Variables
+    - `Mn_sbp`: Mean Systolic Blood Pressure
+    - `Mn_dbp`: Mean Diastolic Blood Pressure
     - `MSB1slt`: MSB-trial 1 water
     - `MSB2slt`: MSB-trial 2 water
     - `MSB3slt`: MSB-trial 3 0.1 molar salt + water
@@ -430,7 +430,7 @@ Researchers investigated the link between high blood pressure and sodium intake 
     - `MSB3sug`: MSB-trial 3 5% sucrose + water
     - `MSB4sug`: MSB-trial 4 15% sucrose + water
     - `MSB5sug`: MSB-trial 5 non-nutritive sucking
-  - For MSB, 0 indicates the baby did not suck.
+  - NOTE: For MSB, 0 indicates the baby did not suck.
 
 # lead
 
