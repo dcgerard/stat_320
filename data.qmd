@@ -373,12 +373,12 @@ Each trial started with a 20-minute saline infusion, followed by the collection 
 The data set "hormone.csv" includes data for the four hormones and saline, with each trial recorded as one entry and 11 associated variables.
 
 - [hormone.csv](./data/hormone.csv)
-  - `ID`: ID
+  - `ID`: ID of hen
   - `Bilsecpr`: Biliary secretion-pre
   - `Bilphpr`: Biliary pH-pre
   - `Pansecpr`: Pancreatic secretion-pre
   - `Panphpr`: Pancreatic pH-pre
-  - `Dose`: Dose
+  - `Dose`: Dose of hormone
   - `Bilsecpt`: Biliary secretion-post
   - `Bilphpt`: Biliary pH-post
   - `Pansecpt`: Pancreatic secretion-post
