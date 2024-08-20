@@ -16,7 +16,7 @@ knitr::opts_chunk$set(echo = TRUE)
 # Required Text
 > Rosner, B. (2016) [*Fundamentals of Biostatistics*](https://a.co/aGy3VyN), Eighth Edition. Brooks/Cole, Boston, MA, USA. 
 
-- There will be occasional readings from other sources, such as journal articles, for class discussion or for homework assignments. These will be posted in Blackboard or links will be given to find these online.
+- There will be occasional readings from other sources, such as journal articles, for class discussion or for homework assignments. These will be posted in Canvas or links will be given to find these online.
 													
 # Course Content and Learning Objectives
 
@@ -27,14 +27,18 @@ The major focus for this course is the ideas behind, and the methods for, drawin
 # Grading
 
 ```{r, echo = FALSE}
-gradedf <- data.frame(Assignment = c("Quarto Notes", "Homeworks", "Exam 1", "Exam 2", "Exam 3"),
-                      Percent = c("10%", "30%", "20%", "20%", "20%"))
+gradedf <- data.frame(Assignment = c("Quarto Notes", "Homeworks", "Participation", "Exams 1, 2, and 3"),
+                      Percent = c("10%", "20%", "10%", "60%"))
 knitr::kable(gradedf)
 ```
 
 - Quarto Notes:
     - Most of my notes are handwritten. Each week, I will assign one student to convert my hand-written notes into a quarto document that can be parsed to HTML. I will (lightly) modify these notes and post them on the course website. You will only have to do this once this semester.
     - I think we have more students than classes, so for some of you I will ask that you convert your exam reference sheets into a Quarto document.
+    
+- Participation:
+    - Show up to class. Stay off your phones. Try out the in-class exercises (you don't have to complete them or turn them in, just try them).
+    - I'll only take points off here if you miss a lot of class or if you are doing something else when you should be trying out the in-class exercises.
 
 - Exams: 
     - Not officially cumulative. But all material in Statistics builds off of previous material, so effectively cumulative.
