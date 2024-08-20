@@ -35,7 +35,7 @@ The below is a simplified version of the Confusion matrix table from [Wikipedia]
 </td>
 <td style="background:#ffdddd;">False Negative (FN) <br> (Type II Error)
 </td>
-<td style="background:#eeffee;">Sensitivity <br> (True Positive Rate, Recall) <br> $\frac{TP}{D^+}$
+<td style="background:#eeffee;">Sensitivity <br> (True Positive Rate, Recall, Power) <br> $\frac{TP}{D^+}$
 </td>
 <td style="background:#ffeeee;">False Negative Rate <br> (Type II Error Rate) <br> $\frac{FN}{D^+}$
 </td>
