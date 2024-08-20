@@ -1,7 +1,7 @@
 ---
 title: "Introduction to Quarto"
 author: "David Gerard"
-date: "`r Sys.Date()`"
+date: today
 format: html
 urlcolor: "blue"
 ---
@@ -111,8 +111,6 @@ ggplot2::theme_set(ggplot2::theme_bw() + ggplot2::theme(strip.background = ggplo
 
 - All of those settings are fairly self-explanatory.
   
-- The `` `r knitr::inline_expr("Sys.Date()")` `` will insert the current date.
-
 ### Inline R Code
 
 - Sometimes, you want to write the output of some R code inline (rather than
