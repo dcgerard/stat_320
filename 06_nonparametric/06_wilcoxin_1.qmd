@@ -1,0 +1,184 @@
+---
+title: "One-sample Nonparametric Tests"
+author: "David Gerard"
+format: html
+date: today
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, 
+            fig.width = 4, 
+            fig.height = 3, 
+            fig.align = "center")
+ggplot2::theme_set(ggplot2::theme_bw() + ggplot2::theme(strip.background = ggplot2::element_rect(fill = "white")))
+```
+
+- We will load the boneden data, that you can read about [here](https://dcgerard.github.io/stat_320/data.html#boneden).
+
+  ```{r}
+  #| message: false
+  library(tidyverse)
+  library(broom)
+  boneden <- read_csv("https://dcgerard.github.io/stat_320/data/boneden.csv")
+  ```
+
+- Recall that this is a twin study with a heavier smoking twin and a lighter smoking twin. We are interested in the difference in bone density between these pairs of twins.
+
+  ```{r}
+  boneden |>
+    mutate(ls_diff = ls1 - ls2) ->
+    boneden
+  ggplot(boneden, aes(x = ls_diff)) +
+    geom_histogram(color = "black", fill = "white", bins = 10)
+  ```
+
+# Sign test
+
+- We might not be willing to assume a normal distribution for these data. An alternative is the *sign test*, which tests whether the number of positive values is greater than expected by chance.
+
+
+- The sign test is the exact same thing as the binomial test using the number of positive values as the data and $p = 1/2$ as the null.
+
+- First, we calculate the number of positive values and the total number of values.
+  ```{r}
+  boneden |>
+    summarize(x = sum(ls_diff > 0), n = sum(ls_diff != 0))
+  ```
+
+- We can now do a normal approximation proportion test, or an exact binomial test on these data
+
+  ```{r}
+  prop.test(x = 28, n = 41, p = 0.5) |>
+    tidy()
+  ```
+  ```{r}
+  binom.test(x = 28, n = 41, p = 0.5) |>
+    tidy()
+  ```
+
+- So we have some evidence that there is a difference in median bone density between the two twins ($p \approx 0.028$).
+
+
+# Wilcoxin signed-rank test
+
+- If we are willing to at least assume that the data are symmetric, we can gain some power by doing the Wilcoxin signed-rank test
+
+  ```{r}
+  wilcox.test(ls_diff ~ 1, data = boneden, exact = FALSE) |>
+    tidy()
+  ```
+
+- I set `exact = FALSE` because the exact test as implemented in R cannot handle ties.
+
+- The idea of the Wilcoxin signed-rank test is that if you rank the observations by the *magnitude* (absolute value), then the rank sum of the negative numbers should be about the same as the rank sum of the positive numbers.
+
+  ```{r}
+  set.seed(77)
+  ## Draw data from a distribution with median 0
+  x <- rnorm(1000) 
+  ## Calculate ranks of absolue values
+  r <- rank(abs(x))
+  ## Mean rank of positive numbers
+  sum(r[x > 0])
+  ## Mean rank of negative numbers
+  sum(r[x < 0])
+  ```
+
+- If the median is positive, you would expect the magnitude of the positive numbers to be larger than the maginude of the negative numbers.
+
+  ```{r}
+  set.seed(77)
+  ## Draw data from a distribution with median 1
+  x <- rnorm(1000, mean = 1) 
+  ## Calculate ranks of absolue values
+  r <- rank(abs(x))
+  ## Mean rank of positive numbers
+  sum(r[x > 0])
+  ## Mean rank of negative numbers
+  sum(r[x < 0])
+  ```
+
+
+- A visualization: The true distribution is the curve, symmetric about 0. A sample of 10 individuals is the rug plot. The ranks of the magnitudes are above the rug plot. The red numbers are the rank sums of the positive and negative values.
+  ```{r}
+  #| echo: false
+  set.seed(88)
+  df_density <- tibble(
+    x = seq(-3, 3, length.out = 1000)
+  ) |>
+    mutate(y = dnorm(x = x))
+  df_samp <- data.frame(
+    x = rnorm(n = 10)
+  ) |>
+    mutate(rank = rank(abs(x)))
+  df_samp |>
+    mutate(sign = sign(x)) |>
+    group_by(sign) |>
+    summarize(rsum = sum(rank)) ->
+    df_sum
+  ggplot() +
+    geom_line(data = df_density, mapping = aes(x = x, y = y)) +
+    geom_rug(data = df_samp, mapping = aes(x = x)) +
+    geom_text(data = df_samp, mapping = aes(x = x, label = rank), y = 0.01) +
+    geom_text(data = df_sum, mapping = aes(x = sign, label = rsum), y = 0.1, color = "red") +
+    geom_vline(xintercept = 0, lty = 2)
+  ```
+
+
+- Same as before, but the true distribution is symmetric about 1.
+  ```{r}
+  #| echo: false
+  set.seed(88)
+  df_density <- tibble(
+    x = seq(-3, 4, length.out = 1000)
+  ) |>
+    mutate(y = dnorm(x = x, mean = 1))
+  df_samp <- data.frame(
+    x = rnorm(n = 10, mean = 1)
+  ) |>
+    mutate(rank = rank(abs(x)))
+  df_samp |>
+    mutate(sign = sign(x)) |>
+    group_by(sign) |>
+    summarize(rsum = sum(rank)) ->
+    df_sum
+  ggplot() +
+    geom_line(data = df_density, mapping = aes(x = x, y = y)) +
+    geom_rug(data = df_samp, mapping = aes(x = x)) +
+    geom_text(data = df_samp, mapping = aes(x = x, label = rank), y = 0.01) +
+    geom_text(data = df_sum, mapping = aes(x = sign, label = rsum), y = 0.1, color = "red") +
+    geom_vline(xintercept = 0, lty = 2)
+  ```
+
+
+- **Exercise**: Do a sign test, Wilcoxin signed-rank test, and a paired $t$-test for the difference in femoral neck density between the two twins. Which do you think is more appropriate?
+
+```{r}
+#| message: false
+#| echo: false
+#| eval: false
+boneden |>
+  mutate(fn_diff = fn1 - fn2) ->
+  boneden
+boneden |>
+  summarize(x = sum(fn_diff > 0), n = sum(fn_diff > 0 | fn_diff < 0))
+binom.test(x = 22, n = 39) |>
+  tidy()
+
+wilcox.test(x = boneden$fn_diff, exact = FALSE) |>
+  tidy()
+
+t.test(fn_diff ~ 1, data = boneden) |>
+  tidy()
+
+ggplot(boneden, aes(x = fn_diff)) +
+  geom_histogram(bins = 10, color = "black", fill = "white")
+
+ggplot(boneden, aes(sample = fn_diff)) +
+  geom_qq() +
+  geom_qq_line()
+
+## It looks extremely symmetric and normal, so the t-test is probably the best
+## All the p-values are large, so we see no evidence of a difference between
+## twin types in femerol neck bone density.
+```
