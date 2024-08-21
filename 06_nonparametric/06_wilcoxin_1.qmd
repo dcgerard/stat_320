@@ -182,3 +182,30 @@ ggplot(boneden, aes(sample = fn_diff)) +
 ## All the p-values are large, so we see no evidence of a difference between
 ## twin types in femerol neck bone density.
 ```
+
+- **Exercise**: What is the signed-rank sum from these data. Do it by hand then check your work using R.
+
+  ```{r}
+  x <- c(11, 39, 75, 60, 66, -28, 55, 61, -69, -7)
+  ```
+  
+```{block}
+#| eval: false
+#| echo: false
+Ordering by magnitude, we have:
+-7, 11, -28, 39, 55, 60, 61, 66, -69, 75
+
+So the ranks of the positive numbers are
+2, 4, 5, 6, 7, 8, 10
+
+Adding these up we get 42
+```
+
+```{r}
+#| eval: false
+#| echo: false
+sum(rank(abs(x))[x > 0])
+```
+
+  
+
