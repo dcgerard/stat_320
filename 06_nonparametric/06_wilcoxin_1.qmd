@@ -36,7 +36,6 @@ ggplot2::theme_set(ggplot2::theme_bw() + ggplot2::theme(strip.background = ggplo
 
 - We might not be willing to assume a normal distribution for these data. An alternative is the *sign test*, which tests whether the number of positive values is greater than expected by chance.
 
-
 - The sign test is the exact same thing as the binomial test using the number of positive values as the data and $p = 1/2$ as the null.
 
 - First, we calculate the number of positive values and the total number of values.
