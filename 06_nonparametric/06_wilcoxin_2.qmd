@@ -197,4 +197,85 @@ wilcox.test(hyperact ~ Group, data = lead, exact = FALSE) |>
 ## P-value for group differences is 0.4649, so we don't have evidence of any group differences.
 ```
 
+# Permutation Tests
 
+- The the distribution of the two groups are indeed the exact same, then hypothetically we could arbitrarily choose which individuals belong to which group and the distribution of the rank sum should be the same.
+
+- This is the idea of the permutation test.
+
+- You generate a null distribution via: 
+    1. Randomly assign group labels to individuals
+    2. Calculate the rank-sum statistic 
+    3. Repeat 1 and 2 many many times.
+
+- If the null is true, then our observed rank sum statistic should be about the same as the rank sum statistics from this null distribution. So we calculate a $p$-value by seeing how extreme our observed rank sum statistic is.
+
+- You can randomly assign labels by randomly permuting them with `sample()`.
+
+  ```{r}
+  set.seed(1)
+  lead |>
+    filter(!is.na(iqf)) |> ## always remove NA's first
+    mutate(rank = rank(iqf)) |>
+    select(iqf, rank, Group) ->
+    lead_sub
+  lead_sub |>
+    mutate(new_group = sample(Group)) |>
+    head()
+  ```
+
+- So one iteration of generating the null distribution would be to first choose each individual's group, the calculate the rank sum statistic.
+
+  ```{r}
+  lead_sub |>
+    mutate(new_group = sample(Group)) |>
+    group_by(new_group) |>
+    summarize(rsum = sum(rank)) ->
+    sumdf
+  sumdf$rsum[[1]]
+  ```
+
+- You can replicate this process with `replicate()`.
+
+  ```{r}
+  rout <- replicate(n = 1000, expr = {
+    lead_sub |>
+    mutate(new_group = sample(Group)) |>
+    group_by(new_group) |>
+    summarize(rsum = sum(rank)) ->
+    sumdf
+  sumdf$rsum[[1]]
+  })
+  ```
+
+- Our observed rank-sum statistic is
+
+  ```{r}
+  lead_sub |> 
+    group_by(Group) |>
+    summarize(rsum = sum(rank)) ->
+    sumdf
+  robs <- sumdf$rsum[[1]]
+  robs
+  ```
+
+- Our observed rank-sum statistic is a little rare:
+
+  ```{r}
+  data.frame(rsum = rout) |>
+    ggplot(aes(x = rsum)) +
+    geom_histogram(bins = 20, color = "black", fill = "white") +
+    geom_vline(xintercept = robs, linetype = "dashed", color = "red")
+  ```
+
+- We can quantify how rare by seeing how many null rank sum statistics are at or above our observed statistic. This is our permutation test $p$-value
+
+  ```{r}
+  2 * mean(robs <= rout)
+  ```
+
+- For large $n$, this will be about the same as the normality approximation from the Wilcoxin rank-sum test:
+  ```{r}
+  wilcox.test(iqf ~ Group, data = lead) |>
+    tidy()
+  ```
