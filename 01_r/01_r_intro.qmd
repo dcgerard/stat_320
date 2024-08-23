@@ -197,6 +197,12 @@ this categorization).
   log(exp(10))
   ```
   
+- `sqrt()`: Square root
+
+  ```{r}
+  sqrt(9)
+  ```
+  
 - `mean()`: The mean of a vector
 
   ```{r}
@@ -221,9 +227,45 @@ this categorization).
   seq(from = 1, to = 10)
   ```
 
-- **Exercise**: What does the `by` argument do in `seq()`? Read the help file and modify it to `2` in the example code above.
-
 - `head()`: Show the first six values of an object.
+
+- **Exercise**: Calculate this in R (*hint*: `pi` is $\pi$ in R)
+    $$
+    \frac{1}{\sqrt{2\pi}}e^{-1.3^2}
+    $$
+```{r}
+#| echo: false
+#| eval: false
+exp(-1.3^2) / sqrt(2 * pi)
+```
+
+
+- **Exercise**: Create the following vector $x = (1, -2, 1.3)$. What is the mean and standard deviation of this variable?
+
+```{r}
+#| echo: false
+#| eval: false
+x <- c(1, -2, 1.3)
+mean(x)
+sd(x)
+```
+
+- **Exercise**: Create a vector from 1 to 1000, take ths square root of each element, then sum them up.
+
+```{r}
+#| eval: false
+#| echo: false
+sum(sqrt(seq(1, 1000)))
+```
+
+- **Exercise**: What does the `by` argument do in `seq()`? Try it out.
+
+```{r}
+#| eval: false
+#| echo: false
+# increments of 2 instead of 1.
+seq(1, 10, by = 2)
+```
   
 ## R Packages
 
@@ -304,13 +346,13 @@ this categorization).
   
 - **Exercise**: Load in the `birthweight` data into R and print out the first six rows.
 
-  ```{r}
-  #| eval: true
-  #| echo: false
-  #| message: false
-  birthweight <- read_csv("https://dcgerard.github.io/stat_320/data/birthweight.csv")
-  # head(birthweight)
-  ```
+```{r}
+#| eval: true
+#| echo: false
+#| message: false
+birthweight <- read_csv("https://dcgerard.github.io/stat_320/data/birthweight.csv")
+# head(birthweight)
+```
 
 ## Basic Data Frame Manipulations
 
@@ -335,7 +377,7 @@ this categorization).
   glimpse(lead)
   ```
 
-- Use `View()` to see a spreadsheet of the data frame (never put this in an R Markdown file). Note the capital "V".
+- Use `View()` to see a spreadsheet of the data frame (**never** put this in a Quarto file). Note the capital "V".
   
   ```{r, eval=FALSE}
   View(lead)
