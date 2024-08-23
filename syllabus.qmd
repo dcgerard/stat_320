@@ -1,7 +1,7 @@
 ---
 title: "STAT 320 - Biostatistics"
 date: today
-output: html_document
+format: html
 urlcolor: blue
 ---
 
