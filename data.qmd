@@ -739,8 +739,8 @@ Tennis elbow is a painful condition common among tennis players. Treatments incl
     - Possible values: `male`, `female`
   - `drg_ord`: Drug order.
     - Possible values: `MOTRIN-PLACEBO`, `PLACEBO-MOTRIN`
-  - Period 2 = Pain scores after the first active drug period compared with baseline
-    - `painmx_2`: During study period, pain during maximum activity vs baesline
+  - Period 2 = Pain scores after the first active drug period compared with baseline (baseline = just before start of first active drug period).
+    - `painmx_2`: During study period, pain during maximum activity vs baseline
       - `1` = Worse
       - `2` = Unchanged
       - `3` = Slightly improved (25%)
@@ -750,12 +750,12 @@ Tennis elbow is a painful condition common among tennis players. Treatments incl
     - `pain12_2`: Within 12 hours following maximal activity, compared to same period at baseline  (same code as `painmx_2`)
     - `painav_2`: During the average day of study period pain vs. baseline (same code as `painmx_2`)
     - `painov_2`: Overall impression of drug efficacy vs. baseline (same code as `painmx_2`)
-  - Period 3 = Pain scores after the washout period compared with baseline
+  - Period 3 = Pain scores after the washout period compared with baseline (baseline = just before start of first active drug period).
     - `painmx_3`: During study period, pain during maximum activity vs baseline (same code as `painmx_2`)
     - `pain12_3`: Within 12 hours following maximal activity, compared to same period at baseline (same code as `painmx_2`)
     - `painav_3`: During the average day of study period pain vs baseline (same code as `painmx_2`)
     - `painov_3`: Overall impression of drug efficacy vs baseline (same code as `painmx_2`)
-  - Period 4 = Pain scores after the second active drug period compared with baseline
+  - Period 4 = Pain scores after the second active drug period compared with baseline (baseline = just before start of first active drug period).
     - `painmx_4`: During study period, pain during maximum activity vs baseline (same code as `painmx_2`)
     - `pain12_4`: Within 12 hours following maximal activity, compared to same period at baseline (same code as `painmx_2`)
     - `painav_4`: During the average day of study period pain vs baseline (same code as `painmx_2`)
