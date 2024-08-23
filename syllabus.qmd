@@ -13,16 +13,36 @@ knitr::opts_chunk$set(echo = TRUE)
 - **Email**: <dgerard@american.edu>
 - **Office**: DMTI 106E
 
-# Required Text
-> Rosner, B. (2016) [*Fundamentals of Biostatistics*](https://a.co/aGy3VyN), Eighth Edition. Brooks/Cole, Boston, MA, USA. 
+# Q1 Learning Outcomes:
 
-- There will be occasional readings from other sources, such as journal articles, for class discussion or for homework assignments. These will be posted in Canvas or links will be given to find these online.
-													
-# Course Content and Learning Objectives
+![](./q1_banner.png)\ 
+
+1. Students will solve quantitative problems including approaches that go beyond memorized procedures.
+
+2. Students will demonstrate an understanding of mathematical relationships from multiple perspectives, such as functions from graphical, verbal, numerical, and analytic points of view.
+
+# Q2 Learning Outcomes:
+
+![](./q2_banner.png)\ 
+
+1. Translate real-world questions or intellectual inquiries into quantitative frameworks.
+
+2. Select and apply appropriate quantitative methods or reasoning.
+
+3. Draw appropriate insights from the application of a quantitative framework.
+
+4. Explain quantitative reasoning and insights using appropriate forms of representation so that others could replicate the findings.
+
+# Course Description
 
 STAT-320 is an introduction to the statistical methodology commonly used in public health, medical, and biological studies. This course emphasizes working with data and communicating statistical ideas. A breadth of topics will be covered including: study design, tests of significance, confidence intervals, t-procedures, chi-square and Fisher's exact test, linear regression, logistic regression, analysis of variance, nonparametric methods, and more advanced topics as time permits. The R computer program will be used to conduct analyses. 
 
 The major focus for this course is the ideas behind, and the methods for, drawing conclusions about a population from a sample. At the end of this course you will be expected to identify the major concepts related to statistical reasoning and to statistical inferences for drawing such conclusions, recognize how these concepts are used in disciplines related to health and medicine, and implement the methods yourself in statistical analyses using the methods covered. In particular, you are expected to be able to (1) identify the appropriate statistical model or models for a given analysis, (2) write the model in the correct notation, (3) implement the model in the R software package on a given set of data, (4) interpret the output in the context of the study, (5) diagnose model deficiences, (6) suggest improvements to the model if necessary, and (7) summarize the results of the analysis. Work will be a balance between understanding the concepts underlying a method, implementation of the method, and interpretation of the results.
+
+# Required Text
+> Rosner, B. (2016) [*Fundamentals of Biostatistics*](https://a.co/aGy3VyN), Eighth Edition. Brooks/Cole, Boston, MA, USA. 
+
+- There will be occasional readings from other sources, such as journal articles, for class discussion or for homework assignments. These will be posted in Canvas or links will be given to find these online.
 													
 # Grading
 
