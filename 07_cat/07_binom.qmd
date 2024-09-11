@@ -1,0 +1,105 @@
+---
+title: "Categorical Tests"
+author: "David Gerard"
+format: html
+date: today
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, 
+            fig.width = 4, 
+            fig.height = 3, 
+            fig.align = "center")
+ggplot2::theme_set(ggplot2::theme_bw() + ggplot2::theme(strip.background = ggplot2::element_rect(fill = "white")))
+```
+
+# Two-sample Binomial Test
+
+- We have the following 2x2 contingency table from a study comparing age of a mother at her first birth against breast cancer status. The hypothesis is that women who have their first births later in life are at higher risks of breast cancer.
+
+  ```{r}
+  #| message: false
+  #| echo: false
+  library(tidyverse)
+  library(janitor)
+  library(gt)
+  
+  tribble(~Age, ~Case, ~Control,
+          "≥30", 683, 1498,
+          "≤29", 2537, 8747) |>
+    as_tabyl() |>
+    adorn_totals(c("col", "row")) |>
+    gt(rowname_col = "Age") |>
+    tab_spanner(
+      columns = Case:Control, # select all columns except the row variable
+      label = "Status" # the name to display
+    ) |>
+    tab_stubhead(         # add row variable header
+      label = "Age at First Birth" 
+    ) 
+  ```
+
+- Let $n_1 = 3220$ and $n_2 = 10245$ be the sample sizes among case and control women, respectively. 
+
+- Let $x_1 = 683$ and $x_2 = 1498$ be the number of women older than 30 at first birth for case and control women, respectively. 
+
+- Our model is the $X_1 \sim \text{Binom}(n_1, p_1)$ and $X_2 \sim \text{Binom}(n_2, p_2)$.
+
+- Our hypotheses are
+    - $H_0$: $p_1 = p_2$
+    - $H_1$: $p_1 \neq p_2$
+
+- You can run this test in R via
+
+  ```{r}
+  prop.test(x = c(683, 1498), n = c(3220, 10245))
+  ```
+
+- If we did this manually (which you will only do for exams and homeworks, not in real life), we first calculate the estimated proportions
+
+  ```{r}
+  p1hat <- 683 / 3220
+  p2hat <- 1498 / 10245
+  ```
+
+- We then calculate the pooled estimated proportion, which is our estimate if the null is true
+
+  ```{r}
+  phat <- (683 + 1498) / (3220 + 10245)
+  ```
+
+- Our test statistic (I'm skipping the continuity correction)
+
+  ```{r}
+  z <- (p1hat - p2hat) / sqrt((1 / 3220 + 1 / 10245) * phat * (1 - phat))
+  z
+  ```
+
+- And our $p$-value compares this to the standard normal
+
+  ```{r}
+  2 * pnorm(-abs(z))
+  ```
+
+- In this study design, we had two separate populations (case women and control women).
+
+- **Exercise**: A study looked at the effects of oral contraceptive (OC) use on heart disease in women 40 to 44 years of age. The researchers found that among 5000 current OC users at baseline, 13 women developed a myocardial infarction (MI) over a 3-year pe- riod, whereas among 10,000 never-OC users, 7 developed an MI over a 3-year period. Assess the statistical significance of the results. Do this both "by hand" and using `prop.test()`. State your results.
+
+```{r}
+#| echo: false
+#| eval: false
+prop.test(x = c(13, 7), n = c(5000, 10000))
+p1hat <- 13 / 5000
+p2hat <- 7 / 10000
+phat <- (13 + 7) / (5000 + 10000)
+z <- (p1hat - p2hat) / sqrt((1 / 5000 + 1 / 10000) * phat * (1 - phat))
+2 * pnorm(-abs(z))
+
+## With continuity correction
+# z <- (p1hat - p2hat - 1/10000 - 1/20000) / sqrt((1 / 5000 + 1 / 10000) * phat * (1 - phat))
+
+# We have strong evidence that there is a difference in MI rates between OC users and non-OC users.
+```
+
+
+
