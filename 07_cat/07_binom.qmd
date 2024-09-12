@@ -13,6 +13,11 @@ knitr::opts_chunk$set(echo = TRUE,
 ggplot2::theme_set(ggplot2::theme_bw() + ggplot2::theme(strip.background = ggplot2::element_rect(fill = "white")))
 ```
 
+```{r}
+library(broom)
+```
+
+
 # Two-sample Binomial Test
 
 - We have the following 2x2 contingency table from a study comparing age of a mother at her first birth against breast cancer status. The hypothesis is that women who have their first births later in life are at higher risks of breast cancer.
@@ -52,7 +57,8 @@ ggplot2::theme_set(ggplot2::theme_bw() + ggplot2::theme(strip.background = ggplo
 - You can run this test in R via
 
   ```{r}
-  prop.test(x = c(683, 1498), n = c(3220, 10245))
+  prop.test(x = c(683, 1498), n = c(3220, 10245)) |>
+    tidy()
   ```
 
 - If we did this manually (which you will only do for exams and homeworks, not in real life), we first calculate the estimated proportions
@@ -81,14 +87,13 @@ ggplot2::theme_set(ggplot2::theme_bw() + ggplot2::theme(strip.background = ggplo
   2 * pnorm(-abs(z))
   ```
 
-- In this study design, we had two separate populations (case women and control women).
-
-- **Exercise**: A study looked at the effects of oral contraceptive (OC) use on heart disease in women 40 to 44 years of age. The researchers found that among 5000 current OC users at baseline, 13 women developed a myocardial infarction (MI) over a 3-year pe- riod, whereas among 10,000 never-OC users, 7 developed an MI over a 3-year period. Assess the statistical significance of the results. Do this both "by hand" and using `prop.test()`. State your results.
+- **Exercise**: A study looked at the effects of oral contraceptive (OC) use on heart disease in women 40 to 44 years of age. The researchers found that among 5000 current OC users at baseline, 13 women developed a myocardial infarction (MI) over a 3-year period, whereas among 10,000 never-OC users, 7 developed an MI over a 3-year period. Assess the statistical significance of the results. Do this both "by hand" and using `prop.test()`. State your results.
 
 ```{r}
 #| echo: false
 #| eval: false
-prop.test(x = c(13, 7), n = c(5000, 10000))
+prop.test(x = c(13, 7), n = c(5000, 10000)) |>
+  tidy()
 p1hat <- 13 / 5000
 p2hat <- 7 / 10000
 phat <- (13 + 7) / (5000 + 10000)
@@ -101,5 +106,46 @@ z <- (p1hat - p2hat) / sqrt((1 / 5000 + 1 / 10000) * phat * (1 - phat))
 # We have strong evidence that there is a difference in MI rates between OC users and non-OC users.
 ```
 
+# Test of association perspective
 
+- In this study design, we collected case women and control women, and measured their age.
+
+- If we would have run the test accidentally assuming that we had collected younger and older women, and measured their cancer status, then it turns out that we would have gotten the **exact same** $p$-value.
+
+  ```{r}
+  prop.test(x = c(683, 1498), n = c(3220, 10245))$p.value
+  prop.test(x = c(683, 2537), n = c(2181, 11284))$p.value
+  ```
+
+- You can consider the binomial test, then, as a test for **association** between two variables that each are binary (categorical with only two categories).
+
+- To run the **equivalent** test of association using a contingency table, first create it using `matrix()`:
+
+  ```{r}
+  tab <- matrix(c(683, 1498, 2537, 8747), nrow = 2, ncol = 2, byrow = TRUE)
+  dimnames(tab) <- list(Age = c("≥30", "≤29"), Status = c("Case", "Control"))
+  tab
+  ```
+  
+- The `dimnames()` code above sets the row names (first) and the column names (second) via a list object.
+
+- Then just plug it into `chisq.test()`.
+
+  ```{r}
+  chisq.test(tab) |>
+    tidy()
+  ```
+
+- **Exercise**: From OC exercise above, insert these data into a 2x2 contingency table. Then run a chi-squared test for homogeneity. Verify that your results are the same as in the first exercise.
+
+```{r}
+#| echo: false
+#| eval: false
+tab <- matrix(c(13, 5000 - 13, 7, 10000 - 7), nrow = 2, byrow = TRUE)
+dimnames(tab) <- list(OC = c("Yes", "No"), MI = c("Yes", "No"))
+tab
+chisq.test(tab) |>
+  tidy()
+## p-value is the same as above
+```
 
