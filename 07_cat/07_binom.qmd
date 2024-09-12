@@ -106,7 +106,7 @@ z <- (p1hat - p2hat) / sqrt((1 / 5000 + 1 / 10000) * phat * (1 - phat))
 # We have strong evidence that there is a difference in MI rates between OC users and non-OC users.
 ```
 
-# Test of association perspective
+# Contingency Table Perspective
 
 - In this study design, we collected case women and control women, and measured their age.
 
