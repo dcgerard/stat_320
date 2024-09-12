@@ -15,12 +15,17 @@ format: html
   - [Math Prereqs](./00_course_outline/00_math_prereqs.qmd)
   - [Course Overview](./00_course_outline/00_overview.qmd)
 - 02 Descriptive Statistics
+  - [Chapter 2 Notes (Descriptive Statistics)](./notes/chapter2_notes.pdf)
   - [Descriptive Statistics in R](./02_descriptive/02_descriptive.qmd)
 - 03 Probability
+  - [Chapter 3 Notes (Probability)](./notes/chapter3_notes.pdf)
   - [Confusion Matrix](./03_prob/03_confusion.qmd)
+  - [Chapter 4 Notes (Discrete Probability Distributions)](./notes/chapter4_notes.pdf)
   - [Discrete Probability in R](./03_prob/03_prob_discrete.qmd)
+  - [Chapter 5 Notes (Continuous Probability Distributions)](./notes/chapter5_notes.pdf)
   - [Normal Distribution in R](./03_prob/03_prob_cont.qmd)
 - 04 Estimation
+  - [Chapter 6 Notes (Estimation)](./notes/chapter6_notes.pdf)
   - [Random Selection/Assignment](./04_est/04_sample.qmd)
   - [Central Limit Theorem Illustration](./04_est/04_clt.qmd)
   - [CI Interpretation](./04_est/04_figs/ci_graphic.png)
@@ -29,12 +34,15 @@ format: html
   - [chi-squared distribution](./04_est/04_chi2.qmd)
   - [Estimating Binomial Proportion](./04_est/04_binom.qmd)
 - 05 Testing
+  - [Chapter 7 Notes (One Sample Hypothesis Tests)](./notes/chapter7_notes.pdf)
   - [One Sample $t$-Tests in R](./05_tests/05_ttest.qmd)
   - [Power Calculations in R](./05_tests/05_power.qmd)
   - [One Sample Binomial Tests in R](./05_tests/05_binom.qmd)
   - [One Sample Binomial Power Calculations](./05_tests/05_binom_power.qmd)
+  - [Chapter 8 Notes (Two Sample Hypothesis Tests)](./notes/chapter8_notes.pdf)
   - [Two Sample $t$-Tests in R](./05_tests/05_two_sample_t.qmd)
 - 06 Nonparametric Methods
+  - [Chapter 9 Notes (Nonparametric Methods)](./notes/chapter9_notes.pdf)
   - [One Sample Inference in R](./06_nonparametric/06_wilcoxin_1.qmd)
   - [Two Sample Inference in R](./06_nonparametric/06_wilcoxin_2.qmd)
 - 07 Categorical Tests
