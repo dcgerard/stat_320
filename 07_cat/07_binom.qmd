@@ -149,3 +149,57 @@ chisq.test(tab) |>
 ## p-value is the same as above
 ```
 
+# Fisher's Exact Test
+
+- The above methods are only valid for large $n$ (expected counts at least 5 in *every* cell).
+
+- If this is not a valid assumption, then you can use `fisher.test()` to run an exact test (controls Type I error for all $n$, not just large $n$).
+
+- The syntax is the exact same as `chisq.test()`
+
+  ```{r}
+  tab
+  fisher.test(tab) |>
+    tidy()
+  ```
+  
+- For large $n$, the chi-squared and Fisher tests will provide about the same values. So why use `chisq.test()`? Sometimes, approximate methods can be better. But my opinion is that the stated benefits are minor compared to the benefit of controlling type I error exactly. So I would always use the Fisher test.
+
+- **Exercise**: Researchers collected information on salt diet versus cardiovascular death. Run a Fisher's exact test using the below table to evaluate if diet is associated with cardiovascular death. How does it compare to the chi-squared test?
+
+
+  ```{r}
+  #| message: false
+  #| echo: false
+  tribble(~`Cause of death`, ~`High salt`, ~`Low salt`,
+          "Non-CVD", 2, 23,
+          "CVD", 5, 30) |>
+    as_tabyl() |>
+    adorn_totals(c("col", "row")) |>
+    gt(rowname_col = "Cause of death") |>
+    tab_spanner(
+      columns = 2:3, # select all columns except the row variable
+      label = "Type of diet" # the name to display
+    ) |>
+    tab_stubhead(         # add row variable header
+      label = "Cause of death" 
+    ) 
+  ```
+
+
+```{r}
+#| echo: false
+#| eval: false
+#| warning: false
+tab <- matrix(c(2, 23, 5, 30), nrow = 2, byrow = TRUE)
+dimnames(tab) <- list(cause = c("Non-CVD", "CVD"), diet = c("High salt", "Low salt"))
+tab
+fisher.test(tab) |>
+  tidy()
+chisq.test(tab) |>
+  tidy()
+
+# Same conclusion. No evidence of an association. But p-value is smaller in
+# Fisher's exact test.
+```
+
