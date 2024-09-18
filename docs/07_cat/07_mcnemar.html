@@ -9,7 +9,7 @@
 <meta name="author" content="David Gerard">
 <meta name="dcterms.date" content="2024-09-18">
 
-<title>Categorical Tests – Stat 320: Biostatistics</title>
+<title>McNemar’s Test – Stat 320: Biostatistics</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -105,35 +105,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   }
 }</script>
 
-  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
-
-<script type="text/javascript">
-const typesetMath = (el) => {
-  if (window.MathJax) {
-    // MathJax Typeset
-    window.MathJax.typeset([el]);
-  } else if (window.katex) {
-    // KaTeX Render
-    var mathElements = el.getElementsByClassName("math");
-    var macros = [];
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN") {
-        window.katex.render(texText.data, mathElements[i], {
-          displayMode: mathElements[i].classList.contains('display'),
-          throwOnError: false,
-          macros: macros,
-          fleqn: false
-        });
-      }
-    }
-  }
-}
-window.Quarto = {
-  typesetMath
-};
-</script>
 
 <link rel="stylesheet" href="../styles.css">
 </head>
@@ -180,9 +151,9 @@ window.Quarto = {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#two-sample-binomial-test" id="toc-two-sample-binomial-test" class="nav-link active" data-scroll-target="#two-sample-binomial-test">Two-sample Binomial Test</a></li>
-  <li><a href="#contingency-table-perspective" id="toc-contingency-table-perspective" class="nav-link" data-scroll-target="#contingency-table-perspective">Contingency Table Perspective</a></li>
-  <li><a href="#fishers-exact-test" id="toc-fishers-exact-test" class="nav-link" data-scroll-target="#fishers-exact-test">Fisher’s Exact Test</a></li>
+  <li><a href="#contingency-table-approach" id="toc-contingency-table-approach" class="nav-link active" data-scroll-target="#contingency-table-approach">Contingency Table Approach</a></li>
+  <li><a href="#raw-data-approach" id="toc-raw-data-approach" class="nav-link" data-scroll-target="#raw-data-approach">Raw Data Approach</a></li>
+  <li><a href="#exercise" id="toc-exercise" class="nav-link" data-scroll-target="#exercise">Exercise</a></li>
   </ul>
 </nav>
     </div>
@@ -191,7 +162,7 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Categorical Tests</h1>
+<h1 class="title">McNemar’s Test</h1>
 </div>
 
 
@@ -223,29 +194,29 @@ window.Quarto = {
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(broom)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<section id="two-sample-binomial-test" class="level1">
-<h1>Two-sample Binomial Test</h1>
+<section id="contingency-table-approach" class="level1">
+<h1>Contingency Table Approach</h1>
 <ul>
-<li><p>We have the following 2x2 contingency table from a study comparing age of a mother at her first birth against breast cancer status. The hypothesis is that women who have their first births later in life are at higher risks of breast cancer.</p>
+<li><p>Women were matched into pairs based on age and clinical characteristics. One woman of each pair was given treatment A and the other treatment B. The doctors then followed the women to see which survived and which died within 5 years.</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
-<div id="fzyidxxjme" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#fzyidxxjme table {
+<div id="xeebhebcej" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#xeebhebcej table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#fzyidxxjme thead, #fzyidxxjme tbody, #fzyidxxjme tfoot, #fzyidxxjme tr, #fzyidxxjme td, #fzyidxxjme th {
+#xeebhebcej thead, #xeebhebcej tbody, #xeebhebcej tfoot, #xeebhebcej tr, #xeebhebcej td, #xeebhebcej th {
   border-style: none;
 }
 
-#fzyidxxjme p {
+#xeebhebcej p {
   margin: 0;
   padding: 0;
 }
 
-#fzyidxxjme .gt_table {
+#xeebhebcej .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -271,12 +242,12 @@ window.Quarto = {
   border-left-color: #D3D3D3;
 }
 
-#fzyidxxjme .gt_caption {
+#xeebhebcej .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#fzyidxxjme .gt_title {
+#xeebhebcej .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -288,7 +259,7 @@ window.Quarto = {
   border-bottom-width: 0;
 }
 
-#fzyidxxjme .gt_subtitle {
+#xeebhebcej .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -300,7 +271,7 @@ window.Quarto = {
   border-top-width: 0;
 }
 
-#fzyidxxjme .gt_heading {
+#xeebhebcej .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -312,13 +283,13 @@ window.Quarto = {
   border-right-color: #D3D3D3;
 }
 
-#fzyidxxjme .gt_bottom_border {
+#xeebhebcej .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#fzyidxxjme .gt_col_headings {
+#xeebhebcej .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -333,7 +304,7 @@ window.Quarto = {
   border-right-color: #D3D3D3;
 }
 
-#fzyidxxjme .gt_col_heading {
+#xeebhebcej .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -353,7 +324,7 @@ window.Quarto = {
   overflow-x: hidden;
 }
 
-#fzyidxxjme .gt_column_spanner_outer {
+#xeebhebcej .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -365,15 +336,15 @@ window.Quarto = {
   padding-right: 4px;
 }
 
-#fzyidxxjme .gt_column_spanner_outer:first-child {
+#xeebhebcej .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#fzyidxxjme .gt_column_spanner_outer:last-child {
+#xeebhebcej .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#fzyidxxjme .gt_column_spanner {
+#xeebhebcej .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -385,11 +356,11 @@ window.Quarto = {
   width: 100%;
 }
 
-#fzyidxxjme .gt_spanner_row {
+#xeebhebcej .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#fzyidxxjme .gt_group_heading {
+#xeebhebcej .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -415,7 +386,7 @@ window.Quarto = {
   text-align: left;
 }
 
-#fzyidxxjme .gt_empty_group_heading {
+#xeebhebcej .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -430,15 +401,15 @@ window.Quarto = {
   vertical-align: middle;
 }
 
-#fzyidxxjme .gt_from_md > :first-child {
+#xeebhebcej .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#fzyidxxjme .gt_from_md > :last-child {
+#xeebhebcej .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#fzyidxxjme .gt_row {
+#xeebhebcej .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -457,7 +428,7 @@ window.Quarto = {
   overflow-x: hidden;
 }
 
-#fzyidxxjme .gt_stub {
+#xeebhebcej .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -470,7 +441,7 @@ window.Quarto = {
   padding-right: 5px;
 }
 
-#fzyidxxjme .gt_stub_row_group {
+#xeebhebcej .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -484,15 +455,15 @@ window.Quarto = {
   vertical-align: top;
 }
 
-#fzyidxxjme .gt_row_group_first td {
+#xeebhebcej .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#fzyidxxjme .gt_row_group_first th {
+#xeebhebcej .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#fzyidxxjme .gt_summary_row {
+#xeebhebcej .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -502,16 +473,16 @@ window.Quarto = {
   padding-right: 5px;
 }
 
-#fzyidxxjme .gt_first_summary_row {
+#xeebhebcej .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#fzyidxxjme .gt_first_summary_row.thick {
+#xeebhebcej .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#fzyidxxjme .gt_last_summary_row {
+#xeebhebcej .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -521,7 +492,7 @@ window.Quarto = {
   border-bottom-color: #D3D3D3;
 }
 
-#fzyidxxjme .gt_grand_summary_row {
+#xeebhebcej .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -531,7 +502,7 @@ window.Quarto = {
   padding-right: 5px;
 }
 
-#fzyidxxjme .gt_first_grand_summary_row {
+#xeebhebcej .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -541,7 +512,7 @@ window.Quarto = {
   border-top-color: #D3D3D3;
 }
 
-#fzyidxxjme .gt_last_grand_summary_row_top {
+#xeebhebcej .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -551,11 +522,11 @@ window.Quarto = {
   border-bottom-color: #D3D3D3;
 }
 
-#fzyidxxjme .gt_striped {
+#xeebhebcej .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#fzyidxxjme .gt_table_body {
+#xeebhebcej .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -564,7 +535,7 @@ window.Quarto = {
   border-bottom-color: #D3D3D3;
 }
 
-#fzyidxxjme .gt_footnotes {
+#xeebhebcej .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -578,7 +549,7 @@ window.Quarto = {
   border-right-color: #D3D3D3;
 }
 
-#fzyidxxjme .gt_footnote {
+#xeebhebcej .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -587,7 +558,7 @@ window.Quarto = {
   padding-right: 5px;
 }
 
-#fzyidxxjme .gt_sourcenotes {
+#xeebhebcej .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -601,7 +572,7 @@ window.Quarto = {
   border-right-color: #D3D3D3;
 }
 
-#fzyidxxjme .gt_sourcenote {
+#xeebhebcej .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -609,72 +580,72 @@ window.Quarto = {
   padding-right: 5px;
 }
 
-#fzyidxxjme .gt_left {
+#xeebhebcej .gt_left {
   text-align: left;
 }
 
-#fzyidxxjme .gt_center {
+#xeebhebcej .gt_center {
   text-align: center;
 }
 
-#fzyidxxjme .gt_right {
+#xeebhebcej .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#fzyidxxjme .gt_font_normal {
+#xeebhebcej .gt_font_normal {
   font-weight: normal;
 }
 
-#fzyidxxjme .gt_font_bold {
+#xeebhebcej .gt_font_bold {
   font-weight: bold;
 }
 
-#fzyidxxjme .gt_font_italic {
+#xeebhebcej .gt_font_italic {
   font-style: italic;
 }
 
-#fzyidxxjme .gt_super {
+#xeebhebcej .gt_super {
   font-size: 65%;
 }
 
-#fzyidxxjme .gt_footnote_marks {
+#xeebhebcej .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#fzyidxxjme .gt_asterisk {
+#xeebhebcej .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#fzyidxxjme .gt_indent_1 {
+#xeebhebcej .gt_indent_1 {
   text-indent: 5px;
 }
 
-#fzyidxxjme .gt_indent_2 {
+#xeebhebcej .gt_indent_2 {
   text-indent: 10px;
 }
 
-#fzyidxxjme .gt_indent_3 {
+#xeebhebcej .gt_indent_3 {
   text-indent: 15px;
 }
 
-#fzyidxxjme .gt_indent_4 {
+#xeebhebcej .gt_indent_4 {
   text-indent: 20px;
 }
 
-#fzyidxxjme .gt_indent_5 {
+#xeebhebcej .gt_indent_5 {
   text-indent: 25px;
 }
 
-#fzyidxxjme .katex-display {
+#xeebhebcej .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#fzyidxxjme div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#xeebhebcej div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
@@ -682,33 +653,33 @@ window.Quarto = {
 <table class="gt_table caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
 <thead>
 <tr class="header gt_col_headings gt_spanner_row">
-<th rowspan="2" id="Age at First Birth" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">Age at First Birth</th>
-<th colspan="2" id="Status" class="gt_center gt_columns_top_border gt_column_spanner_outer" data-quarto-table-cell-role="th" scope="colgroup"><span class="gt_column_spanner">Status</span></th>
+<th rowspan="2" id="A" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">A</th>
+<th colspan="2" id="B" class="gt_center gt_columns_top_border gt_column_spanner_outer" data-quarto-table-cell-role="th" scope="colgroup"><span class="gt_column_spanner">B</span></th>
 <th rowspan="2" id="Total" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">Total</th>
 </tr>
 <tr class="odd gt_col_headings">
-<th id="Case" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">Case</th>
-<th id="Control" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">Control</th>
+<th id="Survived" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">Survived</th>
+<th id="Died" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">Died</th>
 </tr>
 </thead>
 <tbody class="gt_table_body">
 <tr class="odd">
-<td id="stub_1_1" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row">≥30</td>
-<td class="gt_row gt_right" headers="stub_1_1 Case">683</td>
-<td class="gt_row gt_right" headers="stub_1_1 Control">1498</td>
-<td class="gt_row gt_right" headers="stub_1_1 Total">2181</td>
+<td id="stub_1_1" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row">Survived</td>
+<td class="gt_row gt_right" headers="stub_1_1 Survived">510</td>
+<td class="gt_row gt_right" headers="stub_1_1 Died">16</td>
+<td class="gt_row gt_right" headers="stub_1_1 Total">526</td>
 </tr>
 <tr class="even">
-<td id="stub_1_2" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row">≤29</td>
-<td class="gt_row gt_right" headers="stub_1_2 Case">2537</td>
-<td class="gt_row gt_right" headers="stub_1_2 Control">8747</td>
-<td class="gt_row gt_right" headers="stub_1_2 Total">11284</td>
+<td id="stub_1_2" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row">Died</td>
+<td class="gt_row gt_right" headers="stub_1_2 Survived">5</td>
+<td class="gt_row gt_right" headers="stub_1_2 Died">90</td>
+<td class="gt_row gt_right" headers="stub_1_2 Total">95</td>
 </tr>
 <tr class="odd">
 <td id="stub_1_3" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row">Total</td>
-<td class="gt_row gt_right" headers="stub_1_3 Case">3220</td>
-<td class="gt_row gt_right" headers="stub_1_3 Control">10245</td>
-<td class="gt_row gt_right" headers="stub_1_3 Total">13465</td>
+<td class="gt_row gt_right" headers="stub_1_3 Survived">515</td>
+<td class="gt_row gt_right" headers="stub_1_3 Died">106</td>
+<td class="gt_row gt_right" headers="stub_1_3 Total">621</td>
 </tr>
 </tbody>
 </table>
@@ -716,610 +687,144 @@ window.Quarto = {
 </div>
 </div>
 </div></li>
-<li><p>Let <span class="math inline">\(n_1 = 3220\)</span> and <span class="math inline">\(n_2 = 10245\)</span> be the sample sizes among case and control women, respectively.</p></li>
-<li><p>Let <span class="math inline">\(x_1 = 683\)</span> and <span class="math inline">\(x_2 = 1498\)</span> be the number of women older than 30 at first birth for case and control women, respectively.</p></li>
-<li><p>Our model is the <span class="math inline">\(X_1 \sim \text{Binom}(n_1, p_1)\)</span> and <span class="math inline">\(X_2 \sim \text{Binom}(n_2, p_2)\)</span>.</p></li>
-<li><p>Our hypotheses are</p>
-<ul>
-<li><span class="math inline">\(H_0\)</span>: <span class="math inline">\(p_1 = p_2\)</span></li>
-<li><span class="math inline">\(H_1\)</span>: <span class="math inline">\(p_1 \neq p_2\)</span></li>
-</ul></li>
-<li><p>You can run this test in R via</p>
+<li><p>If we have a 2x2 contingency taable with matched pairs as the sampling unit, we can put it into R using <code>matrix()</code>, as with other contingency tables.</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">prop.test</span>(<span class="at">x =</span> <span class="fu">c</span>(<span class="dv">683</span>, <span class="dv">1498</span>), <span class="at">n =</span> <span class="fu">c</span>(<span class="dv">3220</span>, <span class="dv">10245</span>)) <span class="sc">|&gt;</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tidy</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>tab <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">510</span>, <span class="dv">16</span>, <span class="dv">5</span>, <span class="dv">90</span>), <span class="at">nrow =</span> <span class="dv">2</span>, <span class="at">byrow =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">dimnames</span>(tab) <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="at">A =</span> <span class="fu">c</span>(<span class="st">"Suvived"</span>, <span class="st">"Died"</span>), <span class="at">B =</span> <span class="fu">c</span>(<span class="st">"Survived"</span>, <span class="st">"Died"</span>))</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>tab</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 1 × 9
-  estimate1 estimate2 statistic  p.value parameter conf.low conf.high method    
-      &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt; &lt;chr&gt;     
-1     0.212     0.146      77.9 1.09e-18         1   0.0500    0.0818 2-sample …
-# ℹ 1 more variable: alternative &lt;chr&gt;</code></pre>
+<pre><code>         B
+A         Survived Died
+  Suvived      510   16
+  Died           5   90</code></pre>
 </div>
 </div></li>
-<li><p>If we did this manually (which you will only do for exams and homeworks, not in real life), we first calculate the estimated proportions</p>
+<li><p>To run McNemar’s test, we can run <code>mcnemar.test()</code> for the large-sample approach</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>p1hat <span class="ot">&lt;-</span> <span class="dv">683</span> <span class="sc">/</span> <span class="dv">3220</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>p2hat <span class="ot">&lt;-</span> <span class="dv">1498</span> <span class="sc">/</span> <span class="dv">10245</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div></li>
-<li><p>We then calculate the pooled estimated proportion, which is our estimate if the null is true</p>
-<div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>phat <span class="ot">&lt;-</span> (<span class="dv">683</span> <span class="sc">+</span> <span class="dv">1498</span>) <span class="sc">/</span> (<span class="dv">3220</span> <span class="sc">+</span> <span class="dv">10245</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div></li>
-<li><p>Our test statistic (I’m skipping the continuity correction)</p>
-<div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>z <span class="ot">&lt;-</span> (p1hat <span class="sc">-</span> p2hat) <span class="sc">/</span> <span class="fu">sqrt</span>((<span class="dv">1</span> <span class="sc">/</span> <span class="dv">3220</span> <span class="sc">+</span> <span class="dv">1</span> <span class="sc">/</span> <span class="dv">10245</span>) <span class="sc">*</span> phat <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> phat))</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>z</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 8.853</code></pre>
-</div>
-</div></li>
-<li><p>And our <span class="math inline">\(p\)</span>-value compares this to the standard normal</p>
-<div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span> <span class="sc">*</span> <span class="fu">pnorm</span>(<span class="sc">-</span><span class="fu">abs</span>(z))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 8.545e-19</code></pre>
-</div>
-</div></li>
-<li><p><strong>Exercise</strong>: A study looked at the effects of oral contraceptive (OC) use on heart disease in women 40 to 44 years of age. The researchers found that among 5000 current OC users at baseline, 13 women developed a myocardial infarction (MI) over a 3-year period, whereas among 10,000 never-OC users, 7 developed an MI over a 3-year period. Assess the statistical significance of the results. Do this both “by hand” and using <code>prop.test()</code>. State your results.</p></li>
-</ul>
-</section>
-<section id="contingency-table-perspective" class="level1">
-<h1>Contingency Table Perspective</h1>
-<ul>
-<li><p>In this study design, we collected case women and control women, and measured their age.</p></li>
-<li><p>If we would have run the test accidentally assuming that we had collected younger and older women, and measured their cancer status, then it turns out that we would have gotten the <strong>exact same</strong> <span class="math inline">\(p\)</span>-value.</p>
-<div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">prop.test</span>(<span class="at">x =</span> <span class="fu">c</span>(<span class="dv">683</span>, <span class="dv">1498</span>), <span class="at">n =</span> <span class="fu">c</span>(<span class="dv">3220</span>, <span class="dv">10245</span>))<span class="sc">$</span>p.value</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 1.092e-18</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">prop.test</span>(<span class="at">x =</span> <span class="fu">c</span>(<span class="dv">683</span>, <span class="dv">2537</span>), <span class="at">n =</span> <span class="fu">c</span>(<span class="dv">2181</span>, <span class="dv">11284</span>))<span class="sc">$</span>p.value</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 1.092e-18</code></pre>
-</div>
-</div></li>
-<li><p>You can consider the binomial test, then, as a test for <strong>association</strong> between two variables that each are binary (categorical with only two categories).</p></li>
-<li><p>To run the <strong>equivalent</strong> test of association using a contingency table, first create it using <code>matrix()</code>:</p>
-<div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>tab <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">683</span>, <span class="dv">1498</span>, <span class="dv">2537</span>, <span class="dv">8747</span>), <span class="at">nrow =</span> <span class="dv">2</span>, <span class="at">ncol =</span> <span class="dv">2</span>, <span class="at">byrow =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="fu">dimnames</span>(tab) <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="at">Age =</span> <span class="fu">c</span>(<span class="st">"≥30"</span>, <span class="st">"≤29"</span>), <span class="at">Status =</span> <span class="fu">c</span>(<span class="st">"Case"</span>, <span class="st">"Control"</span>))</span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>tab</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>     Status
-Age   Case Control
-  ≥30  683    1498
-  ≤29 2537    8747</code></pre>
-</div>
-</div></li>
-<li><p>The <code>dimnames()</code> code above sets the row names (first) and the column names (second) via a list object.</p></li>
-<li><p>Then just plug it into <code>chisq.test()</code>.</p>
-<div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">chisq.test</span>(tab) <span class="sc">|&gt;</span></span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tidy</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mcnemar.test</span>(tab) <span class="sc">|&gt;</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tidy</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1 × 4
-  statistic  p.value parameter method                                           
-      &lt;dbl&gt;    &lt;dbl&gt;     &lt;int&gt; &lt;chr&gt;                                            
-1      77.9 1.09e-18         1 Pearson's Chi-squared test with Yates' continuit…</code></pre>
+  statistic p.value parameter method                                            
+      &lt;dbl&gt;   &lt;dbl&gt;     &lt;dbl&gt; &lt;chr&gt;                                             
+1      4.76  0.0291         1 McNemar's Chi-squared test with continuity correc…</code></pre>
 </div>
 </div></li>
-<li><p><strong>Exercise</strong>: From OC exercise above, insert these data into a 2x2 contingency table. Then run a chi-squared test for homogeneity. Verify that your results are the same as in the first exercise.</p></li>
+<li><p>This is the exact same as running <code>prop.test()</code> on the discordant pairs.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">prop.test</span>(<span class="at">x =</span> <span class="dv">16</span>, <span class="at">n =</span> <span class="dv">5</span> <span class="sc">+</span> <span class="dv">16</span>, <span class="at">p =</span> <span class="fl">0.5</span>) <span class="sc">|&gt;</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tidy</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 8
+  estimate statistic p.value parameter conf.low conf.high method     alternative
+     &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt;     &lt;int&gt;    &lt;dbl&gt;     &lt;dbl&gt; &lt;chr&gt;      &lt;chr&gt;      
+1    0.762      4.76  0.0291         1    0.525     0.909 1-sample … two.sided  </code></pre>
+</div>
+</div></li>
+<li><p>For an exact test, we can run <code>binom.test()</code> on the discordant pairs.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">binom.test</span>(<span class="at">x =</span> <span class="dv">16</span>, <span class="at">n =</span> <span class="dv">5</span> <span class="sc">+</span> <span class="dv">16</span>, <span class="at">p =</span> <span class="fl">0.5</span>) <span class="sc">|&gt;</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tidy</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 8
+  estimate statistic p.value parameter conf.low conf.high method     alternative
+     &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt; &lt;chr&gt;      &lt;chr&gt;      
+1    0.762        16  0.0266        21    0.528     0.918 Exact bin… two.sided  </code></pre>
+</div>
+</div></li>
+<li><p>This is best for small sample sizes.</p></li>
+<li><p>Rule of thumb: 20 or more discordant pairs is enough for McNemar’s test. Fewer than that and use the binomial method.</p></li>
+<li><p>But for this sample size, asymptotic approaches are fine.</p></li>
 </ul>
 </section>
-<section id="fishers-exact-test" class="level1">
-<h1>Fisher’s Exact Test</h1>
+<section id="raw-data-approach" class="level1">
+<h1>Raw Data Approach</h1>
 <ul>
-<li><p>The above methods are only valid for large <span class="math inline">\(n\)</span> (expected counts at least 5 in <em>every</em> cell).</p></li>
-<li><p>If this is not a valid assumption, then you can use <code>fisher.test()</code> to run an exact test (controls Type I error for all <span class="math inline">\(n\)</span>, not just large <span class="math inline">\(n\)</span>).</p></li>
-<li><p>The syntax is the exact same as <code>chisq.test()</code></p>
+<li><p>Now suppose we don’t have a 2x2 contingency table of pairs, but just two binary variables.</p></li>
+<li><p>E.g., a mall device and a trained observer assess if a person is hypertensive. The data are as follows</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>tab</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">mall =</span> <span class="fu">c</span>(<span class="st">"-"</span>, <span class="st">"-"</span>, <span class="st">"+"</span>, <span class="st">"+"</span>, <span class="st">"-"</span>, <span class="st">"+"</span>, <span class="st">"-"</span>, <span class="st">"+"</span>, <span class="st">"+"</span>, <span class="st">"-"</span>, </span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>           <span class="st">"+"</span>, <span class="st">"+"</span>, <span class="st">"-"</span>, <span class="st">"+"</span>, <span class="st">"-"</span>, <span class="st">"+"</span>, <span class="st">"+"</span>, <span class="st">"-"</span>, <span class="st">"-"</span>, <span class="st">"-"</span>),</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">trained =</span> <span class="fu">c</span>(<span class="st">"-"</span>, <span class="st">"-"</span>, <span class="st">"-"</span>, <span class="st">"+"</span>, <span class="st">"-"</span>, <span class="st">"-"</span>, <span class="st">"-"</span>, <span class="st">"+"</span>, <span class="st">"+"</span>, <span class="st">"-"</span>, </span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>              <span class="st">"-"</span>, <span class="st">"-"</span>, <span class="st">"-"</span>, <span class="st">"-"</span>, <span class="st">"+"</span>, <span class="st">"-"</span>, <span class="st">"-"</span>, <span class="st">"-"</span>, <span class="st">"-"</span>, <span class="st">"-"</span>)</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>     Status
-Age   Case Control
-  ≥30  683    1498
-  ≤29 2537    8747</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">fisher.test</span>(tab) <span class="sc">|&gt;</span></span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tidy</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 1 × 6
-  estimate  p.value conf.low conf.high method                        alternative
-     &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt; &lt;chr&gt;                         &lt;chr&gt;      
-1     1.57 5.87e-18     1.42      1.74 Fisher's Exact Test for Coun… two.sided  </code></pre>
+<pre><code>   mall trained
+1     -       -
+2     -       -
+3     +       -
+4     +       +
+5     -       -
+6     +       -
+7     -       -
+8     +       +
+9     +       +
+10    -       -
+11    +       -
+12    +       -
+13    -       -
+14    +       -
+15    -       +
+16    +       -
+17    +       -
+18    -       -
+19    -       -
+20    -       -</code></pre>
 </div>
 </div></li>
-<li><p>For large <span class="math inline">\(n\)</span>, the chi-squared and Fisher tests will provide about the same values. So why use <code>chisq.test()</code>? Sometimes, approximate methods can be better. But my opinion is that the stated benefits are minor compared to the benefit of controlling type I error exactly. So I would always use the Fisher test.</p></li>
-<li><p><strong>Exercise</strong>: Researchers collected information on salt diet versus cardiovascular death. Run a Fisher’s exact test using the below table to evaluate if diet is associated with cardiovascular death. How does it compare to the chi-squared test?</p>
+<li><p>You can create the contingency table with <code>table()</code> and then run <code>mcnemar.test()</code>.</p>
 <div class="cell" data-layout-align="center">
-<div class="cell-output-display">
-<div id="hyqcieqnuu" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#hyqcieqnuu table {
-  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-#hyqcieqnuu thead, #hyqcieqnuu tbody, #hyqcieqnuu tfoot, #hyqcieqnuu tr, #hyqcieqnuu td, #hyqcieqnuu th {
-  border-style: none;
-}
-
-#hyqcieqnuu p {
-  margin: 0;
-  padding: 0;
-}
-
-#hyqcieqnuu .gt_table {
-  display: table;
-  border-collapse: collapse;
-  line-height: normal;
-  margin-left: auto;
-  margin-right: auto;
-  color: #333333;
-  font-size: 16px;
-  font-weight: normal;
-  font-style: normal;
-  background-color: #FFFFFF;
-  width: auto;
-  border-top-style: solid;
-  border-top-width: 2px;
-  border-top-color: #A8A8A8;
-  border-right-style: none;
-  border-right-width: 2px;
-  border-right-color: #D3D3D3;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #A8A8A8;
-  border-left-style: none;
-  border-left-width: 2px;
-  border-left-color: #D3D3D3;
-}
-
-#hyqcieqnuu .gt_caption {
-  padding-top: 4px;
-  padding-bottom: 4px;
-}
-
-#hyqcieqnuu .gt_title {
-  color: #333333;
-  font-size: 125%;
-  font-weight: initial;
-  padding-top: 4px;
-  padding-bottom: 4px;
-  padding-left: 5px;
-  padding-right: 5px;
-  border-bottom-color: #FFFFFF;
-  border-bottom-width: 0;
-}
-
-#hyqcieqnuu .gt_subtitle {
-  color: #333333;
-  font-size: 85%;
-  font-weight: initial;
-  padding-top: 3px;
-  padding-bottom: 5px;
-  padding-left: 5px;
-  padding-right: 5px;
-  border-top-color: #FFFFFF;
-  border-top-width: 0;
-}
-
-#hyqcieqnuu .gt_heading {
-  background-color: #FFFFFF;
-  text-align: center;
-  border-bottom-color: #FFFFFF;
-  border-left-style: none;
-  border-left-width: 1px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 1px;
-  border-right-color: #D3D3D3;
-}
-
-#hyqcieqnuu .gt_bottom_border {
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-}
-
-#hyqcieqnuu .gt_col_headings {
-  border-top-style: solid;
-  border-top-width: 2px;
-  border-top-color: #D3D3D3;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  border-left-style: none;
-  border-left-width: 1px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 1px;
-  border-right-color: #D3D3D3;
-}
-
-#hyqcieqnuu .gt_col_heading {
-  color: #333333;
-  background-color: #FFFFFF;
-  font-size: 100%;
-  font-weight: normal;
-  text-transform: inherit;
-  border-left-style: none;
-  border-left-width: 1px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 1px;
-  border-right-color: #D3D3D3;
-  vertical-align: bottom;
-  padding-top: 5px;
-  padding-bottom: 6px;
-  padding-left: 5px;
-  padding-right: 5px;
-  overflow-x: hidden;
-}
-
-#hyqcieqnuu .gt_column_spanner_outer {
-  color: #333333;
-  background-color: #FFFFFF;
-  font-size: 100%;
-  font-weight: normal;
-  text-transform: inherit;
-  padding-top: 0;
-  padding-bottom: 0;
-  padding-left: 4px;
-  padding-right: 4px;
-}
-
-#hyqcieqnuu .gt_column_spanner_outer:first-child {
-  padding-left: 0;
-}
-
-#hyqcieqnuu .gt_column_spanner_outer:last-child {
-  padding-right: 0;
-}
-
-#hyqcieqnuu .gt_column_spanner {
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  vertical-align: bottom;
-  padding-top: 5px;
-  padding-bottom: 5px;
-  overflow-x: hidden;
-  display: inline-block;
-  width: 100%;
-}
-
-#hyqcieqnuu .gt_spanner_row {
-  border-bottom-style: hidden;
-}
-
-#hyqcieqnuu .gt_group_heading {
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-  color: #333333;
-  background-color: #FFFFFF;
-  font-size: 100%;
-  font-weight: initial;
-  text-transform: inherit;
-  border-top-style: solid;
-  border-top-width: 2px;
-  border-top-color: #D3D3D3;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  border-left-style: none;
-  border-left-width: 1px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 1px;
-  border-right-color: #D3D3D3;
-  vertical-align: middle;
-  text-align: left;
-}
-
-#hyqcieqnuu .gt_empty_group_heading {
-  padding: 0.5px;
-  color: #333333;
-  background-color: #FFFFFF;
-  font-size: 100%;
-  font-weight: initial;
-  border-top-style: solid;
-  border-top-width: 2px;
-  border-top-color: #D3D3D3;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  vertical-align: middle;
-}
-
-#hyqcieqnuu .gt_from_md > :first-child {
-  margin-top: 0;
-}
-
-#hyqcieqnuu .gt_from_md > :last-child {
-  margin-bottom: 0;
-}
-
-#hyqcieqnuu .gt_row {
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-  margin: 10px;
-  border-top-style: solid;
-  border-top-width: 1px;
-  border-top-color: #D3D3D3;
-  border-left-style: none;
-  border-left-width: 1px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 1px;
-  border-right-color: #D3D3D3;
-  vertical-align: middle;
-  overflow-x: hidden;
-}
-
-#hyqcieqnuu .gt_stub {
-  color: #333333;
-  background-color: #FFFFFF;
-  font-size: 100%;
-  font-weight: initial;
-  text-transform: inherit;
-  border-right-style: solid;
-  border-right-width: 2px;
-  border-right-color: #D3D3D3;
-  padding-left: 5px;
-  padding-right: 5px;
-}
-
-#hyqcieqnuu .gt_stub_row_group {
-  color: #333333;
-  background-color: #FFFFFF;
-  font-size: 100%;
-  font-weight: initial;
-  text-transform: inherit;
-  border-right-style: solid;
-  border-right-width: 2px;
-  border-right-color: #D3D3D3;
-  padding-left: 5px;
-  padding-right: 5px;
-  vertical-align: top;
-}
-
-#hyqcieqnuu .gt_row_group_first td {
-  border-top-width: 2px;
-}
-
-#hyqcieqnuu .gt_row_group_first th {
-  border-top-width: 2px;
-}
-
-#hyqcieqnuu .gt_summary_row {
-  color: #333333;
-  background-color: #FFFFFF;
-  text-transform: inherit;
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-}
-
-#hyqcieqnuu .gt_first_summary_row {
-  border-top-style: solid;
-  border-top-color: #D3D3D3;
-}
-
-#hyqcieqnuu .gt_first_summary_row.thick {
-  border-top-width: 2px;
-}
-
-#hyqcieqnuu .gt_last_summary_row {
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-}
-
-#hyqcieqnuu .gt_grand_summary_row {
-  color: #333333;
-  background-color: #FFFFFF;
-  text-transform: inherit;
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-}
-
-#hyqcieqnuu .gt_first_grand_summary_row {
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-  border-top-style: double;
-  border-top-width: 6px;
-  border-top-color: #D3D3D3;
-}
-
-#hyqcieqnuu .gt_last_grand_summary_row_top {
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-  border-bottom-style: double;
-  border-bottom-width: 6px;
-  border-bottom-color: #D3D3D3;
-}
-
-#hyqcieqnuu .gt_striped {
-  background-color: rgba(128, 128, 128, 0.05);
-}
-
-#hyqcieqnuu .gt_table_body {
-  border-top-style: solid;
-  border-top-width: 2px;
-  border-top-color: #D3D3D3;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-}
-
-#hyqcieqnuu .gt_footnotes {
-  color: #333333;
-  background-color: #FFFFFF;
-  border-bottom-style: none;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  border-left-style: none;
-  border-left-width: 2px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 2px;
-  border-right-color: #D3D3D3;
-}
-
-#hyqcieqnuu .gt_footnote {
-  margin: 0px;
-  font-size: 90%;
-  padding-top: 4px;
-  padding-bottom: 4px;
-  padding-left: 5px;
-  padding-right: 5px;
-}
-
-#hyqcieqnuu .gt_sourcenotes {
-  color: #333333;
-  background-color: #FFFFFF;
-  border-bottom-style: none;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  border-left-style: none;
-  border-left-width: 2px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 2px;
-  border-right-color: #D3D3D3;
-}
-
-#hyqcieqnuu .gt_sourcenote {
-  font-size: 90%;
-  padding-top: 4px;
-  padding-bottom: 4px;
-  padding-left: 5px;
-  padding-right: 5px;
-}
-
-#hyqcieqnuu .gt_left {
-  text-align: left;
-}
-
-#hyqcieqnuu .gt_center {
-  text-align: center;
-}
-
-#hyqcieqnuu .gt_right {
-  text-align: right;
-  font-variant-numeric: tabular-nums;
-}
-
-#hyqcieqnuu .gt_font_normal {
-  font-weight: normal;
-}
-
-#hyqcieqnuu .gt_font_bold {
-  font-weight: bold;
-}
-
-#hyqcieqnuu .gt_font_italic {
-  font-style: italic;
-}
-
-#hyqcieqnuu .gt_super {
-  font-size: 65%;
-}
-
-#hyqcieqnuu .gt_footnote_marks {
-  font-size: 75%;
-  vertical-align: 0.4em;
-  position: initial;
-}
-
-#hyqcieqnuu .gt_asterisk {
-  font-size: 100%;
-  vertical-align: 0;
-}
-
-#hyqcieqnuu .gt_indent_1 {
-  text-indent: 5px;
-}
-
-#hyqcieqnuu .gt_indent_2 {
-  text-indent: 10px;
-}
-
-#hyqcieqnuu .gt_indent_3 {
-  text-indent: 15px;
-}
-
-#hyqcieqnuu .gt_indent_4 {
-  text-indent: 20px;
-}
-
-#hyqcieqnuu .gt_indent_5 {
-  text-indent: 25px;
-}
-
-#hyqcieqnuu .katex-display {
-  display: inline-flex !important;
-  margin-bottom: 0.75em !important;
-}
-
-#hyqcieqnuu div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
-  height: 0px !important;
-}
-</style>
-
-<table class="gt_table caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
-<thead>
-<tr class="header gt_col_headings gt_spanner_row">
-<th rowspan="2" id="Cause of death" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">Cause of death</th>
-<th colspan="2" id="Type of diet" class="gt_center gt_columns_top_border gt_column_spanner_outer" data-quarto-table-cell-role="th" scope="colgroup"><span class="gt_column_spanner">Type of diet</span></th>
-<th rowspan="2" id="Total" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">Total</th>
-</tr>
-<tr class="odd gt_col_headings">
-<th id="High salt" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">High salt</th>
-<th id="Low salt" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">Low salt</th>
-</tr>
-</thead>
-<tbody class="gt_table_body">
-<tr class="odd">
-<td id="stub_1_1" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row">Non-CVD</td>
-<td class="gt_row gt_right" headers="stub_1_1 High salt">2</td>
-<td class="gt_row gt_right" headers="stub_1_1 Low salt">23</td>
-<td class="gt_row gt_right" headers="stub_1_1 Total">25</td>
-</tr>
-<tr class="even">
-<td id="stub_1_2" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row">CVD</td>
-<td class="gt_row gt_right" headers="stub_1_2 High salt">5</td>
-<td class="gt_row gt_right" headers="stub_1_2 Low salt">30</td>
-<td class="gt_row gt_right" headers="stub_1_2 Total">35</td>
-</tr>
-<tr class="odd">
-<td id="stub_1_3" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row">Total</td>
-<td class="gt_row gt_right" headers="stub_1_3 High salt">7</td>
-<td class="gt_row gt_right" headers="stub_1_3 Low salt">53</td>
-<td class="gt_row gt_right" headers="stub_1_3 Total">60</td>
-</tr>
-</tbody>
-</table>
-
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>tab <span class="ot">&lt;-</span> <span class="fu">table</span>(df<span class="sc">$</span>mall, df<span class="sc">$</span>trained)</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>tab</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    - +
+  - 9 1
+  + 7 3</code></pre>
 </div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mcnemar.test</span>(tab) <span class="sc">|&gt;</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tidy</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 4
+  statistic p.value parameter method                                            
+      &lt;dbl&gt;   &lt;dbl&gt;     &lt;dbl&gt; &lt;chr&gt;                                             
+1      3.12  0.0771         1 McNemar's Chi-squared test with continuity correc…</code></pre>
 </div>
 </div></li>
+<li><p>Or run the exact test, which you should here since there are 8 discordant pairs, which is less than our rule of thumb of 20.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">binom.test</span>(<span class="at">x =</span> <span class="dv">7</span>, <span class="at">n =</span> <span class="dv">7</span> <span class="sc">+</span> <span class="dv">1</span>) <span class="sc">|&gt;</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tidy</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 8
+  estimate statistic p.value parameter conf.low conf.high method     alternative
+     &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt; &lt;chr&gt;      &lt;chr&gt;      
+1    0.875         7  0.0703         8    0.473     0.997 Exact bin… two.sided  </code></pre>
+</div>
+</div></li>
+<li><p>An alternative to first creating the contingency table is to just put each variable in <code>mcnemar.test()</code> (as long as the sample size is large enough.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mcnemar.test</span>(<span class="at">x =</span> df<span class="sc">$</span>mall, <span class="at">y =</span> df<span class="sc">$</span>trained) <span class="sc">|&gt;</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tidy</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 4
+  statistic p.value parameter method                                            
+      &lt;dbl&gt;   &lt;dbl&gt;     &lt;dbl&gt; &lt;chr&gt;                                             
+1      3.12  0.0771         1 McNemar's Chi-squared test with continuity correc…</code></pre>
+</div>
+</div></li>
+</ul>
+</section>
+<section id="exercise" class="level1">
+<h1>Exercise</h1>
+<ul>
+<li><strong>Exercise</strong> (from Rosner): A twin design is used to study age-related macular degeneration (AMD), a common eye disease of the elderly that results in substantial losses in vision. Suppose we contact 66 twinships in which one twin has AMD and the other twin does not. The twins are given a dietary questionnaire to report their usual diet. We find that in 10 twinships the AMD twin takes multivitamin supplements and the normal twin does not. In 8 twinships the normal twin takes multivitamin supplements and the AMD twin does not. In 3 twinships both twins take multivitamin supplements, and in 45 twinships neither twin takes multivitamin supplements.
+<ol type="a">
+<li>What test can be used to assess whether there is an association between AMD and taking multivitamin supplements?</li>
+<li>Are AMD and taking multivitamin supplements significantly associated based on these data?</li>
+</ol></li>
 </ul>
 
 
