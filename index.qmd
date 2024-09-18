@@ -48,3 +48,4 @@ format: html
 - 07 Categorical Tests
   - [2x2 Contingency Tables in R](./07_cat/07_binom.qmd)
   - [McNemar's Test in R](./07_cat/07_binom.qmd)
+  - [Larger Contingency Tables in R](./07_cat/07_larger.qmd)

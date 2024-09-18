@@ -1,0 +1,63 @@
+---
+title: "Larger Contingency Tables"
+author: "David Gerard"
+format: html
+date: today
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, 
+            fig.width = 4, 
+            fig.height = 3, 
+            fig.align = "center")
+ggplot2::theme_set(ggplot2::theme_bw() + ggplot2::theme(strip.background = ggplot2::element_rect(fill = "white")))
+```
+
+```{r}
+library(broom)
+```
+
+- Suppose we measure case and control status (for breast cancer) for various ages at first birth.
+
+  ```{r}
+  #| message: false
+  #| echo: false
+  library(tidyverse)
+  library(janitor)
+  library(gt)
+  
+  tribble(~Status, ~`<20`, ~`20-24`, ~`25-29`, ~`30-34`, ~`≥35`,
+          "Case", 320, 1206, 1011, 463, 220,
+          "Control", 1422, 4432, 2893, 1092, 406) |>
+    as_tabyl() |>
+    adorn_totals(c("col", "row")) |>
+    gt(rowname_col = "Status") |>
+    tab_spanner(
+      columns = 2:6, # select all columns except the row variable
+      label = "Age at First Birth" # the name to display
+    ) |>
+    tab_stubhead(         # add row variable header
+      label = "Age at First Birth" 
+    )
+  ```
+
+
+- As in the 2x2 case, we use `matrix()` to insert the data. Just change the `nrow` and `ncol` arguments to represent the number of rows and columns
+  ```{r}
+  tab <- matrix(
+    c(320, 1206, 1011, 463, 220,
+      1422, 4432, 2893, 1092, 406),
+    nrow = 2, ncol = 5, byrow = TRUE)
+  dimnames(tab) <- list(status = c("Case", "Control"),
+                        age = c("<20", "20-24", "25-29", "30-34", "≥35"))
+  tab
+  ```
+
+- You then just plug this into `chisq.test()`.
+
+  ```{r}
+  chisq.test(tab) |>
+    tidy()
+  ```
+
+- As in the 2x2 case, you can generate a contingency table from raw data using `table()`.
