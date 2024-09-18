@@ -47,14 +47,14 @@ The major focus for this course is the ideas behind, and the methods for, drawin
 # Grading
 
 ```{r, echo = FALSE}
-gradedf <- data.frame(Assignment = c("Quarto Notes", "Homeworks", "Participation", "Exams 1, 2, and 3"),
-                      Percent = c("10%", "20%", "10%", "60%"))
+gradedf <- data.frame(Assignment = c("Homeworks", "Participation", "Exams 1, 2, and 3"),
+                      Percent = c("20%", "20%", "60%"))
 knitr::kable(gradedf)
 ```
 
-- Quarto Notes:
-    - Most of my notes are handwritten. Each week, I will assign one student to convert my hand-written notes into a quarto document that can be parsed to HTML. I will (lightly) modify these notes and post them on the course website. You will only have to do this once this semester.
-    - I think we have more students than classes, so for some of you I will ask that you convert your exam reference sheets into a Quarto document.
+<!-- - Quarto Notes: -->
+<!--     - Most of my notes are handwritten. Each week, I will assign one student to convert my hand-written notes into a quarto document that can be parsed to HTML. I will (lightly) modify these notes and post them on the course website. You will only have to do this once this semester. -->
+<!--     - I think we have more students than classes, so for some of you I will ask that you convert your exam reference sheets into a Quarto document. -->
     
 - Participation:
     - Show up to class. Stay off your phones. Try out the in-class exercises (you don't have to complete them or turn them in, just try them).
