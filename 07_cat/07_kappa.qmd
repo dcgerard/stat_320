@@ -1,0 +1,81 @@
+---
+title: "Cohen's Kappa in R"
+author: "David Gerard"
+format: html
+date: today
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, 
+            fig.width = 4, 
+            fig.height = 3, 
+            fig.align = "center")
+ggplot2::theme_set(ggplot2::theme_bw() + ggplot2::theme(strip.background = ggplot2::element_rect(fill = "white")))
+```
+
+- Some women ate beef and wrote down in two repeat surveys how much beef they ate. We are interested in how reliable this survey is. The data look like this:
+
+  ```{r}
+  #| message: false
+  #| echo: false
+  library(tidyverse)
+  library(janitor)
+  library(gt)
+  
+  tribble(~`Survey 1`, ~`≤1 Serving/Week`, ~`>1 Serving/Week`,
+          "≤1 Serving/Week", 136, 92,
+          ">1 Serving/Week", 69, 240) |>
+    as_tabyl() |>
+    adorn_totals(c("col", "row")) |>
+    gt(rowname_col = "Survey 1") |>
+    tab_spanner(
+      columns = 2:3, # select all columns except the row variable
+      label = "Survey 2" # the name to display
+    ) |>
+    tab_stubhead(         # add row variable header
+      label = "Survey 1" 
+    ) 
+  ```
+
+- There is no base R function to calculate Cohen's kappa (though there are some third party packages). I made a function that will do it for you:
+
+  ```{r}
+  #' @param tab The 2x2 contingency table
+  #' 
+  #' @return A list with the following elements
+  #' \itemize{
+  #'   \item{kappa: Cohen's kappa}
+  #'   \item{se: (estimated) standard error}
+  #'   \item{z: test statistic}
+  #'   \item{p_value: upper one-sided p-value against the null of kappa = 0}
+  #' }
+  #' 
+  #' @author David Gerard
+  cohen_kappa <- function(tab) {
+    stopifnot(nrow(tab) == ncol(tab))
+    n <- sum(tab)
+    po <- sum(diag(tab)) / n
+    a <- rowSums(tab) / n
+    b <- colSums(tab) / n
+    pe <- sum(a * b)
+    kappa <- (po - pe) / (1 - pe)
+    se <- sqrt((pe + pe^2 - sum(a * b * (a + b))) / (n * (1 - pe)^2))
+    z <- kappa / se
+    p_value <- stats::pnorm(z, lower.tail = FALSE)
+    return(list(kappa = kappa, se = se, z = z, p_value = p_value))
+  }
+  ```
+
+- First, put in contingency table in R as before
+  ```{r}
+  tab <- matrix(c(136, 92, 69, 240), nrow = 2, byrow = TRUE)
+  dimnames(tab) <- list(survey1 = c("low", "high"), survey2 = c("low", "high"))
+  tab
+  ```
+
+- Then use this function I wrote:
+  ```{r}
+  cohen_kappa(tab = tab)
+  ```
+
+
