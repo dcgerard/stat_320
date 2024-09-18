@@ -47,7 +47,7 @@ library(broom)
 
   ```{r}
   tab <- matrix(c(510, 16, 5, 90), nrow = 2, byrow = TRUE)
-  dimnames(tab) <- list(A = c("Suvived", "Died"), B = c("Survived", "Died"))
+  dimnames(tab) <- list(A = c("Survived", "Died"), B = c("Survived", "Died"))
   tab
   ```
 

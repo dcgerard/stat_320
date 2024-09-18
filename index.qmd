@@ -47,5 +47,5 @@ format: html
   - [Two Sample Inference in R](./06_nonparametric/06_wilcoxin_2.qmd)
 - 07 Categorical Tests
   - [2x2 Contingency Tables in R](./07_cat/07_binom.qmd)
-  - [McNemar's Test in R](./07_cat/07_binom.qmd)
+  - [McNemar's Test in R](./07_cat/07_mcnemar.qmd)
   - [Larger Contingency Tables in R](./07_cat/07_larger.qmd)
