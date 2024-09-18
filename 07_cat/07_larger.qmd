@@ -61,3 +61,35 @@ library(broom)
   ```
 
 - As in the 2x2 case, you can generate a contingency table from raw data using `table()`.
+
+- E.g., from the [lead data](../data.qmd#lead), suppose that we are interested in testing if there is an association between `lead_grp` and `sex`.
+
+  ```{r}
+  #| message: false
+  library(tidyverse)
+  lead <- read_csv("https://dcgerard.github.io/stat_320/data/lead.csv")
+  ```
+
+- We can create this contingency table by `table()`
+
+  ```{r}
+  tab <- table(lead$sex, lead$lead_grp)
+  tab
+  ```
+
+- And we can plug this into `chisq.test()`.
+
+  ```{r}
+  chisq.test(tab) |>
+    tidy()
+  ```
+
+- Alternatively, we could plug the two variables under consideration from the raw data frame directly into `chisq.test()`.
+
+  ```{r}
+  chisq.test(x = lead$sex, y = lead$lead_grp) |>
+    tidy()
+  ```
+
+
+

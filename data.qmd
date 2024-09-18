@@ -770,7 +770,7 @@ The food-frequency questionnaire (FFQ) is a common tool in dietary epidemiology 
   - `sfat_dr`: Saturated fat-DR (g)
   - `sfat_ffq`: Saturated fat-FFQ (g)
   - `tfat_dr`: Total fat-DR (g)
-  - `tfat_ffq`: Total fat-FFQ (f)
+  - `tfat_ffq`: Total fat-FFQ (g)
   - `alco_dr`: Alcohol consumption-DR (oz)
   - `alco_ffq`: Alcohol consumption-FFQ (oz)
   - `cal_dr`: Total calories-DR (K-cal)
