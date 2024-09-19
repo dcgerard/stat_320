@@ -366,22 +366,22 @@ The data file field.csv contains visual field data for approximately 100 patient
 
 An experiment was conducted to study the effects of avian pancreatic polypeptide (aPP), cholecystokinin (CCK), vasoactive intestinal peptide (VIP), and secretin on pancreatic and biliary secretions in laying hens. Researchers aimed to determine how these hormones affect the flow rates and pH values of these secretions.
 
-White Leghorn hens, aged 14-29 weeks, were surgically fitted with cannulas for collecting secretions and a jugular cannula for hormone infusion. Each hen underwent one trial per day, as long as her cannulas remained functional, leading to varying trial numbers per hen.
+White Leghorn hens, aged 14-29 weeks, were surgically fitted with [cannulas](https://en.wikipedia.org/wiki/Cannula) for collecting biliary and pancreatic secretions, and a jugular cannula for hormone infusion. Each hen underwent one trial per day, as long as her cannulas remained functional, leading to varying trial numbers per hen.
 
-Each trial started with a 20-minute saline infusion, followed by the collection of pancreatic and biliary secretions. The flow rates and pH values were measured. This was followed by a 40-minute hormone infusion, with measurements repeated afterward.
+Each trial started with a 20-minute saline infusion, followed by the collection of pancreatic and biliary secretions. The flow rates (in microliters per minute) and pH values were measured. This was followed by a 40-minute hormone infusion, with measurements repeated afterward.
 
 The data set "hormone.csv" includes data for the four hormones and saline, with each trial recorded as one entry and 11 associated variables.
 
 - [hormone.csv](./data/hormone.csv)
   - `ID`: ID of hen
-  - `Bilsecpr`: Biliary secretion-pre
+  - `Bilsecpr`: Biliary secretion-pre (microliters per minute)
   - `Bilphpr`: Biliary pH-pre
-  - `Pansecpr`: Pancreatic secretion-pre
+  - `Pansecpr`: Pancreatic secretion-pre (microliters per minute)
   - `Panphpr`: Pancreatic pH-pre
   - `Dose`: Dose of hormone
-  - `Bilsecpt`: Biliary secretion-post
+  - `Bilsecpt`: Biliary secretion-post (microliters per minute)
   - `Bilphpt`: Biliary pH-post
-  - `Pansecpt`: Pancreatic secretion-post
+  - `Pansecpt`: Pancreatic secretion-post (microliters per minute)
   - `Panphpt`: Pancreatic pH-post
   - `Hormone`: Hormone.
     - Possible values: `SAL`, `APP`, `CCK`, `SEC`, `VIP`.
