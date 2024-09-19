@@ -51,3 +51,5 @@ format: html
   - [McNemar's Test in R](./07_cat/07_mcnemar.qmd)
   - [Larger Contingency Tables in R](./07_cat/07_larger.qmd)
   - [Cohen's Kappa in R](./07_cat/07_kappa.qmd)
+- Next stop: 
+  - [Regression](https://dcgerard.github.io/stat_415_615/)
