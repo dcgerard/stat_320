@@ -125,7 +125,7 @@ The data set includes 1200 postmenopausal women from the NHS, free of cancer in 
   - `age`: age
   - `agemenar`: age at menarche
   - `agemenop`: age at menopause
-  - `afb`: age at first birth  98=nullip
+  - `afb`: age at first birth
   - `parity`: parity
   - `bbd`: Benign Breast disease.
     - Possible values: `yes`, `no`
