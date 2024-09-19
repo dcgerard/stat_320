@@ -120,7 +120,7 @@ The data set includes 1200 postmenopausal women from the NHS, free of cancer in 
 
 - [breast.csv](./data/breast.csv)
   - `Id`: ID
-  - `case`: Treatment
+  - `case`: Whether a woman had breast cancer or not.
     - Possible values: `case`,`control`
   - `age`: age
   - `agemenar`: age at menarche
