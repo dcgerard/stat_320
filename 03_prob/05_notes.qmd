@@ -1,0 +1,57 @@
+---
+title: "Chapter 5 Notes: Continuous Distributions"
+author: "David Gerard"
+format: html
+date: today
+---
+
+- A continuous random variable "takes on decimal values."
+- For such random variables, the probability at any specific value is $0$.
+
+- **Example:** 
+  - What is $P(\text{a man is exactly } 6', 2.35792471613")$?
+  - $P(\text{a man is exactly } 6'2") \approx 0$
+  - Men are a little above or a little below.
+
+- However, we know some regions are more likely than others.
+  - $P(5' \leq X \leq 7') > P(0 \leq X \leq 1')$
+
+- We describe this intuition with a **PDF** (Probability Density Function).
+- A Probability Density Function of a random variable $X$ is a function, $f$, where:
+  - $$ P(a \leq X \leq b) = \text{area below curve between } a \text{ and } b $$
+
+- The CDF (Cumulative Distribution Function) is again the $F(x) = P(X \leq x)$.
+
+- **Example:** Let $X = \text{Serum triglyceride level}$
+
+  ```{r}
+  #| echo: false
+  library(ggplot2)
+  df <- data.frame(x = seq(0, 200, length.out = 200))
+  df$pdf <- dchisq(x = df$x/8, df = 8)
+  df2 <- data.frame(x = seq(50, 100, length.out = 200))
+  df2$pdf <- dchisq(x = df2$x/8, df = 8)
+  ggplot() +
+    geom_line(data = df, mapping = aes(x = x, y = pdf)) +
+    theme_minimal() +
+    xlab("Serum Triglycerides (mg/dL)") +
+    ylab("Density") +
+    geom_area(data = df2, mapping = aes(x = x, y = pdf), fill = "blue", alpha = 0.5) +
+    ggtitle("Pr(50 ≤ X ≤ 100)")
+  ```
+
+  ```{r}
+  #| echo: false
+  library(ggplot2)
+  df <- data.frame(x = seq(0, 200, length.out = 200))
+  df$pdf <- dchisq(x = df$x/8, df = 8)
+  df2 <- data.frame(x = seq(0, 100, length.out = 200))
+  df2$pdf <- dchisq(x = df2$x/8, df = 8)
+  ggplot() +
+    geom_line(data = df, mapping = aes(x = x, y = pdf)) +
+    theme_minimal() +
+    xlab("Serum Triglycerides (mg/dL)") +
+    ylab("Density") +
+    geom_area(data = df2, mapping = aes(x = x, y = pdf), fill = "blue", alpha = 0.5) +
+    ggtitle("Pr(X ≤ 100)")
+  ```
