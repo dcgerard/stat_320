@@ -1,0 +1,313 @@
+---
+title: "Chapter 2 Notes: Descriptive Statistics"
+author: "David Gerard"
+format: html
+date: today
+---
+
+## Measures of Location
+
+- Observe $X_1, X_2, \dots, X_n$
+  - Sample of numeric values
+  - Subscript indexes the units
+
+- Example: $X_i =$ Birthweight for baby $i$
+
+- Measure of location = center of a sample (statistic) or a population (parameter)
+
+- Arithmetic **Mean**
+  $$
+  \bar{X} = \frac{1}{n} \sum_{i=1}^n X_i = \frac{1}{n} (X_1 + X_2 + \dots + X_n)
+  $$
+
+- Example: $X_1 = 2$, $X_2 = 5$, $X_3 = -4$
+    $$
+    \sum_{i=1}^3 X_i = X_1 + X_2 + X_3 = 2 + 5 + (-4)
+    $$
+    
+    $$
+    \sum_{i=1}^2 X_i = X_1 + X_2 = 2 + 5
+    $$
+    
+    $$
+    \sum_{i=2}^2 X_i = X_2 = 5
+    $$
+    
+    $$
+    \bar{X} = \frac{1}{3} \sum_{i=1}^3 X_i = \frac{1}{3} (2 + 5 - 4) = \frac{3}{3} = 1
+    $$
+
+- $\bar{X}$ is sensitive to extreme observations.
+
+- Example with extreme value:
+
+    $$
+    X_4 = 3997
+    $$
+    
+    $$
+    \frac{1}{4} \sum_{i=1}^4 X_i = \frac{1}{4} (2 + 5 - 4 + 3997) = \frac{4000}{4} = 1000
+    $$
+
+- **Median**
+  - For $n$ odd $\Rightarrow \frac{n+1}{2}$ th largest observation.
+  - For $n$ even $\Rightarrow$ Average of $\frac{n}{2}$ th and $\frac{n}{2} + 1$ th largest observations.
+
+- Example: $X_1 = 2$, $X_2 = 5$, $X_3 = -4 \Rightarrow -4, 2, 5$
+
+    $$
+    \text{Median}(X) = 2
+    $$
+
+- If $X_4 = 3997$
+
+    $$
+    \text{Median}(X) = \frac{2 + 5}{2} = 3.5
+    $$
+
+- If distribution is symmetric, $\text{median}(X) \approx \bar{X}$.
+
+- Mean follows the skew of distribution (dashed is median, dotted is mean):
+
+```{r}
+#| echo: false
+#| eval: true
+#| message: false
+library(ggplot2)
+
+# Right skew plot
+ggplot(data.frame(x = c(-2, 6)), aes(x = x)) +
+  stat_function(fun = dlnorm, args = list(meanlog = 0.5, sdlog = 0.8), geom = "area", fill = "skyblue", alpha = 0.5) +
+  geom_vline(xintercept = exp(0.5), linetype = "dashed") +
+  geom_vline(xintercept = exp(0.5 + 0.8^2/2), linetype = "dotted") +
+  labs(title = "Right Skew", x = "Years of oral conception use", y = "Count") +
+  theme_minimal() +
+  theme(axis.text.x = element_blank())
+
+# Left skew plot
+ggplot(data.frame(x = c(-2, 6)), aes(x = x)) +
+  stat_function(fun = dlnorm, args = list(meanlog = -0.5, sdlog = 0.8), geom = "area", fill = "pink", alpha = 0.5) +
+  geom_vline(xintercept = exp(-0.5), linetype = "dashed") +
+  geom_vline(xintercept = exp(-0.5 + 0.8^2/2), linetype = "dotted") +
+  labs(title = "Left Skew", x = "Relative Humidity in Summer (Ohio)", y = "Count") +
+  theme_minimal() +
+  theme(axis.text.x = element_blank()) +
+  scale_x_reverse()
+```
+
+- Use mean if total is important.
+
+- Use median if lots of skew.
+
+- A **mode** is a frequently occurring value.
+
+- Types of Modalities:
+  - **Unimodal**: Example - male height
+  - **Bimodal**: Example - male and female height
+  - **Trimodal** etc...
+
+  ```{r}
+  #| echo: false
+  #| eval: true
+  #| message: false
+  library(ggplot2)
+  
+  # Unimodal plot
+  ggplot(data.frame(x = c(-3, 3)), aes(x = x)) +
+    stat_function(fun = dnorm, args = list(mean = 0, sd = 0.5), geom = "area", fill = "lightblue") +
+    labs(title = "Unimodal Distribution", x = "Male Height", y = "Count") +
+    theme_minimal()
+  
+  # Bimodal plot
+  ggplot(data.frame(x = c(-3, 3)), aes(x = x)) +
+    stat_function(fun = dnorm, args = list(mean = -1, sd = 0.5), geom = "area", fill = "lightgreen") +
+    stat_function(fun = dnorm, args = list(mean = 1, sd = 0.5), geom = "area", fill = "lightgreen") +
+    labs(title = "Bimodal Distribution", x = "Male and Female Height", y = "Count") +
+    theme_minimal()
+  
+  # Trimodal plot
+  ggplot(data.frame(x = c(-4, 4)), aes(x = x)) +
+    stat_function(fun = dnorm, args = list(mean = -2, sd = 0.5), geom = "area", fill = "pink") +
+    stat_function(fun = dnorm, args = list(mean = 0, sd = 0.5), geom = "area", fill = "pink") +
+    stat_function(fun = dnorm, args = list(mean = 2, sd = 0.5), geom = "area", fill = "pink") +
+    labs(title = "Trimodal Distribution", x = "", y = "Count") +
+    theme_minimal()
+  ```
+
+- The mode is typically not used as a real measure of center but rather as a way to describe distribution.
+
+### Properties of $\bar{X}$
+
+- Suppose you have a frequency table.
+
+- The intervals between menstrual periods (days):
+
+    | Value | Freq |
+    |-------|------|
+    | 24    | 5    |
+    | 25    | 10   |
+    | 26    | 28   |
+    | 27    | 64   |
+    | 28    | 185  |
+
+- Mean of $X$: 
+
+    $$
+    n = 5 + 10 + 28 + 64 + 185 = 292
+    $$
+
+    $$
+    \bar{X} = \frac{1}{n} \sum_{i=1}^n X_i = \frac{1}{292} (5 \cdot 24 + 10 \cdot 25 + 28 \cdot 26 + 64 \cdot 27 + 185 \cdot 28) = 27.42
+    $$
+
+-  Median of $X$
+    
+    $$
+    \text{Median}(X) = \frac{146^{\text{th}} \text{ and } 147^{\text{th}} \text{ values}}{2}
+    $$
+    
+    $$
+    = \frac{28 + 28}{2} = 28
+    $$
+
+- Let $y_i = x_i + C$, then $\bar{y} = \bar{X} + C$
+
+- Proof:
+
+    $$
+    \bar{y} = \frac{1}{n} \sum_{i=1}^n (x_i + C) = \frac{1}{n} \sum_{i=1}^n x_i + \frac{1}{n} \sum_{i=1}^n C = \bar{X} + C
+    $$
+
+- Example: Let $y_i$ = deviation from 28 days cycle.
+
+    $$
+    y_i = x_i - 28
+    $$
+    
+    $$
+    \bar{y} = 27.42 - 28 = -0.58
+    $$
+    
+    
+- Also true for Median: 
+    $$
+    \text{Median}(y) = \text{Median}(x) + C
+    $$
+
+- Let $y_i = C x_i$, then $\bar{y} = C \bar{X}$
+
+- Proof:
+
+    $$
+    \bar{y} = \frac{1}{n} \sum_{i=1}^n C x_i = C \cdot \frac{1}{n} \sum_{i=1}^n x_i = C \bar{X}
+    $$
+
+- Example: Change units from days to weeks.
+    
+    $$
+    y_i = \frac{1}{7} x_i
+    $$
+    
+    $$
+    \bar{y} = \frac{1}{7} \cdot 27.42 \approx 3.92
+    $$
+
+- If $y_i = a x_i + C$, then $\bar{y} = a \bar{X} + C$
+
+**Exercise**: What is the mean menstrual cycle deviation from 4 weeks?
+
+```{block}
+#| eval: false
+#| echo: false
+$$
+3.92 - 4 = -0.08
+$$
+```
+
+
+### Measures of Spread
+
+- **Spread**: How far apart numbers are.
+- **Range**: $\text{Max} - \text{Min}$ (sensitive to extreme values).
+- **Inter-quartile Range (IQR)**: $75^{\text{th}}$ percentile - $25^{\text{th}}$ percentile.
+
+- $p^{\text{th}}$ percentile = value $V_p$ such that $p\%$ of points are at or below $V_p$.
+
+- Example: Median = $50^{\text{th}}$ percentile.
+
+- **Quantile**: A unit of proportions instead of percent.
+  - $0.75$ quantile = $75^{\text{th}}$ percentile.
+
+- Example: $X_1 = 2$, $X_2 = 5$, $X_3 = -4$
+    - $\frac{1}{3}$ quantile = $-4$
+    - $\frac{2}{3}$ quantile = $2$
+    - $1$ quantile = $5$
+
+- What about the $40^{\text{th}}$ percentile?
+    - Use some average of $-4$ and $2$, but definition varies.
+
+- **Variance**: Average of squared deviations.
+
+    $$
+    s^2 = \frac{1}{n-1} \sum_{i=1}^n (X_i - \bar{X})^2
+    $$
+
+- $n-1$ because we lose some information by estimating $\bar{X}$.
+
+- **Standard Deviation**: Square root of variance.
+
+    $$
+    s = \sqrt{\frac{1}{n-1} \sum_{i=1}^n (X_i - \bar{X})^2}
+    $$
+
+- Puts this measure of center on the same scale as units (e.g., $oz$ instead of $oz^2$).
+
+- Let $y_i = c_1 x_i + c_2$, then $s^2(y) = c_1^2 s^2(x)$.
+
+- Only scaling affects variance and standard deviation.
+
+    $$
+    s(y) = c_1 s(x)
+    $$
+
+- Why?
+
+  ```{r}
+  #| echo: false
+  #| message: false
+  #| warning: false
+  library(ggplot2)
+  
+  set.seed(1)
+  x <- rnorm(100)
+  ggplot(data.frame(x = x), aes(x = x)) +
+    geom_histogram(binwidth = 0.5, fill = "lightblue", alpha = 0.7) +
+    labs(title = "Original Distribution", x = "X", y = "Count") +
+    theme_minimal() +
+    xlim(-5, 5)
+  
+  ggplot(data.frame(x = x + 2), aes(x = x)) +
+    geom_histogram(binwidth = 0.5, fill = "lightgreen", alpha = 0.7) +
+    labs(title = "Shifted Distribution (X + C2)", x = "X + C2", y = "Count") +
+    theme_minimal() +
+    xlim(-5, 5)
+  
+  ggplot(data.frame(x = x * 2), aes(x = x)) +
+    geom_histogram(binwidth = 0.5, fill = "lightcoral", alpha = 0.7) +
+    labs(title = "Scaled Distribution (C1 * X + C2)", x = "C1 * X + C2", y = "Count") +
+    theme_minimal() +
+    xlim(-5, 5)
+  ```
+
+**Exercise**: What is $s^2(y)$ when $y_i = c_1 x_i$?
+
+```{block}
+#| eval: false
+#| echo: false
+$$
+s^2(y) = c_1^2 s^2(x)
+$$
+```
+
+[R Notebook on Mean / Median / SD / Variance](./02_descriptive.qmd)
+

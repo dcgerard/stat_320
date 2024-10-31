@@ -15,12 +15,12 @@ format: html
   - [Math Prereqs](./00_course_outline/00_math_prereqs.qmd)
   - [Course Overview](./00_course_outline/00_overview.qmd)
 - 02 Descriptive Statistics
-  - [Chapter 2 Notes (Descriptive Statistics)](./notes/chapter2_notes.pdf)
+  - [Chapter 2 Notes (Descriptive Statistics)](./02_descriptive/02_notes.qmd)
   - [Descriptive Statistics in R](./02_descriptive/02_descriptive.qmd)
 - 03 Probability
-  - [Chapter 3 Notes (Probability)](./notes/chapter3_notes.pdf)
+  - [Chapter 3 Notes (Probability)](./03_prob/03_notes.qmd)
   - [Confusion Matrix](./03_prob/03_confusion.qmd)
-  - [Chapter 4 Notes (Discrete Probability Distributions)](./notes/chapter4_notes.pdf)
+  - [Chapter 4 Notes (Discrete Probability Distributions)](./03_prob/04_notes.qmd)
   - [Discrete Probability in R](./03_prob/03_prob_discrete.qmd)
   - [Chapter 5 Notes (Continuous Probability Distributions)](./notes/chapter5_notes.pdf)
   - [Normal Distribution in R](./03_prob/03_prob_cont.qmd)
@@ -53,3 +53,10 @@ format: html
   - [Cohen's Kappa in R](./07_cat/07_kappa.qmd)
 - Next stop: 
   - [Regression](https://dcgerard.github.io/stat_415_615/)
+  
+  
+Handwritten Notes:
+
+- [Chapter 2 Notes (Descriptive Statistics)](./notes/chapter2_notes.pdf)
+- [Chapter 3 Notes (Probability)](./notes/chapter3_notes.pdf)
+- [Chapter 4 Notes (Discrete Probability Distributions)](./notes/chapter4_notes.pdf)

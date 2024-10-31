@@ -9,7 +9,7 @@
 <meta name="author" content="David Gerard">
 <meta name="dcterms.date" content="2024-10-31">
 
-<title>Summary Statistics in R – Stat 320: Biostatistics</title>
+<title>Chapter 2 Notes: Descriptive Statistics – Stat 320: Biostatistics</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -21,40 +21,6 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
-}
-/* CSS for syntax highlighting */
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -105,6 +71,35 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   }
 }</script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <link rel="stylesheet" href="../styles.css">
 </head>
@@ -146,15 +141,25 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#measures-of-location" id="toc-measures-of-location" class="nav-link active" data-scroll-target="#measures-of-location">Measures of Location</a>
+  <ul class="collapse">
+  <li><a href="#properties-of-barx" id="toc-properties-of-barx" class="nav-link" data-scroll-target="#properties-of-barx">Properties of <span class="math inline">\(\bar{X}\)</span></a></li>
+  <li><a href="#measures-of-spread" id="toc-measures-of-spread" class="nav-link" data-scroll-target="#measures-of-spread">Measures of Spread</a></li>
+  </ul></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Summary Statistics in R</h1>
+<h1 class="title">Chapter 2 Notes: Descriptive Statistics</h1>
 </div>
 
 
@@ -183,142 +188,254 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
+<section id="measures-of-location" class="level2">
+<h2 class="anchored" data-anchor-id="measures-of-location">Measures of Location</h2>
 <ul>
-<li><p>We’ll use the lead data as an example. Read about it <a href="../data.html#lead">here</a>.</p>
-<div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>lead <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"https://dcgerard.github.io/stat_320/data/lead.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div></li>
-<li><p>You calculate the summary statistics (mean/median/quantiles/variance/standard deviation) all within a <code>summarize()</code> call.</p>
-<div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summarize</span>(</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  lead, </span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">Mean =</span> <span class="fu">mean</span>(iqf, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), </span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">Min =</span> <span class="fu">min</span>(iqf, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">Q25 =</span> <span class="fu">quantile</span>(iqf, <span class="at">probs =</span> <span class="fl">0.25</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">Med =</span> <span class="fu">median</span>(iqf, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), </span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">Q75 =</span> <span class="fu">quantile</span>(iqf, <span class="at">probs =</span> <span class="fl">0.75</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">Max =</span> <span class="fu">max</span>(iqf, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">Var =</span> <span class="fu">var</span>(iqf, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">SD =</span> <span class="fu">sd</span>(iqf, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 1 × 8
-   Mean   Min   Q25   Med   Q75   Max   Var    SD
-  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
-1  90.8    46    80  89.5  98.5   141  212.  14.6</code></pre>
-</div>
-</div></li>
-<li><p>The values on the left of <code>=</code> are the names of the summaries and are up to you.</p></li>
-<li><p>The values on the right of <code>=</code> are the function calls for the summaries.</p>
+<li><p>Observe <span class="math inline">\(X_1, X_2, \dots, X_n\)</span></p>
 <ul>
-<li><code>mean()</code>: the arithmetic mean.</li>
-<li><code>min()</code>: the minimum. Same as <code>quantile(x, probs = 0)</code></li>
-<li><code>quantile()</code>: the quantiles. You specify which quantile with the <code>probs</code> argument.</li>
-<li><code>median()</code>: the median. Same as <code>quantile(x, probs = 0.5)</code></li>
-<li><code>max()</code>: the maximum. Same as <code>quantile(x, probs = 1)</code></li>
-<li><code>var()</code>: the sample variance.</li>
-<li><code>sd()</code>: the sample standard deviation.</li>
+<li>Sample of numeric values</li>
+<li>Subscript indexes the units</li>
 </ul></li>
-<li><p>I have the <code>na.rm = TRUE</code> argument because there are some children who did not have a <code>iqf</code> score. These are “missing” and encoded with <code>NA</code>. If you do not provide that argument, R doesn’t know what those values are and so returns an <code>NA</code> or errors.</p>
-<div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summarize</span>(</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  lead, </span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">Mean =</span> <span class="fu">mean</span>(iqf), </span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">Min =</span> <span class="fu">min</span>(iqf),</span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Q25 = quantile(iqf, probs = 0.25), # errors</span></span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">Med =</span> <span class="fu">median</span>(iqf), </span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Q75 = quantile(iqf, probs = 0.75), # errors</span></span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">Max =</span> <span class="fu">max</span>(iqf),</span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">Var =</span> <span class="fu">var</span>(iqf),</span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">SD =</span> <span class="fu">sd</span>(iqf)</span>
-<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 1 × 6
-   Mean   Min   Med   Max   Var    SD
-  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
-1    NA    NA    NA    NA    NA    NA</code></pre>
-</div>
-</div></li>
-<li><p>You can also apply these functions on vectors that you extract from the data frame.</p>
-<div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">var</span>(lead<span class="sc">$</span>iqf, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 212.3</code></pre>
-</div>
-</div></li>
-<li><p>Let’s demonstrate some properties. Variance is invariant to shift</p>
-<div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">var</span>(lead<span class="sc">$</span>iqf <span class="sc">+</span> <span class="dv">10000</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 212.3</code></pre>
-</div>
-</div>
-<p>but scales with the square of the multiplicative factor</p>
-<div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">var</span>(<span class="dv">10</span> <span class="sc">*</span> lead<span class="sc">$</span>iqf, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 21227</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="dv">10</span><span class="sc">^</span><span class="dv">2</span> <span class="sc">*</span> <span class="fu">var</span>(lead<span class="sc">$</span>iqf, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 21227</code></pre>
-</div>
-</div></li>
-<li><p>The standard deviation scales with the multiplicative factor because it is the square root of the variance.</p>
-<div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sd</span>(<span class="dv">10</span> <span class="sc">*</span> lead<span class="sc">$</span>iqf, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 145.7</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="dv">10</span> <span class="sc">*</span> <span class="fu">sd</span>(lead<span class="sc">$</span>iqf, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 145.7</code></pre>
-</div>
-</div></li>
-<li><p>The mean and quantiles shift and scale with the additive and multiplicative factors.</p>
-<div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(lead<span class="sc">$</span>iqf <span class="sc">*</span> <span class="dv">10</span> <span class="sc">+</span> <span class="dv">20</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 928.2</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="dv">10</span> <span class="sc">*</span> <span class="fu">mean</span>(lead<span class="sc">$</span>iqf, <span class="at">na.rm =</span> <span class="cn">TRUE</span>) <span class="sc">+</span> <span class="dv">20</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 928.2</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">quantile</span>(lead<span class="sc">$</span>iqf <span class="sc">*</span> <span class="dv">10</span> <span class="sc">+</span> <span class="dv">20</span>, <span class="at">probs =</span> <span class="fu">c</span>(<span class="fl">0.25</span>, <span class="fl">0.5</span>, <span class="fl">0.75</span>), <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code> 25%  50%  75% 
- 820  915 1005 </code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="dv">10</span> <span class="sc">*</span> <span class="fu">quantile</span>(lead<span class="sc">$</span>iqf, <span class="at">probs =</span> <span class="fu">c</span>(<span class="fl">0.25</span>, <span class="fl">0.5</span>, <span class="fl">0.75</span>), <span class="at">na.rm =</span> <span class="cn">TRUE</span>) <span class="sc">+</span> <span class="dv">20</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code> 25%  50%  75% 
- 820  915 1005 </code></pre>
-</div>
-</div></li>
-<li><p><strong>Exercise</strong>: Calculate the mean and median of the <a href="../data.html#birthweight">birthweight data</a>. What is the more appropriate measure of center?</p></li>
-<li><p>You can calculate grouped summaries (a summary for each group) by grouping the data first.</p>
-<div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>lead <span class="sc">|&gt;</span></span>
-<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Group) <span class="sc">|&gt;</span></span>
-<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(</span>
-<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">Mean =</span> <span class="fu">mean</span>(iqf, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">SD =</span> <span class="fu">sd</span>(iqf, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 2 × 3
-  Group    Mean    SD
-  &lt;chr&gt;   &lt;dbl&gt; &lt;dbl&gt;
-1 control  92.6  15.7
-2 exposed  88.0  12.2</code></pre>
-</div>
-</div></li>
-<li><p>Group summaries are where the power of descriptive statistics really comes into play. Here, we see that the exposed group has a lower IQ on average than the control group. Whether this is real signal will have to be answered via a formal hypothesis test. But the descriptive statistics gives us some initial information on the data.</p></li>
-<li><p><strong>Exercise</strong>: What about different lead groups? Calculate descriptive statistics for the different lead groups.</p></li>
+<li><p>Example: <span class="math inline">\(X_i =\)</span> Birthweight for baby <span class="math inline">\(i\)</span></p></li>
+<li><p>Measure of location = center of a sample (statistic) or a population (parameter)</p></li>
+<li><p>Arithmetic <strong>Mean</strong> <span class="math display">\[
+\bar{X} = \frac{1}{n} \sum_{i=1}^n X_i = \frac{1}{n} (X_1 + X_2 + \dots + X_n)
+\]</span></p></li>
+<li><p>Example: <span class="math inline">\(X_1 = 2\)</span>, <span class="math inline">\(X_2 = 5\)</span>, <span class="math inline">\(X_3 = -4\)</span> <span class="math display">\[
+  \sum_{i=1}^3 X_i = X_1 + X_2 + X_3 = 2 + 5 + (-4)
+  \]</span></p>
+<p><span class="math display">\[
+  \sum_{i=1}^2 X_i = X_1 + X_2 = 2 + 5
+  \]</span></p>
+<p><span class="math display">\[
+  \sum_{i=2}^2 X_i = X_2 = 5
+  \]</span></p>
+<p><span class="math display">\[
+  \bar{X} = \frac{1}{3} \sum_{i=1}^3 X_i = \frac{1}{3} (2 + 5 - 4) = \frac{3}{3} = 1
+  \]</span></p></li>
+<li><p><span class="math inline">\(\bar{X}\)</span> is sensitive to extreme observations.</p></li>
+<li><p>Example with extreme value:</p>
+<p><span class="math display">\[
+  X_4 = 3997
+  \]</span></p>
+<p><span class="math display">\[
+  \frac{1}{4} \sum_{i=1}^4 X_i = \frac{1}{4} (2 + 5 - 4 + 3997) = \frac{4000}{4} = 1000
+  \]</span></p></li>
+<li><p><strong>Median</strong></p>
+<ul>
+<li>For <span class="math inline">\(n\)</span> odd <span class="math inline">\(\Rightarrow \frac{n+1}{2}\)</span> th largest observation.</li>
+<li>For <span class="math inline">\(n\)</span> even <span class="math inline">\(\Rightarrow\)</span> Average of <span class="math inline">\(\frac{n}{2}\)</span> th and <span class="math inline">\(\frac{n}{2} + 1\)</span> th largest observations.</li>
+</ul></li>
+<li><p>Example: <span class="math inline">\(X_1 = 2\)</span>, <span class="math inline">\(X_2 = 5\)</span>, <span class="math inline">\(X_3 = -4 \Rightarrow -4, 2, 5\)</span></p>
+<p><span class="math display">\[
+  \text{Median}(X) = 2
+  \]</span></p></li>
+<li><p>If <span class="math inline">\(X_4 = 3997\)</span></p>
+<p><span class="math display">\[
+  \text{Median}(X) = \frac{2 + 5}{2} = 3.5
+  \]</span></p></li>
+<li><p>If distribution is symmetric, <span class="math inline">\(\text{median}(X) \approx \bar{X}\)</span>.</p></li>
+<li><p>Mean follows the skew of distribution (dashed is median, dotted is mean):</p></li>
 </ul>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="02_notes_files/figure-html/unnamed-chunk-1-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="02_notes_files/figure-html/unnamed-chunk-1-2.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<ul>
+<li><p>Use mean if total is important.</p></li>
+<li><p>Use median if lots of skew.</p></li>
+<li><p>A <strong>mode</strong> is a frequently occurring value.</p></li>
+<li><p>Types of Modalities:</p>
+<ul>
+<li><strong>Unimodal</strong>: Example - male height</li>
+<li><strong>Bimodal</strong>: Example - male and female height</li>
+<li><strong>Trimodal</strong> etc…</li>
+</ul>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="02_notes_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="02_notes_files/figure-html/unnamed-chunk-2-2.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="02_notes_files/figure-html/unnamed-chunk-2-3.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div></li>
+<li><p>The mode is typically not used as a real measure of center but rather as a way to describe distribution.</p></li>
+</ul>
+<section id="properties-of-barx" class="level3">
+<h3 class="anchored" data-anchor-id="properties-of-barx">Properties of <span class="math inline">\(\bar{X}\)</span></h3>
+<ul>
+<li><p>Suppose you have a frequency table.</p></li>
+<li><p>The intervals between menstrual periods (days):</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Value</th>
+<th>Freq</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>24</td>
+<td>5</td>
+</tr>
+<tr class="even">
+<td>25</td>
+<td>10</td>
+</tr>
+<tr class="odd">
+<td>26</td>
+<td>28</td>
+</tr>
+<tr class="even">
+<td>27</td>
+<td>64</td>
+</tr>
+<tr class="odd">
+<td>28</td>
+<td>185</td>
+</tr>
+</tbody>
+</table></li>
+<li><p>Mean of <span class="math inline">\(X\)</span>:</p>
+<p><span class="math display">\[
+  n = 5 + 10 + 28 + 64 + 185 = 292
+  \]</span></p>
+<p><span class="math display">\[
+  \bar{X} = \frac{1}{n} \sum_{i=1}^n X_i = \frac{1}{292} (5 \cdot 24 + 10 \cdot 25 + 28 \cdot 26 + 64 \cdot 27 + 185 \cdot 28) = 27.42
+  \]</span></p></li>
+<li><p>Median of <span class="math inline">\(X\)</span></p>
+<p><span class="math display">\[
+\text{Median}(X) = \frac{146^{\text{th}} \text{ and } 147^{\text{th}} \text{ values}}{2}
+\]</span></p>
+<p><span class="math display">\[
+= \frac{28 + 28}{2} = 28
+\]</span></p></li>
+<li><p>Let <span class="math inline">\(y_i = x_i + C\)</span>, then <span class="math inline">\(\bar{y} = \bar{X} + C\)</span></p></li>
+<li><p>Proof:</p>
+<p><span class="math display">\[
+  \bar{y} = \frac{1}{n} \sum_{i=1}^n (x_i + C) = \frac{1}{n} \sum_{i=1}^n x_i + \frac{1}{n} \sum_{i=1}^n C = \bar{X} + C
+  \]</span></p></li>
+<li><p>Example: Let <span class="math inline">\(y_i\)</span> = deviation from 28 days cycle.</p>
+<p><span class="math display">\[
+  y_i = x_i - 28
+  \]</span></p>
+<p><span class="math display">\[
+  \bar{y} = 27.42 - 28 = -0.58
+  \]</span></p></li>
+<li><p>Also true for Median: <span class="math display">\[
+  \text{Median}(y) = \text{Median}(x) + C
+  \]</span></p></li>
+<li><p>Let <span class="math inline">\(y_i = C x_i\)</span>, then <span class="math inline">\(\bar{y} = C \bar{X}\)</span></p></li>
+<li><p>Proof:</p>
+<p><span class="math display">\[
+  \bar{y} = \frac{1}{n} \sum_{i=1}^n C x_i = C \cdot \frac{1}{n} \sum_{i=1}^n x_i = C \bar{X}
+  \]</span></p></li>
+<li><p>Example: Change units from days to weeks.</p>
+<p><span class="math display">\[
+  y_i = \frac{1}{7} x_i
+  \]</span></p>
+<p><span class="math display">\[
+  \bar{y} = \frac{1}{7} \cdot 27.42 \approx 3.92
+  \]</span></p></li>
+<li><p>If <span class="math inline">\(y_i = a x_i + C\)</span>, then <span class="math inline">\(\bar{y} = a \bar{X} + C\)</span></p></li>
+</ul>
+<p><strong>Exercise</strong>: What is the mean menstrual cycle deviation from 4 weeks?</p>
+</section>
+<section id="measures-of-spread" class="level3">
+<h3 class="anchored" data-anchor-id="measures-of-spread">Measures of Spread</h3>
+<ul>
+<li><p><strong>Spread</strong>: How far apart numbers are.</p></li>
+<li><p><strong>Range</strong>: <span class="math inline">\(\text{Max} - \text{Min}\)</span> (sensitive to extreme values).</p></li>
+<li><p><strong>Inter-quartile Range (IQR)</strong>: <span class="math inline">\(75^{\text{th}}\)</span> percentile - <span class="math inline">\(25^{\text{th}}\)</span> percentile.</p></li>
+<li><p><span class="math inline">\(p^{\text{th}}\)</span> percentile = value <span class="math inline">\(V_p\)</span> such that <span class="math inline">\(p\%\)</span> of points are at or below <span class="math inline">\(V_p\)</span>.</p></li>
+<li><p>Example: Median = <span class="math inline">\(50^{\text{th}}\)</span> percentile.</p></li>
+<li><p><strong>Quantile</strong>: A unit of proportions instead of percent.</p>
+<ul>
+<li><span class="math inline">\(0.75\)</span> quantile = <span class="math inline">\(75^{\text{th}}\)</span> percentile.</li>
+</ul></li>
+<li><p>Example: <span class="math inline">\(X_1 = 2\)</span>, <span class="math inline">\(X_2 = 5\)</span>, <span class="math inline">\(X_3 = -4\)</span></p>
+<ul>
+<li><span class="math inline">\(\frac{1}{3}\)</span> quantile = <span class="math inline">\(-4\)</span></li>
+<li><span class="math inline">\(\frac{2}{3}\)</span> quantile = <span class="math inline">\(2\)</span></li>
+<li><span class="math inline">\(1\)</span> quantile = <span class="math inline">\(5\)</span></li>
+</ul></li>
+<li><p>What about the <span class="math inline">\(40^{\text{th}}\)</span> percentile?</p>
+<ul>
+<li>Use some average of <span class="math inline">\(-4\)</span> and <span class="math inline">\(2\)</span>, but definition varies.</li>
+</ul></li>
+<li><p><strong>Variance</strong>: Average of squared deviations.</p>
+<p><span class="math display">\[
+  s^2 = \frac{1}{n-1} \sum_{i=1}^n (X_i - \bar{X})^2
+  \]</span></p></li>
+<li><p><span class="math inline">\(n-1\)</span> because we lose some information by estimating <span class="math inline">\(\bar{X}\)</span>.</p></li>
+<li><p><strong>Standard Deviation</strong>: Square root of variance.</p>
+<p><span class="math display">\[
+  s = \sqrt{\frac{1}{n-1} \sum_{i=1}^n (X_i - \bar{X})^2}
+  \]</span></p></li>
+<li><p>Puts this measure of center on the same scale as units (e.g., <span class="math inline">\(oz\)</span> instead of <span class="math inline">\(oz^2\)</span>).</p></li>
+<li><p>Let <span class="math inline">\(y_i = c_1 x_i + c_2\)</span>, then <span class="math inline">\(s^2(y) = c_1^2 s^2(x)\)</span>.</p></li>
+<li><p>Only scaling affects variance and standard deviation.</p>
+<p><span class="math display">\[
+  s(y) = c_1 s(x)
+  \]</span></p></li>
+<li><p>Why?</p>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="02_notes_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="02_notes_files/figure-html/unnamed-chunk-4-2.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="02_notes_files/figure-html/unnamed-chunk-4-3.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div></li>
+</ul>
+<p><strong>Exercise</strong>: What is <span class="math inline">\(s^2(y)\)</span> when <span class="math inline">\(y_i = c_1 x_i\)</span>?</p>
+<p><a href="../02_descriptive/02_descriptive.html">R Notebook on Mean / Median / SD / Variance</a></p>
 
 
+</section>
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">

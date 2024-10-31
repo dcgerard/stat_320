@@ -9,7 +9,7 @@
 <meta name="author" content="David Gerard">
 <meta name="dcterms.date" content="2024-10-31">
 
-<title>Summary Statistics in R – Stat 320: Biostatistics</title>
+<title>Chapter 4 Notes: Discrete Distributions – Stat 320: Biostatistics</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -21,40 +21,6 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
-}
-/* CSS for syntax highlighting */
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -105,6 +71,35 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   }
 }</script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <link rel="stylesheet" href="../styles.css">
 </head>
@@ -146,15 +141,24 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#discrete-random-variables" id="toc-discrete-random-variables" class="nav-link active" data-scroll-target="#discrete-random-variables">Discrete Random Variables</a></li>
+  <li><a href="#binomial-distribution" id="toc-binomial-distribution" class="nav-link" data-scroll-target="#binomial-distribution">Binomial Distribution</a></li>
+  <li><a href="#poisson-distribution" id="toc-poisson-distribution" class="nav-link" data-scroll-target="#poisson-distribution">Poisson Distribution</a></li>
+  <li><a href="#exercises-4.244.29" id="toc-exercises-4.244.29" class="nav-link" data-scroll-target="#exercises-4.244.29">Exercises (4.24–4.29)</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Summary Statistics in R</h1>
+<h1 class="title">Chapter 4 Notes: Discrete Distributions</h1>
 </div>
 
 
@@ -183,142 +187,362 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
+<section id="discrete-random-variables" class="level1">
+<h1>Discrete Random Variables</h1>
 <ul>
-<li><p>We’ll use the lead data as an example. Read about it <a href="../data.html#lead">here</a>.</p>
-<div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>lead <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"https://dcgerard.github.io/stat_320/data/lead.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div></li>
-<li><p>You calculate the summary statistics (mean/median/quantiles/variance/standard deviation) all within a <code>summarize()</code> call.</p>
-<div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summarize</span>(</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  lead, </span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">Mean =</span> <span class="fu">mean</span>(iqf, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), </span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">Min =</span> <span class="fu">min</span>(iqf, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">Q25 =</span> <span class="fu">quantile</span>(iqf, <span class="at">probs =</span> <span class="fl">0.25</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">Med =</span> <span class="fu">median</span>(iqf, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), </span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">Q75 =</span> <span class="fu">quantile</span>(iqf, <span class="at">probs =</span> <span class="fl">0.75</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">Max =</span> <span class="fu">max</span>(iqf, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">Var =</span> <span class="fu">var</span>(iqf, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">SD =</span> <span class="fu">sd</span>(iqf, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 1 × 8
-   Mean   Min   Q25   Med   Q75   Max   Var    SD
-  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
-1  90.8    46    80  89.5  98.5   141  212.  14.6</code></pre>
-</div>
-</div></li>
-<li><p>The values on the left of <code>=</code> are the names of the summaries and are up to you.</p></li>
-<li><p>The values on the right of <code>=</code> are the function calls for the summaries.</p>
+<li><p>A <strong>random variable</strong> assigns numbers to outcomes in the sample space.</p></li>
+<li><p>Example:</p>
 <ul>
-<li><code>mean()</code>: the arithmetic mean.</li>
-<li><code>min()</code>: the minimum. Same as <code>quantile(x, probs = 0)</code></li>
-<li><code>quantile()</code>: the quantiles. You specify which quantile with the <code>probs</code> argument.</li>
-<li><code>median()</code>: the median. Same as <code>quantile(x, probs = 0.5)</code></li>
-<li><code>max()</code>: the maximum. Same as <code>quantile(x, probs = 1)</code></li>
-<li><code>var()</code>: the sample variance.</li>
-<li><code>sd()</code>: the sample standard deviation.</li>
+<li>Number of children with retinitis pigmentosa</li>
+<li>Number of individuals with leukemia</li>
+<li>etc…</li>
 </ul></li>
-<li><p>I have the <code>na.rm = TRUE</code> argument because there are some children who did not have a <code>iqf</code> score. These are “missing” and encoded with <code>NA</code>. If you do not provide that argument, R doesn’t know what those values are and so returns an <code>NA</code> or errors.</p>
-<div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summarize</span>(</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  lead, </span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">Mean =</span> <span class="fu">mean</span>(iqf), </span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">Min =</span> <span class="fu">min</span>(iqf),</span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Q25 = quantile(iqf, probs = 0.25), # errors</span></span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">Med =</span> <span class="fu">median</span>(iqf), </span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Q75 = quantile(iqf, probs = 0.75), # errors</span></span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">Max =</span> <span class="fu">max</span>(iqf),</span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">Var =</span> <span class="fu">var</span>(iqf),</span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">SD =</span> <span class="fu">sd</span>(iqf)</span>
-<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 1 × 6
-   Mean   Min   Med   Max   Var    SD
-  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
-1    NA    NA    NA    NA    NA    NA</code></pre>
-</div>
-</div></li>
-<li><p>You can also apply these functions on vectors that you extract from the data frame.</p>
-<div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">var</span>(lead<span class="sc">$</span>iqf, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 212.3</code></pre>
-</div>
-</div></li>
-<li><p>Let’s demonstrate some properties. Variance is invariant to shift</p>
-<div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">var</span>(lead<span class="sc">$</span>iqf <span class="sc">+</span> <span class="dv">10000</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 212.3</code></pre>
-</div>
-</div>
-<p>but scales with the square of the multiplicative factor</p>
-<div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">var</span>(<span class="dv">10</span> <span class="sc">*</span> lead<span class="sc">$</span>iqf, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 21227</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="dv">10</span><span class="sc">^</span><span class="dv">2</span> <span class="sc">*</span> <span class="fu">var</span>(lead<span class="sc">$</span>iqf, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 21227</code></pre>
-</div>
-</div></li>
-<li><p>The standard deviation scales with the multiplicative factor because it is the square root of the variance.</p>
-<div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sd</span>(<span class="dv">10</span> <span class="sc">*</span> lead<span class="sc">$</span>iqf, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 145.7</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="dv">10</span> <span class="sc">*</span> <span class="fu">sd</span>(lead<span class="sc">$</span>iqf, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 145.7</code></pre>
-</div>
-</div></li>
-<li><p>The mean and quantiles shift and scale with the additive and multiplicative factors.</p>
-<div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(lead<span class="sc">$</span>iqf <span class="sc">*</span> <span class="dv">10</span> <span class="sc">+</span> <span class="dv">20</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 928.2</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="dv">10</span> <span class="sc">*</span> <span class="fu">mean</span>(lead<span class="sc">$</span>iqf, <span class="at">na.rm =</span> <span class="cn">TRUE</span>) <span class="sc">+</span> <span class="dv">20</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 928.2</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">quantile</span>(lead<span class="sc">$</span>iqf <span class="sc">*</span> <span class="dv">10</span> <span class="sc">+</span> <span class="dv">20</span>, <span class="at">probs =</span> <span class="fu">c</span>(<span class="fl">0.25</span>, <span class="fl">0.5</span>, <span class="fl">0.75</span>), <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code> 25%  50%  75% 
- 820  915 1005 </code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="dv">10</span> <span class="sc">*</span> <span class="fu">quantile</span>(lead<span class="sc">$</span>iqf, <span class="at">probs =</span> <span class="fu">c</span>(<span class="fl">0.25</span>, <span class="fl">0.5</span>, <span class="fl">0.75</span>), <span class="at">na.rm =</span> <span class="cn">TRUE</span>) <span class="sc">+</span> <span class="dv">20</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code> 25%  50%  75% 
- 820  915 1005 </code></pre>
-</div>
-</div></li>
-<li><p><strong>Exercise</strong>: Calculate the mean and median of the <a href="../data.html#birthweight">birthweight data</a>. What is the more appropriate measure of center?</p></li>
-<li><p>You can calculate grouped summaries (a summary for each group) by grouping the data first.</p>
-<div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>lead <span class="sc">|&gt;</span></span>
-<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Group) <span class="sc">|&gt;</span></span>
-<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(</span>
-<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">Mean =</span> <span class="fu">mean</span>(iqf, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">SD =</span> <span class="fu">sd</span>(iqf, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 2 × 3
-  Group    Mean    SD
-  &lt;chr&gt;   &lt;dbl&gt; &lt;dbl&gt;
-1 control  92.6  15.7
-2 exposed  88.0  12.2</code></pre>
-</div>
-</div></li>
-<li><p>Group summaries are where the power of descriptive statistics really comes into play. Here, we see that the exposed group has a lower IQ on average than the control group. Whether this is real signal will have to be answered via a formal hypothesis test. But the descriptive statistics gives us some initial information on the data.</p></li>
-<li><p><strong>Exercise</strong>: What about different lead groups? Calculate descriptive statistics for the different lead groups.</p></li>
+<li><p>Basically, an event that is a number.</p></li>
+<li><p><strong>Discrete random variable</strong>: Can count them (but may be infinite).</p>
+<ul>
+<li>Typically <span class="math inline">\(0, 1, 2, 3, \dots\)</span></li>
+</ul></li>
+<li><p><strong>Continuous random variable</strong>: Cannot count them.</p>
+<ul>
+<li>Typically some interval <span class="math inline">\((-\infty, \infty)\)</span>, <span class="math inline">\([0,1]\)</span>, etc.</li>
+</ul></li>
+<li><p>Denote random variables with capital letters <span class="math inline">\(X, Y, Z\)</span>, etc.</p></li>
+<li><p>A <strong>probability mass function</strong> (PMF) assigns a probability to a possible value <span class="math inline">\(r\)</span>. Denote this probability by <span class="math inline">\(P(X = r)\)</span>.</p>
+<ul>
+<li>Function of <span class="math inline">\(r\)</span>, not <span class="math inline">\(X\)</span>. <span class="math inline">\(X\)</span> is used to denote the random variable.</li>
+</ul></li>
+<li><p>Example: Let <span class="math inline">\(X =\)</span> number of patients in a trial of 4 who have improved blood pressure.</p>
+<ul>
+<li><span class="math inline">\(P(X = 0) = 0.008\)</span></li>
+<li><span class="math inline">\(P(X = 1) = 0.076\)</span></li>
+<li><span class="math inline">\(P(X = 2) = 0.265\)</span></li>
+<li><span class="math inline">\(P(X = 3) = 0.411\)</span></li>
+<li><span class="math inline">\(P(X = 4) = 0.240\)</span></li>
+</ul></li>
+<li><p><span class="math inline">\(0 \leq P(X = r) \leq 1\)</span> for all <span class="math inline">\(r\)</span></p></li>
+<li><p><span class="math inline">\(\sum_r P(X = r) = 1\)</span></p>
+<ul>
+<li>Sum over all possible <span class="math inline">\(r\)</span> is 1.</li>
+</ul></li>
+<li><p><strong>Expected Value</strong>: Measure of center of a PMF (also known as mean).</p>
+<p><span class="math display">\[
+E(X) = \sum r \cdot P(X = r) = \mu
+\]</span></p>
+<ul>
+<li>Again, summing over all possible <span class="math inline">\(r\)</span>.</li>
+</ul></li>
+<li><p>Example:</p>
+<p><span class="math display">\[
+E(X) = 0 \cdot 0.008 + 1 \cdot 0.076 + 2 \cdot 0.265 + 3 \cdot 0.411 + 4 \cdot 0.240 = 2.8
+\]</span></p></li>
+<li><p>Average value of <span class="math inline">\(X\)</span> across many trials.</p></li>
+<li><p>Note: <span class="math inline">\(\mu\)</span> is a population <em>parameter</em>, not a <em>statistic</em>, which is a function of observed data.</p></li>
+<li><p>Example: Across many trials, we might see:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th><span class="math inline">\(x\)</span></th>
+<th>freq (aka times seen)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>0</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td>1</td>
+<td>9</td>
+</tr>
+<tr class="odd">
+<td>2</td>
+<td>24</td>
+</tr>
+<tr class="even">
+<td>3</td>
+<td>48</td>
+</tr>
+<tr class="odd">
+<td>4</td>
+<td>19</td>
+</tr>
+</tbody>
+</table>
+<p><span class="math display">\[
+\bar{X} = 0 \cdot 0 + 1 \cdot \frac{9}{100} + 2 \cdot \frac{24}{100} + 3 \cdot \frac{48}{100} + 4 \cdot \frac{19}{100} = 2.77
+\]</span></p></li>
+<li><p><strong>Variance</strong>: Measure of spread.</p>
+<p><span class="math display">\[
+\text{Var}(X) = \sum_r (r - \mu)^2 \, P(X = r) = \sigma^2
+\]</span></p></li>
+<li><p><span class="math inline">\(SD(X) = \sqrt{\sigma^2} = \sigma\)</span></p></li>
+<li><p>Note: <span class="math inline">\(\text{Var}(X) = E(X^2) - E(X)^2 = \sum_r r^2 \, P(X = r) - \left(\sum_r r \, P(X = r)\right)^2\)</span></p></li>
+<li><p>Larger <span class="math inline">\(\sigma\)</span> means more variable.</p></li>
+<li><p><strong>Cumulative Distribution Function</strong> (CDF):</p>
+<p><span class="math display">\[
+F(x) = P(X \leq x) = \text{Probability } X \text{ is less than or equal to } x
+\]</span></p></li>
+<li><p>Example: Hypergeometric distribution</p>
+<ul>
+<li><span class="math inline">\(F(0) = 0.008\)</span></li>
+<li><span class="math inline">\(F(1) = 0.008 + 0.076\)</span></li>
+<li><span class="math inline">\(F(2) = 0.008 + 0.076 + 0.265\)</span></li>
+<li><span class="math inline">\(F(3) = 0.008 + 0.076 + 0.265 + 0.411\)</span></li>
+<li><span class="math inline">\(F(4) = 0.008 + 0.076 + 0.265 + 0.411 + 0.240\)</span></li>
+</ul></li>
+<li><p>Useful for probability calculation:</p>
+<p><span class="math display">\[
+P(1 \leq X \leq 3) = P(X \leq 3) - P(X \leq 0)
+\]</span></p></li>
+<li><p>Exercise: <span class="math inline">\(X =\)</span> number of boys in a family of 4</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th><span class="math inline">\(r\)</span></th>
+<th><span class="math inline">\(P(X = r)\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>0</td>
+<td><span class="math inline">\(\frac{1}{16}\)</span></td>
+</tr>
+<tr class="even">
+<td>1</td>
+<td><span class="math inline">\(\frac{1}{4}\)</span></td>
+</tr>
+<tr class="odd">
+<td>2</td>
+<td><span class="math inline">\(\frac{3}{8}\)</span></td>
+</tr>
+<tr class="even">
+<td>3</td>
+<td><span class="math inline">\(\frac{1}{4}\)</span></td>
+</tr>
+<tr class="odd">
+<td>4</td>
+<td><span class="math inline">\(\frac{1}{16}\)</span></td>
+</tr>
+</tbody>
+</table>
+<p>Calculate <span class="math inline">\(E(X)\)</span>, <span class="math inline">\(SD(X)\)</span>, <span class="math inline">\(F(X)\)</span></p></li>
+<li><p>Some distributions are seen in real data over and over again:</p>
+<ul>
+<li><em>Binomial</em>: count out of <span class="math inline">\(n\)</span></li>
+<li><em>Poisson</em>: count during some time interval</li>
+</ul></li>
+<li><p>These have specific PDFs/CDFs.</p></li>
+<li><p>We need to know about permutations/combinations to understand them.</p></li>
+<li><p>Number of <strong>permutations</strong> of <span class="math inline">\(n\)</span> things taken <span class="math inline">\(k\)</span> times:</p>
+<p><span class="math display">\[
+{}_nP_k = n(n-1)(n-2) \dots (n-k+1) = \frac{n!}{(n-k)!}
+\]</span></p></li>
+<li><p>Example: Individuals <span class="math inline">\(= A, B, C, D\)</span></p>
+<p><span class="math display">\[
+{}_4P_2 = \frac{4!}{2!} = \frac{4 \cdot 3}{1} = 12
+\]</span></p></li>
+<li><p>Possible permutations:</p>
+<ul>
+<li><span class="math inline">\(A, B\)</span></li>
+<li><span class="math inline">\(A, C\)</span></li>
+<li><span class="math inline">\(A, D\)</span></li>
+<li><span class="math inline">\(B, A\)</span></li>
+<li><span class="math inline">\(B, C\)</span></li>
+<li><span class="math inline">\(B, D\)</span></li>
+<li><span class="math inline">\(C, A\)</span></li>
+<li><span class="math inline">\(C, B\)</span></li>
+<li><span class="math inline">\(C, D\)</span></li>
+<li><span class="math inline">\(D, A\)</span></li>
+<li><span class="math inline">\(D, B\)</span></li>
+<li><span class="math inline">\(D, C\)</span></li>
+</ul></li>
+<li><p><span class="math inline">\({}_4P_3\)</span> Example:</p>
+<ul>
+<li>Tree diagram shows all possible arrangements of <span class="math inline">\(A, B, C, D\)</span> taken 3 at a time:</li>
+</ul>
+<p><img src="./figs/perm_tree.png" class="img-fluid">&nbsp;</p></li>
+<li><p>What if order does not matter? For example, <span class="math inline">\(\{A, B, C\} = \{C, B, A\}\)</span>.</p></li>
+<li><p>The number of <strong>combinations</strong> of <span class="math inline">\(n\)</span> things taken <span class="math inline">\(k\)</span> at a time:</p>
+<p><span class="math display">\[
+{}_nC_k = \binom{n}{k} = \frac{n!}{k!(n-k)!}
+\]</span></p></li>
+<li><p>There are <span class="math inline">\(\frac{n!}{(n-k)!}\)</span> permutations of size <span class="math inline">\(k\)</span>.</p></li>
+<li><p>Each of those shares elements with <span class="math inline">\(k! = k P_k\)</span>.</p>
+<ul>
+<li><p>Example: <span class="math inline">\(A, B, C, D \quad {}_4C_3\)</span></p>
+<ul>
+<li>Possible combinations:
+<ul>
+<li><span class="math inline">\(A, B, C = A, C, B = B, A, C = B, C, A = C, A, B = C, B, A = 3!\)</span></li>
+</ul></li>
+</ul></li>
+</ul></li>
+<li><p>Divide by <span class="math inline">\(k!\)</span> to get the number of combinations.</p></li>
+</ul>
+</section>
+<section id="binomial-distribution" class="level1">
+<h1>Binomial Distribution</h1>
+<ol type="1">
+<li><span class="math inline">\(n\)</span> trials</li>
+<li>Outcome of each trial is “success” or “failure”</li>
+<li><span class="math inline">\(P(\text{success}) = p\)</span> for each trial</li>
+<li>Trials are independent</li>
+</ol>
+<ul>
+<li><p>Let <span class="math inline">\(X =\)</span> number of successes</p></li>
+<li><p>Then <span class="math inline">\(X \sim \text{Bin}(n, p)\)</span> (Distributed as Binomial)</p></li>
+<li><p>Example: White blood count</p>
+<ul>
+<li><p>Let <span class="math inline">\(X =\)</span> number of neutrophils out of 100 white blood cells</p></li>
+<li><p><span class="math inline">\(P(\text{neutrophile}) = 0.6\)</span></p></li>
+<li><p><span class="math inline">\(\Rightarrow X \sim \text{Bin}(100, 0.6)\)</span></p></li>
+</ul></li>
+<li><p>If <span class="math inline">\(X \sim \text{Bin}(n, p)\)</span> then</p>
+<p><span class="math display">\[
+P(X = r) = \binom{n}{r} p^r (1 - p)^{n - r}
+\]</span></p></li>
+<li><p>Example: Suppose <span class="math inline">\(X \sim \text{Bin}(3, 0.3)\)</span></p>
+<ul>
+<li><p><span class="math inline">\(P(X = 2) = P(\text{2 successes and 1 failure})\)</span></p></li>
+<li><p><span class="math inline">\(P(SSF) = P(SF S) = P(F SS) = p^2 (1 - p)\)</span></p></li>
+<li><p>So <span class="math inline">\(P(X = 2) = 3 \, p^2 (1 - p) = \binom{3}{2} p^2 (1 - p)\)</span></p></li>
+</ul></li>
+<li><p>Claim: # of ways to order <span class="math inline">\(r\)</span> successes and <span class="math inline">\(n - r\)</span> failures is <span class="math inline">\(\binom{n}{r}\)</span></p>
+<ul>
+<li><em>Proof</em>: Position <span class="math inline">\(1, 2, \dots, n\)</span>. Choose <span class="math inline">\(r\)</span> out of these to be <span class="math inline">\(S\)</span>, rest are <span class="math inline">\(F\)</span></li>
+</ul></li>
+<li><p>Example: <span class="math inline">\(X =\)</span> number of boys out of 5 children, <span class="math inline">\(p = 0.51\)</span></p>
+<ul>
+<li><span class="math inline">\(P(X = 2) = \binom{5}{2} (0.51)^2 (0.49)^3 = 0.306\)</span></li>
+</ul>
+<p><span class="math display">\[
+\binom{5}{2} = \frac{5 \cdot 4}{2 \cdot 1} = 10
+\]</span></p></li>
+<li><p><em>CDF</em>:</p>
+<p><span class="math display">\[
+P(X \leq x) = \sum_{r=0}^{x} P(X = r) = \sum_{r=0}^{x} \binom{n}{r} p^r (1 - p)^{n - r}
+\]</span></p>
+<ul>
+<li>No simpler form.</li>
+</ul></li>
+<li><p><em>Mean</em>:</p>
+<p><span class="math display">\[
+E(X) = \sum_{r=0}^{n} r \binom{n}{r} p^r (1 - p)^{n - r} = n \, p
+\]</span></p>
+<ul>
+<li>Expected number of successes <span class="math inline">\(=\)</span> number of trials <span class="math inline">\(\times P(\text{success})\)</span></li>
+</ul></li>
+<li><p><em>Variance</em>:</p>
+<p><span class="math display">\[
+\text{Var}(X) = n \, p (1 - p)
+\]</span></p>
+<ul>
+<li><p><span class="math inline">\(n \uparrow \Rightarrow \text{Var} \uparrow\)</span></p></li>
+<li><p>Variance is highest at <span class="math inline">\(p = 0.5\)</span>, smallest at <span class="math inline">\(p = 0\)</span> or <span class="math inline">\(1\)</span>.</p></li>
+</ul></li>
+<li><p><a href="../03_prob/03_prob_discrete.html#binomial-distribution">Binomial functions in R</a>:</p>
+<ul>
+<li><code>dbinom()</code> = <span class="math inline">\(P(X = r)\)</span></li>
+<li><code>pbinom()</code> = <span class="math inline">\(P(X \leq x)\)</span></li>
+<li><code>qbinom()</code> = quantile</li>
+<li><code>rbinom()</code> = random generation</li>
+</ul></li>
+</ul>
+</section>
+<section id="poisson-distribution" class="level1">
+<h1>Poisson Distribution</h1>
+<ul>
+<li><p>Counts of rare events over some period of time or space.</p></li>
+<li><p>Example: # of typhoid cases in a year.</p></li>
+<li><p>Example: # of bacterial colonies on an agar plate.</p></li>
+<li><p>Assume:</p>
+<ol type="1">
+<li>For small time interval <span class="math inline">\(\Delta t\)</span>, <span class="math inline">\(P(\text{success in } \Delta t)\)</span> is about <span class="math inline">\(\lambda \Delta t\)</span> (for some <span class="math inline">\(\lambda\)</span>).</li>
+<li><span class="math inline">\(P(\text{more than 2 successes in } \Delta t) \approx 0\)</span></li>
+<li>Stationarity: <span class="math inline">\(P(\text{success})\)</span> about the same for all time intervals.</li>
+<li>Independence: One success has no bearing on any other success.
+<ul>
+<li>Violated, e.g., in epidemics.</li>
+</ul></li>
+</ol></li>
+<li><p>Then <span class="math inline">\(X =\)</span> number of “successes” in time <span class="math inline">\(t\)</span></p>
+<ul>
+<li><span class="math inline">\(X \sim \text{Pois}(\mu)\)</span> such that <span class="math inline">\(\mu = \lambda t\)</span></li>
+</ul>
+<p><span class="math display">\[
+P(X = k) = \frac{e^{-\mu} \, \mu^k}{k!}
+\]</span></p></li>
+<li><p><em>Note</em>:</p>
+<ul>
+<li>If <span class="math inline">\(X \sim \text{Pois}(\mu)\)</span> over time <span class="math inline">\(t\)</span> then <span class="math inline">\(X \sim \text{Pois}(c \mu)\)</span> over time <span class="math inline">\(ct\)</span>.</li>
+</ul></li>
+<li><p>Example:</p>
+<ul>
+<li><p><span class="math inline">\(X =\)</span> number of typhoid deaths in 1 year</p>
+<p><span class="math inline">\(X \sim \text{Pois}(4.6)\)</span></p></li>
+<li><p>Let <span class="math inline">\(Y =\)</span> number of typhoid deaths in half a year</p>
+<p><span class="math inline">\(Y \sim \text{Pois}\left(\frac{4.6}{2}\right) = \text{Pois}(2.3)\)</span></p></li>
+</ul></li>
+<li><p>Example:</p>
+<ul>
+<li><p><span class="math inline">\(X =\)</span> number of bacteria colonies in 100 cm²</p>
+<p><span class="math inline">\(X \sim \text{Pois}(2)\)</span></p></li>
+<li><p><span class="math inline">\(Y =\)</span> number of bacteria colonies in 1000 cm²</p>
+<p><span class="math inline">\(Y \sim \text{Pois}(20)\)</span></p></li>
+</ul></li>
+<li><p>Mean: If <span class="math inline">\(X \sim \text{Pois}(\mu)\)</span>, <span class="math inline">\(E(X) = \mu\)</span></p></li>
+<li><p>Variance: <span class="math inline">\(\text{Var}(X) = \mu\)</span></p></li>
+<li><p>If <span class="math inline">\(X \sim \text{Pois}(\lambda_1)\)</span> and <span class="math inline">\(Y \sim \text{Pois}(\lambda_2)\)</span> (and are independent), then <span class="math inline">\(X + Y \sim \text{Pois}(\lambda_1 + \lambda_2)\)</span></p>
+<ul>
+<li>Not generally true for other distributions (e.g., not for binomial).</li>
+</ul></li>
+<li><p><em>Relation to Binomial</em>:</p>
+<ul>
+<li>If <span class="math inline">\(X \sim \text{Bin}(n, p)\)</span>
+<ul>
+<li><span class="math inline">\(n\)</span> large <span class="math inline">\((&gt; 100)\)</span></li>
+<li><span class="math inline">\(p\)</span> small <span class="math inline">\((&lt; 0.01)\)</span></li>
+<li><span class="math inline">\(np\)</span> intermediate</li>
+</ul></li>
+<li>Then <span class="math inline">\(X \approx \text{Pois}(np)\)</span>
+<ul>
+<li>(Approximate)</li>
+</ul></li>
+</ul></li>
+<li><p>This is used to justify Poisson in cases where we know <span class="math inline">\(n\)</span> is large, but we don’t know it exactly.</p></li>
+<li><p>Example: <span class="math inline">\(X =\)</span> number of RNA molecules of a gene observed (on the order of 100)</p>
+<ul>
+<li>We don’t know <span class="math inline">\(n\)</span> but know it’s large.</li>
+<li>We don’t know <span class="math inline">\(p\)</span> but we know it’s small (because <span class="math inline">\(X \approx 100\)</span>).</li>
+<li>Use Poisson to model <span class="math inline">\(X\)</span>!</li>
+</ul></li>
+<li><p><a href="../03_prob/03_prob_discrete.html#poisson-distribution">Poisson in R</a></p></li>
+</ul>
+</section>
+<section id="exercises-4.244.29" class="level1">
+<h1>Exercises (4.24–4.29)</h1>
+<ul>
+<li><p>number of episodes for 1 child to have otitis media (ear disease) in 1 year is <span class="math inline">\(\text{Pois}(1.6)\)</span></p></li>
+<li><p><strong>4.24</strong>: What is the probability of getting 3 or more episodes in the first 2 years of life?</p></li>
+</ul>
+<ul>
+<li><strong>4.25</strong>: What is the probability of not getting any in the 1st year?</li>
+</ul>
+<ul>
+<li><strong>4.26</strong>: Probability two siblings will both have 3 or more episodes in the first year of life?</li>
+</ul>
+<ul>
+<li><strong>4.27</strong>: What is the probability exactly 1 sibling will have 3 or more episodes (out of 2)?</li>
+</ul>
+<ul>
+<li><strong>4.28</strong>: What is the probability neither will have 3 or more episodes in the first 2 years?</li>
+</ul>
+<ul>
+<li><strong>4.29</strong>: What is the expected number of siblings in a 2-sibling household who will have 3 or more episodes in the first two years?</li>
 </ul>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">

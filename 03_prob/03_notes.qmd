@@ -1,0 +1,491 @@
+---
+title: "Chapter 3 Notes: Probability"
+author: "David Gerard"
+format: html
+date: today
+---
+
+```{r}
+#| echo: false
+```
+
+- **Sample Space**: Set of all possible outcomes.
+- **Event**: Any set of outcomes (subset of sample space).
+- **Probability of Event**: Frequency of the event over a large number of trials.
+
+- **Example**: Tuberculin skin test to detect tuberculosis
+
+  | Outcome     | Prob |
+  |-------------|------|
+  | Positive    | 0.1  |
+  | Negative    | 0.7  |
+  | Uncertain   | 0.2  |
+
+- **Sample Space**: $\{ \text{Positive}, \text{Negative}, \text{Uncertain} \}$
+- **Possible Events**:
+  - $\{ \text{Positive} \}$: 0.1
+  - $\{ \text{Negative} \}$: 0.7
+  - $\{ \text{Uncertain} \}$: 0.2
+  - $\{ \text{Positive, Negative} \}$: 0.8
+  - $\{ \text{Positive, Uncertain} \}$: 0.3
+  - $\{ \text{Negative, Uncertain} \}$: 0.9
+  - $\{ \text{Positive, Negative, Uncertain} \}$: 1
+
+- **Notation**:
+  - $P(E) =$ Probability of event $E$
+  - $E = \{Positive, Negative\}$, thus $P(E) = 0.8$
+
+- Two events are **mutually exclusive** if they cannot both happen at the same time.
+
+- **Example**:
+  - $E_1 = \{\text{Positive, Negative}\}$
+  - $E_2 = \{\text{Uncertain, 3}\}$
+  - $E_3 = \{\text{Negative, Uncertain}\}$
+
+  - $E_1$ and $E_2$ are mutually exclusive.
+  - $E_1$ and $E_3$ can both happen if the outcome is "Negative."
+  - $E_2$ and $E_3$ can both happen if the outcome is "Uncertain."
+
+- "Or rule": If $E_1$ and $E_2$ are mutually exclusive, then:
+  $$P(E_1 \cup E_2) = P(E_1) + P(E_2)$$
+  This represents the probability of either $E_1$ or $E_2$ occurring.
+
+- Mutually Exclusive Events:
+  
+  ![](./figs/me.png)\ 
+
+- Non-mutually Exclusive Events: 
+
+  ![](./figs/not_me.png)\ 
+  
+- The **complement** of $A$, denoted $\overline{A}$, is the event that $A$ does not occur.
+
+- **Example**:
+  - $E_1 = \{\text{Positive, Negative}\}$
+  - $\overline{E_1} = \{\text{Uncertain}\}$
+
+- $P(\{\text{Sample Space}\}) = 1$
+
+- **Complement rule**: $P(\overline{A}) = 1 - P(A) \Rightarrow P(A) = 1 - P(\overline{A})$
+
+  ![](./figs/complement.png)\ 
+
+- **Example**: 
+  - $P(\text{Uncertain}) = 1 - P(\{\text{Positive, Negative}\}) = 1 - 0.8 = 0.2$
+
+- **Independent Events**:
+  - ("And rule") Two events are **independent** if
+    $$P(A \cap B) = P(A) \cdot P(B)$$
+    This represents the probability of both $A$ and $B$ occurring.
+
+  
+- Intersection:
+
+  ![](./figs/intersection.png)\ 
+  
+- **Example**:
+  - $P(\text{Mother DBP > 90}) = 0.1$
+  - $P(\text{Father DBP > 90}) = 0.2$
+
+  - If independent,
+    $$P(A \cap B) = 0.1 \cdot 0.2 = 0.02$$
+
+  - **Why called "independent"?**
+    - $A$ is 10% of sample space area.
+    - $A$ is 10% of $B$'s area.
+    - $B$ becomes the sample space if it occurs, and we don’t know $A$, so $A$ still has a 10% chance, even if we know $B$.
+    - Therefore, $B$ occurring or not occurring does not change the probability of $A$.
+
+- **Exercise**:
+  - $A^+$: Doctor $A$ diagnoses $+$
+  - $B^+$: Doctor $B$ diagnoses $+$
+  
+  - $P(A^+) = 0.1$, $P(B^+) = 0.17$, $P(A^+ \cap B^+) = 0.09$
+  
+  - Are the events independent?
+```{block}
+#| eval: false
+#| echo: false
+- $0.1 \cdot 0.17 = 0.017 \neq 0.09$
+- Therefore, the events are **not independent**.
+```
+
+- Events $A_1, A_2, \dots, A_n$ are **mutually independent** if
+  $$P(A_1 \cap A_2 \cap \dots \cap A_n) = \prod_{i=1}^{n} P(A_i)$$
+
+- **Addition Law of Probability**:
+  $$P(A \cup B) = P(A) + P(B) - P(A \cap B)$$
+
+- **Exercise**: What is the probability that Doctor $A$ or $B$ diagnoses $+$?
+
+```{block}
+#| eval: false
+#| echo: false
+$$P(A^+ \cup B^+) = 0.1 + 0.17 - 0.08 = 0.19$$
+```
+
+- **Note**: $P(A \cap B) = 0$ if $A$ and $B$ are mutually exclusive.
+
+- **Conditional Probability**:
+  $$P(A | B) = \frac{P(A \cap B)}{P(B)}$$
+  - This represents the "probability of $A$ given $B$."
+
+  - Interpretation: What proportion of $B$ is also $A$?
+
+- If $A \perp B$, then $P(A | B) = P(A)$.
+  - This indicates **independence**.
+
+  - **Proof**:
+    $$P(A | B) = \frac{P(A \cap B)}{P(B)} = \frac{P(A) \cdot P(B)}{P(B)} = P(A)$$
+
+- **Relative Risk of $B$ given $A$**:
+  $$\frac{P(B | A)}{P(B | \overline{A})}$$
+  - This is a measure of dependence between $A$ and $B$.
+    - $=$ 1 $\Rightarrow$ Independent
+    - $<$ 1 $\Rightarrow B$ less likely given $A$
+    - $>$ 1 $\Rightarrow B$ more likely given $A$
+
+- **Exercise**:
+  - $P(A^+) = 0.1$, $P(B^+) = 0.17$, $P(A^+ \cap B^+) = 0.08$
+  
+  - Questions:
+    - What is $P(A^+ | B^+)$?
+    - What is $P(B^+ | A^+)$?
+
+```{block}
+#| eval: false
+#| echo: false
+$$P(A^+ | B^+) = \frac{0.08}{0.17}$$
+$$P(B^+ | A^+) = \frac{0.08}{0.1}$$
+
+
+$$P(B^+ | \overline{A^+}) = \frac{P(B^+ \cap \overline{A^+})}{P(\overline{A^+})} = \frac{0.09}{1 - 0.1}$$
+where
+$$P(B^+) = P(B^+ \cap A^+) + P(B^+ \cap \overline{A^+}) = 0.08 + 0.09 = 0.17$$
+Therefore,
+$$P(B^+ \cap \overline{A^+}) = 0.09$$
+```
+
+- **Note**: In biostatistics, we typically write $\overline{A^+}$ as $A^-$.
+
+- **Law of Total Probability**:
+  $$P(A) = P(A \cap B) + P(A \cap \overline{B})$$
+  $$= P(A | B) P(B) + P(A | \overline{B}) P(\overline{B})$$
+
+- Visualization of Total Probability:
+  
+  ![](./figs/lotp.png)\ 
+    
+- **Exercise**:
+  - Define:
+    - $A = \{\text{Mammogram } +\}$
+    - $B = \{\text{Breast Cancer } +\}$
+
+  - Given:
+    - $P(B | A) = 0.0002$
+    - $P(B | \overline{A}) = 0.1$
+    - $P(A) = 0.07$
+
+  - Question: What is $P(B)$?
+
+```{block}
+#| eval: false
+#| echo: false
+$$P(B) = P(B | \overline{A}) \cdot P(\overline{A}) + P(B | A) \cdot P(A)$$
+$$= 0.0002 \cdot 0.93 + 0.1 \cdot 0.07$$
+```
+  
+- More generally, if $A_1, A_2, \dots, A_k$ partition the sample space, then
+  $$P(B) = \sum_{i=1}^k P(B | A_i) \cdot P(A_i)$$
+  
+- Visualization of Law of Total Probability:
+
+  ![](./figs/lotp.png)\ 
+
+- **Example**:
+  - Let:
+    - $A_1 = \{\text{Age 60-64}\}$
+    - $A_2 = \{\text{Age 65-69}\}$
+    - $A_3 = \{\text{Age 70-74}\}$
+    - $A_4 = \{\text{Age 75+}\}$
+    - $B = \{\text{Cataract}\}$
+
+  - Given probabilities:
+
+    | $A_i$          | $P(A_i)$ | $P(B | A_i)$ |
+    |----------------|----------|--------------|
+    | $A_1$ (60-64)  | 0.45     | 0.24         |
+    | $A_2$ (65-69)  | 0.28     | 0.46         |
+    | $A_3$ (70-74)  | 0.20     | 0.88         |
+    | $A_4$ (75+)    | 0.07     | 0.53         |
+
+  - To calculate $P(B)$:
+    $$P(B) = \sum_{i=1}^4 P(B | A_i) \cdot P(A_i)$$
+    $$= (0.24 \cdot 0.45) + (0.46 \cdot 0.28) + (0.88 \cdot 0.20) + (0.53 \cdot 0.07)$$
+
+- **Predictive Value Positive (PV+)** (also called **Precision**):
+  $$PV+ = P(\text{disease | test+})$$
+
+- **Predictive Value Negative (PV-)**:
+  $$PV- = P(\text{no disease | test-})$$
+
+- **Confusion Matrix**:
+
+  <table align="center" style="border:none; background:transparent; text-align:center;">
+  <tbody><tr>
+  <td style="border:none;" rowspan="2">
+  </td>
+  <td style="border:none;">
+  </td>
+  <td style="background:#bbeeee;" colspan="2"><b>Test</b>
+  </td>
+  <td>
+  </td></tr>
+  <tr>
+  <td></td>
+  <td style="background:#ccffff;">Test Positive $T^+$
+  </td>
+  <td style="background:#aadddd;">Test Negative $T^-$
+  </td>
+  <td></td>
+  <td></td>
+  </tr>
+  
+  <tr>
+  <td rowspan="2"><b>Truth</b></div>
+  </td>
+  <td style="background:#ffffcc;">Positive $D^+$
+  </td>
+  <td style="background:#ccffcc;">True Positive (TP)
+  </td>
+  <td style="background:#ffdddd;">False Negative (FN) <br> (Type II Error)
+  </td>
+  <td style="background:#eeffee;">Sensitivity <br> (True Positive Rate, Recall, Power) <br> $\frac{TP}{D^+}$
+  </td>
+  <td style="background:#ffeeee;">False Negative Rate <br> (Type II Error Rate) <br> $\frac{FN}{D^+}$
+  </td>
+  </tr>
+  
+  <tr>
+  <td style="background:#ddddaa;">Negative $D^-$
+  </td>
+  <td style="background:#ffcccc;">False Positive (FP) <br> (Type I Error)
+  </td>
+  <td style="background:#bbeebb;">True Negative (TN)
+  </td>
+  <td style="background:#eedddd;">False Positive Rate <br> (Type I Error Rate) <br> $\frac{FP}{D^-}$
+  </td>
+  <td style="background:#ddeedd;"> Specificity <br>(True Negative Rate) <br> $\frac{TN}{D^-}$
+  </td>
+  </tr>
+  
+  <tr>
+  <td style="border:none;" rowspan="2">
+  </td>
+  <td style="border-top:double silver; border-right:double silver;">Prevalence <br> $\frac{D^+}{D^+ + D^-}$
+  </td>
+  <td style="background:#eeffee;">Positive Predictive Value <br> (Precision) <br> $PV^+ = \frac{TP}{T^+}$
+  </td>
+  <td style="background:#ffeeee;border-right:double silver;">False Omission Rate <br> $\frac{FN}{T^-}$
+  </td>
+  <td>
+  </td>
+  <td>
+  </td>
+  </tr>
+  
+  <tr>
+  <td>
+  </td>
+  <td style="background:#eedddd;">False Discovery Rate <br> $\frac{FP}{T^+}$
+  </td>
+  <td style="background:#ddeedd;">Negative Predictive Value <br> $PV^- = \frac{TN}{T^-}$
+  </td>
+  <td>
+  </td>
+  <td>
+  </td>
+  </tr>
+  </tbody></table>
+
+- **Example**:
+  - Let:
+    - $A = \{\text{Mammogram } +\}$
+    - $B = \{\text{Breast Cancer } +\}$
+  - Given:
+    - $P(B | A) = 0.1$
+    - $P(B | \overline{A}) = 0.0002$
+
+  - Calculate $PV+$ and $PV-$:
+    - $PV+ = P(B | A) = 0.1$
+    - $PV- = P(\overline{B} | \overline{A}) = 1 - P(B | \overline{A}) = 1 - 0.0002 = 0.9998$
+
+- **Sensitivity**:
+  $$\text{Sensitivity} = P(\text{test } + | \text{disease } +)$$
+  - This represents the **True Positive Rate**.
+
+- **Specificity**:
+  $$\text{Specificity} = P(\text{test } - | \text{disease } -)$$
+  - This represents the **True Negative Rate**.
+
+- **Note**: "Test" can also refer to other indicators, such as symptoms.
+
+- **Example**:
+  - 90% of individuals with lung cancer are smokers.
+  - 30% of individuals without lung cancer are smokers.
+
+  - **Question**: What are the sensitivity and specificity of smoking as a screening test?
+    - Let:
+      - $A = \{\text{smoker}\}$
+      - $B = \{\text{lung cancer}\}$
+    - **Solution**:
+      - Sensitivity:
+        $$\text{Sensitivity} = P(A | B) = 0.9$$
+      - Specificity:
+        $$\text{Specificity} = P(\overline{A} | \overline{B}) = 1 - P(A | \overline{B}) = 1 - 0.3 = 0.7$$
+
+- **Bayes' Rule**:
+  $$P(B | A) = \frac{P(A | B) \cdot P(B)}{P(A)}$$
+  - where:
+    - $P(B)$ is the **prior** probability.
+    - $P(B | A)$ is the **posterior** probability.
+
+  - Typically, $P(A)$ is obtained using the law of total probability:
+    $$P(A) = P(A | B) P(B) + P(A | \overline{B}) P(\overline{B})$$
+
+- **Motivation**:
+  - To find $P(\text{disease} | \text{test}+)$ (i.e., $PV+$), you typically know:
+    - $P(\text{test} + | \text{disease})$ (Sensitivity)
+    - $P(\text{test} - | \text{no disease})$ (Specificity)
+
+  - Formula for $PV+$:
+    $$PV+ = \frac{\text{Sensitivity} \times X}{\text{Sensitivity} \times X + \text{Specificity} \times (1 - X)}$$
+    where $X = P(B)$ (prevalence of disease).
+
+- **Example**:
+  - 84% of hypertensives and 24% of normotensives are classified as hypertensive by a machine.
+  - Prevalence of hypertension is 20%.
+
+  - **Question**: What are $PV+$ and $PV-$?
+    - Let:
+      - $A = \{\text{test} +\}$
+      - $B = \{\text{hypertensive}\}$
+
+- **Calculating $PV+$ and $PV-$**:
+
+  - Given:
+    - $P(B) = 0.2 \Rightarrow P(\overline{B}) = 0.8$
+    - $P(A | B) = 0.84$
+    - $P(A | \overline{B}) = 0.23 \Rightarrow P(\overline{A} | \overline{B}) = 1 - 0.23 = 0.77$
+
+  - First, calculate $P(A)$ using the law of total probability:
+    $$P(A) = P(A | B) P(B) + P(A | \overline{B}) P(\overline{B})$$
+    $$= (0.84 \cdot 0.2) + (0.23 \cdot 0.8)$$
+    $$= 0.352$$
+    - Therefore, $P(\overline{A}) = 1 - P(A) = 0.648$
+
+  - Calculate $PV+$:
+    $$PV+ = \frac{P(A | B) \cdot P(B)}{P(A)} = \frac{0.84 \cdot 0.2}{0.352} = 0.48$$
+
+  - Calculate $PV-$:
+    $$PV- = \frac{P(\overline{A} | \overline{B}) \cdot P(\overline{B})}{P(\overline{A})} = \frac{0.77 \cdot 0.8}{0.648} = 0.95$$
+
+- **Recall**: Law of Total Probability may include more than 2 events.
+  $$P(A) = P(A | B_1) P(B_1) + P(A | B_2) P(B_2) + \dots + P(A | B_k) P(B_k)$$
+
+- **Prevalence**:
+  $$\text{Prevalence} = P(\text{disease} +)$$
+  - Proportion of the population that has the disease.
+
+- **Cumulative Incidence**:
+  $$\text{Cumulative Incidence} = P(\text{will get disease | never had it})$$
+
+- **Exercise 3.53 - 3.63 of Rosner**:
+  - Define:
+    - $M^+ =$ Mother smokes
+    - $F^+ =$ Father smokes
+    - $O^+ =$ Offspring has asthma
+
+  - Given probabilities:
+
+    | Scenario     | $P(O^+ | \text{Scenario})$ |
+    |--------------|----------------------------|
+    | $M^+ \cap F^+$    | 0.15                       |
+    | $M^+ \cap F^-$    | 0.13                       |
+    | $M^- \cap F^+$    | 0.06                       |
+    | $M^- \cap F^-$    | 0.04                       |
+
+1. **Calculate** $P(M^+ \cap F^+)$:
+```{block}
+#| echo: false
+#| eval: false
+- Given: $P(M^+) = 0.4$, $P(F^+) = 0.5$, $M^+ \perp F^+$
+- Answer: $P(M^+ \cap F^+) = P(M^+) \cdot P(F^+) = 0.4 \cdot 0.5 = 0.2$
+```
+
+2. **Find** $P(F^+ | M^-)$:
+```{block}
+#| echo: false
+#| eval: false
+- Since $M^+$ and $F^+$ are independent, $P(F^+ | M^-) = P(F^+) = 0.5$.
+```
+
+3. **Given**:
+   - $P(M^+ | F^+) = 0.6$
+   - $P(M^+ | F^-) = 0.2$
+   - $P(F^+) = 0.5$
+
+   - Calculate $P(F^+ \cap M^-)$:
+   
+```{block}
+#| echo: false
+#| eval: false
+$$P(F^+ \cap M^-) = P(M^- | F^+) \cdot P(F^+) = (1 - 0.6) \cdot 0.5 = 0.4 \cdot 0.5 = 0.2$$
+```
+
+4. **Is** $F^+ \perp M^+$?
+```{block}
+#| echo: false
+#| eval: false
+- Calculate $P(M^+)$ using total probability:
+ $$P(M^+) = P(M^+ | F^+) \cdot P(F^+) + P(M^+ | F^-) \cdot P(F^-)$$
+ $$= (0.6 \cdot 0.5) + (0.2 \cdot 0.5) = 0.4$$
+- Compare $P(M^+) \cdot P(F^+)$ with $P(M^+ \cap F^+)$:
+ $$P(M^+) \cdot P(F^+) = 0.4 \cdot 0.5 = 0.2 \neq P(M^+ \cap F^+)$$
+- **Conclusion**: $M^+$ and $F^+$ are **not independent**.
+```
+
+5. **Find** $P(O^+)$:
+```{block}
+#| echo: false
+#| eval: false
+Using the law of total probability:
+$$P(O^+) = P(O^+ | M^+ \cap F^+) P(M^+ \cap F^+) + P(O^+ | M^+ \cap F^-) P(M^+ \cap F^-)$$
+$$+ P(O^+ | M^- \cap F^+) P(M^- \cap F^+) + P(O^+ | M^- \cap F^-) P(M^- \cap F^-)$$
+
+Substituting the values:
+$$= (0.15 \cdot 0.6 \cdot 0.5) + (0.13 \cdot 0.2 \cdot 0.5) + (0.06 \cdot 0.4 \cdot 0.5) + (0.04 \cdot 0.8 \cdot 0.5)$$
+$$= 0.084$$
+```
+
+6. **Calculate** $P(F^+ | O^+)$:
+```{block}
+#| echo: false
+#| eval: false
+$$P(F^+ | O^+) = \frac{P(F^+ \cap O^+)}{P(O^+)}$$
+$$= \frac{P(O^+ | M^+ \cap F^+) P(M^+ \cap F^+) + P(O^+ | M^- \cap F^+) P(M^- \cap F^+)}{P(O^+)}$$
+$$= \frac{(0.15 \cdot 0.6 \cdot 0.5) + (0.06 \cdot 0.4 \cdot 0.5)}{0.084}$$
+$$= 0.65$$
+```
+
+7. **Calculate** $P(M^+ | O^+)$:
+```{block}
+#| echo: false
+#| eval: false
+$$P(M^+ | O^+) = \frac{P(O^+ \cap M^+)}{P(O^+)}$$
+$$= \frac{P(O^+ | M^+ \cap F^+) P(M^+ \cap F^+) + P(O^+ | M^+ \cap F^-) P(M^+ \cap F^-)}{P(O^+)}$$
+
+Substitute values as needed to complete the calculation.
+
+**Etc.**
+```
