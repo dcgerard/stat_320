@@ -363,7 +363,7 @@ $$= 0.0002 \cdot 0.93 + 0.1 \cdot 0.07$$
     where $X = P(B)$ (prevalence of disease).
 
 - **Example**:
-  - 84% of hypertensives and 24% of normotensives are classified as hypertensive by a machine.
+  - 84% of hypertensives and 23% of normotensives are classified as hypertensive by a machine.
   - Prevalence of hypertension is 20%.
 
   - **Question**: What are $PV+$ and $PV-$?
