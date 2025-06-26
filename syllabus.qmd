@@ -57,22 +57,30 @@ knitr::kable(gradedf)
 <!--     - I think we have more students than classes, so for some of you I will ask that you convert your exam reference sheets into a Quarto document. -->
     
 - Participation:
-    - Show up to class. Stay off your phones. Try out the in-class exercises (you don't have to complete them or turn them in, just try them).
-    - I'll only take points off here if you miss a lot of class or if you are doing something else when you should be trying out the in-class exercises.
+  - Show up to class. Stay off your phones. Engage with the in-class exercises. You don’t need to complete or turn in the exercises—just make a genuine effort to try them.
+  - Participation points will only be deducted under the following circumstances:
+    - You miss many classes without explanation. Occasional absences are fine. I will take attendance most days, and if you start missing a lot of class, I’ll send you warnings about the impact on your grade before deducting any points.
+    - You’re not making a good-faith effort on in-class exercises. For example, if you're clearly working on something else, I’ll make a note and begin sending you warnings before deducting points. Again, you just need to *try* the exercises—you don’t need to complete them perfectly.
+    - You engage in behavior that is clearly disrespectful to me or your classmates. This includes things like repeated interruptions or dismissive comments. Our classroom is a space for learning, where everyone is respected and discourse remains civil and scholarly.
 
-- Exams: 
-    - Not officially cumulative. But all material in Statistics builds off of previous material, so effectively cumulative.
-    - You can bring a 1 page (8.5'' by 11'' piece of paper) reference sheet that is handwritten (no typing). You can use both sides.
-    - No other resources are allowed. If you touch your phone/computer/smart watch/smart glasses/etc during the exam then that is an automatic fail for the course.
-    - I will drop your lowest exam score. Because of this:
-        - There will be no make up exams. You will just use your drop if you have to miss one.
-        - You cannot leave the room during the exam unless you turn it in. If it is an emergency and you need to leave the room, then you can use your drop. You will need to be in contact with [ASAC](https://www.american.edu/provost/academic-access/) for an official accommodation if you are unable to stay in the room for 1 hour and 15 minutes.
-    - If you miss two exams, you should consider withdrawing from the class. The last day to withdraw from the course is 11/01/2024.
-    
-- Homeworks:
-    - To me (and most of you), homeworks are meant to solidify your understanding. To (some of) you, homeworks are meant to help you prepare for the exams. You can use generative AI for the homeworks if you want. But you won't get any other study aids, so I wouldn't use it except to check my work after I've done all of the problems.
-    - Lots of education research points to practice problems as the best form of learning, and just reading solutions (e.g. created by AI) as the worst form of learning. If you just use AI to get solutions on the homeworks, you should expect to have bad exam grades.
-    - I will drop your lowest homework score.
+
+- Exams
+  - Exams are not officially cumulative, but since statistical concepts build on one another, they are effectively cumulative.
+  -  You may bring **one handwritten reference sheet** (8.5'' × 11'', both sides). Typed sheets are **not** allowed.
+  - **No other resources are permitted.**
+    - If you touch your calculator, phone, computer, smartwatch, smart glasses, or any similar device during the exam, it will result in an **automatic fail for the course**.
+  - I will drop your lowest exam score. Because of this:
+    - **No make-up exams** will be offered. If you miss an exam, it will count as your drop.
+    - **You may not leave the room during the exam** unless you are turning it in.
+      - If you leave mid-exam (even for an emergency), it will count as your drop.
+      - If you are unable to remain in the room for the full 1 hour and 15 minutes, please contact [ASAC](https://www.american.edu/provost/academic-access/) to request an official accommodation.
+    - If you miss **two exams**, you should consider withdrawing from the course. The last day to withdraw is **October 31, 2025**.
+
+
+- Homeworks
+  - Homework assignments are designed to **reinforce your understanding of course concepts** and to **help you prepare for the exams**. You are permitted to use generative AI tools (e.g., ChatGPT) to assist with homework. However, I strongly recommend using such tools **only after you have made a sincere effort to solve the problems on your own**, such as checking your work or seeking clarification.
+  - Educational research consistently shows that **actively working through practice problems** is among the most effective ways to learn quantitative material. In contrast, **passively reading solutions—whether written by others or generated by AI—offers minimal learning benefit**. If you rely primarily on AI-generated solutions, you may not be adequately prepared for the exams.
+  - To allow some flexibility, **your lowest homework score will be dropped**.
 
 Usual grade cutoffs will be used:
 ```{r, echo = FALSE}
@@ -87,7 +95,6 @@ Individual assignments will not be curved. However, at the discretion of the ins
 # Late Work Policy
 
 - All assignments must be submitted on the day they are due.
-- Homeworks will typically be due on Mondays by end-of-day. 
 - Each student will have **two** three-day extensions, where you can turn in the assignment on Thursday by end-of-day. 
 - Please just let me know ahead of time that you will be using one of your two extensions. 
 - Please do **not** tell me why you need the extension. Any reason is a fine reason.
@@ -95,18 +102,17 @@ Individual assignments will not be curved. However, at the discretion of the ins
 
 # Important Dates
 
-- 09/27 (tentative): First exam (Chapters 1 through 5)
-- 10/11: Fall break (no class)
-- 11/01 (tentative): Second exam (Chapters 6 through 8)
-- 11/01: Last day to withdraw
-- 11/05: Election day (no class)
-- 11/26: Class meets via Zoom
-- 11/29: Thanksgiving break (no class)
-- 12/13 at **8:10AM-10:40AM**: Third exam (Chapters 9 through 11)
+- 09/01: Labor Day (no classes or office hours).
+- 09/29: (tentative): Exam 1 (Chapters 1 through 5)
+- 10/30: (tentative): Exam 2 (Chapters 6 though 8)
+- 10/31: Last day to withdraw.
+- 11/24: Classes meat online via Zoom (or a recorded lecture). No in-person class.
+- 11/27: Thanksgiving break (no classes or office hours).
+- TBD (sometime between 12/08 and 12/12): Exam 3 (Chapters 9 through 11).
 
 # Computing and Software
 
-We will use the R computing language to complete some assignment questions. R is free and may be downloaded from the R website (<http://cran.r-project.org/>). In addition, I highly recommend you interface with R through the free RStudio IDE (<https://www.rstudio.com/>). R and RStudio are also available on computers in the Anderson Computing Complex, the Center for Teaching, Research, and Learning Lab (CTRL) in Hurst Hall, in addition to various labs across campus. R Studio may also be run from your web browser using American University's [Virtual Applications System](https://americanuniversity.service-now.com/help/?id=sc_cat_item&sys_id=1fdf972fdbb3db00771cfce9af961985). Please see me during office hours if you have questions regarding R.
+We will use the R computing language to complete some assignment questions. R is free and may be downloaded from the R website (<http://cran.r-project.org/>). In addition, I highly recommend you interface with R through the free RStudio IDE (<https://www.rstudio.com/>). R and RStudio are also available on computers in the Anderson Computing Complex in addition to various labs across campus. R Studio may also be run from your web browser using American University's [Virtual Applications System](https://americanuniversity.service-now.com/help/?id=sc_cat_item&sys_id=1fdf972fdbb3db00771cfce9af961985). Please see me during office hours if you have questions regarding R.
 													
 # Data
 
@@ -136,5 +142,4 @@ The professor will use academic work that you complete for educational purposes 
 
 # Syllabus Change Policy
 
-This syllabus is a guide for the course and is subject to change with advanced notice. These changes may come via Canvas. Make sure to check Canvas announcements regularly. You are accountable for all such communications.
-
+This syllabus is a guide for the course and is subject to change with advanced notice. These changes may come via email or Canvas. Make sure to check Canvas and your university-supplied email regularly. You are accountable for all such communications.
