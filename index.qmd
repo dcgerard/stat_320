@@ -16,7 +16,6 @@ format: html
   - [Course Overview](./00_course_outline/00_overview.qmd)
 - 02 Descriptive Statistics
   - [Chapter 2 Notes (Descriptive Statistics)](./02_descriptive/02_notes.qmd)
-  - [Descriptive Statistics in R](./02_descriptive/02_descriptive.qmd)
 - 03 Probability
   - [Chapter 3 Notes (Probability)](./03_prob/03_notes.qmd)
   - [Confusion Matrix](./03_prob/03_confusion.qmd)

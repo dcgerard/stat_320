@@ -23,17 +23,20 @@ date: today
 
 - **Sample Space**: $\{ \text{Positive}, \text{Negative}, \text{Uncertain} \}$
 - **Possible Events**:
-  - $\{ \text{Positive} \}$: 0.1
-  - $\{ \text{Negative} \}$: 0.7
-  - $\{ \text{Uncertain} \}$: 0.2
-  - $\{ \text{Positive, Negative} \}$: 0.8
-  - $\{ \text{Positive, Uncertain} \}$: 0.3
-  - $\{ \text{Negative, Uncertain} \}$: 0.9
-  - $\{ \text{Positive, Negative, Uncertain} \}$: 1
+
+  | Event                                        | Prob |
+  |----------------------------------------------|------|
+  | $\{ \text{Positive} \}$                      | 0.1  |
+  | $\{ \text{Negative} \}$                      | 0.7  |
+  | $\{ \text{Uncertain} \}$                     | 0.2  |
+  | $\{ \text{Positive, Negative} \}$            | 0.8  |
+  | $\{ \text{Positive, Uncertain} \}$           | 0.3  |
+  | $\{ \text{Negative, Uncertain} \}$           | 0.9  |
+  | $\{ \text{Positive, Negative, Uncertain} \}$ | 1    |
 
 - **Notation**:
   - $P(E) =$ Probability of event $E$
-  - $E = \{Positive, Negative\}$, thus $P(E) = 0.8$
+  - If $E = \{\text{Positive, Negative}\}$, then $P(E) = 0.8$
 
 - Two events are **mutually exclusive** if they cannot both happen at the same time.
 
@@ -46,11 +49,20 @@ date: today
   - $E_1$ and $E_3$ can both happen if the outcome is "Negative."
   - $E_2$ and $E_3$ can both happen if the outcome is "Uncertain."
 
-- "Or rule": If $E_1$ and $E_2$ are mutually exclusive, then:
+::: {.callout-tip}
+## "Or rule"
+
+If $E_1$ and $E_2$ are mutually exclusive, then:
   $$P(E_1 \cup E_2) = P(E_1) + P(E_2)$$
-  This represents the probability of either $E_1$ or $E_2$ occurring.
+:::
+  
+- $E_1 \cup E_2$ = Either $E_1$ or $E_2$ or both occur.
+  - Read "$E_1$ or $E_2$".
 
 - Mutually Exclusive Events:
+  - The big blob is the entire sample space. 
+  - Each event is a circle. 
+  - Area of shapes are proportional to probability of event.
   
   ![](./figs/me.png)\ 
 
@@ -66,17 +78,29 @@ date: today
 
 - $P(\{\text{Sample Space}\}) = 1$
 
-- **Complement rule**: $P(\overline{A}) = 1 - P(A) \Rightarrow P(A) = 1 - P(\overline{A})$
+::: {.callout-tip}
+## Complement rule
+$$
+P(\overline{A}) = 1 - P(A) \Rightarrow P(A) = 1 - P(\overline{A})
+$$
+:::
 
   ![](./figs/complement.png)\ 
 
 - **Example**: 
   - $P(\text{Uncertain}) = 1 - P(\{\text{Positive, Negative}\}) = 1 - 0.8 = 0.2$
 
-- **Independent Events**:
-  - ("And rule") Two events are **independent** if
-    $$P(A \cap B) = P(A) \cdot P(B)$$
-    This represents the probability of both $A$ and $B$ occurring.
+
+::: {.callout-tip}
+## "And rule"
+Two events are **independent** if and only if
+    $$
+    P(A \cap B) = P(A) \cdot P(B)
+    $$
+:::
+    
+- $A \cap B$ = $A$ and $B$ both occur.
+  - Read "$A$ and $B$"
 
   
 - Intersection:
@@ -88,13 +112,15 @@ date: today
   - $P(\text{Father DBP > 90}) = 0.2$
 
   - If independent,
-    $$P(A \cap B) = 0.1 \cdot 0.2 = 0.02$$
+    $$
+    P(A \cap B) = 0.1 \cdot 0.2 = 0.02
+    $$
 
-  - **Why called "independent"?**
-    - $A$ is 10% of sample space area.
-    - $A$ is 10% of $B$'s area.
-    - $B$ becomes the sample space if it occurs, and we don’t know $A$, so $A$ still has a 10% chance, even if we know $B$.
-    - Therefore, $B$ occurring or not occurring does not change the probability of $A$.
+- **Why called "independent"?**
+  - $A$ is 10% of sample space area.
+  - $A$ is 10% of $B$'s area.
+  - $B$ becomes the sample space if it occurs, and we don’t know $A$, so $A$ still has a 10% chance, even if we know $B$.
+  - Therefore, $B$ occurring or not occurring does not change the probability of $A$.
 
 - **Exercise**:
   - $A^+$: Doctor $A$ diagnoses $+$
@@ -103,37 +129,45 @@ date: today
   - $P(A^+) = 0.1$, $P(B^+) = 0.17$, $P(A^+ \cap B^+) = 0.09$
   
   - Are the events independent?
-```{block}
-#| eval: false
-#| echo: false
-- $0.1 \cdot 0.17 = 0.017 \neq 0.09$
-- Therefore, the events are **not independent**.
-```
+    ```{block}
+    #| eval: false
+    #| echo: false
+    - $0.1 \cdot 0.17 = 0.017 \neq 0.09$
+    - Therefore, the events are **not independent**.
+    ```
 
 - Events $A_1, A_2, \dots, A_n$ are **mutually independent** if
-  $$P(A_1 \cap A_2 \cap \dots \cap A_n) = \prod_{i=1}^{n} P(A_i)$$
+  $$
+  P(A_1 \cap A_2 \cap \dots \cap A_n) = P(A_1) \times P(A_2) \times \cdots \times P(A_n) =  \prod_{i=1}^{n} P(A_i)
+  $$
 
-- **Addition Law of Probability**:
-  $$P(A \cup B) = P(A) + P(B) - P(A \cap B)$$
+::: {.callout-tip}
+## Addition Law of Probability
+$$P(A \cup B) = P(A) + P(B) - P(A \cap B)$$
+:::
 
-- **Exercise**: What is the probability that Doctor $A$ or $B$ diagnoses $+$?
+-   **Exercise**: What is the probability that Doctor $A$ or $B$ diagnoses $+$?
 
-```{block}
-#| eval: false
-#| echo: false
-$$P(A^+ \cup B^+) = 0.1 + 0.17 - 0.08 = 0.19$$
-```
+    ```{block}
+    #| eval: false
+    #| echo: false
+    $$P(A^+ \cup B^+) = 0.1 + 0.17 - 0.08 = 0.19$$
+    ```
 
 - **Note**: $P(A \cap B) = 0$ if $A$ and $B$ are mutually exclusive.
 
-- **Conditional Probability**:
-  $$P(A | B) = \frac{P(A \cap B)}{P(B)}$$
-  - This represents the "probability of $A$ given $B$."
+::: {.callout-tip}
+## Conditional Probability
 
-  - Interpretation: What proportion of $B$ is also $A$?
+$$P(A | B) = \frac{P(A \cap B)}{P(B)}$$
+:::
+
+- This represents the "probability of $A$ given $B$."
+  - We already know $B$ has occurred. Given this, what is the probability of $A$ occuring?
+  - What proportion of $B$ is also $A$?
 
 - If $A \perp B$, then $P(A | B) = P(A)$.
-  - This indicates **independence**.
+  - $A \perp B$ = $A$ and $B$ are independent.
 
   - **Proof**:
     $$P(A | B) = \frac{P(A \cap B)}{P(B)} = \frac{P(A) \cdot P(B)}{P(B)} = P(A)$$
@@ -152,25 +186,30 @@ $$P(A^+ \cup B^+) = 0.1 + 0.17 - 0.08 = 0.19$$
     - What is $P(A^+ | B^+)$?
     - What is $P(B^+ | A^+)$?
 
-```{block}
-#| eval: false
-#| echo: false
-$$P(A^+ | B^+) = \frac{0.08}{0.17}$$
-$$P(B^+ | A^+) = \frac{0.08}{0.1}$$
-
-
-$$P(B^+ | \overline{A^+}) = \frac{P(B^+ \cap \overline{A^+})}{P(\overline{A^+})} = \frac{0.09}{1 - 0.1}$$
-where
-$$P(B^+) = P(B^+ \cap A^+) + P(B^+ \cap \overline{A^+}) = 0.08 + 0.09 = 0.17$$
-Therefore,
-$$P(B^+ \cap \overline{A^+}) = 0.09$$
-```
+    ```{block}
+    #| eval: false
+    #| echo: false
+    $$P(A^+ | B^+) = \frac{0.08}{0.17}$$
+    $$P(B^+ | A^+) = \frac{0.08}{0.1}$$
+    
+    
+    $$P(B^+ | \overline{A^+}) = \frac{P(B^+ \cap \overline{A^+})}{P(\overline{A^+})} = \frac{0.09}{1 - 0.1}$$
+    where
+    $$P(B^+) = P(B^+ \cap A^+) + P(B^+ \cap \overline{A^+}) = 0.08 + 0.09 = 0.17$$
+    Therefore,
+    $$P(B^+ \cap \overline{A^+}) = 0.09$$
+    ```
 
 - **Note**: In biostatistics, we typically write $\overline{A^+}$ as $A^-$.
 
-- **Law of Total Probability**:
-  $$P(A) = P(A \cap B) + P(A \cap \overline{B})$$
-  $$= P(A | B) P(B) + P(A | \overline{B}) P(\overline{B})$$
+
+::: {.callout-tip}
+## Law of Total Probability
+\begin{align*}
+P(A) &= P(A \cap B) + P(A \cap \overline{B})\\
+     &= P(A | B) P(B) + P(A | \overline{B}) P(\overline{B})
+\end{align*}
+:::
 
 - Visualization of Total Probability:
   
@@ -182,25 +221,26 @@ $$P(B^+ \cap \overline{A^+}) = 0.09$$
     - $B = \{\text{Breast Cancer } +\}$
 
   - Given:
-    - $P(B | A) = 0.0002$
-    - $P(B | \overline{A}) = 0.1$
+    - $P(B | \overline{A}) = 0.0002$
+    - $P(B | A) = 0.1$
     - $P(A) = 0.07$
 
   - Question: What is $P(B)$?
 
-```{block}
-#| eval: false
-#| echo: false
-$$P(B) = P(B | \overline{A}) \cdot P(\overline{A}) + P(B | A) \cdot P(A)$$
-$$= 0.0002 \cdot 0.93 + 0.1 \cdot 0.07$$
-```
+    ```{block}
+    #| eval: false
+    #| echo: false
+    $$P(B) = P(B | \overline{A}) \cdot P(\overline{A}) + P(B | A) \cdot P(A)$$
+    $$= 0.0002 \cdot 0.93 + 0.1 \cdot 0.07$$
+    ```
   
 - More generally, if $A_1, A_2, \dots, A_k$ partition the sample space, then
   $$P(B) = \sum_{i=1}^k P(B | A_i) \cdot P(A_i)$$
+  - Partition: They are all mutually exclusive and together they make up the entire sample space.
   
 - Visualization of Law of Total Probability:
 
-  ![](./figs/lotp.png)\ 
+  ![](./figs/lotp2.png)\ 
 
 - **Example**:
   - Let:
@@ -214,20 +254,26 @@ $$= 0.0002 \cdot 0.93 + 0.1 \cdot 0.07$$
 
     | $A_i$          | $P(A_i)$ | $P(B | A_i)$ |
     |----------------|----------|--------------|
-    | $A_1$ (60-64)  | 0.45     | 0.24         |
+    | $A_1$ (60-64)  | 0.45     | 0.024         |
     | $A_2$ (65-69)  | 0.28     | 0.46         |
     | $A_3$ (70-74)  | 0.20     | 0.88         |
     | $A_4$ (75+)    | 0.07     | 0.53         |
 
   - To calculate $P(B)$:
-    $$P(B) = \sum_{i=1}^4 P(B | A_i) \cdot P(A_i)$$
-    $$= (0.24 \cdot 0.45) + (0.46 \cdot 0.28) + (0.88 \cdot 0.20) + (0.53 \cdot 0.07)$$
+    \begin{align*}
+    P(B) &= \sum_{i=1}^4 P(B | A_i) \cdot P(A_i)\\
+         &= 00.24 \times 0.45 + 0.46 \times 0.28 + 0.88 \times 0.20 + 0.53 \times 0.07
+    \end{align*}
 
 - **Predictive Value Positive (PV+)** (also called **Precision**):
-  $$PV+ = P(\text{disease | test+})$$
+  $$
+  PV^+ = P(\text{disease | test+})
+  $$
 
 - **Predictive Value Negative (PV-)**:
-  $$PV- = P(\text{no disease | test-})$$
+  $$
+  PV^- = P(\text{no disease | test-})
+  $$
 
 - **Confusion Matrix**:
 
@@ -316,9 +362,9 @@ $$= 0.0002 \cdot 0.93 + 0.1 \cdot 0.07$$
     - $P(B | A) = 0.1$
     - $P(B | \overline{A}) = 0.0002$
 
-  - Calculate $PV+$ and $PV-$:
-    - $PV+ = P(B | A) = 0.1$
-    - $PV- = P(\overline{B} | \overline{A}) = 1 - P(B | \overline{A}) = 1 - 0.0002 = 0.9998$
+  - Calculate $PV^+$ and $PV^-$:
+    - $PV^+ = P(B | A) = 0.1$
+    - $PV^- = P(\overline{B} | \overline{A}) = 1 - P(B | \overline{A}) = 1 - 0.0002 = 0.9998$
 
 - **Sensitivity**:
   $$\text{Sensitivity} = P(\text{test } + | \text{disease } +)$$
@@ -335,6 +381,7 @@ $$= 0.0002 \cdot 0.93 + 0.1 \cdot 0.07$$
   - 30% of individuals without lung cancer are smokers.
 
   - **Question**: What are the sensitivity and specificity of smoking as a screening test?
+    - Here, the "test" positive if an individual is smoker and is negative if the individual is not a smoker.
     - Let:
       - $A = \{\text{smoker}\}$
       - $B = \{\text{lung cancer}\}$
@@ -344,51 +391,62 @@ $$= 0.0002 \cdot 0.93 + 0.1 \cdot 0.07$$
       - Specificity:
         $$\text{Specificity} = P(\overline{A} | \overline{B}) = 1 - P(A | \overline{B}) = 1 - 0.3 = 0.7$$
 
-- **Bayes' Rule**:
-  $$P(B | A) = \frac{P(A | B) \cdot P(B)}{P(A)}$$
-  - where:
-    - $P(B)$ is the **prior** probability.
-    - $P(B | A)$ is the **posterior** probability.
+::: {.callout-tip}
+Bayes' Rule
+$$P(B | A) = \frac{P(A | B) \cdot P(B)}{P(A)}$$
+:::
 
-  - Typically, $P(A)$ is obtained using the law of total probability:
-    $$P(A) = P(A | B) P(B) + P(A | \overline{B}) P(\overline{B})$$
+- $P(B)$ is the **prior** probability.
+
+- $P(B | A)$ is the **posterior** probability.
+
+- Typically, $P(A)$ is obtained using the law of total probability:
+  $$
+  P(A) = P(A | B) P(B) + P(A | \overline{B}) P(\overline{B})
+  $$
 
 - **Motivation**:
-  - To find $P(\text{disease} | \text{test}+)$ (i.e., $PV+$), you typically know:
+  - To find $P(\text{disease} | \text{test}+)$ (i.e., $PV^+$), you typically know:
     - $P(\text{test} + | \text{disease})$ (Sensitivity)
     - $P(\text{test} - | \text{no disease})$ (Specificity)
 
-  - Formula for $PV+$:
-    $$PV+ = \frac{\text{Sensitivity} \times X}{\text{Sensitivity} \times X + \text{Specificity} \times (1 - X)}$$
+  - Formula for $PV^+$:
+    $$
+    PV^+ = \frac{\text{Sensitivity} \times X}{\text{Sensitivity} \times X + \text{Specificity} \times (1 - X)}
+    $$
     where $X = P(B)$ (prevalence of disease).
 
 - **Example**:
   - 84% of hypertensives and 23% of normotensives are classified as hypertensive by a machine.
   - Prevalence of hypertension is 20%.
 
-  - **Question**: What are $PV+$ and $PV-$?
-    - Let:
+  - **Question**: What are $PV^+$ and $PV^-$?
+
+  - **Solution**:
+    - Given:
       - $A = \{\text{test} +\}$
       - $B = \{\text{hypertensive}\}$
-
-- **Calculating $PV+$ and $PV-$**:
-
-  - Given:
-    - $P(B) = 0.2 \Rightarrow P(\overline{B}) = 0.8$
-    - $P(A | B) = 0.84$
-    - $P(A | \overline{B}) = 0.23 \Rightarrow P(\overline{A} | \overline{B}) = 1 - 0.23 = 0.77$
-
-  - First, calculate $P(A)$ using the law of total probability:
-    $$P(A) = P(A | B) P(B) + P(A | \overline{B}) P(\overline{B})$$
-    $$= (0.84 \cdot 0.2) + (0.23 \cdot 0.8)$$
-    $$= 0.352$$
-    - Therefore, $P(\overline{A}) = 1 - P(A) = 0.648$
-
-  - Calculate $PV+$:
-    $$PV+ = \frac{P(A | B) \cdot P(B)}{P(A)} = \frac{0.84 \cdot 0.2}{0.352} = 0.48$$
-
-  - Calculate $PV-$:
-    $$PV- = \frac{P(\overline{A} | \overline{B}) \cdot P(\overline{B})}{P(\overline{A})} = \frac{0.77 \cdot 0.8}{0.648} = 0.95$$
+      - $P(B) = 0.2 \Rightarrow P(\overline{B}) = 0.8$
+      - $P(A | B) = 0.84$
+      - $P(A | \overline{B}) = 0.23 \Rightarrow P(\overline{A} | \overline{B}) = 1 - 0.23 = 0.77$
+  
+    - First, calculate $P(A)$ using the law of total probability:
+      \begin{align*}
+      P(A) &= P(A | B) P(B) + P(A | \overline{B}) P(\overline{B})\\
+      &= (0.84 \cdot 0.2) + (0.23 \cdot 0.8)\\
+      &= 0.352
+      \end{align*}
+      - Therefore, $P(\overline{A}) = 1 - P(A) = 0.648$
+  
+    - Calculate $PV^+$:
+      $$
+      PV^+ = \frac{P(A | B) \cdot P(B)}{P(A)} = \frac{0.84 \cdot 0.2}{0.352} = 0.48
+      $$
+  
+    - Calculate $PV^-$:
+      $$
+      PV^- = \frac{P(\overline{A} | \overline{B}) \cdot P(\overline{B})}{P(\overline{A})} = \frac{0.77 \cdot 0.8}{0.648} = 0.95
+      $$
 
 - **Recall**: Law of Total Probability may include more than 2 events.
   $$P(A) = P(A | B_1) P(B_1) + P(A | B_2) P(B_2) + \dots + P(A | B_k) P(B_k)$$
@@ -412,7 +470,7 @@ $$= 0.0002 \cdot 0.93 + 0.1 \cdot 0.07$$
     |--------------|----------------------------|
     | $M^+ \cap F^+$    | 0.15                       |
     | $M^+ \cap F^-$    | 0.13                       |
-    | $M^- \cap F^+$    | 0.06                       |
+    | $M^- \cap F^+$    | 0.05                       |
     | $M^- \cap F^-$    | 0.04                       |
 
 1. **Calculate** $P(M^+ \cap F^+)$:

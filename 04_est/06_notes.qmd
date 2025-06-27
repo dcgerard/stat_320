@@ -1,5 +1,5 @@
 ---
-title: "Chapter 6: Estimation"
+title: "Chapter 6 Notes: Estimation"
 author: "David Gerard"
 format: html
 date: today
