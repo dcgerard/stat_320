@@ -9,7 +9,7 @@
 <meta name="author" content="David Gerard">
 <meta name="dcterms.date" content="2025-06-27">
 
-<title>Stat 320: Biostatistics</title>
+<title>Chapter 5 Notes: Continuous Distributions – Stat 320: Biostatistics</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -25,27 +25,27 @@ ul.task-list li input[type="checkbox"] {
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<script src="site_libs/quarto-html/quarto.js" type="module"></script>
-<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-2fef5ea3f8957b3e4ecc936fc74692ca.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-6bdd2aebeb936dcddaa5f935a5de481c.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="site_libs/bootstrap/bootstrap-dark-ccd81253fefb92e9cd3f9eb5b5d87b54.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="site_libs/bootstrap/bootstrap-6bdd2aebeb936dcddaa5f935a5de481c.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-2fef5ea3f8957b3e4ecc936fc74692ca.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-6bdd2aebeb936dcddaa5f935a5de481c.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark-ccd81253fefb92e9cd3f9eb5b5d87b54.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../site_libs/bootstrap/bootstrap-6bdd2aebeb936dcddaa5f935a5de481c.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -104,7 +104,7 @@ window.Quarto = {
 };
 </script>
 
-<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="../styles.css">
 </head>
 
 <body class="nav-fixed quarto-light"><script id="quarto-html-before-body" type="application/javascript">
@@ -276,7 +276,7 @@ window.Quarto = {
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a class="navbar-brand" href="./index.html">
+    <a class="navbar-brand" href="../index.html">
     <span class="navbar-title">Stat 320: Biostatistics</span>
     </a>
   </div>
@@ -287,11 +287,11 @@ window.Quarto = {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link active" href="./index.html" aria-current="page"> 
+    <a class="nav-link" href="../index.html"> 
 <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./data.html"> 
+    <a class="nav-link" href="../data.html"> 
 <span class="menu-text">Data</span></a>
   </li>  
 </ul>
@@ -315,7 +315,7 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Stat 320: Biostatistics</h1>
+<h1 class="title">Chapter 5 Notes: Continuous Distributions</h1>
 </div>
 
 
@@ -344,78 +344,230 @@ window.Quarto = {
 </header>
 
 
-<p><a href="./syllabus.html">Syllabus</a></p>
 <ul>
-<li>00 R
+<li><p>A continuous random variable “takes on decimal values.”</p></li>
+<li><p>For such random variables, the probability at any specific value is <span class="math inline">\(0\)</span>.</p></li>
+<li><p><strong>Example:</strong></p>
 <ul>
-<li><a href="./01_r/01_r_intro.html">Introduction to R</a></li>
-<li><a href="./01_r/01_ggplot.html">Plotting in R</a></li>
-<li><a href="./01_r/01_quarto.html">Documents in R</a></li>
+<li><span class="math inline">\(P(\text{a man is exactly 6'2.35792471613"}) \approx 0\)</span>?</li>
+<li><span class="math inline">\(P(\text{a man is exactly 6'2"}) \approx 0\)</span></li>
+<li>Men are a little above or a little below.</li>
 </ul></li>
-<li>01 Overview
+<li><p>However, we know some regions are more likely than others.</p>
 <ul>
-<li><a href="./00_course_outline/00_math_prereqs.html">Math Prereqs</a></li>
-<li><a href="./00_course_outline/00_overview.html">Course Overview</a></li>
+<li><span class="math inline">\(P(5' \leq X \leq 7') &gt; P(0' \leq X \leq 1')\)</span></li>
 </ul></li>
-<li>02 Descriptive Statistics
+<li><p>We describe this intuition with a <strong>PDF</strong> (Probability Density Function).</p></li>
+<li><p>A Probability Density Function of a random variable <span class="math inline">\(X\)</span> is a function, <span class="math inline">\(f\)</span>, where:</p>
 <ul>
-<li><a href="./02_descriptive/02_notes.html">Chapter 2 Notes (Descriptive Statistics)</a></li>
-<li><a href="./02_descriptive/02_descriptive.html">Descriptive Statistics in R</a></li>
+<li><span class="math inline">\(P(a \leq X \leq b) = \text{area below curve between } a \text{ and } b\)</span></li>
 </ul></li>
-<li>03 Probability
+<li><p>The <strong>CDF</strong> (Cumulative Distribution Function) is again the <span class="math inline">\(F(x) = P(X \leq x)\)</span>.</p></li>
+<li><p><strong>Example:</strong> Let <span class="math inline">\(X = \text{Serum triglyceride level}\)</span></p>
+<p>::: {.cell} ::: {.cell-output-display} <img src="05_notes_old_files/figure-html/unnamed-chunk-1-1.png" class="img-fluid" width="672"> ::: :::</p>
+<p>::: {.cell} ::: {.cell-output-display} <img src="05_notes_old_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid" width="672"> ::: :::</p></li>
+<li><p><strong>Expected value</strong>, <span class="math inline">\(\mu\)</span>, the average <span class="math inline">\(X\)</span> over many trials:</p>
 <ul>
-<li><a href="./03_prob/03_notes.html">Chapter 3 Notes (Probability)</a></li>
-<li><a href="./03_prob/03_confusion.html">Confusion Matrix</a></li>
-<li><a href="./03_prob/04_notes.html">Chapter 4 Notes (Discrete Probability Distributions)</a></li>
-<li><a href="./03_prob/03_prob_discrete.html">Discrete Probability in R</a></li>
-<li><a href="./notes/chapter5_notes.pdf">Chapter 5 Notes (Continuous Probability Distributions)</a></li>
-<li><a href="./03_prob/03_prob_cont.html">Normal Distribution in R</a></li>
+<li><span class="math inline">\(\mu = \int_{-\infty}^{\infty} x f(x) \, dx \quad \text{where } f(x) = \text{density}\)</span></li>
 </ul></li>
-<li>04 Estimation
+<li><p><strong>Variance</strong>: Average squared distance</p>
 <ul>
-<li><a href="./notes/chapter6_notes.pdf">Chapter 6 Notes (Estimation)</a></li>
-<li><a href="./04_est/04_sample.html">Random Selection/Assignment</a></li>
-<li><a href="./04_est/04_clt.html">Central Limit Theorem Illustration</a></li>
-<li><a href="./04_est/04_figs/ci_graphic.png">CI Interpretation</a></li>
-<li><a href="./04_est/04_t.html">t-distribution</a></li>
-<li><a href="./04_est/04_boneden.html">Bone Density Case Study</a></li>
-<li><a href="./04_est/04_chi2.html">chi-squared distribution</a></li>
-<li><a href="./04_est/04_binom.html">Estimating Binomial Proportion</a></li>
+<li><span class="math inline">\(\sigma^2 = E\left((X - \mu)^2\right) = E(X^2) - \mu^2\)</span></li>
+<li><span class="math inline">\(\sigma^2 = \int_{-\infty}^{\infty} (x - \mu)^2 f(x) \, dx\)</span></li>
 </ul></li>
-<li>05 Testing
+<li><p>Most common continuous distribution: Normal distribution</p>
 <ul>
-<li><a href="./notes/chapter7_notes.pdf">Chapter 7 Notes (One Sample Hypothesis Tests)</a></li>
-<li><a href="./05_tests/05_ttest.html">One Sample <span class="math inline">\(t\)</span>-Tests in R</a></li>
-<li><a href="./05_tests/05_power.html">Power Calculations in R</a></li>
-<li><a href="./05_tests/05_binom.html">One Sample Binomial Tests in R</a></li>
-<li><a href="./05_tests/05_binom_power.html">One Sample Binomial Power Calculations</a></li>
-<li><a href="./notes/chapter8_notes.pdf">Chapter 8 Notes (Two Sample Hypothesis Tests)</a></li>
-<li><a href="./05_tests/05_two_sample_t.html">Two Sample <span class="math inline">\(t\)</span>-Tests in R</a></li>
+<li><p><span class="math inline">\(f(x) = \frac{1}{\sqrt{2 \pi \sigma^2}} \exp\left(-\frac{1}{2} \frac{(x - \mu)^2}{\sigma^2}\right) \quad \text{if } X \sim N(\mu, \sigma^2)\)</span></p></li>
+<li><p>Function of <span class="math inline">\(\sigma^2\)</span> (variance) at <span class="math inline">\(\mu\)</span> (mean)</p></li>
+<li><p>Also, if <span class="math inline">\(X \sim N(\mu, \sigma^2)\)</span>, then <span class="math inline">\(E(X) = \mu\)</span>, <span class="math inline">\(Var(X) = \sigma^2\)</span></p></li>
 </ul></li>
-<li>06 Nonparametric Methods
+<li><p><strong>Normal distribution curve</strong>:</p>
 <ul>
-<li><a href="./notes/chapter9_notes.pdf">Chapter 9 Notes (Nonparametric Methods)</a></li>
-<li><a href="./06_nonparametric/06_wilcoxin_1.html">One Sample Inference in R</a></li>
-<li><a href="./06_nonparametric/06_wilcoxin_2.html">Two Sample Inference in R</a></li>
-</ul></li>
-<li>07 Categorical Tests
-<ul>
-<li><a href="./notes/chapter10_notes.pdf">Chapter 10 Notes (Categorical Methods)</a></li>
-<li><a href="./07_cat/07_binom.html">2x2 Contingency Tables in R</a></li>
-<li><a href="./07_cat/07_mcnemar.html">McNemar’s Test in R</a></li>
-<li><a href="./07_cat/07_larger.html">Larger Contingency Tables in R</a></li>
-<li><a href="./07_cat/07_kappa.html">Cohen’s Kappa in R</a></li>
-</ul></li>
-<li>Next stop:
-<ul>
-<li><a href="https://dcgerard.github.io/stat_415_615/">Regression</a></li>
-</ul></li>
+<li>A typical bell-shaped curve centered at <span class="math inline">\(\mu\)</span></li>
 </ul>
-<p>Handwritten Notes:</p>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="05_notes_old_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div></li>
+<li><p>The <strong>standard normal distribution</strong> is <span class="math inline">\(N(0, 1)\)</span>.</p></li>
+<li><p><strong>Properties</strong>:</p>
+<ol type="1">
+<li><strong>68-95-99.7 rule</strong>:
 <ul>
-<li><a href="./notes/chapter2_notes.pdf">Chapter 2 Notes (Descriptive Statistics)</a></li>
-<li><a href="./notes/chapter3_notes.pdf">Chapter 3 Notes (Probability)</a></li>
-<li><a href="./notes/chapter4_notes.pdf">Chapter 4 Notes (Discrete Probability Distributions)</a></li>
+<li>68% of area within <span class="math inline">\(\pm 1\sigma\)</span></li>
+<li>95% of area within <span class="math inline">\(\pm 2\sigma\)</span></li>
+<li>99.7% of area within <span class="math inline">\(\pm 3\sigma\)</span></li>
+</ul></li>
+<li>Symmetric: <span class="math inline">\(f(\mu - x) = f(\mu + x)\)</span></li>
+<li>Mean = median = <span class="math inline">\(\mu\)</span></li>
+<li>If <span class="math inline">\(X \sim N(\mu, \sigma^2)\)</span>, then <span class="math inline">\(Z = \frac{X - \mu}{\sigma} \Rightarrow Z \sim N(0, 1)\)</span></li>
+<li>If <span class="math inline">\(X \sim N(\mu_1, \sigma_1^2)\)</span> and <span class="math inline">\(Y \sim N(\mu_2, \sigma_2^2)\)</span>, then <span class="math inline">\(Z = X + Y\)</span> is also normally distributed:
+<ul>
+<li><span class="math inline">\(Z \sim N(\mu_1 + \mu_2, \sigma_1^2 + \sigma_2^2)\)</span></li>
+</ul></li>
+</ol></li>
+<li><p>We denote the <strong>PDF of the standard normal</strong> by <span class="math inline">\(\phi(x)\)</span>.</p></li>
+<li><p>The <strong>CDF</strong> is <span class="math inline">\(\Phi(x) = P(X \leq x)\)</span>.</p></li>
+<li><p><strong>Example:</strong> Blood Pressure is <span class="math inline">\(N(80, 144)\)</span></p>
+<ul>
+<li><p>Mild hypertension is <span class="math inline">\(90 \leq DBP \leq 100\)</span></p></li>
+<li><p>During a random day, what is <span class="math inline">\(P(\text{mild hypertensive})\)</span>?</p></li>
+<li><p>Solution:</p>
+<ul>
+<li><p><span class="math inline">\(P(90 \leq X \leq 100)\)</span></p></li>
+<li><p><span class="math inline">\(= P(X \leq 100) - P(X \leq 90)\)</span></p></li>
+<li><p><span class="math inline">\(= \text{pnorm}(100, \text{mean} = 80, \text{sd} = \sqrt{144}) - \text{pnorm}(90, \text{mean} = 80, \text{sd} = \sqrt{144})\)</span></p></li>
+<li><p><span class="math inline">\(\approx 0.1545\)</span></p></li>
+<li><p>XYZ Finish this figure:</p></li>
+</ul>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="05_notes_old_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div></li>
+</ul></li>
+<li><p><strong>Example:</strong> Tree diameter <span class="math inline">\(\sim N(8, 2^2)\)</span> (in inches)</p>
+<ul>
+<li>What is the probability that a tree has a diameter &gt; 12 inches?</li>
+<li><strong>Solution:</strong> <span class="math inline">\(1 - \text{pnorm}(12, 8, 2) \approx 0.02275\)</span></li>
+</ul></li>
+<li><p>If <span class="math inline">\(X_1, \dots, X_n\)</span> are random variables and <span class="math display">\[ L = \sum_{i=1}^n c_i X_i \]</span> for <span class="math inline">\(c_i\)</span> constants (not random variables), then</p>
+<ul>
+<li><span class="math inline">\(E(L) = \sum_{i=1}^n c_i E(X_i)\)</span></li>
+<li><span class="math inline">\(\text{Var}(L) = \sum_{i=1}^n c_i^2 \text{Var}(X_i)\)</span></li>
+</ul></li>
+<li><p>If the <span class="math inline">\(X_i\)</span> are also normally distributed, then <span class="math inline">\(L \sim N(E(L), \text{Var}(L))\)</span></p></li>
+<li><p><strong>Example:</strong></p>
+<ul>
+<li><p><span class="math inline">\(X =\)</span> serum creatinine level for Caucasian individual</p></li>
+<li><p><span class="math inline">\(Y =\)</span> serum creatinine level for Black individual</p></li>
+<li><p><span class="math inline">\(X \sim N(1.3, 0.25)\)</span></p></li>
+<li><p><span class="math inline">\(Y \sim N(1.5, 0.25)\)</span></p></li>
+<li><p>What is the distribution of the average level for one Caucasian and one Black individual chosen at random?</p></li>
+<li><p>Let <span class="math inline">\(Z = \frac{1}{2} X + \frac{1}{2} Y\)</span></p></li>
+<li><p>Then <span class="math inline">\(Z \sim N(1.4, 0.125)\)</span></p></li>
+<li><p><strong>Calculations</strong>:</p>
+<ul>
+<li><span class="math inline">\(E(Z) = \frac{1}{2}(1.3) + \frac{1}{2}(1.5) = 1.4\)</span></li>
+<li><span class="math inline">\(\text{Var}(Z) = \frac{1}{4}(0.25) + \frac{1}{4}(0.25) = 0.125\)</span></li>
+</ul></li>
+</ul></li>
+<li><p><strong>Normal Approximation to Binomial</strong> (rule of thumb):</p>
+<ul>
+<li>If <span class="math inline">\(X \sim \text{Bin}(n, p)\)</span> and <span class="math inline">\(np(1 - p) \geq 5\)</span>, then <span class="math inline">\(X \approx N(np, np(1 - p))\)</span></li>
+</ul></li>
+<li><p>Let <span class="math inline">\(X \sim \text{Bin}(n, p)\)</span>, <span class="math inline">\(Y \sim N(np, np(1 - p))\)</span>.</p>
+<ul>
+<li>Then <span class="math inline">\(P(a \leq X \leq b) \approx P\left(a - \frac{1}{2} \leq X \leq b + \frac{1}{2}\right)\)</span> (continuity correction).</li>
+</ul></li>
+<li><p>We will use this for <strong>2-sample binomial tests</strong>.</p></li>
+<li><p><strong>Why?</strong> Let <span class="math inline">\(T_1, T_2, \dots, T_n\)</span> be <span class="math inline">\(n\)</span> independent Bernoulli trials.</p>
+<ul>
+<li><span class="math inline">\(T_i = \begin{cases} 1 &amp; \text{with probability } p \\ 0 &amp; \text{with probability } 1 - p \end{cases}\)</span></li>
+<li><span class="math inline">\(X = T_1 + T_2 + \dots + T_n = \sum_{i=1}^n T_i\)</span></li>
+</ul></li>
+<li><p><strong>Central Limit Theorem</strong> says normal for large <span class="math inline">\(n\)</span>.</p></li>
+<li><p><strong>Normal Approximation to Poisson</strong>:</p>
+<ul>
+<li>If <span class="math inline">\(X \sim \text{Pois}(\mu)\)</span>, then <span class="math inline">\(Y \sim N(\mu, \mu)\)</span>.</li>
+<li>Rule of thumb: For <span class="math inline">\(\mu \geq 10\)</span>, <span class="math inline">\(P(a \leq X \leq b) \approx P(a - 1 \leq Y \leq b + 1)\)</span></li>
+</ul></li>
+<li><p><strong>Exercise 5.12 – 5.13 of Rosner</strong>:</p>
+<ul>
+<li><p>Of men 30-34 who have smoked:</p>
+<ul>
+<li>$X = $ # years a man has smoked</li>
+<li>$Y = $ # of years smoked by women in age group</li>
+<li><span class="math inline">\(X \sim N(12.8, 5.1^2)\)</span></li>
+<li><span class="math inline">\(Y \sim N(9.3, 3.2^2)\)</span></li>
+</ul></li>
+<li><p><strong>Q1:</strong> What proportion of men have smoked for more than 20 years? Women?</p>
+<ul>
+<li>Men: <span class="math inline">\(1 - \text{pnorm}(20, \text{mean} = 12.8, \text{sd} = 5.1) \approx 0.0794\)</span></li>
+</ul>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="05_notes_old_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<ul>
+<li>Women: <span class="math inline">\(1 - \text{pnorm}(20, \text{mean} = 9.3, \text{sd} = 3.2) \approx 0.0041\)</span></li>
+</ul>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="05_notes_old_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div></li>
+</ul></li>
+<li><p><strong>Exercise 5.12 – 5.13</strong>:</p>
+<ul>
+<li><p>The Christmas Bird Count is a holiday tradition in a boring part of Massachusetts.</p></li>
+<li><p><strong>Data</strong>:</p>
+<ul>
+<li>Year and Number of Birds (<span class="math inline">\(x_i\)</span>):
+<ul>
+<li>2006: 76</li>
+<li>2007: 47</li>
+<li>2008: 63</li>
+<li>2009: 53</li>
+<li>2010: 62</li>
+<li>2011: 69</li>
+<li>2012: 62</li>
+</ul></li>
+<li><span class="math inline">\(\sum x_i = 432\)</span></li>
+<li><span class="math inline">\(\sum x_i^2 = 27,717\)</span></li>
+</ul></li>
+<li><p><strong>Questions</strong>:</p>
+<ol type="1">
+<li>What is the mean number of birds?
+<ul>
+<li><span class="math display">\[ \bar{x} = \frac{\sum x_i}{n} = \frac{432}{7} \approx 61.71 \]</span></li>
+</ul></li>
+<li>What is the standard deviation?
+<ul>
+<li>Calculate the variance: <span class="math display">\[ \text{Variance} = \frac{\sum x_i^2}{n} - \left(\frac{\sum x_i}{n}\right)^2 \]</span> <span class="math display">\[ = \frac{27,717}{7} - \left(\frac{432}{7}\right)^2 \]</span> <span class="math display">\[ \approx 78.78 \]</span></li>
+<li>Standard deviation: <span class="math display">\[ \text{SD} = \sqrt{\text{Variance}} = \sqrt{78.78} \approx 8.876 \]</span></li>
+</ul></li>
+<li>Suppose the number of birds is normally distributed with the same mean and SD as parts 1 and 2. What is the probability of at least 60 birds? Apply the continuity correction.
+<ul>
+<li><span class="math display">\[ 1 - \text{pnorm}(59.5, \text{mean} = 61.71, \text{sd} = 8.876) \]</span></li>
+<li><span class="math display">\[ \approx 0.5983 \]</span></li>
+</ul></li>
+<li>Find the “normal range” <span class="math inline">\((L, U)\)</span> (integers) such that:
+<ul>
+<li><span class="math inline">\(L\)</span> = 15th percentile</li>
+<li><span class="math inline">\(U\)</span> = 85th percentile</li>
+<li><span class="math display">\[ \text{qnorm}(c(0.15, 0.85), \text{mean} = 61.71, \text{sd} = 8.876) \]</span></li>
+<li><span class="math display">\[ \approx (52.51, 70.91) \]</span></li>
+<li>Thus, 52 to 70 is the “normal range.”</li>
+</ul></li>
+<li>What is the probability of having a count <span class="math inline">\(\geq U\)</span> at least once during a 10-year period?
+<ul>
+<li><p><span class="math display">\[ P(X \geq U) \approx 1 - \text{pnorm}(79.5, \text{mean} = 61.71, \text{sd} = 8.876) \]</span></p></li>
+<li><p><span class="math display">\[ \approx 0.02252 \]</span></p></li>
+<li><p>Let $Y = $ # of years <span class="math inline">\(\geq U \sim \text{Bin}(10, 0.02252)\)</span>.</p></li>
+<li><p><span class="math display">\[ P(Y \geq 1) = 1 - P(Y = 0) = 1 - \text{dbinom}(0, 10, 0.02252) \]</span></p></li>
+<li><p><span class="math display">\[ \approx 0.2037 \]</span></p></li>
+</ul></li>
+</ol></li>
+</ul></li>
 </ul>
 
 

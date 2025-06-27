@@ -5,7 +5,7 @@ format: html
 date: today
 ---
 
-## Measures of Location
+# Measures of Location
 
 - Observe $X_1, X_2, \dots, X_n$
   - Sample of numeric values
@@ -50,16 +50,17 @@ date: today
     $$
 
 - **Median**
-  - For $n$ odd $\Rightarrow \frac{n+1}{2}$ th largest observation.
-  - For $n$ even $\Rightarrow$ Average of $\frac{n}{2}$ th and $\frac{n}{2} + 1$ th largest observations.
+  - For $n$ odd $\Rightarrow \left(\frac{n+1}{2}\right)$th largest observation.
+  - For $n$ even $\Rightarrow$ Average of $\left(\frac{n}{2}\right)$th and $\left(\frac{n}{2} + 1\right)$th largest observations.
 
-- Example: $X_1 = 2$, $X_2 = 5$, $X_3 = -4 \Rightarrow -4, 2, 5$
+- Example: 
+  - $X_1 = 2$, $X_2 = 5$, $X_3 = -4 \Rightarrow -4, 2, 5$
 
     $$
     \text{Median}(X) = 2
     $$
 
-- If $X_4 = 3997$
+  - If $X_4 = 3997$
 
     $$
     \text{Median}(X) = \frac{2 + 5}{2} = 3.5
@@ -82,7 +83,8 @@ ggplot(data.frame(x = c(-2, 6)), aes(x = x)) +
   geom_vline(xintercept = exp(0.5 + 0.8^2/2), linetype = "dotted") +
   labs(title = "Right Skew", x = "Years of oral conception use", y = "Count") +
   theme_minimal() +
-  theme(axis.text.x = element_blank())
+  theme(axis.text.x = element_blank()) +
+  annotate(geom = "text", label = c("median", "mean"), x = exp(c(0.5, 0.5 + 0.8^2/2)) - 0.2, y = c(0.2, 0.2), angle = 90, size = 7)
 
 # Left skew plot
 ggplot(data.frame(x = c(-2, 6)), aes(x = x)) +
@@ -92,7 +94,8 @@ ggplot(data.frame(x = c(-2, 6)), aes(x = x)) +
   labs(title = "Left Skew", x = "Relative Humidity in Summer (Ohio)", y = "Count") +
   theme_minimal() +
   theme(axis.text.x = element_blank()) +
-  scale_x_reverse()
+  scale_x_reverse() +
+  annotate(geom = "text", label = c("median", "mean"), x = exp(c(-0.5, -0.5 + 0.8^2/2)) + 0.1, y = c(0.5, 0.5), angle = 90, size = 4)
 ```
 
 - Use mean if total is important.
@@ -102,41 +105,46 @@ ggplot(data.frame(x = c(-2, 6)), aes(x = x)) +
 - A **mode** is a frequently occurring value.
 
 - Types of Modalities:
-  - **Unimodal**: Example - male height
-  - **Bimodal**: Example - male and female height
-  - **Trimodal** etc...
-
-  ```{r}
-  #| echo: false
-  #| eval: true
-  #| message: false
-  library(ggplot2)
-  
-  # Unimodal plot
-  ggplot(data.frame(x = c(-3, 3)), aes(x = x)) +
-    stat_function(fun = dnorm, args = list(mean = 0, sd = 0.5), geom = "area", fill = "lightblue") +
-    labs(title = "Unimodal Distribution", x = "Male Height", y = "Count") +
-    theme_minimal()
-  
-  # Bimodal plot
-  ggplot(data.frame(x = c(-3, 3)), aes(x = x)) +
-    stat_function(fun = dnorm, args = list(mean = -1, sd = 0.5), geom = "area", fill = "lightgreen") +
-    stat_function(fun = dnorm, args = list(mean = 1, sd = 0.5), geom = "area", fill = "lightgreen") +
-    labs(title = "Bimodal Distribution", x = "Male and Female Height", y = "Count") +
-    theme_minimal()
-  
-  # Trimodal plot
-  ggplot(data.frame(x = c(-4, 4)), aes(x = x)) +
-    stat_function(fun = dnorm, args = list(mean = -2, sd = 0.5), geom = "area", fill = "pink") +
-    stat_function(fun = dnorm, args = list(mean = 0, sd = 0.5), geom = "area", fill = "pink") +
-    stat_function(fun = dnorm, args = list(mean = 2, sd = 0.5), geom = "area", fill = "pink") +
-    labs(title = "Trimodal Distribution", x = "", y = "Count") +
-    theme_minimal()
-  ```
+  - **Unimodal**:
+    ```{r}
+    #| echo: false
+    #| eval: true
+    #| message: false
+    library(ggplot2)
+    
+    # Unimodal plot
+    ggplot(data.frame(x = c(4.5, 7)), aes(x = x)) +
+      stat_function(fun = dnorm, args = list(mean = 5.9, sd = 0.3), geom = "area", fill = "lightblue") +
+      labs(x = "Male Height", y = "Count") +
+      theme_minimal()
+    ```
+  - **Bimodal**: 
+    ```{r}
+    #| echo: false
+    #| eval: true
+    # Bimodal plot
+    ggplot(data.frame(x = c(4.5, 7)), aes(x = x)) +
+      stat_function(fun = dnorm, args = list(mean = 5.4, sd = 0.3), geom = "area", fill = "lightgreen") +
+      stat_function(fun = dnorm, args = list(mean = 5.9, sd = 0.3), geom = "area", fill = "lightgreen") +
+      labs(x = "Male and Female Height", y = "Count") +
+      theme_minimal()
+    ```
+  - **Trimodal**:
+    ```{r}
+    #| echo: false
+    #| eval: true
+    # Trimodal plot
+    ggplot(data.frame(x = c(-4, 4)), aes(x = x)) +
+      stat_function(fun = dnorm, args = list(mean = -2, sd = 0.5), geom = "area", fill = "pink") +
+      stat_function(fun = dnorm, args = list(mean = 0, sd = 0.5), geom = "area", fill = "pink") +
+      stat_function(fun = dnorm, args = list(mean = 2, sd = 0.5), geom = "area", fill = "pink") +
+      labs(x = "", y = "Count") +
+      theme_minimal()
+    ```
 
 - The mode is typically not used as a real measure of center but rather as a way to describe distribution.
 
-### Properties of $\bar{X}$
+## Properties of $\bar{X}$
 
 - Suppose you have a frequency table.
 
@@ -172,10 +180,10 @@ ggplot(data.frame(x = c(-2, 6)), aes(x = x)) +
 
 - Let $y_i = x_i + C$, then $\bar{y} = \bar{X} + C$
 
-- Proof:
-
+  - Proof:
+  
     $$
-    \bar{y} = \frac{1}{n} \sum_{i=1}^n (x_i + C) = \frac{1}{n} \sum_{i=1}^n x_i + \frac{1}{n} \sum_{i=1}^n C = \bar{X} + C
+    \bar{y} = \frac{1}{n} \sum_{i=1}^n (x_i + C) = \frac{1}{n} \sum_{i=1}^n x_i + \frac{1}{n} \sum_{i=1}^n C = \bar{X} + \frac{1}{n}nC = \bar{X} + C
     $$
 
 - Example: Let $y_i$ = deviation from 28 days cycle.
@@ -196,7 +204,7 @@ ggplot(data.frame(x = c(-2, 6)), aes(x = x)) +
 
 - Let $y_i = C x_i$, then $\bar{y} = C \bar{X}$
 
-- Proof:
+  - Proof:
 
     $$
     \bar{y} = \frac{1}{n} \sum_{i=1}^n C x_i = C \cdot \frac{1}{n} \sum_{i=1}^n x_i = C \bar{X}
@@ -214,18 +222,18 @@ ggplot(data.frame(x = c(-2, 6)), aes(x = x)) +
 
 - If $y_i = a x_i + C$, then $\bar{y} = a \bar{X} + C$
 
-**Exercise**: What is the mean menstrual cycle deviation from 4 weeks?
+-   **Exercise**: What is the mean menstrual cycle deviation from 4 weeks?
 
-```{block}
-#| eval: false
-#| echo: false
-$$
-3.92 - 4 = -0.08
-$$
-```
+    ```{block}
+    #| eval: false
+    #| echo: false
+    $$
+    3.92 - 4 = -0.08
+    $$
+    ```
 
 
-### Measures of Spread
+# Measures of Spread
 
 - **Spread**: How far apart numbers are.
 - **Range**: $\text{Max} - \text{Min}$ (sensitive to extreme values).
@@ -233,9 +241,9 @@ $$
 
 - $p^{\text{th}}$ percentile = value $V_p$ such that $p\%$ of points are at or below $V_p$.
 
-- Example: Median = $50^{\text{th}}$ percentile.
+  - Example: Median = $50^{\text{th}}$ percentile.
 
-- **Quantile**: A unit of proportions instead of percent.
+- **Quantile**: in units of proportions instead of percents.
   - $0.75$ quantile = $75^{\text{th}}$ percentile.
 
 - Example: $X_1 = 2$, $X_2 = 5$, $X_3 = -4$
@@ -245,6 +253,7 @@ $$
 
 - What about the $40^{\text{th}}$ percentile?
     - Use some average of $-4$ and $2$, but definition varies.
+    - The `quantile()` function in R has 9 different definitions of how this imputation works. See `?quantile`.
 
 - **Variance**: Average of squared deviations.
 
@@ -252,7 +261,7 @@ $$
     s^2 = \frac{1}{n-1} \sum_{i=1}^n (X_i - \bar{X})^2
     $$
 
-- $n-1$ because we lose some information by estimating $\bar{X}$.
+  - $n-1$ because we lose some information by estimating $\bar{X}$.
 
 - **Standard Deviation**: Square root of variance.
 
@@ -260,44 +269,40 @@ $$
     s = \sqrt{\frac{1}{n-1} \sum_{i=1}^n (X_i - \bar{X})^2}
     $$
 
-- Puts this measure of center on the same scale as units (e.g., $oz$ instead of $oz^2$).
+  - Puts this measure of spread on the same scale as units (e.g., $oz$ instead of $oz^2$).
 
-- Let $y_i = c_1 x_i + c_2$, then $s^2(y) = c_1^2 s^2(x)$.
+- Let $y_i = c_1 x_i + c_2$, then $s^2(y) = c_1^2 s^2(x)$ and $s(y) = c_1 s(x)$
 
-- Only scaling affects variance and standard deviation.
+  - Only scaling affects variance and standard deviation.
 
-    $$
-    s(y) = c_1 s(x)
-    $$
+-   Why?
 
-- Why?
-
-  ```{r}
-  #| echo: false
-  #| message: false
-  #| warning: false
-  library(ggplot2)
-  
-  set.seed(1)
-  x <- rnorm(100)
-  ggplot(data.frame(x = x), aes(x = x)) +
-    geom_histogram(binwidth = 0.5, fill = "lightblue", alpha = 0.7) +
-    labs(title = "Original Distribution", x = "X", y = "Count") +
-    theme_minimal() +
-    xlim(-5, 5)
-  
-  ggplot(data.frame(x = x + 2), aes(x = x)) +
-    geom_histogram(binwidth = 0.5, fill = "lightgreen", alpha = 0.7) +
-    labs(title = "Shifted Distribution (X + C2)", x = "X + C2", y = "Count") +
-    theme_minimal() +
-    xlim(-5, 5)
-  
-  ggplot(data.frame(x = x * 2), aes(x = x)) +
-    geom_histogram(binwidth = 0.5, fill = "lightcoral", alpha = 0.7) +
-    labs(title = "Scaled Distribution (C1 * X + C2)", x = "C1 * X + C2", y = "Count") +
-    theme_minimal() +
-    xlim(-5, 5)
-  ```
+    ```{r}
+    #| echo: false
+    #| message: false
+    #| warning: false
+    library(ggplot2)
+    
+    set.seed(1)
+    x <- rnorm(100)
+    ggplot(data.frame(x = x), aes(x = x)) +
+      geom_histogram(binwidth = 0.5, fill = "lightblue", alpha = 0.7) +
+      labs(title = "Original Distribution", x = "X", y = "Count") +
+      theme_minimal() +
+      xlim(-5, 5)
+    
+    ggplot(data.frame(x = x + 2), aes(x = x)) +
+      geom_histogram(binwidth = 0.5, fill = "lightgreen", alpha = 0.7) +
+      labs(title = "Shifted Distribution (X + C2)", x = "X + C2", y = "Count") +
+      theme_minimal() +
+      xlim(-5, 5)
+    
+    ggplot(data.frame(x = x * 2), aes(x = x)) +
+      geom_histogram(binwidth = 0.5, fill = "lightcoral", alpha = 0.7) +
+      labs(title = "Scaled Distribution (C1 * X + C2)", x = "C1 * X + C2", y = "Count") +
+      theme_minimal() +
+      xlim(-5, 5)
+    ```
 
 **Exercise**: What is $s^2(y)$ when $y_i = c_1 x_i$?
 
@@ -309,5 +314,129 @@ s^2(y) = c_1^2 s^2(x)
 $$
 ```
 
-[R Notebook on Mean / Median / SD / Variance](./02_descriptive.qmd)
+# Descriptive Statistics in R
 
+-   We'll use the lead data as an example. Read about it [here](../data.qmd#lead).
+
+    ```{r}
+    #| message: false
+    library(tidyverse)
+    lead <- read_csv("https://dcgerard.github.io/stat_320/data/lead.csv")
+    ```
+
+-   You calculate the summary statistics (mean/median/quantiles/variance/standard deviation) all within a `summarize()` call.
+
+    ```{r}
+    summarize(
+      lead, 
+      Mean = mean(iqf, na.rm = TRUE), 
+      Min = min(iqf, na.rm = TRUE),
+      Q25 = quantile(iqf, probs = 0.25, na.rm = TRUE),
+      Med = median(iqf, na.rm = TRUE), 
+      Q75 = quantile(iqf, probs = 0.75, na.rm = TRUE),
+      Max = max(iqf, na.rm = TRUE),
+      Var = var(iqf, na.rm = TRUE),
+      SD = sd(iqf, na.rm = TRUE)
+    )
+    ```
+
+-   The values on the left of `=` are the names of the summaries and are up to you.
+
+-   The values on the right of `=` are the function calls for the summaries.
+    - `mean()`: the arithmetic mean.
+    - `min()`: the minimum. Same as `quantile(x, probs = 0)`
+    - `quantile()`: the quantiles. You specify which quantile with the `probs` argument.
+    - `median()`: the median. Same as `quantile(x, probs = 0.5)`
+    - `max()`: the maximum. Same as `quantile(x, probs = 1)`
+    - `var()`: the sample variance.
+    - `sd()`: the sample standard deviation.
+
+-   I have the `na.rm = TRUE` argument because there are some children who did not have a `iqf` score. These are "missing" and encoded with `NA`. If you do not provide that argument, R doesn't know what those values are and so returns an `NA` or errors.
+
+    ```{r}
+    summarize(
+      lead, 
+      Mean = mean(iqf), 
+      Min = min(iqf),
+      # Q25 = quantile(iqf, probs = 0.25), # errors
+      Med = median(iqf), 
+      # Q75 = quantile(iqf, probs = 0.75), # errors
+      Max = max(iqf),
+      Var = var(iqf),
+      SD = sd(iqf)
+    )
+    ```
+
+
+-   You can also apply these functions on vectors that you extract from the data frame.
+
+    ```{r}
+    var(lead$iqf, na.rm = TRUE)
+    ```
+ 
+-   Let's demonstrate some properties. Variance is invariant to shift
+    ```{r}
+    var(lead$iqf + 10000, na.rm = TRUE)
+    ```
+    but scales with the square of the multiplicative factor
+    ```{r}
+    var(10 * lead$iqf, na.rm = TRUE)
+    10^2 * var(lead$iqf, na.rm = TRUE)
+    ```
+
+-   The standard deviation scales with the multiplicative factor because it is the square root of the variance.
+    ```{r}
+    sd(10 * lead$iqf, na.rm = TRUE)
+    10 * sd(lead$iqf, na.rm = TRUE)
+    ```
+
+-   The mean and quantiles shift and scale with the additive and multiplicative factors.
+    ```{r}
+    mean(lead$iqf * 10 + 20, na.rm = TRUE)
+    10 * mean(lead$iqf, na.rm = TRUE) + 20
+    
+    quantile(lead$iqf * 10 + 20, probs = c(0.25, 0.5, 0.75), na.rm = TRUE)
+    10 * quantile(lead$iqf, probs = c(0.25, 0.5, 0.75), na.rm = TRUE) + 20
+    ```
+
+-   **Exercise**: Calculate the mean and median of the [birthweight data](../data.qmd#birthweight). What is the more appropriate measure of center?
+
+    ```{r}
+    #| echo: false
+    #| eval: false
+    birthweight <- read_csv("https://dcgerard.github.io/stat_320/data/birthweight.csv")
+    ggplot(birthweight, aes(x = weight)) +
+      geom_histogram()
+    ## looks skewed left, so medium?
+    summarize(
+      birthweight,
+      Mean = mean(weight),
+      Med = median(weight)
+    )
+    ## But is also bimodal, so maybe need multiple measures of center (for premies and normals).
+    ```
+
+-   You can calculate grouped summaries (a summary for each group) by grouping the data first.
+    ```{r}
+    lead |>
+      group_by(Group) |>
+      summarize(
+        Mean = mean(iqf, na.rm = TRUE),
+        SD = sd(iqf, na.rm = TRUE)
+      )
+    ```
+
+-   Group summaries are where the power of descriptive statistics really comes into play. Here, we see that the exposed group has a lower IQ on average than the control group. Whether this is real signal will have to be answered via a formal hypothesis test. But the descriptive statistics gives us some initial information on the data.
+
+-   **Exercise**: What about different lead groups? Calculate descriptive statistics for the different lead groups.
+
+    ```{r}
+    #| echo: false
+    #| eval: false
+    lead |>
+      group_by(lead_grp) |>
+      summarize(
+        Mean = mean(iqf, na.rm = TRUE),
+        SD = sd(iqf, na.rm = TRUE)
+      )
+    ```

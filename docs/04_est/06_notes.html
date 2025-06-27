@@ -9,7 +9,7 @@
 <meta name="author" content="David Gerard">
 <meta name="dcterms.date" content="2025-06-27">
 
-<title>Stat 320: Biostatistics</title>
+<title>Chapter 6: Estimation – Stat 320: Biostatistics</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -25,27 +25,27 @@ ul.task-list li input[type="checkbox"] {
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<script src="site_libs/quarto-html/quarto.js" type="module"></script>
-<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-2fef5ea3f8957b3e4ecc936fc74692ca.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-6bdd2aebeb936dcddaa5f935a5de481c.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="site_libs/bootstrap/bootstrap-dark-ccd81253fefb92e9cd3f9eb5b5d87b54.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="site_libs/bootstrap/bootstrap-6bdd2aebeb936dcddaa5f935a5de481c.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-2fef5ea3f8957b3e4ecc936fc74692ca.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-6bdd2aebeb936dcddaa5f935a5de481c.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark-ccd81253fefb92e9cd3f9eb5b5d87b54.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../site_libs/bootstrap/bootstrap-6bdd2aebeb936dcddaa5f935a5de481c.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -104,7 +104,7 @@ window.Quarto = {
 };
 </script>
 
-<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="../styles.css">
 </head>
 
 <body class="nav-fixed quarto-light"><script id="quarto-html-before-body" type="application/javascript">
@@ -276,7 +276,7 @@ window.Quarto = {
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a class="navbar-brand" href="./index.html">
+    <a class="navbar-brand" href="../index.html">
     <span class="navbar-title">Stat 320: Biostatistics</span>
     </a>
   </div>
@@ -287,11 +287,11 @@ window.Quarto = {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link active" href="./index.html" aria-current="page"> 
+    <a class="nav-link" href="../index.html"> 
 <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./data.html"> 
+    <a class="nav-link" href="../data.html"> 
 <span class="menu-text">Data</span></a>
   </li>  
 </ul>
@@ -306,8 +306,17 @@ window.Quarto = {
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#r-interpretation-of-ci" id="toc-r-interpretation-of-ci" class="nav-link active" data-scroll-target="#r-interpretation-of-ci">R Interpretation of CI</a></li>
+  <li><a href="#r-code-for-t-distribution" id="toc-r-code-for-t-distribution" class="nav-link" data-scroll-target="#r-code-for-t-distribution">R code for t-distribution</a></li>
+  <li><a href="#bone-density-case-study" id="toc-bone-density-case-study" class="nav-link" data-scroll-target="#bone-density-case-study">Bone Density Case Study</a></li>
+  <li><a href="#binomial-r-code" id="toc-binomial-r-code" class="nav-link" data-scroll-target="#binomial-r-code">Binomial R code</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -315,7 +324,7 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Stat 320: Biostatistics</h1>
+<h1 class="title">Chapter 6: Estimation</h1>
 </div>
 
 
@@ -344,81 +353,548 @@ window.Quarto = {
 </header>
 
 
-<p><a href="./syllabus.html">Syllabus</a></p>
+<p><strong>XYZ IMAGE HERE</strong></p>
 <ul>
-<li>00 R
+<li><p>Probability: <span class="math inline">\(X \sim N(80, 12)\)</span></p>
 <ul>
-<li><a href="./01_r/01_r_intro.html">Introduction to R</a></li>
-<li><a href="./01_r/01_ggplot.html">Plotting in R</a></li>
-<li><a href="./01_r/01_quarto.html">Documents in R</a></li>
+<li>Assumed known<br>
+</li>
+<li>What is <span class="math inline">\(\Pr(X &gt; 90)\)</span>?</li>
 </ul></li>
-<li>01 Overview
+<li><p>Inference: Observe <span class="math inline">\(X_i = 81, 78, 77, 89, \ldots\)</span></p>
 <ul>
-<li><a href="./00_course_outline/00_math_prereqs.html">Math Prereqs</a></li>
-<li><a href="./00_course_outline/00_overview.html">Course Overview</a></li>
+<li>Assume <span class="math inline">\(X_i \sim N(\mu, \sigma^2)\)</span><br>
+</li>
+<li>What are <span class="math inline">\(\mu\)</span> and <span class="math inline">\(\sigma^2\)</span>?</li>
 </ul></li>
-<li>02 Descriptive Statistics
+<li><p>Estimation: Guess parameter values from data</p>
 <ul>
-<li><a href="./02_descriptive/02_notes.html">Chapter 2 Notes (Descriptive Statistics)</a></li>
-<li><a href="./02_descriptive/02_descriptive.html">Descriptive Statistics in R</a></li>
+<li>Point estimation: A single number is your best guess
+<ul>
+<li>E.g., estimate <span class="math inline">\(\mu\)</span> with <span class="math inline">\(\bar{X}\)</span></li>
 </ul></li>
-<li>03 Probability
+<li>Interval estimation: Get a range of likely values of a parameter
 <ul>
-<li><a href="./03_prob/03_notes.html">Chapter 3 Notes (Probability)</a></li>
-<li><a href="./03_prob/03_confusion.html">Confusion Matrix</a></li>
-<li><a href="./03_prob/04_notes.html">Chapter 4 Notes (Discrete Probability Distributions)</a></li>
-<li><a href="./03_prob/03_prob_discrete.html">Discrete Probability in R</a></li>
-<li><a href="./notes/chapter5_notes.pdf">Chapter 5 Notes (Continuous Probability Distributions)</a></li>
-<li><a href="./03_prob/03_prob_cont.html">Normal Distribution in R</a></li>
+<li>Confidence intervals</li>
 </ul></li>
-<li>04 Estimation
-<ul>
-<li><a href="./notes/chapter6_notes.pdf">Chapter 6 Notes (Estimation)</a></li>
-<li><a href="./04_est/04_sample.html">Random Selection/Assignment</a></li>
-<li><a href="./04_est/04_clt.html">Central Limit Theorem Illustration</a></li>
-<li><a href="./04_est/04_figs/ci_graphic.png">CI Interpretation</a></li>
-<li><a href="./04_est/04_t.html">t-distribution</a></li>
-<li><a href="./04_est/04_boneden.html">Bone Density Case Study</a></li>
-<li><a href="./04_est/04_chi2.html">chi-squared distribution</a></li>
-<li><a href="./04_est/04_binom.html">Estimating Binomial Proportion</a></li>
 </ul></li>
-<li>05 Testing
+<li><p>Hypothesis testing: How sure are we a parameter is different from some value?</p>
 <ul>
-<li><a href="./notes/chapter7_notes.pdf">Chapter 7 Notes (One Sample Hypothesis Tests)</a></li>
-<li><a href="./05_tests/05_ttest.html">One Sample <span class="math inline">\(t\)</span>-Tests in R</a></li>
-<li><a href="./05_tests/05_power.html">Power Calculations in R</a></li>
-<li><a href="./05_tests/05_binom.html">One Sample Binomial Tests in R</a></li>
-<li><a href="./05_tests/05_binom_power.html">One Sample Binomial Power Calculations</a></li>
-<li><a href="./notes/chapter8_notes.pdf">Chapter 8 Notes (Two Sample Hypothesis Tests)</a></li>
-<li><a href="./05_tests/05_two_sample_t.html">Two Sample <span class="math inline">\(t\)</span>-Tests in R</a></li>
-</ul></li>
-<li>06 Nonparametric Methods
-<ul>
-<li><a href="./notes/chapter9_notes.pdf">Chapter 9 Notes (Nonparametric Methods)</a></li>
-<li><a href="./06_nonparametric/06_wilcoxin_1.html">One Sample Inference in R</a></li>
-<li><a href="./06_nonparametric/06_wilcoxin_2.html">Two Sample Inference in R</a></li>
-</ul></li>
-<li>07 Categorical Tests
-<ul>
-<li><a href="./notes/chapter10_notes.pdf">Chapter 10 Notes (Categorical Methods)</a></li>
-<li><a href="./07_cat/07_binom.html">2x2 Contingency Tables in R</a></li>
-<li><a href="./07_cat/07_mcnemar.html">McNemar’s Test in R</a></li>
-<li><a href="./07_cat/07_larger.html">Larger Contingency Tables in R</a></li>
-<li><a href="./07_cat/07_kappa.html">Cohen’s Kappa in R</a></li>
-</ul></li>
-<li>Next stop:
-<ul>
-<li><a href="https://dcgerard.github.io/stat_415_615/">Regression</a></li>
+<li>E.g., <span class="math inline">\(\mu \ne 0\)</span></li>
 </ul></li>
 </ul>
-<p>Handwritten Notes:</p>
+<p><strong>XYZ IMAGE HERE</strong></p>
 <ul>
-<li><a href="./notes/chapter2_notes.pdf">Chapter 2 Notes (Descriptive Statistics)</a></li>
-<li><a href="./notes/chapter3_notes.pdf">Chapter 3 Notes (Probability)</a></li>
-<li><a href="./notes/chapter4_notes.pdf">Chapter 4 Notes (Discrete Probability Distributions)</a></li>
+<li><p>Group we are interested in: reference / target / study population<br>
+</p></li>
+<li><p>Group we have data about: sample</p>
+<ul>
+<li>Sampling (e.g., SRS)</li>
+</ul></li>
+<li><p>Parameter: summary of population</p>
+<ul>
+<li><span class="math inline">\(\mu\)</span>, <span class="math inline">\(\sigma^2\)</span>, <span class="math inline">\(p\)</span></li>
+</ul></li>
+<li><p>Statistic: summary of sample</p>
+<ul>
+<li><span class="math inline">\(\bar{X}\)</span>, <span class="math inline">\(s^2\)</span>, <span class="math inline">\(\hat{p}\)</span></li>
+</ul></li>
+<li><p>Simplest way to get a sample is by a simple random sample</p>
+<ul>
+<li>Each unit has an equal chance of being in sample</li>
+</ul></li>
+<li><p>Random selection (via SRS) is distinct from:</p>
+<ul>
+<li>Random assignment: randomly assign units to different groups (e.g., treatment vs.&nbsp;control)</li>
+</ul></li>
+<li><p>Random selection: results generalizable to target population</p>
+<ul>
+<li>Because sample is similar to population in terms of demographic variables, etc.</li>
+</ul></li>
+<li><p>Random assignment: allows for claims of causality</p>
+<ul>
+<li>Because all possible confounders are equal in the groups</li>
+</ul></li>
+<li><p>Randomized Clinical Trial (RCT): Random assignment of treatment to compare them</p></li>
+<li><p>No causal claims without random assignment</p></li>
+<li><p>Example: tobramycin and gentamicin are antibiotics.</p>
+<ul>
+<li>Tobramycin is more aggressive and has more side effects.<br>
+</li>
+<li>Early studies were not randomized and showed tobramycin performed worse. Why?
+<ul>
+<li>Doctors gave sicker patients tobramycin</li>
+</ul></li>
+</ul></li>
+<li><p>Randomization guarantees equal number of sicker and less sick in each group (on average)</p></li>
+<li><p>Double blind: neither doctor nor patient know treatment</p>
+<ul>
+<li>Guards against placebo effect</li>
+</ul></li>
+<li><p>Single blind: doctor knows</p></li>
+<li><p>Unblinded: both know</p></li>
+<li><p><code>sampling</code> in R</p></li>
+<li><p>Estimate mean:</p>
+<ul>
+<li>Suppose <span class="math inline">\(E(X_i) = \mu\)</span>
+<ul>
+<li>Not necessarily normal</li>
+</ul></li>
+<li>Estimate <span class="math inline">\(\mu\)</span> with <span class="math inline">\(\hat{\mu} = \bar{X} = \frac{1}{n} \sum X_i\)</span>
+<ul>
+<li><span class="math inline">\(\hat{\mu}\)</span> is an estimate of <span class="math inline">\(\mu\)</span><br>
+</li>
+<li><span class="math inline">\(\bar{X}\)</span> is the sample mean</li>
+</ul></li>
+</ul></li>
+<li><p>Sampling distribution: Distribution of statistic across many (hypothetical) samples</p></li>
 </ul>
+<p><strong>XYZ IMAGE HERE</strong></p>
+<ul>
+<li><p>Used to describe properties of statistics</p></li>
+<li><p>Properties of <span class="math inline">\(\bar{X}\)</span></p>
+<ul>
+<li><p>Let <span class="math inline">\(X_1, X_2, \ldots, X_n\)</span> be a random sample with<br>
+<span class="math inline">\(E(X_i) = \mu\)</span>, <span class="math inline">\(\operatorname{Var}(X_i) = \sigma^2\)</span></p></li>
+<li><p>Then:</p>
+<ol type="1">
+<li><span class="math inline">\(E(\bar{X}) = \mu\)</span> (unbiased)</li>
+<li><span class="math inline">\(\operatorname{Var}(\bar{X}) = \sigma^2/n\)</span>
+<ul>
+<li>More precise for larger <span class="math inline">\(n\)</span> (consistent)</li>
+</ul></li>
+<li><span class="math inline">\(\bar{X} \approx N(\mu, \sigma^2/n)\)</span> for large <span class="math inline">\(n\)</span> even if <span class="math inline">\(X_i\)</span> are not also normal
+<ul>
+<li>(Central Limit Theorem)</li>
+</ul></li>
+</ol></li>
+</ul></li>
+<li><p>Standard error: standard deviation of a statistic</p>
+<ul>
+<li><span class="math inline">\(\operatorname{SE}(\bar{X}) = \sigma / \sqrt{n}\)</span></li>
+</ul></li>
+<li><p>Estimated Standard Error (Standard Error): estimated standard deviation of a statistic</p>
+<ul>
+<li>Both just mean estimated SE when they say SE, typically<br>
+</li>
+<li><span class="math inline">\(\operatorname{SE}(\bar{X}) = s / \sqrt{n}\)</span></li>
+</ul></li>
+<li><p>Typically don’t know <span class="math inline">\(\sigma^2\)</span>, so estimate it with <span class="math inline">\(s^2\)</span></p></li>
+</ul>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 28%">
+<col style="width: 17%">
+<col style="width: 53%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Statistic</th>
+<th><span class="math inline">\(X_i\)</span></th>
+<th><span class="math inline">\(\bar{X}\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Mean</td>
+<td><span class="math inline">\(\mu\)</span></td>
+<td><span class="math inline">\(\mu\)</span></td>
+</tr>
+<tr class="even">
+<td>Variance</td>
+<td><span class="math inline">\(\sigma^2\)</span></td>
+<td><span class="math inline">\(\sigma^2 / n\)</span></td>
+</tr>
+<tr class="odd">
+<td>Estimated Variance</td>
+<td><span class="math inline">\(s^2\)</span></td>
+<td><span class="math inline">\(s^2 / n\)</span></td>
+</tr>
+<tr class="even">
+<td>Distribution</td>
+<td>Unknown</td>
+<td><span class="math inline">\(N(\mu, \sigma^2 / n)\)</span> (for large <span class="math inline">\(n\)</span>)</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>Example: Mean birthweight is 112 oz with standard deviation 20.6.<br>
+What is the probability the mean of 10 birthweights will be between 98 and 126?</li>
+</ul>
+<p><span class="math display">\[
+\bar{X} \sim N\left(112, \left(\frac{20.6}{\sqrt{10}}\right)^2\right) = N(112, 6.514^2)
+\]</span></p>
+<p><strong>XYZ IMAGE HERE</strong></p>
+<p><span class="math display">\[
+= \text{pnorm}(126,\ 112,\ 6.514) - \text{pnorm}(98,\ 112,\ 6.514)
+\]</span></p>
+<p><span class="math display">\[
+= 0.9684
+\]</span></p>
+<ul>
+<li><p>Interval Estimation</p>
+<ul>
+<li><span class="math inline">\(\bar{X}\)</span> is not exactly equal to <span class="math inline">\(\mu\)</span></li>
+<li>Want range of likely values of <span class="math inline">\(\mu\)</span></li>
+<li>Know <span class="math inline">\(\bar{X} \sim N(\mu, \sigma^2 / n)\)</span> for large <span class="math inline">\(n\)</span></li>
+</ul></li>
+</ul>
+<p><span class="math display">\[
+\Pr(-1.96 \leq \frac{\bar{X} - \mu}{\sigma / \sqrt{n}} \leq 1.96) \approx 0.95
+\]</span></p>
+<p><span class="math display">\[
+\Pr(-1.96 \cdot \frac{\sigma}{\sqrt{n}} \leq \bar{X} - \mu \leq 1.96 \cdot \frac{\sigma}{\sqrt{n}}) \approx 0.95
+\]</span></p>
+<p><span class="math display">\[
+\Pr(\bar{X} - 1.96 \cdot \frac{\sigma}{\sqrt{n}} \leq \mu \leq \bar{X} + 1.96 \cdot \frac{\sigma}{\sqrt{n}}) \approx 0.95
+\]</span></p>
+<ul>
+<li><span class="math inline">\(\bar{X} \pm 1.96 \cdot \frac{\sigma}{\sqrt{n}}\)</span> captures <span class="math inline">\(\mu\)</span> with probability 0.95
+<ul>
+<li>95% CI</li>
+</ul></li>
+<li>Estimate ± multiplier × standard error
+<ul>
+<li>Common CI format</li>
+</ul></li>
+<li>More generally:</li>
+</ul>
+<p><span class="math display">\[
+\bar{X} \pm q_{\text{norm}}(1 - \frac{\alpha}{2}) \cdot \frac{\sigma}{\sqrt{n}}
+\]</span></p>
+<ul>
+<li><span class="math inline">\((1 - \alpha) \cdot 100\%\)</span> CI for <span class="math inline">\(\mu\)</span></li>
+</ul>
+<p><strong>XYZ IMAGE HERE</strong></p>
+<section id="r-interpretation-of-ci" class="level3">
+<h3 class="anchored" data-anchor-id="r-interpretation-of-ci">R Interpretation of CI</h3>
+<ul>
+<li><p>The above only works when <span class="math inline">\(\sigma^2\)</span> is known</p>
+<ul>
+<li><span class="math inline">\(\sigma^2\)</span> is never known</li>
+</ul></li>
+<li><p><span class="math inline">\(\frac{\bar{X} - \mu}{s / \sqrt{n}} \sim t_{n-1}\)</span> (not <span class="math inline">\(N(0, 1)\)</span>)</p>
+<ul>
+<li><span class="math inline">\(t\)</span>-distribution with <span class="math inline">\(n - 1\)</span> degrees of freedom</li>
+</ul></li>
+<li><p>Only an exact result when <span class="math inline">\(X_1, \ldots, X_n \overset{\text{iid}}{\sim} N(\mu, \sigma^2)\)</span></p>
+<ul>
+<li>But <span class="math inline">\(t\)</span>-distribution tends to work better in small samples even when <span class="math inline">\(X_i\)</span> are not normal</li>
+</ul></li>
+<li><p>For large <span class="math inline">\(n\)</span>, <span class="math inline">\(t_{n-1} \approx N(0, 1)\)</span>, so CLT is OK</p></li>
+<li><p>Bell-shaped, centered at 0</p></li>
+<li><p>As <span class="math inline">\(\text{df} \downarrow\)</span>, extreme values more likely<br>
+As <span class="math inline">\(\text{df} \uparrow\)</span>, extreme values less likely</p></li>
+<li><p>Use <span class="math inline">\(t\)</span> because of added variability from using <span class="math inline">\(s^2\)</span> instead of <span class="math inline">\(\sigma^2\)</span></p></li>
+</ul>
+</section>
+<section id="r-code-for-t-distribution" class="level3">
+<h3 class="anchored" data-anchor-id="r-code-for-t-distribution">R code for t-distribution</h3>
+<ul>
+<li>Rosner uses notation <span class="math inline">\(t_{\text{df}, p}\)</span> for the <span class="math inline">\(p\)</span> quantile of a <span class="math inline">\(t_{\text{df}}\)</span> distribution</li>
+</ul>
+<p><span class="math display">\[
+t_{\text{df}, p} = \text{qt}(p, \text{df})
+\]</span></p>
+<p><strong>XYZ IMAGE HERE</strong></p>
+<p><span class="math display">\[
+\Pr\left(-t_{n-1, 1 - \alpha/2} \leq \frac{\bar{X} - \mu}{s/\sqrt{n}} \leq t_{n-1, 1 - \alpha/2} \right) = 1 - \alpha
+\]</span></p>
+<p><span class="math display">\[
+\Rightarrow \Pr\left(-t_{n-1, 1 - \alpha/2} \cdot \frac{s}{\sqrt{n}} \leq \bar{X} - \mu \leq t_{n-1, 1 - \alpha/2} \cdot \frac{s}{\sqrt{n}} \right) = 1 - \alpha
+\]</span></p>
+<p><span class="math display">\[
+\Rightarrow \Pr\left(\bar{X} - t_{n-1, 1 - \alpha/2} \cdot \frac{s}{\sqrt{n}} \leq \mu \leq \bar{X} + t_{n-1, 1 - \alpha/2} \cdot \frac{s}{\sqrt{n}} \right) = 1 - \alpha
+\]</span></p>
+<p><span class="math display">\[
+\bar{X} \pm t_{n-1, 1 - \alpha/2} \cdot \frac{s}{\sqrt{n}}
+\]</span></p>
+<ul>
+<li><p><span class="math inline">\((1 - \alpha) \cdot 100\%\)</span> CI for <span class="math inline">\(\mu\)</span></p></li>
+<li><p><strong>Exercise</strong>: <span class="math inline">\(n = 10\)</span>, <span class="math inline">\(\bar{X} = 116.9\)</span>, <span class="math inline">\(s = 21.70\)</span></p>
+<ul>
+<li>Calculate 90%, 95%, 99% CIs</li>
+</ul></li>
+<li><p><strong>Solution</strong>:</p>
+<ul>
+<li><span class="math inline">\(\text{qt}(0.95,\ 9) = 1.833\)</span></li>
+<li><span class="math inline">\(\text{qt}(0.975,\ 9) = 2.262\)</span></li>
+<li><span class="math inline">\(\text{qt}(0.995,\ 9) = 3.25\)</span></li>
+</ul></li>
+</ul>
+<p><span class="math display">\[
+116.9 \pm 1.833 \cdot \frac{21.70}{\sqrt{10}}
+\]</span></p>
+<p><span class="math display">\[
+116.9 \pm 2.262 \cdot \frac{21.70}{\sqrt{10}}
+\]</span></p>
+<p><span class="math display">\[
+116.9 \pm 3.25 \cdot \frac{21.70}{\sqrt{10}}
+\]</span></p>
+<ul>
+<li>Note:
+<ul>
+<li>CI level <span class="math inline">\(\uparrow\)</span> (so <span class="math inline">\(\alpha \downarrow\)</span>) <span class="math inline">\(\Rightarrow\)</span> larger intervals</li>
+<li><span class="math inline">\(n \uparrow\)</span> <span class="math inline">\(\Rightarrow\)</span> smaller intervals</li>
+<li><span class="math inline">\(s^2 \uparrow\)</span> <span class="math inline">\(\Rightarrow\)</span> larger intervals</li>
+</ul></li>
+</ul>
+</section>
+<section id="bone-density-case-study" class="level3">
+<h3 class="anchored" data-anchor-id="bone-density-case-study">Bone Density Case Study</h3>
+<ul>
+<li>Estimate variance:
+<ul>
+<li>Estimate <span class="math inline">\(\sigma^2\)</span> with <span class="math inline">\(s^2 = \frac{1}{n - 1} \sum_{i=1}^n (X_i - \bar{X})^2\)</span></li>
+</ul></li>
+<li>Why <span class="math inline">\(n - 1\)</span>?</li>
+</ul>
+<p><span class="math display">\[
+\bar{X} = \operatorname{argmin}_a \sum (X_i - a)^2 \quad \text{(ideal)}
+\]</span></p>
+<p><span class="math display">\[
+\Rightarrow \frac{1}{n} \sum (X_i - \bar{X})^2 \leq \frac{1}{n} \sum (X_i - \mu)^2
+\]</span></p>
+<ul>
+<li>This is too small<br>
+</li>
+<li>Dividing by <span class="math inline">\(n - 1\)</span> makes it bigger</li>
+</ul>
+<p><span class="math display">\[
+\frac{s^2}{\sigma^2 / (n - 1)} \sim \chi^2_{n - 1}
+\]</span></p>
+<ul>
+<li><p>Chi-squared distribution with <span class="math inline">\(n - 1\)</span> degrees of freedom</p></li>
+<li><p>Properties of chi-squared:</p>
+<ol type="1">
+<li>Support <span class="math inline">\(\geq 0\)</span></li>
+<li><span class="math inline">\(E(\chi^2_{\text{df}}) = \text{df}\)</span></li>
+<li>df <span class="math inline">\(\downarrow\)</span> <span class="math inline">\(\Rightarrow\)</span> thicker tails (extreme events happen more often)</li>
+</ol></li>
+<li><p>Can use this to get confidence intervals for <span class="math inline">\(\sigma^2\)</span></p></li>
+<li><p>Let <span class="math inline">\(\chi^2_{\text{df}, p}\)</span> = <span class="math inline">\(p^\text{th}\)</span> quantile of a <span class="math inline">\(\chi^2_{\text{df}}\)</span> distribution</p></li>
+</ul>
+<p><span class="math display">\[
+\Pr\left( \chi^2_{n-1, \alpha/2} \leq \frac{(n-1)s^2}{\sigma^2} \leq \chi^2_{n-1, 1-\alpha/2} \right) = 1 - \alpha
+\]</span></p>
+<p><span class="math display">\[
+\Rightarrow \Pr\left( \frac{(n - 1)s^2}{\chi^2_{n-1, 1 - \alpha/2}} \leq \sigma^2 \leq \frac{(n - 1)s^2}{\chi^2_{n-1, \alpha/2}} \right) = 1 - \alpha
+\]</span></p>
+<p><span class="math display">\[
+\frac{(n - 1)s^2}{\chi^2_{n-1, 1 - \alpha/2}} \leq \sigma^2 \leq \frac{(n - 1)s^2}{\chi^2_{n-1, \alpha/2}}
+\]</span></p>
+<ul>
+<li><span class="math inline">\(100(1 - \alpha)\%\)</span> CI</li>
+</ul>
+<p><strong>XYZ IMAGE HERE</strong></p>
+<ul>
+<li>Notes:
+<ul>
+<li>Less often constructed than CI for <span class="math inline">\(\mu\)</span></li>
+<li>Very sensitive to violations of normality
+<ul>
+<li>CLT does not save you</li>
+</ul></li>
+</ul></li>
+</ul>
+<hr>
+<ul>
+<li>Let <span class="math inline">\(X_1, X_2, \ldots, X_n\)</span> be independent Bernoulli trials s.t.:</li>
+</ul>
+<p><span class="math display">\[
+X_i =
+\begin{cases}
+1 &amp; \text{w.p. } p \\
+0 &amp; \text{w.p. } 1 - p
+\end{cases}
+\]</span></p>
+<ul>
+<li>Then <span class="math inline">\(X = \sum X_i\)</span> = number of 1’s out of <span class="math inline">\(n\)</span> trials
+<ul>
+<li><span class="math inline">\(X \sim \text{Bin}(n, p)\)</span></li>
+</ul></li>
+<li>Example: Estimate prevalence of malignant melanoma
+<ul>
+<li>Sample <span class="math inline">\(n = 5000\)</span> individuals.<br>
+</li>
+<li><span class="math inline">\(X_i = 1\)</span> if has melanoma, <span class="math inline">\(0\)</span> if no</li>
+</ul></li>
+<li>Goal: Observe <span class="math inline">\(X_i\)</span>, estimate <span class="math inline">\(p\)</span></li>
+</ul>
+<p><span class="math display">\[
+\hat{p} = \frac{1}{n} \sum X_i = \frac{X}{n} = \text{proportion of 1's}
+\]</span></p>
+<ul>
+<li><p><span class="math inline">\(E(\hat{p}) = E\left(\frac{X}{n}\right) = \frac{1}{n} E(X) = \frac{1}{n} n p = p \Rightarrow\)</span> unbiased</p></li>
+<li><p><span class="math inline">\(\operatorname{Var}(\hat{p}) = \operatorname{Var}\left(\frac{X}{n}\right) = \frac{1}{n^2} \operatorname{Var}(X) = \frac{1}{n^2} n p(1 - p) = \frac{p(1 - p)}{n}\)</span></p>
+<ul>
+<li>More precise for larger <span class="math inline">\(n\)</span> <span class="math inline">\(\Rightarrow\)</span> consistent</li>
+</ul></li>
+<li><p>Estimated standard error:</p></li>
+</ul>
+<p><span class="math display">\[
+\sqrt{ \frac{ \hat{p}(1 - \hat{p}) }{n} }
+\]</span></p>
+<ul>
+<li><p>Goal: Interval estimate of <span class="math inline">\(p\)</span></p></li>
+<li><p>For large <span class="math inline">\(n\)</span>, <span class="math inline">\(\hat{p} \sim N\left(p,\ \frac{p(1 - p)}{n} \right)\)</span></p>
+<ul>
+<li>Rule of thumb: <span class="math inline">\(n \hat{p}(1 - \hat{p}) \geq 5\)</span></li>
+</ul></li>
+<li><p>Let <span class="math inline">\(z_p = \text{qnorm}(p)\)</span> = <span class="math inline">\(p^\text{th}\)</span> quantile of <span class="math inline">\(N(0, 1)\)</span></p></li>
+</ul>
+<p><span class="math display">\[
+\frac{ \hat{p} - p }{ \sqrt{ \frac{ \hat{p}(1 - \hat{p}) }{n} } } \approx N(0, 1)
+\]</span></p>
+<p><span class="math display">\[
+\Rightarrow \Pr\left( z_{1 - \alpha/2} \leq \frac{ \hat{p} - p }{ \sqrt{ \hat{p}(1 - \hat{p}) / n } } \leq z_{\alpha/2} \right) \approx 0.95
+\]</span></p>
+<p><span class="math display">\[
+\hat{p} \pm z_{1 - \alpha/2} \cdot \sqrt{ \frac{ \hat{p}(1 - \hat{p}) }{n} }
+\]</span></p>
+<ul>
+<li><p>This is a <span class="math inline">\((1 - \alpha) \cdot 100\%\)</span> CI for <span class="math inline">\(p\)</span></p></li>
+<li><p><strong>Exercise</strong>: 10,000 women, 400 have breast cancer.</p>
+<ul>
+<li>What is a 95% CI for breast cancer incidence?</li>
+</ul></li>
+<li><p><strong>Solution</strong>:</p>
+<ul>
+<li><span class="math inline">\(\hat{p} = 0.04\)</span><br>
+</li>
+<li><span class="math inline">\(n \hat{p}(1 - \hat{p}) = 384 &gt; 5\)</span><br>
+</li>
+<li><span class="math inline">\(z_{0.975} = \text{qnorm}(0.975) = 1.96\)</span></li>
+</ul></li>
+</ul>
+<p><span class="math display">\[
+0.04 \pm 1.96 \cdot \sqrt{ \frac{0.04 \cdot (1 - 0.04)}{10{,}000} } = (0.03616,\ 0.04384)
+\]</span></p>
+<ul>
+<li><p>What if <span class="math inline">\(n\)</span> is small? Use an exact method</p></li>
+<li><p>Find <span class="math inline">\(p_1\)</span> and <span class="math inline">\(p_2\)</span> such that:</p></li>
+</ul>
+<p><span class="math display">\[
+\frac{\alpha}{2} = \text{pbinom}(x,\ \text{size} = n,\ \text{prob} = p_1)
+\]</span></p>
+<p><span class="math display">\[
+\frac{\alpha}{2} = 1 - \text{pbinom}(x - 1,\ \text{size} = n,\ \text{prob} = p_2)
+\]</span></p>
+<p><strong>XYZ IMAGE HERE</strong><br>
+(One diagram shows tail under <span class="math inline">\(p_2\)</span>, the other under <span class="math inline">\(p_1\)</span>)</p>
+</section>
+<section id="binomial-r-code" class="level3">
+<h3 class="anchored" data-anchor-id="binomial-r-code">Binomial R code</h3>
+<ul>
+<li><p>Poisson Estimation</p></li>
+<li><p><span class="math inline">\(Y \sim \text{Poi}(\mu)\)</span> where <span class="math inline">\(\mu = \lambda T\)</span></p></li>
+<li><p>Goal: Estimate <span class="math inline">\(\lambda\)</span></p>
+<ul>
+<li><span class="math inline">\(\lambda\)</span> = incidence rate per unit time<br>
+</li>
+<li><span class="math inline">\(T\)</span> = time</li>
+</ul></li>
+<li><p>Example: Leukemia rate in Woburn, MA.</p>
+<ul>
+<li>12,000 residents, 10 years, 12 children got leukemia</li>
+</ul></li>
+<li><p>A common unit in biostatistics is a person-year</p>
+<ul>
+<li>1 person being followed for 1 year<br>
+</li>
+<li>Normalizes by number of people in a study<br>
+</li>
+<li>E.g., 12 cases out of 20 is a lot more than 12 out of 20000</li>
+</ul></li>
+<li><p>Example: Woburn study had 12,000 people × 10 years = 120,000 person-years</p></li>
+</ul>
+<p><span class="math display">\[
+\hat{\lambda} = \frac{X}{T}
+\]</span></p>
+<p><span class="math display">\[
+E(\hat{\lambda}) = E\left( \frac{X}{T} \right) = \frac{E(X)}{T} = \frac{\lambda T}{T} = \lambda \quad \text{(unbiased)}
+\]</span></p>
+<ul>
+<li><p>Woburn: <span class="math inline">\(\hat{\lambda} = \frac{12 \text{ cases}}{120{,}000 \text{ person-years}} = 0.0001 \text{ cases per person-year}\)</span></p></li>
+<li><p>Cancer rates low, so useful to multiply by 100,000</p></li>
+</ul>
+<p><span class="math display">\[
+0.0001 \text{ cases/person-year} = 10 \text{ cases / 100,000 person-years}
+\]</span></p>
+<ul>
+<li><p>Interval uses same strategy as exact binomial case:</p>
+<ul>
+<li><p>Find <span class="math inline">\(\mu_1\)</span> such that <span class="math inline">\(\Pr(X \geq x \mid \mu_1) = \alpha/2\)</span></p></li>
+<li><p>Find <span class="math inline">\(\mu_2\)</span> such that <span class="math inline">\(\Pr(X \leq x \mid \mu_2) = \alpha/2\)</span></p></li>
+<li><p>Interval: <span class="math inline">\((\mu_1,\ \mu_2)\)</span></p>
+<ul>
+<li>Uses CDF of Poisson</li>
+</ul></li>
+</ul></li>
+<li><p>Interval for <span class="math inline">\(\lambda\)</span> is:</p></li>
+</ul>
+<p><span class="math display">\[
+\left( \frac{\mu_1}{T},\ \frac{\mu_2}{T} \right)
+\]</span></p>
+<ul>
+<li><p>Use <code>poisson.test()</code> in R</p></li>
+<li><p>One-sided CI (OK to skip)</p>
+<ul>
+<li>Only interested in lower or upper bounds
+<ul>
+<li>E.g., compare cancer treatment survival rate against baseline of 30%.<br>
+Want lower bound on treatment effect to see if it’s better than baseline</li>
+</ul></li>
+</ul></li>
+<li><p>Let <span class="math inline">\(p_1\)</span> such that <span class="math inline">\(\Pr(p &gt; p_1) = 1 - \alpha\)</span></p>
+<ul>
+<li>Random lower bound</li>
+</ul></li>
+<li><p>Or, find <span class="math inline">\(p_2\)</span> such that <span class="math inline">\(\Pr(p &lt; p_2) = 1 - \alpha\)</span></p>
+<ul>
+<li>E.g., upper bound on incidence rate of some treatment group</li>
+</ul></li>
+<li><p>Since <span class="math inline">\(\frac{\hat{p} - p}{\sqrt{ \hat{p}(1 - \hat{p}) / n }} \sim N(0, 1)\)</span>:</p></li>
+</ul>
+<p><span class="math display">\[
+\Pr\left(-z_{1 - \alpha} &lt; \frac{\hat{p} - p}{\sqrt{ \hat{p}(1 - \hat{p}) / n }} \right) = 1 - \alpha
+\]</span></p>
+<p><span class="math display">\[
+\Rightarrow \Pr\left(z_{1 - \alpha} &gt; \frac{\hat{p} - p}{\sqrt{ \hat{p}(1 - \hat{p}) / n }} \right) = 1 - \alpha
+\]</span></p>
+<p><span class="math display">\[
+\Rightarrow \Pr\left(\hat{p} + z_{1 - \alpha} \cdot \sqrt{ \hat{p}(1 - \hat{p}) / n } &gt; p \right) = 1 - \alpha
+\]</span></p>
+<p><span class="math display">\[
+\Rightarrow p_2 = \hat{p} + z_{1 - \alpha} \cdot \sqrt{ \hat{p}(1 - \hat{p}) / n }
+\]</span></p>
+<ul>
+<li>Similarly:</li>
+</ul>
+<p><span class="math display">\[
+p_1 = \hat{p} - z_{1 - \alpha} \cdot \sqrt{ \hat{p}(1 - \hat{p}) / n }
+\]</span></p>
+<p><strong>XYZ IMAGE HERE</strong></p>
+<ul>
+<li>Example: 40 out of 100 patients survive a new cancer treatment.<br>
+What is the <strong>lower bound</strong> on <span class="math inline">\(\Pr(\text{survive})\)</span>?<br>
+(Upper 1-sided 95% CI)</li>
+</ul>
+<p><span class="math display">\[
+\hat{p} = \frac{40}{100} = 0.4
+\]</span></p>
+<p><span class="math display">\[
+z_{1 - \alpha} = \text{qnorm}(0.95) = 1.645 \quad (\alpha = 0.05)
+\]</span></p>
+<p><span class="math display">\[
+\hat{p} - z_{1 - \alpha} \cdot \sqrt{ \frac{ \hat{p}(1 - \hat{p}) }{n} }
+\]</span></p>
+<p><span class="math display">\[
+= 0.4 - 1.645 \cdot \sqrt{ \frac{0.4 \cdot 0.6}{100} } \approx 0.319
+\]</span></p>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">

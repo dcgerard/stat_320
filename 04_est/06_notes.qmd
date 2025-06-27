@@ -1,0 +1,489 @@
+---
+title: "Chapter 6: Estimation"
+author: "David Gerard"
+format: html
+date: today
+---
+
+**XYZ IMAGE HERE**
+
+- Probability: $X \sim N(80, 12)$  
+  - Assumed known  
+  - What is $\Pr(X > 90)$?
+
+- Inference: Observe $X_i = 81, 78, 77, 89, \ldots$  
+  - Assume $X_i \sim N(\mu, \sigma^2)$  
+  - What are $\mu$ and $\sigma^2$?
+
+- Estimation: Guess parameter values from data
+
+  - Point estimation: A single number is your best guess  
+    - E.g., estimate $\mu$ with $\bar{X}$
+
+  - Interval estimation: Get a range of likely values of a parameter  
+    - Confidence intervals
+
+- Hypothesis testing: How sure are we a parameter is different from some value?  
+  - E.g., $\mu \ne 0$
+  
+**XYZ IMAGE HERE**
+
+- Group we are interested in: reference / target / study population  
+- Group we have data about: sample  
+  - Sampling (e.g., SRS)
+
+- Parameter: summary of population  
+  - $\mu$, $\sigma^2$, $p$
+
+- Statistic: summary of sample  
+  - $\bar{X}$, $s^2$, $\hat{p}$
+
+- Simplest way to get a sample is by a simple random sample  
+  - Each unit has an equal chance of being in sample
+
+- Random selection (via SRS) is distinct from:
+
+  - Random assignment: randomly assign units to different groups (e.g., treatment vs. control)
+
+- Random selection: results generalizable to target population  
+  - Because sample is similar to population in terms of demographic variables, etc.
+
+- Random assignment: allows for claims of causality  
+  - Because all possible confounders are equal in the groups
+
+- Randomized Clinical Trial (RCT): Random assignment of treatment to compare them
+
+- No causal claims without random assignment
+
+- Example: tobramycin and gentamicin are antibiotics.  
+  - Tobramycin is more aggressive and has more side effects.  
+  - Early studies were not randomized and showed tobramycin performed worse. Why?  
+    - Doctors gave sicker patients tobramycin
+
+- Randomization guarantees equal number of sicker and less sick in each group (on average)
+
+- Double blind: neither doctor nor patient know treatment  
+  - Guards against placebo effect
+
+- Single blind: doctor knows
+
+- Unblinded: both know
+
+- `sampling` in R
+
+- Estimate mean:
+
+  - Suppose $E(X_i) = \mu$  
+    - Not necessarily normal
+
+  - Estimate $\mu$ with $\hat{\mu} = \bar{X} = \frac{1}{n} \sum X_i$  
+    - $\hat{\mu}$ is an estimate of $\mu$  
+    - $\bar{X}$ is the sample mean
+
+- Sampling distribution: Distribution of statistic across many (hypothetical) samples
+
+**XYZ IMAGE HERE**
+
+  - Used to describe properties of statistics
+
+- Properties of $\bar{X}$
+
+  - Let $X_1, X_2, \ldots, X_n$ be a random sample with  
+    $E(X_i) = \mu$, $\operatorname{Var}(X_i) = \sigma^2$
+
+  - Then:
+    1. $E(\bar{X}) = \mu$ (unbiased)
+    2. $\operatorname{Var}(\bar{X}) = \sigma^2/n$  
+       - More precise for larger $n$ (consistent)
+    3. $\bar{X} \approx N(\mu, \sigma^2/n)$ for large $n$ even if $X_i$ are not also normal  
+       - (Central Limit Theorem)
+
+- Standard error: standard deviation of a statistic  
+  - $\operatorname{SE}(\bar{X}) = \sigma / \sqrt{n}$
+
+- Estimated Standard Error (Standard Error): estimated standard deviation of a statistic  
+  - Both just mean estimated SE when they say SE, typically  
+  - $\operatorname{SE}(\bar{X}) = s / \sqrt{n}$
+
+- Typically don't know $\sigma^2$, so estimate it with $s^2$
+
+| Statistic          | $X_i$      | $\bar{X}$                          |
+|-------------------|------------|------------------------------------|
+| Mean              | $\mu$      | $\mu$                              |
+| Variance          | $\sigma^2$ | $\sigma^2 / n$                     |
+| Estimated Variance| $s^2$      | $s^2 / n$                          |
+| Distribution      | Unknown    | $N(\mu, \sigma^2 / n)$ (for large $n$) |
+
+- Example: Mean birthweight is 112 oz with standard deviation 20.6.  
+  What is the probability the mean of 10 birthweights will be between 98 and 126?
+
+$$
+\bar{X} \sim N\left(112, \left(\frac{20.6}{\sqrt{10}}\right)^2\right) = N(112, 6.514^2)
+$$
+
+**XYZ IMAGE HERE**
+
+$$
+= \text{pnorm}(126,\ 112,\ 6.514) - \text{pnorm}(98,\ 112,\ 6.514)
+$$
+
+$$
+= 0.9684
+$$
+
+- Interval Estimation
+
+  - $\bar{X}$ is not exactly equal to $\mu$
+  - Want range of likely values of $\mu$
+  - Know $\bar{X} \sim N(\mu, \sigma^2 / n)$ for large $n$
+
+$$
+\Pr(-1.96 \leq \frac{\bar{X} - \mu}{\sigma / \sqrt{n}} \leq 1.96) \approx 0.95
+$$
+
+$$
+\Pr(-1.96 \cdot \frac{\sigma}{\sqrt{n}} \leq \bar{X} - \mu \leq 1.96 \cdot \frac{\sigma}{\sqrt{n}}) \approx 0.95
+$$
+
+$$
+\Pr(\bar{X} - 1.96 \cdot \frac{\sigma}{\sqrt{n}} \leq \mu \leq \bar{X} + 1.96 \cdot \frac{\sigma}{\sqrt{n}}) \approx 0.95
+$$
+
+  - $\bar{X} \pm 1.96 \cdot \frac{\sigma}{\sqrt{n}}$ captures $\mu$ with probability 0.95  
+    - 95% CI
+
+- Estimate ± multiplier × standard error  
+  - Common CI format
+
+- More generally:
+
+$$
+\bar{X} \pm q_{\text{norm}}(1 - \frac{\alpha}{2}) \cdot \frac{\sigma}{\sqrt{n}}
+$$
+
+  - $(1 - \alpha) \cdot 100\%$ CI for $\mu$
+
+**XYZ IMAGE HERE**
+
+### R Interpretation of CI
+
+- The above only works when $\sigma^2$ is known  
+  - $\sigma^2$ is never known
+
+- $\frac{\bar{X} - \mu}{s / \sqrt{n}} \sim t_{n-1}$ (not $N(0, 1)$)  
+  - $t$-distribution with $n - 1$ degrees of freedom
+
+- Only an exact result when $X_1, \ldots, X_n \overset{\text{iid}}{\sim} N(\mu, \sigma^2)$  
+  - But $t$-distribution tends to work better in small samples even when $X_i$ are not normal
+
+- For large $n$, $t_{n-1} \approx N(0, 1)$, so CLT is OK
+
+- Bell-shaped, centered at 0
+
+- As $\text{df} \downarrow$, extreme values more likely  
+  As $\text{df} \uparrow$, extreme values less likely
+
+- Use $t$ because of added variability from using $s^2$ instead of $\sigma^2$
+
+### R code for t-distribution
+
+- Rosner uses notation $t_{\text{df}, p}$ for the $p$ quantile of a $t_{\text{df}}$ distribution
+
+$$
+t_{\text{df}, p} = \text{qt}(p, \text{df})
+$$
+
+**XYZ IMAGE HERE**
+
+$$
+\Pr\left(-t_{n-1, 1 - \alpha/2} \leq \frac{\bar{X} - \mu}{s/\sqrt{n}} \leq t_{n-1, 1 - \alpha/2} \right) = 1 - \alpha
+$$
+
+$$
+\Rightarrow \Pr\left(-t_{n-1, 1 - \alpha/2} \cdot \frac{s}{\sqrt{n}} \leq \bar{X} - \mu \leq t_{n-1, 1 - \alpha/2} \cdot \frac{s}{\sqrt{n}} \right) = 1 - \alpha
+$$
+
+$$
+\Rightarrow \Pr\left(\bar{X} - t_{n-1, 1 - \alpha/2} \cdot \frac{s}{\sqrt{n}} \leq \mu \leq \bar{X} + t_{n-1, 1 - \alpha/2} \cdot \frac{s}{\sqrt{n}} \right) = 1 - \alpha
+$$
+
+$$
+\bar{X} \pm t_{n-1, 1 - \alpha/2} \cdot \frac{s}{\sqrt{n}}
+$$
+
+- $(1 - \alpha) \cdot 100\%$ CI for $\mu$
+
+- **Exercise**: $n = 10$, $\bar{X} = 116.9$, $s = 21.70$  
+  - Calculate 90%, 95%, 99% CIs
+
+- **Solution**:
+  - $\text{qt}(0.95,\ 9) = 1.833$
+  - $\text{qt}(0.975,\ 9) = 2.262$
+  - $\text{qt}(0.995,\ 9) = 3.25$
+
+$$
+116.9 \pm 1.833 \cdot \frac{21.70}{\sqrt{10}}
+$$
+
+$$
+116.9 \pm 2.262 \cdot \frac{21.70}{\sqrt{10}}
+$$
+
+$$
+116.9 \pm 3.25 \cdot \frac{21.70}{\sqrt{10}}
+$$
+
+- Note:
+  - CI level $\uparrow$ (so $\alpha \downarrow$) $\Rightarrow$ larger intervals
+  - $n \uparrow$ $\Rightarrow$ smaller intervals
+  - $s^2 \uparrow$ $\Rightarrow$ larger intervals
+
+### Bone Density Case Study
+
+- Estimate variance:  
+  - Estimate $\sigma^2$ with $s^2 = \frac{1}{n - 1} \sum_{i=1}^n (X_i - \bar{X})^2$
+
+- Why $n - 1$?
+
+$$
+\bar{X} = \operatorname{argmin}_a \sum (X_i - a)^2 \quad \text{(ideal)}
+$$
+
+$$
+\Rightarrow \frac{1}{n} \sum (X_i - \bar{X})^2 \leq \frac{1}{n} \sum (X_i - \mu)^2
+$$
+
+  - This is too small  
+  - Dividing by $n - 1$ makes it bigger
+
+$$
+\frac{s^2}{\sigma^2 / (n - 1)} \sim \chi^2_{n - 1}
+$$
+
+- Chi-squared distribution with $n - 1$ degrees of freedom
+
+- Properties of chi-squared:
+  1. Support $\geq 0$
+  2. $E(\chi^2_{\text{df}}) = \text{df}$
+  3. df $\downarrow$ $\Rightarrow$ thicker tails (extreme events happen more often)
+
+- Can use this to get confidence intervals for $\sigma^2$
+
+- Let $\chi^2_{\text{df}, p}$ = $p^\text{th}$ quantile of a $\chi^2_{\text{df}}$ distribution
+
+$$
+\Pr\left( \chi^2_{n-1, \alpha/2} \leq \frac{(n-1)s^2}{\sigma^2} \leq \chi^2_{n-1, 1-\alpha/2} \right) = 1 - \alpha
+$$
+
+$$
+\Rightarrow \Pr\left( \frac{(n - 1)s^2}{\chi^2_{n-1, 1 - \alpha/2}} \leq \sigma^2 \leq \frac{(n - 1)s^2}{\chi^2_{n-1, \alpha/2}} \right) = 1 - \alpha
+$$
+
+$$
+\frac{(n - 1)s^2}{\chi^2_{n-1, 1 - \alpha/2}} \leq \sigma^2 \leq \frac{(n - 1)s^2}{\chi^2_{n-1, \alpha/2}}
+$$
+
+- $100(1 - \alpha)\%$ CI
+
+**XYZ IMAGE HERE**
+
+- Notes:
+  - Less often constructed than CI for $\mu$
+  - Very sensitive to violations of normality  
+    - CLT does not save you
+
+---
+
+- Let $X_1, X_2, \ldots, X_n$ be independent Bernoulli trials s.t.:
+
+$$
+X_i = 
+\begin{cases}
+1 & \text{w.p. } p \\
+0 & \text{w.p. } 1 - p
+\end{cases}
+$$
+
+- Then $X = \sum X_i$ = number of 1's out of $n$ trials  
+  - $X \sim \text{Bin}(n, p)$
+
+- Example: Estimate prevalence of malignant melanoma  
+  - Sample $n = 5000$ individuals.  
+  - $X_i = 1$ if has melanoma, $0$ if no
+
+- Goal: Observe $X_i$, estimate $p$
+
+$$
+\hat{p} = \frac{1}{n} \sum X_i = \frac{X}{n} = \text{proportion of 1's}
+$$
+
+- $E(\hat{p}) = E\left(\frac{X}{n}\right) = \frac{1}{n} E(X) = \frac{1}{n} n p = p \Rightarrow$ unbiased
+
+- $\operatorname{Var}(\hat{p}) = \operatorname{Var}\left(\frac{X}{n}\right) = \frac{1}{n^2} \operatorname{Var}(X) = \frac{1}{n^2} n p(1 - p) = \frac{p(1 - p)}{n}$
+
+  - More precise for larger $n$ $\Rightarrow$ consistent
+
+- Estimated standard error:
+
+$$
+\sqrt{ \frac{ \hat{p}(1 - \hat{p}) }{n} }
+$$
+
+- Goal: Interval estimate of $p$
+
+- For large $n$, $\hat{p} \sim N\left(p,\ \frac{p(1 - p)}{n} \right)$  
+  - Rule of thumb: $n \hat{p}(1 - \hat{p}) \geq 5$
+
+- Let $z_p = \text{qnorm}(p)$ = $p^\text{th}$ quantile of $N(0, 1)$
+
+$$
+\frac{ \hat{p} - p }{ \sqrt{ \frac{ \hat{p}(1 - \hat{p}) }{n} } } \approx N(0, 1)
+$$
+
+$$
+\Rightarrow \Pr\left( z_{1 - \alpha/2} \leq \frac{ \hat{p} - p }{ \sqrt{ \hat{p}(1 - \hat{p}) / n } } \leq z_{\alpha/2} \right) \approx 0.95
+$$
+
+$$
+\hat{p} \pm z_{1 - \alpha/2} \cdot \sqrt{ \frac{ \hat{p}(1 - \hat{p}) }{n} }
+$$
+
+- This is a $(1 - \alpha) \cdot 100\%$ CI for $p$
+
+- **Exercise**: 10,000 women, 400 have breast cancer.  
+  - What is a 95% CI for breast cancer incidence?
+
+- **Solution**:  
+  - $\hat{p} = 0.04$  
+  - $n \hat{p}(1 - \hat{p}) = 384 > 5$  
+  - $z_{0.975} = \text{qnorm}(0.975) = 1.96$
+
+$$
+0.04 \pm 1.96 \cdot \sqrt{ \frac{0.04 \cdot (1 - 0.04)}{10{,}000} } = (0.03616,\ 0.04384)
+$$
+
+- What if $n$ is small? Use an exact method
+
+- Find $p_1$ and $p_2$ such that:
+
+$$
+\frac{\alpha}{2} = \text{pbinom}(x,\ \text{size} = n,\ \text{prob} = p_1)
+$$
+
+$$
+\frac{\alpha}{2} = 1 - \text{pbinom}(x - 1,\ \text{size} = n,\ \text{prob} = p_2)
+$$
+
+**XYZ IMAGE HERE**  
+(One diagram shows tail under $p_2$, the other under $p_1$)
+
+### Binomial R code
+
+- Poisson Estimation
+
+- $Y \sim \text{Poi}(\mu)$ where $\mu = \lambda T$
+
+- Goal: Estimate $\lambda$
+
+  - $\lambda$ = incidence rate per unit time  
+  - $T$ = time
+
+- Example: Leukemia rate in Woburn, MA.  
+  - 12,000 residents, 10 years, 12 children got leukemia
+
+- A common unit in biostatistics is a person-year  
+  - 1 person being followed for 1 year  
+  - Normalizes by number of people in a study  
+  - E.g., 12 cases out of 20 is a lot more than 12 out of 20000
+
+- Example: Woburn study had 12,000 people × 10 years = 120,000 person-years
+
+$$
+\hat{\lambda} = \frac{X}{T}
+$$
+
+$$
+E(\hat{\lambda}) = E\left( \frac{X}{T} \right) = \frac{E(X)}{T} = \frac{\lambda T}{T} = \lambda \quad \text{(unbiased)}
+$$
+
+- Woburn: $\hat{\lambda} = \frac{12 \text{ cases}}{120{,}000 \text{ person-years}} = 0.0001 \text{ cases per person-year}$
+
+- Cancer rates low, so useful to multiply by 100,000
+
+$$
+0.0001 \text{ cases/person-year} = 10 \text{ cases / 100,000 person-years}
+$$
+
+- Interval uses same strategy as exact binomial case:
+
+  - Find $\mu_1$ such that $\Pr(X \geq x \mid \mu_1) = \alpha/2$
+  - Find $\mu_2$ such that $\Pr(X \leq x \mid \mu_2) = \alpha/2$
+
+  - Interval: $(\mu_1,\ \mu_2)$  
+    - Uses CDF of Poisson
+
+- Interval for $\lambda$ is:
+
+$$
+\left( \frac{\mu_1}{T},\ \frac{\mu_2}{T} \right)
+$$
+
+- Use `poisson.test()` in R
+
+- One-sided CI (OK to skip)
+
+  - Only interested in lower or upper bounds  
+    - E.g., compare cancer treatment survival rate against baseline of 30%.  
+      Want lower bound on treatment effect to see if it's better than baseline
+
+- Let $p_1$ such that $\Pr(p > p_1) = 1 - \alpha$  
+  - Random lower bound
+
+- Or, find $p_2$ such that $\Pr(p < p_2) = 1 - \alpha$  
+  - E.g., upper bound on incidence rate of some treatment group
+
+- Since $\frac{\hat{p} - p}{\sqrt{ \hat{p}(1 - \hat{p}) / n }} \sim N(0, 1)$:
+
+$$
+\Pr\left(-z_{1 - \alpha} < \frac{\hat{p} - p}{\sqrt{ \hat{p}(1 - \hat{p}) / n }} \right) = 1 - \alpha
+$$
+
+$$
+\Rightarrow \Pr\left(z_{1 - \alpha} > \frac{\hat{p} - p}{\sqrt{ \hat{p}(1 - \hat{p}) / n }} \right) = 1 - \alpha
+$$
+
+$$
+\Rightarrow \Pr\left(\hat{p} + z_{1 - \alpha} \cdot \sqrt{ \hat{p}(1 - \hat{p}) / n } > p \right) = 1 - \alpha
+$$
+
+$$
+\Rightarrow p_2 = \hat{p} + z_{1 - \alpha} \cdot \sqrt{ \hat{p}(1 - \hat{p}) / n }
+$$
+
+- Similarly:
+
+$$
+p_1 = \hat{p} - z_{1 - \alpha} \cdot \sqrt{ \hat{p}(1 - \hat{p}) / n }
+$$
+
+**XYZ IMAGE HERE**
+
+- Example: 40 out of 100 patients survive a new cancer treatment.  
+  What is the **lower bound** on $\Pr(\text{survive})$?  
+  (Upper 1-sided 95% CI)
+
+$$
+\hat{p} = \frac{40}{100} = 0.4
+$$
+
+$$
+z_{1 - \alpha} = \text{qnorm}(0.95) = 1.645 \quad (\alpha = 0.05)
+$$
+
+$$
+\hat{p} - z_{1 - \alpha} \cdot \sqrt{ \frac{ \hat{p}(1 - \hat{p}) }{n} }
+$$
+
+$$
+= 0.4 - 1.645 \cdot \sqrt{ \frac{0.4 \cdot 0.6}{100} } \approx 0.319
+$$
