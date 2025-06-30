@@ -311,7 +311,7 @@ window.Quarto = {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#exercises-3.53---3.63-of-rosner" id="toc-exercises-3.53---3.63-of-rosner" class="nav-link active" data-scroll-target="#exercises-3.53---3.63-of-rosner">Exercises 3.53 - 3.63 of Rosner</a></li>
+  <li><a href="#exercises-3.53---3.59-of-rosner" id="toc-exercises-3.53---3.59-of-rosner" class="nav-link active" data-scroll-target="#exercises-3.53---3.59-of-rosner">Exercises 3.53 - 3.59 of Rosner</a></li>
   </ul>
 </nav>
     </div>
@@ -420,13 +420,13 @@ window.Quarto = {
 <li><p><strong>Notation</strong>:</p>
 <ul>
 <li><span class="math inline">\(P(E) =\)</span> Probability of event <span class="math inline">\(E\)</span></li>
-<li>If <span class="math inline">\(E = \{\text{Positive, Negative}\}\)</span>, then <span class="math inline">\(P(E) = 0.8\)</span></li>
+<li>E.g., if <span class="math inline">\(E = \{\text{Positive, Negative}\}\)</span>, then <span class="math inline">\(P(E) = 0.8\)</span></li>
 </ul></li>
 <li><p>Two events are <strong>mutually exclusive</strong> if they cannot both happen at the same time.</p></li>
 <li><p><strong>Example</strong>:</p>
 <ul>
 <li><p><span class="math inline">\(E_1 = \{\text{Positive, Negative}\}\)</span></p></li>
-<li><p><span class="math inline">\(E_2 = \{\text{Uncertain, 3}\}\)</span></p></li>
+<li><p><span class="math inline">\(E_2 = \{\text{Uncertain}\}\)</span></p></li>
 <li><p><span class="math inline">\(E_3 = \{\text{Negative, Uncertain}\}\)</span></p></li>
 <li><p><span class="math inline">\(E_1\)</span> and <span class="math inline">\(E_2\)</span> are mutually exclusive.</p></li>
 <li><p><span class="math inline">\(E_1\)</span> and <span class="math inline">\(E_3\)</span> can both happen if the outcome is “Negative.”</p></li>
@@ -514,10 +514,10 @@ P(\overline{A}) = 1 - P(A) \Rightarrow P(A) = 1 - P(\overline{A})
 <p><img src="./figs/intersection.png" class="img-fluid">&nbsp;</p></li>
 <li><p><strong>Example</strong>:</p>
 <ul>
-<li><p><span class="math inline">\(P(\text{Mother DBP &gt; 90}) = 0.1\)</span></p></li>
-<li><p><span class="math inline">\(P(\text{Father DBP &gt; 90}) = 0.2\)</span></p></li>
+<li><p><span class="math inline">\(P(\text{Mother DBP &gt; 90}) = P(A) = 0.1\)</span></p></li>
+<li><p><span class="math inline">\(P(\text{Father DBP &gt; 90}) = P(B) = 0.2\)</span></p></li>
 <li><p>If independent, <span class="math display">\[
-P(A \cap B) = 0.1 \cdot 0.2 = 0.02
+P(A \cap B) = P(A)P(B) = 0.1 \cdot 0.2 = 0.02
 \]</span></p></li>
 </ul></li>
 <li><p><strong>Why called “independent”?</strong></p>
@@ -623,19 +623,20 @@ Conditional Probability
 <li>Suppose <span class="math inline">\(P(A^+) = 0.1\)</span>, <span class="math inline">\(P(B^+) = 0.17\)</span>, <span class="math inline">\(P(A^+ \cap B^+) = 0.08\)</span></li>
 <li>What is <span class="math inline">\(P(A^+ | B^+)\)</span>?</li>
 <li>What is <span class="math inline">\(P(B^+ | A^+)\)</span>?</li>
+<li>What is <span class="math inline">\(P(A^- | B^+)\)</span>?</li>
+<li>What is <span class="math inline">\(P(B^- | B^+)\)</span>?</li>
 </ul>
 </div>
 <div id="tabset-3-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-3-2-tab">
-<p><span class="math display">\[
-P(A^+ | B^+) = \frac{0.08}{0.17}
+<p>By the definition of conditional probability, we have <span class="math display">\[
+P(A^+ | B^+) = \frac{P(A^+ \cap B^+)}{P(B^+)} = \frac{0.08}{0.17} = 0.4706.
+\]</span> Similarly <span class="math display">\[
+P(B^+ | A^+) = \frac{P(A^+ \cap B^+)}{P(A^+)} = \frac{0.08}{0.1} = 0.8.
+\]</span></p>
+<p>To calculate <span class="math inline">\(P(A^- | B^+)\)</span> and <span class="math inline">\(P(B^- | A^+)\)</span>, use the complement rule <span class="math display">\[
+P(A^- | B^+) = 1 - P(A^+ | B^+) = 1 - 0.4706 = 0.5294
 \]</span> <span class="math display">\[
-P(B^+ | A^+) = \frac{0.08}{0.1}
-\]</span> <span class="math display">\[
-P(B^+ | \overline{A^+}) = \frac{P(B^+ \cap \overline{A^+})}{P(\overline{A^+})} = \frac{0.09}{1 - 0.1}
-\]</span> where <span class="math display">\[
-P(B^+) = P(B^+ \cap A^+) + P(B^+ \cap \overline{A^+}) = 0.08 + 0.09 = 0.17
-\]</span> Therefore, <span class="math display">\[
-P(B^+ \cap \overline{A^+}) = 0.09
+P(B^- | A^+) = 1 - P(B^+ | A^+) = 1 - 0.8 = 0.2
 \]</span></p>
 </div>
 </div>
@@ -685,7 +686,8 @@ P(A) &amp;= P(A \cap B) + P(A \cap \overline{B})\\
 <div id="tabset-4-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-4-2-tab">
 <p><span class="math display">\[\begin{align*}
 P(B) &amp;= P(B | \overline{A}) \cdot P(\overline{A}) + P(B | A) \cdot P(A)\\
-&amp;= 0.0002 \cdot 0.93 + 0.1 \cdot 0.07
+&amp;= 0.0002 \cdot (1 - 0.07) + 0.1 \cdot 0.07\\
+&amp;= 0.007186
 \end{align*}\]</span></p>
 </div>
 </div>
@@ -869,11 +871,11 @@ PV^- = P(\text{no disease | test-})
 </ul></li>
 <li><p><strong>Sensitivity</strong>: <span class="math display">\[\text{Sensitivity} = P(\text{test } + | \text{disease } +)\]</span></p>
 <ul>
-<li>This represents the <strong>True Positive Rate</strong>.</li>
+<li>Also called the <strong>True Positive Rate</strong>.</li>
 </ul></li>
 <li><p><strong>Specificity</strong>: <span class="math display">\[\text{Specificity} = P(\text{test } - | \text{disease } -)\]</span></p>
 <ul>
-<li>This represents the <strong>True Negative Rate</strong>.</li>
+<li>Also called the <strong>True Negative Rate</strong>.</li>
 </ul></li>
 <li><p><strong>Note</strong>: “Test” can also refer to other indicators, such as symptoms.</p></li>
 <li><p><strong>Example</strong>:</p>
@@ -882,7 +884,7 @@ PV^- = P(\text{no disease | test-})
 <li><p>30% of individuals without lung cancer are smokers.</p></li>
 <li><p><strong>Question</strong>: What are the sensitivity and specificity of smoking as a screening test?</p>
 <ul>
-<li>Here, the “test” positive if an individual is smoker and is negative if the individual is not a smoker.</li>
+<li>Here, the “test” is positive if an individual is smoker and is negative if the individual is not a smoker.</li>
 <li>Let:
 <ul>
 <li><span class="math inline">\(A = \{\text{smoker}\}\)</span></li>
@@ -902,11 +904,13 @@ PV^- = P(\text{no disease | test-})
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Tip
+Bayes’ Rule
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Bayes’ Rule <span class="math display">\[P(B | A) = \frac{P(A | B) \cdot P(B)}{P(A)}\]</span></p>
+<p><span class="math display">\[
+P(B | A) = \frac{P(A | B) \cdot P(B)}{P(A)}
+\]</span></p>
 </div>
 </div>
 <ul>
@@ -922,9 +926,12 @@ P(A) = P(A | B) P(B) + P(A | \overline{B}) P(\overline{B})
 <li><span class="math inline">\(P(\text{test} + | \text{disease})\)</span> (Sensitivity)</li>
 <li><span class="math inline">\(P(\text{test} - | \text{no disease})\)</span> (Specificity)</li>
 </ul></li>
-<li>Formula for <span class="math inline">\(PV^+\)</span>: <span class="math display">\[
-PV^+ = \frac{\text{Sensitivity} \times X}{\text{Sensitivity} \times X + \text{Specificity} \times (1 - X)}
-\]</span> where <span class="math inline">\(X = P(B)\)</span> (prevalence of disease).</li>
+<li>Formula for <span class="math inline">\(PV^+\)</span>: <span class="math display">\[\begin{align*}
+PV^+ &amp;= P(D^+|T^+)\\
+&amp;= \frac{P(T^+|D^+)P(D^+)}{P(T^+)}\\
+&amp;= \frac{P(T^+|D^+)P(D^+)}{P(T^+|D^+)P(D^+) + P(T^+|D^-)P(D^-)}\\
+&amp;= \frac{\text{Sensitivity} \times X}{\text{Sensitivity} \times X + (1 - \text{Specificity}) \times (1 - X)}
+\end{align*}\]</span> where <span class="math inline">\(X = P(B)\)</span> (prevalence of disease).</li>
 </ul></li>
 <li><p><strong>Example</strong>:</p>
 <ul>
@@ -950,10 +957,10 @@ P(A) &amp;= P(A | B) P(B) + P(A | \overline{B}) P(\overline{B})\\
 <li>Therefore, <span class="math inline">\(P(\overline{A}) = 1 - P(A) = 0.648\)</span></li>
 </ul></li>
 <li><p>Calculate <span class="math inline">\(PV^+\)</span>: <span class="math display">\[
-PV^+ = \frac{P(A | B) \cdot P(B)}{P(A)} = \frac{0.84 \cdot 0.2}{0.352} = 0.48
+PV^+ = P(B|A) = \frac{P(A | B) \cdot P(B)}{P(A)} = \frac{0.84 \cdot 0.2}{0.352} = 0.48
 \]</span></p></li>
 <li><p>Calculate <span class="math inline">\(PV^-\)</span>: <span class="math display">\[
-PV^- = \frac{P(\overline{A} | \overline{B}) \cdot P(\overline{B})}{P(\overline{A})} = \frac{0.77 \cdot 0.8}{0.648} = 0.95
+PV^- = P(\overline{B} | \overline{A}) = \frac{P(\overline{A} | \overline{B}) \cdot P(\overline{B})}{P(\overline{A})} = \frac{0.77 \cdot 0.8}{0.648} = 0.95
 \]</span></p></li>
 </ul></li>
 </ul></li>
@@ -964,13 +971,14 @@ PV^- = \frac{P(\overline{A} | \overline{B}) \cdot P(\overline{B})}{P(\overline{A
 </ul></li>
 <li><p><strong>Cumulative Incidence</strong>: <span class="math display">\[\text{Cumulative Incidence} = P(\text{will get disease | never had it})\]</span></p></li>
 </ul>
-<section id="exercises-3.53---3.63-of-rosner" class="level2">
-<h2 class="anchored" data-anchor-id="exercises-3.53---3.63-of-rosner">Exercises 3.53 - 3.63 of Rosner</h2>
+<section id="exercises-3.53---3.59-of-rosner" class="level2">
+<h2 class="anchored" data-anchor-id="exercises-3.53---3.59-of-rosner">Exercises 3.53 - 3.59 of Rosner</h2>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-5-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-5-1" role="tab" aria-controls="tabset-5-1" aria-selected="true">Word problem</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-5-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-5-2" role="tab" aria-controls="tabset-5-2" aria-selected="false">Convert to math notation</a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-5-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-5-1" role="tab" aria-controls="tabset-5-1" aria-selected="true">Exercise 0</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-5-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-5-2" role="tab" aria-controls="tabset-5-2" aria-selected="false">Solution</a></li></ul>
 <div class="tab-content">
 <div id="tabset-5-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-5-1-tab">
-<p>The familial aggregation of respiratory disease is a well-established clinical phenomenon. However, whether this aggregation is due to genetic or environmental factors or both is somewhat controversial. An investigator wishes to study a particular environmental factor, namely the relationship of cigarette-smoking habits in the parents to the presence or absence of asthma in their oldest child age 5 to 9 years living in the household (referred to below as their offspring). Suppose the investigator finds that (1) if both the mother and father are current smokers, then the probability of their offspring having asthma is .15; (2) if the mother is a current smoker and the father is not, then the probability of their offspring having asthma is .13; (3) if the father is a current smoker and the mother is not, then the probability of their offspring having asthma is .05; and (4) if neither parent is a current smoker, then the probability of their offspring having asthma is .04.</p>
+<p>The familial aggregation of respiratory disease is a well-established clinical phenomenon. However, whether this aggregation is due to genetic or environmental factors or both is somewhat controversial. An investigator wishes to study a particular environmental factor, namely the relationship of cigarette-smoking habits in the parents to the presence or absence of asthma in their oldest child age 5 to 9 years living in the household (referred to below as their offspring). Suppose the investigator finds that (1) if both the mother and father are current smokers, then the probability of their offspring having asthma is 0.15; (2) if the mother is a current smoker and the father is not, then the probability of their offspring having asthma is 0.13; (3) if the father is a current smoker and the mother is not, then the probability of their offspring having asthma is 0.05; and (4) if neither parent is a current smoker, then the probability of their offspring having asthma is 0.04.</p>
+<p>Convert this word problem to mathematical notation amenable to analysis.</p>
 </div>
 <div id="tabset-5-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-5-2-tab">
 <ul>
@@ -1012,10 +1020,10 @@ PV^- = \frac{P(\overline{A} | \overline{B}) \cdot P(\overline{B})}{P(\overline{A
 </div>
 </div>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-6-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-6-1" role="tab" aria-controls="tabset-6-1" aria-selected="true">Exercise 1.</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-6-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-6-2" role="tab" aria-controls="tabset-6-2" aria-selected="false">Solution</a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-6-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-6-1" role="tab" aria-controls="tabset-6-1" aria-selected="true">Exercise 1</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-6-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-6-2" role="tab" aria-controls="tabset-6-2" aria-selected="false">Solution</a></li></ul>
 <div class="tab-content">
 <div id="tabset-6-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-6-1-tab">
-<p>Suppose the smoking habits of the parents are independent and the probability that the mother is a current smoker is .4, whereas the probability that the father is a current smoker is .5. What is the probability that both the father and mother are current smokers?</p>
+<p>Suppose the smoking habits of the parents are independent and the probability that the mother is a current smoker is 0.4, whereas the probability that the father is a current smoker is 0.5. What is the probability that both the father and mother are current smokers?</p>
 </div>
 <div id="tabset-6-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-6-2-tab">
 <p>We want to calculate <span class="math inline">\(P(M^+ \cap F^+)\)</span> given: <span class="math inline">\(P(M^+) = 0.4\)</span>, <span class="math inline">\(P(F^+) = 0.5\)</span>, <span class="math inline">\(M^+ \perp F^+\)</span> <span class="math display">\[
@@ -1025,92 +1033,133 @@ P(M^+ \cap F^+) = P(M^+) \cdot P(F^+) = 0.4 \cdot 0.5 = 0.2
 </div>
 </div>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-7-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-7-1" role="tab" aria-controls="tabset-7-1" aria-selected="true">Exercise 2.</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-7-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-7-2" role="tab" aria-controls="tabset-7-2" aria-selected="false">Solution</a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-7-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-7-1" role="tab" aria-controls="tabset-7-1" aria-selected="true">Exercise 2</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-7-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-7-2" role="tab" aria-controls="tabset-7-2" aria-selected="false">Solution</a></li></ul>
 <div class="tab-content">
 <div id="tabset-7-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-7-1-tab">
 <p>Consider the subgroup of families in which the mother is not a current smoker. What is the probability that the father is a current smoker among such families? How does this probability differ from that calculated in Problem 1?</p>
 </div>
 <div id="tabset-7-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-7-2-tab">
-<p>We want to calculate <span class="math inline">\(P(F^+ | M^-)\)</span>. However, since <span class="math inline">\(M^+\)</span> and <span class="math inline">\(F^+\)</span> are independent, <span class="math inline">\(P(F^+ | M^-) = P(F^+) = 0.5\)</span>.</p>
+<p>We want to calculate <span class="math inline">\(P(F^+ | M^-)\)</span>. However, since <span class="math inline">\(M^+\)</span> and <span class="math inline">\(F^+\)</span> are independent, <span class="math inline">\(P(F^+ | M^-) = P(F^+) = 0.5\)</span>. This is just the probability that the father is a smoker, as opposed to part 1 where we calculated the probability that both father and mother are smokers.</p>
 </div>
 </div>
 </div>
+<p>Suppose, alternatively, that if the father is a current smoker, then the probability that the mother is a current smoker is 0.6; whereas if the father is not a current smoker, then the probability that the mother is a current smoker is 0.2. Also assume that statements 1, 2, 3, and 4 above hold.</p>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-8-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-8-1" role="tab" aria-controls="tabset-8-1" aria-selected="true">Exercise 3.</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-8-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-8-2" role="tab" aria-controls="tabset-8-2" aria-selected="false">Solution</a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-8-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-8-1" role="tab" aria-controls="tabset-8-1" aria-selected="true">Exercise 3</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-8-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-8-2" role="tab" aria-controls="tabset-8-2" aria-selected="false">Solution</a></li></ul>
 <div class="tab-content">
 <div id="tabset-8-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-8-1-tab">
-
+<p>If the probability that the father is a current smoker is 0.5, what is the probability that the father is a current smoker and that the mother is not a current smoker?</p>
 </div>
 <div id="tabset-8-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-8-2-tab">
-
-</div>
-</div>
-</div>
-<div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-9-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-9-1" role="tab" aria-controls="tabset-9-1" aria-selected="true">Exercise 4.</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-9-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-9-2" role="tab" aria-controls="tabset-9-2" aria-selected="false">Solution</a></li></ul>
-<div class="tab-content">
-<div id="tabset-9-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-9-1-tab">
-
-</div>
-<div id="tabset-9-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-9-2-tab">
-
-</div>
-</div>
-</div>
-<div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-10-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-10-1" role="tab" aria-controls="tabset-10-1" aria-selected="true">Exercise 5.</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-10-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-10-2" role="tab" aria-controls="tabset-10-2" aria-selected="false">Solution</a></li></ul>
-<div class="tab-content">
-<div id="tabset-10-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-10-1-tab">
-
-</div>
-<div id="tabset-10-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-10-2-tab">
-
-</div>
-</div>
-</div>
-<div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-11-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-11-1" role="tab" aria-controls="tabset-11-1" aria-selected="true">Exercise 6.</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-11-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-11-2" role="tab" aria-controls="tabset-11-2" aria-selected="false">Solution</a></li></ul>
-<div class="tab-content">
-<div id="tabset-11-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-11-1-tab">
-
-</div>
-<div id="tabset-11-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-11-2-tab">
-
-</div>
-</div>
-</div>
-<div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-12-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-12-1" role="tab" aria-controls="tabset-12-1" aria-selected="true">Exercise 7.</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-12-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-12-2" role="tab" aria-controls="tabset-12-2" aria-selected="false">Solution</a></li></ul>
-<div class="tab-content">
-<div id="tabset-12-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-12-1-tab">
-
-</div>
-<div id="tabset-12-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-12-2-tab">
-
-</div>
-</div>
-</div>
-<ol start="3" type="1">
-<li><strong>Given</strong>:
+<p>Converting the word problem to math notation, we have::</p>
 <ul>
 <li><p><span class="math inline">\(P(M^+ | F^+) = 0.6\)</span></p></li>
 <li><p><span class="math inline">\(P(M^+ | F^-) = 0.2\)</span></p></li>
 <li><p><span class="math inline">\(P(F^+) = 0.5\)</span></p></li>
-<li><p>Calculate <span class="math inline">\(P(F^+ \cap M^-)\)</span>:</p></li>
-</ul></li>
-</ol>
-<ol start="4" type="1">
-<li><strong>Is</strong> <span class="math inline">\(F^+ \perp M^+\)</span>?</li>
-</ol>
-<ol start="5" type="1">
-<li><strong>Find</strong> <span class="math inline">\(P(O^+)\)</span>:</li>
-</ol>
-<ol start="6" type="1">
-<li><strong>Calculate</strong> <span class="math inline">\(P(F^+ | O^+)\)</span>:</li>
-</ol>
-<ol start="7" type="1">
-<li><strong>Calculate</strong> <span class="math inline">\(P(M^+ | O^+)\)</span>:</li>
-</ol>
+<li><p>Our goal is to calculate <span class="math inline">\(P(F^+ \cap M^-)\)</span>.</p></li>
+<li><p>By the complement rule, we have <span class="math inline">\(P(M^- | F^+) = 1 - 0.6\)</span>. Using this, we have:</p></li>
+</ul>
+<p><span class="math display">\[
+P(F^+ \cap M^-) = P(M^- | F^+) \cdot P(F^+) = (1 - 0.6) \cdot 0.5 = 0.4 \cdot 0.5 = 0.2
+\]</span></p>
+</div>
+</div>
+</div>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-9-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-9-1" role="tab" aria-controls="tabset-9-1" aria-selected="true">Exercise 4</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-9-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-9-2" role="tab" aria-controls="tabset-9-2" aria-selected="false">Solution</a></li></ul>
+<div class="tab-content">
+<div id="tabset-9-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-9-1-tab">
+<p>Are the current smoking habits of the father and the mother independent? Why or why not?</p>
+</div>
+<div id="tabset-9-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-9-2-tab">
+<p>There are a couple ways to check this:</p>
+<ul>
+<li>See if <span class="math inline">\(P(M^+|F^+) = P(M^+|F^-) = P(M^+)\)</span> (value of <span class="math inline">\(F\)</span> does not matter). Any inequality here indicates non-independence.</li>
+<li>See if <span class="math inline">\(P(M^+ \cap F^+) = P(M^+)P(F^+)\)</span>, or any other combination, such as <span class="math inline">\(P(M^- \cap F^+) = P(M^-)P(F^+)\)</span>. An inequality here indicates non-independence.</li>
+</ul>
+<p>The easiest way is just the first. We know that <span class="math inline">\(P(M^+|F^+) =  0.6 \neq 0.2 = P(M^+|F^-)\)</span>. So no, they are not independent.</p>
+</div>
+</div>
+</div>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-10-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-10-1" role="tab" aria-controls="tabset-10-1" aria-selected="true">Exercise 5</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-10-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-10-2" role="tab" aria-controls="tabset-10-2" aria-selected="false">Solution</a></li></ul>
+<div class="tab-content">
+<div id="tabset-10-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-10-1-tab">
+<p>Under the assumptions made in Problems 3 and 4, find the unconditional probability that the offspring will have asthma.</p>
+</div>
+<div id="tabset-10-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-10-2-tab">
+<p>We want to calculate <span class="math inline">\(P(O^+)\)</span>:</p>
+<p>Using the law of total probability: <span class="math display">\[\begin{align*}
+P(O^+) &amp;= P(O^+ | M^+ \cap F^+) P(M^+ \cap F^+) + P(O^+ | M^+ \cap F^-) P(M^+ \cap F^-)\\
+&amp;+ P(O^+ | M^- \cap F^+) P(M^- \cap F^+) + P(O^+ | M^- \cap F^-) P(M^- \cap F^-)
+\end{align*}\]</span></p>
+<p>We were given:</p>
+<ul>
+<li><span class="math inline">\(P(O^+ | M^+ \cap F^+) = 0.15\)</span>,</li>
+<li><span class="math inline">\(P(O^+ | M^+ \cap F^-) = 0.13\)</span>,</li>
+<li><span class="math inline">\(P(O^+ | M^- \cap F^+) = 0.05\)</span>, and</li>
+<li><span class="math inline">\(P(O^+ | M^- \cap F^-) = 0.04\)</span>,</li>
+<li><span class="math inline">\(P(M^+|F^+) = 0.6\)</span></li>
+<li><span class="math inline">\(P(M^+|F^-) = 0.2\)</span></li>
+<li><span class="math inline">\(P(F^+) = 0.5\)</span></li>
+</ul>
+<p>We have</p>
+<ul>
+<li><span class="math inline">\(P(M^+ \cap F^+) = P(M^+|F^+)P(F^+) = 0.6 * 0.5 = 0.3\)</span></li>
+<li><span class="math inline">\(P(M^+ \cap F^-) = P(M^+|F^-)P(F^+) = 0.2 * 0.5 = 0.1\)</span></li>
+<li><span class="math inline">\(P(M^- \cap F^+) = P(M^-|F^+)P(F^+) = (1 - 0.6) * 0.5 = 0.2\)</span></li>
+<li><span class="math inline">\(P(M^- \cap F^-) = P(M^-|F^-)P(F^+) = (1 - 0.2) * 0.5 = 0.4\)</span></li>
+</ul>
+<p>Substituting the values: <span class="math display">\[
+P(O^+) = (0.15 \cdot 0.3) + (0.13 \cdot 0.1) + (0.05 \cdot 0.2) + (0.04 \cdot 0.4) = 0.084
+\]</span></p>
+</div>
+</div>
+</div>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-11-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-11-1" role="tab" aria-controls="tabset-11-1" aria-selected="true">Exercise 6</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-11-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-11-2" role="tab" aria-controls="tabset-11-2" aria-selected="false">Solution</a></li></ul>
+<div class="tab-content">
+<div id="tabset-11-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-11-1-tab">
+<p>Suppose a child has asthma. What is the posterior probability that the father is a current smoker?</p>
+</div>
+<div id="tabset-11-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-11-2-tab">
+<p>We want to calculate <span class="math inline">\(P(F^+ | O^+)\)</span>. Using Bayes rule we have</p>
+<p><span class="math display">\[
+P(F^+ | O^+) = \frac{P(F^+ \cap O^+)}{P(O^+)}
+\]</span> We already calculated <span class="math inline">\(P(O^+) = 0.084\)</span> from Exercise 5. The hard part is <span class="math inline">\(P(F^+ \cap O^+)\)</span>. But we can use the law of total probability to get that. <span class="math display">\[\begin{align*}
+P(F^+ \cap O^+) &amp;= P(F^+ \cap O^+ \cap M^+) + P(F^+ \cap O^+ \cap M^-)\\
+&amp;= P(O^+ | F^+ \cap M^+)P(F^+ \cap M^+) + P(O^+ | F^+ \cap M^-)P(F^+ \cap M^-)\\
+&amp;= 0.15 \cdot 0.3 + 0.05 \cdot 0.2\\
+&amp;= 0.055,
+\end{align*}\]</span> where we used <span class="math inline">\(P(F^+ \cap M^+) = 0.3\)</span> and <span class="math inline">\(P(F^+ \cap M^-) = 0.2\)</span> from Exercise 5.</p>
+<p>Substituting values we have <span class="math display">\[
+P(F^+ | O^+) = \frac{0.055}{0.084} = 0.6548.
+\]</span></p>
+</div>
+</div>
+</div>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-12-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-12-1" role="tab" aria-controls="tabset-12-1" aria-selected="true">Exercise 7</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-12-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-12-2" role="tab" aria-controls="tabset-12-2" aria-selected="false">Solution</a></li></ul>
+<div class="tab-content">
+<div id="tabset-12-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-12-1-tab">
+<p>What is the posterior probability that the mother is a current smoker if the child has asthma?</p>
+</div>
+<div id="tabset-12-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-12-2-tab">
+<p>We want <span class="math inline">\(P(M^+ | O^+)\)</span>. Using Bayes rule we have <span class="math display">\[
+P(M^+ | O^+) = \frac{P(O^+ \cap M^+)}{P(O^+)}
+\]</span> We can use the exact same strategy as in Exercise 6.</p>
+<p><span class="math display">\[\begin{align*}
+P(M^+ \cap O^+) &amp;= P(F^+ \cap M^+ \cap O^+) + P(F^- \cap M^+ \cap O^+) \text{ (law of total probability)}\\
+&amp;= P(O^+ | F^+ \cap M^+) P(F^+ \cap M^+) + P(O^+ | F^- \cap M^+) P(F^- \cap M^+) \text{ (conditional probability)}\\
+&amp;= 0.15 \cdot 0.3 + 0.13 \cdot 0.1 \text{ (given/calculated previously)}\\
+&amp;= 0.058
+\end{align*}\]</span></p>
+<p>Substituting in values we have <span class="math display">\[
+P(M^+ | O^+) = \frac{0.058}{0.084} = 0.6905.
+\]</span></p>
+</div>
+</div>
+</div>
 
 
 </section>
