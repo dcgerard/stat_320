@@ -67,12 +67,20 @@ lot of what real data scientists do. Just append what you are Googling with "in 
   3 ^ 2
   4 ^ 2
   ```
+
+::: {.panel-tabset}
+## Exercise 
+
+What do you think the following will evaluate to? Try to guess before running it in R:
   
-- **Exercise**: What do you think the following will evaluate to? Try to guess before running it in R:
-  
-  ```{r, eval = FALSE}
-  8 / 4 + 3 * 2 ^ 2
-  ```
+```{r, eval = FALSE}
+8 / 4 + 3 * 2 ^ 2
+```
+
+## Solution
+
+14
+:::
 
 - R consists of two things: variables and functions (computer scientists would probably disagree with
 this categorization).
@@ -229,43 +237,59 @@ this categorization).
 
 - `head()`: Show the first six values of an object.
 
-- **Exercise**: Calculate this in R (*hint*: `pi` is $\pi$ in R)
-    $$
-    \frac{1}{\sqrt{2\pi}}e^{-1.3^2}
-    $$
+
+::: {.panel-tabset}
+## Exercise
+Calculate this in R (*hint*: `pi` is $\pi$ in R)
+$$
+\frac{1}{\sqrt{2\pi}}e^{-1.3^2}
+$$
+
+## Solution
 ```{r}
-#| echo: false
-#| eval: false
 exp(-1.3^2) / sqrt(2 * pi)
 ```
 
+:::
 
-- **Exercise**: Create the following vector $x = (1, -2, 1.3)$. What is the mean and standard deviation of this variable?
 
+
+::: {.panel-tabset}
+## Exercise
+ Create the following vector $x = (1, -2, 1.3)$. What is the mean and standard deviation of this variable?
+
+## Solution
 ```{r}
-#| echo: false
-#| eval: false
 x <- c(1, -2, 1.3)
 mean(x)
 sd(x)
 ```
 
-- **Exercise**: Create a vector from 1 to 1000, take ths square root of each element, then sum them up.
+:::
 
+
+::: {.panel-tabset}
+## Exercise
+Create a vector from 1 to 1000, take ths square root of each element, then sum them up.
+
+## Solution
 ```{r}
-#| eval: false
-#| echo: false
 sum(sqrt(seq(1, 1000)))
 ```
 
-- **Exercise**: What does the `by` argument do in `seq()`? Try it out.
+:::
 
+::: {.panel-tabset}
+## Exercise
+What does the `by` argument do in `seq()`? Try it out.
+
+## Solution
+Creates increments of 2 instead of 1.
 ```{r}
-#| eval: false
-#| echo: false
-# increments of 2 instead of 1.
 seq(1, 10, by = 2)
 ```
+
+:::
   
 ## R Packages
 
@@ -344,15 +368,19 @@ seq(1, 10, by = 2)
   head(lead)
   ```
   
-- **Exercise**: Load in the `birthweight` data into R and print out the first six rows.
+::: {.panel-tabset}
+## Exercise
+Load in the `birthweight` data into R and print out the first six rows.
+
+## Solution
 
 ```{r}
 #| eval: true
-#| echo: false
-#| message: false
 birthweight <- read_csv("https://dcgerard.github.io/stat_320/data/birthweight.csv")
-# head(birthweight)
+head(birthweight)
 ```
+
+:::
 
 ## Basic Data Frame Manipulations
 
@@ -404,39 +432,53 @@ birthweight <- read_csv("https://dcgerard.github.io/stat_320/data/birthweight.cs
   filter(lead, ageyrs > 4, ageyrs < 5)
   ```
   
-- **Exercise**: The `birthweight` data is in ounces. There are abour 28.3495 grams in an ounce. Create a new variable called `weight_g` that is the weight of the baby in grams.
+::: {.panel-tabset}
+## Exercise
 
-  ```{r}
-  #| eval: false
-  #| echo: false
-  birthweight <- mutate(birthweight, weight_g = 28.3495 * weight)
-  glimpse(birthweight)
-  ```
+The `birthweight` data is in ounces. There are abour 28.3495 grams in an ounce. Create a new variable called `weight_g` that is the weight of the baby in grams.
 
-- **Exercise**: From the birthweight data, select just babies that are greater than or equal to 150 ounces.
+## Solution
+```{r}
+#| eval: false
+birthweight <- mutate(birthweight, weight_g = 28.3495 * weight)
+glimpse(birthweight)
+```
 
-  ```{r}
-  #| eval: false
-  #| echo: false
-  filter(birthweight, weight > 150)
-  ```
+:::
 
-- **Exercise**: From the `lead` data, select individuals who are both in the control group and are at least 15.
+::: {.panel-tabset}
+## Exercise
+From the birthweight data, select just babies that are greater than or equal to 150 ounces.
 
-  ```{r}
-  #| eval: false
-  #| echo: false
-  filter(lead, Group == "control", ageyrs >= 15)
-  ```
+## Solution
+```{r}
+#| eval: false
+filter(birthweight, weight >= 150)
+```
+:::
 
+::: {.panel-tabset}
+## Exercise
+From the `lead` data, select individuals who are both in the control group and are at least 15.
 
-- **Exercise**: From the `lead` data, rename `ageyrs` to just `age`
+## Solution
+```{r}
+#| eval: false
+filter(lead, Group == "control", ageyrs >= 15)
+```
+:::
 
-  ```{r}
-  #| eval: false
-  #| echo: false
-  rename(lead, age = ageyrs)
-  ```
+::: {.panel-tabset}
+## Exercise
+From the `lead` data, rename `ageyrs` to just `age`
+
+## Solution
+```{r}
+#| eval: false
+rename(lead, age = ageyrs)
+```
+
+:::
   
 # Summary
 

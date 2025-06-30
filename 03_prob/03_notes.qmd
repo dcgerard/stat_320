@@ -122,19 +122,17 @@ Two events are **independent** if and only if
   - $B$ becomes the sample space if it occurs, and we don’t know $A$, so $A$ still has a 10% chance, even if we know $B$.
   - Therefore, $B$ occurring or not occurring does not change the probability of $A$.
 
-- **Exercise**:
-  - $A^+$: Doctor $A$ diagnoses $+$
-  - $B^+$: Doctor $B$ diagnoses $+$
-  
-  - $P(A^+) = 0.1$, $P(B^+) = 0.17$, $P(A^+ \cap B^+) = 0.09$
-  
-  - Are the events independent?
-    ```{block}
-    #| eval: false
-    #| echo: false
-    - $0.1 \cdot 0.17 = 0.017 \neq 0.09$
-    - Therefore, the events are **not independent**.
-    ```
+::: {.panel-tabset}
+## Exercise
+- $A^+$: Doctor $A$ diagnoses $+$
+- $B^+$: Doctor $B$ diagnoses $+$
+- $P(A^+) = 0.1$, $P(B^+) = 0.17$, $P(A^+ \cap B^+) = 0.09$
+- Are the events independent?
+
+## Solution
+- $0.1 \cdot 0.17 = 0.017 \neq 0.09$
+- Therefore, the events are **not independent**.
+:::
 
 - Events $A_1, A_2, \dots, A_n$ are **mutually independent** if
   $$
@@ -146,13 +144,16 @@ Two events are **independent** if and only if
 $$P(A \cup B) = P(A) + P(B) - P(A \cap B)$$
 :::
 
--   **Exercise**: What is the probability that Doctor $A$ or $B$ diagnoses $+$?
+::: {.panel-tabset}
 
-    ```{block}
-    #| eval: false
-    #| echo: false
-    $$P(A^+ \cup B^+) = 0.1 + 0.17 - 0.08 = 0.19$$
-    ```
+## Exercise
+What is the probability that Doctor $A$ or $B$ diagnoses $+$?
+
+## Solution
+$$
+P(A^+ \cup B^+) = 0.1 + 0.17 - 0.08 = 0.19
+$$
+:::
 
 - **Note**: $P(A \cap B) = 0$ if $A$ and $B$ are mutually exclusive.
 
@@ -179,26 +180,32 @@ $$P(A | B) = \frac{P(A \cap B)}{P(B)}$$
     - $<$ 1 $\Rightarrow B$ less likely given $A$
     - $>$ 1 $\Rightarrow B$ more likely given $A$
 
-- **Exercise**:
-  - $P(A^+) = 0.1$, $P(B^+) = 0.17$, $P(A^+ \cap B^+) = 0.08$
-  
-  - Questions:
-    - What is $P(A^+ | B^+)$?
-    - What is $P(B^+ | A^+)$?
+::: {.panel-tabset}
 
-    ```{block}
-    #| eval: false
-    #| echo: false
-    $$P(A^+ | B^+) = \frac{0.08}{0.17}$$
-    $$P(B^+ | A^+) = \frac{0.08}{0.1}$$
-    
-    
-    $$P(B^+ | \overline{A^+}) = \frac{P(B^+ \cap \overline{A^+})}{P(\overline{A^+})} = \frac{0.09}{1 - 0.1}$$
-    where
-    $$P(B^+) = P(B^+ \cap A^+) + P(B^+ \cap \overline{A^+}) = 0.08 + 0.09 = 0.17$$
-    Therefore,
-    $$P(B^+ \cap \overline{A^+}) = 0.09$$
-    ```
+## Exercise
+- Suppose $P(A^+) = 0.1$, $P(B^+) = 0.17$, $P(A^+ \cap B^+) = 0.08$
+- What is $P(A^+ | B^+)$?
+- What is $P(B^+ | A^+)$?
+
+## Solution
+$$
+P(A^+ | B^+) = \frac{0.08}{0.17}
+$$
+$$
+P(B^+ | A^+) = \frac{0.08}{0.1}
+$$
+$$
+P(B^+ | \overline{A^+}) = \frac{P(B^+ \cap \overline{A^+})}{P(\overline{A^+})} = \frac{0.09}{1 - 0.1}
+$$
+where
+$$
+P(B^+) = P(B^+ \cap A^+) + P(B^+ \cap \overline{A^+}) = 0.08 + 0.09 = 0.17
+$$
+Therefore,
+$$
+P(B^+ \cap \overline{A^+}) = 0.09
+$$
+:::
 
 - **Note**: In biostatistics, we typically write $\overline{A^+}$ as $A^-$.
 
@@ -215,24 +222,26 @@ P(A) &= P(A \cap B) + P(A \cap \overline{B})\\
   
   ![](./figs/lotp.png)\ 
     
-- **Exercise**:
-  - Define:
-    - $A = \{\text{Mammogram } +\}$
-    - $B = \{\text{Breast Cancer } +\}$
+::: {.panel-tabset}
+## Exercise
 
-  - Given:
-    - $P(B | \overline{A}) = 0.0002$
-    - $P(B | A) = 0.1$
-    - $P(A) = 0.07$
+- Define:
+  - $A = \{\text{Mammogram } +\}$
+  - $B = \{\text{Breast Cancer } +\}$
 
-  - Question: What is $P(B)$?
+- Given:
+  - $P(B | \overline{A}) = 0.0002$
+  - $P(B | A) = 0.1$
+  - $P(A) = 0.07$
 
-    ```{block}
-    #| eval: false
-    #| echo: false
-    $$P(B) = P(B | \overline{A}) \cdot P(\overline{A}) + P(B | A) \cdot P(A)$$
-    $$= 0.0002 \cdot 0.93 + 0.1 \cdot 0.07$$
-    ```
+- Question: What is $P(B)$?
+
+## Solution
+\begin{align*}
+P(B) &= P(B | \overline{A}) \cdot P(\overline{A}) + P(B | A) \cdot P(A)\\
+&= 0.0002 \cdot 0.93 + 0.1 \cdot 0.07
+\end{align*}
+:::
   
 - More generally, if $A_1, A_2, \dots, A_k$ partition the sample space, then
   $$P(B) = \sum_{i=1}^k P(B | A_i) \cdot P(A_i)$$
@@ -458,35 +467,96 @@ $$P(B | A) = \frac{P(A | B) \cdot P(B)}{P(A)}$$
 - **Cumulative Incidence**:
   $$\text{Cumulative Incidence} = P(\text{will get disease | never had it})$$
 
-- **Exercise 3.53 - 3.63 of Rosner**:
-  - Define:
-    - $M^+ =$ Mother smokes
-    - $F^+ =$ Father smokes
-    - $O^+ =$ Offspring has asthma
+## Exercises 3.53 - 3.63 of Rosner
 
-  - Given probabilities:
+::: {.panel-tabset}
+## Word problem
 
-    | Scenario     | $P(O^+ | \text{Scenario})$ |
-    |--------------|----------------------------|
-    | $M^+ \cap F^+$    | 0.15                       |
-    | $M^+ \cap F^-$    | 0.13                       |
-    | $M^- \cap F^+$    | 0.05                       |
-    | $M^- \cap F^-$    | 0.04                       |
+The familial aggregation of respiratory disease is a well-established clinical phenomenon. However, whether this aggregation is due to genetic or environmental factors or both is somewhat controversial. An investigator wishes to study a particular environmental factor, namely the relationship of cigarette-smoking habits in the parents to the presence or absence of asthma in their oldest child age 5 to 9 years living in the household (referred to below as their offspring). Suppose the investigator finds that (1) if both the mother and father are current smokers, then the probability of their offspring having asthma is .15; (2) if the mother is a current smoker and the father is not, then the probability of their offspring having asthma is .13; (3) if the father is a current smoker and the mother is not, then the probability of their offspring having asthma is .05; and (4) if neither parent is a current smoker, then the probability of their offspring having asthma is .04.
 
-1. **Calculate** $P(M^+ \cap F^+)$:
-```{block}
-#| echo: false
-#| eval: false
-- Given: $P(M^+) = 0.4$, $P(F^+) = 0.5$, $M^+ \perp F^+$
-- Answer: $P(M^+ \cap F^+) = P(M^+) \cdot P(F^+) = 0.4 \cdot 0.5 = 0.2$
-```
+## Convert to math notation
 
-2. **Find** $P(F^+ | M^-)$:
-```{block}
-#| echo: false
-#| eval: false
-- Since $M^+$ and $F^+$ are independent, $P(F^+ | M^-) = P(F^+) = 0.5$.
-```
+- Define:
+  - $M^+ =$ Mother smokes
+  - $F^+ =$ Father smokes
+  - $O^+ =$ Offspring has asthma
+
+- Given probabilities:
+
+  | Scenario       | $P(O^+ | \text{Scenario})$ |
+  |----------------|----------------------------|
+  | $M^+ \cap F^+$ | 0.15                       |
+  | $M^+ \cap F^-$ | 0.13                       |
+  | $M^- \cap F^+$ | 0.05                       |
+  | $M^- \cap F^-$ | 0.04                       |
+:::
+
+::: {.panel-tabset}
+
+## Exercise 1.
+
+Suppose the smoking habits of the parents are independent and the probability that the mother is a current smoker is .4, whereas the probability that the father is a current smoker is .5. What is the probability that both the father and mother are current smokers?
+
+## Solution
+
+We want to calculate $P(M^+ \cap F^+)$ given: $P(M^+) = 0.4$, $P(F^+) = 0.5$, $M^+ \perp F^+$
+$$
+P(M^+ \cap F^+) = P(M^+) \cdot P(F^+) = 0.4 \cdot 0.5 = 0.2
+$$
+:::
+
+::: {.panel-tabset}
+
+## Exercise 2.
+
+Consider the subgroup of families in which the mother is not a current smoker. What is the probability that the father is a current smoker among such families? How does this probability differ from that calculated in Problem 1?
+
+## Solution
+
+We want to calculate $P(F^+ | M^-)$. However, since $M^+$ and $F^+$ are independent, $P(F^+ | M^-) = P(F^+) = 0.5$.
+
+:::
+
+::: {.panel-tabset}
+
+## Exercise 3.
+
+## Solution
+
+:::
+
+::: {.panel-tabset}
+
+## Exercise 4.
+
+## Solution
+
+:::
+
+::: {.panel-tabset}
+
+## Exercise 5.
+
+## Solution
+
+:::
+
+::: {.panel-tabset}
+
+## Exercise 6.
+
+## Solution
+
+:::
+
+::: {.panel-tabset}
+
+## Exercise 7.
+
+## Solution
+
+:::
+
 
 3. **Given**:
    - $P(M^+ | F^+) = 0.6$

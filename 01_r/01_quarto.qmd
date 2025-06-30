@@ -200,15 +200,31 @@ as the output of some chunk). You can do this by placing code within
   \frac{1}{\sqrt{2\pi\sigma^2}}\exp(-\frac{1}{2\sigma^2}(x - \mu)^2)
   $$
   ```
-  
-- **Exercise**: write this equation using $\LaTeX$
 
-  $$
-  \binom{n}{k}p^k(1-p)^{n-k}
-  $$
+::: {.panel-tabset}
+## Exercise
+Write this equation using $\LaTeX$
 
-- **Exercise**: write this equation using $\LaTeX$
+$$
+\binom{n}{k}p^k(1-p)^{n-k}
+$$
 
-  $$
-  -\frac{n}{2}\log(2\pi\sigma^2) - \frac{1}{2\sigma^2}\sum_{i=1}^{n}(x_i-\mu)^2
-  $$
+## Solution
+```
+\binom{n}{k}p^k(1-p)^{n-k}
+```
+:::
+
+::: {.panel-tabset}
+## Exercise
+Write this equation using $\LaTeX$
+
+$$
+-\frac{n}{2}\log(2\pi\sigma^2) - \frac{1}{2\sigma^2}\sum_{i=1}^{n}(x_i-\mu)^2
+$$
+
+## Solution
+```
+-\frac{n}{2}\log(2\pi\sigma^2) - \frac{1}{2\sigma^2}\sum_{i=1}^{n}(x_i-\mu)^2
+```
+:::

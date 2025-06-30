@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="David Gerard">
-<meta name="dcterms.date" content="2025-06-27">
+<meta name="dcterms.date" content="2025-06-30">
 
 <title>Chapter 3 Notes: Probability – Stat 320: Biostatistics</title>
 <style>
@@ -306,8 +306,14 @@ window.Quarto = {
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#exercises-3.53---3.63-of-rosner" id="toc-exercises-3.53---3.63-of-rosner" class="nav-link active" data-scroll-target="#exercises-3.53---3.63-of-rosner">Exercises 3.53 - 3.63 of Rosner</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -332,7 +338,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">June 27, 2025</p>
+      <p class="date">June 30, 2025</p>
     </div>
   </div>
   
@@ -521,16 +527,30 @@ P(A \cap B) = 0.1 \cdot 0.2 = 0.02
 <li><span class="math inline">\(B\)</span> becomes the sample space if it occurs, and we don’t know <span class="math inline">\(A\)</span>, so <span class="math inline">\(A\)</span> still has a 10% chance, even if we know <span class="math inline">\(B\)</span>.</li>
 <li>Therefore, <span class="math inline">\(B\)</span> occurring or not occurring does not change the probability of <span class="math inline">\(A\)</span>.</li>
 </ul></li>
-<li><p><strong>Exercise</strong>:</p>
+</ul>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true">Exercise</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false">Solution</a></li></ul>
+<div class="tab-content">
+<div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
 <ul>
-<li><p><span class="math inline">\(A^+\)</span>: Doctor <span class="math inline">\(A\)</span> diagnoses <span class="math inline">\(+\)</span></p></li>
-<li><p><span class="math inline">\(B^+\)</span>: Doctor <span class="math inline">\(B\)</span> diagnoses <span class="math inline">\(+\)</span></p></li>
-<li><p><span class="math inline">\(P(A^+) = 0.1\)</span>, <span class="math inline">\(P(B^+) = 0.17\)</span>, <span class="math inline">\(P(A^+ \cap B^+) = 0.09\)</span></p></li>
-<li><p>Are the events independent?</p></li>
-</ul></li>
-<li><p>Events <span class="math inline">\(A_1, A_2, \dots, A_n\)</span> are <strong>mutually independent</strong> if <span class="math display">\[
+<li><span class="math inline">\(A^+\)</span>: Doctor <span class="math inline">\(A\)</span> diagnoses <span class="math inline">\(+\)</span></li>
+<li><span class="math inline">\(B^+\)</span>: Doctor <span class="math inline">\(B\)</span> diagnoses <span class="math inline">\(+\)</span></li>
+<li><span class="math inline">\(P(A^+) = 0.1\)</span>, <span class="math inline">\(P(B^+) = 0.17\)</span>, <span class="math inline">\(P(A^+ \cap B^+) = 0.09\)</span></li>
+<li>Are the events independent?</li>
+</ul>
+</div>
+<div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
+<ul>
+<li><span class="math inline">\(0.1 \cdot 0.17 = 0.017 \neq 0.09\)</span></li>
+<li>Therefore, the events are <strong>not independent</strong>.</li>
+</ul>
+</div>
+</div>
+</div>
+<ul>
+<li>Events <span class="math inline">\(A_1, A_2, \dots, A_n\)</span> are <strong>mutually independent</strong> if <span class="math display">\[
 P(A_1 \cap A_2 \cap \dots \cap A_n) = P(A_1) \times P(A_2) \times \cdots \times P(A_n) =  \prod_{i=1}^{n} P(A_i)
-\]</span></p></li>
+\]</span></li>
 </ul>
 <div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -545,9 +565,21 @@ Addition Law of Probability
 <p><span class="math display">\[P(A \cup B) = P(A) + P(B) - P(A \cap B)\]</span></p>
 </div>
 </div>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-2-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-1" role="tab" aria-controls="tabset-2-1" aria-selected="true">Exercise</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-2" role="tab" aria-controls="tabset-2-2" aria-selected="false">Solution</a></li></ul>
+<div class="tab-content">
+<div id="tabset-2-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-2-1-tab">
+<p>What is the probability that Doctor <span class="math inline">\(A\)</span> or <span class="math inline">\(B\)</span> diagnoses <span class="math inline">\(+\)</span>?</p>
+</div>
+<div id="tabset-2-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-2-tab">
+<p><span class="math display">\[
+P(A^+ \cup B^+) = 0.1 + 0.17 - 0.08 = 0.19
+\]</span></p>
+</div>
+</div>
+</div>
 <ul>
-<li><p><strong>Exercise</strong>: What is the probability that Doctor <span class="math inline">\(A\)</span> or <span class="math inline">\(B\)</span> diagnoses <span class="math inline">\(+\)</span>?</p></li>
-<li><p><strong>Note</strong>: <span class="math inline">\(P(A \cap B) = 0\)</span> if <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span> are mutually exclusive.</p></li>
+<li><strong>Note</strong>: <span class="math inline">\(P(A \cap B) = 0\)</span> if <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span> are mutually exclusive.</li>
 </ul>
 <div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -582,15 +614,33 @@ Conditional Probability
 <li><span class="math inline">\(&gt;\)</span> 1 <span class="math inline">\(\Rightarrow B\)</span> more likely given <span class="math inline">\(A\)</span></li>
 </ul></li>
 </ul></li>
-<li><strong>Exercise</strong>:
+</ul>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-3-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-1" role="tab" aria-controls="tabset-3-1" aria-selected="true">Exercise</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-3-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-2" role="tab" aria-controls="tabset-3-2" aria-selected="false">Solution</a></li></ul>
+<div class="tab-content">
+<div id="tabset-3-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-3-1-tab">
 <ul>
-<li><p><span class="math inline">\(P(A^+) = 0.1\)</span>, <span class="math inline">\(P(B^+) = 0.17\)</span>, <span class="math inline">\(P(A^+ \cap B^+) = 0.08\)</span></p></li>
-<li><p>Questions:</p>
-<ul>
+<li>Suppose <span class="math inline">\(P(A^+) = 0.1\)</span>, <span class="math inline">\(P(B^+) = 0.17\)</span>, <span class="math inline">\(P(A^+ \cap B^+) = 0.08\)</span></li>
 <li>What is <span class="math inline">\(P(A^+ | B^+)\)</span>?</li>
 <li>What is <span class="math inline">\(P(B^+ | A^+)\)</span>?</li>
-</ul></li>
-</ul></li>
+</ul>
+</div>
+<div id="tabset-3-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-3-2-tab">
+<p><span class="math display">\[
+P(A^+ | B^+) = \frac{0.08}{0.17}
+\]</span> <span class="math display">\[
+P(B^+ | A^+) = \frac{0.08}{0.1}
+\]</span> <span class="math display">\[
+P(B^+ | \overline{A^+}) = \frac{P(B^+ \cap \overline{A^+})}{P(\overline{A^+})} = \frac{0.09}{1 - 0.1}
+\]</span> where <span class="math display">\[
+P(B^+) = P(B^+ \cap A^+) + P(B^+ \cap \overline{A^+}) = 0.08 + 0.09 = 0.17
+\]</span> Therefore, <span class="math display">\[
+P(B^+ \cap \overline{A^+}) = 0.09
+\]</span></p>
+</div>
+</div>
+</div>
+<ul>
 <li><strong>Note</strong>: In biostatistics, we typically write <span class="math inline">\(\overline{A^+}\)</span> as <span class="math inline">\(A^-\)</span>.</li>
 </ul>
 <div class="callout callout-style-default callout-tip callout-titled">
@@ -612,21 +662,35 @@ P(A) &amp;= P(A \cap B) + P(A \cap \overline{B})\\
 <ul>
 <li><p>Visualization of Total Probability:</p>
 <p><img src="./figs/lotp.png" class="img-fluid">&nbsp;</p></li>
-<li><p><strong>Exercise</strong>:</p>
+</ul>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-4-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-1" role="tab" aria-controls="tabset-4-1" aria-selected="true">Exercise</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-4-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-2" role="tab" aria-controls="tabset-4-2" aria-selected="false">Solution</a></li></ul>
+<div class="tab-content">
+<div id="tabset-4-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-4-1-tab">
 <ul>
-<li><p>Define:</p>
+<li>Define:
 <ul>
 <li><span class="math inline">\(A = \{\text{Mammogram } +\}\)</span></li>
 <li><span class="math inline">\(B = \{\text{Breast Cancer } +\}\)</span></li>
 </ul></li>
-<li><p>Given:</p>
+<li>Given:
 <ul>
 <li><span class="math inline">\(P(B | \overline{A}) = 0.0002\)</span></li>
 <li><span class="math inline">\(P(B | A) = 0.1\)</span></li>
 <li><span class="math inline">\(P(A) = 0.07\)</span></li>
 </ul></li>
-<li><p>Question: What is <span class="math inline">\(P(B)\)</span>?</p></li>
-</ul></li>
+<li>Question: What is <span class="math inline">\(P(B)\)</span>?</li>
+</ul>
+</div>
+<div id="tabset-4-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-4-2-tab">
+<p><span class="math display">\[\begin{align*}
+P(B) &amp;= P(B | \overline{A}) \cdot P(\overline{A}) + P(B | A) \cdot P(A)\\
+&amp;= 0.0002 \cdot 0.93 + 0.1 \cdot 0.07
+\end{align*}\]</span></p>
+</div>
+</div>
+</div>
+<ul>
 <li><p>More generally, if <span class="math inline">\(A_1, A_2, \dots, A_k\)</span> partition the sample space, then <span class="math display">\[P(B) = \sum_{i=1}^k P(B | A_i) \cdot P(A_i)\]</span></p>
 <ul>
 <li>Partition: They are all mutually exclusive and together they make up the entire sample space.</li>
@@ -899,7 +963,16 @@ PV^- = \frac{P(\overline{A} | \overline{B}) \cdot P(\overline{B})}{P(\overline{A
 <li>Proportion of the population that has the disease.</li>
 </ul></li>
 <li><p><strong>Cumulative Incidence</strong>: <span class="math display">\[\text{Cumulative Incidence} = P(\text{will get disease | never had it})\]</span></p></li>
-<li><p><strong>Exercise 3.53 - 3.63 of Rosner</strong>:</p>
+</ul>
+<section id="exercises-3.53---3.63-of-rosner" class="level2">
+<h2 class="anchored" data-anchor-id="exercises-3.53---3.63-of-rosner">Exercises 3.53 - 3.63 of Rosner</h2>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-5-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-5-1" role="tab" aria-controls="tabset-5-1" aria-selected="true">Word problem</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-5-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-5-2" role="tab" aria-controls="tabset-5-2" aria-selected="false">Convert to math notation</a></li></ul>
+<div class="tab-content">
+<div id="tabset-5-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-5-1-tab">
+<p>The familial aggregation of respiratory disease is a well-established clinical phenomenon. However, whether this aggregation is due to genetic or environmental factors or both is somewhat controversial. An investigator wishes to study a particular environmental factor, namely the relationship of cigarette-smoking habits in the parents to the presence or absence of asthma in their oldest child age 5 to 9 years living in the household (referred to below as their offspring). Suppose the investigator finds that (1) if both the mother and father are current smokers, then the probability of their offspring having asthma is .15; (2) if the mother is a current smoker and the father is not, then the probability of their offspring having asthma is .13; (3) if the father is a current smoker and the mother is not, then the probability of their offspring having asthma is .05; and (4) if neither parent is a current smoker, then the probability of their offspring having asthma is .04.</p>
+</div>
+<div id="tabset-5-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-5-2-tab">
 <ul>
 <li><p>Define:</p>
 <ul>
@@ -934,14 +1007,89 @@ PV^- = \frac{P(\overline{A} | \overline{B}) \cdot P(\overline{B})}{P(\overline{A
 </tr>
 </tbody>
 </table></li>
-</ul></li>
 </ul>
-<ol type="1">
-<li><strong>Calculate</strong> <span class="math inline">\(P(M^+ \cap F^+)\)</span>:</li>
-</ol>
-<ol start="2" type="1">
-<li><strong>Find</strong> <span class="math inline">\(P(F^+ | M^-)\)</span>:</li>
-</ol>
+</div>
+</div>
+</div>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-6-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-6-1" role="tab" aria-controls="tabset-6-1" aria-selected="true">Exercise 1.</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-6-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-6-2" role="tab" aria-controls="tabset-6-2" aria-selected="false">Solution</a></li></ul>
+<div class="tab-content">
+<div id="tabset-6-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-6-1-tab">
+<p>Suppose the smoking habits of the parents are independent and the probability that the mother is a current smoker is .4, whereas the probability that the father is a current smoker is .5. What is the probability that both the father and mother are current smokers?</p>
+</div>
+<div id="tabset-6-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-6-2-tab">
+<p>We want to calculate <span class="math inline">\(P(M^+ \cap F^+)\)</span> given: <span class="math inline">\(P(M^+) = 0.4\)</span>, <span class="math inline">\(P(F^+) = 0.5\)</span>, <span class="math inline">\(M^+ \perp F^+\)</span> <span class="math display">\[
+P(M^+ \cap F^+) = P(M^+) \cdot P(F^+) = 0.4 \cdot 0.5 = 0.2
+\]</span></p>
+</div>
+</div>
+</div>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-7-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-7-1" role="tab" aria-controls="tabset-7-1" aria-selected="true">Exercise 2.</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-7-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-7-2" role="tab" aria-controls="tabset-7-2" aria-selected="false">Solution</a></li></ul>
+<div class="tab-content">
+<div id="tabset-7-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-7-1-tab">
+<p>Consider the subgroup of families in which the mother is not a current smoker. What is the probability that the father is a current smoker among such families? How does this probability differ from that calculated in Problem 1?</p>
+</div>
+<div id="tabset-7-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-7-2-tab">
+<p>We want to calculate <span class="math inline">\(P(F^+ | M^-)\)</span>. However, since <span class="math inline">\(M^+\)</span> and <span class="math inline">\(F^+\)</span> are independent, <span class="math inline">\(P(F^+ | M^-) = P(F^+) = 0.5\)</span>.</p>
+</div>
+</div>
+</div>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-8-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-8-1" role="tab" aria-controls="tabset-8-1" aria-selected="true">Exercise 3.</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-8-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-8-2" role="tab" aria-controls="tabset-8-2" aria-selected="false">Solution</a></li></ul>
+<div class="tab-content">
+<div id="tabset-8-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-8-1-tab">
+
+</div>
+<div id="tabset-8-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-8-2-tab">
+
+</div>
+</div>
+</div>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-9-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-9-1" role="tab" aria-controls="tabset-9-1" aria-selected="true">Exercise 4.</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-9-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-9-2" role="tab" aria-controls="tabset-9-2" aria-selected="false">Solution</a></li></ul>
+<div class="tab-content">
+<div id="tabset-9-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-9-1-tab">
+
+</div>
+<div id="tabset-9-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-9-2-tab">
+
+</div>
+</div>
+</div>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-10-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-10-1" role="tab" aria-controls="tabset-10-1" aria-selected="true">Exercise 5.</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-10-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-10-2" role="tab" aria-controls="tabset-10-2" aria-selected="false">Solution</a></li></ul>
+<div class="tab-content">
+<div id="tabset-10-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-10-1-tab">
+
+</div>
+<div id="tabset-10-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-10-2-tab">
+
+</div>
+</div>
+</div>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-11-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-11-1" role="tab" aria-controls="tabset-11-1" aria-selected="true">Exercise 6.</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-11-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-11-2" role="tab" aria-controls="tabset-11-2" aria-selected="false">Solution</a></li></ul>
+<div class="tab-content">
+<div id="tabset-11-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-11-1-tab">
+
+</div>
+<div id="tabset-11-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-11-2-tab">
+
+</div>
+</div>
+</div>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-12-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-12-1" role="tab" aria-controls="tabset-12-1" aria-selected="true">Exercise 7.</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-12-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-12-2" role="tab" aria-controls="tabset-12-2" aria-selected="false">Solution</a></li></ul>
+<div class="tab-content">
+<div id="tabset-12-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-12-1-tab">
+
+</div>
+<div id="tabset-12-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-12-2-tab">
+
+</div>
+</div>
+</div>
 <ol start="3" type="1">
 <li><strong>Given</strong>:
 <ul>
@@ -965,6 +1113,7 @@ PV^- = \frac{P(\overline{A} | \overline{B}) \cdot P(\overline{B})}{P(\overline{A
 </ol>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">

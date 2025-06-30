@@ -222,15 +222,15 @@ ggplot(data.frame(x = c(-2, 6)), aes(x = x)) +
 
 - If $y_i = a x_i + C$, then $\bar{y} = a \bar{X} + C$
 
--   **Exercise**: What is the mean menstrual cycle deviation from 4 weeks?
+::: {.panel-tabset}
+## Exercise
+What is the mean menstrual cycle deviation from 4 weeks?
 
-    ```{block}
-    #| eval: false
-    #| echo: false
-    $$
-    3.92 - 4 = -0.08
-    $$
-    ```
+## Solution
+$$
+3.92 - 4 = -0.08
+$$
+:::
 
 
 # Measures of Spread
@@ -304,15 +304,15 @@ ggplot(data.frame(x = c(-2, 6)), aes(x = x)) +
       xlim(-5, 5)
     ```
 
-**Exercise**: What is $s^2(y)$ when $y_i = c_1 x_i$?
+::: {.panel-tabset}
+## Exercise
+What is $s^2(y)$ when $y_i = c_1 x_i$?
 
-```{block}
-#| eval: false
-#| echo: false
+## Solution
 $$
 s^2(y) = c_1^2 s^2(x)
 $$
-```
+:::
 
 # Descriptive Statistics in R
 
@@ -399,22 +399,30 @@ $$
     10 * quantile(lead$iqf, probs = c(0.25, 0.5, 0.75), na.rm = TRUE) + 20
     ```
 
--   **Exercise**: Calculate the mean and median of the [birthweight data](../data.qmd#birthweight). What is the more appropriate measure of center?
+::: {.panel-tabset}
+## Exercise
+Calculate the mean and median of the [birthweight data](../data.qmd#birthweight). What is the more appropriate measure of center?
 
-    ```{r}
-    #| echo: false
-    #| eval: false
-    birthweight <- read_csv("https://dcgerard.github.io/stat_320/data/birthweight.csv")
-    ggplot(birthweight, aes(x = weight)) +
-      geom_histogram()
-    ## looks skewed left, so medium?
-    summarize(
-      birthweight,
-      Mean = mean(weight),
-      Med = median(weight)
-    )
-    ## But is also bimodal, so maybe need multiple measures of center (for premies and normals).
-    ```
+## Solution
+```{r}
+#| message: false
+birthweight <- read_csv("https://dcgerard.github.io/stat_320/data/birthweight.csv")
+```
+
+Looks skewed left, so median?
+```{r}
+ggplot(birthweight, aes(x = weight)) +
+  geom_histogram(bins = 30)
+```
+```{r}
+summarize(
+  birthweight,
+  Mean = mean(weight),
+  Med = median(weight)
+)
+```
+But is also bimodal, so maybe need multiple measures of center (for premies and normals).
+:::
 
 -   You can calculate grouped summaries (a summary for each group) by grouping the data first.
     ```{r}
@@ -428,15 +436,17 @@ $$
 
 -   Group summaries are where the power of descriptive statistics really comes into play. Here, we see that the exposed group has a lower IQ on average than the control group. Whether this is real signal will have to be answered via a formal hypothesis test. But the descriptive statistics gives us some initial information on the data.
 
--   **Exercise**: What about different lead groups? Calculate descriptive statistics for the different lead groups.
+::: {.panel-tabset}
+## Exercise
+What about different lead groups? Calculate descriptive statistics for the different lead groups.
 
-    ```{r}
-    #| echo: false
-    #| eval: false
-    lead |>
-      group_by(lead_grp) |>
-      summarize(
-        Mean = mean(iqf, na.rm = TRUE),
-        SD = sd(iqf, na.rm = TRUE)
-      )
-    ```
+## Solution
+```{r}
+lead |>
+  group_by(lead_grp) |>
+  summarize(
+    Mean = mean(iqf, na.rm = TRUE),
+    SD = sd(iqf, na.rm = TRUE)
+  )
+```
+:::
