@@ -507,6 +507,10 @@ Convert this word problem to mathematical notation amenable to analysis.
 
 Suppose the smoking habits of the parents are independent and the probability that the mother is a current smoker is 0.4, whereas the probability that the father is a current smoker is 0.5. What is the probability that both the father and mother are current smokers?
 
+## Hint
+
+Use the "and" rule.
+
 ## Solution
 
 We want to calculate $P(M^+ \cap F^+)$ given: $P(M^+) = 0.4$, $P(F^+) = 0.5$, $M^+ \perp F^+$
@@ -520,6 +524,10 @@ $$
 ## Exercise 2
 
 Consider the subgroup of families in which the mother is not a current smoker. What is the probability that the father is a current smoker among such families? How does this probability differ from that calculated in Problem 1?
+
+## Hint
+
+Use independence.
 
 ## Solution
 
@@ -558,6 +566,10 @@ $$
 ## Exercise 4
 Are the current smoking habits of the father and the mother independent? Why or why not?
 
+## Hint
+
+What is $P(M^+|F^+)$? What is $P(M^+|F^-)$?
+
 ## Solution
 
 There are a couple ways to check this:
@@ -574,6 +586,10 @@ The easiest way is just the first. We know that $P(M^+|F^+) =  0.6 \neq 0.2 = P(
 ## Exercise 5
 
 Under the assumptions made in Problems 3 and 4, find the unconditional probability that the offspring will have asthma.
+
+## Hint
+
+Use the law of total probability. You'll be using $P(O^+ | M^+ \cap F^+)$, $P(O^+ | M^+ \cap F^-)$ etc..
 
 ## Solution
 
