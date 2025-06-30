@@ -20,7 +20,6 @@ format: html
   - [Chapter 3 Notes (Probability)](./03_prob/03_notes.qmd)
   - [Confusion Matrix](./03_prob/03_confusion.qmd)
   - [Chapter 4 Notes (Discrete Probability Distributions)](./03_prob/04_notes.qmd)
-  - [Discrete Probability in R](./03_prob/03_prob_discrete.qmd)
   - [Chapter 5 Notes (Continuous Probability Distributions)](./notes/chapter5_notes.pdf)
   - [Normal Distribution in R](./03_prob/03_prob_cont.qmd)
 - 04 Estimation
