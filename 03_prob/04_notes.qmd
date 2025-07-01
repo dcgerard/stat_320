@@ -58,8 +58,8 @@ Assigns a probability to a possible value $r$. Denote this probability by $P(X =
   - Sum over all possible $r$ is 1.
 
 ::: {.callout-tip}
-## Expected Value
-Measure of center of a PMF (also known as mean).
+## Expected Value or Mean
+Measure of center of a PMF.
   
 $$
 E(X) = \sum_r r \cdot P(X = r) = \mu
@@ -77,7 +77,7 @@ $$
 
 - Note: $\mu$ is a population *parameter*, not a *statistic*, which is a function of observed data.
 
-- Example: Across many trials, we might see:
+- Example: Across some trials, we might see:
 
   | $x$ | frequency |
   |-----|------|
@@ -160,7 +160,7 @@ Calculate $E(X)$, $SD(X)$, $F(X)$
 
 - Some distributions are seen in real data over and over again:
   - *Binomial*: count out of $n$
-  - *Poisson*: count during some time interval
+  - *Poisson*: count during some time interval, or count in some area of space.
 
 - These have specific PDFs/CDFs.
 
@@ -217,7 +217,7 @@ Calculate $E(X)$, $SD(X)$, $F(X)$
 
   - Divide by $k!$ to get the number of combinations.
 
-## Provided Distribution in R
+## Provided Distributions in R
 
 If given a probability mass function, can create a data frame of it
 ```{r}
@@ -289,7 +289,7 @@ ggplot(pmf, aes(x = r, y = pr)) +
 
 - Claim: # of ways to order $r$ successes and $n - r$ failures is $\binom{n}{r}$
 
-  - *Proof*: Position $1, 2, \dots, n$. Choose $r$ out of these to be $S$, rest are $F$
+  - *Proof*: Consider positions $1, 2, \dots, n$. Now choose $r$ out of these to be $S$, the rest are $F$
 
 - Example: $X =$ number of boys out of 5 children, $p = 0.51$
 
@@ -353,6 +353,8 @@ ggplot(pmf, aes(x = r, y = pr)) +
     ```
 
 -   The CDF is `pbinom()`:
+
+    The probability of seeing 4 or fewer neutrophiles out of 10 white blood cells is
 
     $$
     Pr(X \leq x) = \sum_{r=0}^x\binom{10}{r} 0.6^r 0.4^{n-r}
@@ -429,6 +431,9 @@ The underlying incidence rate of chronic bronchitis in the first year of life is
 ## Solution
 ```{r}
 1 - pbinom(q = 74, size = 1500, prob = 0.05)
+```
+or
+```{r}
 pbinom(q = 74, size = 1500, prob = 0.05, lower.tail = FALSE)
 ```
 :::
@@ -469,6 +474,10 @@ Yes, very unusual.
   $$
   P(X = k) = \frac{e^{-\mu} \, \mu^k}{k!}
   $$
+  
+- $\lambda$ is the **rate**. The number of counts per unit time/area.
+
+- $\mu$ is the **mean**. The expected number of counts in the given unit of time/area.
 
 - *Note*:
 
@@ -668,6 +677,12 @@ Assume the number of episodes per year of otitis media, a common disease of the 
 ## Exercise 4.24 
 Find the probability of getting 3 or more episodes of otitis media in the first 2 years of life.
 
+## Hint
+
+If the rate is 1.6 episodes per year, what is the rate for every two years?
+
+Use the CDF of the Poisson distribution.
+
 ## Solution
 The rate is 1.6 per year (on average). So in two years the rate is 3.2 per year (on average). Thus,
 
@@ -681,6 +696,10 @@ $X =$ # in 2 years $\sim \text{Pois}(1.6 * 2) = \text{Pois}(3.2)$
 ::: {.panel-tabset}
 ## Exercise 4.25
 Find the probability of not getting any episodes of otitis media in the first year of life.
+
+## Hint
+
+Use the PMF of the Poisson distribution.
 
 ## Solution
 
@@ -696,6 +715,10 @@ An interesting question in pediatrics is whether the tendency for children to ha
 ## Exercise 4.26
 What is the probability that 2 siblings will both have 3 or more episodes of otitis media in the first 2 years of life?
 
+## Hint
+
+Use the probability from question 4.24 as a starting point. Assume independence between siblings.
+
 ## Solution
 We will assume the siblings are independent. Then this probability is equal to
 
@@ -709,6 +732,10 @@ where the probability of two or more episodes was calculated in Exercise 4.24.
 ::: {.panel-tabset}
 ## Exercise 4.27
 What is the probability that exactly 1 sibling will have 3 or more episodes in the first 2 years of life?
+
+## Hint
+
+Use the Binomial distribution with the probability from 4.24.
 
 ## Solution
 
@@ -734,6 +761,10 @@ $$
 ## Exercise 4.28
 What is the probability that neither sibling will have 3 or more episodes in the first 2 years of life?
 
+## Hint
+
+You can either use the binomial distribution as in 4.27, or you can (equivalently) just use the complement rule and independence.
+
 ## Solution
 
 Using the same $Y$ as Exercise 4.27, we want $P(Y = 0)$
@@ -752,6 +783,10 @@ $$
 ::: {.panel-tabset}
 ## Exercise 4.29
 What is the expected number of siblings in a 2-sibling family who will have 3 or more episodes in the first 2 years of life?
+
+## Hint
+
+Use the equation for the expected value of the binomial distribution. Or, you can use the definition of expectation directly with the probabilities you calculated in Parts 4.26, 4.27, and 4.28.
 
 ## Solution
 Using the same $Y$ as Exercise 4.27, we want $E[Y]$. Using the results of the binomial distribution, this is just

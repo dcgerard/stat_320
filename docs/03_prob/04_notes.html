@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="David Gerard">
-<meta name="dcterms.date" content="2025-06-30">
+<meta name="dcterms.date" content="2025-07-01">
 
 <title>Chapter 4 Notes: Discrete Distributions – Stat 320: Biostatistics</title>
 <style>
@@ -348,7 +348,7 @@ window.Quarto = {
   <ul>
   <li><a href="#discrete-random-variables" id="toc-discrete-random-variables" class="nav-link active" data-scroll-target="#discrete-random-variables">Discrete Random Variables</a>
   <ul class="collapse">
-  <li><a href="#provided-distribution-in-r" id="toc-provided-distribution-in-r" class="nav-link" data-scroll-target="#provided-distribution-in-r">Provided Distribution in R</a></li>
+  <li><a href="#provided-distributions-in-r" id="toc-provided-distributions-in-r" class="nav-link" data-scroll-target="#provided-distributions-in-r">Provided Distributions in R</a></li>
   </ul></li>
   <li><a href="#binomial-distribution" id="toc-binomial-distribution" class="nav-link" data-scroll-target="#binomial-distribution">Binomial Distribution</a>
   <ul class="collapse">
@@ -388,7 +388,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">June 30, 2025</p>
+      <p class="date">July 1, 2025</p>
     </div>
   </div>
   
@@ -456,11 +456,11 @@ Probability Mass Function (PMF)
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Expected Value
+Expected Value or Mean
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Measure of center of a PMF (also known as mean).</p>
+<p>Measure of center of a PMF.</p>
 <p><span class="math display">\[
 E(X) = \sum_r r \cdot P(X = r) = \mu
 \]</span> - Again, summing over all possible <span class="math inline">\(r\)</span>.</p>
@@ -473,7 +473,7 @@ E(X) = 0 \cdot 0.008 + 1 \cdot 0.076 + 2 \cdot 0.265 + 3 \cdot 0.411 + 4 \cdot 0
 \]</span></p></li>
 <li><p>Can be interpreted as the average value of <span class="math inline">\(X\)</span> across many trials.</p></li>
 <li><p>Note: <span class="math inline">\(\mu\)</span> is a population <em>parameter</em>, not a <em>statistic</em>, which is a function of observed data.</p></li>
-<li><p>Example: Across many trials, we might see:</p>
+<li><p>Example: Across some trials, we might see:</p>
 <table class="caption-top table">
 <thead>
 <tr class="header">
@@ -617,7 +617,7 @@ P(1 \leq X \leq 3) = P(X \leq 3) - P(X \leq 0)
 <li><p>Some distributions are seen in real data over and over again:</p>
 <ul>
 <li><em>Binomial</em>: count out of <span class="math inline">\(n\)</span></li>
-<li><em>Poisson</em>: count during some time interval</li>
+<li><em>Poisson</em>: count during some time interval, or count in some area of space.</li>
 </ul></li>
 <li><p>These have specific PDFs/CDFs.</p></li>
 <li><p>We need to know about permutations/combinations to understand them.</p></li>
@@ -667,8 +667,8 @@ P(1 \leq X \leq 3) = P(X \leq 3) - P(X \leq 0)
 <li><p>Divide by <span class="math inline">\(k!\)</span> to get the number of combinations.</p></li>
 </ul></li>
 </ul>
-<section id="provided-distribution-in-r" class="level2">
-<h2 class="anchored" data-anchor-id="provided-distribution-in-r">Provided Distribution in R</h2>
+<section id="provided-distributions-in-r" class="level2">
+<h2 class="anchored" data-anchor-id="provided-distributions-in-r">Provided Distributions in R</h2>
 <p>If given a probability mass function, can create a data frame of it</p>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
@@ -755,7 +755,7 @@ P(X = r) = \binom{n}{r} p^r (1 - p)^{n - r}
 </ul></li>
 <li><p>Claim: # of ways to order <span class="math inline">\(r\)</span> successes and <span class="math inline">\(n - r\)</span> failures is <span class="math inline">\(\binom{n}{r}\)</span></p>
 <ul>
-<li><em>Proof</em>: Position <span class="math inline">\(1, 2, \dots, n\)</span>. Choose <span class="math inline">\(r\)</span> out of these to be <span class="math inline">\(S\)</span>, rest are <span class="math inline">\(F\)</span></li>
+<li><em>Proof</em>: Consider positions <span class="math inline">\(1, 2, \dots, n\)</span>. Now choose <span class="math inline">\(r\)</span> out of these to be <span class="math inline">\(S\)</span>, the rest are <span class="math inline">\(F\)</span></li>
 </ul></li>
 <li><p>Example: <span class="math inline">\(X =\)</span> number of boys out of 5 children, <span class="math inline">\(p = 0.51\)</span></p>
 <ul>
@@ -811,6 +811,7 @@ E(X) = \sum_{r=0}^{n} r \binom{n}{r} p^r (1 - p)^{n - r} = n \, p
 </div>
 </div></li>
 <li><p>The CDF is <code>pbinom()</code>:</p>
+<p>The probability of seeing 4 or fewer neutrophiles out of 10 white blood cells is</p>
 <p><span class="math display">\[
 Pr(X \leq x) = \sum_{r=0}^x\binom{10}{r} 0.6^r 0.4^{n-r}
 \]</span></p>
@@ -889,6 +890,9 @@ f(p) = \min(x) \text{ such that } p \leq Pr(X \leq x)
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.5165</code></pre>
 </div>
+</div>
+<p>or</p>
+<div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pbinom</span>(<span class="at">q =</span> <span class="dv">74</span>, <span class="at">size =</span> <span class="dv">1500</span>, <span class="at">prob =</span> <span class="fl">0.05</span>, <span class="at">lower.tail =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.5165</code></pre>
@@ -941,6 +945,8 @@ f(p) = \min(x) \text{ such that } p \leq Pr(X \leq x)
 <p><span class="math display">\[
 P(X = k) = \frac{e^{-\mu} \, \mu^k}{k!}
 \]</span></p></li>
+<li><p><span class="math inline">\(\lambda\)</span> is the <strong>rate</strong>. The number of counts per unit time/area.</p></li>
+<li><p><span class="math inline">\(\mu\)</span> is the <strong>mean</strong>. The expected number of counts in the given unit of time/area.</p></li>
 <li><p><em>Note</em>:</p>
 <ul>
 <li>If <span class="math inline">\(X \sim \text{Pois}(\mu)\)</span> over time <span class="math inline">\(t\)</span> then <span class="math inline">\(X \sim \text{Pois}(c \mu)\)</span> over time <span class="math inline">\(ct\)</span>.</li>
@@ -1004,7 +1010,7 @@ e^{-4.6}\frac{4.6^3}{3!}
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="04_notes_files/figure-html/unnamed-chunk-21-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="384"></p>
+<p><img src="04_notes_files/figure-html/unnamed-chunk-22-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="384"></p>
 </figure>
 </div>
 </div>
@@ -1023,7 +1029,7 @@ Pr(X \leq x) = \sum_{k=0}^{x}e^{-4.6}\frac{4.6^k}{k!}
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="04_notes_files/figure-html/unnamed-chunk-23-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="384"></p>
+<p><img src="04_notes_files/figure-html/unnamed-chunk-24-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="384"></p>
 </figure>
 </div>
 </div>
@@ -1058,7 +1064,7 @@ f(p) = \min(x) \text{ such that } p \leq Pr(X \leq x)
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="04_notes_files/figure-html/unnamed-chunk-28-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="384"></p>
+<p><img src="04_notes_files/figure-html/unnamed-chunk-29-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="384"></p>
 </figure>
 </div>
 </div>
@@ -1070,7 +1076,7 @@ f(p) = \min(x) \text{ such that } p \leq Pr(X \leq x)
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="04_notes_files/figure-html/unnamed-chunk-30-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="384"></p>
+<p><img src="04_notes_files/figure-html/unnamed-chunk-31-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="384"></p>
 </figure>
 </div>
 </div>
@@ -1606,12 +1612,16 @@ f(p) = \min(x) \text{ such that } p \leq Pr(X \leq x)
 <h1>Exercises (4.24–4.29)</h1>
 <p>Assume the number of episodes per year of otitis media, a common disease of the middle ear in early childhood, follows a Poisson distribution with parameter <span class="math inline">\(\lambda\)</span> = 1.6 episodes per year.</p>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-4-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-1" role="tab" aria-controls="tabset-4-1" aria-selected="true">Exercise 4.24</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-4-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-2" role="tab" aria-controls="tabset-4-2" aria-selected="false">Solution</a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-4-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-1" role="tab" aria-controls="tabset-4-1" aria-selected="true">Exercise 4.24</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-4-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-2" role="tab" aria-controls="tabset-4-2" aria-selected="false">Hint</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-4-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-3" role="tab" aria-controls="tabset-4-3" aria-selected="false">Solution</a></li></ul>
 <div class="tab-content">
 <div id="tabset-4-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-4-1-tab">
 <p>Find the probability of getting 3 or more episodes of otitis media in the first 2 years of life.</p>
 </div>
 <div id="tabset-4-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-4-2-tab">
+<p>If the rate is 1.6 episodes per year, what is the rate for every two years?</p>
+<p>Use the CDF of the Poisson distribution.</p>
+</div>
+<div id="tabset-4-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-4-3-tab">
 <p>The rate is 1.6 per year (on average). So in two years the rate is 3.2 per year (on average). Thus,</p>
 <p><span class="math inline">\(X =\)</span> # in 2 years <span class="math inline">\(\sim \text{Pois}(1.6 * 2) = \text{Pois}(3.2)\)</span></p>
 <div class="cell" data-layout-align="center">
@@ -1624,12 +1634,15 @@ f(p) = \min(x) \text{ such that } p \leq Pr(X \leq x)
 </div>
 </div>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-5-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-5-1" role="tab" aria-controls="tabset-5-1" aria-selected="true">Exercise 4.25</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-5-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-5-2" role="tab" aria-controls="tabset-5-2" aria-selected="false">Solution</a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-5-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-5-1" role="tab" aria-controls="tabset-5-1" aria-selected="true">Exercise 4.25</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-5-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-5-2" role="tab" aria-controls="tabset-5-2" aria-selected="false">Hint</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-5-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-5-3" role="tab" aria-controls="tabset-5-3" aria-selected="false">Solution</a></li></ul>
 <div class="tab-content">
 <div id="tabset-5-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-5-1-tab">
 <p>Find the probability of not getting any episodes of otitis media in the first year of life.</p>
 </div>
 <div id="tabset-5-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-5-2-tab">
+<p>Use the PMF of the Poisson distribution.</p>
+</div>
+<div id="tabset-5-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-5-3-tab">
 <p>Let $X = $ # in first year <span class="math inline">\(\sim \text{Pois}(1.6)\)</span>. Then we want <span class="math inline">\(P(X = 0)\)</span>.</p>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dpois</span>(<span class="at">x =</span> <span class="dv">0</span>, <span class="at">lambda =</span> <span class="fl">1.6</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1642,12 +1655,15 @@ f(p) = \min(x) \text{ such that } p \leq Pr(X \leq x)
 </div>
 <p>An interesting question in pediatrics is whether the tendency for children to have many episodes of otitis media is inherited in a family.</p>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-6-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-6-1" role="tab" aria-controls="tabset-6-1" aria-selected="true">Exercise 4.26</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-6-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-6-2" role="tab" aria-controls="tabset-6-2" aria-selected="false">Solution</a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-6-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-6-1" role="tab" aria-controls="tabset-6-1" aria-selected="true">Exercise 4.26</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-6-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-6-2" role="tab" aria-controls="tabset-6-2" aria-selected="false">Hint</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-6-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-6-3" role="tab" aria-controls="tabset-6-3" aria-selected="false">Solution</a></li></ul>
 <div class="tab-content">
 <div id="tabset-6-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-6-1-tab">
 <p>What is the probability that 2 siblings will both have 3 or more episodes of otitis media in the first 2 years of life?</p>
 </div>
 <div id="tabset-6-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-6-2-tab">
+<p>Use the probability from question 4.24 as a starting point. Assume independence between siblings.</p>
+</div>
+<div id="tabset-6-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-6-3-tab">
 <p>We will assume the siblings are independent. Then this probability is equal to</p>
 <p><span class="math display">\[\begin{align}
 &amp;P(\text{Sib 1 has } 2 \text{ or more}) \times P(\text{Sib 2 has } 2 \text{ or more})\\
@@ -1657,12 +1673,15 @@ f(p) = \min(x) \text{ such that } p \leq Pr(X \leq x)
 </div>
 </div>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-7-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-7-1" role="tab" aria-controls="tabset-7-1" aria-selected="true">Exercise 4.27</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-7-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-7-2" role="tab" aria-controls="tabset-7-2" aria-selected="false">Solution</a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-7-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-7-1" role="tab" aria-controls="tabset-7-1" aria-selected="true">Exercise 4.27</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-7-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-7-2" role="tab" aria-controls="tabset-7-2" aria-selected="false">Hint</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-7-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-7-3" role="tab" aria-controls="tabset-7-3" aria-selected="false">Solution</a></li></ul>
 <div class="tab-content">
 <div id="tabset-7-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-7-1-tab">
 <p>What is the probability that exactly 1 sibling will have 3 or more episodes in the first 2 years of life?</p>
 </div>
 <div id="tabset-7-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-7-2-tab">
+<p>Use the Binomial distribution with the probability from 4.24.</p>
+</div>
+<div id="tabset-7-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-7-3-tab">
 <p>Let $Y = $ # of siblings who have 3 or more episodes in the first 2 years of life. Then</p>
 <p><span class="math display">\[
 Y \sim \text{Bin}(2, 0.6201)
@@ -1682,12 +1701,15 @@ Y \sim \text{Bin}(2, 0.6201)
 </div>
 </div>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-8-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-8-1" role="tab" aria-controls="tabset-8-1" aria-selected="true">Exercise 4.28</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-8-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-8-2" role="tab" aria-controls="tabset-8-2" aria-selected="false">Solution</a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-8-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-8-1" role="tab" aria-controls="tabset-8-1" aria-selected="true">Exercise 4.28</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-8-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-8-2" role="tab" aria-controls="tabset-8-2" aria-selected="false">Hint</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-8-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-8-3" role="tab" aria-controls="tabset-8-3" aria-selected="false">Solution</a></li></ul>
 <div class="tab-content">
 <div id="tabset-8-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-8-1-tab">
 <p>What is the probability that neither sibling will have 3 or more episodes in the first 2 years of life?</p>
 </div>
 <div id="tabset-8-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-8-2-tab">
+<p>You can either use the binomial distribution as in 4.27, or you can (equivalently) just use the complement rule and independence.</p>
+</div>
+<div id="tabset-8-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-8-3-tab">
 <p>Using the same <span class="math inline">\(Y\)</span> as Exercise 4.27, we want <span class="math inline">\(P(Y = 0)\)</span></p>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dbinom</span>(<span class="at">x =</span> <span class="dv">0</span>, <span class="at">size =</span> <span class="dv">2</span>, <span class="at">prob =</span> <span class="fl">0.6201</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1703,12 +1725,15 @@ Y \sim \text{Bin}(2, 0.6201)
 </div>
 </div>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-9-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-9-1" role="tab" aria-controls="tabset-9-1" aria-selected="true">Exercise 4.29</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-9-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-9-2" role="tab" aria-controls="tabset-9-2" aria-selected="false">Solution</a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-9-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-9-1" role="tab" aria-controls="tabset-9-1" aria-selected="true">Exercise 4.29</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-9-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-9-2" role="tab" aria-controls="tabset-9-2" aria-selected="false">Hint</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-9-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-9-3" role="tab" aria-controls="tabset-9-3" aria-selected="false">Solution</a></li></ul>
 <div class="tab-content">
 <div id="tabset-9-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-9-1-tab">
 <p>What is the expected number of siblings in a 2-sibling family who will have 3 or more episodes in the first 2 years of life?</p>
 </div>
 <div id="tabset-9-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-9-2-tab">
+<p>Use the equation for the expected value of the binomial distribution. Or, you can use the definition of expectation directly with the probabilities you calculated in Parts 4.26, 4.27, and 4.28.</p>
+</div>
+<div id="tabset-9-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-9-3-tab">
 <p>Using the same <span class="math inline">\(Y\)</span> as Exercise 4.27, we want <span class="math inline">\(E[Y]\)</span>. Using the results of the binomial distribution, this is just <span class="math display">\[
 E(Y) = 2 \cdot 0.6201 = 1.24
 \]</span></p>

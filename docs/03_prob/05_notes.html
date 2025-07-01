@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="David Gerard">
-<meta name="dcterms.date" content="2025-06-27">
+<meta name="dcterms.date" content="2025-07-01">
 
 <title>Chapter 5: Continuous Probability Distributions – Stat 320: Biostatistics</title>
 <style>
@@ -21,6 +21,41 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -306,8 +341,20 @@ window.Quarto = {
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#continous-distributions-and-the-normal" id="toc-continous-distributions-and-the-normal" class="nav-link active" data-scroll-target="#continous-distributions-and-the-normal">Continous Distributions and the Normal</a>
+  <ul class="collapse">
+  <li><a href="#normal-approximation-to-binomial" id="toc-normal-approximation-to-binomial" class="nav-link" data-scroll-target="#normal-approximation-to-binomial">Normal Approximation to Binomial</a></li>
+  <li><a href="#normal-approximation-to-poisson" id="toc-normal-approximation-to-poisson" class="nav-link" data-scroll-target="#normal-approximation-to-poisson">Normal Approximation to Poisson</a></li>
+  </ul></li>
+  <li><a href="#exercise-5.12-5.13-of-rosner" id="toc-exercise-5.12-5.13-of-rosner" class="nav-link" data-scroll-target="#exercise-5.12-5.13-of-rosner">Exercise 5.12 – 5.13 of Rosner</a></li>
+  <li><a href="#exercise-5.126-5.130-of-rosner" id="toc-exercise-5.126-5.130-of-rosner" class="nav-link" data-scroll-target="#exercise-5.126-5.130-of-rosner">Exercise 5.126 – 5.130 of Rosner</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -332,7 +379,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">June 27, 2025</p>
+      <p class="date">July 1, 2025</p>
     </div>
   </div>
   
@@ -344,24 +391,52 @@ window.Quarto = {
 </header>
 
 
+<section id="continous-distributions-and-the-normal" class="level1">
+<h1>Continous Distributions and the Normal</h1>
 <ul>
 <li><p>A continuous random variable “takes on decimal values.”</p></li>
 <li><p>For such random variables, the probability at any specific value is 0.</p></li>
 <li><p>Example:</p>
 <ul>
-<li><span class="math inline">\(\Pr(\text{a man is exactly } 6', 2.357921784123'') \approx 0\)</span></li>
-<li><span class="math inline">\(\Pr(\text{a man is exactly } 6'2'') \approx 0\)</span></li>
-<li>Men are a little above or a little below.</li>
+<li>Obviously, <span class="math inline">\(\Pr(\text{a man is exactly } 6', 2.357921784123'') \approx 0\)</span></li>
+<li>By the same logic, <span class="math inline">\(\Pr(\text{a man is exactly } 6'2'') \approx 0\)</span></li>
+<li>Men are always a little above or a little below.</li>
 </ul></li>
 <li><p>But, we know some regions are more likely than others.</p>
 <ul>
 <li><span class="math inline">\(\Pr(5' \leq X \leq 7') &gt; \Pr(0' \leq X \leq 1')\)</span></li>
 </ul></li>
 <li><p>We describe this intuition with a PDF.</p></li>
-<li><p>A <strong>Probability Density Function</strong> of a random variable <span class="math inline">\(X\)</span> is a function <span class="math inline">\(f\)</span> such that: <span class="math display">\[
+</ul>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Probability Density Function
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>A <strong>Probability Density Function</strong> (PDF) of a random variable <span class="math inline">\(X\)</span> is a function <span class="math inline">\(f\)</span> such that: <span class="math display">\[
 \Pr(a \leq X \leq b) = \text{area below curve between } a \text{ and } b
-\]</span></p></li>
-<li><p>The <strong>CDF</strong> is again the <span class="math inline">\(F(x) = \Pr(X \leq x)\)</span>.</p></li>
+\]</span></p>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Cumulative Distribution Function
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The <strong>Cumulative Distribution Function</strong> (CDF) is a function <span class="math inline">\(F(x) = \Pr(X \leq x)\)</span>.</p>
+</div>
+</div>
+<ul>
 <li><p>Example: <span class="math inline">\(X =\)</span> Serum triglyceride level</p>
 <ul>
 <li><p><span class="math inline">\(\Pr(50 \leq X \leq 100)\)</span></p>
@@ -369,7 +444,7 @@ window.Quarto = {
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="05_notes_files/figure-html/unnamed-chunk-1-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="05_notes_files/figure-html/unnamed-chunk-1-1.png" class="img-fluid figure-img" width="384"></p>
 </figure>
 </div>
 </div>
@@ -379,44 +454,45 @@ window.Quarto = {
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="05_notes_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="05_notes_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid figure-img" width="384"></p>
 </figure>
 </div>
 </div>
 </div></li>
 </ul></li>
 <li><p><strong>Expected value:</strong> <span class="math inline">\(\mu\)</span>, average <span class="math inline">\(X\)</span> over many trials. <span class="math display">\[
-\mu = E[X] = \int_{-\infty}^{\infty} x f(x)\,dx
+\mu = \mathrm{E}[X] = \int_{-\infty}^{\infty} x f(x)\,dx
 \]</span> where <span class="math inline">\(f(x)\)</span> = density.</p></li>
 <li><p><strong>Variance:</strong> Average squared distance. <span class="math display">\[
-\sigma^2 = E\left[(X - \mu)^2\right] = E(X^2) - \mu^2
+\sigma^2 = \mathrm{E}\left[(X - \mu)^2\right] = \mathrm{E}(X^2) - \mu^2
 \]</span> <span class="math display">\[
 \sigma^2 = \int_{-\infty}^{\infty} (x - \mu)^2 f(x)\,dx
 \]</span></p></li>
-<li><p><strong>Most common continuous distribution:</strong> Normal distribution</p>
+<li><p>Most common continuous distribution: <strong>Normal distribution</strong></p>
 <ul>
 <li>If <span class="math inline">\(X \sim N(\mu, \sigma^2)\)</span>, then <span class="math display">\[
 f(x) = \frac{1}{\sqrt{2\pi \sigma^2}} \exp\left[-\frac{1}{2\sigma^2}(x-\mu)^2\right]
 \]</span></li>
 <li>Density depends on <span class="math inline">\(\sigma^2\)</span> (variance) and <span class="math inline">\(\mu\)</span> (mean).</li>
 </ul></li>
-<li><p>Also, if <span class="math inline">\(X \sim N(\mu, \sigma^2)\)</span>, then <span class="math inline">\(E(X) = \mu\)</span>, <span class="math inline">\(\mathrm{Var}(X) = \sigma^2\)</span>.</p></li>
-<li><p>Normal distribution plot:</p>
+<li><p>Also, if <span class="math inline">\(X \sim N(\mu, \sigma^2)\)</span>, then <span class="math inline">\(\mathrm{E}(X) = \mu\)</span>, <span class="math inline">\(\mathrm{Var}(X) = \sigma^2\)</span>.</p></li>
+</ul>
 <div class="cell">
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="05_notes_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="05_notes_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" width="384"></p>
 </figure>
 </div>
 </div>
-</div></li>
+</div>
+<ul>
 <li><p>Normal densities with different means.</p>
 <div class="cell">
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="05_notes_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="05_notes_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="384"></p>
 </figure>
 </div>
 </div>
@@ -426,7 +502,7 @@ f(x) = \frac{1}{\sqrt{2\pi \sigma^2}} \exp\left[-\frac{1}{2\sigma^2}(x-\mu)^2\ri
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="05_notes_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="05_notes_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" width="384"></p>
 </figure>
 </div>
 </div>
@@ -447,11 +523,75 @@ f(x) = \frac{1}{\sqrt{2\pi \sigma^2}} \exp\left[-\frac{1}{2\sigma^2}(x-\mu)^2\ri
 Z = X + Y \sim N(\mu_1 + \mu_2, \sigma_1^2 + \sigma_2^2)
 \]</span></li>
 </ol></li>
-<li><p>We denote PDF of standard normal by <span class="math inline">\(\phi(x)\)</span></p></li>
-<li><p>The CDF is <span class="math inline">\(\Phi(x) = \Pr(X \leq x)\)</span></p></li>
+<li><p>We denote PDF of standard normal by <span class="math inline">\(\phi(x)\)</span></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dnorm</span>(<span class="at">x =</span> <span class="dv">2</span>, <span class="at">mean =</span> <span class="dv">1</span>, <span class="at">sd =</span> <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.242</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="05_notes_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid figure-img" width="384"></p>
+</figure>
+</div>
+</div>
+</div></li>
+<li><p>The CDF is <span class="math inline">\(\Phi(x) = \Pr(X \leq x)\)</span></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pnorm</span>(<span class="at">q =</span> <span class="dv">2</span>, <span class="at">mean =</span> <span class="dv">1</span>, <span class="at">sd =</span> <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.8413</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="05_notes_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid figure-img" width="384"></p>
+</figure>
+</div>
+</div>
+</div></li>
+<li><p>Quantile function (find value that has a given the probability of being less than or equal to it).</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">qnorm</span>(<span class="at">p =</span> <span class="fl">0.8413</span>, <span class="at">mean =</span> <span class="dv">1</span>, <span class="at">sd =</span> <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 2</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="05_notes_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid figure-img" width="384"></p>
+</figure>
+</div>
+</div>
+</div></li>
+<li><p>Random Generation (generate samples from a given normal distribution).</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>samp <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="at">n =</span> <span class="dv">1000</span>, <span class="at">mean =</span> <span class="dv">1</span>, <span class="at">sd =</span> <span class="dv">1</span>)</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(samp)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.3735 1.1836 0.1644 2.5953 1.3295 0.1795</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="05_notes_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid figure-img" width="384"></p>
+</figure>
+</div>
+</div>
+</div></li>
 <li><p><strong>Example:</strong></p>
 <ul>
-<li>Blood Pressure <span class="math inline">\(\sim N(80, \sqrt{144})\)</span></li>
+<li>Blood Pressure <span class="math inline">\(\sim N(80, 144)\)</span></li>
 <li>Mild hypertension is <span class="math inline">\(90 \leq \text{DBP} \leq 100\)</span>
 <ul>
 <li>Units are in mmHg</li>
@@ -459,59 +599,114 @@ Z = X + Y \sim N(\mu_1 + \mu_2, \sigma_1^2 + \sigma_2^2)
 <li>Individuals are randomly sampled</li>
 <li>What is <span class="math inline">\(\Pr(\text{mild hypertensive})\)</span>?</li>
 </ul>
-<p><span class="math display">\[\begin{align*}
-  \Pr(90 \leq X \leq 100) &amp;= \Pr(X \leq 100) - \Pr(X &lt; 90)\\
-  &amp;= \texttt{pnorm(100, mean = 80, sd = sqrt(144))} - \texttt{pnorm(90, mean = 80, sd = sqrt(144))}\\
-  &amp;= 0.1545
-\end{align*}\]</span></p></li>
-<li><p>Visualizations of normal distribution regions <strong>XYZ IMAGE HERE</strong></p></li>
-<li><p><strong>Exercise:</strong> Tree diameter <span class="math inline">\(\sim N(8, 2^2)\)</span> (in inches)<br>
-What is the probability that the tree has diameter <span class="math inline">\(&gt; 12\)</span> in?</p>
-<p><strong>Solution:</strong><br>
-<span class="math display">\[
-1 - \texttt{pnorm}(12, 8, 2) = 0.02275
-\]</span></p></li>
+<div style="text-align: left;">
+<p><span class="math inline">\(\Pr(90 \leq X \leq 100)\)</span> <br> = <img src="./figs/ch5diff/pl1.png" class="img-fluid" style="width:20.0%"> <br> = <img src="./figs/ch5diff/pl3.png" class="img-fluid" style="width:20.0%"> - <img src="./figs/ch5diff/pl2.png" class="img-fluid" style="width:20.0%"><br> =<span class="math inline">\(\Pr(X \leq 100) - \Pr(X &lt; 90)\)</span><br> =<code>pnorm(100, mean = 80, sd = sqrt(144))} - \texttt{pnorm(90, mean = 80, sd = sqrt(144))</code><br> = 0.1545</p>
+</div></li>
 </ul>
-<hr>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true">Exercise</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false">Solution</a></li></ul>
+<div class="tab-content">
+<div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
+<p>Tree diameter <span class="math inline">\(\sim N(8, 2^2)\)</span> (in inches). What is the probability that the tree has diameter <span class="math inline">\(&gt; 12\)</span> in?</p>
+</div>
+<div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">-</span> <span class="fu">pnorm</span>(<span class="at">q =</span> <span class="dv">12</span>, <span class="at">mean =</span> <span class="dv">8</span>, <span class="at">sd =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.02275</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
 <ul>
 <li><p>If <span class="math inline">\(X_1, \dots, X_n\)</span> are random variables and<br>
 <span class="math display">\[
 L = \sum_{i=1}^n c_i X_i \quad \text{for } c_i \text{ constants (not r.v.s)}
 \]</span> then<br>
 <span class="math display">\[
-\mathbb{E}[L] = \sum_{i=1}^n c_i \mathbb{E}[X_i]
-\]</span> <span class="math display">\[
+\mathrm{E}[L] = \sum_{i=1}^n c_i \mathrm{E}[X_i]
+\]</span></p></li>
+<li><p>If the <span class="math inline">\(X_i\)</span>’s are also independent, then <span class="math display">\[
 \mathrm{Var}(L) = \sum_{i=1}^n c_i^2 \mathrm{Var}(X_i)
 \]</span></p></li>
 <li><p>If the <span class="math inline">\(X_i\)</span> are also normally distributed, then<br>
 <span class="math display">\[
-L \sim N(\mathbb{E}[L], \mathrm{Var}(L))
+L \sim N(\mathrm{E}[L], \mathrm{Var}(L))
 \]</span></p></li>
 <li><p><strong>Example:</strong><br>
-Let <span class="math inline">\(X\)</span> = serum creatinine level for Caucasian individual<br>
-Let <span class="math inline">\(Y\)</span> = serum creatinine level for Black individual</p>
-<p><span class="math display">\[
-X \sim N(1.3, 0.125), \quad Y \sim N(1.5, 0.25)
+Let <span class="math inline">\(X\)</span> = serum creatinine level for a Caucasian individual<br>
+Let <span class="math inline">\(Y\)</span> = serum creatinine level for a Black individual<br>
+Assume: <span class="math display">\[
+X \sim N(1.3, 0.25), \quad Y \sim N(1.5, 0.25)
 \]</span></p>
 <p>What is the distribution of the <strong>average</strong> level for one Caucasian and one Black individual chosen at random?</p>
 <p>Let <span class="math display">\[
-Z = \frac{1}{2}X + \frac{1}{2}Y \Rightarrow Z \sim N(1.4, 0.175)
+Z = \frac{1}{2}X + \frac{1}{2}Y \Rightarrow Z \sim N(1.4, 0.125)
 \]</span></p>
 <ul>
-<li><span class="math inline">\(\mathbb{E}(Z) = \frac{1}{2}(1.3 + 1.5) = 1.4\)</span></li>
-<li><span class="math inline">\(\mathrm{Var}(Z) = \frac{1}{4}(0.125 + 0.25) = 0.175\)</span></li>
+<li><span class="math inline">\(\mathrm{E}(Z) = \frac{1}{2}(1.3 + 1.5) = 1.4\)</span></li>
+<li><span class="math inline">\(\mathrm{Var}(Z) = \frac{1}{4}(0.25 + 0.25) = 0.125\)</span></li>
 </ul></li>
-<li><p><strong>Normal Approximation to Binomial</strong> (rule of thumb):</p>
-<p>If <span class="math inline">\(X \sim \mathrm{Bin}(n, p)\)</span> and <span class="math inline">\(np(1-p) \geq 5\)</span>, then <span class="math display">\[
-X \approx N(np, np(1-p))
-\]</span></p></li>
+</ul>
+<section id="normal-approximation-to-binomial" class="level3">
+<h3 class="anchored" data-anchor-id="normal-approximation-to-binomial">Normal Approximation to Binomial</h3>
+<p>If <span class="math inline">\(X \sim \mathrm{Bin}(n, p)\)</span> and <span class="math inline">\(np(1-p) \geq 5\)</span> (rule of thumb), then <span class="math display">\[
+  X \approx N(np, np(1-p))
+  \]</span></p>
+<ul>
 <li><p>Let <span class="math inline">\(X \sim \mathrm{Bin}(n, p)\)</span>, and let <span class="math inline">\(Y \sim N(np, np(1 - p))\)</span>.</p>
 <p>Then with <strong>continuity correction</strong>: <span class="math display">\[
 \Pr(a \leq X \leq b) \approx \Pr\left(a - \frac{1}{2} \leq X \leq b + \frac{1}{2}\right)
 \]</span></p></li>
-<li><p>We will use this for 2-sample binomial tests.</p></li>
-<li><p><strong>Why?</strong><br>
-Let <span class="math inline">\(T_1, T_2, \dots, T_n\)</span> be <span class="math inline">\(n\)</span> independent Bernoulli trials: <span class="math display">\[
+<li><p>More generally, the continuity correction says that, if you are approximating a discrete random variable <span class="math inline">\(X\)</span> with a normal distribution <span class="math inline">\(Y\)</span>, then</p>
+<ul>
+<li><span class="math inline">\(P(X \geq a) \approx P(Y &gt; a - 1/2)\)</span></li>
+<li><span class="math inline">\(P(X &gt; a) \approx P(Y &gt; a + 1/2)\)</span></li>
+<li><span class="math inline">\(P(X \leq b) \approx P(Y &lt; b + 1/2)\)</span></li>
+<li><span class="math inline">\(P(X &lt; b) \approx P(Y &lt; b - 1/2)\)</span></li>
+<li><span class="math inline">\(P(a \leq X \leq b) \approx P(a - 1/2 &lt; Y &lt; b + 1/2)\)</span></li>
+<li><span class="math inline">\(P(a &lt; X \leq b) \approx P(a + 1/2 &lt; Y &lt; b + 1/2)\)</span></li>
+<li><span class="math inline">\(P(a \leq X &lt; b) \approx P(a - 1/2 &lt; Y &lt; b - 1/2)\)</span></li>
+<li><span class="math inline">\(P(a &lt; X &lt; b) \approx P(a + 1/2 &lt; Y &lt; b - 1/2)\)</span></li>
+</ul></li>
+<li><p>Let’s demonstrate the continuity correction</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fl">0.5</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">20</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>mu <span class="ot">&lt;-</span> n <span class="sc">*</span> p</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>sig <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(n <span class="sc">*</span> p <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> p))</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>a <span class="ot">&lt;-</span> <span class="dv">8</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>b <span class="ot">&lt;-</span> <span class="dv">12</span></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a><span class="fu">pbinom</span>(<span class="at">q =</span> b, <span class="at">size =</span> n, <span class="at">prob =</span> p)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.8684</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pnorm</span>(<span class="at">q =</span> b, <span class="at">mean =</span> mu, <span class="at">sd =</span> sig) <span class="do">## no continuity correction</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.8145</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pnorm</span>(<span class="at">q =</span> b <span class="sc">+</span> <span class="dv">1</span><span class="sc">/</span><span class="dv">2</span>, <span class="at">mean =</span> mu, <span class="at">sd =</span> sig) <span class="do">## with continuity correction</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.8682</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pbinom</span>(<span class="at">q =</span> b, <span class="at">size =</span> n, <span class="at">prob =</span> p) <span class="sc">-</span> <span class="fu">pbinom</span>(<span class="at">q =</span> a <span class="sc">-</span> <span class="dv">1</span>, <span class="at">size =</span> n, <span class="at">prob =</span> p)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.7368</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pnorm</span>(<span class="at">q =</span> b, <span class="at">mean =</span> mu, <span class="at">sd =</span> sig) <span class="sc">-</span> <span class="fu">pnorm</span>(<span class="at">q =</span> a, <span class="at">mean =</span> mu, <span class="at">sd =</span> sig) <span class="do">## no continuity correction</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.6289</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pnorm</span>(<span class="at">q =</span> b <span class="sc">+</span> <span class="dv">1</span><span class="sc">/</span><span class="dv">2</span>, <span class="at">mean =</span> mu, <span class="at">sd =</span> sig) <span class="sc">-</span> <span class="fu">pnorm</span>(<span class="at">q =</span> a <span class="sc">-</span> <span class="dv">1</span><span class="sc">/</span><span class="dv">2</span>, <span class="at">mean =</span> mu, <span class="at">sd =</span> sig) <span class="do">## with continuity correction</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.7364</code></pre>
+</div>
+</div></li>
+<li><p>We will use the normal approximation for 2-sample binomial tests.</p></li>
+<li><p>Why does the normal approximation work?</p>
+<p>Let <span class="math inline">\(T_1, T_2, \dots, T_n\)</span> be <span class="math inline">\(n\)</span> independent Bernoulli trials: <span class="math display">\[
 T_i =
 \begin{cases}
 1 &amp; \text{w.p. } p \\
@@ -521,42 +716,67 @@ T_i =
 <p>Let <span class="math display">\[
 X = T_1 + T_2 + \dots + T_n = \sum T_i
 \]</span></p></li>
-<li><p>The <strong>Central Limit Theorem</strong> says normal for large <span class="math inline">\(n\)</span>.</p></li>
-<li><p><strong>Normal Approximation to Poisson</strong></p>
-<p>If <span class="math inline">\(X \sim \mathrm{Poisson}(\mu)\)</span>, then<br>
-<span class="math inline">\(Y \sim N(\mu, \mu)\)</span></p>
-<ul>
-<li>Rule of thumb: for <span class="math inline">\(\mu \geq 10\)</span><br>
-<span class="math display">\[
-\Pr(a \leq X \leq b) \approx \Pr\left(a - \frac{1}{2} \leq Y \leq b + \frac{1}{2}\right)
-\]</span></li>
-</ul></li>
+<li><p>The <strong>Central Limit Theorem</strong> says <span class="math inline">\(X\)</span> is normal for large <span class="math inline">\(n\)</span>.</p></li>
 </ul>
-<hr>
-<ul>
-<li><p><strong>Exercise 5.12 – 5.13 of Rosner</strong></p>
-<ul>
-<li>Of men aged 30–34 who have smoked:
-<ul>
-<li><span class="math inline">\(X\)</span> = number of years a man has smoked</li>
-<li><span class="math inline">\(Y\)</span> = number of years smoked by women in age group</li>
-</ul></li>
-</ul>
+</section>
+<section id="normal-approximation-to-poisson" class="level3">
+<h3 class="anchored" data-anchor-id="normal-approximation-to-poisson">Normal Approximation to Poisson</h3>
+<p>If <span class="math inline">\(X \sim \mathrm{Poisson}(\mu)\)</span>, <span class="math inline">\(Y \sim N(\mu, \mu)\)</span>, and <span class="math inline">\(\mu \geq 10\)</span> (rule of thumb), then</p>
 <p><span class="math display">\[
-X \sim N(12.8, 5.1^2), \quad Y \sim N(9.3, 3.2^2)
-\]</span></p></li>
-<li><p><strong>Q1:</strong> What proportion of men have smoked for more than 20 years? Women?</p>
-<ul>
-<li><p>Men: <span class="math display">\[
-1 - \texttt{pnorm}(20, \text{mean} = 12.8, \text{sd} = 5.1) = 0.07901
-\]</span></p></li>
-<li><p>Women: <span class="math display">\[
-1 - \texttt{pnorm}(20, \text{mean} = 9.3, \text{sd} = 3.2) = 0.004133
-\]</span></p></li>
-</ul></li>
-<li><p><strong>XYZ IMAGE HERE</strong></p></li>
-<li><p><strong>Exercise 5.126 – 5.130</strong></p>
-<p>Christmas Bird Count is a holiday tradition in a boring part of Massachusetts.</p>
+\Pr(a \leq X \leq b) \approx \Pr\left(a - \frac{1}{2} \leq Y \leq b + \frac{1}{2}\right)
+\]</span></p>
+</section>
+</section>
+<section id="exercise-5.12-5.13-of-rosner" class="level1">
+<h1>Exercise 5.12 – 5.13 of Rosner</h1>
+<p>The duration of cigarette smoking has been linked to many diseases, including lung cancer and various forms of heart disease. Suppose we know that among men ages 30−34 who have ever smoked, the mean number of years they smoked is 12.8 with a standard deviation of 5.1 years. For women in this age group, the mean number of years they smoked is 9.3 with a standard deviation of 3.2.</p>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-2-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-1" role="tab" aria-controls="tabset-2-1" aria-selected="true">Exercise 5.12</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-2" role="tab" aria-controls="tabset-2-2" aria-selected="false">Solution</a></li></ul>
+<div class="tab-content">
+<div id="tabset-2-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-2-1-tab">
+<p>Assuming that the duration of smoking is normally distributed, what proportion of men in this age group have smoked for more than 20 years?</p>
+</div>
+<div id="tabset-2-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-2-tab">
+<p>Let <span class="math inline">\(X\)</span> be the number of years a randomly sampled smoking man has smoked. Then <span class="math inline">\(X \sim N(12.8, 5.1^2)\)</span>. We want <span class="math inline">\(P(X &gt; 20)\)</span> which we can get via <code>pnorm()</code>.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="05_notes_files/figure-html/unnamed-chunk-18-1.png" class="img-fluid figure-img" width="384"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">-</span> <span class="fu">pnorm</span>(<span class="at">q =</span> <span class="dv">20</span>, <span class="at">mean =</span> <span class="fl">12.8</span>, <span class="at">sd =</span> <span class="fl">5.1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.07901</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-3-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-1" role="tab" aria-controls="tabset-3-1" aria-selected="true">Exercise 5.11</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-3-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-2" role="tab" aria-controls="tabset-3-2" aria-selected="false">Solution</a></li></ul>
+<div class="tab-content">
+<div id="tabset-3-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-3-1-tab">
+<p>Answer Problem 5.12 for women.</p>
+</div>
+<div id="tabset-3-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-3-2-tab">
+<p>Let <span class="math inline">\(Y\)</span> be the number of years a randomly sampled smoking woman has smoked. Then <span class="math inline">\(Y \sim N(9.3, 3.2^2)\)</span>. We want <span class="math inline">\(P(Y &gt; 20)\)</span>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">-</span> <span class="fu">pnorm</span>(<span class="at">q =</span> <span class="dv">20</span>, <span class="at">mean =</span> <span class="fl">9.3</span>, <span class="at">sd =</span> <span class="fl">3.2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.0004133</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="exercise-5.126-5.130-of-rosner" class="level1">
+<h1>Exercise 5.126 – 5.130 of Rosner</h1>
+<p>The Christmas Bird Count (CBC) is an annual tradition in Lexington, Massachusetts. A group of volunteers counts the number of birds of different species over a 1-day period. Each year, there are approximately 30–35 hours of observation time split among multiple volunteers. The following counts were obtained for the Northern Cardinal (or cardinal, in brief) for the period 2005–2011.</p>
 <table class="caption-top table">
 <thead>
 <tr class="header">
@@ -595,51 +815,145 @@ X \sim N(12.8, 5.1^2), \quad Y \sim N(9.3, 3.2^2)
 </tr>
 </tbody>
 </table>
-<p><span class="math display">\[
-\sum x_i = 432, \quad \sum x_i^2 = 27,\!717
-\]</span></p></li>
-</ul>
-<ol type="1">
-<li><p>What is the <strong>mean</strong> number of birds?</p>
-<p><span class="math display">\[
-\bar{x} = \frac{432}{7} = 61.71
-\]</span></p></li>
-<li><p>What is the <strong>standard deviation</strong>?</p>
-<p><span class="math display">\[
-\frac{1}{7}(27717) - \left(\frac{432}{7}\right)^2 = 78.78
+<p>Note that: <span class="math display">\[
+\sum_{i=1}^7 x_i = 432, \quad \sum_{i=1}^7 x_i^2 = 27,212
 \]</span></p>
-<p><span class="math display">\[
-\mathrm{SD} = \sqrt{78.78} = 8.876
-\]</span></p></li>
-<li><p>Suppose number of birds is normal with same mean and SD as previous years.<br>
-What is the probability of at least 60 birds? Apply continuity correction.</p>
-<p><span class="math display">\[
-1 - \texttt{pnorm}(59.5, \text{mean} = 61.71, \text{sd} = 8.876) = \boxed{0.5983}
-\]</span></p></li>
-<li><p>Find <strong>“normal range”</strong> <span class="math inline">\((L, U)\)</span> (integers) such that:</p>
-<ul>
-<li><span class="math inline">\(L\)</span> = 5th percentile<br>
-</li>
-<li><span class="math inline">\(U\)</span> = 95th percentile</li>
-</ul>
-<p><span class="math display">\[
-\texttt{qnorm}(c(0.05, 0.95), \text{mean} = 61.71, \text{sd} = 8.876) = (52.51, 70.91)
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-4-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-1" role="tab" aria-controls="tabset-4-1" aria-selected="true">Exercise 5.126</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-4-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-2" role="tab" aria-controls="tabset-4-2" aria-selected="false">Solution</a></li></ul>
+<div class="tab-content">
+<div id="tabset-4-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-4-1-tab">
+<p>What is the mean number of cardinal birds per year observed from 2005 to 2011?</p>
+</div>
+<div id="tabset-4-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-4-2-tab">
+<p>The mean is <span class="math display">\[
+\bar{x} = \frac{1}{7}\sum_{i=1}^7 x_i = \frac{1}{7}432 = 61.71
 \]</span></p>
-<ul>
-<li>So the normal range is <strong>52 to 80</strong></li>
-</ul></li>
-<li><p>What is the probability that <span class="math inline">\(X \geq U\)</span> at least once during a 10-year period?</p>
-<p><span class="math display">\[
-\Pr(X \geq U) = 1 - \texttt{pnorm}(79.5, \text{mean} = 61.71, \text{sd} = 8.876) = 0.02252
+</div>
+</div>
+</div>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-5-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-5-1" role="tab" aria-controls="tabset-5-1" aria-selected="true">Exercise 5.127</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-5-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-5-2" role="tab" aria-controls="tabset-5-2" aria-selected="false">Hint</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-5-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-5-3" role="tab" aria-controls="tabset-5-3" aria-selected="false">Solution</a></li></ul>
+<div class="tab-content">
+<div id="tabset-5-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-5-1-tab">
+<p>What is the standard deviation (sd) of the number of cardinal birds observed?</p>
+</div>
+<div id="tabset-5-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-5-2-tab">
+<p>Use the sample version of <span class="math inline">\(\mathrm{Var}(X) = \mathrm{E}(X^2) - \mathrm{E}(X)^2\)</span></p>
+</div>
+<div id="tabset-5-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-5-3-tab">
+<p><span class="math display">\[\begin{align*}
+s^2(x) &amp;= \frac{1}{7}\sum_{i=1}^7 x_i^2 - \bar{x}^2\\
+&amp;= \frac{1}{7}27,212 - 61.71^2\\
+&amp;= 79.3
+\end{align*}\]</span></p>
+<p>Thus, <span class="math display">\[
+s(x) = \sqrt{s^2(x)} = \sqrt{79.3} = 8.9
 \]</span></p>
-<p>Let <span class="math inline">\(Y\)</span> = number of years <span class="math inline">\(\geq U\)</span><br>
-<span class="math inline">\(Y \sim \mathrm{Bin}(10, 0.02252)\)</span></p>
-<p><span class="math display">\[
-\Pr(Y \geq 1) = 1 - \Pr(Y = 0) = 1 - \texttt{dbinom}(0, 10, 0.02252) = \boxed{0.2037}
-\]</span></p></li>
-</ol>
+<p>If you don’t round until the very end, you get:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sqrt</span>(<span class="dv">27212</span> <span class="sc">/</span> <span class="dv">7</span> <span class="sc">-</span> (<span class="dv">432</span><span class="sc">/</span><span class="dv">7</span>)<span class="sc">^</span><span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 8.876</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<p>Suppose we assume that the distribution of the number of cardinal birds observed per year is normally distributed and that the true mean and sd are the same as the sample mean and sd calculated in Problems 5.126 and 5.127.</p>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-6-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-6-1" role="tab" aria-controls="tabset-6-1" aria-selected="true">Exercise 5.128</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-6-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-6-2" role="tab" aria-controls="tabset-6-2" aria-selected="false">Solution</a></li></ul>
+<div class="tab-content">
+<div id="tabset-6-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-6-1-tab">
+<p>What is the probability of observing at least 60 cardinal birds in 2012?</p>
+<p>Try to apply a continuity correction to get a more accurate answer.</p>
+</div>
+<div id="tabset-6-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-6-2-tab">
+<p>Let <span class="math inline">\(X\)</span> be the numer of cardinal birds observed in a given year. Then we assume that, approximately <span class="math inline">\(X \sim N(61.71, 8.876^2)\)</span>. We want <span class="math inline">\(P(X &gt;= 60)\)</span>.</p>
+<p>It’s fine if you wrote</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">-</span> <span class="fu">pnorm</span>(<span class="at">q =</span> <span class="dv">60</span>, <span class="at">mean =</span> <span class="fl">61.71</span>, <span class="at">sd =</span> <span class="fl">8.876</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.5764</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plt_norm</span>(<span class="at">mu =</span> <span class="fl">61.71</span>, <span class="at">sig =</span> <span class="fl">8.876</span>, <span class="at">lb =</span> <span class="fl">61.71</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="05_notes_files/figure-html/unnamed-chunk-23-1.png" class="img-fluid figure-img" width="384"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Applying the continuity correction strategy, a more accurate probability would be to subtract 1/2 from 60 first.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">-</span> <span class="fu">pnorm</span>(<span class="at">q =</span> <span class="dv">60</span> <span class="sc">-</span> <span class="fl">0.5</span>, <span class="at">mean =</span> <span class="fl">61.71</span>, <span class="at">sd =</span> <span class="fl">8.876</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.5983</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<p>The observers wish to identify a normal range for the number of cardinal birds observed per year. The normal range will be defined as the interval (L, U), where L is the largest integer <span class="math inline">\(\leq\)</span> 15th percentile and U is the smallest integer <span class="math inline">\(\geq\)</span> 85th percentile .</p>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-7-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-7-1" role="tab" aria-controls="tabset-7-1" aria-selected="true">Exercise 5.129</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-7-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-7-2" role="tab" aria-controls="tabset-7-2" aria-selected="false">Hint</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-7-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-7-3" role="tab" aria-controls="tabset-7-3" aria-selected="false">Solution</a></li></ul>
+<div class="tab-content">
+<div id="tabset-7-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-7-1-tab">
+<p>If we make the same assumptions as in Problem 5.128, then what is L? What is U?</p>
+</div>
+<div id="tabset-7-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-7-2-tab">
+<p>Use <code>qnorm()</code></p>
+</div>
+<div id="tabset-7-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-7-3-tab">
+<p>L is 52:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">qnorm</span>(<span class="at">p =</span> <span class="fl">0.15</span>, <span class="at">mean =</span> <span class="fl">61.71</span>, <span class="at">sd =</span> <span class="fl">8.876</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 52.51</code></pre>
+</div>
+</div>
+<p>U is 71.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">qnorm</span>(<span class="at">p =</span> <span class="fl">0.85</span>, <span class="at">mean =</span> <span class="fl">61.71</span>, <span class="at">sd =</span> <span class="fl">8.876</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 70.91</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-8-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-8-1" role="tab" aria-controls="tabset-8-1" aria-selected="true">Exercise 5.130</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-8-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-8-2" role="tab" aria-controls="tabset-8-2" aria-selected="false">Hint</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-8-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-8-3" role="tab" aria-controls="tabset-8-3" aria-selected="false">Solution</a></li></ul>
+<div class="tab-content">
+<div id="tabset-8-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-8-1-tab">
+<p>What is the probability that the number of cardinal birds will be <span class="math inline">\(\geq\)</span> U at least once on Christmas day during the 10-year period 2012–2021? Make the same assumptions as in Problem 5.128.</p>
+</div>
+<div id="tabset-8-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-8-2-tab">
+<p>Use the binomial distribution with success probability determined by <span class="math inline">\(P(X \geq 71)\)</span>, where <span class="math inline">\(X\)</span> is the number of birds in a year.</p>
+</div>
+<div id="tabset-8-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-8-3-tab">
+<p>If <span class="math inline">\(X\)</span> is the number of birds in a year, then <span class="math inline">\(X \sim N(61.71, 8.876^2)\)</span>. Since U = 71, <span class="math inline">\(P(X \geq U)\)</span> is</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">-</span> <span class="fu">pnorm</span>(<span class="at">q =</span> <span class="fl">70.5</span>, <span class="at">mean =</span> <span class="fl">61.71</span>, <span class="at">sd =</span> <span class="fl">8.876</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.161</code></pre>
+</div>
+</div>
+<p>Let <span class="math inline">\(Y\)</span> be the number of years, out of 10, that have at least U birds. Then <span class="math inline">\(Y \sim \mathrm{Binom}(10, 0.161)\)</span>. We want <span class="math inline">\(P(Y \geq 1)\)</span>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">-</span> <span class="fu">pbinom</span>(<span class="at">q =</span> <span class="dv">0</span>, <span class="at">size =</span> <span class="dv">10</span>, <span class="at">prob =</span> <span class="fl">0.161</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.8272</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">

@@ -1,30 +1,42 @@
 ---
 title: "Chapter 5: Continuous Probability Distributions"
 author: "David Gerard"
-format: html
+format: 
+  html:
+    fig-width: 4
+    fig-height: 2
 date: today
 ---
+
+# Continous Distributions and the Normal
 
 - A continuous random variable "takes on decimal values."
 
 - For such random variables, the probability at any specific value is 0.
 
 -   Example: 
-    - $\Pr(\text{a man is exactly } 6', 2.357921784123'') \approx 0$
-    - $\Pr(\text{a man is exactly } 6'2'') \approx 0$
-    - Men are a little above or a little below.
+    - Obviously, $\Pr(\text{a man is exactly } 6', 2.357921784123'') \approx 0$
+    - By the same logic, $\Pr(\text{a man is exactly } 6'2'') \approx 0$
+    - Men are always a little above or a little below.
 
 -   But, we know some regions are more likely than others.
     - $\Pr(5' \leq X \leq 7') > \Pr(0' \leq X \leq 1')$
 
 - We describe this intuition with a PDF.
 
-- A **Probability Density Function** of a random variable $X$ is a function $f$ such that:
-  $$
-  \Pr(a \leq X \leq b) = \text{area below curve between } a \text{ and } b
-  $$
+::: {.callout-tip}
+## Probability Density Function
 
-- The **CDF** is again the $F(x) = \Pr(X \leq x)$.
+A **Probability Density Function** (PDF) of a random variable $X$ is a function $f$ such that:
+$$
+\Pr(a \leq X \leq b) = \text{area below curve between } a \text{ and } b
+$$
+:::
+
+::: {.callout-tip}
+## Cumulative Distribution Function
+The **Cumulative Distribution Function** (CDF) is a function $F(x) = \Pr(X \leq x)$.
+:::
 
 - Example: $X =$ Serum triglyceride level
   - $\Pr(50 \leq X \leq 100)$
@@ -60,49 +72,49 @@ date: today
     
 - **Expected value:** $\mu$, average $X$ over many trials.
   $$
-  \mu = E[X] = \int_{-\infty}^{\infty} x f(x)\,dx
+  \mu = \mathrm{E}[X] = \int_{-\infty}^{\infty} x f(x)\,dx
   $$
   where $f(x)$ = density.
 
 - **Variance:** Average squared distance.
   $$
-  \sigma^2 = E\left[(X - \mu)^2\right] = E(X^2) - \mu^2
+  \sigma^2 = \mathrm{E}\left[(X - \mu)^2\right] = \mathrm{E}(X^2) - \mu^2
   $$
   $$
   \sigma^2 = \int_{-\infty}^{\infty} (x - \mu)^2 f(x)\,dx
   $$
 
-- **Most common continuous distribution:** Normal distribution
+- Most common continuous distribution: **Normal distribution**
   - If $X \sim N(\mu, \sigma^2)$, then
   $$
   f(x) = \frac{1}{\sqrt{2\pi \sigma^2}} \exp\left[-\frac{1}{2\sigma^2}(x-\mu)^2\right]
   $$
   - Density depends on $\sigma^2$ (variance) and $\mu$ (mean).
 
-- Also, if $X \sim N(\mu, \sigma^2)$, then $E(X) = \mu$, $\mathrm{Var}(X) = \sigma^2$.
+- Also, if $X \sim N(\mu, \sigma^2)$, then $\mathrm{E}(X) = \mu$, $\mathrm{Var}(X) = \sigma^2$.
 
--   Normal distribution plot:
-    ```{r}
-    #| echo: false
-    #| warning: false
-    x_values <- seq(-4, 4, by = 0.01)
-    y_values <- dnorm(x_values)
-    data <- data.frame(
-      x = x_values,
-      y = y_values
-    )
-    ggplot(data, aes(x = x, y = y)) +
-      geom_line(size = 1) +
-      geom_area(aes(x = ifelse(x >= -3 & x <= 3, x, NA)), fill = "lightblue", alpha = 0.5) +
-      geom_vline(xintercept = c(-3, -2, -1, 0, 1, 2, 3), linetype = "dashed") +
-      labs(
-        x = "x",
-        y = "Density",
-        title = "Normal Distribution with Mean and Standard Deviations"
-      ) +
-      scale_x_continuous(breaks = c(-3, -2, -1, 0, 1, 2, 3), labels = c(expression(mu - 3*sigma), expression(mu - 2*sigma), expression(mu - sigma), expression(mu), expression(mu + sigma), expression(mu + 2*sigma), expression(mu + 3*sigma))) +
-      theme_minimal()
-    ```
+
+```{r}
+#| echo: false
+#| warning: false
+x_values <- seq(-4, 4, by = 0.01)
+y_values <- dnorm(x_values)
+data <- data.frame(
+  x = x_values,
+  y = y_values
+)
+ggplot(data, aes(x = x, y = y)) +
+  geom_line(size = 1) +
+  geom_area(aes(x = ifelse(x >= -3 & x <= 3, x, NA)), fill = "lightblue", alpha = 0.5) +
+  geom_vline(xintercept = c(-3, -2, -1, 0, 1, 2, 3), linetype = "dashed") +
+  labs(
+    x = "x",
+    y = "Density",
+    title = "Normal Distribution with Mean and Standard Deviations"
+  ) +
+  scale_x_continuous(breaks = c(-3, -2, -1, 0, 1, 2, 3), labels = c(expression(mu - 3*sigma), expression(mu - 2*sigma), expression(mu - sigma), expression(mu), expression(mu + sigma), expression(mu + 2*sigma), expression(mu + 3*sigma))) +
+  theme_minimal()
+```
 
 -   Normal densities with different means.
     ```{r, echo=FALSE}
@@ -161,34 +173,149 @@ date: today
      Z = X + Y \sim N(\mu_1 + \mu_2, \sigma_1^2 + \sigma_2^2)
      $$
 
-- We denote PDF of standard normal by $\phi(x)$
+-   We denote PDF of standard normal by $\phi(x)$
 
-- The CDF is $\Phi(x) = \Pr(X \leq x)$
+    ```{r}
+    dnorm(x = 2, mean = 1, sd = 1)
+    ```
+    
+    ```{r, echo = FALSE}
+    x <- seq(-2, 4, length = 100)
+    y <- dnorm(x, mean = 1, sd = 1)
+    data.frame(x = x, y = y) |>
+    ggplot(aes(x = x, y = y)) +
+      geom_line() +
+      ylab("f(x)") +
+      geom_segment(dat = data.frame(x = 2, xend = 2, y = 0, 
+                                    yend = dnorm(x = 2, mean = 1, sd = 1)), 
+                   aes(x = x, y = y, xend = xend, yend = yend), lty = 2, col = 2) +
+      theme_bw()
+    ```
+
+-   The CDF is $\Phi(x) = \Pr(X \leq x)$
+
+    ```{r}
+    pnorm(q = 2, mean = 1, sd = 1)
+    ```
+    
+    ```{r, echo = FALSE}
+    x <- seq(-2, 4, length = 500)
+    y <- dnorm(x, mean = 1, sd = 1)
+    polydf <- data.frame(x = c(min(x), x[x < 2], 2, 0), 
+                         y = c(0, y[x < 2], 0, 0))
+    data.frame(x = x, y = y) |>
+      ggplot(aes(x = x, y = y)) +
+      geom_line() +
+      ylab("f(x)") +
+      geom_polygon(data = polydf, mapping = aes(x = x, y = y), 
+                   fill = "blue", alpha = 1/4) +
+      theme_bw()
+    ```
+    
+-   Quantile function (find value that has a given the probability of being less 
+  than or equal to it).
+  
+    ```{r}
+    qnorm(p = 0.8413, mean = 1, sd = 1)
+    ```
+    
+    ```{r, echo = FALSE}
+    x <- seq(-2, 4, length = 500)
+    y <- dnorm(x, mean = 1, sd = 1)
+    polydf <- data.frame(x = c(min(x), x[x < 2], 2, 0), 
+                         y = c(0, y[x < 2], 0, 0))
+    data.frame(x = x, y = y) |>
+      ggplot(aes(x = x, y = y)) +
+      geom_line() +
+      ylab("f(x)") +
+      geom_polygon(data = polydf, mapping = aes(x = x, y = y), 
+                   fill = "blue", alpha = 1/4) +
+      annotate(geom = "text", x = 0.5, y = 0.1, label = "0.8413", color = "black") +
+      theme_bw()
+    ```  
+
+-   Random Generation (generate samples from a given normal distribution).
+
+    ```{r}
+    set.seed(1)
+    samp <- rnorm(n = 1000, mean = 1, sd = 1)
+    head(samp)
+    ```
+    
+    ```{r, echo = FALSE}
+    data.frame(samp = samp) |>
+      ggplot(aes(x = samp)) +
+      geom_histogram(fill = "white", color = "black", bins = 20) +
+      theme_bw()
+    ```
 
 - **Example:**
-  - Blood Pressure $\sim N(80, \sqrt{144})$
+  - Blood Pressure $\sim N(80, 144)$
   - Mild hypertension is $90 \leq \text{DBP} \leq 100$
     - Units are in mmHg
   - Individuals are randomly sampled
   - What is $\Pr(\text{mild hypertensive})$?
 
-  \begin{align*}
-    \Pr(90 \leq X \leq 100) &= \Pr(X \leq 100) - \Pr(X < 90)\\
-    &= \texttt{pnorm(100, mean = 80, sd = sqrt(144))} - \texttt{pnorm(90, mean = 80, sd = sqrt(144))}\\
-    &= 0.1545
-  \end{align*}
+  <div style="text-align: left;">
+  $\Pr(90 \leq X \leq 100)$ <br>
+  = ![](./figs/ch5diff/pl1.png){width=20%} <br>
+  = ![](./figs/ch5diff/pl3.png){width=20%} - ![](./figs/ch5diff/pl2.png){width=20%}<br>
+  =$\Pr(X \leq 100) - \Pr(X < 90)$<br>
+  =`pnorm(100, mean = 80, sd = sqrt(144))} - \texttt{pnorm(90, mean = 80, sd = sqrt(144))`<br>
+  = 0.1545
+  </div>
 
-- Visualizations of normal distribution regions **XYZ IMAGE HERE**
+```{r}
+#| eval: false
+#| echo: false
+library(tidyverse)
+tibble(x = seq(80-36, 80+36, length = 200)) |>
+  mutate(y = dnorm(x = x, mean = 80, sd = 12)) ->
+  df
+df |>
+  filter(x > 90, x < 100) ->
+  df1
+df |>
+  filter(x < 90) ->
+  df2
+df |>
+  filter(x < 100) ->
+  df3
+ggplot() +
+  geom_line(data = df, mapping = aes(x = x, y = y)) +
+  geom_area(data = df1, mapping = aes(x = x, y = y)) +
+  theme_classic() +
+  theme(axis.text.x = element_text(size = 25, angle = 90, vjust = 0.5)) +
+  scale_x_continuous(breaks = c(90, 100)) ->
+  pl1
+ggplot() +
+  geom_line(data = df, mapping = aes(x = x, y = y)) +
+  geom_area(data = df2, mapping = aes(x = x, y = y)) +
+  theme_classic() +
+  theme(axis.text.x = element_text(size = 25, angle = 90, vjust = 0.5)) +
+  scale_x_continuous(breaks = c(90, 100)) ->
+  pl2
+ggplot() +
+  geom_line(data = df, mapping = aes(x = x, y = y)) +
+  geom_area(data = df3, mapping = aes(x = x, y = y)) +
+  theme_classic() +
+  theme(axis.text.x = element_text(size = 25, angle = 90, vjust = 0.5)) +
+  scale_x_continuous(breaks = c(90, 100))  ->
+  pl3
+ggsave("./figs/ch5diff/pl1.png", plot = pl1, height = 3, width = 4)
+ggsave("./figs/ch5diff/pl2.png", plot = pl2, height = 3, width = 4)
+ggsave("./figs/ch5diff/pl3.png", plot = pl3, height = 3, width = 4)
+```
+    
+::: {.panel-tabset}
+## Exercise
+Tree diameter $\sim N(8, 2^2)$ (in inches). What is the probability that the tree has diameter $> 12$ in?
 
-- **Exercise:** Tree diameter $\sim N(8, 2^2)$ (in inches)  
-  What is the probability that the tree has diameter $> 12$ in?
-
-  **Solution:**  
-  $$
-  1 - \texttt{pnorm}(12, 8, 2) = 0.02275
-  $$
-
----
+## Solution
+```{r}
+1 - pnorm(q = 12, mean = 8, sd = 2)
+```
+:::
 
 - If $X_1, \dots, X_n$ are random variables and  
   $$
@@ -196,38 +323,40 @@ date: today
   $$
   then  
   $$
-  \mathbb{E}[L] = \sum_{i=1}^n c_i \mathbb{E}[X_i]
+  \mathrm{E}[L] = \sum_{i=1}^n c_i \mathrm{E}[X_i]
   $$
+  
+- If the $X_i$'s are also independent, then
   $$
   \mathrm{Var}(L) = \sum_{i=1}^n c_i^2 \mathrm{Var}(X_i)
   $$
 
 - If the $X_i$ are also normally distributed, then  
   $$
-  L \sim N(\mathbb{E}[L], \mathrm{Var}(L))
+  L \sim N(\mathrm{E}[L], \mathrm{Var}(L))
   $$
 
 - **Example:**  
-  Let $X$ = serum creatinine level for Caucasian individual  
-  Let $Y$ = serum creatinine level for Black individual  
-
+  Let $X$ = serum creatinine level for a Caucasian individual  
+  Let $Y$ = serum creatinine level for a Black individual  
+  Assume:
   $$
-  X \sim N(1.3, 0.125), \quad Y \sim N(1.5, 0.25)
+  X \sim N(1.3, 0.25), \quad Y \sim N(1.5, 0.25)
   $$
 
   What is the distribution of the **average** level for one Caucasian and one Black individual chosen at random?
 
   Let
   $$
-  Z = \frac{1}{2}X + \frac{1}{2}Y \Rightarrow Z \sim N(1.4, 0.175)
+  Z = \frac{1}{2}X + \frac{1}{2}Y \Rightarrow Z \sim N(1.4, 0.125)
   $$
 
-  - $\mathbb{E}(Z) = \frac{1}{2}(1.3 + 1.5) = 1.4$
-  - $\mathrm{Var}(Z) = \frac{1}{4}(0.125 + 0.25) = 0.175$
+  - $\mathrm{E}(Z) = \frac{1}{2}(1.3 + 1.5) = 1.4$
+  - $\mathrm{Var}(Z) = \frac{1}{4}(0.25 + 0.25) = 0.125$
 
-- **Normal Approximation to Binomial** (rule of thumb):
+### Normal Approximation to Binomial
 
-  If $X \sim \mathrm{Bin}(n, p)$ and $np(1-p) \geq 5$, then
+  If $X \sim \mathrm{Bin}(n, p)$ and $np(1-p) \geq 5$ (rule of thumb), then
   $$
   X \approx N(np, np(1-p))
   $$
@@ -239,9 +368,38 @@ date: today
   \Pr(a \leq X \leq b) \approx \Pr\left(a - \frac{1}{2} \leq X \leq b + \frac{1}{2}\right)
   $$
 
-- We will use this for 2-sample binomial tests.
+- More generally, the continuity correction says that, if you are approximating a discrete random variable $X$ with a normal distribution $Y$, then
+  - $P(X \geq a) \approx P(Y > a - 1/2)$
+  - $P(X > a) \approx P(Y > a + 1/2)$
+  - $P(X \leq b) \approx P(Y < b + 1/2)$
+  - $P(X < b) \approx P(Y < b - 1/2)$
+  - $P(a \leq X \leq b) \approx P(a - 1/2 < Y < b + 1/2)$
+  - $P(a < X \leq b) \approx P(a + 1/2 < Y < b + 1/2)$
+  - $P(a \leq X < b) \approx P(a - 1/2 < Y < b - 1/2)$
+  - $P(a < X < b) \approx P(a + 1/2 < Y < b - 1/2)$
 
-- **Why?**  
+-   Let's demonstrate the continuity correction
+    ```{r}
+    p <- 0.5
+    n <- 20
+    mu <- n * p
+    sig <- sqrt(n * p * (1 - p))
+    a <- 8
+    b <- 12
+    
+    pbinom(q = b, size = n, prob = p)
+    pnorm(q = b, mean = mu, sd = sig) ## no continuity correction
+    pnorm(q = b + 1/2, mean = mu, sd = sig) ## with continuity correction
+    
+    pbinom(q = b, size = n, prob = p) - pbinom(q = a - 1, size = n, prob = p)
+    pnorm(q = b, mean = mu, sd = sig) - pnorm(q = a, mean = mu, sd = sig) ## no continuity correction
+    pnorm(q = b + 1/2, mean = mu, sd = sig) - pnorm(q = a - 1/2, mean = mu, sd = sig) ## with continuity correction
+    ```
+
+- We will use the normal approximation for 2-sample binomial tests.
+
+- Why does the normal approximation work?
+
   Let $T_1, T_2, \dots, T_n$ be $n$ independent Bernoulli trials:
   $$
   T_i =
@@ -256,104 +414,204 @@ date: today
   X = T_1 + T_2 + \dots + T_n = \sum T_i
   $$
 
-- The **Central Limit Theorem** says normal for large $n$.
+- The **Central Limit Theorem** says $X$ is normal for large $n$.
 
-- **Normal Approximation to Poisson**
+### Normal Approximation to Poisson
 
-  If $X \sim \mathrm{Poisson}(\mu)$, then  
-  $Y \sim N(\mu, \mu)$
+If $X \sim \mathrm{Poisson}(\mu)$, $Y \sim N(\mu, \mu)$, and $\mu \geq 10$ (rule of thumb), then
 
-  - Rule of thumb: for $\mu \geq 10$  
-  $$
-  \Pr(a \leq X \leq b) \approx \Pr\left(a - \frac{1}{2} \leq Y \leq b + \frac{1}{2}\right)
-  $$
+$$
+\Pr(a \leq X \leq b) \approx \Pr\left(a - \frac{1}{2} \leq Y \leq b + \frac{1}{2}\right)
+$$
 
----
 
-- **Exercise 5.12 – 5.13 of Rosner**
 
-  - Of men aged 30–34 who have smoked:
-    - $X$ = number of years a man has smoked
-    - $Y$ = number of years smoked by women in age group
+# Exercise 5.12 -- 5.13 of Rosner
 
-  $$
-  X \sim N(12.8, 5.1^2), \quad Y \sim N(9.3, 3.2^2)
-  $$
+The duration of cigarette smoking has been linked to many diseases, including lung cancer and various forms of heart disease. Suppose we know that among men ages 30−34 who have ever smoked, the mean number of years they smoked is 12.8 with a standard deviation of 5.1 years. For women in this age group, the mean number of years they smoked is 9.3 with a standard deviation of 3.2.
 
-- **Q1:** What proportion of men have smoked for more than 20 years? Women?
+::: {.panel-tabset}
+## Exercise 5.12
+Assuming that the duration of smoking is normally distributed, what proportion of men in this age group have smoked for more than 20 years?
 
-  - Men:
-    $$
-    1 - \texttt{pnorm}(20, \text{mean} = 12.8, \text{sd} = 5.1) = 0.07901
-    $$
+## Solution
+Let $X$ be the number of years a randomly sampled smoking man has smoked. Then $X \sim N(12.8, 5.1^2)$. We want $P(X > 20)$ which we can get via `pnorm()`.
 
-  - Women:
-    $$
-    1 - \texttt{pnorm}(20, \text{mean} = 9.3, \text{sd} = 3.2) = 0.004133
-    $$
+```{r}
+#| echo: false
+#| message: false
+library(tidyverse)
+plt_norm <- function(mu = 0, sig = 1, lb = -Inf, ub = Inf) {
+  tibble(x = seq(mu - 3 * sig, mu + 3 * sig, length.out = 500)) |>
+    mutate(y = dnorm(x = x, mean = mu, sd = sig)) ->
+    df1
+  df1 |>
+    filter(x > lb, x < ub) ->
+    df2
+  ggplot() +
+    geom_line(data = df1, mapping = aes(x = x, y = y)) +
+    geom_area(data = df2, mapping = aes(x = x, y = y)) +
+    theme_classic() +
+    theme(axis.title = element_blank())
+}
+```
 
-- **XYZ IMAGE HERE**
+```{r}
+#| echo: false
+#| fig-height: 2
+#| fig-width: 4
+plt_norm(mu = 12.8, sig = 5.1, lb = 20, ub = Inf)
+```
 
-- **Exercise 5.126 – 5.130**
 
-  Christmas Bird Count is a holiday tradition in a boring part of Massachusetts.
+```{r}
+1 - pnorm(q = 20, mean = 12.8, sd = 5.1)
+```
+:::
 
-  | Year | $x_i$ |
-  |------|-------|
-  | 2005 | 76    |
-  | 2006 | 47    |
-  | 2007 | 63    |
-  | 2008 | 53    |
-  | 2009 | 62    |
-  | 2010 | 64    |
-  | 2011 | 67    |
 
-  $$
-  \sum x_i = 432, \quad \sum x_i^2 = 27,\!717
-  $$
+::: {.panel-tabset}
+## Exercise 5.11
+Answer Problem 5.12 for women.
 
-1. What is the **mean** number of birds?
+## Solution
+Let $Y$ be the number of years a randomly sampled smoking woman has smoked. Then $Y \sim N(9.3, 3.2^2)$. We want $P(Y > 20)$.
 
-   $$
-   \bar{x} = \frac{432}{7} = 61.71
-   $$
+```{r}
+1 - pnorm(q = 20, mean = 9.3, sd = 3.2)
+```
 
-2. What is the **standard deviation**?
+:::
 
-   $$
-   \frac{1}{7}(27717) - \left(\frac{432}{7}\right)^2 = 78.78
-   $$
+# Exercise 5.126 -- 5.130 of Rosner
 
-   $$
-   \mathrm{SD} = \sqrt{78.78} = 8.876
-   $$
+The Christmas Bird Count (CBC) is an annual tradition in Lexington, Massachusetts. A group of volunteers counts the number of birds of different species over a 1-day period. Each year, there are approximately 30–35 hours of observation time split among multiple volunteers. The following counts were obtained for the Northern Cardinal (or cardinal, in brief) for the period 2005–2011.
 
-3. Suppose number of birds is normal with same mean and SD as previous years.  
-   What is the probability of at least 60 birds? Apply continuity correction.
+| Year | $x_i$ |
+|------|-------|
+| 2005 | 76    |
+| 2006 | 47    |
+| 2007 | 63    |
+| 2008 | 53    |
+| 2009 | 62    |
+| 2010 | 64    |
+| 2011 | 67    |
 
-   $$
-   1 - \texttt{pnorm}(59.5, \text{mean} = 61.71, \text{sd} = 8.876) = \boxed{0.5983}
-   $$
+Note that:
+$$
+\sum_{i=1}^7 x_i = 432, \quad \sum_{i=1}^7 x_i^2 = 27,212
+$$
 
-4. Find **"normal range"** $(L, U)$ (integers) such that:
-   - $L$ = 5th percentile  
-   - $U$ = 95th percentile
+::: {.panel-tabset}
+## Exercise 5.126 
+What is the mean number of cardinal birds per year observed from 2005 to 2011?
 
-   $$
-   \texttt{qnorm}(c(0.05, 0.95), \text{mean} = 61.71, \text{sd} = 8.876) = (52.51, 70.91)
-   $$
+## Solution
+The mean is 
+$$
+\bar{x} = \frac{1}{7}\sum_{i=1}^7 x_i = \frac{1}{7}432 = 61.71
+$$
+:::
 
-   - So the normal range is **52 to 80**
+::: {.panel-tabset}
+## Exercise 5.127
+What is the standard deviation (sd) of the number of cardinal birds observed?
 
-5. What is the probability that $X \geq U$ at least once during a 10-year period?
+## Hint
 
-   $$
-   \Pr(X \geq U) = 1 - \texttt{pnorm}(79.5, \text{mean} = 61.71, \text{sd} = 8.876) = 0.02252
-   $$
+Use the sample version of $\mathrm{Var}(X) = \mathrm{E}(X^2) - \mathrm{E}(X)^2$
 
-   Let $Y$ = number of years $\geq U$  
-   $Y \sim \mathrm{Bin}(10, 0.02252)$
+## Solution
 
-   $$
-   \Pr(Y \geq 1) = 1 - \Pr(Y = 0) = 1 - \texttt{dbinom}(0, 10, 0.02252) = \boxed{0.2037}
-   $$
+\begin{align*}
+s^2(x) &= \frac{1}{7}\sum_{i=1}^7 x_i^2 - \bar{x}^2\\
+&= \frac{1}{7}27,212 - 61.71^2\\
+&= 79.3
+\end{align*}
+
+Thus,
+$$
+s(x) = \sqrt{s^2(x)} = \sqrt{79.3} = 8.9
+$$
+
+If you don't round until the very end, you get:
+```{r}
+sqrt(27212 / 7 - (432/7)^2)
+```
+
+:::
+
+Suppose we assume that the distribution of the number of cardinal birds observed per year is normally distributed and that the true mean and sd are the same as the sample mean and sd calculated in Problems 5.126 and 5.127.
+
+::: {.panel-tabset}
+## Exercise 5.128
+What is the probability of observing at least 60 cardinal birds in 2012? 
+
+Try to apply a continuity correction to get a more accurate answer.
+
+## Solution
+Let $X$ be the numer of cardinal birds observed in a given year. Then we assume that, approximately $X \sim N(61.71, 8.876^2)$. We want $P(X >= 60)$.
+
+It's fine if you wrote
+```{r}
+1 - pnorm(q = 60, mean = 61.71, sd = 8.876)
+```
+
+```{r}
+#| fig-height: 2
+#| fig-width: 4
+plt_norm(mu = 61.71, sig = 8.876, lb = 61.71)
+```
+
+Applying the continuity correction strategy, a more accurate probability would be to subtract 1/2 from 60 first.
+
+```{r}
+1 - pnorm(q = 60 - 0.5, mean = 61.71, sd = 8.876)
+```
+
+:::
+
+The observers wish to identify a normal range for the number of cardinal birds observed per year. The normal range will be defined as the interval (L, U), where L is the largest integer $\leq$ 15th percentile and U is the smallest integer $\geq$ 85th percentile .
+
+::: {.panel-tabset}
+## Exercise 5.129
+If we make the same assumptions as in Problem 5.128, then what is L? What is U?
+
+## Hint
+
+Use `qnorm()`
+
+## Solution
+
+L is 52:
+```{r}
+qnorm(p = 0.15, mean = 61.71, sd = 8.876)
+```
+
+U is 71.
+```{r}
+qnorm(p = 0.85, mean = 61.71, sd = 8.876)
+```
+:::
+
+::: {.panel-tabset}
+## Exercise 5.130
+What is the probability that the number of cardinal birds will be $\geq$ U at least once on Christmas day during the 10-year period 2012–2021? Make the same assumptions as in Problem 5.128.
+
+## Hint
+
+Use the binomial distribution with success probability determined by $P(X \geq 71)$, where $X$ is the number of birds in a year.
+
+## Solution
+
+If $X$ is the number of birds in a year, then $X \sim N(61.71, 8.876^2)$. Since U = 71, $P(X \geq U)$ is
+```{r}
+1 - pnorm(q = 70.5, mean = 61.71, sd = 8.876)
+```
+
+Let $Y$ be the number of years, out of 10, that have at least U birds. Then $Y \sim \mathrm{Binom}(10, 0.161)$. We want $P(Y \geq 1)$.
+
+```{r}
+1 - pbinom(q = 0, size = 10, prob = 0.161)
+```
+:::

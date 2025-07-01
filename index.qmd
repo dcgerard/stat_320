@@ -20,8 +20,7 @@ format: html
   - [Chapter 3 Notes (Probability)](./03_prob/03_notes.qmd)
   - [Confusion Matrix](./03_prob/03_confusion.qmd)
   - [Chapter 4 Notes (Discrete Probability Distributions)](./03_prob/04_notes.qmd)
-  - [Chapter 5 Notes (Continuous Probability Distributions)](./notes/chapter5_notes.pdf)
-  - [Normal Distribution in R](./03_prob/03_prob_cont.qmd)
+  - [Chapter 5 Notes (Continuous Probability Distributions)](./03_prob/05_notes.qmd)
 - 04 Estimation
   - [Chapter 6 Notes (Estimation)](./notes/chapter6_notes.pdf)
   - [Random Selection/Assignment](./04_est/04_sample.qmd)
@@ -58,3 +57,4 @@ Handwritten Notes:
 - [Chapter 2 Notes (Descriptive Statistics)](./notes/chapter2_notes.pdf)
 - [Chapter 3 Notes (Probability)](./notes/chapter3_notes.pdf)
 - [Chapter 4 Notes (Discrete Probability Distributions)](./notes/chapter4_notes.pdf)
+- [Chapter 5 Notes (Continuous Probability Distributions)](./notes/chapter5_notes.pdf)
