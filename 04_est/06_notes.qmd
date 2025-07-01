@@ -5,26 +5,33 @@ format: html
 date: today
 ---
 
-**XYZ IMAGE HERE**
+```{mermaid}
+stateDiagram-v2
+    state "Data Generating Process" as Process
+    Process --> Data: Probability
+    Data --> Process: Inference
+```
 
-- Probability: $X \sim N(80, 12)$  
-  - Assumed known  
+- Probability (Chapters 3, 4, and 5): 
+  - We know that $X \sim N(80, 12)$  
   - What is $\Pr(X > 90)$?
 
-- Inference: Observe $X_i = 81, 78, 77, 89, \ldots$  
-  - Assume $X_i \sim N(\mu, \sigma^2)$  
+- Inference (Chapters 6 through 14): 
+  - We observe $X_i = 81, 78, 77, 89, \ldots$  
+  - We assume $X_i \sim N(\mu, \sigma^2)$ 
+    - But values of $\mu$ and $\sigma^2$ are unknown.
   - What are $\mu$ and $\sigma^2$?
 
-- Estimation: Guess parameter values from data
+- **Estimation**: Guess parameter values from data
 
-  - Point estimation: A single number is your best guess  
+  - **Point estimation**: A single number is your best guess  
     - E.g., estimate $\mu$ with $\bar{X}$
 
-  - Interval estimation: Get a range of likely values of a parameter  
-    - Confidence intervals
+  - **Interval estimation**: Get a range of likely values of a parameter  
+    - E.g., confidence intervals
 
-- Hypothesis testing: How sure are we a parameter is different from some value?  
-  - E.g., $\mu \ne 0$
+- **Hypothesis testing**: How sure are we a parameter is different from some value?  
+  - E.g., $H_0: \mu \ne 0$
   
 **XYZ IMAGE HERE**
 
@@ -185,7 +192,8 @@ $$
 
 - Use $t$ because of added variability from using $s^2$ instead of $\sigma^2$
 
-### R code for t-distribution
+
+R code for t-distribution
 
 - Rosner uses notation $t_{\text{df}, p}$ for the $p$ quantile of a $t_{\text{df}}$ distribution
 
