@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="David Gerard">
-<meta name="dcterms.date" content="2025-06-30">
+<meta name="dcterms.date" content="2025-07-01">
 
 <title>Chapter 3 Notes: Probability – Stat 320: Biostatistics</title>
 <style>
@@ -338,7 +338,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">June 30, 2025</p>
+      <p class="date">July 1, 2025</p>
     </div>
   </div>
   
@@ -1051,12 +1051,15 @@ P(M^+ \cap F^+) = P(M^+) \cdot P(F^+) = 0.4 \cdot 0.5 = 0.2
 </div>
 <p>Suppose, alternatively, that if the father is a current smoker, then the probability that the mother is a current smoker is 0.6; whereas if the father is not a current smoker, then the probability that the mother is a current smoker is 0.2. Also assume that statements 1, 2, 3, and 4 above hold.</p>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-8-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-8-1" role="tab" aria-controls="tabset-8-1" aria-selected="true">Exercise 3</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-8-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-8-2" role="tab" aria-controls="tabset-8-2" aria-selected="false">Solution</a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-8-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-8-1" role="tab" aria-controls="tabset-8-1" aria-selected="true">Exercise 3</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-8-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-8-2" role="tab" aria-controls="tabset-8-2" aria-selected="false">Hint</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-8-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-8-3" role="tab" aria-controls="tabset-8-3" aria-selected="false">Solution</a></li></ul>
 <div class="tab-content">
 <div id="tabset-8-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-8-1-tab">
 <p>If the probability that the father is a current smoker is 0.5, what is the probability that the father is a current smoker and that the mother is not a current smoker?</p>
 </div>
 <div id="tabset-8-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-8-2-tab">
+<p>Use <span class="math inline">\(P(F^+ \cap M^-) = P(M^- | F^+) \cdot P(F^+)\)</span>.</p>
+</div>
+<div id="tabset-8-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-8-3-tab">
 <p>Converting the word problem to math notation, we have::</p>
 <ul>
 <li><p><span class="math inline">\(P(M^+ | F^+) = 0.6\)</span></p></li>
@@ -1097,7 +1100,7 @@ P(F^+ \cap M^-) = P(M^- | F^+) \cdot P(F^+) = (1 - 0.6) \cdot 0.5 = 0.4 \cdot 0.
 <p>Under the assumptions made in Problems 3 and 4, find the unconditional probability that the offspring will have asthma.</p>
 </div>
 <div id="tabset-10-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-10-2-tab">
-<p>Use the law of total probability. You’ll be using <span class="math inline">\(P(O^+ | M^+ \cap F^+)\)</span>, <span class="math inline">\(P(O^+ | M^+ \cap F^-)\)</span> etc..</p>
+<p>Use the law of total probability. You’ll be using <span class="math inline">\(P(O^+ | M^+ \cap F^+)\)</span>, <span class="math inline">\(P(O^+ | M^+ \cap F^-)\)</span>, <span class="math inline">\(P(O^+ | M^- \cap F^+)\)</span>, <span class="math inline">\(P(O^+ | M^- \cap F^-)\)</span>, <span class="math inline">\(P(M^+ \cap F^+)\)</span>, <span class="math inline">\(P(M^+ \cap F^-)\)</span>, <span class="math inline">\(P(M^- \cap F^+)\)</span>, and <span class="math inline">\(P(M^- \cap F^-)\)</span>.</p>
 </div>
 <div id="tabset-10-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-10-3-tab">
 <p>We want to calculate <span class="math inline">\(P(O^+)\)</span>:</p>
@@ -1129,12 +1132,16 @@ P(O^+) = (0.15 \cdot 0.3) + (0.13 \cdot 0.1) + (0.05 \cdot 0.2) + (0.04 \cdot 0.
 </div>
 </div>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-11-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-11-1" role="tab" aria-controls="tabset-11-1" aria-selected="true">Exercise 6</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-11-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-11-2" role="tab" aria-controls="tabset-11-2" aria-selected="false">Solution</a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-11-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-11-1" role="tab" aria-controls="tabset-11-1" aria-selected="true">Exercise 6</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-11-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-11-2" role="tab" aria-controls="tabset-11-2" aria-selected="false">Hint</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-11-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-11-3" role="tab" aria-controls="tabset-11-3" aria-selected="false">Solution</a></li></ul>
 <div class="tab-content">
 <div id="tabset-11-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-11-1-tab">
 <p>Suppose a child has asthma. What is the posterior probability that the father is a current smoker?</p>
 </div>
 <div id="tabset-11-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-11-2-tab">
+<p>Use Bayes rule.</p>
+<p>Also note that <span class="math inline">\(P(O^+ \cap F^+) = P(O^+ \cap F^+ \cap M^+) + P(O^+ \cap F^+ \cap M^-)\)</span>.</p>
+</div>
+<div id="tabset-11-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-11-3-tab">
 <p>We want to calculate <span class="math inline">\(P(F^+ | O^+)\)</span>. Using Bayes rule we have</p>
 <p><span class="math display">\[
 P(F^+ | O^+) = \frac{P(F^+ \cap O^+)}{P(O^+)}
@@ -1151,12 +1158,15 @@ P(F^+ | O^+) = \frac{0.055}{0.084} = 0.6548.
 </div>
 </div>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-12-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-12-1" role="tab" aria-controls="tabset-12-1" aria-selected="true">Exercise 7</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-12-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-12-2" role="tab" aria-controls="tabset-12-2" aria-selected="false">Solution</a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-12-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-12-1" role="tab" aria-controls="tabset-12-1" aria-selected="true">Exercise 7</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-12-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-12-2" role="tab" aria-controls="tabset-12-2" aria-selected="false">Hint</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-12-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-12-3" role="tab" aria-controls="tabset-12-3" aria-selected="false">Solution</a></li></ul>
 <div class="tab-content">
 <div id="tabset-12-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-12-1-tab">
 <p>What is the posterior probability that the mother is a current smoker if the child has asthma?</p>
 </div>
 <div id="tabset-12-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-12-2-tab">
+<p>Use the same strategy as in Exercise 6.</p>
+</div>
+<div id="tabset-12-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-12-3-tab">
 <p>We want <span class="math inline">\(P(M^+ | O^+)\)</span>. Using Bayes rule we have <span class="math display">\[
 P(M^+ | O^+) = \frac{P(O^+ \cap M^+)}{P(O^+)}
 \]</span> We can use the exact same strategy as in Exercise 6.</p>

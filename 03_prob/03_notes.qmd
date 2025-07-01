@@ -543,6 +543,11 @@ Suppose, alternatively, that if the father is a current smoker, then the probabi
 
 If the probability that the father is a current smoker is 0.5, what is the probability that the father is a current smoker and that the mother is not a current smoker?
 
+## Hint
+
+Use $P(F^+ \cap M^-) = P(M^- | F^+) \cdot P(F^+)$.
+
+
 ## Solution
 
 Converting the word problem to math notation, we have::
@@ -589,7 +594,7 @@ Under the assumptions made in Problems 3 and 4, find the unconditional probabili
 
 ## Hint
 
-Use the law of total probability. You'll be using $P(O^+ | M^+ \cap F^+)$, $P(O^+ | M^+ \cap F^-)$ etc..
+Use the law of total probability. You'll be using $P(O^+ | M^+ \cap F^+)$, $P(O^+ | M^+ \cap F^-)$, $P(O^+ | M^- \cap F^+)$, $P(O^+ | M^- \cap F^-)$, $P(M^+ \cap F^+)$, $P(M^+ \cap F^-)$, $P(M^- \cap F^+)$, and $P(M^- \cap F^-)$.
 
 ## Solution
 
@@ -631,6 +636,12 @@ $$
 
 Suppose a child has asthma. What is the posterior probability that the father is a current smoker?
 
+## Hint
+
+Use Bayes rule. 
+
+Also note that $P(O^+ \cap F^+) = P(O^+ \cap F^+ \cap M^+) + P(O^+ \cap F^+ \cap M^-)$.
+
 ## Solution
 
 We want to calculate $P(F^+ | O^+)$. Using Bayes rule we have
@@ -659,6 +670,10 @@ $$
 ## Exercise 7
 
 What is the posterior probability that the mother is a current smoker if the child has asthma?
+
+## Hint
+
+Use the same strategy as in Exercise 6.
 
 ## Solution
 
