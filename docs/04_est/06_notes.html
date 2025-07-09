@@ -449,7 +449,7 @@ window.Quarto = {
 </ul></li>
 <li><p><strong>Hypothesis testing</strong>: How sure are we a parameter is different from some value?</p>
 <ul>
-<li>E.g., <span class="math inline">\(H_0: \mu \ne 0\)</span></li>
+<li>E.g., <span class="math inline">\(H_0: \mu = 0\)</span></li>
 </ul></li>
 </ul>
 <p><img src="./04_figs/pop_to_sample/pop_to_sample.png" class="img-fluid">&nbsp;</p>
@@ -902,7 +902,7 @@ t_{\text{df}, p} = \texttt{qt(p, df)}
 <p><span class="math display">\[
 \frac{1}{n} \sum (X_i - \bar{X})^2 \leq \frac{1}{n} \sum (X_i - \mu)^2
 \]</span></p>
-<p>So, <span class="math inline">\(\frac{1}{n} \sum (X_i - \bar{X})^2\)</span> is too small. Dividing by <span class="math inline">\(n-1\)</span> instead of <span class="math inline">\(n\)</span> makes it a little larger, and it turns out it makes it larger by the correct ammount.</p></li>
+<p>So, <span class="math inline">\(\frac{1}{n} \sum (X_i - \bar{X})^2\)</span> is too small. Dividing by <span class="math inline">\(n-1\)</span> instead of <span class="math inline">\(n\)</span> makes it a little larger, and it turns out it makes it larger by the correct amount.</p></li>
 <li><p>Property of the variance: <span class="math display">\[
 \frac{s^2}{\sigma^2 / (n - 1)} \sim \chi^2_{n - 1}
 \]</span></p></li>
@@ -934,7 +934,7 @@ t_{\text{df}, p} = \texttt{qt(p, df)}
 &amp;\Leftrightarrow  \Pr\left( \frac{(n - 1)s^2}{\chi^2_{n-1, 1 - \alpha/2}} \leq \sigma^2 \leq \frac{(n - 1)s^2}{\chi^2_{n-1, \alpha/2}} \right) = 1 - \alpha
 \end{align*}\]</span></p>
 <ul>
-<li><p>Thus a <span class="math inline">\((1-\alpha)100\%\)</span> CI for the population variance (only when the original data are norrmally distributed) is: <span class="math display">\[
+<li><p>Thus a <span class="math inline">\((1-\alpha)100\%\)</span> CI for the population variance (only when the original data are normally distributed) is: <span class="math display">\[
 \frac{(n - 1)s^2}{\chi^2_{n-1, 1 - \alpha/2}} \leq \sigma^2 \leq \frac{(n - 1)s^2}{\chi^2_{n-1, \alpha/2}}
 \]</span></p></li>
 <li><p>Notes:</p>
@@ -944,7 +944,7 @@ t_{\text{df}, p} = \texttt{qt(p, df)}
 <ul>
 <li>CLT does not save you</li>
 </ul></li>
-<li>In real-like, folks use a bootstrap if they want a CI for the variance.</li>
+<li>In real life, folks use a bootstrap if they want a CI for the variance.</li>
 </ul></li>
 </ul>
 </section>
@@ -1138,7 +1138,7 @@ Want lower bound on treatment effect to see if it’s better than baseline</li>
 <ul>
 <li>E.g., suppose we want an upper bound on the incidence rate of some treatment group</li>
 </ul></li>
-<li><p>Since <span class="math inline">\(\frac{\hat{p} - p}{\sqrt{ \hat{p}(1 - \hat{p}) / n }} \sim N(0, 1)\)</span>, we can get a one-sided ocnfidence interval by knowing the following: <span class="math display">\[
+<li><p>Since <span class="math inline">\(\frac{\hat{p} - p}{\sqrt{ \hat{p}(1 - \hat{p}) / n }} \sim N(0, 1)\)</span>, we can get a one-sided confidence interval by knowing the following: <span class="math display">\[
 \Pr\left(-z_{1 - \alpha} &lt; \frac{\hat{p} - p}{\sqrt{ \hat{p}(1 - \hat{p}) / n }} \right) = 1 - \alpha
 \]</span> and solving for <span class="math inline">\(p\)</span>: <span class="math display">\[\begin{align*}
 &amp;\Leftrightarrow \Pr\left(z_{1 - \alpha} &gt; \frac{p - \hat{p}}{\sqrt{ \hat{p}(1 - \hat{p}) / n }} \right) = 1 - \alpha\\

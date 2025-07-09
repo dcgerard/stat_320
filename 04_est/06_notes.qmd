@@ -56,7 +56,7 @@ stateDiagram-v2
     - E.g., confidence intervals
 
 - **Hypothesis testing**: How sure are we a parameter is different from some value?  
-  - E.g., $H_0: \mu \ne 0$
+  - E.g., $H_0: \mu = 0$
   
 ![](./04_figs/pop_to_sample/pop_to_sample.png)\ 
 
@@ -381,7 +381,7 @@ And, for a 99% CI we have
     \frac{1}{n} \sum (X_i - \bar{X})^2 \leq \frac{1}{n} \sum (X_i - \mu)^2
     $$
     
-    So, $\frac{1}{n} \sum (X_i - \bar{X})^2$ is too small. Dividing by $n-1$ instead of $n$ makes it a little larger, and it turns out it makes it larger by the correct ammount.
+    So, $\frac{1}{n} \sum (X_i - \bar{X})^2$ is too small. Dividing by $n-1$ instead of $n$ makes it a little larger, and it turns out it makes it larger by the correct amount.
 
 
 -   Property of the variance:
@@ -432,7 +432,7 @@ ggplot() +
 &\Leftrightarrow  \Pr\left( \frac{(n - 1)s^2}{\chi^2_{n-1, 1 - \alpha/2}} \leq \sigma^2 \leq \frac{(n - 1)s^2}{\chi^2_{n-1, \alpha/2}} \right) = 1 - \alpha
 \end{align*}
 
-- Thus a $(1-\alpha)100\%$ CI for the population variance (only when the original data are norrmally distributed) is:
+- Thus a $(1-\alpha)100\%$ CI for the population variance (only when the original data are normally distributed) is:
   $$
   \frac{(n - 1)s^2}{\chi^2_{n-1, 1 - \alpha/2}} \leq \sigma^2 \leq \frac{(n - 1)s^2}{\chi^2_{n-1, \alpha/2}}
   $$
@@ -441,7 +441,7 @@ ggplot() +
   - Less often constructed than CI for $\mu$
   - **Very** sensitive to violations of normality  
     - CLT does not save you
-  - In real-like, folks use a bootstrap if they want a CI for the variance.
+  - In real life, folks use a bootstrap if they want a CI for the variance.
 
 # Estimate Binomial Proportion
 
@@ -668,7 +668,7 @@ Thus, our 95% confidence interval is
 - Or, find $p_2$ such that $\Pr(p < p_2) = 1 - \alpha$  
   - E.g., suppose we want an upper bound on the incidence rate of some treatment group
 
--   Since $\frac{\hat{p} - p}{\sqrt{ \hat{p}(1 - \hat{p}) / n }} \sim N(0, 1)$, we can get a one-sided ocnfidence interval by knowing the following:
+-   Since $\frac{\hat{p} - p}{\sqrt{ \hat{p}(1 - \hat{p}) / n }} \sim N(0, 1)$, we can get a one-sided confidence interval by knowing the following:
     $$
     \Pr\left(-z_{1 - \alpha} < \frac{\hat{p} - p}{\sqrt{ \hat{p}(1 - \hat{p}) / n }} \right) = 1 - \alpha
     $$
