@@ -22,7 +22,7 @@ format: html
   - [Chapter 4 Notes (Discrete Probability Distributions)](./03_prob/04_notes.qmd)
   - [Chapter 5 Notes (Continuous Probability Distributions)](./03_prob/05_notes.qmd)
 - 04 Estimation
-  - [Chapter 6 Notes (Estimation)](./notes/chapter6_notes.pdf)
+  - [Chapter 6 Notes (Estimation)](./04_est/06_notes.qmd)
   - [Random Selection/Assignment](./04_est/04_sample.qmd)
   - [Central Limit Theorem Illustration](./04_est/04_clt.qmd)
   - [CI Interpretation](./04_est/04_figs/ci_graphic.png)
@@ -58,3 +58,8 @@ Handwritten Notes:
 - [Chapter 3 Notes (Probability)](./notes/chapter3_notes.pdf)
 - [Chapter 4 Notes (Discrete Probability Distributions)](./notes/chapter4_notes.pdf)
 - [Chapter 5 Notes (Continuous Probability Distributions)](./notes/chapter5_notes.pdf)
+- [Chapter 6 Notes (Estimation)](./notes/chapter6_notes.pdf)
+- [Chapter 7 Notes (One Sample Hypothesis Tests)](./notes/chapter7_notes.pdf)
+- [Chapter 8 Notes (Two Sample Hypothesis Tests)](./notes/chapter8_notes.pdf)
+- [Chapter 9 Notes (Nonparametric Methods)](./notes/chapter9_notes.pdf)
+- [Chapter 10 Notes (Categorical Methods)](./notes/chapter10_notes.pdf)

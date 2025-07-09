@@ -5,12 +5,37 @@ format: html
 date: today
 ---
 
+```{r}
+#| echo: false
+#| message: false
+library(tidyverse)
+plt_norm <- function(mu = 0, sig = 1, lb = -Inf, ub = Inf) {
+  tibble(x = seq(mu - 3 * sig, mu + 3 * sig, length.out = 500)) |>
+    mutate(y = dnorm(x = x, mean = mu, sd = sig)) ->
+    df1
+  df1 |>
+    filter(x > lb, x < ub) ->
+    df2
+  ggplot() +
+    geom_line(data = df1, mapping = aes(x = x, y = y)) +
+    geom_area(data = df2, mapping = aes(x = x, y = y)) +
+    theme_classic() +
+    theme(axis.title = element_blank())
+}
+```
+
+
+
+# Estimation Set up
+
+<div style="text-align: center;">
 ```{mermaid}
 stateDiagram-v2
     state "Data Generating Process" as Process
     Process --> Data: Probability
     Data --> Process: Inference
 ```
+</div>
 
 - Probability (Chapters 3, 4, and 5): 
   - We know that $X \sim N(80, 12)$  
@@ -19,7 +44,7 @@ stateDiagram-v2
 - Inference (Chapters 6 through 14): 
   - We observe $X_i = 81, 78, 77, 89, \ldots$  
   - We assume $X_i \sim N(\mu, \sigma^2)$ 
-    - But values of $\mu$ and $\sigma^2$ are unknown.
+    - But the values of $\mu$ and $\sigma^2$ are unknown.
   - What are $\mu$ and $\sigma^2$?
 
 - **Estimation**: Guess parameter values from data
@@ -33,32 +58,46 @@ stateDiagram-v2
 - **Hypothesis testing**: How sure are we a parameter is different from some value?  
   - E.g., $H_0: \mu \ne 0$
   
-**XYZ IMAGE HERE**
+![](./04_figs/pop_to_sample/pop_to_sample.png)\ 
 
-- Group we are interested in: reference / target / study population  
-- Group we have data about: sample  
-  - Sampling (e.g., SRS)
+::: {.callout-tip}
+# Reference / Target / Study Population
+Group we are interested in
+:::
 
-- Parameter: summary of population  
-  - $\mu$, $\sigma^2$, $p$
+::: {.callout-tip}
+## Sample
+Group we have data about
+:::
 
-- Statistic: summary of sample  
-  - $\bar{X}$, $s^2$, $\hat{p}$
+::: {.callout-tip}
+## Parameter
+Numeric summary of population  
+
+E.g.: $\mu$, $\sigma^2$, $p$
+:::
+
+::: {.callout-tip}
+## Statistic
+Numeric summary of sample  
+
+E.g. $\bar{X}$, $s^2$, $\hat{p}$
+:::
 
 - Simplest way to get a sample is by a simple random sample  
   - Each unit has an equal chance of being in sample
 
-- Random selection (via SRS) is distinct from:
+- Random selection (e.g., via SRS) is distinct from Random Assignment.
 
-  - Random assignment: randomly assign units to different groups (e.g., treatment vs. control)
+- Random assignment: randomly assign units to different groups (e.g., treatment vs. control)
 
 - Random selection: results generalizable to target population  
-  - Because sample is similar to population in terms of demographic variables, etc.
+  - Because sample is similar to population in terms of demographic variables
 
 - Random assignment: allows for claims of causality  
-  - Because all possible confounders are equal in the groups
+  - Because all possible confounders are equal (on average) in the groups
 
-- Randomized Clinical Trial (RCT): Random assignment of treatment to compare them
+- Randomized Clinical Trial (RCT): Random assignment of treatments to compare them.
 
 - No causal claims without random assignment
 
@@ -66,8 +105,7 @@ stateDiagram-v2
   - Tobramycin is more aggressive and has more side effects.  
   - Early studies were not randomized and showed tobramycin performed worse. Why?  
     - Doctors gave sicker patients tobramycin
-
-- Randomization guarantees equal number of sicker and less sick in each group (on average)
+  - Randomization guarantees equal number of sicker and less sick in each group (on average)
 
 - Double blind: neither doctor nor patient know treatment  
   - Guards against placebo effect
@@ -76,22 +114,31 @@ stateDiagram-v2
 
 - Unblinded: both know
 
-- `sampling` in R
+___
 
-- Estimate mean:
+[Sampling in R](./04_sample.qmd)
 
-  - Suppose $E(X_i) = \mu$  
-    - Not necessarily normal
+___
 
-  - Estimate $\mu$ with $\hat{\mu} = \bar{X} = \frac{1}{n} \sum X_i$  
-    - $\hat{\mu}$ is an estimate of $\mu$  
-    - $\bar{X}$ is the sample mean
+# Estimating the Mean
 
-- Sampling distribution: Distribution of statistic across many (hypothetical) samples
+- Suppose $E(X_i) = \mu$  
+  - Not necessarily normal
 
-**XYZ IMAGE HERE**
+- Estimate $\mu$ with $\hat{\mu} = \bar{X} = \frac{1}{n} \sum X_i$  
+  - $\hat{\mu}$ is an estimate of $\mu$  
+  - $\bar{X}$ is the sample mean
+  - Often (almost always), $\hat{\mu} = \bar{X}$.
 
-  - Used to describe properties of statistics
+::: {.callout-tip}
+## Sampling distribution
+
+Distribution of statistic across many (hypothetical) samples
+:::
+
+![](./04_figs/sampling_dist/sampling_dist.png)\ 
+
+- The sampling distribution is used to describe properties of statistics
 
 - Properties of $\bar{X}$
 
@@ -102,17 +149,28 @@ stateDiagram-v2
     1. $E(\bar{X}) = \mu$ (unbiased)
     2. $\operatorname{Var}(\bar{X}) = \sigma^2/n$  
        - More precise for larger $n$ (consistent)
-    3. $\bar{X} \approx N(\mu, \sigma^2/n)$ for large $n$ even if $X_i$ are not also normal  
+    3. $\bar{X} \approx N(\mu, \sigma^2/n)$ for large $n$, even if $X_i$ are not also normal  
        - (Central Limit Theorem)
 
-- Standard error: standard deviation of a statistic  
-  - $\operatorname{SE}(\bar{X}) = \sigma / \sqrt{n}$
+::: {.callout-tip}
+## Standard error
+Standard deviation of a statistic (its sampling distribution).
+:::
 
-- Estimated Standard Error (Standard Error): estimated standard deviation of a statistic  
-  - Both just mean estimated SE when they say SE, typically  
-  - $\operatorname{SE}(\bar{X}) = s / \sqrt{n}$
+- $\operatorname{SE}(\bar{X}) = \sigma / \sqrt{n}$
+
+::: {.callout-tip}
+## Estimated Standard Error: 
+Estimated standard deviation of a statistic  
+:::
+
+- Most of the time, when folks say "standard error", they mean estimated standard error.
+  - The book does this too.
+
+- $\operatorname{SE}(\bar{X}) = s / \sqrt{n}$
 
 - Typically don't know $\sigma^2$, so estimate it with $s^2$
+
 
 | Statistic          | $X_i$      | $\bar{X}$                          |
 |-------------------|------------|------------------------------------|
@@ -121,58 +179,94 @@ stateDiagram-v2
 | Estimated Variance| $s^2$      | $s^2 / n$                          |
 | Distribution      | Unknown    | $N(\mu, \sigma^2 / n)$ (for large $n$) |
 
-- Example: Mean birthweight is 112 oz with standard deviation 20.6.  
-  What is the probability the mean of 10 birthweights will be between 98 and 126?
+::: {.panel-tabset}
+## Exercise:
 
+Mean birthweight is 112 oz with standard deviation 20.6. What is the probability the mean of 10 birthweights will be between 98 and 126?
+
+## Hint
+The distribution of $\bar{X}$ is:
 $$
 \bar{X} \sim N\left(112, \left(\frac{20.6}{\sqrt{10}}\right)^2\right) = N(112, 6.514^2)
 $$
 
-**XYZ IMAGE HERE**
-
+## Solution
+The distribution of $\bar{X}$ is:
 $$
-= \text{pnorm}(126,\ 112,\ 6.514) - \text{pnorm}(98,\ 112,\ 6.514)
-$$
-
-$$
-= 0.9684
+\bar{X} \sim N\left(112, \left(\frac{20.6}{\sqrt{10}}\right)^2\right) = N(112, 6.514^2)
 $$
 
-- Interval Estimation
+We want the area between 98 and 126
+```{r}
+#| echo: false
+#| fig-height: 2
+#| fig-width: 4
+plt_norm(mu = 112, sig = 20.6/sqrt(10), lb = 98, ub = 126)
+```
 
-  - $\bar{X}$ is not exactly equal to $\mu$
-  - Want range of likely values of $\mu$
-  - Know $\bar{X} \sim N(\mu, \sigma^2 / n)$ for large $n$
+Which is the area to the left of 126
+```{r}
+#| echo: false
+#| fig-height: 2
+#| fig-width: 4
+plt_norm(mu = 112, sig = 20.6/sqrt(10), ub = 126)
+```
+Minus the area to the left of 98
+```{r}
+#| echo: false
+#| fig-height: 2
+#| fig-width: 4
+plt_norm(mu = 112, sig = 20.6/sqrt(10), ub = 98)
+```
+We can calculate this in R:
+```{r}
+pnorm(q = 126, mean = 112, sd = 6.514) - pnorm(q = 98, mean = 112, sd = 6.514)
+```
+:::
 
-$$
-\Pr(-1.96 \leq \frac{\bar{X} - \mu}{\sigma / \sqrt{n}} \leq 1.96) \approx 0.95
-$$
+# Interval Estimation
 
-$$
-\Pr(-1.96 \cdot \frac{\sigma}{\sqrt{n}} \leq \bar{X} - \mu \leq 1.96 \cdot \frac{\sigma}{\sqrt{n}}) \approx 0.95
-$$
+- $\bar{X}$ is not exactly equal to $\mu$
+- We want range of likely values of $\mu$
+- We know $\bar{X} \sim N(\mu, \sigma^2 / n)$ for large $n$
 
-$$
-\Pr(\bar{X} - 1.96 \cdot \frac{\sigma}{\sqrt{n}} \leq \mu \leq \bar{X} + 1.96 \cdot \frac{\sigma}{\sqrt{n}}) \approx 0.95
-$$
 
-  - $\bar{X} \pm 1.96 \cdot \frac{\sigma}{\sqrt{n}}$ captures $\mu$ with probability 0.95  
-    - 95% CI
+\begin{align}
+&\Pr\left(-1.96 \leq \frac{\bar{X} - \mu}{\sigma / \sqrt{n}} \leq 1.96\right) \approx 0.95\\
+&\Leftrightarrow \Pr\left(-1.96 \cdot \frac{\sigma}{\sqrt{n}} \leq \bar{X} - \mu \leq 1.96 \cdot \frac{\sigma}{\sqrt{n}}\right) \approx 0.95\\
+&\Leftrightarrow \Pr(\bar{X} - 1.96 \cdot \frac{\sigma}{\sqrt{n}} \leq \mu \leq \bar{X} + 1.96 \cdot \frac{\sigma}{\sqrt{n}}) \approx 0.95
+\end{align}
 
-- Estimate ± multiplier × standard error  
-  - Common CI format
+- Thus, $\bar{X} \pm 1.96 \cdot \frac{\sigma}{\sqrt{n}}$ captures $\mu$ with probability 0.95.
+    - This is a 95% Confidence Interval (CI)
 
-- More generally:
 
-$$
-\bar{X} \pm q_{\text{norm}}(1 - \frac{\alpha}{2}) \cdot \frac{\sigma}{\sqrt{n}}
-$$
+::: {.callout-tip}
+## Common CI Format
+Estimate ± multiplier × standard error  
+:::
 
-  - $(1 - \alpha) \cdot 100\%$ CI for $\mu$
+-   More generally, a $(1 - \alpha) \cdot 100\%$ CI for $\mu$
 
-**XYZ IMAGE HERE**
+  $$
+  \bar{X} \pm \texttt{qnorm}(1 - \frac{\alpha}{2}) \cdot \frac{\sigma}{\sqrt{n}}
+  $$
+  
+```{r}
+#| echo: false
+plt_norm(lb = -1.5, ub = 1.5) +
+  theme(axis.text.y = element_blank(), axis.ticks.y = element_blank(),
+        axis.text.x = element_text(size = 12)) +
+  scale_x_continuous(breaks = c(-1.5, 1.5), labels = c(expression(atop(qnorm(alpha/2),-qnorm(1-alpha/2))), expression(qnorm(1-alpha/2)))) +
+  annotate(geom = "text", x = 0, y = 0.15, label = "1-alpha", color = "white", size = 9, parse = TRUE)
+```
 
-### R Interpretation of CI
+
+- CI Interpretation:
+
+  ![](./04_figs/ci_graphic.png)\ 
+  
+## When Variance is Not Known
 
 - The above only works when $\sigma^2$ is known  
   - $\sigma^2$ is never known
@@ -192,127 +286,176 @@ $$
 
 - Use $t$ because of added variability from using $s^2$ instead of $\sigma^2$
 
+---
 
-R code for t-distribution
+[R Code for t-distribution](./04_t.qmd)
+
+---
 
 - Rosner uses notation $t_{\text{df}, p}$ for the $p$ quantile of a $t_{\text{df}}$ distribution
 
 $$
-t_{\text{df}, p} = \text{qt}(p, \text{df})
+t_{\text{df}, p} = \texttt{qt(p, df)}
 $$
 
-**XYZ IMAGE HERE**
+```{r}
+#| echo: false
+plt_norm(lb = -1.5, ub = 1.5) +
+  theme(axis.text.y = element_blank(), axis.ticks.y = element_blank(),
+        axis.text.x = element_text(size = 12)) +
+  scale_x_continuous(breaks = c(-1.5, 1.5), labels = c(expression(atop(qt(alpha/2,n-1),-qt(1-alpha/2,n-1))), expression(qt(1-alpha/2,n-1)))) +
+  annotate(geom = "text", x = 0, y = 0.15, label = "1-alpha", color = "white", size = 9, parse = TRUE)
+```
 
-$$
-\Pr\left(-t_{n-1, 1 - \alpha/2} \leq \frac{\bar{X} - \mu}{s/\sqrt{n}} \leq t_{n-1, 1 - \alpha/2} \right) = 1 - \alpha
-$$
+\begin{align}
+&\Pr\left(-t_{n-1, 1 - \alpha/2} \leq \frac{\bar{X} - \mu}{s/\sqrt{n}} \leq t_{n-1, 1 - \alpha/2} \right) = 1 - \alpha\\
+&\Leftrightarrow \Pr\left(-t_{n-1, 1 - \alpha/2} \cdot \frac{s}{\sqrt{n}} \leq \bar{X} - \mu \leq t_{n-1, 1 - \alpha/2} \cdot \frac{s}{\sqrt{n}} \right) = 1 - \alpha\\
+&\Leftrightarrow \Pr\left(\bar{X} - t_{n-1, 1 - \alpha/2} \cdot \frac{s}{\sqrt{n}} \leq \mu \leq \bar{X} + t_{n-1, 1 - \alpha/2} \cdot \frac{s}{\sqrt{n}} \right) = 1 - \alpha
+\end{align}
 
-$$
-\Rightarrow \Pr\left(-t_{n-1, 1 - \alpha/2} \cdot \frac{s}{\sqrt{n}} \leq \bar{X} - \mu \leq t_{n-1, 1 - \alpha/2} \cdot \frac{s}{\sqrt{n}} \right) = 1 - \alpha
-$$
+- Thus, the following is a $(1-\alpha)100\%$ confidence interval for $\mu$ when $\sigma^2$ is not known:
+  \begin{align}
+  &\bar{X} \pm t_{n-1, 1 - \alpha/2} \cdot \frac{s}{\sqrt{n}} \text{ or, equivalently}\\
+  &\bar{X} \pm \texttt{qt(1 - }\alpha/2\texttt{, n-1)} \cdot \frac{s}{\sqrt{n}}
+  \end{align}
 
-$$
-\Rightarrow \Pr\left(\bar{X} - t_{n-1, 1 - \alpha/2} \cdot \frac{s}{\sqrt{n}} \leq \mu \leq \bar{X} + t_{n-1, 1 - \alpha/2} \cdot \frac{s}{\sqrt{n}} \right) = 1 - \alpha
-$$
+::: {.panel-tabset}
+## Exercise
+Suppose $n = 10$, $\bar{X} = 116.9$, $s = 21.70$. Calculate 90%, 95%, 99% CIs
 
-$$
-\bar{X} \pm t_{n-1, 1 - \alpha/2} \cdot \frac{s}{\sqrt{n}}
-$$
+## Hint
 
-- $(1 - \alpha) \cdot 100\%$ CI for $\mu$
+The degrees of freedom of the appropriate $t$ distribution is $10 - 1 = 9$.
 
-- **Exercise**: $n = 10$, $\bar{X} = 116.9$, $s = 21.70$  
-  - Calculate 90%, 95%, 99% CIs
+E.g., for a 90% CI, $\alpha = 1 - 0.9 = 0.1$, and you'll need the $1 - \alpha/2 = 1 - 0.1/2 = 0.95$ quantile of that $t$ distribution.
 
-- **Solution**:
-  - $\text{qt}(0.95,\ 9) = 1.833$
-  - $\text{qt}(0.975,\ 9) = 2.262$
-  - $\text{qt}(0.995,\ 9) = 3.25$
+## Solution
+Since $n = 10$, the degrees of freedom of the appropriate $t$ distribution is $10 - 1 = 9$., For 90% CI's, $\alpha = 0.1$ and the appropriate quantile is
+```{r}
+qt(p = 1 - 0.1/2, df = 9)
+```
+We can thus get a 90% CI by
+```{r}
+116.9 - 1.833 * 21.70 / sqrt(10)
+116.9 + 1.833 * 21.70 / sqrt(10)
+```
 
-$$
-116.9 \pm 1.833 \cdot \frac{21.70}{\sqrt{10}}
-$$
+Similarly, for a 95% CI we have
+```{r}
+116.9 - qt(p = 1 - 0.05/2, df = 9) * 21.70 / sqrt(10)
+116.9 + qt(p = 1 - 0.05/2, df = 9) * 21.70 / sqrt(10)
+```
 
-$$
-116.9 \pm 2.262 \cdot \frac{21.70}{\sqrt{10}}
-$$
-
-$$
-116.9 \pm 3.25 \cdot \frac{21.70}{\sqrt{10}}
-$$
+And, for a 99% CI we have
+```{r}
+116.9 - qt(p = 1 - 0.01/2, df = 9) * 21.70 / sqrt(10)
+116.9 + qt(p = 1 - 0.01/2, df = 9) * 21.70 / sqrt(10)
+```
+:::
 
 - Note:
   - CI level $\uparrow$ (so $\alpha \downarrow$) $\Rightarrow$ larger intervals
   - $n \uparrow$ $\Rightarrow$ smaller intervals
   - $s^2 \uparrow$ $\Rightarrow$ larger intervals
 
-### Bone Density Case Study
 
-- Estimate variance:  
-  - Estimate $\sigma^2$ with $s^2 = \frac{1}{n - 1} \sum_{i=1}^n (X_i - \bar{X})^2$
+---
 
-- Why $n - 1$?
+[Bone Density Case Study](./http://localhost:3831/04_est/04_boneden.html)
 
-$$
-\bar{X} = \operatorname{argmin}_a \sum (X_i - a)^2 \quad \text{(ideal)}
-$$
+---
 
-$$
-\Rightarrow \frac{1}{n} \sum (X_i - \bar{X})^2 \leq \frac{1}{n} \sum (X_i - \mu)^2
-$$
+# Estimate Variance:
 
-  - This is too small  
-  - Dividing by $n - 1$ makes it bigger
+- We estimate $\sigma^2$ with $s^2 = \frac{1}{n - 1} \sum_{i=1}^n (X_i - \bar{X})^2$
 
-$$
-\frac{s^2}{\sigma^2 / (n - 1)} \sim \chi^2_{n - 1}
-$$
+-   Why $n - 1$?
 
-- Chi-squared distribution with $n - 1$ degrees of freedom
+    $$
+    \bar{X} = \operatorname{argmin}_a \sum (X_i - a)^2
+    $$
+    
+    The ideal estimate of $\sigma^2$ is $\frac{1}{n} \sum (X_i - \mu)^2$. However,
+    
+    $$
+    \frac{1}{n} \sum (X_i - \bar{X})^2 \leq \frac{1}{n} \sum (X_i - \mu)^2
+    $$
+    
+    So, $\frac{1}{n} \sum (X_i - \bar{X})^2$ is too small. Dividing by $n-1$ instead of $n$ makes it a little larger, and it turns out it makes it larger by the correct ammount.
+
+
+-   Property of the variance:
+    $$
+    \frac{s^2}{\sigma^2 / (n - 1)} \sim \chi^2_{n - 1}
+    $$
+- That is, the chi-squared distribution with $n - 1$ degrees of freedom.
+
+- This property **only** holds when the original data ($X_1,X_2,\ldots,X_n$) or normally distributed.
 
 - Properties of chi-squared:
   1. Support $\geq 0$
   2. $E(\chi^2_{\text{df}}) = \text{df}$
   3. df $\downarrow$ $\Rightarrow$ thicker tails (extreme events happen more often)
 
-- Can use this to get confidence intervals for $\sigma^2$
+- Can use this to get confidence intervals for $\sigma^2$ (**only** when your original data are normal).
 
 - Let $\chi^2_{\text{df}, p}$ = $p^\text{th}$ quantile of a $\chi^2_{\text{df}}$ distribution
+  - `qchisq(p, df)`
+  
+```{r}
+#| echo: false
+nu <- 3
+lb <- qchisq(p = 0.1, df = nu)
+ub <- qchisq(p = 0.9, df = nu)
+tibble(x = seq(0, 9, length.out = 200)) |>
+  mutate(y = dchisq(x = x, df = nu)) ->
+  df1
+df1 |>
+  filter(
+    x > lb,
+    x < ub
+  ) ->
+  df2
 
-$$
-\Pr\left( \chi^2_{n-1, \alpha/2} \leq \frac{(n-1)s^2}{\sigma^2} \leq \chi^2_{n-1, 1-\alpha/2} \right) = 1 - \alpha
-$$
+ggplot() +
+  geom_line(data = df1, mapping = aes(x = x, y = y)) +
+  geom_area(data = df2, mapping = aes(x = x, y = y)) +
+  theme_bw() +
+  theme(axis.text.x = element_text(size = 12),
+        axis.title = element_blank()) +
+  scale_x_continuous(breaks = c(lb, ub), labels = c(expression(qchisq(alpha/2,n-1)), expression(qchisq(1-alpha/2,n-1)))) +
+  annotate(geom = "text", x = 3, y = 0.05, label = "1-alpha", color = "white", size = 9, parse = TRUE)
+```
 
-$$
-\Rightarrow \Pr\left( \frac{(n - 1)s^2}{\chi^2_{n-1, 1 - \alpha/2}} \leq \sigma^2 \leq \frac{(n - 1)s^2}{\chi^2_{n-1, \alpha/2}} \right) = 1 - \alpha
-$$
+\begin{align*}
+&\Pr\left( \chi^2_{n-1, \alpha/2} \leq \frac{s^2}{\sigma^2/(n-1)} \leq \chi^2_{n-1, 1-\alpha/2} \right) = 1 - \alpha\\
+&\Leftrightarrow  \Pr\left( \frac{(n - 1)s^2}{\chi^2_{n-1, 1 - \alpha/2}} \leq \sigma^2 \leq \frac{(n - 1)s^2}{\chi^2_{n-1, \alpha/2}} \right) = 1 - \alpha
+\end{align*}
 
-$$
-\frac{(n - 1)s^2}{\chi^2_{n-1, 1 - \alpha/2}} \leq \sigma^2 \leq \frac{(n - 1)s^2}{\chi^2_{n-1, \alpha/2}}
-$$
-
-- $100(1 - \alpha)\%$ CI
-
-**XYZ IMAGE HERE**
+- Thus a $(1-\alpha)100\%$ CI for the population variance (only when the original data are norrmally distributed) is:
+  $$
+  \frac{(n - 1)s^2}{\chi^2_{n-1, 1 - \alpha/2}} \leq \sigma^2 \leq \frac{(n - 1)s^2}{\chi^2_{n-1, \alpha/2}}
+  $$
 
 - Notes:
   - Less often constructed than CI for $\mu$
-  - Very sensitive to violations of normality  
+  - **Very** sensitive to violations of normality  
     - CLT does not save you
+  - In real-like, folks use a bootstrap if they want a CI for the variance.
 
----
+# Estimate Binomial Proportion
 
-- Let $X_1, X_2, \ldots, X_n$ be independent Bernoulli trials s.t.:
+-   Let $X_1, X_2, \ldots, X_n$ be independent Bernoulli trials s.t.:
 
-$$
-X_i = 
-\begin{cases}
-1 & \text{w.p. } p \\
-0 & \text{w.p. } 1 - p
-\end{cases}
-$$
+    $$
+    X_i = 
+    \begin{cases}
+    1 & \text{w.p. } p \\
+    0 & \text{w.p. } 1 - p
+    \end{cases}
+    $$
 
-- Then $X = \sum X_i$ = number of 1's out of $n$ trials  
+  - Then $X = \sum_{i=1}^n X_i$ = number of 1's out of $n$ trials  
   - $X \sim \text{Bin}(n, p)$
 
 - Example: Estimate prevalence of malignant melanoma  
@@ -321,73 +464,147 @@ $$
 
 - Goal: Observe $X_i$, estimate $p$
 
-$$
-\hat{p} = \frac{1}{n} \sum X_i = \frac{X}{n} = \text{proportion of 1's}
-$$
+-   We estimate $p$ with
+    $$
+    \hat{p} = \frac{1}{n} \sum X_i = \frac{X}{n} = \text{proportion of 1's}
+    $$
 
-- $E(\hat{p}) = E\left(\frac{X}{n}\right) = \frac{1}{n} E(X) = \frac{1}{n} n p = p \Rightarrow$ unbiased
+- Properties:
+  - $E(\hat{p}) = E\left(\frac{X}{n}\right) = \frac{1}{n} E(X) = \frac{1}{n} n p = p \Rightarrow$ unbiased
+  - $\operatorname{Var}(\hat{p}) = \operatorname{Var}\left(\frac{X}{n}\right) = \frac{1}{n^2} \operatorname{Var}(X) = \frac{1}{n^2} n p(1 - p) = \frac{p(1 - p)}{n}$
+    - More precise for larger $n$ $\Rightarrow$ consistent
 
-- $\operatorname{Var}(\hat{p}) = \operatorname{Var}\left(\frac{X}{n}\right) = \frac{1}{n^2} \operatorname{Var}(X) = \frac{1}{n^2} n p(1 - p) = \frac{p(1 - p)}{n}$
-
-  - More precise for larger $n$ $\Rightarrow$ consistent
-
-- Estimated standard error:
-
-$$
-\sqrt{ \frac{ \hat{p}(1 - \hat{p}) }{n} }
-$$
+-   Estimated standard error:
+    $$
+    \sqrt{ \frac{ \hat{p}(1 - \hat{p}) }{n} }
+    $$
 
 - Goal: Interval estimate of $p$
 
 - For large $n$, $\hat{p} \sim N\left(p,\ \frac{p(1 - p)}{n} \right)$  
   - Rule of thumb: $n \hat{p}(1 - \hat{p}) \geq 5$
 
-- Let $z_p = \text{qnorm}(p)$ = $p^\text{th}$ quantile of $N(0, 1)$
+- Let $z_p =$ `qnorm(p)` $= p^\text{th}$ quantile of $N(0, 1)$
 
-$$
-\frac{ \hat{p} - p }{ \sqrt{ \frac{ \hat{p}(1 - \hat{p}) }{n} } } \approx N(0, 1)
-$$
+-   Then, subracting the mean from $\hat{p}$ and dividing by the estimated standard error, we have:
+    $$
+    \frac{ \hat{p} - p }{ \sqrt{ \frac{ \hat{p}(1 - \hat{p}) }{n} } } \approx N(0, 1)
+    $$
 
-$$
-\Rightarrow \Pr\left( z_{1 - \alpha/2} \leq \frac{ \hat{p} - p }{ \sqrt{ \hat{p}(1 - \hat{p}) / n } } \leq z_{\alpha/2} \right) \approx 0.95
-$$
+-   Thus:
+    $$
+    \Pr\left( z_{1 - \alpha/2} \leq \frac{ \hat{p} - p }{ \sqrt{ \hat{p}(1 - \hat{p}) / n } } \leq z_{\alpha/2} \right) \approx 1-\alpha
+    $$
 
-$$
-\hat{p} \pm z_{1 - \alpha/2} \cdot \sqrt{ \frac{ \hat{p}(1 - \hat{p}) }{n} }
-$$
+-   Solving for $p$, we get the following $(1-\alpha)100\%$ CI for $p$:
+    $$
+    \hat{p} \pm z_{1 - \alpha/2} \cdot \sqrt{ \frac{ \hat{p}(1 - \hat{p}) }{n} }
+    $$
 
-- This is a $(1 - \alpha) \cdot 100\%$ CI for $p$
+- This follows the "Estimate $\pm$ Multiplier $\times$ Standard Error" format for a confidence interval.
 
-- **Exercise**: 10,000 women, 400 have breast cancer.  
-  - What is a 95% CI for breast cancer incidence?
+::: {.panel-tabset}
+## Exercise
+Suppose out of 10,000 women, 400 have breast cancer. What is a 95% CI for breast cancer incidence?
 
-- **Solution**:  
-  - $\hat{p} = 0.04$  
-  - $n \hat{p}(1 - \hat{p}) = 384 > 5$  
-  - $z_{0.975} = \text{qnorm}(0.975) = 1.96$
+## Hint
 
-$$
-0.04 \pm 1.96 \cdot \sqrt{ \frac{0.04 \cdot (1 - 0.04)}{10{,}000} } = (0.03616,\ 0.04384)
-$$
+$n = 10000$ and $x = 400$. We need the $1 - \alpha = 1 - 0.05 / 2 = 0.975$ quantile of the standard normal.
+
+## Solution
+Our estimated incidence is $\hat{p} = 400 / 10000 = 0.04$  
+
+Our estimated standard error is
+```{r}
+sqrt(0.04 * (1 - 0.04) / 10000)
+```
+
+
+Checking for our rule of thumb: $n \hat{p}(1 - \hat{p}) = 384 > 5$, so we can use the CLT.
+
+For a 95% confidence interval, $\alpha = 0.05$ and we need the $1 - \alpha/2 = 1 - 0.05/2 = 0.975$ quantile of the standard normal distribution, denoted $z_{0.975}$, or
+```{r}
+qnorm(0.975)
+```
+
+Thus, our 95% confidence interval is
+```{r}
+0.04 - 1.96 * 0.00196
+0.04 + 1.96 * 0.00196
+```
+:::
+
+### Exact test
 
 - What if $n$ is small? Use an exact method
 
-- Find $p_1$ and $p_2$ such that:
+-   Find $p_1$ and $p_2$ such that:
+    \begin{align*}
+    \frac{\alpha}{2} &= \text{pbinom}(x,\ \text{size} = n,\ \text{prob} = p_1)\\
+    \frac{\alpha}{2} &= 1 - \text{pbinom}(x - 1,\ \text{size} = n,\ \text{prob} = p_2)
+    \end{align*}
+    
+- E.g., $n = 10$ and $X = 3$. Suppose we want a 80% CI (so $\alpha = 0.2$).
 
-$$
-\frac{\alpha}{2} = \text{pbinom}(x,\ \text{size} = n,\ \text{prob} = p_1)
-$$
+-   The value of $p_1$ such that the probability $X$ being at least $3$ equals $\alpha/2=0.1$ is 0.1158. Visually, the sum of the heights of the orange bars is 0.1:
 
-$$
-\frac{\alpha}{2} = 1 - \text{pbinom}(x - 1,\ \text{size} = n,\ \text{prob} = p_2)
-$$
+    ```{r}
+    #| echo: false
+    n <- 10
+    x <- 3
+    p <- 0.2
+    bout <- binom.test(x = x, n = n, conf.level = 0.8)
+    lb <- bout$conf.int[[1]]
+    
+    tibble(xv = 0:n) |>
+      mutate(
+        yv = dbinom(x = xv, size = n, prob = lb),
+        islarge = xv >= x) |>
+      ggplot(aes(x = xv, xend = xv, yend = yv, color = islarge)) +
+      geom_segment(y = 0, linewidth = 2) +
+      theme_bw() +
+      scale_color_manual(values = palette.colors(n = 2)) +
+      xlab("X") +
+      ylab("Probability") +
+      theme(legend.position = "none") +
+      ggtitle(paste0("PMF of Binomial with p = ", round(lb, digits = 4))) +
+      scale_x_continuous(breaks = 0:n, minor_breaks = NULL)
+    ``` 
+    
+-   The value of $p_1$ such that the probability $X$ being at most $3$ equals $\alpha/2=0.1$ is 0.5517. Visually, the sum of the heights of the orange bars is 0.1:
 
-**XYZ IMAGE HERE**  
-(One diagram shows tail under $p_2$, the other under $p_1$)
+    ```{r}
+    #| echo: false
+    n <- 10
+    x <- 3
+    p <- 0.2
+    bout <- binom.test(x = x, n = n, conf.level = 1 - p)
+    ub <- bout$conf.int[[2]]
+    
+    tibble(xv = 0:n) |>
+      mutate(
+        yv = dbinom(x = xv, size = n, prob = ub),
+        islarge = xv > x) |>
+      ggplot(aes(x = xv, xend = xv, yend = yv, color = islarge)) +
+      geom_segment(y = 0, linewidth = 2) +
+      theme_bw() +
+      scale_color_manual(values = rev(palette.colors(n = 2))) +
+      xlab("X") +
+      ylab("Probability") +
+      theme(legend.position = "none") +
+      ggtitle(paste0("PMF of Binomial with p = ", round(ub, digits = 4))) +
+      scale_x_continuous(breaks = 0:n, minor_breaks = NULL)
+    ``` 
 
-### Binomial R code
 
-- Poisson Estimation
+
+---
+
+[Binomial R code](./04_binom.html)
+
+---
+
+# Estimate Poisson Mean
 
 - $Y \sim \text{Poi}(\mu)$ where $\mu = \lambda T$
 
@@ -399,99 +616,110 @@ $$
 - Example: Leukemia rate in Woburn, MA.  
   - 12,000 residents, 10 years, 12 children got leukemia
 
-- A common unit in biostatistics is a person-year  
+- A common unit in biostatistics is a **person-year**
   - 1 person being followed for 1 year  
   - Normalizes by number of people in a study  
   - E.g., 12 cases out of 20 is a lot more than 12 out of 20000
 
 - Example: Woburn study had 12,000 people × 10 years = 120,000 person-years
 
-$$
-\hat{\lambda} = \frac{X}{T}
-$$
+-   We estimate $\lambda$ with:
+    $$
+    \hat{\lambda} = \frac{X}{T}
+    $$
 
-$$
-E(\hat{\lambda}) = E\left( \frac{X}{T} \right) = \frac{E(X)}{T} = \frac{\lambda T}{T} = \lambda \quad \text{(unbiased)}
-$$
+- $T$ can be in any unit of time. E.g., person-year.
 
-- Woburn: $\hat{\lambda} = \frac{12 \text{ cases}}{120{,}000 \text{ person-years}} = 0.0001 \text{ cases per person-year}$
+-   $\hat{\lambda}$ is unbiased:
+    $$
+    E(\hat{\lambda}) = E\left( \frac{X}{T} \right) = \frac{E(X)}{T} = \frac{\lambda T}{T} = \lambda \quad \text{(unbiased)}
+    $$
 
-- Cancer rates low, so useful to multiply by 100,000
+- Woburn Example: $\hat{\lambda} = \frac{12 \text{ cases}}{120{,}000 \text{ person-years}} = 0.0001 \text{ cases per person-year}$
 
-$$
-0.0001 \text{ cases/person-year} = 10 \text{ cases / 100,000 person-years}
-$$
+- Cancer rates are typically low, so it is useful to multiply by 100,000 to get human-readable units
 
-- Interval uses same strategy as exact binomial case:
+-   Woburn Example:
+    $$
+    0.0001 \text{ cases/person-year} = 10 \text{ cases / 100,000 person-years}
+    $$
 
+- Exact interval uses same strategy as exact binomial case:
   - Find $\mu_1$ such that $\Pr(X \geq x \mid \mu_1) = \alpha/2$
   - Find $\mu_2$ such that $\Pr(X \leq x \mid \mu_2) = \alpha/2$
-
   - Interval: $(\mu_1,\ \mu_2)$  
-    - Uses CDF of Poisson
 
-- Interval for $\lambda$ is:
-
-$$
-\left( \frac{\mu_1}{T},\ \frac{\mu_2}{T} \right)
-$$
+-   The interval for $\lambda$ is then:
+    $$
+    \left( \frac{\mu_1}{T},\ \frac{\mu_2}{T} \right)
+    $$
 
 - Use `poisson.test()` in R
 
-- One-sided CI (OK to skip)
+# One-sided CI (if we have time)
 
-  - Only interested in lower or upper bounds  
-    - E.g., compare cancer treatment survival rate against baseline of 30%.  
-      Want lower bound on treatment effect to see if it's better than baseline
+- Suppose we are only interested in lower or upper bounds  
+  - E.g., compare cancer treatment survival rate against baseline of 30%.  
+    Want lower bound on treatment effect to see if it's better than baseline
 
-- Let $p_1$ such that $\Pr(p > p_1) = 1 - \alpha$  
-  - Random lower bound
+- Find $p_1$ such that $\Pr(p > p_1) = 1 - \alpha$  
+  - $p_1$ is the random variable and $p$ is the fixed parameter.
 
 - Or, find $p_2$ such that $\Pr(p < p_2) = 1 - \alpha$  
-  - E.g., upper bound on incidence rate of some treatment group
+  - E.g., suppose we want an upper bound on the incidence rate of some treatment group
 
-- Since $\frac{\hat{p} - p}{\sqrt{ \hat{p}(1 - \hat{p}) / n }} \sim N(0, 1)$:
+-   Since $\frac{\hat{p} - p}{\sqrt{ \hat{p}(1 - \hat{p}) / n }} \sim N(0, 1)$, we can get a one-sided ocnfidence interval by knowing the following:
+    $$
+    \Pr\left(-z_{1 - \alpha} < \frac{\hat{p} - p}{\sqrt{ \hat{p}(1 - \hat{p}) / n }} \right) = 1 - \alpha
+    $$
+    and solving for $p$:
+    \begin{align*}
+    &\Leftrightarrow \Pr\left(z_{1 - \alpha} > \frac{p - \hat{p}}{\sqrt{ \hat{p}(1 - \hat{p}) / n }} \right) = 1 - \alpha\\
+    &\Leftrightarrow \Pr\left(\hat{p} + z_{1 - \alpha} \cdot \sqrt{ \hat{p}(1 - \hat{p}) / n } > p \right) = 1 - \alpha
+    \end{align*}
+    Thus, $p_2$ (the upper bound of a lower one sided confidence interval) is:
+    $$
+    p_2 = \hat{p} + z_{1 - \alpha} \cdot \sqrt{ \hat{p}(1 - \hat{p}) / n }
+    $$
 
-$$
-\Pr\left(-z_{1 - \alpha} < \frac{\hat{p} - p}{\sqrt{ \hat{p}(1 - \hat{p}) / n }} \right) = 1 - \alpha
-$$
+-   Similarly, $p_1$ (the lower bound of an upper one-sided confidence interval) is:
+    $$
+    p_1 = \hat{p} - z_{1 - \alpha} \cdot \sqrt{ \hat{p}(1 - \hat{p}) / n }
+    $$
 
-$$
-\Rightarrow \Pr\left(z_{1 - \alpha} > \frac{\hat{p} - p}{\sqrt{ \hat{p}(1 - \hat{p}) / n }} \right) = 1 - \alpha
-$$
+::: {.panel-tabset}
+## Exercise
+40 out of 100 patients survive a new cancer treatment. What is the **lower bound** on $\Pr(\text{survive})$? (Upper 1-sided 95% CI)
 
-$$
-\Rightarrow \Pr\left(\hat{p} + z_{1 - \alpha} \cdot \sqrt{ \hat{p}(1 - \hat{p}) / n } > p \right) = 1 - \alpha
-$$
+## Hint
 
+Use the fact that
 $$
-\Rightarrow p_2 = \hat{p} + z_{1 - \alpha} \cdot \sqrt{ \hat{p}(1 - \hat{p}) / n }
+\frac{\hat{p} - p}{\sqrt{\hat{p}(1-\hat{p})/n}} \approx N(0,1)
 $$
+for large $n$.
 
-- Similarly:
+## Solution
+We have that
+\begin{align*}
+&\Pr\left(\frac{\hat{p} - p}{\sqrt{\hat{p}(1-\hat{p})/n}} \leq z_{1-\alpha}\right) = 1-\alpha\\
+&\Leftrightarrow \Pr\left(\hat{p} - z_{1-\alpha} \sqrt{\hat{p}(1-\hat{p})/n} \leq p\right) = 1-\alpha
+\end{align*}
 
-$$
-p_1 = \hat{p} - z_{1 - \alpha} \cdot \sqrt{ \hat{p}(1 - \hat{p}) / n }
-$$
-
-**XYZ IMAGE HERE**
-
-- Example: 40 out of 100 patients survive a new cancer treatment.  
-  What is the **lower bound** on $\Pr(\text{survive})$?  
-  (Upper 1-sided 95% CI)
-
+Let's find $\hat{p}$
 $$
 \hat{p} = \frac{40}{100} = 0.4
 $$
 
-$$
-z_{1 - \alpha} = \text{qnorm}(0.95) = 1.645 \quad (\alpha = 0.05)
-$$
+Let's find $z_{1-\alpha}$ when $\alpha = 0.05$
+```{r}
+qnorm(1 - 0.05)
+```
 
-$$
-\hat{p} - z_{1 - \alpha} \cdot \sqrt{ \frac{ \hat{p}(1 - \hat{p}) }{n} }
-$$
+This gives us the following lower bound:
+```{r}
+0.4 - 1.645 * sqrt(0.4 * (1 - 0.4) / 100)
+```
 
-$$
-= 0.4 - 1.645 \cdot \sqrt{ \frac{0.4 \cdot 0.6}{100} } \approx 0.319
-$$
+So the one-sided confidence interval is $p > 0.3194$.
+:::

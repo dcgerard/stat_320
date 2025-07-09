@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="David Gerard">
-<meta name="dcterms.date" content="2025-07-01">
+<meta name="dcterms.date" content="2025-07-09">
 
 <title>Chapter 6 Notes: Estimation – Stat 320: Biostatistics</title>
 <style>
@@ -21,6 +21,41 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -314,10 +349,19 @@ window.Quarto = {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#r-interpretation-of-ci" id="toc-r-interpretation-of-ci" class="nav-link active" data-scroll-target="#r-interpretation-of-ci">R Interpretation of CI</a></li>
-  <li><a href="#r-code-for-t-distribution" id="toc-r-code-for-t-distribution" class="nav-link" data-scroll-target="#r-code-for-t-distribution">R code for t-distribution</a></li>
-  <li><a href="#bone-density-case-study" id="toc-bone-density-case-study" class="nav-link" data-scroll-target="#bone-density-case-study">Bone Density Case Study</a></li>
-  <li><a href="#binomial-r-code" id="toc-binomial-r-code" class="nav-link" data-scroll-target="#binomial-r-code">Binomial R code</a></li>
+  <li><a href="#estimation-set-up" id="toc-estimation-set-up" class="nav-link active" data-scroll-target="#estimation-set-up">Estimation Set up</a></li>
+  <li><a href="#estimating-the-mean" id="toc-estimating-the-mean" class="nav-link" data-scroll-target="#estimating-the-mean">Estimating the Mean</a></li>
+  <li><a href="#interval-estimation" id="toc-interval-estimation" class="nav-link" data-scroll-target="#interval-estimation">Interval Estimation</a>
+  <ul class="collapse">
+  <li><a href="#when-variance-is-not-known" id="toc-when-variance-is-not-known" class="nav-link" data-scroll-target="#when-variance-is-not-known">When Variance is Not Known</a></li>
+  </ul></li>
+  <li><a href="#estimate-variance" id="toc-estimate-variance" class="nav-link" data-scroll-target="#estimate-variance">Estimate Variance:</a></li>
+  <li><a href="#estimate-binomial-proportion" id="toc-estimate-binomial-proportion" class="nav-link" data-scroll-target="#estimate-binomial-proportion">Estimate Binomial Proportion</a>
+  <ul class="collapse">
+  <li><a href="#exact-test" id="toc-exact-test" class="nav-link" data-scroll-target="#exact-test">Exact test</a></li>
+  </ul></li>
+  <li><a href="#estimate-poisson-mean" id="toc-estimate-poisson-mean" class="nav-link" data-scroll-target="#estimate-poisson-mean">Estimate Poisson Mean</a></li>
+  <li><a href="#one-sided-ci-if-we-have-time" id="toc-one-sided-ci-if-we-have-time" class="nav-link" data-scroll-target="#one-sided-ci-if-we-have-time">One-sided CI (if we have time)</a></li>
   </ul>
 </nav>
     </div>
@@ -344,7 +388,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">July 1, 2025</p>
+      <p class="date">July 9, 2025</p>
     </div>
   </div>
   
@@ -356,6 +400,9 @@ window.Quarto = {
 </header>
 
 
+<section id="estimation-set-up" class="level1">
+<h1>Estimation Set up</h1>
+<div style="text-align: center;">
 <div class="cell" data-layout-align="default">
 <div class="cell-output-display">
 <div>
@@ -368,6 +415,7 @@ window.Quarto = {
 </pre>
 </div>
 <p></p></figure><p></p>
+</div>
 </div>
 </div>
 </div>
@@ -384,7 +432,7 @@ window.Quarto = {
 </li>
 <li>We assume <span class="math inline">\(X_i \sim N(\mu, \sigma^2)\)</span>
 <ul>
-<li>But values of <span class="math inline">\(\mu\)</span> and <span class="math inline">\(\sigma^2\)</span> are unknown.</li>
+<li>But the values of <span class="math inline">\(\mu\)</span> and <span class="math inline">\(\sigma^2\)</span> are unknown.</li>
 </ul></li>
 <li>What are <span class="math inline">\(\mu\)</span> and <span class="math inline">\(\sigma^2\)</span>?</li>
 </ul></li>
@@ -404,39 +452,77 @@ window.Quarto = {
 <li>E.g., <span class="math inline">\(H_0: \mu \ne 0\)</span></li>
 </ul></li>
 </ul>
-<p><strong>XYZ IMAGE HERE</strong></p>
+<p><img src="./04_figs/pop_to_sample/pop_to_sample.png" class="img-fluid">&nbsp;</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Reference / Target / Study Population
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Group we are interested in</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Sample
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Group we have data about</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Parameter
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Numeric summary of population</p>
+<p>E.g.: <span class="math inline">\(\mu\)</span>, <span class="math inline">\(\sigma^2\)</span>, <span class="math inline">\(p\)</span></p>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Statistic
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Numeric summary of sample</p>
+<p>E.g. <span class="math inline">\(\bar{X}\)</span>, <span class="math inline">\(s^2\)</span>, <span class="math inline">\(\hat{p}\)</span></p>
+</div>
+</div>
 <ul>
-<li><p>Group we are interested in: reference / target / study population<br>
-</p></li>
-<li><p>Group we have data about: sample</p>
-<ul>
-<li>Sampling (e.g., SRS)</li>
-</ul></li>
-<li><p>Parameter: summary of population</p>
-<ul>
-<li><span class="math inline">\(\mu\)</span>, <span class="math inline">\(\sigma^2\)</span>, <span class="math inline">\(p\)</span></li>
-</ul></li>
-<li><p>Statistic: summary of sample</p>
-<ul>
-<li><span class="math inline">\(\bar{X}\)</span>, <span class="math inline">\(s^2\)</span>, <span class="math inline">\(\hat{p}\)</span></li>
-</ul></li>
 <li><p>Simplest way to get a sample is by a simple random sample</p>
 <ul>
 <li>Each unit has an equal chance of being in sample</li>
 </ul></li>
-<li><p>Random selection (via SRS) is distinct from:</p>
-<ul>
-<li>Random assignment: randomly assign units to different groups (e.g., treatment vs.&nbsp;control)</li>
-</ul></li>
+<li><p>Random selection (e.g., via SRS) is distinct from Random Assignment.</p></li>
+<li><p>Random assignment: randomly assign units to different groups (e.g., treatment vs.&nbsp;control)</p></li>
 <li><p>Random selection: results generalizable to target population</p>
 <ul>
-<li>Because sample is similar to population in terms of demographic variables, etc.</li>
+<li>Because sample is similar to population in terms of demographic variables</li>
 </ul></li>
 <li><p>Random assignment: allows for claims of causality</p>
 <ul>
-<li>Because all possible confounders are equal in the groups</li>
+<li>Because all possible confounders are equal (on average) in the groups</li>
 </ul></li>
-<li><p>Randomized Clinical Trial (RCT): Random assignment of treatment to compare them</p></li>
+<li><p>Randomized Clinical Trial (RCT): Random assignment of treatments to compare them.</p></li>
 <li><p>No causal claims without random assignment</p></li>
 <li><p>Example: tobramycin and gentamicin are antibiotics.</p>
 <ul>
@@ -446,16 +532,21 @@ window.Quarto = {
 <ul>
 <li>Doctors gave sicker patients tobramycin</li>
 </ul></li>
+<li>Randomization guarantees equal number of sicker and less sick in each group (on average)</li>
 </ul></li>
-<li><p>Randomization guarantees equal number of sicker and less sick in each group (on average)</p></li>
 <li><p>Double blind: neither doctor nor patient know treatment</p>
 <ul>
 <li>Guards against placebo effect</li>
 </ul></li>
 <li><p>Single blind: doctor knows</p></li>
 <li><p>Unblinded: both know</p></li>
-<li><p><code>sampling</code> in R</p></li>
-<li><p>Estimate mean:</p>
+</ul>
+<hr>
+<p><a href="../04_est/04_sample.html">Sampling in R</a></p>
+<hr>
+</section>
+<section id="estimating-the-mean" class="level1">
+<h1>Estimating the Mean</h1>
 <ul>
 <li>Suppose <span class="math inline">\(E(X_i) = \mu\)</span>
 <ul>
@@ -466,13 +557,25 @@ window.Quarto = {
 <li><span class="math inline">\(\hat{\mu}\)</span> is an estimate of <span class="math inline">\(\mu\)</span><br>
 </li>
 <li><span class="math inline">\(\bar{X}\)</span> is the sample mean</li>
+<li>Often (almost always), <span class="math inline">\(\hat{\mu} = \bar{X}\)</span>.</li>
 </ul></li>
-</ul></li>
-<li><p>Sampling distribution: Distribution of statistic across many (hypothetical) samples</p></li>
 </ul>
-<p><strong>XYZ IMAGE HERE</strong></p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Sampling distribution
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Distribution of statistic across many (hypothetical) samples</p>
+</div>
+</div>
+<p><img src="./04_figs/sampling_dist/sampling_dist.png" class="img-fluid">&nbsp;</p>
 <ul>
-<li><p>Used to describe properties of statistics</p></li>
+<li><p>The sampling distribution is used to describe properties of statistics</p></li>
 <li><p>Properties of <span class="math inline">\(\bar{X}\)</span></p>
 <ul>
 <li><p>Let <span class="math inline">\(X_1, X_2, \ldots, X_n\)</span> be a random sample with<br>
@@ -484,22 +587,48 @@ window.Quarto = {
 <ul>
 <li>More precise for larger <span class="math inline">\(n\)</span> (consistent)</li>
 </ul></li>
-<li><span class="math inline">\(\bar{X} \approx N(\mu, \sigma^2/n)\)</span> for large <span class="math inline">\(n\)</span> even if <span class="math inline">\(X_i\)</span> are not also normal
+<li><span class="math inline">\(\bar{X} \approx N(\mu, \sigma^2/n)\)</span> for large <span class="math inline">\(n\)</span>, even if <span class="math inline">\(X_i\)</span> are not also normal
 <ul>
 <li>(Central Limit Theorem)</li>
 </ul></li>
 </ol></li>
 </ul></li>
-<li><p>Standard error: standard deviation of a statistic</p>
+</ul>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Standard error
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Standard deviation of a statistic (its sampling distribution).</p>
+</div>
+</div>
 <ul>
 <li><span class="math inline">\(\operatorname{SE}(\bar{X}) = \sigma / \sqrt{n}\)</span></li>
-</ul></li>
-<li><p>Estimated Standard Error (Standard Error): estimated standard deviation of a statistic</p>
+</ul>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Estimated Standard Error:
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Estimated standard deviation of a statistic</p>
+</div>
+</div>
 <ul>
-<li>Both just mean estimated SE when they say SE, typically<br>
-</li>
-<li><span class="math inline">\(\operatorname{SE}(\bar{X}) = s / \sqrt{n}\)</span></li>
+<li><p>Most of the time, when folks say “standard error”, they mean estimated standard error.</p>
+<ul>
+<li>The book does this too.</li>
 </ul></li>
+<li><p><span class="math inline">\(\operatorname{SE}(\bar{X}) = s / \sqrt{n}\)</span></p></li>
 <li><p>Typically don’t know <span class="math inline">\(\sigma^2\)</span>, so estimate it with <span class="math inline">\(s^2\)</span></p></li>
 </ul>
 <table class="caption-top table">
@@ -538,57 +667,114 @@ window.Quarto = {
 </tr>
 </tbody>
 </table>
-<ul>
-<li>Example: Mean birthweight is 112 oz with standard deviation 20.6.<br>
-What is the probability the mean of 10 birthweights will be between 98 and 126?</li>
-</ul>
-<p><span class="math display">\[
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true">Exercise:</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false">Hint</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-3" role="tab" aria-controls="tabset-1-3" aria-selected="false">Solution</a></li></ul>
+<div class="tab-content">
+<div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
+<p>Mean birthweight is 112 oz with standard deviation 20.6. What is the probability the mean of 10 birthweights will be between 98 and 126?</p>
+</div>
+<div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
+<p>The distribution of <span class="math inline">\(\bar{X}\)</span> is: <span class="math display">\[
 \bar{X} \sim N\left(112, \left(\frac{20.6}{\sqrt{10}}\right)^2\right) = N(112, 6.514^2)
 \]</span></p>
-<p><strong>XYZ IMAGE HERE</strong></p>
-<p><span class="math display">\[
-= \text{pnorm}(126,\ 112,\ 6.514) - \text{pnorm}(98,\ 112,\ 6.514)
+</div>
+<div id="tabset-1-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-3-tab">
+<p>The distribution of <span class="math inline">\(\bar{X}\)</span> is: <span class="math display">\[
+\bar{X} \sim N\left(112, \left(\frac{20.6}{\sqrt{10}}\right)^2\right) = N(112, 6.514^2)
 \]</span></p>
-<p><span class="math display">\[
-= 0.9684
-\]</span></p>
-<ul>
-<li><p>Interval Estimation</p>
+<p>We want the area between 98 and 126</p>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="06_notes_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" width="384"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Which is the area to the left of 126</p>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="06_notes_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="384"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Minus the area to the left of 98</p>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="06_notes_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" width="384"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>We can calculate this in R:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pnorm</span>(<span class="at">q =</span> <span class="dv">126</span>, <span class="at">mean =</span> <span class="dv">112</span>, <span class="at">sd =</span> <span class="fl">6.514</span>) <span class="sc">-</span> <span class="fu">pnorm</span>(<span class="at">q =</span> <span class="dv">98</span>, <span class="at">mean =</span> <span class="dv">112</span>, <span class="at">sd =</span> <span class="fl">6.514</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.9684</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="interval-estimation" class="level1">
+<h1>Interval Estimation</h1>
 <ul>
 <li><span class="math inline">\(\bar{X}\)</span> is not exactly equal to <span class="math inline">\(\mu\)</span></li>
-<li>Want range of likely values of <span class="math inline">\(\mu\)</span></li>
-<li>Know <span class="math inline">\(\bar{X} \sim N(\mu, \sigma^2 / n)\)</span> for large <span class="math inline">\(n\)</span></li>
+<li>We want range of likely values of <span class="math inline">\(\mu\)</span></li>
+<li>We know <span class="math inline">\(\bar{X} \sim N(\mu, \sigma^2 / n)\)</span> for large <span class="math inline">\(n\)</span></li>
+</ul>
+<p><span class="math display">\[\begin{align}
+&amp;\Pr\left(-1.96 \leq \frac{\bar{X} - \mu}{\sigma / \sqrt{n}} \leq 1.96\right) \approx 0.95\\
+&amp;\Leftrightarrow \Pr\left(-1.96 \cdot \frac{\sigma}{\sqrt{n}} \leq \bar{X} - \mu \leq 1.96 \cdot \frac{\sigma}{\sqrt{n}}\right) \approx 0.95\\
+&amp;\Leftrightarrow \Pr(\bar{X} - 1.96 \cdot \frac{\sigma}{\sqrt{n}} \leq \mu \leq \bar{X} + 1.96 \cdot \frac{\sigma}{\sqrt{n}}) \approx 0.95
+\end{align}\]</span></p>
+<ul>
+<li>Thus, <span class="math inline">\(\bar{X} \pm 1.96 \cdot \frac{\sigma}{\sqrt{n}}\)</span> captures <span class="math inline">\(\mu\)</span> with probability 0.95.
+<ul>
+<li>This is a 95% Confidence Interval (CI)</li>
 </ul></li>
 </ul>
-<p><span class="math display">\[
-\Pr(-1.96 \leq \frac{\bar{X} - \mu}{\sigma / \sqrt{n}} \leq 1.96) \approx 0.95
-\]</span></p>
-<p><span class="math display">\[
-\Pr(-1.96 \cdot \frac{\sigma}{\sqrt{n}} \leq \bar{X} - \mu \leq 1.96 \cdot \frac{\sigma}{\sqrt{n}}) \approx 0.95
-\]</span></p>
-<p><span class="math display">\[
-\Pr(\bar{X} - 1.96 \cdot \frac{\sigma}{\sqrt{n}} \leq \mu \leq \bar{X} + 1.96 \cdot \frac{\sigma}{\sqrt{n}}) \approx 0.95
-\]</span></p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Common CI Format
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Estimate ± multiplier × standard error</p>
+</div>
+</div>
 <ul>
-<li><span class="math inline">\(\bar{X} \pm 1.96 \cdot \frac{\sigma}{\sqrt{n}}\)</span> captures <span class="math inline">\(\mu\)</span> with probability 0.95
-<ul>
-<li>95% CI</li>
-</ul></li>
-<li>Estimate ± multiplier × standard error
-<ul>
-<li>Common CI format</li>
-</ul></li>
-<li>More generally:</li>
+<li>More generally, a <span class="math inline">\((1 - \alpha) \cdot 100\%\)</span> CI for <span class="math inline">\(\mu\)</span></li>
 </ul>
 <p><span class="math display">\[
-\bar{X} \pm q_{\text{norm}}(1 - \frac{\alpha}{2}) \cdot \frac{\sigma}{\sqrt{n}}
-\]</span></p>
+  \bar{X} \pm \texttt{qnorm}(1 - \frac{\alpha}{2}) \cdot \frac{\sigma}{\sqrt{n}}
+  \]</span></p>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="06_notes_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
 <ul>
-<li><span class="math inline">\((1 - \alpha) \cdot 100\%\)</span> CI for <span class="math inline">\(\mu\)</span></li>
+<li><p>CI Interpretation:</p>
+<p><img src="./04_figs/ci_graphic.png" class="img-fluid">&nbsp;</p></li>
 </ul>
-<p><strong>XYZ IMAGE HERE</strong></p>
-<section id="r-interpretation-of-ci" class="level3">
-<h3 class="anchored" data-anchor-id="r-interpretation-of-ci">R Interpretation of CI</h3>
+<section id="when-variance-is-not-known" class="level2">
+<h2 class="anchored" data-anchor-id="when-variance-is-not-known">When Variance is Not Known</h2>
 <ul>
 <li><p>The above only works when <span class="math inline">\(\sigma^2\)</span> is known</p>
 <ul>
@@ -608,50 +794,89 @@ What is the probability the mean of 10 birthweights will be between 98 and 126?<
 As <span class="math inline">\(\text{df} \uparrow\)</span>, extreme values less likely</p></li>
 <li><p>Use <span class="math inline">\(t\)</span> because of added variability from using <span class="math inline">\(s^2\)</span> instead of <span class="math inline">\(\sigma^2\)</span></p></li>
 </ul>
-</section>
-<section id="r-code-for-t-distribution" class="level3">
-<h3 class="anchored" data-anchor-id="r-code-for-t-distribution">R code for t-distribution</h3>
+<hr>
+<p><a href="../04_est/04_t.html">R Code for t-distribution</a></p>
+<hr>
 <ul>
 <li>Rosner uses notation <span class="math inline">\(t_{\text{df}, p}\)</span> for the <span class="math inline">\(p\)</span> quantile of a <span class="math inline">\(t_{\text{df}}\)</span> distribution</li>
 </ul>
 <p><span class="math display">\[
-t_{\text{df}, p} = \text{qt}(p, \text{df})
+t_{\text{df}, p} = \texttt{qt(p, df)}
 \]</span></p>
-<p><strong>XYZ IMAGE HERE</strong></p>
-<p><span class="math display">\[
-\Pr\left(-t_{n-1, 1 - \alpha/2} \leq \frac{\bar{X} - \mu}{s/\sqrt{n}} \leq t_{n-1, 1 - \alpha/2} \right) = 1 - \alpha
-\]</span></p>
-<p><span class="math display">\[
-\Rightarrow \Pr\left(-t_{n-1, 1 - \alpha/2} \cdot \frac{s}{\sqrt{n}} \leq \bar{X} - \mu \leq t_{n-1, 1 - \alpha/2} \cdot \frac{s}{\sqrt{n}} \right) = 1 - \alpha
-\]</span></p>
-<p><span class="math display">\[
-\Rightarrow \Pr\left(\bar{X} - t_{n-1, 1 - \alpha/2} \cdot \frac{s}{\sqrt{n}} \leq \mu \leq \bar{X} + t_{n-1, 1 - \alpha/2} \cdot \frac{s}{\sqrt{n}} \right) = 1 - \alpha
-\]</span></p>
-<p><span class="math display">\[
-\bar{X} \pm t_{n-1, 1 - \alpha/2} \cdot \frac{s}{\sqrt{n}}
-\]</span></p>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="06_notes_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><span class="math display">\[\begin{align}
+&amp;\Pr\left(-t_{n-1, 1 - \alpha/2} \leq \frac{\bar{X} - \mu}{s/\sqrt{n}} \leq t_{n-1, 1 - \alpha/2} \right) = 1 - \alpha\\
+&amp;\Leftrightarrow \Pr\left(-t_{n-1, 1 - \alpha/2} \cdot \frac{s}{\sqrt{n}} \leq \bar{X} - \mu \leq t_{n-1, 1 - \alpha/2} \cdot \frac{s}{\sqrt{n}} \right) = 1 - \alpha\\
+&amp;\Leftrightarrow \Pr\left(\bar{X} - t_{n-1, 1 - \alpha/2} \cdot \frac{s}{\sqrt{n}} \leq \mu \leq \bar{X} + t_{n-1, 1 - \alpha/2} \cdot \frac{s}{\sqrt{n}} \right) = 1 - \alpha
+\end{align}\]</span></p>
 <ul>
-<li><p><span class="math inline">\((1 - \alpha) \cdot 100\%\)</span> CI for <span class="math inline">\(\mu\)</span></p></li>
-<li><p><strong>Exercise</strong>: <span class="math inline">\(n = 10\)</span>, <span class="math inline">\(\bar{X} = 116.9\)</span>, <span class="math inline">\(s = 21.70\)</span></p>
-<ul>
-<li>Calculate 90%, 95%, 99% CIs</li>
-</ul></li>
-<li><p><strong>Solution</strong>:</p>
-<ul>
-<li><span class="math inline">\(\text{qt}(0.95,\ 9) = 1.833\)</span></li>
-<li><span class="math inline">\(\text{qt}(0.975,\ 9) = 2.262\)</span></li>
-<li><span class="math inline">\(\text{qt}(0.995,\ 9) = 3.25\)</span></li>
-</ul></li>
+<li>Thus, the following is a <span class="math inline">\((1-\alpha)100\%\)</span> confidence interval for <span class="math inline">\(\mu\)</span> when <span class="math inline">\(\sigma^2\)</span> is not known: <span class="math display">\[\begin{align}
+&amp;\bar{X} \pm t_{n-1, 1 - \alpha/2} \cdot \frac{s}{\sqrt{n}} \text{ or, equivalently}\\
+&amp;\bar{X} \pm \texttt{qt(1 - }\alpha/2\texttt{, n-1)} \cdot \frac{s}{\sqrt{n}}
+\end{align}\]</span></li>
 </ul>
-<p><span class="math display">\[
-116.9 \pm 1.833 \cdot \frac{21.70}{\sqrt{10}}
-\]</span></p>
-<p><span class="math display">\[
-116.9 \pm 2.262 \cdot \frac{21.70}{\sqrt{10}}
-\]</span></p>
-<p><span class="math display">\[
-116.9 \pm 3.25 \cdot \frac{21.70}{\sqrt{10}}
-\]</span></p>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-2-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-1" role="tab" aria-controls="tabset-2-1" aria-selected="true">Exercise</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-2" role="tab" aria-controls="tabset-2-2" aria-selected="false">Hint</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-3" role="tab" aria-controls="tabset-2-3" aria-selected="false">Solution</a></li></ul>
+<div class="tab-content">
+<div id="tabset-2-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-2-1-tab">
+<p>Suppose <span class="math inline">\(n = 10\)</span>, <span class="math inline">\(\bar{X} = 116.9\)</span>, <span class="math inline">\(s = 21.70\)</span>. Calculate 90%, 95%, 99% CIs</p>
+</div>
+<div id="tabset-2-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-2-tab">
+<p>The degrees of freedom of the appropriate <span class="math inline">\(t\)</span> distribution is <span class="math inline">\(10 - 1 = 9\)</span>.</p>
+<p>E.g., for a 90% CI, <span class="math inline">\(\alpha = 1 - 0.9 = 0.1\)</span>, and you’ll need the <span class="math inline">\(1 - \alpha/2 = 1 - 0.1/2 = 0.95\)</span> quantile of that <span class="math inline">\(t\)</span> distribution.</p>
+</div>
+<div id="tabset-2-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-3-tab">
+<p>Since <span class="math inline">\(n = 10\)</span>, the degrees of freedom of the appropriate <span class="math inline">\(t\)</span> distribution is <span class="math inline">\(10 - 1 = 9\)</span>., For 90% CI’s, <span class="math inline">\(\alpha = 0.1\)</span> and the appropriate quantile is</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">qt</span>(<span class="at">p =</span> <span class="dv">1</span> <span class="sc">-</span> <span class="fl">0.1</span><span class="sc">/</span><span class="dv">2</span>, <span class="at">df =</span> <span class="dv">9</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1.833</code></pre>
+</div>
+</div>
+<p>We can thus get a 90% CI by</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fl">116.9</span> <span class="sc">-</span> <span class="fl">1.833</span> <span class="sc">*</span> <span class="fl">21.70</span> <span class="sc">/</span> <span class="fu">sqrt</span>(<span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 104.3</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fl">116.9</span> <span class="sc">+</span> <span class="fl">1.833</span> <span class="sc">*</span> <span class="fl">21.70</span> <span class="sc">/</span> <span class="fu">sqrt</span>(<span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 129.5</code></pre>
+</div>
+</div>
+<p>Similarly, for a 95% CI we have</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fl">116.9</span> <span class="sc">-</span> <span class="fu">qt</span>(<span class="at">p =</span> <span class="dv">1</span> <span class="sc">-</span> <span class="fl">0.05</span><span class="sc">/</span><span class="dv">2</span>, <span class="at">df =</span> <span class="dv">9</span>) <span class="sc">*</span> <span class="fl">21.70</span> <span class="sc">/</span> <span class="fu">sqrt</span>(<span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 101.4</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fl">116.9</span> <span class="sc">+</span> <span class="fu">qt</span>(<span class="at">p =</span> <span class="dv">1</span> <span class="sc">-</span> <span class="fl">0.05</span><span class="sc">/</span><span class="dv">2</span>, <span class="at">df =</span> <span class="dv">9</span>) <span class="sc">*</span> <span class="fl">21.70</span> <span class="sc">/</span> <span class="fu">sqrt</span>(<span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 132.4</code></pre>
+</div>
+</div>
+<p>And, for a 99% CI we have</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fl">116.9</span> <span class="sc">-</span> <span class="fu">qt</span>(<span class="at">p =</span> <span class="dv">1</span> <span class="sc">-</span> <span class="fl">0.01</span><span class="sc">/</span><span class="dv">2</span>, <span class="at">df =</span> <span class="dv">9</span>) <span class="sc">*</span> <span class="fl">21.70</span> <span class="sc">/</span> <span class="fu">sqrt</span>(<span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 94.6</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fl">116.9</span> <span class="sc">+</span> <span class="fu">qt</span>(<span class="at">p =</span> <span class="dv">1</span> <span class="sc">-</span> <span class="fl">0.01</span><span class="sc">/</span><span class="dv">2</span>, <span class="at">df =</span> <span class="dv">9</span>) <span class="sc">*</span> <span class="fl">21.70</span> <span class="sc">/</span> <span class="fu">sqrt</span>(<span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 139.2</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
 <ul>
 <li>Note:
 <ul>
@@ -660,154 +885,199 @@ t_{\text{df}, p} = \text{qt}(p, \text{df})
 <li><span class="math inline">\(s^2 \uparrow\)</span> <span class="math inline">\(\Rightarrow\)</span> larger intervals</li>
 </ul></li>
 </ul>
+<hr>
+<p><a href="./http://localhost:3831/04_est/04_boneden.html">Bone Density Case Study</a></p>
+<hr>
 </section>
-<section id="bone-density-case-study" class="level3">
-<h3 class="anchored" data-anchor-id="bone-density-case-study">Bone Density Case Study</h3>
+</section>
+<section id="estimate-variance" class="level1">
+<h1>Estimate Variance:</h1>
 <ul>
-<li>Estimate variance:
-<ul>
-<li>Estimate <span class="math inline">\(\sigma^2\)</span> with <span class="math inline">\(s^2 = \frac{1}{n - 1} \sum_{i=1}^n (X_i - \bar{X})^2\)</span></li>
-</ul></li>
-<li>Why <span class="math inline">\(n - 1\)</span>?</li>
-</ul>
+<li><p>We estimate <span class="math inline">\(\sigma^2\)</span> with <span class="math inline">\(s^2 = \frac{1}{n - 1} \sum_{i=1}^n (X_i - \bar{X})^2\)</span></p></li>
+<li><p>Why <span class="math inline">\(n - 1\)</span>?</p>
 <p><span class="math display">\[
-\bar{X} = \operatorname{argmin}_a \sum (X_i - a)^2 \quad \text{(ideal)}
+\bar{X} = \operatorname{argmin}_a \sum (X_i - a)^2
 \]</span></p>
+<p>The ideal estimate of <span class="math inline">\(\sigma^2\)</span> is <span class="math inline">\(\frac{1}{n} \sum (X_i - \mu)^2\)</span>. However,</p>
 <p><span class="math display">\[
-\Rightarrow \frac{1}{n} \sum (X_i - \bar{X})^2 \leq \frac{1}{n} \sum (X_i - \mu)^2
+\frac{1}{n} \sum (X_i - \bar{X})^2 \leq \frac{1}{n} \sum (X_i - \mu)^2
 \]</span></p>
-<ul>
-<li>This is too small<br>
-</li>
-<li>Dividing by <span class="math inline">\(n - 1\)</span> makes it bigger</li>
-</ul>
-<p><span class="math display">\[
+<p>So, <span class="math inline">\(\frac{1}{n} \sum (X_i - \bar{X})^2\)</span> is too small. Dividing by <span class="math inline">\(n-1\)</span> instead of <span class="math inline">\(n\)</span> makes it a little larger, and it turns out it makes it larger by the correct ammount.</p></li>
+<li><p>Property of the variance: <span class="math display">\[
 \frac{s^2}{\sigma^2 / (n - 1)} \sim \chi^2_{n - 1}
-\]</span></p>
-<ul>
-<li><p>Chi-squared distribution with <span class="math inline">\(n - 1\)</span> degrees of freedom</p></li>
+\]</span></p></li>
+<li><p>That is, the chi-squared distribution with <span class="math inline">\(n - 1\)</span> degrees of freedom.</p></li>
+<li><p>This property <strong>only</strong> holds when the original data (<span class="math inline">\(X_1,X_2,\ldots,X_n\)</span>) or normally distributed.</p></li>
 <li><p>Properties of chi-squared:</p>
 <ol type="1">
 <li>Support <span class="math inline">\(\geq 0\)</span></li>
 <li><span class="math inline">\(E(\chi^2_{\text{df}}) = \text{df}\)</span></li>
 <li>df <span class="math inline">\(\downarrow\)</span> <span class="math inline">\(\Rightarrow\)</span> thicker tails (extreme events happen more often)</li>
 </ol></li>
-<li><p>Can use this to get confidence intervals for <span class="math inline">\(\sigma^2\)</span></p></li>
-<li><p>Let <span class="math inline">\(\chi^2_{\text{df}, p}\)</span> = <span class="math inline">\(p^\text{th}\)</span> quantile of a <span class="math inline">\(\chi^2_{\text{df}}\)</span> distribution</p></li>
+<li><p>Can use this to get confidence intervals for <span class="math inline">\(\sigma^2\)</span> (<strong>only</strong> when your original data are normal).</p></li>
+<li><p>Let <span class="math inline">\(\chi^2_{\text{df}, p}\)</span> = <span class="math inline">\(p^\text{th}\)</span> quantile of a <span class="math inline">\(\chi^2_{\text{df}}\)</span> distribution</p>
+<ul>
+<li><code>qchisq(p, df)</code></li>
+</ul></li>
 </ul>
-<p><span class="math display">\[
-\Pr\left( \chi^2_{n-1, \alpha/2} \leq \frac{(n-1)s^2}{\sigma^2} \leq \chi^2_{n-1, 1-\alpha/2} \right) = 1 - \alpha
-\]</span></p>
-<p><span class="math display">\[
-\Rightarrow \Pr\left( \frac{(n - 1)s^2}{\chi^2_{n-1, 1 - \alpha/2}} \leq \sigma^2 \leq \frac{(n - 1)s^2}{\chi^2_{n-1, \alpha/2}} \right) = 1 - \alpha
-\]</span></p>
-<p><span class="math display">\[
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="06_notes_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><span class="math display">\[\begin{align*}
+&amp;\Pr\left( \chi^2_{n-1, \alpha/2} \leq \frac{s^2}{\sigma^2/(n-1)} \leq \chi^2_{n-1, 1-\alpha/2} \right) = 1 - \alpha\\
+&amp;\Leftrightarrow  \Pr\left( \frac{(n - 1)s^2}{\chi^2_{n-1, 1 - \alpha/2}} \leq \sigma^2 \leq \frac{(n - 1)s^2}{\chi^2_{n-1, \alpha/2}} \right) = 1 - \alpha
+\end{align*}\]</span></p>
+<ul>
+<li><p>Thus a <span class="math inline">\((1-\alpha)100\%\)</span> CI for the population variance (only when the original data are norrmally distributed) is: <span class="math display">\[
 \frac{(n - 1)s^2}{\chi^2_{n-1, 1 - \alpha/2}} \leq \sigma^2 \leq \frac{(n - 1)s^2}{\chi^2_{n-1, \alpha/2}}
-\]</span></p>
-<ul>
-<li><span class="math inline">\(100(1 - \alpha)\%\)</span> CI</li>
-</ul>
-<p><strong>XYZ IMAGE HERE</strong></p>
-<ul>
-<li>Notes:
+\]</span></p></li>
+<li><p>Notes:</p>
 <ul>
 <li>Less often constructed than CI for <span class="math inline">\(\mu\)</span></li>
-<li>Very sensitive to violations of normality
+<li><strong>Very</strong> sensitive to violations of normality
 <ul>
 <li>CLT does not save you</li>
 </ul></li>
+<li>In real-like, folks use a bootstrap if they want a CI for the variance.</li>
 </ul></li>
 </ul>
-<hr>
+</section>
+<section id="estimate-binomial-proportion" class="level1">
+<h1>Estimate Binomial Proportion</h1>
 <ul>
-<li>Let <span class="math inline">\(X_1, X_2, \ldots, X_n\)</span> be independent Bernoulli trials s.t.:</li>
-</ul>
+<li><p>Let <span class="math inline">\(X_1, X_2, \ldots, X_n\)</span> be independent Bernoulli trials s.t.:</p>
 <p><span class="math display">\[
 X_i =
 \begin{cases}
 1 &amp; \text{w.p. } p \\
 0 &amp; \text{w.p. } 1 - p
 \end{cases}
-\]</span></p>
-<ul>
-<li>Then <span class="math inline">\(X = \sum X_i\)</span> = number of 1’s out of <span class="math inline">\(n\)</span> trials
-<ul>
-<li><span class="math inline">\(X \sim \text{Bin}(n, p)\)</span></li>
-</ul></li>
-<li>Example: Estimate prevalence of malignant melanoma
+\]</span></p></li>
+<li><p>Then <span class="math inline">\(X = \sum_{i=1}^n X_i\)</span> = number of 1’s out of <span class="math inline">\(n\)</span> trials<br>
+</p></li>
+<li><p><span class="math inline">\(X \sim \text{Bin}(n, p)\)</span></p></li>
+<li><p>Example: Estimate prevalence of malignant melanoma</p>
 <ul>
 <li>Sample <span class="math inline">\(n = 5000\)</span> individuals.<br>
 </li>
 <li><span class="math inline">\(X_i = 1\)</span> if has melanoma, <span class="math inline">\(0\)</span> if no</li>
 </ul></li>
-<li>Goal: Observe <span class="math inline">\(X_i\)</span>, estimate <span class="math inline">\(p\)</span></li>
-</ul>
-<p><span class="math display">\[
+<li><p>Goal: Observe <span class="math inline">\(X_i\)</span>, estimate <span class="math inline">\(p\)</span></p></li>
+<li><p>We estimate <span class="math inline">\(p\)</span> with <span class="math display">\[
 \hat{p} = \frac{1}{n} \sum X_i = \frac{X}{n} = \text{proportion of 1's}
-\]</span></p>
+\]</span></p></li>
+<li><p>Properties:</p>
 <ul>
-<li><p><span class="math inline">\(E(\hat{p}) = E\left(\frac{X}{n}\right) = \frac{1}{n} E(X) = \frac{1}{n} n p = p \Rightarrow\)</span> unbiased</p></li>
-<li><p><span class="math inline">\(\operatorname{Var}(\hat{p}) = \operatorname{Var}\left(\frac{X}{n}\right) = \frac{1}{n^2} \operatorname{Var}(X) = \frac{1}{n^2} n p(1 - p) = \frac{p(1 - p)}{n}\)</span></p>
+<li><span class="math inline">\(E(\hat{p}) = E\left(\frac{X}{n}\right) = \frac{1}{n} E(X) = \frac{1}{n} n p = p \Rightarrow\)</span> unbiased</li>
+<li><span class="math inline">\(\operatorname{Var}(\hat{p}) = \operatorname{Var}\left(\frac{X}{n}\right) = \frac{1}{n^2} \operatorname{Var}(X) = \frac{1}{n^2} n p(1 - p) = \frac{p(1 - p)}{n}\)</span>
 <ul>
 <li>More precise for larger <span class="math inline">\(n\)</span> <span class="math inline">\(\Rightarrow\)</span> consistent</li>
 </ul></li>
-<li><p>Estimated standard error:</p></li>
-</ul>
-<p><span class="math display">\[
+</ul></li>
+<li><p>Estimated standard error: <span class="math display">\[
 \sqrt{ \frac{ \hat{p}(1 - \hat{p}) }{n} }
-\]</span></p>
-<ul>
+\]</span></p></li>
 <li><p>Goal: Interval estimate of <span class="math inline">\(p\)</span></p></li>
 <li><p>For large <span class="math inline">\(n\)</span>, <span class="math inline">\(\hat{p} \sim N\left(p,\ \frac{p(1 - p)}{n} \right)\)</span></p>
 <ul>
 <li>Rule of thumb: <span class="math inline">\(n \hat{p}(1 - \hat{p}) \geq 5\)</span></li>
 </ul></li>
-<li><p>Let <span class="math inline">\(z_p = \text{qnorm}(p)\)</span> = <span class="math inline">\(p^\text{th}\)</span> quantile of <span class="math inline">\(N(0, 1)\)</span></p></li>
-</ul>
-<p><span class="math display">\[
+<li><p>Let <span class="math inline">\(z_p =\)</span> <code>qnorm(p)</code> <span class="math inline">\(= p^\text{th}\)</span> quantile of <span class="math inline">\(N(0, 1)\)</span></p></li>
+<li><p>Then, subracting the mean from <span class="math inline">\(\hat{p}\)</span> and dividing by the estimated standard error, we have: <span class="math display">\[
 \frac{ \hat{p} - p }{ \sqrt{ \frac{ \hat{p}(1 - \hat{p}) }{n} } } \approx N(0, 1)
-\]</span></p>
-<p><span class="math display">\[
-\Rightarrow \Pr\left( z_{1 - \alpha/2} \leq \frac{ \hat{p} - p }{ \sqrt{ \hat{p}(1 - \hat{p}) / n } } \leq z_{\alpha/2} \right) \approx 0.95
-\]</span></p>
-<p><span class="math display">\[
+\]</span></p></li>
+<li><p>Thus: <span class="math display">\[
+\Pr\left( z_{1 - \alpha/2} \leq \frac{ \hat{p} - p }{ \sqrt{ \hat{p}(1 - \hat{p}) / n } } \leq z_{\alpha/2} \right) \approx 1-\alpha
+\]</span></p></li>
+<li><p>Solving for <span class="math inline">\(p\)</span>, we get the following <span class="math inline">\((1-\alpha)100\%\)</span> CI for <span class="math inline">\(p\)</span>: <span class="math display">\[
 \hat{p} \pm z_{1 - \alpha/2} \cdot \sqrt{ \frac{ \hat{p}(1 - \hat{p}) }{n} }
-\]</span></p>
-<ul>
-<li><p>This is a <span class="math inline">\((1 - \alpha) \cdot 100\%\)</span> CI for <span class="math inline">\(p\)</span></p></li>
-<li><p><strong>Exercise</strong>: 10,000 women, 400 have breast cancer.</p>
-<ul>
-<li>What is a 95% CI for breast cancer incidence?</li>
-</ul></li>
-<li><p><strong>Solution</strong>:</p>
-<ul>
-<li><span class="math inline">\(\hat{p} = 0.04\)</span><br>
-</li>
-<li><span class="math inline">\(n \hat{p}(1 - \hat{p}) = 384 &gt; 5\)</span><br>
-</li>
-<li><span class="math inline">\(z_{0.975} = \text{qnorm}(0.975) = 1.96\)</span></li>
-</ul></li>
+\]</span></p></li>
+<li><p>This follows the “Estimate <span class="math inline">\(\pm\)</span> Multiplier <span class="math inline">\(\times\)</span> Standard Error” format for a confidence interval.</p></li>
 </ul>
-<p><span class="math display">\[
-0.04 \pm 1.96 \cdot \sqrt{ \frac{0.04 \cdot (1 - 0.04)}{10{,}000} } = (0.03616,\ 0.04384)
-\]</span></p>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-3-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-1" role="tab" aria-controls="tabset-3-1" aria-selected="true">Exercise</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-3-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-2" role="tab" aria-controls="tabset-3-2" aria-selected="false">Hint</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-3-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-3" role="tab" aria-controls="tabset-3-3" aria-selected="false">Solution</a></li></ul>
+<div class="tab-content">
+<div id="tabset-3-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-3-1-tab">
+<p>Suppose out of 10,000 women, 400 have breast cancer. What is a 95% CI for breast cancer incidence?</p>
+</div>
+<div id="tabset-3-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-3-2-tab">
+<p><span class="math inline">\(n = 10000\)</span> and <span class="math inline">\(x = 400\)</span>. We need the <span class="math inline">\(1 - \alpha = 1 - 0.05 / 2 = 0.975\)</span> quantile of the standard normal.</p>
+</div>
+<div id="tabset-3-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-3-3-tab">
+<p>Our estimated incidence is <span class="math inline">\(\hat{p} = 400 / 10000 = 0.04\)</span></p>
+<p>Our estimated standard error is</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sqrt</span>(<span class="fl">0.04</span> <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> <span class="fl">0.04</span>) <span class="sc">/</span> <span class="dv">10000</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.00196</code></pre>
+</div>
+</div>
+<p>Checking for our rule of thumb: <span class="math inline">\(n \hat{p}(1 - \hat{p}) = 384 &gt; 5\)</span>, so we can use the CLT.</p>
+<p>For a 95% confidence interval, <span class="math inline">\(\alpha = 0.05\)</span> and we need the <span class="math inline">\(1 - \alpha/2 = 1 - 0.05/2 = 0.975\)</span> quantile of the standard normal distribution, denoted <span class="math inline">\(z_{0.975}\)</span>, or</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">qnorm</span>(<span class="fl">0.975</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1.96</code></pre>
+</div>
+</div>
+<p>Thus, our 95% confidence interval is</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fl">0.04</span> <span class="sc">-</span> <span class="fl">1.96</span> <span class="sc">*</span> <span class="fl">0.00196</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.03616</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fl">0.04</span> <span class="sc">+</span> <span class="fl">1.96</span> <span class="sc">*</span> <span class="fl">0.00196</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.04384</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<section id="exact-test" class="level3">
+<h3 class="anchored" data-anchor-id="exact-test">Exact test</h3>
 <ul>
 <li><p>What if <span class="math inline">\(n\)</span> is small? Use an exact method</p></li>
-<li><p>Find <span class="math inline">\(p_1\)</span> and <span class="math inline">\(p_2\)</span> such that:</p></li>
+<li><p>Find <span class="math inline">\(p_1\)</span> and <span class="math inline">\(p_2\)</span> such that: <span class="math display">\[\begin{align*}
+\frac{\alpha}{2} &amp;= \text{pbinom}(x,\ \text{size} = n,\ \text{prob} = p_1)\\
+\frac{\alpha}{2} &amp;= 1 - \text{pbinom}(x - 1,\ \text{size} = n,\ \text{prob} = p_2)
+\end{align*}\]</span></p></li>
+<li><p>E.g., <span class="math inline">\(n = 10\)</span> and <span class="math inline">\(X = 3\)</span>. Suppose we want a 80% CI (so <span class="math inline">\(\alpha = 0.2\)</span>).</p></li>
+<li><p>The value of <span class="math inline">\(p_1\)</span> such that the probability <span class="math inline">\(X\)</span> being at least <span class="math inline">\(3\)</span> equals <span class="math inline">\(\alpha/2=0.1\)</span> is 0.1158. Visually, the sum of the heights of the orange bars is 0.1:</p>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="06_notes_files/figure-html/unnamed-chunk-17-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div></li>
+<li><p>The value of <span class="math inline">\(p_1\)</span> such that the probability <span class="math inline">\(X\)</span> being at most <span class="math inline">\(3\)</span> equals <span class="math inline">\(\alpha/2=0.1\)</span> is 0.5517. Visually, the sum of the heights of the orange bars is 0.1:</p>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="06_notes_files/figure-html/unnamed-chunk-18-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div></li>
 </ul>
-<p><span class="math display">\[
-\frac{\alpha}{2} = \text{pbinom}(x,\ \text{size} = n,\ \text{prob} = p_1)
-\]</span></p>
-<p><span class="math display">\[
-\frac{\alpha}{2} = 1 - \text{pbinom}(x - 1,\ \text{size} = n,\ \text{prob} = p_2)
-\]</span></p>
-<p><strong>XYZ IMAGE HERE</strong><br>
-(One diagram shows tail under <span class="math inline">\(p_2\)</span>, the other under <span class="math inline">\(p_1\)</span>)</p>
+<hr>
+<p><a href="./04_binom.html">Binomial R code</a></p>
+<hr>
 </section>
-<section id="binomial-r-code" class="level3">
-<h3 class="anchored" data-anchor-id="binomial-r-code">Binomial R code</h3>
+</section>
+<section id="estimate-poisson-mean" class="level1">
+<h1>Estimate Poisson Mean</h1>
 <ul>
-<li><p>Poisson Estimation</p></li>
 <li><p><span class="math inline">\(Y \sim \text{Poi}(\mu)\)</span> where <span class="math inline">\(\mu = \lambda T\)</span></p></li>
 <li><p>Goal: Estimate <span class="math inline">\(\lambda\)</span></p>
 <ul>
@@ -819,7 +1089,7 @@ X_i =
 <ul>
 <li>12,000 residents, 10 years, 12 children got leukemia</li>
 </ul></li>
-<li><p>A common unit in biostatistics is a person-year</p>
+<li><p>A common unit in biostatistics is a <strong>person-year</strong></p>
 <ul>
 <li>1 person being followed for 1 year<br>
 </li>
@@ -828,91 +1098,95 @@ X_i =
 <li>E.g., 12 cases out of 20 is a lot more than 12 out of 20000</li>
 </ul></li>
 <li><p>Example: Woburn study had 12,000 people × 10 years = 120,000 person-years</p></li>
-</ul>
-<p><span class="math display">\[
+<li><p>We estimate <span class="math inline">\(\lambda\)</span> with: <span class="math display">\[
 \hat{\lambda} = \frac{X}{T}
-\]</span></p>
-<p><span class="math display">\[
+\]</span></p></li>
+<li><p><span class="math inline">\(T\)</span> can be in any unit of time. E.g., person-year.</p></li>
+<li><p><span class="math inline">\(\hat{\lambda}\)</span> is unbiased: <span class="math display">\[
 E(\hat{\lambda}) = E\left( \frac{X}{T} \right) = \frac{E(X)}{T} = \frac{\lambda T}{T} = \lambda \quad \text{(unbiased)}
-\]</span></p>
-<ul>
-<li><p>Woburn: <span class="math inline">\(\hat{\lambda} = \frac{12 \text{ cases}}{120{,}000 \text{ person-years}} = 0.0001 \text{ cases per person-year}\)</span></p></li>
-<li><p>Cancer rates low, so useful to multiply by 100,000</p></li>
-</ul>
-<p><span class="math display">\[
+\]</span></p></li>
+<li><p>Woburn Example: <span class="math inline">\(\hat{\lambda} = \frac{12 \text{ cases}}{120{,}000 \text{ person-years}} = 0.0001 \text{ cases per person-year}\)</span></p></li>
+<li><p>Cancer rates are typically low, so it is useful to multiply by 100,000 to get human-readable units</p></li>
+<li><p>Woburn Example: <span class="math display">\[
 0.0001 \text{ cases/person-year} = 10 \text{ cases / 100,000 person-years}
-\]</span></p>
+\]</span></p></li>
+<li><p>Exact interval uses same strategy as exact binomial case:</p>
 <ul>
-<li><p>Interval uses same strategy as exact binomial case:</p>
-<ul>
-<li><p>Find <span class="math inline">\(\mu_1\)</span> such that <span class="math inline">\(\Pr(X \geq x \mid \mu_1) = \alpha/2\)</span></p></li>
-<li><p>Find <span class="math inline">\(\mu_2\)</span> such that <span class="math inline">\(\Pr(X \leq x \mid \mu_2) = \alpha/2\)</span></p></li>
-<li><p>Interval: <span class="math inline">\((\mu_1,\ \mu_2)\)</span></p>
-<ul>
-<li>Uses CDF of Poisson</li>
+<li>Find <span class="math inline">\(\mu_1\)</span> such that <span class="math inline">\(\Pr(X \geq x \mid \mu_1) = \alpha/2\)</span></li>
+<li>Find <span class="math inline">\(\mu_2\)</span> such that <span class="math inline">\(\Pr(X \leq x \mid \mu_2) = \alpha/2\)</span></li>
+<li>Interval: <span class="math inline">\((\mu_1,\ \mu_2)\)</span></li>
 </ul></li>
-</ul></li>
-<li><p>Interval for <span class="math inline">\(\lambda\)</span> is:</p></li>
-</ul>
-<p><span class="math display">\[
+<li><p>The interval for <span class="math inline">\(\lambda\)</span> is then: <span class="math display">\[
 \left( \frac{\mu_1}{T},\ \frac{\mu_2}{T} \right)
-\]</span></p>
-<ul>
+\]</span></p></li>
 <li><p>Use <code>poisson.test()</code> in R</p></li>
-<li><p>One-sided CI (OK to skip)</p>
+</ul>
+</section>
+<section id="one-sided-ci-if-we-have-time" class="level1">
+<h1>One-sided CI (if we have time)</h1>
 <ul>
-<li>Only interested in lower or upper bounds
+<li><p>Suppose we are only interested in lower or upper bounds</p>
 <ul>
 <li>E.g., compare cancer treatment survival rate against baseline of 30%.<br>
 Want lower bound on treatment effect to see if it’s better than baseline</li>
 </ul></li>
-</ul></li>
-<li><p>Let <span class="math inline">\(p_1\)</span> such that <span class="math inline">\(\Pr(p &gt; p_1) = 1 - \alpha\)</span></p>
+<li><p>Find <span class="math inline">\(p_1\)</span> such that <span class="math inline">\(\Pr(p &gt; p_1) = 1 - \alpha\)</span></p>
 <ul>
-<li>Random lower bound</li>
+<li><span class="math inline">\(p_1\)</span> is the random variable and <span class="math inline">\(p\)</span> is the fixed parameter.</li>
 </ul></li>
 <li><p>Or, find <span class="math inline">\(p_2\)</span> such that <span class="math inline">\(\Pr(p &lt; p_2) = 1 - \alpha\)</span></p>
 <ul>
-<li>E.g., upper bound on incidence rate of some treatment group</li>
+<li>E.g., suppose we want an upper bound on the incidence rate of some treatment group</li>
 </ul></li>
-<li><p>Since <span class="math inline">\(\frac{\hat{p} - p}{\sqrt{ \hat{p}(1 - \hat{p}) / n }} \sim N(0, 1)\)</span>:</p></li>
-</ul>
-<p><span class="math display">\[
+<li><p>Since <span class="math inline">\(\frac{\hat{p} - p}{\sqrt{ \hat{p}(1 - \hat{p}) / n }} \sim N(0, 1)\)</span>, we can get a one-sided ocnfidence interval by knowing the following: <span class="math display">\[
 \Pr\left(-z_{1 - \alpha} &lt; \frac{\hat{p} - p}{\sqrt{ \hat{p}(1 - \hat{p}) / n }} \right) = 1 - \alpha
-\]</span></p>
-<p><span class="math display">\[
-\Rightarrow \Pr\left(z_{1 - \alpha} &gt; \frac{\hat{p} - p}{\sqrt{ \hat{p}(1 - \hat{p}) / n }} \right) = 1 - \alpha
-\]</span></p>
-<p><span class="math display">\[
-\Rightarrow \Pr\left(\hat{p} + z_{1 - \alpha} \cdot \sqrt{ \hat{p}(1 - \hat{p}) / n } &gt; p \right) = 1 - \alpha
-\]</span></p>
-<p><span class="math display">\[
-\Rightarrow p_2 = \hat{p} + z_{1 - \alpha} \cdot \sqrt{ \hat{p}(1 - \hat{p}) / n }
-\]</span></p>
-<ul>
-<li>Similarly:</li>
-</ul>
-<p><span class="math display">\[
+\]</span> and solving for <span class="math inline">\(p\)</span>: <span class="math display">\[\begin{align*}
+&amp;\Leftrightarrow \Pr\left(z_{1 - \alpha} &gt; \frac{p - \hat{p}}{\sqrt{ \hat{p}(1 - \hat{p}) / n }} \right) = 1 - \alpha\\
+&amp;\Leftrightarrow \Pr\left(\hat{p} + z_{1 - \alpha} \cdot \sqrt{ \hat{p}(1 - \hat{p}) / n } &gt; p \right) = 1 - \alpha
+\end{align*}\]</span> Thus, <span class="math inline">\(p_2\)</span> (the upper bound of a lower one sided confidence interval) is: <span class="math display">\[
+p_2 = \hat{p} + z_{1 - \alpha} \cdot \sqrt{ \hat{p}(1 - \hat{p}) / n }
+\]</span></p></li>
+<li><p>Similarly, <span class="math inline">\(p_1\)</span> (the lower bound of an upper one-sided confidence interval) is: <span class="math display">\[
 p_1 = \hat{p} - z_{1 - \alpha} \cdot \sqrt{ \hat{p}(1 - \hat{p}) / n }
-\]</span></p>
-<p><strong>XYZ IMAGE HERE</strong></p>
-<ul>
-<li>Example: 40 out of 100 patients survive a new cancer treatment.<br>
-What is the <strong>lower bound</strong> on <span class="math inline">\(\Pr(\text{survive})\)</span>?<br>
-(Upper 1-sided 95% CI)</li>
+\]</span></p></li>
 </ul>
-<p><span class="math display">\[
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-4-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-1" role="tab" aria-controls="tabset-4-1" aria-selected="true">Exercise</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-4-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-2" role="tab" aria-controls="tabset-4-2" aria-selected="false">Hint</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-4-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-3" role="tab" aria-controls="tabset-4-3" aria-selected="false">Solution</a></li></ul>
+<div class="tab-content">
+<div id="tabset-4-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-4-1-tab">
+<p>40 out of 100 patients survive a new cancer treatment. What is the <strong>lower bound</strong> on <span class="math inline">\(\Pr(\text{survive})\)</span>? (Upper 1-sided 95% CI)</p>
+</div>
+<div id="tabset-4-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-4-2-tab">
+<p>Use the fact that <span class="math display">\[
+\frac{\hat{p} - p}{\sqrt{\hat{p}(1-\hat{p})/n}} \approx N(0,1)
+\]</span> for large <span class="math inline">\(n\)</span>.</p>
+</div>
+<div id="tabset-4-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-4-3-tab">
+<p>We have that <span class="math display">\[\begin{align*}
+&amp;\Pr\left(\frac{\hat{p} - p}{\sqrt{\hat{p}(1-\hat{p})/n}} \leq z_{1-\alpha}\right) = 1-\alpha\\
+&amp;\Leftrightarrow \Pr\left(\hat{p} - z_{1-\alpha} \sqrt{\hat{p}(1-\hat{p})/n} \leq p\right) = 1-\alpha
+\end{align*}\]</span></p>
+<p>Let’s find <span class="math inline">\(\hat{p}\)</span> <span class="math display">\[
 \hat{p} = \frac{40}{100} = 0.4
 \]</span></p>
-<p><span class="math display">\[
-z_{1 - \alpha} = \text{qnorm}(0.95) = 1.645 \quad (\alpha = 0.05)
-\]</span></p>
-<p><span class="math display">\[
-\hat{p} - z_{1 - \alpha} \cdot \sqrt{ \frac{ \hat{p}(1 - \hat{p}) }{n} }
-\]</span></p>
-<p><span class="math display">\[
-= 0.4 - 1.645 \cdot \sqrt{ \frac{0.4 \cdot 0.6}{100} } \approx 0.319
-\]</span></p>
+<p>Let’s find <span class="math inline">\(z_{1-\alpha}\)</span> when <span class="math inline">\(\alpha = 0.05\)</span></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">qnorm</span>(<span class="dv">1</span> <span class="sc">-</span> <span class="fl">0.05</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1.645</code></pre>
+</div>
+</div>
+<p>This gives us the following lower bound:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fl">0.4</span> <span class="sc">-</span> <span class="fl">1.645</span> <span class="sc">*</span> <span class="fu">sqrt</span>(<span class="fl">0.4</span> <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> <span class="fl">0.4</span>) <span class="sc">/</span> <span class="dv">100</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.3194</code></pre>
+</div>
+</div>
+<p>So the one-sided confidence interval is <span class="math inline">\(p &gt; 0.3194\)</span>.</p>
+</div>
+</div>
+</div>
 
 
 </section>

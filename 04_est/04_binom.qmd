@@ -185,33 +185,38 @@ ggplot2::theme_set(ggplot2::theme_bw() + ggplot2::theme(strip.background = ggplo
   ```
 
 
-- **Exercise**: Of 10 smokers who gave up smoking, 6 took it up again after a year. Provide an 80% confidence interval for the proportion of ex-smokers who take up smoking again after one year. Use both the normal approximation (by hand and in R) and the exact binomial approach (just in R). Does it matter which approach to use here?
+::: {.panel-tabset}
+## Exercise
+Of 10 smokers who gave up smoking, 6 took it up again after a year. Provide an 80% confidence interval for the proportion of ex-smokers who take up smoking again after one year. Use both the normal approximation (by hand and in R) and the exact binomial approach (just in R). Does it matter which approach to use here?
 
-  ```{r}
-  #| echo: false
-  #| eval: false
-  # Wald
-  n <- 10
-  x <- 6
-  phat <- x / n
-  se <- sqrt(phat * (1 - phat) / n)
-  z <- qnorm(0.9)
-  phat - z * se
-  phat + z * se
-  
-  # Wilson
-  prop.test(x = x, n = n, conf.level = 0.8) |>
-    tidy() |>
-    select(estimate, conf.low, conf.high)
+## Solution
+We will start with the Wald solution by hand. This is of the form $\hat{p} \pm z_{1-\alpha/2}\mathrm{SE}(\hat{p})$:
+```{r}
+n <- 10
+x <- 6
+phat <- x / n
+se <- sqrt(phat * (1 - phat) / n)
+z <- qnorm(0.9)
+phat - z * se
+phat + z * se
+```
 
-  # Exact
-  binom.test(x = x, n = n, conf.level = 0.8) |>
-    tidy() |>
-    select(estimate, conf.low, conf.high)
+R's `prop.test()` give's Wilson intervals, not Wald intervals:
+```{r}
+prop.test(x = x, n = n, conf.level = 0.8) |>
+  tidy() |>
+  select(estimate, conf.low, conf.high)
+```
 
-  # Yes, should use the binomial approach since 10 * 0.6 * 0.4 = 2.4 < 5
-  ```
+The exact method is done via `binom.test()`:
+```{r}
+binom.test(x = x, n = n, conf.level = 0.8) |>
+  tidy() |>
+  select(estimate, conf.low, conf.high)
+```
 
+Yes it matters. We should use the binomial approach since 10 * 0.6 * 0.4 = 2.4 < 5
+:::
 
 
 

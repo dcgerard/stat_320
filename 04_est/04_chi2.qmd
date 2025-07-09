@@ -106,13 +106,15 @@ ggplot2::theme_set(ggplot2::theme_bw() + ggplot2::theme(strip.background = ggplo
                  fill = "red", alpha = 3/4) +
     annotate(geom = "text", x = 1.5, y = 0.1, label = "0.6083", color = "white")
   ```
-  
-- **Exercise**: In the Rosner notation, what does $\chi^2_{20, 0.95}$ mean? Calculate it.
 
+::: {.panel-tabset}
+## Exercise
+In the Rosner notation, what does $\chi^2_{20, 0.95}$ mean? Calculate it.
+
+## Solution
+It is the 0.95 quantile of a chi-squared distribution with 20 degrees of freedom
 ```{r}
-#| echo: false
-#| eval: false
-# 0.95 quantile of a chi-squared distribution with 20 degrees of freedom
 qchisq(p = 0.95, df = 20)
 ```
+:::
 

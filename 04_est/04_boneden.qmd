@@ -89,24 +89,32 @@ ggplot2::theme_set(ggplot2::theme_bw() + ggplot2::theme(strip.background = ggplo
     tidy() |>
     select(estimate, conf.low, conf.high)
   ```
-  
-- **Exercise**: Calculate an 80% confidence interval for the mean birth weight of newborns using the [birth weight data](../data.qmd#birthweight) that you can download from here: <https://dcgerard.github.io/stat_320/data/birthweight.csv>. Do this both "by hand" (after calculating the summary statistics and t-quantile) and using R's automated functions.
 
+::: {.panel-tabset}  
+## Exercise
+Calculate an 80% confidence interval for the mean birth weight of newborns using the [birth weight data](../data.qmd#birthweight) that you can download from here: <https://dcgerard.github.io/stat_320/data/birthweight.csv>. Do this both "by hand" (after calculating the summary statistics and t-quantile) and using R's automated functions.
+
+## Solution
+First, we load in the data
 ```{r}
-#| echo: false
-#| eval: false
+#| message: false
 birthweight <- read_csv("https://dcgerard.github.io/stat_320/data/birthweight.csv")
+```
+
+The "by hand" way is of the form $\bar{x} \pm t_{n-1,1-\alpha/2}s/\sqrt{n}$:
+```{r}
 n <- nrow(birthweight)
 mult <- qt(p = 0.9, df = n - 1)
 xbar <- mean(birthweight$weight)
 se <- sd(birthweight$weight) / sqrt(n)
 xbar - mult * se
 xbar + mult * se
+```
 
+This is implemented in `t.test()`:
+```{r}
 t.test(weight ~ 1, data = birthweight, conf.level = 0.8) |>
   tidy() |>
   select(estimate, conf.low, conf.high)
 ```
-
-
-
+:::
