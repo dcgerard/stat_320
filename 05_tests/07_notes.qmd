@@ -421,8 +421,8 @@ Is there evidence that these children have higher cholesterol?
 ## Solution
 Our two hypotheses are
 
-- $H_0 &: \mu = 175$
-- $H_1 &: \mu > 175$
+- $H_0 : \mu = 175$
+- $H_1 : \mu > 175$
 
 We calculate our test statistic:
 $$

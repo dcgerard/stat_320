@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="David Gerard">
-<meta name="dcterms.date" content="2025-07-09">
+<meta name="dcterms.date" content="2025-07-10">
 
 <title>Chapter 6 Notes: Estimation – Stat 320: Biostatistics</title>
 <style>
@@ -388,7 +388,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">July 9, 2025</p>
+      <p class="date">July 10, 2025</p>
     </div>
   </div>
   
@@ -683,37 +683,37 @@ Estimated Standard Error:
 \bar{X} \sim N\left(112, \left(\frac{20.6}{\sqrt{10}}\right)^2\right) = N(112, 6.514^2)
 \]</span></p>
 <p>We want the area between 98 and 126</p>
-<div class="cell">
+<div class="cell" data-layout-align="center">
 <div class="cell-output-display">
-<div>
+<div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="06_notes_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" width="384"></p>
+<p><img src="06_notes_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="384"></p>
 </figure>
 </div>
 </div>
 </div>
 <p>Which is the area to the left of 126</p>
-<div class="cell">
+<div class="cell" data-layout-align="center">
 <div class="cell-output-display">
-<div>
+<div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="06_notes_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="384"></p>
+<p><img src="06_notes_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="384"></p>
 </figure>
 </div>
 </div>
 </div>
 <p>Minus the area to the left of 98</p>
-<div class="cell">
+<div class="cell" data-layout-align="center">
 <div class="cell-output-display">
-<div>
+<div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="06_notes_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" width="384"></p>
+<p><img src="06_notes_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="384"></p>
 </figure>
 </div>
 </div>
 </div>
 <p>We can calculate this in R:</p>
-<div class="cell">
+<div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pnorm</span>(<span class="at">q =</span> <span class="dv">126</span>, <span class="at">mean =</span> <span class="dv">112</span>, <span class="at">sd =</span> <span class="fl">6.514</span>) <span class="sc">-</span> <span class="fu">pnorm</span>(<span class="at">q =</span> <span class="dv">98</span>, <span class="at">mean =</span> <span class="dv">112</span>, <span class="at">sd =</span> <span class="fl">6.514</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.9684</code></pre>
@@ -760,11 +760,11 @@ Common CI Format
 <p><span class="math display">\[
   \bar{X} \pm \texttt{qnorm}(1 - \frac{\alpha}{2}) \cdot \frac{\sigma}{\sqrt{n}}
   \]</span></p>
-<div class="cell">
+<div class="cell" data-layout-align="center">
 <div class="cell-output-display">
-<div>
+<div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="06_notes_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="06_notes_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="384"></p>
 </figure>
 </div>
 </div>
@@ -803,11 +803,11 @@ As <span class="math inline">\(\text{df} \uparrow\)</span>, extreme values less 
 <p><span class="math display">\[
 t_{\text{df}, p} = \texttt{qt(p, df)}
 \]</span></p>
-<div class="cell">
+<div class="cell" data-layout-align="center">
 <div class="cell-output-display">
-<div>
+<div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="06_notes_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="06_notes_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="384"></p>
 </figure>
 </div>
 </div>
@@ -835,14 +835,14 @@ t_{\text{df}, p} = \texttt{qt(p, df)}
 </div>
 <div id="tabset-2-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-3-tab">
 <p>Since <span class="math inline">\(n = 10\)</span>, the degrees of freedom of the appropriate <span class="math inline">\(t\)</span> distribution is <span class="math inline">\(10 - 1 = 9\)</span>., For 90% CI’s, <span class="math inline">\(\alpha = 0.1\)</span> and the appropriate quantile is</p>
-<div class="cell">
+<div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">qt</span>(<span class="at">p =</span> <span class="dv">1</span> <span class="sc">-</span> <span class="fl">0.1</span><span class="sc">/</span><span class="dv">2</span>, <span class="at">df =</span> <span class="dv">9</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 1.833</code></pre>
 </div>
 </div>
 <p>We can thus get a 90% CI by</p>
-<div class="cell">
+<div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fl">116.9</span> <span class="sc">-</span> <span class="fl">1.833</span> <span class="sc">*</span> <span class="fl">21.70</span> <span class="sc">/</span> <span class="fu">sqrt</span>(<span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 104.3</code></pre>
@@ -853,7 +853,7 @@ t_{\text{df}, p} = \texttt{qt(p, df)}
 </div>
 </div>
 <p>Similarly, for a 95% CI we have</p>
-<div class="cell">
+<div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fl">116.9</span> <span class="sc">-</span> <span class="fu">qt</span>(<span class="at">p =</span> <span class="dv">1</span> <span class="sc">-</span> <span class="fl">0.05</span><span class="sc">/</span><span class="dv">2</span>, <span class="at">df =</span> <span class="dv">9</span>) <span class="sc">*</span> <span class="fl">21.70</span> <span class="sc">/</span> <span class="fu">sqrt</span>(<span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 101.4</code></pre>
@@ -864,7 +864,7 @@ t_{\text{df}, p} = \texttt{qt(p, df)}
 </div>
 </div>
 <p>And, for a 99% CI we have</p>
-<div class="cell">
+<div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fl">116.9</span> <span class="sc">-</span> <span class="fu">qt</span>(<span class="at">p =</span> <span class="dv">1</span> <span class="sc">-</span> <span class="fl">0.01</span><span class="sc">/</span><span class="dv">2</span>, <span class="at">df =</span> <span class="dv">9</span>) <span class="sc">*</span> <span class="fl">21.70</span> <span class="sc">/</span> <span class="fu">sqrt</span>(<span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 94.6</code></pre>
@@ -920,11 +920,11 @@ t_{\text{df}, p} = \texttt{qt(p, df)}
 <li><code>qchisq(p, df)</code></li>
 </ul></li>
 </ul>
-<div class="cell">
+<div class="cell" data-layout-align="center">
 <div class="cell-output-display">
-<div>
+<div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="06_notes_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="06_notes_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="384"></p>
 </figure>
 </div>
 </div>
@@ -1012,7 +1012,7 @@ X_i =
 <div id="tabset-3-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-3-3-tab">
 <p>Our estimated incidence is <span class="math inline">\(\hat{p} = 400 / 10000 = 0.04\)</span></p>
 <p>Our estimated standard error is</p>
-<div class="cell">
+<div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sqrt</span>(<span class="fl">0.04</span> <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> <span class="fl">0.04</span>) <span class="sc">/</span> <span class="dv">10000</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.00196</code></pre>
@@ -1020,14 +1020,14 @@ X_i =
 </div>
 <p>Checking for our rule of thumb: <span class="math inline">\(n \hat{p}(1 - \hat{p}) = 384 &gt; 5\)</span>, so we can use the CLT.</p>
 <p>For a 95% confidence interval, <span class="math inline">\(\alpha = 0.05\)</span> and we need the <span class="math inline">\(1 - \alpha/2 = 1 - 0.05/2 = 0.975\)</span> quantile of the standard normal distribution, denoted <span class="math inline">\(z_{0.975}\)</span>, or</p>
-<div class="cell">
+<div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">qnorm</span>(<span class="fl">0.975</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 1.96</code></pre>
 </div>
 </div>
 <p>Thus, our 95% confidence interval is</p>
-<div class="cell">
+<div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fl">0.04</span> <span class="sc">-</span> <span class="fl">1.96</span> <span class="sc">*</span> <span class="fl">0.00196</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.03616</code></pre>
@@ -1050,21 +1050,21 @@ X_i =
 \end{align*}\]</span></p></li>
 <li><p>E.g., <span class="math inline">\(n = 10\)</span> and <span class="math inline">\(X = 3\)</span>. Suppose we want a 80% CI (so <span class="math inline">\(\alpha = 0.2\)</span>).</p></li>
 <li><p>The value of <span class="math inline">\(p_1\)</span> such that the probability <span class="math inline">\(X\)</span> being at least <span class="math inline">\(3\)</span> equals <span class="math inline">\(\alpha/2=0.1\)</span> is 0.1158. Visually, the sum of the heights of the orange bars is 0.1:</p>
-<div class="cell">
+<div class="cell" data-layout-align="center">
 <div class="cell-output-display">
-<div>
+<div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="06_notes_files/figure-html/unnamed-chunk-17-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="06_notes_files/figure-html/unnamed-chunk-17-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="384"></p>
 </figure>
 </div>
 </div>
 </div></li>
 <li><p>The value of <span class="math inline">\(p_1\)</span> such that the probability <span class="math inline">\(X\)</span> being at most <span class="math inline">\(3\)</span> equals <span class="math inline">\(\alpha/2=0.1\)</span> is 0.5517. Visually, the sum of the heights of the orange bars is 0.1:</p>
-<div class="cell">
+<div class="cell" data-layout-align="center">
 <div class="cell-output-display">
-<div>
+<div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="06_notes_files/figure-html/unnamed-chunk-18-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="06_notes_files/figure-html/unnamed-chunk-18-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="384"></p>
 </figure>
 </div>
 </div>
@@ -1170,14 +1170,14 @@ p_1 = \hat{p} - z_{1 - \alpha} \cdot \sqrt{ \hat{p}(1 - \hat{p}) / n }
 \hat{p} = \frac{40}{100} = 0.4
 \]</span></p>
 <p>Let’s find <span class="math inline">\(z_{1-\alpha}\)</span> when <span class="math inline">\(\alpha = 0.05\)</span></p>
-<div class="cell">
+<div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">qnorm</span>(<span class="dv">1</span> <span class="sc">-</span> <span class="fl">0.05</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 1.645</code></pre>
 </div>
 </div>
 <p>This gives us the following lower bound:</p>
-<div class="cell">
+<div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fl">0.4</span> <span class="sc">-</span> <span class="fl">1.645</span> <span class="sc">*</span> <span class="fu">sqrt</span>(<span class="fl">0.4</span> <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> <span class="fl">0.4</span>) <span class="sc">/</span> <span class="dv">100</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.3194</code></pre>
