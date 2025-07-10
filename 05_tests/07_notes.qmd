@@ -1,0 +1,1271 @@
+---
+title: "Chapter 7: One Sample Hypothesis Testing"
+author: "David Gerard"
+date: today
+---
+
+```{r}
+#| message: false
+#| echo: false
+library(tidyverse)
+knitr::opts_chunk$set(echo = TRUE, 
+            fig.width = 4, 
+            fig.height = 3, 
+            fig.align = "center")
+ggplot2::theme_set(ggplot2::theme_bw() + ggplot2::theme(strip.background = ggplot2::element_rect(fill = "white")))
+```
+
+# Hypothesis Testing Overview
+
+- Two hypotheses
+  - $H_0$: **Null**
+    - Baseline, to be disproved  
+  - $H_1$: **Alternative**
+    - Opposite of null (contradicts $H_0$)
+
+- Example: Want to test if low socioeconomic status (SES) mothers have babies with lower birthweight  
+  - Know: national average is 120 oz  
+  - For $n = 10$ low SES mothers, observe  
+    - $\bar{X} = 115$ oz, $S = 24$ oz  
+  - Let $\mu$ = average birthweight of low SES mothers  
+    - $H_0$: $\mu = 120$  
+    - $H_1$: $\mu < 120$
+
+- We use data (e.g., $\bar{X}$ and $s^2$) to make a decision ($H_0$ vs. $H_1$)
+
+$$
+\begin{array}{c|cc}
+ & H_0 \text{ true} & H_1 \text{ true} \\
+\hline
+\text{Fail to Reject } H_0 & \text{True negative} & \text{Type II error} \\
+\text{Reject } H_0 & \text{Type I error} & \text{True positive} \\
+\end{array}
+$$
+
+- Example: If the truth is $\mu = 120$ ($H_0$ is true) but we say $\mu < 120$ (reject $H_0$), this is a Type I error
+
+- Typically,  
+  - Null Hypothesis: parameter = some value  
+  - Alternative Hypothesis: One of:
+    - parameter ≠ value,
+    - parameter > value,
+    - parameter < value,
+
+::: {.callout-tip}
+## Type I error rate
+Probability of a Type I error
+\begin{align*}
+\Pr(\text{Reject } H_0 \mid H_0 \text{ True}) &= \text{significance level} \\
+&= \alpha
+\end{align*}
+:::
+
+::: {.callout-tip}
+## Type II error rate
+Probability of a Type II error  
+\begin{align*}
+\Pr(\text{Fail to reject } H_0 \mid H_1 \text{ True}) &= \beta
+\end{align*}
+:::
+
+::: {.callout-tip}
+## Power  
+Probability of correctly rejecting the null.
+\begin{align*}
+\Pr(\text{Reject } H_0 \mid H_1 \text{ True}) 
+&= 1 - \Pr(\text{Fail to reject } H_0 \mid H_1 \text{ True}) \\
+&= 1 - \beta
+\end{align*}
+:::
+
+- These probabilities are all in terms of **repeated samples**.
+
+::: {.panel-tabset}
+## Exercise
+There is a new pain relief drug for osteoarthritis (OA).  
+
+- 50 OA patients take drug; measure $X$ = % decline in pain level.  
+- Reported:
+  - If $X > 0$: less pain
+  - If $X < 0$: more pain  
+- We want to test if the drug is effective (average $X > 0$)
+
+1. What hypotheses are being tested?  
+2. What do Type I error, Type II error, and power mean?
+
+## Solution:
+- Let $\mu$ = mean % decline in pain
+- $H_0$: $\mu = 0$
+- $H_1$: $\mu > 0$
+- Type I: Say drug reduces pain on average, but it does not  
+- Type II: Say drug does not reduce pain when it does  
+- Power: Probability we say it works when it truly works
+:::
+
+- The goal of a good test is to make both $\alpha$ and $\beta$ as small as possible  
+
+- However, typically, as $\alpha \downarrow$, $\beta \uparrow$ and as $\beta \downarrow$, $\alpha \uparrow$.
+  - These are conflicting criteria
+
+- Common strategy: Fix $\alpha = 0.05$ (or similar), and use a test that has small $\beta$
+
+- All hypothesis testing asks: **How weird is our data if $H_0$ were true?**
+
+![](./05_figs/hypothesis_tests.png){fig-alt="Visual of observed data versus hypothetical data under null with tail probability marked"}\ 
+
+- If data are very weird, reject $H_0$  
+
+- If data are not very weird, fail to reject $H_0$
+
+# Hypothesis Testing for the Mean
+
+- Back to our example:  
+  Let $X_1, X_2, \ldots, X_n \overset{\text{iid}}{\sim} N(\mu, \sigma^2)$  
+  - $H_0$: $\mu = \mu_0$  
+  - $H_1$: $\mu < \mu_0$
+
+- This is a **one-sided test** because the alternative is of the form $>$ or $<$  
+  (as opposed to $\mu \ne \mu_0$)
+  
+- Idea: Use the $t$-statistic as a measure of weirdness
+  $$
+  t = \frac{\bar{X} - \mu_0}{s / \sqrt{n}}
+  $$
+
+- If $\mu = \mu_0$, then $t$ should be close to 0, since $\bar{X}$ will be close to $\mu_0$
+
+- In fact, under $H_0$ (that is, **only** when $H_0$ is true):
+  $$
+  t \sim t_{n-1}
+  $$
+
+- So compare $t$ to a $t_{n-1}$ distribution  
+  - Reject $H_0$ if $t < a$ (some critical value)  
+  - Since this provides evidence for $H_1$
+
+-   We want to fix Type I error at level $\alpha$:
+    $$
+    \Pr(t < a) = \alpha
+    $$
+
+
+    ```{r}
+    #| echo: false
+    #| warning: false
+    alpha <- 0.05
+    df <- 9
+    crit <- qt(alpha, df)
+    
+    ggplot(data.frame(x = c(-4, 4)), aes(x)) +
+      stat_function(fun = dt, args = list(df = df), geom = "line", linewidth = 1) +
+      stat_function(fun = dt, args = list(df = df), geom = "area",
+                    xlim = c(-4, crit), fill = "red", alpha = 0.3) +
+      geom_vline(xintercept = crit, linetype = "dashed") +
+      annotate("text", x = crit - 0.4, y = 0.02, label = expression(alpha), size = 5) +
+      labs(x = "t", y = "Density", title = expression(t[n-1]-Distribution)) +
+      theme_bw() +
+      scale_x_continuous(breaks = crit, labels = "a") +
+      theme(axis.text = element_text(size = 15))
+    ```
+
+- So choose $a = t_{n-1,\alpha} =$ `qt(alpha, n-1)`
+
+
+::: {.callout-important}
+## One-sided Test for Mean, Alternative Less
+$H_0$: $\mu = \mu_0$  
+$H_1$: $\mu < \mu_0$  
+given $\alpha$ (significance level)
+
+Let  
+$$
+t = \frac{\bar{X} - \mu_0}{s / \sqrt{n}}
+$$
+
+Reject $H_0$ if  
+$$
+t < \texttt{qt}(\alpha, n-1)
+$$
+
+Fail to reject if  
+$$
+t \ge \texttt{qt}(\alpha, n-1)
+$$
+
+The $p$-value is
+$$
+\texttt{pt}(t,n-1)
+$$
+:::
+
+::: {.callout-tip}
+## Test Statistic
+A **test statistic** is a statistic which measures strength of evidence against $H_0$  
+:::
+
+- For example, the test statistic we used for $H_0: \mu = \mu_0$ is  
+  $$
+  t = \frac{\bar{X} - \mu_0}{s / \sqrt{n}}
+  $$
+
+::: {.callout-tip}
+## Critical Value
+A **critical value** is the value beyond which we reject $H_0$.
+:::
+
+- For example, the critical value we used in our mean test was $\texttt{qt}(\alpha, n-1)$
+
+::: {.callout-tip}
+## Rejection Region
+**Rejection region**: values of data for which we reject $H_0$  
+:::
+
+::: {.callout-tip}
+## Acceptance Region
+**Acceptance region**: values of data for which we accept $H_0$
+:::
+
+-   Example: Let's choose $\alpha = 0.01$ and run the test for the birthweight example
+    \begin{align*}
+    H_0\!:\ &\mu = 120 \\
+    H_1\!:\ &\mu < 120 \\
+    \end{align*}
+    We observe:
+    $$
+    \bar{X} = 115,\quad s = 24,\quad n = 100
+    $$
+    Our test statistic is
+    $$
+    t = \frac{115 - 120}{24/\sqrt{100}} = -2.08 \\
+    $$
+    We compare that to the critical value, which is the 0.01 quantile of the $t$ distribution with 99 degrees of freedom.
+    ```{r}
+    qt(p = 0.01, df = 99)
+    ```
+    Since $-2.08 > -2.36$, the data are not weird (at the 0.01 level), so we **fail to reject** $H_0$.
+
+    ```{r}
+    #| echo: false
+    alpha <- 0.01
+    df <- 99
+    t_obs <- -2.08
+    crit <- qt(alpha, df)
+    
+    ggplot(data.frame(x = c(-4, 4)), aes(x)) +
+      stat_function(fun = dt, args = list(df = df), linewidth = 1) +
+      geom_vline(xintercept = crit, linetype = "dashed") +
+      geom_vline(xintercept = t_obs, color = "blue", linewidth = 1) +
+      annotate("text", x = crit - 0.15, y = 0.2, label = "Critical", size = 4, angle = 90) +
+      annotate("text", x = t_obs + 0.15, y = 0.2, label = "Observed", size = 4, color = "blue", angle = 90) +
+      theme_bw() +
+      labs(title = "t-distribution with Observed vs. Critical Value",
+           x = "t", y = "Density")
+    ```
+
+-   Note: When presenting results, **don't use the word "weird"**. Say instead
+
+    > We fail to reject the null that mean birthweights are 120 oz at significance level 0.01.
+
+::: {.callout-tip}
+## p-value
+The smallest $\alpha$ at which we would reject $H_0$
+
+Equivalently, the probability we would see data as extreme or more extreme than what we saw.
+:::
+
+-   In the one-sided hypothesis test case, the $p$-value is the probability of being to the left of the observed value.
+
+    ```{r}
+    pt(-2.08, 99)  # Left-tailed p-value
+    ```
+
+    ```{r}
+    #| echo: false
+    alpha <- 0.01
+    df <- 99
+    t_obs <- -2.08
+    crit <- qt(alpha, df)
+    
+    ggplot(data.frame(x = c(-4, 4)), aes(x)) +
+      stat_function(fun = dt, args = list(df = df), linewidth = 1) +
+      geom_vline(xintercept = crit, linetype = "dashed") +
+      geom_vline(xintercept = t_obs, color = "blue", linewidth = 1) +
+      stat_function(
+        fun = dt, 
+        args = list(df = df), 
+        geom = "area", 
+        xlim = c(-4, t_obs), 
+        fill = "black",
+        alpha = 0.5) +
+      annotate("text", x = crit - 0.15, y = 0.2, label = "Critical", size = 4, angle = 90) +
+      annotate("text", x = t_obs + 0.15, y = 0.2, label = "Observed", size = 4, color = "blue", angle = 90) +
+      theme_bw() +
+      labs(title = "t-distribution with Observed vs. Critical Value",
+           x = "t", y = "Density")
+    ```
+
+
+
+
+::: {.callout-important}
+$$
+\text{p-value} < \alpha \iff t < t_{n-1,\alpha}
+$$
+:::
+
+- That is, we can reject either if the $p$-value is less than $\alpha$ **or** if the $t$-statistic is less than the critical value.
+
+- Typically folks only report $p$-values and not the $t$-statistics.
+
+::: {.panel-tabset}
+## Exercise:
+- Mean infarct size (size of dead tissue in heart) is 25 (kg·Eq/m²) 
+- 8 patients treated with drug have average infarct size of 16 with SD = 10  
+- Is drug effective in reducing infarct size?
+- Run a hypothesis test.
+
+## Solution
+Our two hypotheses are
+
+- $H_0: \mu = 25$
+- $H_1: \mu < 25$
+
+We calculate the $t$-statistic to be
+$$
+t = \frac{16 - 25}{10/\sqrt{8}} = -2.55
+$$
+Our $p$-value is
+```{r}
+pt(q = -2.55, df = 7)
+```
+
+We have significant results at the 0.05 level.*
+:::
+
+- Guidelines for $p$-value interpretation:
+
+  | Range                  | Interpretation          |
+  |------------------------|-------------------------|
+  | $0.05 \le p$           | not significant         |
+  | $0.01 \le p < 0.05$    | significant             |
+  | $0.001 \le p < 0.01$   | highly significant      |
+  | $p < 0.001$            | very highly significant |
+
+- Those interpretations are not dogma. Use them as rules of thumb. E.g. 0.051 is no different (practically speaking) than 0.049.
+
+- Or you can use the XKCD joke interpretations:
+
+  <img src="https://imgs.xkcd.com/comics/p_values.png" alt="Joke of p-value interpretations">
+
+::: {.callout-important}
+The $p$-value tells you strength of evidence that there **is** an effect
+
+It tells you **nothing** about the **size** of the effect
+:::
+
+- Large sample size + tiny effect $\Rightarrow$ still small $p$-value
+
+
+-   Example:
+    \begin{align*}
+    n &= 10{,}000 \\
+    \bar{X} &= 119 \\
+    s &= 24 \\
+    t &= \frac{119 - 120}{24 / \sqrt{10{,}000}} = -4.17 \\
+    \end{align*}
+    So the $p$-value is
+    ```{r}
+    pt(-4.17, 9999)
+    ```
+    - $\Rightarrow$ Very sure $\mu < 120$, but 119 is such a tiny difference from 120
+    - $\Rightarrow$ statistically significant, not practically significant
+
+
+::: {.callout-important}
+## One-sided Test for Mean, Alternative Greater
+If $X_1, X_2, \ldots, X_n \overset{\text{iid}}{\sim} N(\mu, \sigma^2)$
+
+Hypotheses:  
+
+- $H_0$: $\mu = \mu_0$  
+- $H_1$: $\mu > \mu_0$
+
+Test statistic:  
+$$
+t = \frac{\bar{X} - \mu_0}{s / \sqrt{n}}
+$$
+
+The $p$-value is the probability under $H_0$ of being greater than $t$)  
+$$
+\text{p-value} = 1 - \texttt{pt}(t,\ n-1)
+$$
+  
+The critical value is the $1-\alpha$ quantile of the $t_{n-1}$ distribution.
+$$
+\texttt{qt}(1 - \alpha, n-1)
+$$
+Reject for $t$ larger than the critical value.
+:::
+
+::: {.panel-tabset}
+## Exercise:
+
+Mean cholesterol in the population is 175 mg/dL.
+
+We have a sampl e10 children of fathers who died from heart disease
+
+We observe $\bar{X} = 200$, $s = 50$
+
+Is there evidence that these children have higher cholesterol?
+
+## Solution
+Our two hypotheses are
+
+- $H_0 &: \mu = 175$
+- $H_1 &: \mu > 175$
+
+We calculate our test statistic:
+$$
+t = \frac{200 - 175}{50 / \sqrt{10}} = 1.58 \\
+$$
+
+Our $p$-value is then
+```{r}
+1 - pt(1.58, 9)
+```
+
+Therefore, we have weak evidence that they have higher cholesterol.
+:::
+
+
+## Two-sided Tests for the Mean
+
+- ~~Sometimes~~ Usually, our alternative is just that the mean is not equal to the null value.
+  - E.g., average birthweights for low SES families are different from the population average.
+  
+-   What constitutes "more weird" in this case is the area in both tails.
+
+    ```{r}
+    #| echo: false
+    #| fig-alt: "t-distribution showing two tailed p-value"
+    alpha <- 0.01
+    df <- 10
+    t_obs <- 1.5
+    ggplot(data.frame(x = c(-4, 4)), aes(x)) +
+      stat_function(fun = dt, args = list(df = df), linewidth = 1) +
+      geom_vline(xintercept = t_obs, color = "blue", linewidth = 1) +
+      stat_function(
+        fun = dt, 
+        args = list(df = df), 
+        geom = "area", 
+        xlim = c(-4, -t_obs), 
+        fill = "black",
+        alpha = 0.5) +
+        stat_function(
+        fun = dt, 
+        args = list(df = df), 
+        geom = "area", 
+        xlim = c(t_obs, 4), 
+        fill = "black",
+        alpha = 0.5) +
+      annotate("text", x = t_obs + 0.15, y = 0.2, label = "Observed", size = 4, color = "blue", angle = 90) +
+      theme_bw() +
+      labs(title = "p-value from two-tailed test",
+           x = "t", y = "Density")
+    ```
+
+
+::: {.callout-important}
+## Two-tailed Test
+Let $X_1, X_2, \ldots, X_n \overset{\text{iid}}{\sim} N(\mu, \sigma^2)$
+
+Hypotheses:  
+
+- $H_0$: $\mu = \mu_0$  
+- $H_1$: $\mu \ne \mu_0$  
+
+Test statistic:  
+$$
+t = \frac{\bar{X} - \mu_0}{s / \sqrt{n}}
+$$
+
+Two-tailed p-value:  
+$$
+\text{p-value} = 2 \cdot \texttt{pt}(-|t|,\ n-1)
+$$
+
+Critical value technique: Reject $H_0$ if  
+$$
+|t| > \texttt{qt}\left(1 - \frac{\alpha}{2},\ n-1\right)
+$$
+:::
+
+::: {.panel-tabset}
+## Exercise:
+
+Cholesterol levels of US women are 190 mg/dL on average.  
+Want to compare cholesterol levels of recent Asian immigrants.  
+100 female Asian immigrants:  
+- $\bar{X} = 181.52$ mg/dL  
+- $s = 40$ mg/dL
+
+## Solution
+\begin{align*}
+H_0 &: \mu = 190 \\
+H_1 &: \mu \ne 190 \\
+t &= \frac{181.52 - 190}{40 / \sqrt{100}} = -2.12 \\
+\text{p-value} &= 2 \cdot pt(-2.12,\ 99) \approx 0.037
+\end{align*}
+
+:::
+
+- Use **two-sided tests by default**, unless only one direction is clearly of interest  
+  - e.g., drug efficacy
+  
+- Because this is an introductory class, there will be a lot of one-sided tests, to evaluate your understanding. These are typically rare in practice.
+
+---
+
+[One-sample t-tests in R](./05_ttest.qmd)
+
+---
+
+## Confidence intervals and hypothesis tests
+
+- Suppose $X_1, X_2, \ldots, X_n \overset{\text{iid}}{\sim} N(\mu, \sigma^2)$
+
+\begin{align*}
+H_0 &: \mu = \mu_0 \\
+H_1 &: \mu \ne \mu_0
+\end{align*}
+
+- Then, reject $H_0$ at level $\alpha$ **if and only if** the $100(1 - \alpha)\%$ confidence interval **does not contain** $\mu_0$
+
+- i.e., if $\mu_0$ is outside the CI, reject $H_0$ at level $\alpha$ and p-value is less than $\alpha$
+
+- **General result**: All tests correspond to some confidence interval, and vice versa
+
+- So, a $100(1 - \alpha)\%$ CI contains all values of $\mu_0$ that would fail to reject $H_0\!: \mu = \mu_0$
+
+- One-sided CIs correspond to one-sided tests
+
+# Power Calculations
+
+- Power = Probability of correctly rejecting the null:  
+  $$
+  \text{Power} = \Pr(\text{Reject } H_0 \mid H_1) = 1 - \beta
+  $$
+
+- In experiments/surveys, it is common to **guess power prior to collecting data**:
+  1. Calculate $n$ needed
+  2. See what effect sizes we can detect
+  3. Estimate likelihood our study will be successful
+
+- To do this, we need:
+  1. Guess of effect size $\mu_1 - \mu_0$ (from pilot study or wild guess)
+  2. Guess of standard deviation $\sigma$
+  3. Sample size $n$
+  4. Significance level $\alpha$ (provided by researcher)
+
+
+- If $\sigma$ is known, use **z-test** instead of t-test to calculate power
+
+\begin{align*}
+H_0 &: \mu = \mu_0 \\
+H_1 &: \mu < \mu_0
+\end{align*}
+
+- Reject $H_0$ if:  
+  $$
+  \frac{\bar{X} - \mu_0}{\sigma/\sqrt{n}} < z_\alpha
+  $$  
+  (This follows a standard normal under $H_0$)
+
+
+### Power calculation under $\mu = \mu_1$:
+
+\begin{align*}
+\Pr(\text{Reject } H_0 \mid \mu = \mu_1) 
+&= \Pr\left( \frac{\bar{X} - \mu_0}{\sigma/\sqrt{n}} < z_\alpha \ \Big| \ \mu = \mu_1 \right) \\
+&= \Pr\left( \frac{\bar{X} - \mu_1 + \mu_1 - \mu_0}{\sigma/\sqrt{n}} < z_\alpha \right)
+\end{align*}
+
+Continuing from the previous derivation:
+
+\begin{align*}
+\Pr\left( \frac{\bar{X} - \mu_0}{\sigma/\sqrt{n}} < z_\alpha \ \Big| \ \mu = \mu_1 \right)
+&= \Pr\left( \frac{\bar{X} - \mu_1}{\sigma/\sqrt{n}} < \frac{\mu_0 - \mu_1}{\sigma/\sqrt{n}} + z_\alpha \right) \\
+&= \Phi\left( \frac{\mu_0 - \mu_1}{\sigma/\sqrt{n}} + z_\alpha \right)
+\end{align*}
+
+- $\Phi(\cdot)$ is the **CDF of the standard normal distribution**  
+- This gives us an **estimate of power**  
+
+Rewriting:
+
+$$
+\text{Power} = \Phi\left( z_\alpha + \frac{\sqrt{n}(\mu_0 - \mu_1)}{\sigma} \right)
+$$
+
+
+**Plot:** $\Phi(x)$ is an S-shaped curve ranging from 0 to 1  
+**XYZ IMAGE HERE**  
+(Standard normal CDF)
+
+
+### Summary of how parameters affect power:
+
+| Parameter       | Change        | Effect on Power           | Reason                         |
+|----------------|---------------|----------------------------|--------------------------------|
+| $\alpha$        | ↓             | Power ↓                   | More stringent test            |
+| $n$             | ↓             | Power ↓                   | Less data                      |
+| $|\mu_0 - \mu_1|$ | ↓          | Power ↓                   | Smaller effect size            |
+| $\sigma$        | ↓             | Power ↑                   | More precise measurements      |
+
+
+**XYZ IMAGE HERE**  
+(Overlapping normal curves showing the distribution of $\bar{X}$ under $H_0$ and $H_1$, with $\alpha$ and power labeled)
+
+- Left curve: distribution under $\mu = \mu_0$  
+- Right curve: distribution under $\mu = \mu_1$  
+- Area to the left of the critical value under the $H_1$ curve is **power** = $1 - \beta$
+
+
+### Example:
+
+Pilot study using 10 individuals gave:  
+$\bar{X} = -5$, $s = 10$  
+Assume $\mu = 0$ is the null (no effect)  
+Now propose a new study with $n = 30$  
+At $\alpha = 0.05$, what is the power?
+
+\begin{align*}
+\mu_1 &= -5 \\
+\sigma &= 10 \\
+n &= 30 \\
+\alpha &= 0.05 \Rightarrow z_\alpha = -1.645 \quad (\text{i.e., } \texttt{qnorm(0.05)})
+\end{align*}
+
+Compute power:
+\begin{align*}
+\Phi\left(-1.645 + \frac{0 - (-5)}{10/\sqrt{30}} \right)
+&= \Phi(1.094) \\
+&= \texttt{pnorm(1.094)} \approx 0.863
+\end{align*}
+
+- $\Rightarrow$ Estimated **power** is **0.863**
+
+### Exercise:
+
+Mean birthweight in the US is 120 oz.  
+What is the **power to detect low birthweight** in a study with:  
+- $n = 100$  
+- $\mu_1 = 115$  
+- $\alpha = 0.05$  
+- $\sigma = 24$
+
+\begin{align*}
+\text{Power} &= \Phi\left(-1.645 + \frac{120 - 115}{24 / \sqrt{100}} \right) \\
+&= \Phi(0.438) = \texttt{pnorm(0.438)} \approx 0.669
+\end{align*}
+
+
+### For right-tailed test:
+
+If  
+\begin{align*}
+H_0 &: \mu = \mu_0 \\
+H_1 &: \mu > \mu_0
+\end{align*}
+
+Then  
+$$
+\text{Power} = \Phi\left( z_\alpha + \frac{\sqrt{n}(\mu_1 - \mu_0)}{\sigma} \right)
+$$
+
+(Just swap $\mu_0$ and $\mu_1$ from the left-tailed version.)
+
+
+### For two-tailed test:
+
+If  
+\begin{align*}
+H_0 &: \mu = \mu_0 \\
+H_1 &: \mu \ne \mu_0
+\end{align*}
+
+Then  
+$$
+\text{Power} = \Phi\left( z_{\alpha/2} + \frac{\sqrt{n}(\mu_0 - \mu_1)}{\sigma} \right)
++ \Phi\left( z_{\alpha/2} + \frac{\sqrt{n}(\mu_1 - \mu_0)}{\sigma} \right)
+$$
+
+- Add both tails  
+- Use $\alpha/2$ critical value
+
+# Sample Size Calculation
+
+- Typically, you want a **power** of at least 0.8  
+- So, what $n$ will give us power of 0.8?
+
+
+### Assume:
+
+1. Guess of effect size: $\mu_1 - \mu_0$ (from pilot study or wild guess)  
+2. Guess of standard deviation $\sigma$  
+3. Desired power = $1 - \beta$ (chosen by researcher)  
+4. Significance level $\alpha$
+
+
+### One-sided test (e.g., $H_0\!: \mu = \mu_0$ vs. $H_1\!: \mu < \mu_0$):
+
+Start from power formula:
+$$
+1 - \beta = \Phi\left( z_\alpha + \frac{\sqrt{n}(\mu_0 - \mu_1)}{\sigma} \right)
+$$
+
+Now solve for $n$ (either numerically or algebraically):
+
+Take inverse:
+$$
+\Phi^{-1}(1 - \beta) = z_\alpha + \frac{\sqrt{n}(\mu_0 - \mu_1)}{\sigma}
+$$
+
+Solve:
+$$
+\sqrt{n} = \frac{\Phi^{-1}(1 - \beta) - z_\alpha}{(\mu_0 - \mu_1)/\sigma}
+$$
+
+Square both sides:
+$$
+n = \frac{(\Phi^{-1}(1 - \beta) - z_\alpha)^2 \cdot \sigma^2}{(\mu_0 - \mu_1)^2}
+$$
+
+
+### Alternate form (for $H_0\!: \mu = \mu_0$ vs. $H_1\!: \mu > \mu_0$):
+
+$$
+n = \frac{(z_{1-\beta} + z_{1-\alpha})^2 \cdot \sigma^2}{(\mu_1 - \mu_0)^2}
+$$
+
+### Exercise: What is the effect on $n$ of increasing:
+
+1. $\sigma$  
+2. $\beta$  
+3. $\alpha$  
+4. $|\mu_0 - \mu_1|$
+
+
+#### Effects:
+
+1. $\sigma \uparrow \ \Rightarrow\ n \uparrow$  
+   (Less precise measurements, so need more data)
+
+2. $\beta \uparrow \ \Rightarrow\ 1 - \beta \downarrow \ \Rightarrow\ z_{1 - \beta} \downarrow \ \Rightarrow\ n \downarrow$  
+   (Less power needed)
+
+3. $\alpha \uparrow \ \Rightarrow\ z_{1 - \alpha} \downarrow \ \Rightarrow\ n \downarrow$  
+   (Less stringent test)
+
+4. $|\mu_0 - \mu_1| \uparrow \ \Rightarrow\ n \downarrow$  
+   (Larger effect sizes are easier to detect)
+
+**XYZ IMAGE HERE**  
+(Standard normal with $\alpha$, $\beta$, $z_{1-\alpha}$, and $z_{1-\beta}$ labeled)
+
+
+### For two-sided test:
+
+If $H_0: \mu = \mu_0$ vs. $H_1: \mu \ne \mu_0$,  
+solve for $n$ using:
+
+$$
+n = \frac{\sigma^2 (z_{1-\beta} + z_{1 - \alpha/2})^2}{(\mu_0 - \mu_1)^2}
+$$
+
+(The only difference from one-sided test is the use of $z_{1 - \alpha/2}$ instead of $z_{1 - \alpha}$.)
+
+---
+
+[Power Calculations in R](./05_power.qmd)
+
+---
+
+Skip Section 7.8
+
+# One-Sample Inference for Binomial
+
+### Example:
+
+Prevalence of breast cancer is 2%.  
+Of 10,000 women whose mothers had breast cancer,  
+400 of them got breast cancer in their lives.  
+**Are they at higher risk?**
+
+
+- Let $X$ = number of those 10,000 who got breast cancer  
+- $X \sim \text{Binom}(10{,}000,\ p)$
+
+\begin{align*}
+H_0 &: p = 0.02 \\
+H_1 &: p > 0.02
+\end{align*}
+
+
+### Use normal approximation:
+
+- $\hat{p} = \frac{x}{n} \sim N\left(p_0,\ \frac{p_0(1 - p_0)}{n}\right)$ under $H_0$
+
+Then:
+$$
+\frac{\hat{p} - p_0}{\sqrt{p_0(1 - p_0)/n}} \sim N(0, 1)
+$$
+
+**XYZ IMAGE HERE**  
+(Normal curve with right tail labeled as p-value)
+
+
+### p-value:
+$$
+\text{p-value} = 1 - \Phi\left( \frac{\hat{p} - p_0}{\sqrt{p_0(1 - p_0)/n}} \right)
+$$
+
+- If  
+  \begin{align*}
+  H_0 &: p = p_0 \\
+  H_1 &: p \ne p_0
+  \end{align*}  
+  Then calculate area in **both tails**:
+
+**XYZ IMAGE HERE**  
+(Symmetric normal curve with shaded tails, showing two-sided test)
+
+- Two-tailed p-value:
+$$
+\text{p-value} = 2 \cdot \Phi\left( -\left| \frac{\hat{p} - p_0}{\sqrt{p_0(1 - p_0)/n}} \right| \right)
+$$
+
+
+### Continuity correction:
+- Subtract $1/n$ in the numerator for upper-tail tests  
+- Add $1/n$ in the numerator for lower-tail tests
+
+
+### Example: Back to breast cancer example
+
+\begin{align*}
+\hat{p} &= \frac{400.5}{10{,}000} = 0.04005 \\
+z &= \frac{0.04005 - 0.02}{\sqrt{0.02(1 - 0.02)/10{,}000}} \approx 14.32 \\
+\text{p-value} &= \Phi(-14.32) \approx 8.4 \cdot 10^{-47} \ll 0.0001
+\end{align*}
+
+- $\Rightarrow$ **Very highly significant**
+
+## Exact Test
+
+- Still assume: $X \sim \text{Bin}(n, p)$  
+- Hypotheses:  
+  $H_0: p = p_0$  
+  $H_1: p \ne p_0$, or $p > p_0$, or $p < p_0$
+
+
+### When to use the exact test:
+
+- The **normal method only works for large $n$**
+- Rule of thumb:  
+  $$
+  n p_0(1 - p_0) \ge 5
+  $$
+
+- If $n$ is **not large enough**, use an **exact test**  
+  - Controls for $\alpha$ **for all $n$**, not just large $n$
+
+
+**XYZ IMAGE HERE**  
+(PMF with observed $x$ marked, showing tail probabilities)
+
+- For two-sided test, p-value is **2 × tail sum** in direction of $x$ (flip if $x > n p_0$)
+
+
+### p-value formulas:
+
+If $x \le n p_0$:
+$$
+\text{p-value} = 2 \sum_{k = 0}^{x} \binom{n}{k} p_0^k (1 - p_0)^{n - k}
+$$
+
+If $x > n p_0$:
+$$
+\text{p-value} = 2 \sum_{k = x}^{n} \binom{n}{k} p_0^k (1 - p_0)^{n - k}
+$$
+
+
+### For One-Sided Binomial Hypotheses
+
+#### Left-tailed test:  
+$H_1: p < p_0$
+
+**XYZ IMAGE HERE**  
+(PMF with tail shaded to the left of observed $x$)
+
+
+#### Right-tailed test:  
+$H_1: p > p_0$
+
+**XYZ IMAGE HERE**  
+(PMF with tail shaded to the right of observed $x$)
+
+
+- In either case:
+
+$$
+\text{p-value} = \Pr(\text{as or more extreme } X \mid H_0)
+$$
+
+- You can compute this probability **exactly** for binomial tests
+
+
+
+### Example:
+
+In a nuclear facility, there were 13 deaths,  
+of which 5 were caused by cancer.  
+Cancer causes 20% of deaths in this age group.
+
+**Are there actually more cancer deaths than would be expected?**
+
+
+- Let $X \sim \text{Binom}(13, p)$
+
+\begin{align*}
+H_0 &: p = 0.2 \\
+H_1 &: p > 0.2
+\end{align*}
+
+- p-value:
+$$
+\text{p-value} = \sum_{k = 5}^{13} \binom{13}{k} 0.2^k (1 - 0.2)^{13 - k}
+$$
+
+Or compute directly in R:
+```r
+1 - pbinom(4, size = 13, prob = 0.2)
+```
+
+* Result:
+
+$$
+\text{p-value} = 0.09413
+$$
+
+* \$\Rightarrow\$ No evidence of **more cancer deaths than typical**
+
+
+--- 
+
+[Binomial Tests in R](./05_binom.qmd)
+
+---
+
+```r
+binom.test(x = 5, n = 13, p = 0.2, alternative = "greater")
+```
+
+# Power Calculations for Binomial Tests
+
+We want:
+$$
+\text{Power} = \Pr(\text{Reject } H_0 \mid H_1)
+$$
+
+### Need:
+- True alternative value: $p_1$  
+- Sample size: $n$  
+- Significance level: $\alpha$
+
+We skip the exact distribution and use a **normal approximation**.
+
+
+**XYZ IMAGE HERE**  
+(Overlapping normal distributions under $H_0: p = p_0$ and $H_1: p = p_1$ with shaded rejection region and labeled $\alpha/2$, $\beta$)
+
+
+### Under $H_0: p \ne p_0$, power is approximated as:
+
+$$
+\text{Power} = \Phi\left(
+\frac{p_0 - p_1}{\sqrt{p_1(1 - p_1)/n}}
+ \cdot z_{\alpha/2}
++ \frac{|p_0 - p_1| \cdot \sqrt{n}}{\sqrt{p_1(1 - p_1)}}
+\right)
+$$
+
+
+### Summary of effects on power:
+
+| Parameter        | Change       | Effect on Power  | Reason              |
+|------------------|--------------|------------------|---------------------|
+| $n$              | ↑            | Power ↑          | More data           |
+| $\alpha$         | ↑            | Power ↑          | Less stringent test |
+| $|p_0 - p_1|$     | ↑            | Power ↑          | More signal         |
+
+
+# Sample Size Calculation (Binomial)
+
+### Need:
+1. True alternative $p_1$  
+2. Desired power $1 - \beta$  
+3. Significance level $\alpha$
+
+
+We set:
+$$
+1 - \beta = f(n,\ p_1,\ \alpha)
+$$
+
+Then **solve for $n$**
+
+---
+
+[Power Calculations in R](./05_binom_power.qmd)
+
+---
+
+
+# Poisson Test
+
+- Let $X \sim \text{Poisson}(\mu)$
+
+### Hypotheses:
+- $H_0: \mu = \mu_0$  
+- $H_1$: $\mu \ne \mu_0$, or $\mu > \mu_0$, or $\mu < \mu_0$
+
+
+### p-value (two-sided):
+
+Let $x$ be the observed count. Then:
+
+$$
+\text{p-value} = \sum_{h : \Pr(h) \le \Pr(x)} \Pr(h) 
+= \sum_{h : \Pr(h) \le \Pr(x)} \frac{e^{-\mu_0} \mu_0^h}{h!}
+$$
+
+**XYZ IMAGE HERE**  
+(PMF showing observed $x$ and shaded tails for exact p-value)
+
+
+### Example:
+
+8446 rubber workers, ages 40–84  
+4 deaths due to Hodgkin's disease  
+Expected deaths (based on U.S. rates): 3.3
+
+Let $X$ = # with Hodgkin's  
+Assume $X \sim \text{Poisson}(\mu)$
+
+\begin{align*}
+H_0 &: \mu = 3.3 \\
+H_1 &: \mu \ne 3.3
+\end{align*}
+
+R code:
+```{r}
+poisson.test(x = 4, r = 3.3)
+```
+
+Result:
+
+$$
+\text{p-value} = 0.578
+$$
+
+* $\Rightarrow$ No evidence of elevated risk
+
+### Note:
+
+- **Binomial test is not appropriate here**  
+  because each individual has a different $p_i$.
+- The null hypothesis was based on the **expected $p_i$ for each individual**.
+
+
+## Standardized Mortality Ratio (SMR)
+
+$$
+\text{SMR} = \frac{\text{Observed}}{\text{Expected}} \times 100\%
+$$
+
+- $\text{SMR} > 100\%$ $\Rightarrow$ more deaths than expected in the study population  
+- $\text{SMR} < 100\%$ $\Rightarrow$ fewer deaths  
+- $\text{SMR} = 100\%$ $\Rightarrow$ same number of deaths as expected
+
+
+### Example:
+
+Observed = 4, Expected = 3.3
+
+$$
+\text{SMR} = \frac{4}{3.3} \times 100\% \approx 121\%
+$$
+
+# Exercises 7.1–7.8
+
+- 12 patients
+- After 24 hours, mean serum creatinine is $1.2 \text{ mg/dL}$  
+- General population: $\mu = 1$, $\sigma = 0.4$
+
+
+### (1) Known $\sigma$
+
+- $H_0$: $\mu = 1$  
+- $H_1$: $\mu \ne 1$
+
+$$
+z = \frac{1.2 - 1}{0.4 / \sqrt{12}} = 1.732
+$$
+
+Under $H_0$, $z \sim N(0, 1)$:
+
+$$
+2 \cdot \text{pnorm}(-1.73) = 0.08326
+$$
+
+Fail to reject $H_0$.
+
+
+### (2.1) If instead $s = 0.4$, $\sigma$ unknown
+
+- $t = 1.73 \sim t_{11}$
+
+$$
+2 \cdot \text{pt}(-1.73, \text{df} = 11) = 0.1112
+$$
+
+$p$-value = 0.6376  
+Fail to reject $H_0$.
+
+
+### (2.2) $s = 0.6$, $\sigma$ unknown
+
+$$
+t = \frac{1.2 - 1}{0.6 / \sqrt{12}} = 1.155
+$$
+
+$$
+2 \cdot \text{pt}(-1.155, \text{df} = 11) = 0.2777
+$$
+
+Fail to reject $H_0$.
+
+
+### 7.4
+$$
+1.2 \pm t_{11, 0.975} \cdot \frac{0.6}{\sqrt{12}} \\
+t_{0.975, \text{df}=11} = 2.201 \Rightarrow \text{CI} = (0.82, 1.58)
+$$
+
+
+### 7.5
+- 1 is included in the 99% CI $\Rightarrow$ $p$-value > 0.05
+
+
+### 7.6
+$$
+\text{pt}(-1.52, \text{df}=6) = 0.179
+$$
+
+
+### 7.7
+$$
+1 - \text{pt}(2.5, \text{df}=36) = 0.008557
+$$
+
+
+### 7.8
+$$
+\text{qt}(0.1, \text{df}=54) = -1.297
+$$
+
+
+### 7.52–7.53
+
+- $n = 200$
+- $X$ = number who develop cancer
+- observed $x = 4$
+- $X \sim \text{Binom}(200, p)$  
+- $H_0$: $p = 0.01$ vs $H_1$: $p \ne 0.01$
+
+Check:
+
+$$
+np_0(1 - p_0) = 0.01 \cdot 0.99 \cdot 200 = 1.98 < 5
+$$
+
+→ Use exact binomial test.
+
+R code:
+
+```{r}
+binom.test(x = 4, n = 200, p = 0.01)
+```
+
+
+### Manual p-value computation:
+
+$$
+\text{p-value} = 2 \cdot \sum_{k=4}^{200} \binom{200}{k} (0.01)^k (0.99)^{200-k}
+$$
+
+R shortcut:
+
+```{r}
+2 * dbinom(3, size = 200, prob = 0.01)
+```
+
+Result:
+
+$$
+\text{p-value} \approx 0.2839
+$$
+
+
+* R output $p$-value ≈ 0.142
+
+### 7.54
+- 5-year period
+- $X = 20$, $n = 200$
+- 5-year incidence rate is $0.05$
+
+Hypotheses:
+- $H_0$: $p = 0.05$
+- $H_1$: $p \ne 0.05$
+
+Since $0.05 \cdot 0.95 \cdot 200 = 9.5$, we can use the normal approximation.
+
+$$
+z = \frac{0.1 - 0.05}{\sqrt{0.05 \cdot 0.95 / 200}} = 3.082
+$$
+
+$$
+\text{p-value} = 2(1 - \text{pnorm}(3.082)) = 0.002055
+$$
+
+→ Reject $H_0$
+
+
+### 7.55
+
+Compute 95% CI for $p$:
+
+$$
+\hat{p} \pm z_{0.975} \cdot \sqrt{\frac{\hat{p}(1 - \hat{p})}{n}} \quad \text{where } z_{0.975} = 1.96
+$$
+
+$$
+0.1 \pm 1.96 \cdot \sqrt{\frac{0.1 \cdot 0.9}{200}} = (0.05842, 0.1416)
+$$
+
+R code:
+
+```{r}
+prop.test(x = 20, n = 200, p = 0.05)
+```

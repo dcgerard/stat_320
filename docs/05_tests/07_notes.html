@@ -1,0 +1,2282 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.7.32">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="David Gerard">
+<meta name="dcterms.date" content="2025-07-10">
+
+<title>Chapter 7: One Sample Hypothesis Testing – Stat 320: Biostatistics</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-2fef5ea3f8957b3e4ecc936fc74692ca.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-6bdd2aebeb936dcddaa5f935a5de481c.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark-ccd81253fefb92e9cd3f9eb5b5d87b54.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../site_libs/bootstrap/bootstrap-6bdd2aebeb936dcddaa5f935a5de481c.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="../styles.css">
+</head>
+
+<body class="nav-fixed quarto-light"><script id="quarto-html-before-body" type="application/javascript">
+    const toggleBodyColorMode = (bsSheetEl) => {
+      const mode = bsSheetEl.getAttribute("data-mode");
+      const bodyEl = window.document.querySelector("body");
+      if (mode === "dark") {
+        bodyEl.classList.add("quarto-dark");
+        bodyEl.classList.remove("quarto-light");
+      } else {
+        bodyEl.classList.add("quarto-light");
+        bodyEl.classList.remove("quarto-dark");
+      }
+    }
+    const toggleBodyColorPrimary = () => {
+      const bsSheetEl = window.document.querySelector("link#quarto-bootstrap:not([rel=disabled-stylesheet])");
+      if (bsSheetEl) {
+        toggleBodyColorMode(bsSheetEl);
+      }
+    }
+    const setColorSchemeToggle = (alternate) => {
+      const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+      for (let i=0; i < toggles.length; i++) {
+        const toggle = toggles[i];
+        if (toggle) {
+          if (alternate) {
+            toggle.classList.add("alternate");
+          } else {
+            toggle.classList.remove("alternate");
+          }
+        }
+      }
+    };
+    const toggleColorMode = (alternate) => {
+      // Switch the stylesheets
+      const primaryStylesheets = window.document.querySelectorAll('link.quarto-color-scheme:not(.quarto-color-alternate)');
+      const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+      manageTransitions('#quarto-margin-sidebar .nav-link', false);
+      if (alternate) {
+        // note: dark is layered on light, we don't disable primary!
+        enableStylesheet(alternateStylesheets);
+        for (const sheetNode of alternateStylesheets) {
+          if (sheetNode.id === "quarto-bootstrap") {
+            toggleBodyColorMode(sheetNode);
+          }
+        }
+      } else {
+        disableStylesheet(alternateStylesheets);
+        enableStylesheet(primaryStylesheets)
+        toggleBodyColorPrimary();
+      }
+      manageTransitions('#quarto-margin-sidebar .nav-link', true);
+      // Switch the toggles
+      setColorSchemeToggle(alternate)
+      // Hack to workaround the fact that safari doesn't
+      // properly recolor the scrollbar when toggling (#1455)
+      if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+        manageTransitions("body", false);
+        window.scrollTo(0, 1);
+        setTimeout(() => {
+          window.scrollTo(0, 0);
+          manageTransitions("body", true);
+        }, 40);
+      }
+    }
+    const disableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        stylesheet.rel = 'disabled-stylesheet';
+      }
+    }
+    const enableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        if(stylesheet.rel !== 'stylesheet') { // for Chrome, which will still FOUC without this check
+          stylesheet.rel = 'stylesheet';
+        }
+      }
+    }
+    const manageTransitions = (selector, allowTransitions) => {
+      const els = window.document.querySelectorAll(selector);
+      for (let i=0; i < els.length; i++) {
+        const el = els[i];
+        if (allowTransitions) {
+          el.classList.remove('notransition');
+        } else {
+          el.classList.add('notransition');
+        }
+      }
+    }
+    const isFileUrl = () => {
+      return window.location.protocol === 'file:';
+    }
+    const hasAlternateSentinel = () => {
+      let styleSentinel = getColorSchemeSentinel();
+      if (styleSentinel !== null) {
+        return styleSentinel === "alternate";
+      } else {
+        return false;
+      }
+    }
+    const setStyleSentinel = (alternate) => {
+      const value = alternate ? "alternate" : "default";
+      if (!isFileUrl()) {
+        window.localStorage.setItem("quarto-color-scheme", value);
+      } else {
+        localAlternateSentinel = value;
+      }
+    }
+    const getColorSchemeSentinel = () => {
+      if (!isFileUrl()) {
+        const storageValue = window.localStorage.getItem("quarto-color-scheme");
+        return storageValue != null ? storageValue : localAlternateSentinel;
+      } else {
+        return localAlternateSentinel;
+      }
+    }
+    const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+      const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+      const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+      let newTheme = '';
+      if(authorPrefersDark) {
+        newTheme = isAlternate ? baseTheme : alternateTheme;
+      } else {
+        newTheme = isAlternate ? alternateTheme : baseTheme;
+      }
+      const changeGiscusTheme = () => {
+        // From: https://github.com/giscus/giscus/issues/336
+        const sendMessage = (message) => {
+          const iframe = document.querySelector('iframe.giscus-frame');
+          if (!iframe) return;
+          iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+        }
+        sendMessage({
+          setConfig: {
+            theme: newTheme
+          }
+        });
+      }
+      const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+      if (isGiscussLoaded) {
+        changeGiscusTheme();
+      }
+    };
+    const authorPrefersDark = false;
+    const darkModeDefault = authorPrefersDark;
+      document.querySelector('link#quarto-text-highlighting-styles.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+      document.querySelector('link#quarto-bootstrap.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+    let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
+    // Dark / light mode switch
+    window.quartoToggleColorScheme = () => {
+      // Read the current dark / light value
+      let toAlternate = !hasAlternateSentinel();
+      toggleColorMode(toAlternate);
+      setStyleSentinel(toAlternate);
+      toggleGiscusIfUsed(toAlternate, darkModeDefault);
+      window.dispatchEvent(new Event('resize'));
+    };
+    // Switch to dark mode if need be
+    if (hasAlternateSentinel()) {
+      toggleColorMode(true);
+    } else {
+      toggleColorMode(false);
+    }
+  </script>
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">Stat 320: Biostatistics</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../index.html"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../data.html"> 
+<span class="menu-text">Data</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#hypothesis-testing-overview" id="toc-hypothesis-testing-overview" class="nav-link active" data-scroll-target="#hypothesis-testing-overview">Hypothesis Testing Overview</a></li>
+  <li><a href="#hypothesis-testing-for-the-mean" id="toc-hypothesis-testing-for-the-mean" class="nav-link" data-scroll-target="#hypothesis-testing-for-the-mean">Hypothesis Testing for the Mean</a>
+  <ul class="collapse">
+  <li><a href="#two-sided-tests-for-the-mean" id="toc-two-sided-tests-for-the-mean" class="nav-link" data-scroll-target="#two-sided-tests-for-the-mean">Two-sided Tests for the Mean</a></li>
+  <li><a href="#confidence-intervals-and-hypothesis-tests" id="toc-confidence-intervals-and-hypothesis-tests" class="nav-link" data-scroll-target="#confidence-intervals-and-hypothesis-tests">Confidence intervals and hypothesis tests</a></li>
+  </ul></li>
+  <li><a href="#power-calculations" id="toc-power-calculations" class="nav-link" data-scroll-target="#power-calculations">Power Calculations</a>
+  <ul class="collapse">
+  <li><a href="#power-calculation-under-mu-mu_1" id="toc-power-calculation-under-mu-mu_1" class="nav-link" data-scroll-target="#power-calculation-under-mu-mu_1">Power calculation under <span class="math inline">\(\mu = \mu_1\)</span>:</a></li>
+  <li><a href="#summary-of-how-parameters-affect-power" id="toc-summary-of-how-parameters-affect-power" class="nav-link" data-scroll-target="#summary-of-how-parameters-affect-power">Summary of how parameters affect power:</a></li>
+  <li><a href="#example" id="toc-example" class="nav-link" data-scroll-target="#example">Example:</a></li>
+  <li><a href="#exercise-4" id="toc-exercise-4" class="nav-link" data-scroll-target="#exercise-4">Exercise:</a></li>
+  <li><a href="#for-right-tailed-test" id="toc-for-right-tailed-test" class="nav-link" data-scroll-target="#for-right-tailed-test">For right-tailed test:</a></li>
+  <li><a href="#for-two-tailed-test" id="toc-for-two-tailed-test" class="nav-link" data-scroll-target="#for-two-tailed-test">For two-tailed test:</a></li>
+  </ul></li>
+  <li><a href="#sample-size-calculation" id="toc-sample-size-calculation" class="nav-link" data-scroll-target="#sample-size-calculation">Sample Size Calculation</a>
+  <ul class="collapse">
+  <li><a href="#assume" id="toc-assume" class="nav-link" data-scroll-target="#assume">Assume:</a></li>
+  <li><a href="#one-sided-test-e.g.-h_0-mu-mu_0-vs.-h_1-mu-mu_0" id="toc-one-sided-test-e.g.-h_0-mu-mu_0-vs.-h_1-mu-mu_0" class="nav-link" data-scroll-target="#one-sided-test-e.g.-h_0-mu-mu_0-vs.-h_1-mu-mu_0">One-sided test (e.g., <span class="math inline">\(H_0\!: \mu = \mu_0\)</span> vs.&nbsp;<span class="math inline">\(H_1\!: \mu &lt; \mu_0\)</span>):</a></li>
+  <li><a href="#alternate-form-for-h_0-mu-mu_0-vs.-h_1-mu-mu_0" id="toc-alternate-form-for-h_0-mu-mu_0-vs.-h_1-mu-mu_0" class="nav-link" data-scroll-target="#alternate-form-for-h_0-mu-mu_0-vs.-h_1-mu-mu_0">Alternate form (for <span class="math inline">\(H_0\!: \mu = \mu_0\)</span> vs.&nbsp;<span class="math inline">\(H_1\!: \mu &gt; \mu_0\)</span>):</a></li>
+  <li><a href="#exercise-what-is-the-effect-on-n-of-increasing" id="toc-exercise-what-is-the-effect-on-n-of-increasing" class="nav-link" data-scroll-target="#exercise-what-is-the-effect-on-n-of-increasing">Exercise: What is the effect on <span class="math inline">\(n\)</span> of increasing:</a></li>
+  <li><a href="#for-two-sided-test" id="toc-for-two-sided-test" class="nav-link" data-scroll-target="#for-two-sided-test">For two-sided test:</a></li>
+  </ul></li>
+  <li><a href="#one-sample-inference-for-binomial" id="toc-one-sample-inference-for-binomial" class="nav-link" data-scroll-target="#one-sample-inference-for-binomial">One-Sample Inference for Binomial</a>
+  <ul class="collapse">
+  <li><a href="#example-1" id="toc-example-1" class="nav-link" data-scroll-target="#example-1">Example:</a></li>
+  <li><a href="#use-normal-approximation" id="toc-use-normal-approximation" class="nav-link" data-scroll-target="#use-normal-approximation">Use normal approximation:</a></li>
+  <li><a href="#p-value-1" id="toc-p-value-1" class="nav-link" data-scroll-target="#p-value-1">p-value:</a></li>
+  <li><a href="#continuity-correction" id="toc-continuity-correction" class="nav-link" data-scroll-target="#continuity-correction">Continuity correction:</a></li>
+  <li><a href="#example-back-to-breast-cancer-example" id="toc-example-back-to-breast-cancer-example" class="nav-link" data-scroll-target="#example-back-to-breast-cancer-example">Example: Back to breast cancer example</a></li>
+  <li><a href="#exact-test" id="toc-exact-test" class="nav-link" data-scroll-target="#exact-test">Exact Test</a>
+  <ul class="collapse">
+  <li><a href="#when-to-use-the-exact-test" id="toc-when-to-use-the-exact-test" class="nav-link" data-scroll-target="#when-to-use-the-exact-test">When to use the exact test:</a></li>
+  <li><a href="#p-value-formulas" id="toc-p-value-formulas" class="nav-link" data-scroll-target="#p-value-formulas">p-value formulas:</a></li>
+  <li><a href="#for-one-sided-binomial-hypotheses" id="toc-for-one-sided-binomial-hypotheses" class="nav-link" data-scroll-target="#for-one-sided-binomial-hypotheses">For One-Sided Binomial Hypotheses</a></li>
+  <li><a href="#example-2" id="toc-example-2" class="nav-link" data-scroll-target="#example-2">Example:</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#power-calculations-for-binomial-tests" id="toc-power-calculations-for-binomial-tests" class="nav-link" data-scroll-target="#power-calculations-for-binomial-tests">Power Calculations for Binomial Tests</a>
+  <ul class="collapse">
+  <li><a href="#need" id="toc-need" class="nav-link" data-scroll-target="#need">Need:</a></li>
+  <li><a href="#under-h_0-p-ne-p_0-power-is-approximated-as" id="toc-under-h_0-p-ne-p_0-power-is-approximated-as" class="nav-link" data-scroll-target="#under-h_0-p-ne-p_0-power-is-approximated-as">Under <span class="math inline">\(H_0: p \ne p_0\)</span>, power is approximated as:</a></li>
+  <li><a href="#summary-of-effects-on-power" id="toc-summary-of-effects-on-power" class="nav-link" data-scroll-target="#summary-of-effects-on-power">Summary of effects on power:</a></li>
+  </ul></li>
+  <li><a href="#sample-size-calculation-binomial" id="toc-sample-size-calculation-binomial" class="nav-link" data-scroll-target="#sample-size-calculation-binomial">Sample Size Calculation (Binomial)</a>
+  <ul class="collapse">
+  <li><a href="#need-1" id="toc-need-1" class="nav-link" data-scroll-target="#need-1">Need:</a></li>
+  </ul></li>
+  <li><a href="#poisson-test" id="toc-poisson-test" class="nav-link" data-scroll-target="#poisson-test">Poisson Test</a>
+  <ul class="collapse">
+  <li><a href="#hypotheses" id="toc-hypotheses" class="nav-link" data-scroll-target="#hypotheses">Hypotheses:</a></li>
+  <li><a href="#p-value-two-sided" id="toc-p-value-two-sided" class="nav-link" data-scroll-target="#p-value-two-sided">p-value (two-sided):</a></li>
+  <li><a href="#example-3" id="toc-example-3" class="nav-link" data-scroll-target="#example-3">Example:</a></li>
+  <li><a href="#note" id="toc-note" class="nav-link" data-scroll-target="#note">Note:</a></li>
+  <li><a href="#standardized-mortality-ratio-smr" id="toc-standardized-mortality-ratio-smr" class="nav-link" data-scroll-target="#standardized-mortality-ratio-smr">Standardized Mortality Ratio (SMR)</a>
+  <ul class="collapse">
+  <li><a href="#example-4" id="toc-example-4" class="nav-link" data-scroll-target="#example-4">Example:</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#exercises-7.17.8" id="toc-exercises-7.17.8" class="nav-link" data-scroll-target="#exercises-7.17.8">Exercises 7.1–7.8</a>
+  <ul class="collapse">
+  <li><a href="#known-sigma" id="toc-known-sigma" class="nav-link" data-scroll-target="#known-sigma">(1) Known <span class="math inline">\(\sigma\)</span></a></li>
+  <li><a href="#if-instead-s-0.4-sigma-unknown" id="toc-if-instead-s-0.4-sigma-unknown" class="nav-link" data-scroll-target="#if-instead-s-0.4-sigma-unknown">(2.1) If instead <span class="math inline">\(s = 0.4\)</span>, <span class="math inline">\(\sigma\)</span> unknown</a></li>
+  <li><a href="#s-0.6-sigma-unknown" id="toc-s-0.6-sigma-unknown" class="nav-link" data-scroll-target="#s-0.6-sigma-unknown">(2.2) <span class="math inline">\(s = 0.6\)</span>, <span class="math inline">\(\sigma\)</span> unknown</a></li>
+  <li><a href="#section" id="toc-section" class="nav-link" data-scroll-target="#section">7.4</a></li>
+  <li><a href="#section-1" id="toc-section-1" class="nav-link" data-scroll-target="#section-1">7.5</a></li>
+  <li><a href="#section-2" id="toc-section-2" class="nav-link" data-scroll-target="#section-2">7.6</a></li>
+  <li><a href="#section-3" id="toc-section-3" class="nav-link" data-scroll-target="#section-3">7.7</a></li>
+  <li><a href="#section-4" id="toc-section-4" class="nav-link" data-scroll-target="#section-4">7.8</a></li>
+  <li><a href="#section-5" id="toc-section-5" class="nav-link" data-scroll-target="#section-5">7.52–7.53</a></li>
+  <li><a href="#manual-p-value-computation" id="toc-manual-p-value-computation" class="nav-link" data-scroll-target="#manual-p-value-computation">Manual p-value computation:</a></li>
+  <li><a href="#section-6" id="toc-section-6" class="nav-link" data-scroll-target="#section-6">7.54</a></li>
+  <li><a href="#section-7" id="toc-section-7" class="nav-link" data-scroll-target="#section-7">7.55</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Chapter 7: One Sample Hypothesis Testing</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>David Gerard </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">July 10, 2025</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="hypothesis-testing-overview" class="level1">
+<h1>Hypothesis Testing Overview</h1>
+<ul>
+<li>Two hypotheses
+<ul>
+<li><span class="math inline">\(H_0\)</span>: <strong>Null</strong>
+<ul>
+<li>Baseline, to be disproved<br>
+</li>
+</ul></li>
+<li><span class="math inline">\(H_1\)</span>: <strong>Alternative</strong>
+<ul>
+<li>Opposite of null (contradicts <span class="math inline">\(H_0\)</span>)</li>
+</ul></li>
+</ul></li>
+<li>Example: Want to test if low socioeconomic status (SES) mothers have babies with lower birthweight
+<ul>
+<li>Know: national average is 120 oz<br>
+</li>
+<li>For <span class="math inline">\(n = 10\)</span> low SES mothers, observe
+<ul>
+<li><span class="math inline">\(\bar{X} = 115\)</span> oz, <span class="math inline">\(S = 24\)</span> oz<br>
+</li>
+</ul></li>
+<li>Let <span class="math inline">\(\mu\)</span> = average birthweight of low SES mothers
+<ul>
+<li><span class="math inline">\(H_0\)</span>: <span class="math inline">\(\mu = 120\)</span><br>
+</li>
+<li><span class="math inline">\(H_1\)</span>: <span class="math inline">\(\mu &lt; 120\)</span></li>
+</ul></li>
+</ul></li>
+<li>We use data (e.g., <span class="math inline">\(\bar{X}\)</span> and <span class="math inline">\(s^2\)</span>) to make a decision (<span class="math inline">\(H_0\)</span> vs.&nbsp;<span class="math inline">\(H_1\)</span>)</li>
+</ul>
+<p><span class="math display">\[
+\begin{array}{c|cc}
+&amp; H_0 \text{ true} &amp; H_1 \text{ true} \\
+\hline
+\text{Fail to Reject } H_0 &amp; \text{True negative} &amp; \text{Type II error} \\
+\text{Reject } H_0 &amp; \text{Type I error} &amp; \text{True positive} \\
+\end{array}
+\]</span></p>
+<ul>
+<li><p>Example: If the truth is <span class="math inline">\(\mu = 120\)</span> (<span class="math inline">\(H_0\)</span> is true) but we say <span class="math inline">\(\mu &lt; 120\)</span> (reject <span class="math inline">\(H_0\)</span>), this is a Type I error</p></li>
+<li><p>Typically,</p>
+<ul>
+<li>Null Hypothesis: parameter = some value<br>
+</li>
+<li>Alternative Hypothesis: One of:
+<ul>
+<li>parameter ≠ value,</li>
+<li>parameter &gt; value,</li>
+<li>parameter &lt; value,</li>
+</ul></li>
+</ul></li>
+</ul>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Type I error rate
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Probability of a Type I error <span class="math display">\[\begin{align*}
+\Pr(\text{Reject } H_0 \mid H_0 \text{ True}) &amp;= \text{significance level} \\
+&amp;= \alpha
+\end{align*}\]</span></p>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Type II error rate
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Probability of a Type II error<br>
+<span class="math display">\[\begin{align*}
+\Pr(\text{Fail to reject } H_0 \mid H_1 \text{ True}) &amp;= \beta
+\end{align*}\]</span></p>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Power
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Probability of correctly rejecting the null. <span class="math display">\[\begin{align*}
+\Pr(\text{Reject } H_0 \mid H_1 \text{ True})
+&amp;= 1 - \Pr(\text{Fail to reject } H_0 \mid H_1 \text{ True}) \\
+&amp;= 1 - \beta
+\end{align*}\]</span></p>
+</div>
+</div>
+<ul>
+<li>These probabilities are all in terms of <strong>repeated samples</strong>.</li>
+</ul>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true">Exercise</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false">Solution:</a></li></ul>
+<div class="tab-content">
+<div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
+<p>There is a new pain relief drug for osteoarthritis (OA).</p>
+<ul>
+<li>50 OA patients take drug; measure <span class="math inline">\(X\)</span> = % decline in pain level.<br>
+</li>
+<li>Reported:
+<ul>
+<li>If <span class="math inline">\(X &gt; 0\)</span>: less pain</li>
+<li>If <span class="math inline">\(X &lt; 0\)</span>: more pain<br>
+</li>
+</ul></li>
+<li>We want to test if the drug is effective (average <span class="math inline">\(X &gt; 0\)</span>)</li>
+</ul>
+<ol type="1">
+<li>What hypotheses are being tested?<br>
+</li>
+<li>What do Type I error, Type II error, and power mean?</li>
+</ol>
+</div>
+<div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
+<ul>
+<li>Let <span class="math inline">\(\mu\)</span> = mean % decline in pain</li>
+<li><span class="math inline">\(H_0\)</span>: <span class="math inline">\(\mu = 0\)</span></li>
+<li><span class="math inline">\(H_1\)</span>: <span class="math inline">\(\mu &gt; 0\)</span></li>
+<li>Type I: Say drug reduces pain on average, but it does not<br>
+</li>
+<li>Type II: Say drug does not reduce pain when it does<br>
+</li>
+<li>Power: Probability we say it works when it truly works</li>
+</ul>
+</div>
+</div>
+</div>
+<ul>
+<li><p>The goal of a good test is to make both <span class="math inline">\(\alpha\)</span> and <span class="math inline">\(\beta\)</span> as small as possible</p></li>
+<li><p>However, typically, as <span class="math inline">\(\alpha \downarrow\)</span>, <span class="math inline">\(\beta \uparrow\)</span> and as <span class="math inline">\(\beta \downarrow\)</span>, <span class="math inline">\(\alpha \uparrow\)</span>.</p>
+<ul>
+<li>These are conflicting criteria</li>
+</ul></li>
+<li><p>Common strategy: Fix <span class="math inline">\(\alpha = 0.05\)</span> (or similar), and use a test that has small <span class="math inline">\(\beta\)</span></p></li>
+<li><p>All hypothesis testing asks: <strong>How weird is our data if <span class="math inline">\(H_0\)</span> were true?</strong></p></li>
+</ul>
+<p><img src="./05_figs/hypothesis_tests.png" class="img-fluid" alt="Visual of observed data versus hypothetical data under null with tail probability marked">&nbsp;</p>
+<ul>
+<li><p>If data are very weird, reject <span class="math inline">\(H_0\)</span></p></li>
+<li><p>If data are not very weird, fail to reject <span class="math inline">\(H_0\)</span></p></li>
+</ul>
+</section>
+<section id="hypothesis-testing-for-the-mean" class="level1">
+<h1>Hypothesis Testing for the Mean</h1>
+<ul>
+<li><p>Back to our example:<br>
+Let <span class="math inline">\(X_1, X_2, \ldots, X_n \overset{\text{iid}}{\sim} N(\mu, \sigma^2)\)</span></p>
+<ul>
+<li><span class="math inline">\(H_0\)</span>: <span class="math inline">\(\mu = \mu_0\)</span><br>
+</li>
+<li><span class="math inline">\(H_1\)</span>: <span class="math inline">\(\mu &lt; \mu_0\)</span></li>
+</ul></li>
+<li><p>This is a <strong>one-sided test</strong> because the alternative is of the form <span class="math inline">\(&gt;\)</span> or <span class="math inline">\(&lt;\)</span><br>
+(as opposed to <span class="math inline">\(\mu \ne \mu_0\)</span>)</p></li>
+<li><p>Idea: Use the <span class="math inline">\(t\)</span>-statistic as a measure of weirdness <span class="math display">\[
+t = \frac{\bar{X} - \mu_0}{s / \sqrt{n}}
+\]</span></p></li>
+<li><p>If <span class="math inline">\(\mu = \mu_0\)</span>, then <span class="math inline">\(t\)</span> should be close to 0, since <span class="math inline">\(\bar{X}\)</span> will be close to <span class="math inline">\(\mu_0\)</span></p></li>
+<li><p>In fact, under <span class="math inline">\(H_0\)</span> (that is, <strong>only</strong> when <span class="math inline">\(H_0\)</span> is true): <span class="math display">\[
+t \sim t_{n-1}
+\]</span></p></li>
+<li><p>So compare <span class="math inline">\(t\)</span> to a <span class="math inline">\(t_{n-1}\)</span> distribution</p>
+<ul>
+<li>Reject <span class="math inline">\(H_0\)</span> if <span class="math inline">\(t &lt; a\)</span> (some critical value)<br>
+</li>
+<li>Since this provides evidence for <span class="math inline">\(H_1\)</span></li>
+</ul></li>
+<li><p>We want to fix Type I error at level <span class="math inline">\(\alpha\)</span>: <span class="math display">\[
+\Pr(t &lt; a) = \alpha
+\]</span></p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="07_notes_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="384"></p>
+</figure>
+</div>
+</div>
+</div></li>
+<li><p>So choose <span class="math inline">\(a = t_{n-1,\alpha} =\)</span> <code>qt(alpha, n-1)</code></p></li>
+</ul>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+One-sided Test for Mean, Alternative Less
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><span class="math inline">\(H_0\)</span>: <span class="math inline">\(\mu = \mu_0\)</span><br>
+<span class="math inline">\(H_1\)</span>: <span class="math inline">\(\mu &lt; \mu_0\)</span><br>
+given <span class="math inline">\(\alpha\)</span> (significance level)</p>
+<p>Let<br>
+<span class="math display">\[
+t = \frac{\bar{X} - \mu_0}{s / \sqrt{n}}
+\]</span></p>
+<p>Reject <span class="math inline">\(H_0\)</span> if<br>
+<span class="math display">\[
+t &lt; \texttt{qt}(\alpha, n-1)
+\]</span></p>
+<p>Fail to reject if<br>
+<span class="math display">\[
+t \ge \texttt{qt}(\alpha, n-1)
+\]</span></p>
+<p>The <span class="math inline">\(p\)</span>-value is <span class="math display">\[
+\texttt{pt}(t,n-1)
+\]</span></p>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Test Statistic
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>A <strong>test statistic</strong> is a statistic which measures strength of evidence against <span class="math inline">\(H_0\)</span></p>
+</div>
+</div>
+<ul>
+<li>For example, the test statistic we used for <span class="math inline">\(H_0: \mu = \mu_0\)</span> is<br>
+<span class="math display">\[
+t = \frac{\bar{X} - \mu_0}{s / \sqrt{n}}
+\]</span></li>
+</ul>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Critical Value
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>A <strong>critical value</strong> is the value beyond which we reject <span class="math inline">\(H_0\)</span>.</p>
+</div>
+</div>
+<ul>
+<li>For example, the critical value we used in our mean test was <span class="math inline">\(\texttt{qt}(\alpha, n-1)\)</span></li>
+</ul>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Rejection Region
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>Rejection region</strong>: values of data for which we reject <span class="math inline">\(H_0\)</span></p>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Acceptance Region
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>Acceptance region</strong>: values of data for which we accept <span class="math inline">\(H_0\)</span></p>
+</div>
+</div>
+<ul>
+<li><p>Example: Let’s choose <span class="math inline">\(\alpha = 0.01\)</span> and run the test for the birthweight example <span class="math display">\[\begin{align*}
+H_0\!:\ &amp;\mu = 120 \\
+H_1\!:\ &amp;\mu &lt; 120 \\
+\end{align*}\]</span> We observe: <span class="math display">\[
+\bar{X} = 115,\quad s = 24,\quad n = 100
+\]</span> Our test statistic is <span class="math display">\[
+t = \frac{115 - 120}{24/\sqrt{100}} = -2.08 \\
+\]</span> We compare that to the critical value, which is the 0.01 quantile of the <span class="math inline">\(t\)</span> distribution with 99 degrees of freedom.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">qt</span>(<span class="at">p =</span> <span class="fl">0.01</span>, <span class="at">df =</span> <span class="dv">99</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] -2.365</code></pre>
+</div>
+</div>
+<p>Since <span class="math inline">\(-2.08 &gt; -2.36\)</span>, the data are not weird (at the 0.01 level), so we <strong>fail to reject</strong> <span class="math inline">\(H_0\)</span>.</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="07_notes_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="384"></p>
+</figure>
+</div>
+</div>
+</div></li>
+<li><p>Note: When presenting results, <strong>don’t use the word “weird”</strong>. Say instead</p>
+<blockquote class="blockquote">
+<p>We fail to reject the null that mean birthweights are 120 oz at significance level 0.01.</p>
+</blockquote></li>
+</ul>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+p-value
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The smallest <span class="math inline">\(\alpha\)</span> at which we would reject <span class="math inline">\(H_0\)</span></p>
+<p>Equivalently, the probability we would see data as extreme or more extreme than what we saw.</p>
+</div>
+</div>
+<ul>
+<li><p>In the one-sided hypothesis test case, the <span class="math inline">\(p\)</span>-value is the probability of being to the left of the observed value.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pt</span>(<span class="sc">-</span><span class="fl">2.08</span>, <span class="dv">99</span>)  <span class="co"># Left-tailed p-value</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.02005</code></pre>
+</div>
+</div>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="07_notes_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="384"></p>
+</figure>
+</div>
+</div>
+</div></li>
+</ul>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Important
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><span class="math display">\[
+\text{p-value} &lt; \alpha \iff t &lt; t_{n-1,\alpha}
+\]</span></p>
+</div>
+</div>
+<ul>
+<li><p>That is, we can reject either if the <span class="math inline">\(p\)</span>-value is less than <span class="math inline">\(\alpha\)</span> <strong>or</strong> if the <span class="math inline">\(t\)</span>-statistic is less than the critical value.</p></li>
+<li><p>Typically folks only report <span class="math inline">\(p\)</span>-values and not the <span class="math inline">\(t\)</span>-statistics.</p></li>
+</ul>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-2-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-1" role="tab" aria-controls="tabset-2-1" aria-selected="true">Exercise:</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-2" role="tab" aria-controls="tabset-2-2" aria-selected="false">Solution</a></li></ul>
+<div class="tab-content">
+<div id="tabset-2-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-2-1-tab">
+<ul>
+<li>Mean infarct size (size of dead tissue in heart) is 25 (kg·Eq/m²)</li>
+<li>8 patients treated with drug have average infarct size of 16 with SD = 10<br>
+</li>
+<li>Is drug effective in reducing infarct size?</li>
+<li>Run a hypothesis test.</li>
+</ul>
+</div>
+<div id="tabset-2-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-2-tab">
+<p>Our two hypotheses are</p>
+<ul>
+<li><span class="math inline">\(H_0: \mu = 25\)</span></li>
+<li><span class="math inline">\(H_1: \mu &lt; 25\)</span></li>
+</ul>
+<p>We calculate the <span class="math inline">\(t\)</span>-statistic to be <span class="math display">\[
+t = \frac{16 - 25}{10/\sqrt{8}} = -2.55
+\]</span> Our <span class="math inline">\(p\)</span>-value is</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pt</span>(<span class="at">q =</span> <span class="sc">-</span><span class="fl">2.55</span>, <span class="at">df =</span> <span class="dv">7</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.01905</code></pre>
+</div>
+</div>
+<p>We have significant results at the 0.05 level.*</p>
+</div>
+</div>
+</div>
+<ul>
+<li><p>Guidelines for <span class="math inline">\(p\)</span>-value interpretation:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Range</th>
+<th>Interpretation</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\(0.05 \le p\)</span></td>
+<td>not significant</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(0.01 \le p &lt; 0.05\)</span></td>
+<td>significant</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(0.001 \le p &lt; 0.01\)</span></td>
+<td>highly significant</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(p &lt; 0.001\)</span></td>
+<td>very highly significant</td>
+</tr>
+</tbody>
+</table></li>
+<li><p>Those interpretations are not dogma. Use them as rules of thumb. E.g. 0.051 is no different (practically speaking) than 0.049.</p></li>
+<li><p>Or you can use the XKCD joke interpretations:</p>
+<p><img src="https://imgs.xkcd.com/comics/p_values.png" alt="Joke of p-value interpretations"></p></li>
+</ul>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Important
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The <span class="math inline">\(p\)</span>-value tells you strength of evidence that there <strong>is</strong> an effect</p>
+<p>It tells you <strong>nothing</strong> about the <strong>size</strong> of the effect</p>
+</div>
+</div>
+<ul>
+<li><p>Large sample size + tiny effect <span class="math inline">\(\Rightarrow\)</span> still small <span class="math inline">\(p\)</span>-value</p></li>
+<li><p>Example: <span class="math display">\[\begin{align*}
+n &amp;= 10{,}000 \\
+\bar{X} &amp;= 119 \\
+s &amp;= 24 \\
+t &amp;= \frac{119 - 120}{24 / \sqrt{10{,}000}} = -4.17 \\
+\end{align*}\]</span> So the <span class="math inline">\(p\)</span>-value is</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pt</span>(<span class="sc">-</span><span class="fl">4.17</span>, <span class="dv">9999</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1.536e-05</code></pre>
+</div>
+</div>
+<ul>
+<li><span class="math inline">\(\Rightarrow\)</span> Very sure <span class="math inline">\(\mu &lt; 120\)</span>, but 119 is such a tiny difference from 120</li>
+<li><span class="math inline">\(\Rightarrow\)</span> statistically significant, not practically significant</li>
+</ul></li>
+</ul>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+One-sided Test for Mean, Alternative Greater
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>If <span class="math inline">\(X_1, X_2, \ldots, X_n \overset{\text{iid}}{\sim} N(\mu, \sigma^2)\)</span></p>
+<p>Hypotheses:</p>
+<ul>
+<li><span class="math inline">\(H_0\)</span>: <span class="math inline">\(\mu = \mu_0\)</span><br>
+</li>
+<li><span class="math inline">\(H_1\)</span>: <span class="math inline">\(\mu &gt; \mu_0\)</span></li>
+</ul>
+<p>Test statistic:<br>
+<span class="math display">\[
+t = \frac{\bar{X} - \mu_0}{s / \sqrt{n}}
+\]</span></p>
+<p>The <span class="math inline">\(p\)</span>-value is the probability under <span class="math inline">\(H_0\)</span> of being greater than <span class="math inline">\(t\)</span>)<br>
+<span class="math display">\[
+\text{p-value} = 1 - \texttt{pt}(t,\ n-1)
+\]</span></p>
+<p>The critical value is the <span class="math inline">\(1-\alpha\)</span> quantile of the <span class="math inline">\(t_{n-1}\)</span> distribution. <span class="math display">\[
+\texttt{qt}(1 - \alpha, n-1)
+\]</span> Reject for <span class="math inline">\(t\)</span> larger than the critical value.</p>
+</div>
+</div>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-3-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-1" role="tab" aria-controls="tabset-3-1" aria-selected="true">Exercise:</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-3-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-2" role="tab" aria-controls="tabset-3-2" aria-selected="false">Solution</a></li></ul>
+<div class="tab-content">
+<div id="tabset-3-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-3-1-tab">
+<p>Mean cholesterol in the population is 175 mg/dL.</p>
+<p>We have a sampl e10 children of fathers who died from heart disease</p>
+<p>We observe <span class="math inline">\(\bar{X} = 200\)</span>, <span class="math inline">\(s = 50\)</span></p>
+<p>Is there evidence that these children have higher cholesterol?</p>
+</div>
+<div id="tabset-3-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-3-2-tab">
+<p>Our two hypotheses are</p>
+<ul>
+<li><span class="math inline">\(H_0 &amp;: \mu = 175\)</span></li>
+<li><span class="math inline">\(H_1 &amp;: \mu &gt; 175\)</span></li>
+</ul>
+<p>We calculate our test statistic: <span class="math display">\[
+t = \frac{200 - 175}{50 / \sqrt{10}} = 1.58 \\
+\]</span></p>
+<p>Our <span class="math inline">\(p\)</span>-value is then</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">-</span> <span class="fu">pt</span>(<span class="fl">1.58</span>, <span class="dv">9</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.07428</code></pre>
+</div>
+</div>
+<p>Therefore, we have weak evidence that they have higher cholesterol.</p>
+</div>
+</div>
+</div>
+<section id="two-sided-tests-for-the-mean" class="level2">
+<h2 class="anchored" data-anchor-id="two-sided-tests-for-the-mean">Two-sided Tests for the Mean</h2>
+<ul>
+<li><p><del>Sometimes</del> Usually, our alternative is just that the mean is not equal to the null value.</p>
+<ul>
+<li>E.g., average birthweights for low SES families are different from the population average.</li>
+</ul></li>
+<li><p>What constitutes “more weird” in this case is the area in both tails.</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="07_notes_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" alt="t-distribution showing two tailed p-value" width="384"></p>
+</figure>
+</div>
+</div>
+</div></li>
+</ul>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Two-tailed Test
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Let <span class="math inline">\(X_1, X_2, \ldots, X_n \overset{\text{iid}}{\sim} N(\mu, \sigma^2)\)</span></p>
+<p>Hypotheses:</p>
+<ul>
+<li><span class="math inline">\(H_0\)</span>: <span class="math inline">\(\mu = \mu_0\)</span><br>
+</li>
+<li><span class="math inline">\(H_1\)</span>: <span class="math inline">\(\mu \ne \mu_0\)</span></li>
+</ul>
+<p>Test statistic:<br>
+<span class="math display">\[
+t = \frac{\bar{X} - \mu_0}{s / \sqrt{n}}
+\]</span></p>
+<p>Two-tailed p-value:<br>
+<span class="math display">\[
+\text{p-value} = 2 \cdot \texttt{pt}(-|t|,\ n-1)
+\]</span></p>
+<p>Critical value technique: Reject <span class="math inline">\(H_0\)</span> if<br>
+<span class="math display">\[
+|t| &gt; \texttt{qt}\left(1 - \frac{\alpha}{2},\ n-1\right)
+\]</span></p>
+</div>
+</div>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-4-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-1" role="tab" aria-controls="tabset-4-1" aria-selected="true">Exercise:</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-4-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-2" role="tab" aria-controls="tabset-4-2" aria-selected="false">Solution</a></li></ul>
+<div class="tab-content">
+<div id="tabset-4-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-4-1-tab">
+<p>Cholesterol levels of US women are 190 mg/dL on average.<br>
+Want to compare cholesterol levels of recent Asian immigrants.<br>
+100 female Asian immigrants:<br>
+- <span class="math inline">\(\bar{X} = 181.52\)</span> mg/dL<br>
+- <span class="math inline">\(s = 40\)</span> mg/dL</p>
+</div>
+<div id="tabset-4-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-4-2-tab">
+<p><span class="math display">\[\begin{align*}
+H_0 &amp;: \mu = 190 \\
+H_1 &amp;: \mu \ne 190 \\
+t &amp;= \frac{181.52 - 190}{40 / \sqrt{100}} = -2.12 \\
+\text{p-value} &amp;= 2 \cdot pt(-2.12,\ 99) \approx 0.037
+\end{align*}\]</span></p>
+</div>
+</div>
+</div>
+<ul>
+<li>Use <strong>two-sided tests by default</strong>, unless only one direction is clearly of interest
+<ul>
+<li>e.g., drug efficacy</li>
+</ul></li>
+<li>Because this is an introductory class, there will be a lot of one-sided tests, to evaluate your understanding. These are typically rare in practice.</li>
+</ul>
+<hr>
+<p><a href="../05_tests/05_ttest.html">One-sample t-tests in R</a></p>
+<hr>
+</section>
+<section id="confidence-intervals-and-hypothesis-tests" class="level2">
+<h2 class="anchored" data-anchor-id="confidence-intervals-and-hypothesis-tests">Confidence intervals and hypothesis tests</h2>
+<ul>
+<li>Suppose <span class="math inline">\(X_1, X_2, \ldots, X_n \overset{\text{iid}}{\sim} N(\mu, \sigma^2)\)</span></li>
+</ul>
+<p><span class="math display">\[\begin{align*}
+H_0 &amp;: \mu = \mu_0 \\
+H_1 &amp;: \mu \ne \mu_0
+\end{align*}\]</span></p>
+<ul>
+<li><p>Then, reject <span class="math inline">\(H_0\)</span> at level <span class="math inline">\(\alpha\)</span> <strong>if and only if</strong> the <span class="math inline">\(100(1 - \alpha)\%\)</span> confidence interval <strong>does not contain</strong> <span class="math inline">\(\mu_0\)</span></p></li>
+<li><p>i.e., if <span class="math inline">\(\mu_0\)</span> is outside the CI, reject <span class="math inline">\(H_0\)</span> at level <span class="math inline">\(\alpha\)</span> and p-value is less than <span class="math inline">\(\alpha\)</span></p></li>
+<li><p><strong>General result</strong>: All tests correspond to some confidence interval, and vice versa</p></li>
+<li><p>So, a <span class="math inline">\(100(1 - \alpha)\%\)</span> CI contains all values of <span class="math inline">\(\mu_0\)</span> that would fail to reject <span class="math inline">\(H_0\!: \mu = \mu_0\)</span></p></li>
+<li><p>One-sided CIs correspond to one-sided tests</p></li>
+</ul>
+</section>
+</section>
+<section id="power-calculations" class="level1">
+<h1>Power Calculations</h1>
+<ul>
+<li><p>Power = Probability of correctly rejecting the null:<br>
+<span class="math display">\[
+\text{Power} = \Pr(\text{Reject } H_0 \mid H_1) = 1 - \beta
+\]</span></p></li>
+<li><p>In experiments/surveys, it is common to <strong>guess power prior to collecting data</strong>:</p>
+<ol type="1">
+<li>Calculate <span class="math inline">\(n\)</span> needed</li>
+<li>See what effect sizes we can detect</li>
+<li>Estimate likelihood our study will be successful</li>
+</ol></li>
+<li><p>To do this, we need:</p>
+<ol type="1">
+<li>Guess of effect size <span class="math inline">\(\mu_1 - \mu_0\)</span> (from pilot study or wild guess)</li>
+<li>Guess of standard deviation <span class="math inline">\(\sigma\)</span></li>
+<li>Sample size <span class="math inline">\(n\)</span></li>
+<li>Significance level <span class="math inline">\(\alpha\)</span> (provided by researcher)</li>
+</ol></li>
+<li><p>If <span class="math inline">\(\sigma\)</span> is known, use <strong>z-test</strong> instead of t-test to calculate power</p></li>
+</ul>
+<p><span class="math display">\[\begin{align*}
+H_0 &amp;: \mu = \mu_0 \\
+H_1 &amp;: \mu &lt; \mu_0
+\end{align*}\]</span></p>
+<ul>
+<li>Reject <span class="math inline">\(H_0\)</span> if:<br>
+<span class="math display">\[
+\frac{\bar{X} - \mu_0}{\sigma/\sqrt{n}} &lt; z_\alpha
+\]</span><br>
+(This follows a standard normal under <span class="math inline">\(H_0\)</span>)</li>
+</ul>
+<section id="power-calculation-under-mu-mu_1" class="level3">
+<h3 class="anchored" data-anchor-id="power-calculation-under-mu-mu_1">Power calculation under <span class="math inline">\(\mu = \mu_1\)</span>:</h3>
+<p><span class="math display">\[\begin{align*}
+\Pr(\text{Reject } H_0 \mid \mu = \mu_1)
+&amp;= \Pr\left( \frac{\bar{X} - \mu_0}{\sigma/\sqrt{n}} &lt; z_\alpha \ \Big| \ \mu = \mu_1 \right) \\
+&amp;= \Pr\left( \frac{\bar{X} - \mu_1 + \mu_1 - \mu_0}{\sigma/\sqrt{n}} &lt; z_\alpha \right)
+\end{align*}\]</span></p>
+<p>Continuing from the previous derivation:</p>
+<p><span class="math display">\[\begin{align*}
+\Pr\left( \frac{\bar{X} - \mu_0}{\sigma/\sqrt{n}} &lt; z_\alpha \ \Big| \ \mu = \mu_1 \right)
+&amp;= \Pr\left( \frac{\bar{X} - \mu_1}{\sigma/\sqrt{n}} &lt; \frac{\mu_0 - \mu_1}{\sigma/\sqrt{n}} + z_\alpha \right) \\
+&amp;= \Phi\left( \frac{\mu_0 - \mu_1}{\sigma/\sqrt{n}} + z_\alpha \right)
+\end{align*}\]</span></p>
+<ul>
+<li><span class="math inline">\(\Phi(\cdot)\)</span> is the <strong>CDF of the standard normal distribution</strong><br>
+</li>
+<li>This gives us an <strong>estimate of power</strong></li>
+</ul>
+<p>Rewriting:</p>
+<p><span class="math display">\[
+\text{Power} = \Phi\left( z_\alpha + \frac{\sqrt{n}(\mu_0 - \mu_1)}{\sigma} \right)
+\]</span></p>
+<p><strong>Plot:</strong> <span class="math inline">\(\Phi(x)\)</span> is an S-shaped curve ranging from 0 to 1<br>
+<strong>XYZ IMAGE HERE</strong><br>
+(Standard normal CDF)</p>
+</section>
+<section id="summary-of-how-parameters-affect-power" class="level3">
+<h3 class="anchored" data-anchor-id="summary-of-how-parameters-affect-power">Summary of how parameters affect power:</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 17%">
+<col style="width: 16%">
+<col style="width: 30%">
+<col style="width: 35%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Parameter</th>
+<th>Change</th>
+<th>Effect on Power</th>
+<th>Reason</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\(\alpha\)</span></td>
+<td>↓</td>
+<td>Power ↓</td>
+<td>More stringent test</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(n\)</span></td>
+<td>↓</td>
+<td>Power ↓</td>
+<td>Less data</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(|\mu_0 - \mu_1|\)</span></td>
+<td>↓</td>
+<td>Power ↓</td>
+<td>Smaller effect size</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(\sigma\)</span></td>
+<td>↓</td>
+<td>Power ↑</td>
+<td>More precise measurements</td>
+</tr>
+</tbody>
+</table>
+<p><strong>XYZ IMAGE HERE</strong><br>
+(Overlapping normal curves showing the distribution of <span class="math inline">\(\bar{X}\)</span> under <span class="math inline">\(H_0\)</span> and <span class="math inline">\(H_1\)</span>, with <span class="math inline">\(\alpha\)</span> and power labeled)</p>
+<ul>
+<li>Left curve: distribution under <span class="math inline">\(\mu = \mu_0\)</span><br>
+</li>
+<li>Right curve: distribution under <span class="math inline">\(\mu = \mu_1\)</span><br>
+</li>
+<li>Area to the left of the critical value under the <span class="math inline">\(H_1\)</span> curve is <strong>power</strong> = <span class="math inline">\(1 - \beta\)</span></li>
+</ul>
+</section>
+<section id="example" class="level3">
+<h3 class="anchored" data-anchor-id="example">Example:</h3>
+<p>Pilot study using 10 individuals gave:<br>
+<span class="math inline">\(\bar{X} = -5\)</span>, <span class="math inline">\(s = 10\)</span><br>
+Assume <span class="math inline">\(\mu = 0\)</span> is the null (no effect)<br>
+Now propose a new study with <span class="math inline">\(n = 30\)</span><br>
+At <span class="math inline">\(\alpha = 0.05\)</span>, what is the power?</p>
+<p><span class="math display">\[\begin{align*}
+\mu_1 &amp;= -5 \\
+\sigma &amp;= 10 \\
+n &amp;= 30 \\
+\alpha &amp;= 0.05 \Rightarrow z_\alpha = -1.645 \quad (\text{i.e., } \texttt{qnorm(0.05)})
+\end{align*}\]</span></p>
+<p>Compute power: <span class="math display">\[\begin{align*}
+\Phi\left(-1.645 + \frac{0 - (-5)}{10/\sqrt{30}} \right)
+&amp;= \Phi(1.094) \\
+&amp;= \texttt{pnorm(1.094)} \approx 0.863
+\end{align*}\]</span></p>
+<ul>
+<li><span class="math inline">\(\Rightarrow\)</span> Estimated <strong>power</strong> is <strong>0.863</strong></li>
+</ul>
+</section>
+<section id="exercise-4" class="level3">
+<h3 class="anchored" data-anchor-id="exercise-4">Exercise:</h3>
+<p>Mean birthweight in the US is 120 oz.<br>
+What is the <strong>power to detect low birthweight</strong> in a study with:<br>
+- <span class="math inline">\(n = 100\)</span><br>
+- <span class="math inline">\(\mu_1 = 115\)</span><br>
+- <span class="math inline">\(\alpha = 0.05\)</span><br>
+- <span class="math inline">\(\sigma = 24\)</span></p>
+<p><span class="math display">\[\begin{align*}
+\text{Power} &amp;= \Phi\left(-1.645 + \frac{120 - 115}{24 / \sqrt{100}} \right) \\
+&amp;= \Phi(0.438) = \texttt{pnorm(0.438)} \approx 0.669
+\end{align*}\]</span></p>
+</section>
+<section id="for-right-tailed-test" class="level3">
+<h3 class="anchored" data-anchor-id="for-right-tailed-test">For right-tailed test:</h3>
+<p>If<br>
+<span class="math display">\[\begin{align*}
+H_0 &amp;: \mu = \mu_0 \\
+H_1 &amp;: \mu &gt; \mu_0
+\end{align*}\]</span></p>
+<p>Then<br>
+<span class="math display">\[
+\text{Power} = \Phi\left( z_\alpha + \frac{\sqrt{n}(\mu_1 - \mu_0)}{\sigma} \right)
+\]</span></p>
+<p>(Just swap <span class="math inline">\(\mu_0\)</span> and <span class="math inline">\(\mu_1\)</span> from the left-tailed version.)</p>
+</section>
+<section id="for-two-tailed-test" class="level3">
+<h3 class="anchored" data-anchor-id="for-two-tailed-test">For two-tailed test:</h3>
+<p>If<br>
+<span class="math display">\[\begin{align*}
+H_0 &amp;: \mu = \mu_0 \\
+H_1 &amp;: \mu \ne \mu_0
+\end{align*}\]</span></p>
+<p>Then<br>
+<span class="math display">\[
+\text{Power} = \Phi\left( z_{\alpha/2} + \frac{\sqrt{n}(\mu_0 - \mu_1)}{\sigma} \right)
++ \Phi\left( z_{\alpha/2} + \frac{\sqrt{n}(\mu_1 - \mu_0)}{\sigma} \right)
+\]</span></p>
+<ul>
+<li>Add both tails<br>
+</li>
+<li>Use <span class="math inline">\(\alpha/2\)</span> critical value</li>
+</ul>
+</section>
+</section>
+<section id="sample-size-calculation" class="level1">
+<h1>Sample Size Calculation</h1>
+<ul>
+<li>Typically, you want a <strong>power</strong> of at least 0.8<br>
+</li>
+<li>So, what <span class="math inline">\(n\)</span> will give us power of 0.8?</li>
+</ul>
+<section id="assume" class="level3">
+<h3 class="anchored" data-anchor-id="assume">Assume:</h3>
+<ol type="1">
+<li>Guess of effect size: <span class="math inline">\(\mu_1 - \mu_0\)</span> (from pilot study or wild guess)<br>
+</li>
+<li>Guess of standard deviation <span class="math inline">\(\sigma\)</span><br>
+</li>
+<li>Desired power = <span class="math inline">\(1 - \beta\)</span> (chosen by researcher)<br>
+</li>
+<li>Significance level <span class="math inline">\(\alpha\)</span></li>
+</ol>
+</section>
+<section id="one-sided-test-e.g.-h_0-mu-mu_0-vs.-h_1-mu-mu_0" class="level3">
+<h3 class="anchored" data-anchor-id="one-sided-test-e.g.-h_0-mu-mu_0-vs.-h_1-mu-mu_0">One-sided test (e.g., <span class="math inline">\(H_0\!: \mu = \mu_0\)</span> vs.&nbsp;<span class="math inline">\(H_1\!: \mu &lt; \mu_0\)</span>):</h3>
+<p>Start from power formula: <span class="math display">\[
+1 - \beta = \Phi\left( z_\alpha + \frac{\sqrt{n}(\mu_0 - \mu_1)}{\sigma} \right)
+\]</span></p>
+<p>Now solve for <span class="math inline">\(n\)</span> (either numerically or algebraically):</p>
+<p>Take inverse: <span class="math display">\[
+\Phi^{-1}(1 - \beta) = z_\alpha + \frac{\sqrt{n}(\mu_0 - \mu_1)}{\sigma}
+\]</span></p>
+<p>Solve: <span class="math display">\[
+\sqrt{n} = \frac{\Phi^{-1}(1 - \beta) - z_\alpha}{(\mu_0 - \mu_1)/\sigma}
+\]</span></p>
+<p>Square both sides: <span class="math display">\[
+n = \frac{(\Phi^{-1}(1 - \beta) - z_\alpha)^2 \cdot \sigma^2}{(\mu_0 - \mu_1)^2}
+\]</span></p>
+</section>
+<section id="alternate-form-for-h_0-mu-mu_0-vs.-h_1-mu-mu_0" class="level3">
+<h3 class="anchored" data-anchor-id="alternate-form-for-h_0-mu-mu_0-vs.-h_1-mu-mu_0">Alternate form (for <span class="math inline">\(H_0\!: \mu = \mu_0\)</span> vs.&nbsp;<span class="math inline">\(H_1\!: \mu &gt; \mu_0\)</span>):</h3>
+<p><span class="math display">\[
+n = \frac{(z_{1-\beta} + z_{1-\alpha})^2 \cdot \sigma^2}{(\mu_1 - \mu_0)^2}
+\]</span></p>
+</section>
+<section id="exercise-what-is-the-effect-on-n-of-increasing" class="level3">
+<h3 class="anchored" data-anchor-id="exercise-what-is-the-effect-on-n-of-increasing">Exercise: What is the effect on <span class="math inline">\(n\)</span> of increasing:</h3>
+<ol type="1">
+<li><span class="math inline">\(\sigma\)</span><br>
+</li>
+<li><span class="math inline">\(\beta\)</span><br>
+</li>
+<li><span class="math inline">\(\alpha\)</span><br>
+</li>
+<li><span class="math inline">\(|\mu_0 - \mu_1|\)</span></li>
+</ol>
+<section id="effects" class="level4">
+<h4 class="anchored" data-anchor-id="effects">Effects:</h4>
+<ol type="1">
+<li><p><span class="math inline">\(\sigma \uparrow \ \Rightarrow\ n \uparrow\)</span><br>
+(Less precise measurements, so need more data)</p></li>
+<li><p><span class="math inline">\(\beta \uparrow \ \Rightarrow\ 1 - \beta \downarrow \ \Rightarrow\ z_{1 - \beta} \downarrow \ \Rightarrow\ n \downarrow\)</span><br>
+(Less power needed)</p></li>
+<li><p><span class="math inline">\(\alpha \uparrow \ \Rightarrow\ z_{1 - \alpha} \downarrow \ \Rightarrow\ n \downarrow\)</span><br>
+(Less stringent test)</p></li>
+<li><p><span class="math inline">\(|\mu_0 - \mu_1| \uparrow \ \Rightarrow\ n \downarrow\)</span><br>
+(Larger effect sizes are easier to detect)</p></li>
+</ol>
+<p><strong>XYZ IMAGE HERE</strong><br>
+(Standard normal with <span class="math inline">\(\alpha\)</span>, <span class="math inline">\(\beta\)</span>, <span class="math inline">\(z_{1-\alpha}\)</span>, and <span class="math inline">\(z_{1-\beta}\)</span> labeled)</p>
+</section>
+</section>
+<section id="for-two-sided-test" class="level3">
+<h3 class="anchored" data-anchor-id="for-two-sided-test">For two-sided test:</h3>
+<p>If <span class="math inline">\(H_0: \mu = \mu_0\)</span> vs.&nbsp;<span class="math inline">\(H_1: \mu \ne \mu_0\)</span>,<br>
+solve for <span class="math inline">\(n\)</span> using:</p>
+<p><span class="math display">\[
+n = \frac{\sigma^2 (z_{1-\beta} + z_{1 - \alpha/2})^2}{(\mu_0 - \mu_1)^2}
+\]</span></p>
+<p>(The only difference from one-sided test is the use of <span class="math inline">\(z_{1 - \alpha/2}\)</span> instead of <span class="math inline">\(z_{1 - \alpha}\)</span>.)</p>
+<hr>
+<p><a href="../05_tests/05_power.html">Power Calculations in R</a></p>
+<hr>
+<p>Skip Section 7.8</p>
+</section>
+</section>
+<section id="one-sample-inference-for-binomial" class="level1">
+<h1>One-Sample Inference for Binomial</h1>
+<section id="example-1" class="level3">
+<h3 class="anchored" data-anchor-id="example-1">Example:</h3>
+<p>Prevalence of breast cancer is 2%.<br>
+Of 10,000 women whose mothers had breast cancer,<br>
+400 of them got breast cancer in their lives.<br>
+<strong>Are they at higher risk?</strong></p>
+<ul>
+<li>Let <span class="math inline">\(X\)</span> = number of those 10,000 who got breast cancer<br>
+</li>
+<li><span class="math inline">\(X \sim \text{Binom}(10{,}000,\ p)\)</span></li>
+</ul>
+<p><span class="math display">\[\begin{align*}
+H_0 &amp;: p = 0.02 \\
+H_1 &amp;: p &gt; 0.02
+\end{align*}\]</span></p>
+</section>
+<section id="use-normal-approximation" class="level3">
+<h3 class="anchored" data-anchor-id="use-normal-approximation">Use normal approximation:</h3>
+<ul>
+<li><span class="math inline">\(\hat{p} = \frac{x}{n} \sim N\left(p_0,\ \frac{p_0(1 - p_0)}{n}\right)\)</span> under <span class="math inline">\(H_0\)</span></li>
+</ul>
+<p>Then: <span class="math display">\[
+\frac{\hat{p} - p_0}{\sqrt{p_0(1 - p_0)/n}} \sim N(0, 1)
+\]</span></p>
+<p><strong>XYZ IMAGE HERE</strong><br>
+(Normal curve with right tail labeled as p-value)</p>
+</section>
+<section id="p-value-1" class="level3">
+<h3 class="anchored" data-anchor-id="p-value-1">p-value:</h3>
+<p><span class="math display">\[
+\text{p-value} = 1 - \Phi\left( \frac{\hat{p} - p_0}{\sqrt{p_0(1 - p_0)/n}} \right)
+\]</span></p>
+<ul>
+<li>If<br>
+<span class="math display">\[\begin{align*}
+H_0 &amp;: p = p_0 \\
+H_1 &amp;: p \ne p_0
+\end{align*}\]</span><br>
+Then calculate area in <strong>both tails</strong>:</li>
+</ul>
+<p><strong>XYZ IMAGE HERE</strong><br>
+(Symmetric normal curve with shaded tails, showing two-sided test)</p>
+<ul>
+<li>Two-tailed p-value: <span class="math display">\[
+\text{p-value} = 2 \cdot \Phi\left( -\left| \frac{\hat{p} - p_0}{\sqrt{p_0(1 - p_0)/n}} \right| \right)
+\]</span></li>
+</ul>
+</section>
+<section id="continuity-correction" class="level3">
+<h3 class="anchored" data-anchor-id="continuity-correction">Continuity correction:</h3>
+<ul>
+<li>Subtract <span class="math inline">\(1/n\)</span> in the numerator for upper-tail tests<br>
+</li>
+<li>Add <span class="math inline">\(1/n\)</span> in the numerator for lower-tail tests</li>
+</ul>
+</section>
+<section id="example-back-to-breast-cancer-example" class="level3">
+<h3 class="anchored" data-anchor-id="example-back-to-breast-cancer-example">Example: Back to breast cancer example</h3>
+<p><span class="math display">\[\begin{align*}
+\hat{p} &amp;= \frac{400.5}{10{,}000} = 0.04005 \\
+z &amp;= \frac{0.04005 - 0.02}{\sqrt{0.02(1 - 0.02)/10{,}000}} \approx 14.32 \\
+\text{p-value} &amp;= \Phi(-14.32) \approx 8.4 \cdot 10^{-47} \ll 0.0001
+\end{align*}\]</span></p>
+<ul>
+<li><span class="math inline">\(\Rightarrow\)</span> <strong>Very highly significant</strong></li>
+</ul>
+</section>
+<section id="exact-test" class="level2">
+<h2 class="anchored" data-anchor-id="exact-test">Exact Test</h2>
+<ul>
+<li>Still assume: <span class="math inline">\(X \sim \text{Bin}(n, p)\)</span><br>
+</li>
+<li>Hypotheses:<br>
+<span class="math inline">\(H_0: p = p_0\)</span><br>
+<span class="math inline">\(H_1: p \ne p_0\)</span>, or <span class="math inline">\(p &gt; p_0\)</span>, or <span class="math inline">\(p &lt; p_0\)</span></li>
+</ul>
+<section id="when-to-use-the-exact-test" class="level3">
+<h3 class="anchored" data-anchor-id="when-to-use-the-exact-test">When to use the exact test:</h3>
+<ul>
+<li><p>The <strong>normal method only works for large <span class="math inline">\(n\)</span></strong></p></li>
+<li><p>Rule of thumb:<br>
+<span class="math display">\[
+n p_0(1 - p_0) \ge 5
+\]</span></p></li>
+<li><p>If <span class="math inline">\(n\)</span> is <strong>not large enough</strong>, use an <strong>exact test</strong></p>
+<ul>
+<li>Controls for <span class="math inline">\(\alpha\)</span> <strong>for all <span class="math inline">\(n\)</span></strong>, not just large <span class="math inline">\(n\)</span></li>
+</ul></li>
+</ul>
+<p><strong>XYZ IMAGE HERE</strong><br>
+(PMF with observed <span class="math inline">\(x\)</span> marked, showing tail probabilities)</p>
+<ul>
+<li>For two-sided test, p-value is <strong>2 × tail sum</strong> in direction of <span class="math inline">\(x\)</span> (flip if <span class="math inline">\(x &gt; n p_0\)</span>)</li>
+</ul>
+</section>
+<section id="p-value-formulas" class="level3">
+<h3 class="anchored" data-anchor-id="p-value-formulas">p-value formulas:</h3>
+<p>If <span class="math inline">\(x \le n p_0\)</span>: <span class="math display">\[
+\text{p-value} = 2 \sum_{k = 0}^{x} \binom{n}{k} p_0^k (1 - p_0)^{n - k}
+\]</span></p>
+<p>If <span class="math inline">\(x &gt; n p_0\)</span>: <span class="math display">\[
+\text{p-value} = 2 \sum_{k = x}^{n} \binom{n}{k} p_0^k (1 - p_0)^{n - k}
+\]</span></p>
+</section>
+<section id="for-one-sided-binomial-hypotheses" class="level3">
+<h3 class="anchored" data-anchor-id="for-one-sided-binomial-hypotheses">For One-Sided Binomial Hypotheses</h3>
+<section id="left-tailed-test" class="level4">
+<h4 class="anchored" data-anchor-id="left-tailed-test">Left-tailed test:</h4>
+<p><span class="math inline">\(H_1: p &lt; p_0\)</span></p>
+<p><strong>XYZ IMAGE HERE</strong><br>
+(PMF with tail shaded to the left of observed <span class="math inline">\(x\)</span>)</p>
+</section>
+<section id="right-tailed-test" class="level4">
+<h4 class="anchored" data-anchor-id="right-tailed-test">Right-tailed test:</h4>
+<p><span class="math inline">\(H_1: p &gt; p_0\)</span></p>
+<p><strong>XYZ IMAGE HERE</strong><br>
+(PMF with tail shaded to the right of observed <span class="math inline">\(x\)</span>)</p>
+<ul>
+<li>In either case:</li>
+</ul>
+<p><span class="math display">\[
+\text{p-value} = \Pr(\text{as or more extreme } X \mid H_0)
+\]</span></p>
+<ul>
+<li>You can compute this probability <strong>exactly</strong> for binomial tests</li>
+</ul>
+</section>
+</section>
+<section id="example-2" class="level3">
+<h3 class="anchored" data-anchor-id="example-2">Example:</h3>
+<p>In a nuclear facility, there were 13 deaths,<br>
+of which 5 were caused by cancer.<br>
+Cancer causes 20% of deaths in this age group.</p>
+<p><strong>Are there actually more cancer deaths than would be expected?</strong></p>
+<ul>
+<li>Let <span class="math inline">\(X \sim \text{Binom}(13, p)\)</span></li>
+</ul>
+<p><span class="math display">\[\begin{align*}
+H_0 &amp;: p = 0.2 \\
+H_1 &amp;: p &gt; 0.2
+\end{align*}\]</span></p>
+<ul>
+<li>p-value: <span class="math display">\[
+\text{p-value} = \sum_{k = 5}^{13} \binom{13}{k} 0.2^k (1 - 0.2)^{13 - k}
+\]</span></li>
+</ul>
+<p>Or compute directly in R:</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">-</span> <span class="fu">pbinom</span>(<span class="dv">4</span>, <span class="at">size =</span> <span class="dv">13</span>, <span class="at">prob =</span> <span class="fl">0.2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<ul>
+<li>Result:</li>
+</ul>
+<p><span class="math display">\[
+\text{p-value} = 0.09413
+\]</span></p>
+<ul>
+<li>$$ No evidence of <strong>more cancer deaths than typical</strong></li>
+</ul>
+<hr>
+<p><a href="../05_tests/05_binom.html">Binomial Tests in R</a></p>
+<hr>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">binom.test</span>(<span class="at">x =</span> <span class="dv">5</span>, <span class="at">n =</span> <span class="dv">13</span>, <span class="at">p =</span> <span class="fl">0.2</span>, <span class="at">alternative =</span> <span class="st">"greater"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+</section>
+</section>
+<section id="power-calculations-for-binomial-tests" class="level1">
+<h1>Power Calculations for Binomial Tests</h1>
+<p>We want: <span class="math display">\[
+\text{Power} = \Pr(\text{Reject } H_0 \mid H_1)
+\]</span></p>
+<section id="need" class="level3">
+<h3 class="anchored" data-anchor-id="need">Need:</h3>
+<ul>
+<li>True alternative value: <span class="math inline">\(p_1\)</span><br>
+</li>
+<li>Sample size: <span class="math inline">\(n\)</span><br>
+</li>
+<li>Significance level: <span class="math inline">\(\alpha\)</span></li>
+</ul>
+<p>We skip the exact distribution and use a <strong>normal approximation</strong>.</p>
+<p><strong>XYZ IMAGE HERE</strong><br>
+(Overlapping normal distributions under <span class="math inline">\(H_0: p = p_0\)</span> and <span class="math inline">\(H_1: p = p_1\)</span> with shaded rejection region and labeled <span class="math inline">\(\alpha/2\)</span>, <span class="math inline">\(\beta\)</span>)</p>
+</section>
+<section id="under-h_0-p-ne-p_0-power-is-approximated-as" class="level3">
+<h3 class="anchored" data-anchor-id="under-h_0-p-ne-p_0-power-is-approximated-as">Under <span class="math inline">\(H_0: p \ne p_0\)</span>, power is approximated as:</h3>
+<p><span class="math display">\[
+\text{Power} = \Phi\left(
+\frac{p_0 - p_1}{\sqrt{p_1(1 - p_1)/n}}
+\cdot z_{\alpha/2}
++ \frac{|p_0 - p_1| \cdot \sqrt{n}}{\sqrt{p_1(1 - p_1)}}
+\right)
+\]</span></p>
+</section>
+<section id="summary-of-effects-on-power" class="level3">
+<h3 class="anchored" data-anchor-id="summary-of-effects-on-power">Summary of effects on power:</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 19%">
+<col style="width: 25%">
+<col style="width: 29%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Parameter</th>
+<th>Change</th>
+<th>Effect on Power</th>
+<th>Reason</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\(n\)</span></td>
+<td>↑</td>
+<td>Power ↑</td>
+<td>More data</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(\alpha\)</span></td>
+<td>↑</td>
+<td>Power ↑</td>
+<td>Less stringent test</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(|p_0 - p_1|\)</span></td>
+<td>↑</td>
+<td>Power ↑</td>
+<td>More signal</td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="sample-size-calculation-binomial" class="level1">
+<h1>Sample Size Calculation (Binomial)</h1>
+<section id="need-1" class="level3">
+<h3 class="anchored" data-anchor-id="need-1">Need:</h3>
+<ol type="1">
+<li>True alternative <span class="math inline">\(p_1\)</span><br>
+</li>
+<li>Desired power <span class="math inline">\(1 - \beta\)</span><br>
+</li>
+<li>Significance level <span class="math inline">\(\alpha\)</span></li>
+</ol>
+<p>We set: <span class="math display">\[
+1 - \beta = f(n,\ p_1,\ \alpha)
+\]</span></p>
+<p>Then <strong>solve for <span class="math inline">\(n\)</span></strong></p>
+<hr>
+<p><a href="../05_tests/05_binom_power.html">Power Calculations in R</a></p>
+<hr>
+</section>
+</section>
+<section id="poisson-test" class="level1">
+<h1>Poisson Test</h1>
+<ul>
+<li>Let <span class="math inline">\(X \sim \text{Poisson}(\mu)\)</span></li>
+</ul>
+<section id="hypotheses" class="level3">
+<h3 class="anchored" data-anchor-id="hypotheses">Hypotheses:</h3>
+<ul>
+<li><span class="math inline">\(H_0: \mu = \mu_0\)</span><br>
+</li>
+<li><span class="math inline">\(H_1\)</span>: <span class="math inline">\(\mu \ne \mu_0\)</span>, or <span class="math inline">\(\mu &gt; \mu_0\)</span>, or <span class="math inline">\(\mu &lt; \mu_0\)</span></li>
+</ul>
+</section>
+<section id="p-value-two-sided" class="level3">
+<h3 class="anchored" data-anchor-id="p-value-two-sided">p-value (two-sided):</h3>
+<p>Let <span class="math inline">\(x\)</span> be the observed count. Then:</p>
+<p><span class="math display">\[
+\text{p-value} = \sum_{h : \Pr(h) \le \Pr(x)} \Pr(h)
+= \sum_{h : \Pr(h) \le \Pr(x)} \frac{e^{-\mu_0} \mu_0^h}{h!}
+\]</span></p>
+<p><strong>XYZ IMAGE HERE</strong><br>
+(PMF showing observed <span class="math inline">\(x\)</span> and shaded tails for exact p-value)</p>
+</section>
+<section id="example-3" class="level3">
+<h3 class="anchored" data-anchor-id="example-3">Example:</h3>
+<p>8446 rubber workers, ages 40–84<br>
+4 deaths due to Hodgkin’s disease<br>
+Expected deaths (based on U.S. rates): 3.3</p>
+<p>Let <span class="math inline">\(X\)</span> = # with Hodgkin’s<br>
+Assume <span class="math inline">\(X \sim \text{Poisson}(\mu)\)</span></p>
+<p><span class="math display">\[\begin{align*}
+H_0 &amp;: \mu = 3.3 \\
+H_1 &amp;: \mu \ne 3.3
+\end{align*}\]</span></p>
+<p>R code:</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">poisson.test</span>(<span class="at">x =</span> <span class="dv">4</span>, <span class="at">r =</span> <span class="fl">3.3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Exact Poisson test
+
+data:  4 time base: 1
+number of events = 4, time base = 1, p-value = 0.6
+alternative hypothesis: true event rate is not equal to 3.3
+95 percent confidence interval:
+  1.09 10.24
+sample estimates:
+event rate 
+         4 </code></pre>
+</div>
+</div>
+<p>Result:</p>
+<p><span class="math display">\[
+\text{p-value} = 0.578
+\]</span></p>
+<ul>
+<li><span class="math inline">\(\Rightarrow\)</span> No evidence of elevated risk</li>
+</ul>
+</section>
+<section id="note" class="level3">
+<h3 class="anchored" data-anchor-id="note">Note:</h3>
+<ul>
+<li><strong>Binomial test is not appropriate here</strong><br>
+because each individual has a different <span class="math inline">\(p_i\)</span>.</li>
+<li>The null hypothesis was based on the <strong>expected <span class="math inline">\(p_i\)</span> for each individual</strong>.</li>
+</ul>
+</section>
+<section id="standardized-mortality-ratio-smr" class="level2">
+<h2 class="anchored" data-anchor-id="standardized-mortality-ratio-smr">Standardized Mortality Ratio (SMR)</h2>
+<p><span class="math display">\[
+\text{SMR} = \frac{\text{Observed}}{\text{Expected}} \times 100\%
+\]</span></p>
+<ul>
+<li><span class="math inline">\(\text{SMR} &gt; 100\%\)</span> <span class="math inline">\(\Rightarrow\)</span> more deaths than expected in the study population<br>
+</li>
+<li><span class="math inline">\(\text{SMR} &lt; 100\%\)</span> <span class="math inline">\(\Rightarrow\)</span> fewer deaths<br>
+</li>
+<li><span class="math inline">\(\text{SMR} = 100\%\)</span> <span class="math inline">\(\Rightarrow\)</span> same number of deaths as expected</li>
+</ul>
+<section id="example-4" class="level3">
+<h3 class="anchored" data-anchor-id="example-4">Example:</h3>
+<p>Observed = 4, Expected = 3.3</p>
+<p><span class="math display">\[
+\text{SMR} = \frac{4}{3.3} \times 100\% \approx 121\%
+\]</span></p>
+</section>
+</section>
+</section>
+<section id="exercises-7.17.8" class="level1">
+<h1>Exercises 7.1–7.8</h1>
+<ul>
+<li>12 patients</li>
+<li>After 24 hours, mean serum creatinine is <span class="math inline">\(1.2 \text{ mg/dL}\)</span><br>
+</li>
+<li>General population: <span class="math inline">\(\mu = 1\)</span>, <span class="math inline">\(\sigma = 0.4\)</span></li>
+</ul>
+<section id="known-sigma" class="level3">
+<h3 class="anchored" data-anchor-id="known-sigma">(1) Known <span class="math inline">\(\sigma\)</span></h3>
+<ul>
+<li><span class="math inline">\(H_0\)</span>: <span class="math inline">\(\mu = 1\)</span><br>
+</li>
+<li><span class="math inline">\(H_1\)</span>: <span class="math inline">\(\mu \ne 1\)</span></li>
+</ul>
+<p><span class="math display">\[
+z = \frac{1.2 - 1}{0.4 / \sqrt{12}} = 1.732
+\]</span></p>
+<p>Under <span class="math inline">\(H_0\)</span>, <span class="math inline">\(z \sim N(0, 1)\)</span>:</p>
+<p><span class="math display">\[
+2 \cdot \text{pnorm}(-1.73) = 0.08326
+\]</span></p>
+<p>Fail to reject <span class="math inline">\(H_0\)</span>.</p>
+</section>
+<section id="if-instead-s-0.4-sigma-unknown" class="level3">
+<h3 class="anchored" data-anchor-id="if-instead-s-0.4-sigma-unknown">(2.1) If instead <span class="math inline">\(s = 0.4\)</span>, <span class="math inline">\(\sigma\)</span> unknown</h3>
+<ul>
+<li><span class="math inline">\(t = 1.73 \sim t_{11}\)</span></li>
+</ul>
+<p><span class="math display">\[
+2 \cdot \text{pt}(-1.73, \text{df} = 11) = 0.1112
+\]</span></p>
+<p><span class="math inline">\(p\)</span>-value = 0.6376<br>
+Fail to reject <span class="math inline">\(H_0\)</span>.</p>
+</section>
+<section id="s-0.6-sigma-unknown" class="level3">
+<h3 class="anchored" data-anchor-id="s-0.6-sigma-unknown">(2.2) <span class="math inline">\(s = 0.6\)</span>, <span class="math inline">\(\sigma\)</span> unknown</h3>
+<p><span class="math display">\[
+t = \frac{1.2 - 1}{0.6 / \sqrt{12}} = 1.155
+\]</span></p>
+<p><span class="math display">\[
+2 \cdot \text{pt}(-1.155, \text{df} = 11) = 0.2777
+\]</span></p>
+<p>Fail to reject <span class="math inline">\(H_0\)</span>.</p>
+</section>
+<section id="section" class="level3">
+<h3 class="anchored" data-anchor-id="section">7.4</h3>
+<p><span class="math display">\[
+1.2 \pm t_{11, 0.975} \cdot \frac{0.6}{\sqrt{12}} \\
+t_{0.975, \text{df}=11} = 2.201 \Rightarrow \text{CI} = (0.82, 1.58)
+\]</span></p>
+</section>
+<section id="section-1" class="level3">
+<h3 class="anchored" data-anchor-id="section-1">7.5</h3>
+<ul>
+<li>1 is included in the 99% CI <span class="math inline">\(\Rightarrow\)</span> <span class="math inline">\(p\)</span>-value &gt; 0.05</li>
+</ul>
+</section>
+<section id="section-2" class="level3">
+<h3 class="anchored" data-anchor-id="section-2">7.6</h3>
+<p><span class="math display">\[
+\text{pt}(-1.52, \text{df}=6) = 0.179
+\]</span></p>
+</section>
+<section id="section-3" class="level3">
+<h3 class="anchored" data-anchor-id="section-3">7.7</h3>
+<p><span class="math display">\[
+1 - \text{pt}(2.5, \text{df}=36) = 0.008557
+\]</span></p>
+</section>
+<section id="section-4" class="level3">
+<h3 class="anchored" data-anchor-id="section-4">7.8</h3>
+<p><span class="math display">\[
+\text{qt}(0.1, \text{df}=54) = -1.297
+\]</span></p>
+</section>
+<section id="section-5" class="level3">
+<h3 class="anchored" data-anchor-id="section-5">7.52–7.53</h3>
+<ul>
+<li><span class="math inline">\(n = 200\)</span></li>
+<li><span class="math inline">\(X\)</span> = number who develop cancer</li>
+<li>observed <span class="math inline">\(x = 4\)</span></li>
+<li><span class="math inline">\(X \sim \text{Binom}(200, p)\)</span><br>
+</li>
+<li><span class="math inline">\(H_0\)</span>: <span class="math inline">\(p = 0.01\)</span> vs <span class="math inline">\(H_1\)</span>: <span class="math inline">\(p \ne 0.01\)</span></li>
+</ul>
+<p>Check:</p>
+<p><span class="math display">\[
+np_0(1 - p_0) = 0.01 \cdot 0.99 \cdot 200 = 1.98 &lt; 5
+\]</span></p>
+<p>→ Use exact binomial test.</p>
+<p>R code:</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">binom.test</span>(<span class="at">x =</span> <span class="dv">4</span>, <span class="at">n =</span> <span class="dv">200</span>, <span class="at">p =</span> <span class="fl">0.01</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Exact binomial test
+
+data:  4 and 200
+number of successes = 4, number of trials = 200, p-value = 0.1
+alternative hypothesis: true probability of success is not equal to 0.01
+95 percent confidence interval:
+ 0.005476 0.050414
+sample estimates:
+probability of success 
+                  0.02 </code></pre>
+</div>
+</div>
+</section>
+<section id="manual-p-value-computation" class="level3">
+<h3 class="anchored" data-anchor-id="manual-p-value-computation">Manual p-value computation:</h3>
+<p><span class="math display">\[
+\text{p-value} = 2 \cdot \sum_{k=4}^{200} \binom{200}{k} (0.01)^k (0.99)^{200-k}
+\]</span></p>
+<p>R shortcut:</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span> <span class="sc">*</span> <span class="fu">dbinom</span>(<span class="dv">3</span>, <span class="at">size =</span> <span class="dv">200</span>, <span class="at">prob =</span> <span class="fl">0.01</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.3627</code></pre>
+</div>
+</div>
+<p>Result:</p>
+<p><span class="math display">\[
+\text{p-value} \approx 0.2839
+\]</span></p>
+<ul>
+<li>R output <span class="math inline">\(p\)</span>-value ≈ 0.142</li>
+</ul>
+</section>
+<section id="section-6" class="level3">
+<h3 class="anchored" data-anchor-id="section-6">7.54</h3>
+<ul>
+<li>5-year period</li>
+<li><span class="math inline">\(X = 20\)</span>, <span class="math inline">\(n = 200\)</span></li>
+<li>5-year incidence rate is <span class="math inline">\(0.05\)</span></li>
+</ul>
+<p>Hypotheses: - <span class="math inline">\(H_0\)</span>: <span class="math inline">\(p = 0.05\)</span> - <span class="math inline">\(H_1\)</span>: <span class="math inline">\(p \ne 0.05\)</span></p>
+<p>Since <span class="math inline">\(0.05 \cdot 0.95 \cdot 200 = 9.5\)</span>, we can use the normal approximation.</p>
+<p><span class="math display">\[
+z = \frac{0.1 - 0.05}{\sqrt{0.05 \cdot 0.95 / 200}} = 3.082
+\]</span></p>
+<p><span class="math display">\[
+\text{p-value} = 2(1 - \text{pnorm}(3.082)) = 0.002055
+\]</span></p>
+<p>→ Reject <span class="math inline">\(H_0\)</span></p>
+</section>
+<section id="section-7" class="level3">
+<h3 class="anchored" data-anchor-id="section-7">7.55</h3>
+<p>Compute 95% CI for <span class="math inline">\(p\)</span>:</p>
+<p><span class="math display">\[
+\hat{p} \pm z_{0.975} \cdot \sqrt{\frac{\hat{p}(1 - \hat{p})}{n}} \quad \text{where } z_{0.975} = 1.96
+\]</span></p>
+<p><span class="math display">\[
+0.1 \pm 1.96 \cdot \sqrt{\frac{0.1 \cdot 0.9}{200}} = (0.05842, 0.1416)
+\]</span></p>
+<p>R code:</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">prop.test</span>(<span class="at">x =</span> <span class="dv">20</span>, <span class="at">n =</span> <span class="dv">200</span>, <span class="at">p =</span> <span class="fl">0.05</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    1-sample proportions test with continuity correction
+
+data:  20 out of 200, null probability 0.05
+X-squared = 9.5, df = 1, p-value = 0.002
+alternative hypothesis: true p is not equal to 0.05
+95 percent confidence interval:
+ 0.06366 0.15230
+sample estimates:
+  p 
+0.1 </code></pre>
+</div>
+</div>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    // Ensure there is a toggle, if there isn't float one in the top right
+    if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+      const a = window.document.createElement('a');
+      a.classList.add('top-right');
+      a.classList.add('quarto-color-scheme-toggle');
+      a.href = "";
+      a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+      const i = window.document.createElement("i");
+      i.classList.add('bi');
+      a.appendChild(i);
+      window.document.body.appendChild(a);
+    }
+    setColorSchemeToggle(hasAlternateSentinel())
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
+        }
+        return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
