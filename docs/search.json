@@ -837,6 +837,13 @@
     "href": "05_tests/07_notes.html#confidence-intervals-and-hypothesis-tests",
     "title": "Chapter 7: One Sample Hypothesis Testing",
     "section": "Confidence intervals and hypothesis tests",
-    "text": "Confidence intervals and hypothesis tests\n\nSuppose \\(X_1, X_2, \\ldots, X_n \\overset{\\text{iid}}{\\sim} N(\\mu, \\sigma^2)\\)\n\n\\[\\begin{align*}\nH_0 &: \\mu = \\mu_0 \\\\\nH_1 &: \\mu \\ne \\mu_0\n\\end{align*}\\]\n\nThen, reject \\(H_0\\) at level \\(\\alpha\\) if and only if the \\(100(1 - \\alpha)\\%\\) confidence interval does not contain \\(\\mu_0\\)\ni.e., if \\(\\mu_0\\) is outside the CI, reject \\(H_0\\) at level \\(\\alpha\\) and p-value is less than \\(\\alpha\\)\nGeneral result: All tests correspond to some confidence interval, and vice versa\nSo, a \\(100(1 - \\alpha)\\%\\) CI contains all values of \\(\\mu_0\\) that would fail to reject \\(H_0\\!: \\mu = \\mu_0\\)\nOne-sided CIs correspond to one-sided tests"
+    "text": "Confidence intervals and hypothesis tests\nSuppose \\(X_1, X_2, \\ldots, X_n \\overset{\\text{iid}}{\\sim} N(\\mu, \\sigma^2)\\) and\n\n\\(H_0 : \\mu = \\mu_0\\)\n\\(H_1 : \\mu \\ne \\mu_0\\)\n\nThen, we reject \\(H_0\\) at level \\(\\alpha\\) if and only if the \\(100(1 - \\alpha)\\%\\) confidence interval does not contain \\(\\mu_0\\)\n\nI.e., if \\(\\mu_0\\) is outside the \\((1-\\alpha)100\\%\\) confidence interval, then reject \\(H_0\\) at level \\(\\alpha\\) and the \\(p\\)-value is less than \\(\\alpha\\)\nGeneral result: All tests correspond to some confidence interval, and vice versa\nSo, a \\(100(1 - \\alpha)\\%\\) CI contains all values of \\(\\mu_0\\) that would fail to reject \\(H_0: \\mu = \\mu_0\\)\nOne-sided confidence intervalss correspond to one-sided tests"
+  },
+  {
+    "objectID": "05_tests/07_notes.html#sample-size-for-z-tests",
+    "href": "05_tests/07_notes.html#sample-size-for-z-tests",
+    "title": "Chapter 7: One Sample Hypothesis Testing",
+    "section": "Sample Size for z-tests",
+    "text": "Sample Size for z-tests\nSuppose \\(H_0: \\mu = \\mu_0\\).\n\nIf \\(H_1: \\mu &gt; \\mu_0\\) or \\(H_1: \\mu &lt; \\mu_0\\) then \\[\nn = \\frac{(z_{1-\\beta} + z_{1-\\alpha})^2\\sigma^2}{(\\mu_0 - \\mu_1)^2}\n\\]\nIf \\(H_1: \\mu \\neq \\mu_0\\) then \\[\nn = \\frac{ (z_{1-\\beta} + z_{1 - \\alpha/2})^2\\sigma^2}{(\\mu_0 - \\mu_1)^2}\n\\]"
   }
 ]

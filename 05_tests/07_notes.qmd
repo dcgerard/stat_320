@@ -13,6 +13,19 @@ knitr::opts_chunk$set(echo = TRUE,
             fig.height = 3, 
             fig.align = "center")
 ggplot2::theme_set(ggplot2::theme_bw() + ggplot2::theme(strip.background = ggplot2::element_rect(fill = "white")))
+plt_norm <- function(mu = 0, sig = 1, lb = -Inf, ub = Inf) {
+  tibble(x = seq(mu - 3 * sig, mu + 3 * sig, length.out = 500)) |>
+    mutate(y = dnorm(x = x, mean = mu, sd = sig)) ->
+    df1
+  df1 |>
+    filter(x > lb, x < ub) ->
+    df2
+  ggplot() +
+    geom_line(data = df1, mapping = aes(x = x, y = y)) +
+    geom_area(data = df2, mapping = aes(x = x, y = y)) +
+    theme_classic() +
+    theme(axis.title = element_blank())
+}
 ```
 
 # Hypothesis Testing Overview
@@ -532,22 +545,20 @@ t &= \frac{181.52 - 190}{40 / \sqrt{100}} = -2.12 \\
 
 ## Confidence intervals and hypothesis tests
 
-- Suppose $X_1, X_2, \ldots, X_n \overset{\text{iid}}{\sim} N(\mu, \sigma^2)$
+Suppose $X_1, X_2, \ldots, X_n \overset{\text{iid}}{\sim} N(\mu, \sigma^2)$ and
 
-\begin{align*}
-H_0 &: \mu = \mu_0 \\
-H_1 &: \mu \ne \mu_0
-\end{align*}
+- $H_0 : \mu = \mu_0$
+- $H_1 : \mu \ne \mu_0$
 
-- Then, reject $H_0$ at level $\alpha$ **if and only if** the $100(1 - \alpha)\%$ confidence interval **does not contain** $\mu_0$
+Then, we reject $H_0$ at level $\alpha$ **if and only if** the $100(1 - \alpha)\%$ confidence interval **does not contain** $\mu_0$
 
-- i.e., if $\mu_0$ is outside the CI, reject $H_0$ at level $\alpha$ and p-value is less than $\alpha$
+- I.e., if $\mu_0$ is outside the $(1-\alpha)100\%$ confidence interval, then reject $H_0$ at level $\alpha$ and the $p$-value is less than $\alpha$
 
-- **General result**: All tests correspond to some confidence interval, and vice versa
+- General result: All tests correspond to some confidence interval, and vice versa
 
-- So, a $100(1 - \alpha)\%$ CI contains all values of $\mu_0$ that would fail to reject $H_0\!: \mu = \mu_0$
+- So, a $100(1 - \alpha)\%$ CI contains all values of $\mu_0$ that would fail to reject $H_0: \mu = \mu_0$
 
-- One-sided CIs correspond to one-sided tests
+- One-sided confidence intervalss correspond to one-sided tests
 
 # Power Calculations
 
@@ -556,234 +567,262 @@ H_1 &: \mu \ne \mu_0
   \text{Power} = \Pr(\text{Reject } H_0 \mid H_1) = 1 - \beta
   $$
 
-- In experiments/surveys, it is common to **guess power prior to collecting data**:
+- In experiments/surveys, it is common to guess power prior to collecting data so that we can:
   1. Calculate $n$ needed
   2. See what effect sizes we can detect
-  3. Estimate likelihood our study will be successful
+  3. See how likely our study will be successful
 
-- To do this, we need:
+- To calculate power, you need four things:
   1. Guess of effect size $\mu_1 - \mu_0$ (from pilot study or wild guess)
-  2. Guess of standard deviation $\sigma$
-  3. Sample size $n$
+  2. Guess of standard deviation $\sigma$ (from pilot study or wild guess)
+  3. Sample size $n$ (provided by researcher)
   4. Significance level $\alpha$ (provided by researcher)
 
 
-- If $\sigma$ is known, use **z-test** instead of t-test to calculate power
+- If $\sigma$ is known, use $z$-test instead of $t$-test to calculate power
 
-\begin{align*}
-H_0 &: \mu = \mu_0 \\
-H_1 &: \mu < \mu_0
-\end{align*}
+::: {.callout-important}
+## z-test, Alternative Less
+Suppose $X_1,X_2,\ldots,X_n \sim N(\mu, \sigma^2)$ where $\sigma^2$ is known, and we are considering the following hypotheses:
 
-- Reject $H_0$ if:  
-  $$
-  \frac{\bar{X} - \mu_0}{\sigma/\sqrt{n}} < z_\alpha
-  $$  
-  (This follows a standard normal under $H_0$)
+- $H_0 : \mu = \mu_0$
+- $H_1 : \mu < \mu_0$
+
+Then we calculate the $z$ statistic:
+$$
+z = \frac{\bar{X} - \mu_0}{\sigma/\sqrt{n}}
+$$
+
+The $p$-value for this test is `qnorm(z)`.
+
+The critical value for this test is `qnorm(α)` which is $z_{\alpha}$ in the Rosner notation. We reject if $z < z_{\alpha}$.
+:::
 
 
-### Power calculation under $\mu = \mu_1$:
+-   Let's calculate the power of the $z$ test when $\mu = \mu_1$.
+    \begin{align*}
+    \Pr(\text{Reject } H_0 \mid \mu = \mu_1) 
+    &= \Pr\left( \frac{\bar{X} - \mu_0}{\sigma/\sqrt{n}} < z_\alpha \ \Big| \ \mu = \mu_1 \right) \\
+    &= \Pr\left( \frac{\bar{X} - \mu_1 + \mu_1 - \mu_0}{\sigma/\sqrt{n}} < z_\alpha | \ \mu = \mu_1 \right)\\
+    &= \Pr\left( \frac{\bar{X} - \mu_1}{\sigma/\sqrt{n}} - \frac{\mu_0 - \mu_1}{\sigma/\sqrt{n}}< z_\alpha | \ \mu = \mu_1 \right) \\
+    &= \Pr\left( \frac{\bar{X} - \mu_1}{\sigma/\sqrt{n}} < \frac{\mu_0 - \mu_1}{\sigma/\sqrt{n}} + z_\alpha | \ \mu = \mu_1 \right) \\
+    &= \Phi\left( \frac{\mu_0 - \mu_1}{\sigma/\sqrt{n}} + z_\alpha\right)
+    \end{align*}
 
-\begin{align*}
-\Pr(\text{Reject } H_0 \mid \mu = \mu_1) 
-&= \Pr\left( \frac{\bar{X} - \mu_0}{\sigma/\sqrt{n}} < z_\alpha \ \Big| \ \mu = \mu_1 \right) \\
-&= \Pr\left( \frac{\bar{X} - \mu_1 + \mu_1 - \mu_0}{\sigma/\sqrt{n}} < z_\alpha \right)
-\end{align*}
+- $\Phi(\cdot)$ is the CDF of the standard normal distribution
 
-Continuing from the previous derivation:
+- The final line follows since $\frac{\bar{X} - \mu_1}{\sigma/\sqrt{n}}$ follows $N(0,1)$ when $\mu = \mu_1$.
 
-\begin{align*}
-\Pr\left( \frac{\bar{X} - \mu_0}{\sigma/\sqrt{n}} < z_\alpha \ \Big| \ \mu = \mu_1 \right)
-&= \Pr\left( \frac{\bar{X} - \mu_1}{\sigma/\sqrt{n}} < \frac{\mu_0 - \mu_1}{\sigma/\sqrt{n}} + z_\alpha \right) \\
-&= \Phi\left( \frac{\mu_0 - \mu_1}{\sigma/\sqrt{n}} + z_\alpha \right)
-\end{align*}
-
-- $\Phi(\cdot)$ is the **CDF of the standard normal distribution**  
-- This gives us an **estimate of power**  
-
-Rewriting:
-
+::: {.callout-important}
+## Power of z-test, Alternative Less
 $$
 \text{Power} = \Phi\left( z_\alpha + \frac{\sqrt{n}(\mu_0 - \mu_1)}{\sigma} \right)
 $$
+:::
 
 
-**Plot:** $\Phi(x)$ is an S-shaped curve ranging from 0 to 1  
-**XYZ IMAGE HERE**  
-(Standard normal CDF)
+-   This is what $\phi()$ looks like
+    ```{r}
+    #| echo: false
+    tibble(x = seq(-4, 4, length.out = 100)) |>
+      mutate(y = pnorm(x)) |>
+      ggplot(aes(x = x, y = y)) +
+      geom_line(linewidth = 2) +
+      xlab("z") +
+      ylab(expression(Phi(z)))
+    ```
+    
+-   So if the thing inside $\Phi(\cdot)$ gets larger, then power increases.
+    - E.g., if $\alpha$ increases, then $z_{\alpha}$ increases (higher quantile), and power increases.
+    - If $n$ increases, then $\sqrt{n}$ increases, and power increases.
+    - If $\sigma$ increases, then $\frac{1}{\sigma}$ decreases, so power decreases.
+
+-   Here's a summary of how parameters affect power:
+
+    | Parameter       | Change        | Effect on Power           | Reason                         |
+    |----------------|---------------|----------------------------|--------------------------------|
+    | $\alpha$        | ↓             | Power ↓                   | More stringent test            |
+    | $n$             | ↓             | Power ↓                   | Less data                      |
+    | $|\mu_0 - \mu_1|$ | ↓          | Power ↓                   | Smaller effect size            |
+    | $\sigma$        | ↓             | Power ↑                   | More precise measurements      |
 
 
-### Summary of how parameters affect power:
 
-| Parameter       | Change        | Effect on Power           | Reason                         |
-|----------------|---------------|----------------------------|--------------------------------|
-| $\alpha$        | ↓             | Power ↓                   | More stringent test            |
-| $n$             | ↓             | Power ↓                   | Less data                      |
-| $|\mu_0 - \mu_1|$ | ↓          | Power ↓                   | Smaller effect size            |
-| $\sigma$        | ↓             | Power ↑                   | More precise measurements      |
+```{r}
+#| echo: false
+#| eval: false
+mu1 <- -2
+alpha <- 0.1
+crit <- qnorm(alpha)
+tibble(x = seq(-4, 4, length.out = 200)) |>
+  mutate(y = dnorm(x)) ->
+  df1
+tibble(x = seq(-4 + mu1, 4 + mu1, length.out = 200)) |>
+  mutate(y = dnorm(x = x, mean = mu1)) ->
+  df2
+df1 |>
+  filter(x < crit) ->
+  df3
+df2 |>
+  filter(x < crit) ->
+  df4
+  
+ggplot() +
+  geom_line(data = df1, mapping = aes(x = x, y = y), linewidth = 2, color = "blue") +
+  geom_line(data = df2, mapping = aes(x = x, y = y), linewidth = 2, color = "orange") +
+  geom_area(data = df3, mapping = aes(x = x, y = y), fill = "blue", alpha = 1/2) +
+  geom_area(data = df4, mapping = aes(x = x, y = y), fill = "orange", alpha = 1/2) +
+  geom_vline(xintercept = crit, color = "red", linewidth = 2, linetype = "dashed") +
+  geom_vline(xintercept = c(0, mu1), linetype = "dotted") +
+  theme_classic() +
+  theme(axis.title = element_blank(),
+        axis.text.x = element_text(size = 15, angle = 90, vjust = 0.5, hjust = 1)) +
+  scale_x_continuous(breaks = c(0, mu1, crit), labels = c(expression(mu[0]), expression(mu[1]), expression(mu[0]+z[alpha]*sigma/sqrt(n)))) ->
+  pl
+ggsave(filename = "./05_figs/power_norm.pdf", plot = pl, height = 4, width = 6)
+```
 
+![](./05_figs/power_ztest.png){alt="overlapping normal curves showing the distribution of the sample mean under the null and the alternative, with the significance level and power labeled"}
 
-**XYZ IMAGE HERE**  
-(Overlapping normal curves showing the distribution of $\bar{X}$ under $H_0$ and $H_1$, with $\alpha$ and power labeled)
+- Example: Pilot study using 10 individuals gave:  
+  - $\bar{X} = -5$, $s = 10$  
+  - Assume $\mu = 0$ is the null (no effect)  
+  - Now we plan to propose a new study with $n = 30$  
+  - At $\alpha = 0.05$, what is the power?
+  - We will use thise conditions:
+    - $\mu_1 = -5$ (from pilot study)
+    - $\sigma = 10$ (from pilot study)
+    - $n = 30$ (provided)
+    - $\alpha = 0.05$ (provided
+  - We can calculate $z_\alpha$
+    ```{r}
+    qnorm(0.05)
+    ```
+  - Plugging these into the power equation, we get
+    $$
+    \Phi\left(-1.645 + \frac{\sqrt{30}(0 - (-5))}{10} \right) = \Phi(1.094)
+    $$
+  - Plugging this into R we get:
+    ```{r}
+    pnorm(1.094)
+    ```
 
-- Left curve: distribution under $\mu = \mu_0$  
-- Right curve: distribution under $\mu = \mu_1$  
-- Area to the left of the critical value under the $H_1$ curve is **power** = $1 - \beta$
+::: {.panel-tabset}
+## Exercise:
+Mean birthweight in the US is 120 oz. What is the power to detect low birthweight in a study with:  
 
-
-### Example:
-
-Pilot study using 10 individuals gave:  
-$\bar{X} = -5$, $s = 10$  
-Assume $\mu = 0$ is the null (no effect)  
-Now propose a new study with $n = 30$  
-At $\alpha = 0.05$, what is the power?
-
-\begin{align*}
-\mu_1 &= -5 \\
-\sigma &= 10 \\
-n &= 30 \\
-\alpha &= 0.05 \Rightarrow z_\alpha = -1.645 \quad (\text{i.e., } \texttt{qnorm(0.05)})
-\end{align*}
-
-Compute power:
-\begin{align*}
-\Phi\left(-1.645 + \frac{0 - (-5)}{10/\sqrt{30}} \right)
-&= \Phi(1.094) \\
-&= \texttt{pnorm(1.094)} \approx 0.863
-\end{align*}
-
-- $\Rightarrow$ Estimated **power** is **0.863**
-
-### Exercise:
-
-Mean birthweight in the US is 120 oz.  
-What is the **power to detect low birthweight** in a study with:  
 - $n = 100$  
 - $\mu_1 = 115$  
 - $\alpha = 0.05$  
 - $\sigma = 24$
 
-\begin{align*}
-\text{Power} &= \Phi\left(-1.645 + \frac{120 - 115}{24 / \sqrt{100}} \right) \\
-&= \Phi(0.438) = \texttt{pnorm(0.438)} \approx 0.669
-\end{align*}
-
-
-### For right-tailed test:
-
-If  
-\begin{align*}
-H_0 &: \mu = \mu_0 \\
-H_1 &: \mu > \mu_0
-\end{align*}
-
-Then  
+## Solution
+Plugging in these values into the power equation, we have
 $$
-\text{Power} = \Phi\left( z_\alpha + \frac{\sqrt{n}(\mu_1 - \mu_0)}{\sigma} \right)
+\text{Power} &= \Phi\left(z_{0.05} + \frac{\sqrt{100}(120 - 115)}{24} \right) 
 $$
+Doing this in R, we have
+```{r}
+pnorm(qnorm(0.05) + sqrt(100) * (120 - 115) / 24)
+```
+:::
 
-(Just swap $\mu_0$ and $\mu_1$ from the left-tailed version.)
+- We can repeat this analysis to get the power for other alternatives:
 
+::: {.callout-important}
+## Power for z-tests
+Assume $H_0: \mu = \mu_0$.
 
-### For two-tailed test:
-
-If  
-\begin{align*}
-H_0 &: \mu = \mu_0 \\
-H_1 &: \mu \ne \mu_0
-\end{align*}
-
-Then  
-$$
-\text{Power} = \Phi\left( z_{\alpha/2} + \frac{\sqrt{n}(\mu_0 - \mu_1)}{\sigma} \right)
-+ \Phi\left( z_{\alpha/2} + \frac{\sqrt{n}(\mu_1 - \mu_0)}{\sigma} \right)
-$$
-
-- Add both tails  
-- Use $\alpha/2$ critical value
+- For $H_1: \mu < \mu_0$:
+  $$
+  \text{Power} = \Phi\left( z_\alpha + \frac{\sqrt{n}(\mu_0 - \mu_1)}{\sigma} \right)
+  $$
+- For $H_1 : \mu > \mu_0$
+  $$
+  \text{Power} = \Phi\left( z_\alpha + \frac{\sqrt{n}(\mu_1 - \mu_0)}{\sigma} \right)
+  $$
+- For $H_1 : \mu \ne \mu_0$
+  $$
+  \text{Power} = \Phi\left( z_{\alpha/2} + \frac{\sqrt{n}(\mu_0 - \mu_1)}{\sigma} \right)
+  + \Phi\left( z_{\alpha/2} + \frac{\sqrt{n}(\mu_1 - \mu_0)}{\sigma} \right)
+  $$
+:::
 
 # Sample Size Calculation
 
 - Typically, you want a **power** of at least 0.8  
+
 - So, what $n$ will give us power of 0.8?
 
-
-### Assume:
-
-1. Guess of effect size: $\mu_1 - \mu_0$ (from pilot study or wild guess)  
-2. Guess of standard deviation $\sigma$  
-3. Desired power = $1 - \beta$ (chosen by researcher)  
-4. Significance level $\alpha$
+- Assume we have:
+  1. Guess of effect size: $\mu_1 - \mu_0$ (from pilot study or wild guess)  
+  2. Guess of standard deviation $\sigma$  (from pilot study or wild guess)  
+  3. Desired power = $1 - \beta$ (chosen by researcher)  
+  4. Significance level $\alpha$ (chosen by researcher)
 
 
-### One-sided test (e.g., $H_0\!: \mu = \mu_0$ vs. $H_1\!: \mu < \mu_0$):
+-Suppose we are testing 
+  - $H_0: \mu = \mu_0$
+  - $H_1: \mu < \mu_0$
 
-Start from power formula:
-$$
-1 - \beta = \Phi\left( z_\alpha + \frac{\sqrt{n}(\mu_0 - \mu_1)}{\sigma} \right)
-$$
+- Start from power formula:
+  $$
+  1 - \beta = \Phi\left( z_\alpha + \frac{\sqrt{n}(\mu_0 - \mu_1)}{\sigma} \right)
+  $$
 
-Now solve for $n$ (either numerically or algebraically):
+  Now solve for $n$ (either numerically or algebraically):
 
-Take inverse:
-$$
-\Phi^{-1}(1 - \beta) = z_\alpha + \frac{\sqrt{n}(\mu_0 - \mu_1)}{\sigma}
-$$
+- Let's try doing this by hand:
+  \begin{align*}
+  &\Phi^{-1}(1 - \beta) = z_\alpha + \frac{\sqrt{n}(\mu_0 - \mu_1)}{\sigma}\\
+  &\Leftrightarrow z_{1-\beta} = z_\alpha + \frac{\sqrt{n}(\mu_0 - \mu_1)}{\sigma}\\
+  &\Leftrightarrow n = \frac{(z_{1-\beta} - z_\alpha)^2\sigma^2}{(\mu_0 - \mu_1)^2}\\
+  &\Leftrightarrow n = \frac{(z_{1-\beta} + z_{1-\alpha})^2\sigma^2}{(\mu_0 - \mu_1)^2}
+  \end{align*}
 
-Solve:
-$$
-\sqrt{n} = \frac{\Phi^{-1}(1 - \beta) - z_\alpha}{(\mu_0 - \mu_1)/\sigma}
-$$
+- It turns out that this calculation for $n$ is the exact same for $H_1: \mu > \mu_0$.
 
-Square both sides:
-$$
-n = \frac{(\Phi^{-1}(1 - \beta) - z_\alpha)^2 \cdot \sigma^2}{(\mu_0 - \mu_1)^2}
-$$
+- For $H_1: \mu \neq \mu_0$, the equation is a little more complicated.
 
+::: {.callout-important}
+## Sample Size for z-tests
+Suppose $H_0: \mu = \mu_0$.
 
-### Alternate form (for $H_0\!: \mu = \mu_0$ vs. $H_1\!: \mu > \mu_0$):
+- If $H_1: \mu > \mu_0$ or $H_1: \mu < \mu_0$ then
+  $$
+  n = \frac{(z_{1-\beta} + z_{1-\alpha})^2\sigma^2}{(\mu_0 - \mu_1)^2}
+  $$
+- If $H_1: \mu \neq \mu_0$ then
+  $$
+  n = \frac{ (z_{1-\beta} + z_{1 - \alpha/2})^2\sigma^2}{(\mu_0 - \mu_1)^2}
+  $$
+:::
 
-$$
-n = \frac{(z_{1-\beta} + z_{1-\alpha})^2 \cdot \sigma^2}{(\mu_1 - \mu_0)^2}
-$$
-
-### Exercise: What is the effect on $n$ of increasing:
+::: {.panel-tabset}
+## Exercise
+What is the effect on $n$ of increasing
 
 1. $\sigma$  
 2. $\beta$  
 3. $\alpha$  
 4. $|\mu_0 - \mu_1|$
 
+Try to reason both by using the power equations and by using common sense.
 
-#### Effects:
+## Solution
 
 1. $\sigma \uparrow \ \Rightarrow\ n \uparrow$  
-   (Less precise measurements, so need more data)
-
+   - Intuitive reason: less precise measurements, so need more data.
+   
 2. $\beta \uparrow \ \Rightarrow\ 1 - \beta \downarrow \ \Rightarrow\ z_{1 - \beta} \downarrow \ \Rightarrow\ n \downarrow$  
-   (Less power needed)
+   - Intuitive reason: less power needed, so we can have a smaller sample size.
 
-3. $\alpha \uparrow \ \Rightarrow\ z_{1 - \alpha} \downarrow \ \Rightarrow\ n \downarrow$  
-   (Less stringent test)
+3. $\alpha \uparrow \ \Rightarrow 1-\alpha \downarrow \ \Rightarrow\ z_{1 - \alpha} \downarrow \ \Rightarrow\ n \downarrow$  
+   - Intuitive reason: less stringent test, so we can have a smaller sample size.
 
 4. $|\mu_0 - \mu_1| \uparrow \ \Rightarrow\ n \downarrow$  
-   (Larger effect sizes are easier to detect)
-
-**XYZ IMAGE HERE**  
-(Standard normal with $\alpha$, $\beta$, $z_{1-\alpha}$, and $z_{1-\beta}$ labeled)
-
-
-### For two-sided test:
-
-If $H_0: \mu = \mu_0$ vs. $H_1: \mu \ne \mu_0$,  
-solve for $n$ using:
-
-$$
-n = \frac{\sigma^2 (z_{1-\beta} + z_{1 - \alpha/2})^2}{(\mu_0 - \mu_1)^2}
-$$
-
-(The only difference from one-sided test is the use of $z_{1 - \alpha/2}$ instead of $z_{1 - \alpha}$.)
+   - Intuitive reason: larger effect sizes are easier to detect, so we can have a smaller sample size.
+:::
 
 ---
 
@@ -791,75 +830,98 @@ $$
 
 ---
 
-Skip Section 7.8
+**Skip Section 7.8**
 
 # One-Sample Inference for Binomial
 
-### Example:
+- Example: Prevalence of breast cancer is 2%. Of 10,000 women whose mothers had breast cancer, 400 of them got breast cancer in their lives. Are they at higher risk?
 
-Prevalence of breast cancer is 2%.  
-Of 10,000 women whose mothers had breast cancer,  
-400 of them got breast cancer in their lives.  
-**Are they at higher risk?**
+  - Let $X$ = number of those 10,000 who got breast cancer  
+  - $X \sim \text{Binom}(10{,}000,\ p)$
 
-
-- Let $X$ = number of those 10,000 who got breast cancer  
-- $X \sim \text{Binom}(10{,}000,\ p)$
-
-\begin{align*}
-H_0 &: p = 0.02 \\
-H_1 &: p > 0.02
-\end{align*}
-
-
-### Use normal approximation:
-
-- $\hat{p} = \frac{x}{n} \sim N\left(p_0,\ \frac{p_0(1 - p_0)}{n}\right)$ under $H_0$
-
-Then:
-$$
-\frac{\hat{p} - p_0}{\sqrt{p_0(1 - p_0)/n}} \sim N(0, 1)
-$$
-
-**XYZ IMAGE HERE**  
-(Normal curve with right tail labeled as p-value)
-
-
-### p-value:
-$$
-\text{p-value} = 1 - \Phi\left( \frac{\hat{p} - p_0}{\sqrt{p_0(1 - p_0)/n}} \right)
-$$
-
-- If  
   \begin{align*}
-  H_0 &: p = p_0 \\
-  H_1 &: p \ne p_0
-  \end{align*}  
-  Then calculate area in **both tails**:
-
-**XYZ IMAGE HERE**  
-(Symmetric normal curve with shaded tails, showing two-sided test)
-
-- Two-tailed p-value:
-$$
-\text{p-value} = 2 \cdot \Phi\left( -\left| \frac{\hat{p} - p_0}{\sqrt{p_0(1 - p_0)/n}} \right| \right)
-$$
+  H_0 &: p = 0.02 \\
+  H_1 &: p > 0.02
+  \end{align*}
 
 
-### Continuity correction:
-- Subtract $1/n$ in the numerator for upper-tail tests  
-- Add $1/n$ in the numerator for lower-tail tests
+- One way to run this test is to use the normal approximation:
+
+- $\hat{p} = \frac{X}{n} \sim N\left(p_0,\ \frac{p_0(1 - p_0)}{n}\right)$ under $H_0$
+
+  Then:
+  $$
+  z = \frac{\hat{p} - p_0}{\sqrt{p_0(1 - p_0)/n}} \sim N(0, 1)
+  $$
+
+-   The $p$-value is then
+    $$
+    \text{p-value} = 1 - \Phi\left( \frac{\hat{p} - p_0}{\sqrt{p_0(1 - p_0)/n}} \right)
+    $$
+
+    ```{r}
+    #| echo: false
+    #| fig-alt: "Normal curve with right tail shaded"
+    plt_norm(mu = 0, lb = 1.5) +
+      scale_x_continuous(breaks = 1.5, labels = "z") +
+      geom_vline(xintercept = 1.5, linetype = "dashed", color = "red") +
+      theme(axis.text.x = element_text(size = 15),
+            axis.text.y = element_blank(),
+            axis.ticks.y = element_blank())
+    ```
+
+- If  $H_1: p \neq p_0$ (two-sided), then calculate area in **both tails**.
+
+-   Two-tailed p-value:
+    $$
+    \text{p-value} = 2 \cdot \Phi\left( -\left| \frac{\hat{p} - p_0}{\sqrt{p_0(1 - p_0)/n}} \right| \right)
+    $$
+  
+    ```{r}
+    #| echo: false
+    #| fig-alt: "Normal curve with shaded tails, showing two-sided test"
+    mu <- 0
+    sig <- 1
+    ub <- 1.5
+    lb <- -1.5
+    tibble(x = seq(mu - 3 * sig, mu + 3 * sig, length.out = 500)) |>
+      mutate(y = dnorm(x = x, mean = mu, sd = sig)) ->
+      df1
+    df1 |>
+      filter(x < lb) ->
+      df2
+    df1 |>
+      filter(x > ub) ->
+      df3
+    ggplot() +
+      geom_line(data = df1, mapping = aes(x = x, y = y)) +
+      geom_area(data = df2, mapping = aes(x = x, y = y)) +
+      geom_area(data = df3, mapping = aes(x = x, y = y)) +
+      theme_classic() +
+      theme(axis.title = element_blank()) +
+      scale_x_continuous(breaks = c(-1.5, 1.5), labels = c("-z", "z")) +
+      geom_vline(xintercept = c(-1.5, 1.5), linetype = "dashed", color = "red") +
+      theme(axis.text.x = element_text(size = 15),
+            axis.text.y = element_blank(),
+            axis.ticks.y = element_blank())
+    ```
+
+- Because this is the normal approximation to the binomial, you can get better results with the continuity correction:
+  - Subtract $\frac{1}{2n}$ in the numerator for upper-tail test statistic  
+  - Add $\frac{1}{2n}$ in the numerator for lower-tail test statistic
 
 
-### Example: Back to breast cancer example
-
-\begin{align*}
-\hat{p} &= \frac{400.5}{10{,}000} = 0.04005 \\
-z &= \frac{0.04005 - 0.02}{\sqrt{0.02(1 - 0.02)/10{,}000}} \approx 14.32 \\
-\text{p-value} &= \Phi(-14.32) \approx 8.4 \cdot 10^{-47} \ll 0.0001
-\end{align*}
-
-- $\Rightarrow$ **Very highly significant**
+-   Example: Back to the breast cancer example
+    \begin{align*}
+    \hat{p} &= \frac{400.5}{10{,}000} = 0.04005 \\
+    z &= \frac{0.04005 - 0.02}{\sqrt{0.02(1 - 0.02)/10{,}000}} \approx 14.32 \\
+    \text{p-value} &= \Phi(-14.32) \approx 8.2 \cdot 10^{-47} \ll 0.0001
+    \end{align*}
+    $\Rightarrow$ Very highly significant
+    ```{r}
+    pnorm(-14.32)
+    ```
+  
 
 ## Exact Test
 
@@ -869,16 +931,17 @@ z &= \frac{0.04005 - 0.02}{\sqrt{0.02(1 - 0.02)/10{,}000}} \approx 14.32 \\
   $H_1: p \ne p_0$, or $p > p_0$, or $p < p_0$
 
 
-### When to use the exact test:
+- The normal method only works for large $n$
 
-- The **normal method only works for large $n$**
 - Rule of thumb:  
   $$
   n p_0(1 - p_0) \ge 5
   $$
 
-- If $n$ is **not large enough**, use an **exact test**  
-  - Controls for $\alpha$ **for all $n$**, not just large $n$
+- If $n$ is not large enough, use an exact test
+  - Controls for $\alpha$ for all $n$, not just large $n$
+
+
 
 
 **XYZ IMAGE HERE**  
