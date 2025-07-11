@@ -849,12 +849,12 @@ Try to reason both by using the power equations and by using common sense.
 
 - $\hat{p} = \frac{X}{n} \sim N\left(p_0,\ \frac{p_0(1 - p_0)}{n}\right)$ under $H_0$
 
-  Then:
+  Then, by subtracing off the mean and dividing by the standard error:
   $$
   z = \frac{\hat{p} - p_0}{\sqrt{p_0(1 - p_0)/n}} \sim N(0, 1)
   $$
 
--   The $p$-value is then
+-   Large values of $z$ indicate support that $p$ is larger than $p_0$, so the $p$-value is the probability (under $H_0$) of being larger than what we saw:
     $$
     \text{p-value} = 1 - \Phi\left( \frac{\hat{p} - p_0}{\sqrt{p_0(1 - p_0)/n}} \right)
     $$
@@ -909,31 +909,144 @@ Try to reason both by using the power equations and by using common sense.
 - Because this is the normal approximation to the binomial, you can get better results with the continuity correction:
   - Subtract $\frac{1}{2n}$ in the numerator for upper-tail test statistic  
   - Add $\frac{1}{2n}$ in the numerator for lower-tail test statistic
+  - These come from adding or subtracting half a count to the binomial count and then dividing by $n$ to get the binomial proportion.
+  
+::: {.callout-important}
+## One-sample Binomial Test
+$X \sim \mathrm{Binom}(n,p)$, $\hat{p} = X/n$, $H_0: p = p_0$
 
+- $H_1: p < p_0$
+  - Test statistic:
+    $$
+    z = \frac{\hat{p}-p_0 + 1/(2n)}{\sqrt{p_0(1-p_0)/n}}
+    $$
+  - Critical value (reject when $z < z_{\alpha}$
+    $$
+    z_{\alpha} = \texttt{qnorm}(\alpha)
+    $$
+  - $p$-value
+    $$
+    \Phi(z)
+    $$
+  - Graphic:
+    ```{r}
+    #| echo: false
+    #| fig-height: 1.5
+    #| fig-width: 2
+    #| fig-alt: "Normal curve with left tail shaded"
+    plt_norm(mu = 0, ub = -1.5) +
+      scale_x_continuous(breaks = c(-1.5, -2), labels = c("z", expression(z[alpha]))) +
+      geom_vline(xintercept = -1.5, linetype = "dashed", color = "red") +
+      geom_vline(xintercept = -2, linetype = "dashed", color = "blue") +
+      theme(axis.text.x = element_text(size = 10, angle = 90, hjust = 1, vjust = 0.5),
+            axis.text.y = element_blank(),
+            axis.ticks.y = element_blank())
+    ```
 
--   Example: Back to the breast cancer example
-    \begin{align*}
-    \hat{p} &= \frac{400.5}{10{,}000} = 0.04005 \\
-    z &= \frac{0.04005 - 0.02}{\sqrt{0.02(1 - 0.02)/10{,}000}} \approx 14.32 \\
-    \text{p-value} &= \Phi(-14.32) \approx 8.2 \cdot 10^{-47} \ll 0.0001
-    \end{align*}
-    $\Rightarrow$ Very highly significant
+- $H_1: p > p_0$
+  - Test statistic:
+    $$
+    z = \frac{\hat{p}-p_0 - 1/(2n)}{\sqrt{p_0(1-p_0)/n}}
+    $$
+  - Critical value (reject when $z > z_{1-\alpha}$
+    $$
+    z_{1-\alpha} = \texttt{qnorm}(1-\alpha)
+    $$
+  - $p$-value
+    $$
+    1 - \Phi(z)
+    $$
+  - Graphic:
+    ```{r}
+    #| echo: false
+    #| fig-height: 1.5
+    #| fig-width: 2
+    #| fig-alt: "Normal curve with right tail shaded"
+    plt_norm(mu = 0, lb = 1.5) +
+      scale_x_continuous(breaks = c(1.5, 2), labels = c("z", expression(z[1-alpha]))) +
+      geom_vline(xintercept = 1.5, linetype = "dashed", color = "red") +
+      geom_vline(xintercept = 2, linetype = "dashed", color = "blue") +
+      theme(axis.text.x = element_text(size = 10, angle = 90, hjust = 1, vjust = 0.5),
+            axis.text.y = element_blank(),
+            axis.ticks.y = element_blank())
+    ```
+
+- $H_1: p \neq p_0$
+  - Test statistic:
+    $$
+    z = \frac{|\hat{p}-p_0| - 1/(2n)}{\sqrt{p_0(1-p_0)/n}}
+    $$
+  - Critical value (reject when $z > z_{1-\alpha/2}$
+    $$
+    z_{1-\alpha/2} = \texttt{qnorm}(1 - \alpha/2)
+    $$
+  - $p$-value
+    $$
+    2(1 - \Phi(z))
+    $$
+  - Graphic:
+    ```{r}
+    #| echo: false
+    #| fig-height: 1.5
+    #| fig-width: 2
+    #| fig-alt: "Normal curve with shaded tails, showing two-sided test"
+    mu <- 0
+    sig <- 1
+    ub <- 1.5
+    lb <- -1.5
+    tibble(x = seq(mu - 3 * sig, mu + 3 * sig, length.out = 500)) |>
+      mutate(y = dnorm(x = x, mean = mu, sd = sig)) ->
+      df1
+    df1 |>
+      filter(x < lb) ->
+      df2
+    df1 |>
+      filter(x > ub) ->
+      df3
+    ggplot() +
+      geom_line(data = df1, mapping = aes(x = x, y = y)) +
+      geom_area(data = df2, mapping = aes(x = x, y = y)) +
+      geom_area(data = df3, mapping = aes(x = x, y = y)) +
+      theme_classic() +
+      theme(axis.title = element_blank()) +
+      scale_x_continuous(breaks = c(-1.5, 1.5, 2), labels = c("-z", "z", expression(z[1-alpha/2]))) +
+      geom_vline(xintercept = c(-1.5, 1.5), linetype = "dashed", color = "red") +
+      geom_vline(xintercept = 2, linetype = "dashed", color = "blue") +
+      theme(axis.text.x = element_text(size = 10, angle = 90, hjust = 1, vjust = 0.5),
+            axis.text.y = element_blank(),
+            axis.ticks.y = element_blank())
+    ```
+:::
+
+-   Example: Back to the breast cancer example. We have
+    $$
+    \hat{p} = 400/10000 = 0.04
+    $$
+    Calculating our test statitistic, we have
+    $$
+    z = \frac{0.04 - 0.02 + 1/20000}{\sqrt{0.02(1-0.02)/10000}}
+    $$
+    ```{r}
+    (0.04 - 0.02 + 1/20000) / sqrt(0.02 * (1 - 0.02) / 10000)
+    ```
+    The $p$-value is the probability of being less than this statistic
     ```{r}
     pnorm(-14.32)
     ```
+    This is very significant.
+    
   
 
 ## Exact Test
 
-- Still assume: $X \sim \text{Bin}(n, p)$  
+- We are still assuming that $X \sim \text{Bin}(n, p)$  
 - Hypotheses:  
   $H_0: p = p_0$  
   $H_1: p \ne p_0$, or $p > p_0$, or $p < p_0$
 
-
 - The normal method only works for large $n$
 
-- Rule of thumb:  
+- Rule of thumb: You can use the normal method if
   $$
   n p_0(1 - p_0) \ge 5
   $$
@@ -942,86 +1055,89 @@ Try to reason both by using the power equations and by using common sense.
   - Controls for $\alpha$ for all $n$, not just large $n$
 
 
+- Under the null $X \sim \mathrm{Binom}(n, p_0)$. We we observe $x$ (lower-case $x$), then just calculate the probability from the binomial PMF of seeing values as weird or weirder.
+
+- $H_1: p < p_0$: Calculate $\Pr(X \leq x \mid p = p_0)$ with `pbinom(q = x, size = n, prob = p0)`
+
+-   E.g., $X = 3$, $H_0: p_0 = 0.5$, $H_1: p < 0.5$. This the the PMF of $X$ under $H_0$ and the sum of the orange bars is the $p$-value.
+
+    ```{r}
+    #| echo: false
+    tibble(x = 0:10) |>
+      mutate(y = dbinom(x = x, size = 10, prob = 0.5),
+             add = x <= 3) |>
+      ggplot(aes(x = x, xend = x, yend = y, color = add)) +
+      geom_segment(y = 0, linewidth = 2) +
+      scale_color_manual(values = palette.colors(2)) +
+      guides(color = "none") +
+      scale_x_continuous(breaks = 0:10, minor_breaks = NULL) +
+      ylab("Binomial PMF")
+    ```
 
 
-**XYZ IMAGE HERE**  
-(PMF with observed $x$ marked, showing tail probabilities)
+- $H_1: p > p_0$: Calculate $\Pr(X \leq x \mid p = p_0)$ with `1 - pbinom(q = x - 1, size = n, prob = p0)`
 
-- For two-sided test, p-value is **2 × tail sum** in direction of $x$ (flip if $x > n p_0$)
+-   E.g., $X = 3$, $H_0: p_0 = 0.5$, $H_1: p_1 > 0.5$. This the the PMF of $X$ under $H_0$ and the sum of the orange bars is the $p$-value.
 
+    ```{r}
+    #| echo: false
+    tibble(x = 0:10) |>
+      mutate(y = dbinom(x = x, size = 10, prob = 0.5),
+             add = x < 3) |>
+      ggplot(aes(x = x, xend = x, yend = y, color = add)) +
+      geom_segment(y = 0, linewidth = 2) +
+      scale_color_manual(values = rev(palette.colors(2))) +
+      guides(color = "none") +
+      scale_x_continuous(breaks = 0:10, minor_breaks = NULL) +
+      ylab("Binomial PMF")
+    ```
 
-### p-value formulas:
+- $H_1: p \neq p_0$: 2 times the smaller of $\Pr(X \leq x \mid p = p_0)$ or $\Pr(X \leq x \mid p = p_0)$.
 
-If $x \le n p_0$:
-$$
-\text{p-value} = 2 \sum_{k = 0}^{x} \binom{n}{k} p_0^k (1 - p_0)^{n - k}
-$$
+-   E.g., $X = 3$, $H_0: p_0 = 0.5$, $H_1: p < 0.5$. This the the PMF of $X$ under $H_0$ and the two times the sum of the orange bars is the $p$-value.
 
-If $x > n p_0$:
-$$
-\text{p-value} = 2 \sum_{k = x}^{n} \binom{n}{k} p_0^k (1 - p_0)^{n - k}
-$$
+    ```{r}
+    #| echo: false
+    tibble(x = 0:10) |>
+      mutate(y = dbinom(x = x, size = 10, prob = 0.5),
+             add = x <= 3) |>
+      ggplot(aes(x = x, xend = x, yend = y, color = add)) +
+      geom_segment(y = 0, linewidth = 2) +
+      scale_color_manual(values = palette.colors(2)) +
+      guides(color = "none") +
+      scale_x_continuous(breaks = 0:10, minor_breaks = NULL) +
+      annotate(geom = "text", x = 1.5, y = 0.1, label = "x2", color = "#E69F00", size = 10) +
+      ylab("Binomial PMF")
+    ```
 
+- The exact $p$-value formula for $H_1: p \neq p_0$ is
+  $$
+  \text{p-value} = 
+  \begin{cases}
+  2 \sum_{k = 0}^{x} \binom{n}{k} p_0^k (1 - p_0)^{n - k} & \text{ if } x \leq np_0\\
+  2 \sum_{k = x}^{n} \binom{n}{k} p_0^k (1 - p_0)^{n - k} & \text{ if } x > np_0
+  \end{cases}
+  $$
 
-### For One-Sided Binomial Hypotheses
+- For $H_1: p < p_0$:
+  $$
+  \text{p-value} = \sum_{k = 0}^{x} \binom{n}{k} p_0^k (1 - p_0)^{n - k}
+  $$
+  
+- For $H_1: p > p_0$:
+  $$
+  \text{p-value} = \sum_{k = x}^{n} \binom{n}{k} p_0^k (1 - p_0)^{n - k}
+  $$
+  
 
-#### Left-tailed test:  
-$H_1: p < p_0$
-
-**XYZ IMAGE HERE**  
-(PMF with tail shaded to the left of observed $x$)
-
-
-#### Right-tailed test:  
-$H_1: p > p_0$
-
-**XYZ IMAGE HERE**  
-(PMF with tail shaded to the right of observed $x$)
-
-
-- In either case:
-
-$$
-\text{p-value} = \Pr(\text{as or more extreme } X \mid H_0)
-$$
-
-- You can compute this probability **exactly** for binomial tests
-
-
-
-### Example:
-
-In a nuclear facility, there were 13 deaths,  
-of which 5 were caused by cancer.  
-Cancer causes 20% of deaths in this age group.
-
-**Are there actually more cancer deaths than would be expected?**
-
-
-- Let $X \sim \text{Binom}(13, p)$
-
-\begin{align*}
-H_0 &: p = 0.2 \\
-H_1 &: p > 0.2
-\end{align*}
-
-- p-value:
-$$
-\text{p-value} = \sum_{k = 5}^{13} \binom{13}{k} 0.2^k (1 - 0.2)^{13 - k}
-$$
-
-Or compute directly in R:
-```r
-1 - pbinom(4, size = 13, prob = 0.2)
-```
-
-* Result:
-
-$$
-\text{p-value} = 0.09413
-$$
-
-* \$\Rightarrow\$ No evidence of **more cancer deaths than typical**
+-   Example: In a nuclear facility, there were 13 deaths, of which 5 were caused by cancer. Cancer causes 20% of deaths in this age group. Are there actually more cancer deaths than would be expected?
+  
+    Let $X$ be the number of deaths caused by cancer out of 13. Then $X \sim \text{Binom}(13, p)$. We are testing $H_0: p = 0.2$ versus $H_1: p > 0.2$. The $p$-value is the probability of seeing at least 5 cancer deaths (out of 13) if indeed $p = 0.2$.
+  
+    ```{r}
+    1 - pbinom(q = 4, size = 13, prob = 0.2)
+    ```
+    This is a pretty large $p$-value, so we do not have evidence that there are more cancer deaths than expected.
 
 
 --- 
@@ -1030,10 +1146,6 @@ $$
 
 ---
 
-```r
-binom.test(x = 5, n = 13, p = 0.2, alternative = "greater")
-```
-
 # Power Calculations for Binomial Tests
 
 We want:
@@ -1041,52 +1153,45 @@ $$
 \text{Power} = \Pr(\text{Reject } H_0 \mid H_1)
 $$
 
-### Need:
-- True alternative value: $p_1$  
-- Sample size: $n$  
-- Significance level: $\alpha$
+- Need:
+  - True alternative value: $p_1$ (wild guess or pilot study)
+  - Sample size: $n$ (provided by researcher)
+  - Significance level: $\alpha$ (provided by researcher)
 
-We skip the exact distribution and use a **normal approximation**.
+- We'll skip the derivation, but we are using the normal approximation.
 
+- It's very similar to the normal power calculations. E.g., here is a visual of the power calculation when $H_1: p < p_0$:
 
-**XYZ IMAGE HERE**  
-(Overlapping normal distributions under $H_0: p = p_0$ and $H_1: p = p_1$ with shaded rejection region and labeled $\alpha/2$, $\beta$)
+  ![](./05_figs/power_binom_test.png)\ 
 
+- For the two-sided test ($H_1: p \ne p_0$), power is approximated as:
 
-### Under $H_0: p \ne p_0$, power is approximated as:
+  $$
+  \Phi\left(\sqrt{\frac{p_0(1-p_0)}{p_1(1-p_1)}\left(z_{\alpha/2} + \frac{|p_0 - p_1|\sqrt{n}}{\sqrt{p_0(1-p_0)}}\right)}\right)
+  $$
 
-$$
-\text{Power} = \Phi\left(
-\frac{p_0 - p_1}{\sqrt{p_1(1 - p_1)/n}}
- \cdot z_{\alpha/2}
-+ \frac{|p_0 - p_1| \cdot \sqrt{n}}{\sqrt{p_1(1 - p_1)}}
-\right)
-$$
+- I don't expect you remember this, but you should be able to say something about it if I show it to you. Like these summaries.
 
+- Summary of effects on power:
 
-### Summary of effects on power:
-
-| Parameter        | Change       | Effect on Power  | Reason              |
-|------------------|--------------|------------------|---------------------|
-| $n$              | ↑            | Power ↑          | More data           |
-| $\alpha$         | ↑            | Power ↑          | Less stringent test |
-| $|p_0 - p_1|$     | ↑            | Power ↑          | More signal         |
+  | Parameter        | Change       | Effect on Power  | Reason              |
+  |------------------|--------------|------------------|---------------------|
+  | $n$              | ↑            | Power ↑          | More data           |
+  | $\alpha$         | ↑            | Power ↑          | Less stringent test |
+  | $|p_0 - p_1|$    | ↑            | Power ↑          | More signal         |
 
 
-# Sample Size Calculation (Binomial)
-
-### Need:
-1. True alternative $p_1$  
-2. Desired power $1 - \beta$  
-3. Significance level $\alpha$
+- For sample size calculations, need:
+  1. True alternative $p_1$ (wild guess, or from a pilot study)
+  2. Desired power $1 - \beta$ (from researcher)
+  3. Significance level $\alpha$ (from researcher)
 
 
-We set:
-$$
-1 - \beta = f(n,\ p_1,\ \alpha)
-$$
-
-Then **solve for $n$**
+- To get $n$, we first set:
+  $$
+  1 - \beta = \Phi\left(\sqrt{\frac{p_0(1-p_0)}{p_1(1-p_1)}\left(z_{\alpha/2} + \frac{|p_0 - p_1|\sqrt{n}}{\sqrt{p_0(1-p_0)}}\right)}\right)
+  $$
+  Then solve for $n$. The equation is in the book.
 
 ---
 
@@ -1099,236 +1204,409 @@ Then **solve for $n$**
 
 - Let $X \sim \text{Poisson}(\mu)$
 
-### Hypotheses:
-- $H_0: \mu = \mu_0$  
-- $H_1$: $\mu \ne \mu_0$, or $\mu > \mu_0$, or $\mu < \mu_0$
+- Hypotheses:
+  - $H_0: \mu = \mu_0$  
+  - $H_1$: $\mu \ne \mu_0$, or $\mu > \mu_0$, or $\mu < \mu_0$
+
+- The $p$-value is calculated using exact approaches. Very similar to the binomial approach.
+
+- $H_1: \mu < \mu_0$: Then calculate $\Pr(X \leq x \mid \mu = \mu_0)$ via `ppois(q = x, lambda = mu0)`
+
+-   E.g., we observe $x = 3$ and our hypotheses are $H_0: \mu = 5$  and $H_1: \mu < 5$. Then the $p$-value is the probability of being less than or equal to 3 given $\mu = 5$ (sum of orange bars).
+    ```{r}
+    #| echo: false
+    tibble(x = 0:15) |>
+      mutate(y = dpois(x = x, lambda = 5),
+             add = x <= 3) |>
+      ggplot(aes(x = x, xend = x, yend = y, color = add)) +
+      geom_segment(y = 0, linewidth = 2) +
+      scale_color_manual(values = palette.colors(2)) +
+      guides(color = "none") +
+      scale_x_continuous(breaks = 0:15, minor_breaks = NULL) +
+      ylab("Poisson PMF")
+    ```
 
 
-### p-value (two-sided):
-
-Let $x$ be the observed count. Then:
-
-$$
-\text{p-value} = \sum_{h : \Pr(h) \le \Pr(x)} \Pr(h) 
-= \sum_{h : \Pr(h) \le \Pr(x)} \frac{e^{-\mu_0} \mu_0^h}{h!}
-$$
-
-**XYZ IMAGE HERE**  
-(PMF showing observed $x$ and shaded tails for exact p-value)
+- $H_1: \mu > \mu_0$: Then calculate $\Pr(X \geq x \mid \mu = \mu_0)$ via `1 - ppois(q = x - 1, lambda = mu0)`
 
 
-### Example:
+-   E.g., we observe $x = 3$ and our hypotheses are $H_0: \mu = 5$  and $H_1: \mu > 5$. Then the $p$-value is the probability of being greater than or equal to 3 given $\mu = 5$ (sum of orange bars).
+    ```{r}
+    #| echo: false
+    tibble(x = 0:15) |>
+      mutate(y = dpois(x = x, lambda = 5),
+             add = x < 3) |>
+      ggplot(aes(x = x, xend = x, yend = y, color = add)) +
+      geom_segment(y = 0, linewidth = 2) +
+      scale_color_manual(values = rev(palette.colors(2))) +
+      guides(color = "none") +
+      scale_x_continuous(breaks = 0:15, minor_breaks = NULL) +
+      ylab("Poisson PMF")
+    ```
 
-8446 rubber workers, ages 40–84  
-4 deaths due to Hodgkin's disease  
-Expected deaths (based on U.S. rates): 3.3
+- $H_1: \mu \neq \mu_0$: Sum over all values of $x$ less probable than observed $x$.
 
-Let $X$ = # with Hodgkin's  
-Assume $X \sim \text{Poisson}(\mu)$
+  Let $x$ be the observed count. Then:
 
-\begin{align*}
-H_0 &: \mu = 3.3 \\
-H_1 &: \mu \ne 3.3
-\end{align*}
-
-R code:
-```{r}
-poisson.test(x = 4, r = 3.3)
-```
-
-Result:
-
-$$
-\text{p-value} = 0.578
-$$
-
-* $\Rightarrow$ No evidence of elevated risk
-
-### Note:
-
-- **Binomial test is not appropriate here**  
-  because each individual has a different $p_i$.
-- The null hypothesis was based on the **expected $p_i$ for each individual**.
-
-
-## Standardized Mortality Ratio (SMR)
-
-$$
-\text{SMR} = \frac{\text{Observed}}{\text{Expected}} \times 100\%
-$$
-
-- $\text{SMR} > 100\%$ $\Rightarrow$ more deaths than expected in the study population  
-- $\text{SMR} < 100\%$ $\Rightarrow$ fewer deaths  
-- $\text{SMR} = 100\%$ $\Rightarrow$ same number of deaths as expected
+  $$
+  \text{p-value} = \sum_{h : \Pr(h) \le \Pr(x)} \Pr(h) = \sum_{h : \Pr(h) \le \Pr(x)} \frac{e^{-\mu_0} \mu_0^h}{h!}
+  $$
+-   E.g., we observe $x = 3$ and our hypotheses are $H_0: \mu = 5$  and $H_1: \mu \neq 5$. Then the $p$-value is sum of all probabilities less than that of $3$ (sum of orange bars).
+    ```{r}
+    #| echo: false
+    tibble(x = 0:15) |>
+      mutate(y = dpois(x = x, lambda = 5),
+             add = y <= dpois(x = 3, lambda = 5)) |>
+      ggplot(aes(x = x, xend = x, yend = y, color = add)) +
+      geom_segment(y = 0, linewidth = 2) +
+      scale_color_manual(values = palette.colors(2)) +
+      guides(color = "none") +
+      scale_x_continuous(breaks = 0:15, minor_breaks = NULL) +
+      ylab("Poisson PMF") +
+      geom_hline(yintercept = dpois(x = 3, lambda = 5), linetype = "dashed")
+    ```
 
 
-### Example:
+-   Example: 8418 rubber workers, ages 40–84. 4 deaths due to Hodgkin's disease. We expect about 3.3. deaths based on US mortality rates. 
 
-Observed = 4, Expected = 3.3
+    Let $X$ = # with Hodgkin's. We assume $X \sim \text{Poisson}(\mu)$. We are testing
+    \begin{align*}
+    H_0 &: \mu = 3.3 \\
+    H_1 &: \mu \ne 3.3
+    \end{align*}
+    
+    In R, there is an easy function for the Poisson test:
+    ```{r}
+    pout <- poisson.test(x = 4, r = 3.3)
+    pout$p.value
+    ```
+    The p-value is 0.5783, so we fail to reject the null and conclude that we do not have enough evidence that rubber workers have different Hodgkins disease rates from the general public.
+    
+    - Note:
+      - Binomial test is not appropriate here because each individual has a different $p_i$.
+        - The binomial test requires each individual to have the same $p_i$.
+      - The $\mu_0$ was calculated from the expected $p_i$ for each individual.
 
-$$
-\text{SMR} = \frac{4}{3.3} \times 100\% \approx 121\%
-$$
+
+- Standardized Mortality Ratio (SMR)
+  $$
+  \text{SMR} = \frac{\text{Observed}}{\text{Expected}} \times 100\%
+  $$
+
+  - $\text{SMR} > 100\%$ $\Rightarrow$ more deaths than expected in the study population.
+  - $\text{SMR} < 100\%$ $\Rightarrow$ fewer deaths than expected in the study population.
+  - $\text{SMR} = 100\%$ $\Rightarrow$ same number of deaths as expected in the study population.
+
+
+- Example: Observed = 4, Expected = 3.3
+  $$
+  \text{SMR} = \frac{4}{3.3} \times 100\% \approx 121\%
+  $$
 
 # Exercises 7.1–7.8
 
-- 12 patients
-- After 24 hours, mean serum creatinine is $1.2 \text{ mg/dL}$  
-- General population: $\mu = 1$, $\sigma = 0.4$
+The mean serum-creatinine level measured in 12 patients 24 hours after they received a newly proposed antibiotic was 1.2 mg/dL.
 
+::: {.panel-tabset}
+## Exercise 7.1
+If the mean and standard deviation of serum creatinine in the general population are 1.0 and 0.4 mg/dL, respectively, then, using a significance level of .05, test whether the mean serum-creatinine level in this group is different from that of the general population.
 
-### (1) Known $\sigma$
+## Hint
 
-- $H_0$: $\mu = 1$  
-- $H_1$: $\mu \ne 1$
+We have $\bar{x} = 1.2$, $n = 12$, and we are testing $H_0: \mu = 1.0$ versus $H_1: \mu \neq 1.0$.
 
-$$
-z = \frac{1.2 - 1}{0.4 / \sqrt{12}} = 1.732
-$$
+The problem didn't give you the sample standard deviation, so you have to assume the variance is known with $\sigma = 0.4$.
 
-Under $H_0$, $z \sim N(0, 1)$:
+## Solution
+We have $\bar{x} = 1.2$, $n = 12$, and we are testing $H_0: \mu = 1.0$ versus $H_1: \mu \neq 1.0$.
 
-$$
-2 \cdot \text{pnorm}(-1.73) = 0.08326
-$$
+The problem didn't give you the sample standard deviation, so you have to assume the variance is known with $\sigma = 0.4$.
 
-Fail to reject $H_0$.
-
-
-### (2.1) If instead $s = 0.4$, $\sigma$ unknown
-
-- $t = 1.73 \sim t_{11}$
+We calculate a $z$ statistic
 
 $$
-2 \cdot \text{pt}(-1.73, \text{df} = 11) = 0.1112
+z = \frac{1.2 - 1}{0.4 / \sqrt{12}}
 $$
-
-$p$-value = 0.6376  
-Fail to reject $H_0$.
-
-
-### (2.2) $s = 0.6$, $\sigma$ unknown
-
-$$
-t = \frac{1.2 - 1}{0.6 / \sqrt{12}} = 1.155
-$$
-
-$$
-2 \cdot \text{pt}(-1.155, \text{df} = 11) = 0.2777
-$$
-
-Fail to reject $H_0$.
-
-
-### 7.4
-$$
-1.2 \pm t_{11, 0.975} \cdot \frac{0.6}{\sqrt{12}} \\
-t_{0.975, \text{df}=11} = 2.201 \Rightarrow \text{CI} = (0.82, 1.58)
-$$
-
-
-### 7.5
-- 1 is included in the 99% CI $\Rightarrow$ $p$-value > 0.05
-
-
-### 7.6
-$$
-\text{pt}(-1.52, \text{df}=6) = 0.179
-$$
-
-
-### 7.7
-$$
-1 - \text{pt}(2.5, \text{df}=36) = 0.008557
-$$
-
-
-### 7.8
-$$
-\text{qt}(0.1, \text{df}=54) = -1.297
-$$
-
-
-### 7.52–7.53
-
-- $n = 200$
-- $X$ = number who develop cancer
-- observed $x = 4$
-- $X \sim \text{Binom}(200, p)$  
-- $H_0$: $p = 0.01$ vs $H_1$: $p \ne 0.01$
-
-Check:
-
-$$
-np_0(1 - p_0) = 0.01 \cdot 0.99 \cdot 200 = 1.98 < 5
-$$
-
-→ Use exact binomial test.
-
-R code:
-
 ```{r}
-binom.test(x = 4, n = 200, p = 0.01)
+(1.2 - 1) / (0.4 / sqrt(12))
 ```
 
-
-### Manual p-value computation:
-
-$$
-\text{p-value} = 2 \cdot \sum_{k=4}^{200} \binom{200}{k} (0.01)^k (0.99)^{200-k}
-$$
-
-R shortcut:
-
+Rosner wants you to use the critical method in this question and the $p$-value in the next question. The critical value at the 0.05 level of the two-sided test is:
 ```{r}
-2 * dbinom(3, size = 200, prob = 0.01)
+qnorm(p = 1 - 0.05/2)
 ```
 
-Result:
+Since 1.732 < 1.96, we fail to reject the null at the 0.05 level and conclude that we do not have evidence that the mean serum creatine level in this group is different than the general population.
+:::
 
-$$
-\text{p-value} \approx 0.2839
-$$
+::: {.panel-tabset}
+## Exercise 7.2
+What is the p-value for the test?
 
+## Hint
 
-* R output $p$-value ≈ 0.142
-
-### 7.54
-- 5-year period
-- $X = 20$, $n = 200$
-- 5-year incidence rate is $0.05$
-
-Hypotheses:
-- $H_0$: $p = 0.05$
-- $H_1$: $p \ne 0.05$
-
-Since $0.05 \cdot 0.95 \cdot 200 = 9.5$, we can use the normal approximation.
-
-$$
-z = \frac{0.1 - 0.05}{\sqrt{0.05 \cdot 0.95 / 200}} = 3.082
-$$
-
-$$
-\text{p-value} = 2(1 - \text{pnorm}(3.082)) = 0.002055
-$$
-
-→ Reject $H_0$
-
-
-### 7.55
-
-Compute 95% CI for $p$:
-
-$$
-\hat{p} \pm z_{0.975} \cdot \sqrt{\frac{\hat{p}(1 - \hat{p})}{n}} \quad \text{where } z_{0.975} = 1.96
-$$
-
-$$
-0.1 \pm 1.96 \cdot \sqrt{\frac{0.1 \cdot 0.9}{200}} = (0.05842, 0.1416)
-$$
-
-R code:
+## Solution
+We compare this to a standard normal distribution to get the $p$-value. We multiply by 2 because this is a two-sided test.
 
 ```{r}
-prop.test(x = 20, n = 200, p = 0.05)
+2 * pnorm(-1.732)
 ```
+
+```{r}
+#| echo: false
+plt_norm(lb = 1.732) +
+  annotate(geom = "text", x = 2.5, y = 0.1, label = "x2", size = 15) +
+  geom_vline(xintercept = 1.732, linetype = "dashed")
+```
+:::
+
+::: {.panel-tabset}
+## Exercise 7.3
+Suppose the sample standard deviation of serum creatinine in Problem 7.1 is 0.6 mg/dL. Assume that the standard deviation of serum creatinine is not known, and perform the hypothesis test in Problem 7.1. Report a p-value.
+
+## Hint
+
+Very similar to 7.1 and 7.2, but use $s = 0.6$ and a $t$-distribution with the appropriate degrees of freedom.
+
+## Solution
+We have $\bar{x} = 1.2$, $s = 0.6$, and $n = 12$. We are testing $H_0: \mu = 1$ versus $H_1: \mu \neq 1$. We calculate the $t$-statistic
+$$
+t = \frac{1.2 - 1}{0.6/\sqrt{12}}
+$$
+```{r}
+(1.2 - 1) / (0.6 / sqrt(12))
+```
+
+We compare this to a $t$-distribution with $n-1 = 12-1 = 11$ degrees of freedom.
+
+```{r}
+2 * pt(-1.155, df = 11)
+```
+
+With a $p$-value of 0.2726, we fail to reject the null hypothesis and conclude that we do not have evidence that this group has a different mean serum creatine level than the general population.
+:::
+
+::: {.panel-tabset}
+## Exercise 7.4
+Compute a two-sided 95% CI for the true mean serum-creatinine level in Problem 7.3.
+
+## Hint
+
+"Estimate $\pm$ Multiplier $\times$ standard error"
+
+## Solution
+Our estimate is $\bar{x} = 1.2$. The standard error is $s / \sqrt{n} = 0.6 / \sqrt{12} = 0.1732$. We need the $1-\alpha/2$ quantile of the $t_{11}$ distribution. Since the level is 0.95, $\alpha = 1 - 0.95 = 0.05$. Thus, the multiplier is
+```{r}
+qt(p = 1 - 0.05/2, df = 11)
+```
+
+Our interval is "Estimate $\pm$ Multiplier $\times$ SE", or $\bar{x} \pm t_{1-\alpha/2,n-1}s/\sqrt{n}$. Which is
+
+```{r}
+1.2 - 2.201 * 0.1732
+1.2 + 2.201 * 0.1732
+```
+
+We are 95% confident that mean serum creatine is between 0.8188 and 1.581 mg/dL.
+
+:::
+
+::: {.panel-tabset}
+## Exercise 7.5
+How does your answer to Problem 7.4 relate to your answer to Problem 7.3.
+
+## Hint
+
+What's the connection between confidence intervals and hypothesis testing
+
+## Solution
+The 95% confidence interval contains 1. So a test of $H_0: \mu = 1$ has a $p$-value greater than 0.05.
+:::
+
+::: {.panel-tabset}
+## Exercise 7.6
+Suppose $\frac{\bar{x} - \mu_0}{s/\sqrt{n}} = 1.52$ and a one-sample t test is performed based on seven subjects. What is the two-tailed p-value?
+
+## Hint
+
+Multiply tail area by 2.
+
+Degrees of freedom is $n-1$
+
+## Solution
+We compare this value to a $t$ distribution with $n-1=7-1=6$ degrees of freedom.
+
+```{r}
+2 * pt(-1.52, df = 6)
+```
+
+```{r}
+#| echo: false
+plt_norm(lb = 1.52) +
+  annotate(geom = "text", x = 2.5, y = 0.1, label = "x2", size = 15) +
+  geom_vline(xintercept = 1.52, linetype = "dashed") +
+  ggtitle("t-distribution with 6 degrees of freedom")
+```
+:::
+
+::: {.panel-tabset}
+## Exercise 7.7
+Use a computer program to compute the probability that a t distribution with 36 df exceeds 2.5.
+
+## Hint
+
+Use the CDF
+
+## Solution
+
+```{r}
+1 - pt(q = 2.6, df = 36)
+```
+:::
+
+::: {.panel-tabset}
+## Exercise 7.8
+Use a computer program to compute the lower 10th percentile of a t distribution with 54 df.
+
+## Hint
+
+Use `qt()`.
+
+## Solution
+```{r}
+qt(p = 0.1, df = 54)
+```
+:::
+
+
+# Exercises 7.52--7.55
+Researchers have reported that the incidence rate of cataracts may be elevated among people with excessive exposure to sunlight. To confirm this, a pilot study is conducted among 200 people ages 65–69 who report an excessive tendency to burn on exposure to sunlight. Of the 200 people, 4 develop cataracts over a 1-year period. Suppose the expected incidence rate of cataracts among 65- to 69-year-olds is 1% over a 1-year period.
+
+::: {.panel-tabset}
+## Exercise 7.52
+What test procedure can be used to compare the 1-year rate of cataracts in this population with that in the general population?
+
+## Hint
+
+Let $X$ be the number, out of 200, who develop cateracts. What distribution does it follow?
+
+## Solution
+Let $X$ be the number, out of 200, who develop cateracts. Then $X \sim \mathrm{Binom}(200, p)$. We are testing $H_0: p = 0.01$ versus $H_0: p \neq 0.01$.
+
+Let's calculate our rule of thumb ($p_0(1-p_0)n \geq 5$) to see if we have to use an exact approach.
+
+```{r}
+0.01 * (1 - 0.01) * 200
+```
+
+Since this is less than 5, we have to use an exact binomial approach.
+
+:::
+
+::: {.panel-tabset}
+## Exercise 7.53
+Implement the test procedure in Problem 7.52, and report a p-value (two-sided). Do this both "by hand" and using an appropriate R function.
+
+## Hint
+
+Use `pbinom()`. Do you multiply by 2?
+
+## Solution
+
+The Rosner way is to use 2 times the probability of being at least 4 given $p = 0.01$
+
+```{r}
+2 * (1 - pbinom(q = 3, size = 200, prob = 0.01))
+```
+
+R's default way is to sum over probabilities less than that of 4 (given $p = 0.01$).
+
+```{r}
+p4 <- dbinom(x = 4, size = 200, prob = 0.01)
+pmf <- dbinom(x = 0:200, size = 200, prob = 0.01)
+sum(pmf[pmf <= p4])
+```
+
+We can get R's $p$-value just by `binom.test()`:
+
+```{r}
+bout <- binom.test(x = 4, n = 200, p = 0.01)
+bout$p.value
+```
+
+Either way, we fail to reject the null and say that we do not have enough evidence to conclude that these folks have different rates of cateracts than the general population.
+:::
+
+The researchers decide to extend the study to a 5-year period and find that 20 of the 200 people develop a cataract over a 5-year period. Suppose the expected incidence of cataracts among 65- to 69-year-olds in the general population is 5% over a 5-year period.
+
+::: {.panel-tabset}
+## Exercise 7.54
+Test the hypothesis that the 5-year incidence rate of cataracts is different in the excessive-sunlight-exposure group compared with the general population, and report a p-value (two-sided).
+
+## Hint
+
+The exact approach is the same as 7.53, just with different numbers. So try the normal approach. Don't forget the continuity correction.
+
+## Solution
+
+Let $X$ be the number of cateracts out of 200 over the five year period. Then $X \sim \mathrm{Binom}(200, p)$. We are testing $H_0: p = 0.05$ versus $p \neq 0.05$. 
+
+We can actually use the normal method if we want:
+```{r}
+0.05 * (1 - 0.05) * 200
+```
+
+The exact method is the same as before, just changing numbers around. In R, this results in
+```{r}
+bout <- binom.test(x = 20, n = 200, p = 0.05)
+bout$p.value
+```
+
+For the normal method, let's get a $z$ value. We have $\hat{p} = 20/200 = 0.1$.
+$$
+z = \frac{|0.1 - 0.05| - 1 / 400}{\sqrt{0.05(1-0.05)/200}}
+$$
+```{r}
+(abs(0.1 - 0.05) - 1/400) / sqrt(0.05 * (1 - 0.05) / 200)
+```
+
+The $p$-value using the normal based approach is
+```{r}
+2 * (1 - pnorm(3.082))
+```
+
+This agrees with R's `prop.test()`
+
+```{r}
+pout <- prop.test(x = 20, n = 200, p = 0.05)
+pout$p.value
+```
+
+Either way, we reject $H_0$ and conclude that this population has different rates of cateracts than the general population.
+:::
+
+::: {.panel-tabset}
+## Exercise 7.55
+Construct a 95% CI for the 5-year true rate of cataracts among the excessive-sunlight-exposure group.
+
+## Hint
+
+Do a Wald interval.
+
+## Solution
+The Wald interval is
+$$
+\hat{p} \pm z_{1-\alpha/2}\sqrt{\hat{p}(1-\hat{p})/n}
+$$
+Plugging in numbers, we have
+```{r}
+0.1 - qnorm(p = 1 - 0.05/2) * sqrt(0.1 * (1 - 0.1) / 200)
+0.1 + qnorm(p = 1 - 0.05/2) * sqrt(0.1 * (1 - 0.1) / 200)
+```
+
+This differs from the Wilson intervals in R
+```{r}
+pout <- prop.test(x = 20, n = 200)
+pout$conf.int
+```
+:::
