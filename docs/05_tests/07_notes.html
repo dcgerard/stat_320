@@ -774,7 +774,7 @@ Important
 <div class="tab-content">
 <div id="tabset-2-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-2-1-tab">
 <ul>
-<li>Mean infarct size (size of dead tissue in heart) is 25 (kg·Eq/m²)</li>
+<li>Mean infarct size (size of dead tissue in heart) is 25 (ck-g-Q/m²)</li>
 <li>8 patients treated with drug have average infarct size of 16 with SD = 10<br>
 </li>
 <li>Is drug effective in reducing infarct size?</li>
@@ -796,7 +796,7 @@ t = \frac{16 - 25}{10/\sqrt{8}} = -2.55
 <pre><code>[1] 0.01905</code></pre>
 </div>
 </div>
-<p>We have significant results at the 0.05 level.*</p>
+<p>We have significant results at the 0.05 level.</p>
 </div>
 </div>
 </div>
@@ -886,7 +886,7 @@ One-sided Test for Mean, Alternative Greater
 <span class="math display">\[
 t = \frac{\bar{X} - \mu_0}{s / \sqrt{n}}
 \]</span></p>
-<p>The <span class="math inline">\(p\)</span>-value is the probability under <span class="math inline">\(H_0\)</span> of being greater than <span class="math inline">\(t\)</span>)<br>
+<p>The <span class="math inline">\(p\)</span>-value is the probability under <span class="math inline">\(H_0\)</span> of being greater than <span class="math inline">\(t\)</span><br>
 <span class="math display">\[
 \text{p-value} = 1 - \texttt{pt}(t,\ n-1)
 \]</span></p>
@@ -900,7 +900,7 @@ t = \frac{\bar{X} - \mu_0}{s / \sqrt{n}}
 <div class="tab-content">
 <div id="tabset-3-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-3-1-tab">
 <p>Mean cholesterol in the population is 175 mg/dL.</p>
-<p>We have a sampl e10 children of fathers who died from heart disease</p>
+<p>We have a sample 10 children of fathers who died from heart disease</p>
 <p>We observe <span class="math inline">\(\bar{X} = 200\)</span>, <span class="math inline">\(s = 50\)</span></p>
 <p>Is there evidence that these children have higher cholesterol?</p>
 </div>
@@ -1533,7 +1533,7 @@ n p_0(1 - p_0) \ge 5
 </div>
 </div>
 </div></li>
-<li><p><span class="math inline">\(H_1: p \neq p_0\)</span>: 2 times the smaller of <span class="math inline">\(\Pr(X \leq x \mid p = p_0)\)</span> or <span class="math inline">\(\Pr(X \leq x \mid p = p_0)\)</span>.</p></li>
+<li><p><span class="math inline">\(H_1: p \neq p_0\)</span>: 2 times the smaller of <span class="math inline">\(\Pr(X \leq x \mid p = p_0)\)</span> or <span class="math inline">\(\Pr(X \geq x \mid p = p_0)\)</span>.</p></li>
 <li><p>E.g., <span class="math inline">\(X = 3\)</span>, <span class="math inline">\(H_0: p_0 = 0.5\)</span>, <span class="math inline">\(H_1: p &lt; 0.5\)</span>. This the the PMF of <span class="math inline">\(X\)</span> under <span class="math inline">\(H_0\)</span> and the two times the sum of the orange bars is the <span class="math inline">\(p\)</span>-value.</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
@@ -1953,10 +1953,10 @@ t = \frac{1.2 - 1}{0.6/\sqrt{12}}
 <p>What test procedure can be used to compare the 1-year rate of cataracts in this population with that in the general population?</p>
 </div>
 <div id="tabset-15-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-15-2-tab">
-<p>Let <span class="math inline">\(X\)</span> be the number, out of 200, who develop cateracts. What distribution does it follow?</p>
+<p>Let <span class="math inline">\(X\)</span> be the number, out of 200, who develop cataracts. What distribution does it follow?</p>
 </div>
 <div id="tabset-15-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-15-3-tab">
-<p>Let <span class="math inline">\(X\)</span> be the number, out of 200, who develop cateracts. Then <span class="math inline">\(X \sim \mathrm{Binom}(200, p)\)</span>. We are testing <span class="math inline">\(H_0: p = 0.01\)</span> versus <span class="math inline">\(H_0: p \neq 0.01\)</span>.</p>
+<p>Let <span class="math inline">\(X\)</span> be the number, out of 200, who develop cataracts. Then <span class="math inline">\(X \sim \mathrm{Binom}(200, p)\)</span>. We are testing <span class="math inline">\(H_0: p = 0.01\)</span> versus <span class="math inline">\(H_0: p \neq 0.01\)</span>.</p>
 <p>Let’s calculate our rule of thumb (<span class="math inline">\(p_0(1-p_0)n \geq 5\)</span>) to see if we have to use an exact approach.</p>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="fl">0.01</span> <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> <span class="fl">0.01</span>) <span class="sc">*</span> <span class="dv">200</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -2006,7 +2006,7 @@ t = \frac{1.2 - 1}{0.6/\sqrt{12}}
 1   0.142</code></pre>
 </div>
 </div>
-<p>Either way, we fail to reject the null and say that we do not have enough evidence to conclude that these folks have different rates of cateracts than the general population.</p>
+<p>Either way, we fail to reject the null and say that we do not have enough evidence to conclude that these folks have different rates of cataracts than the general population.</p>
 </div>
 </div>
 </div>
@@ -2021,7 +2021,7 @@ t = \frac{1.2 - 1}{0.6/\sqrt{12}}
 <p>The exact approach is the same as 7.53, just with different numbers. So try the normal approach. Don’t forget the continuity correction.</p>
 </div>
 <div id="tabset-17-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-17-3-tab">
-<p>Let <span class="math inline">\(X\)</span> be the number of cateracts out of 200 over the five year period. Then <span class="math inline">\(X \sim \mathrm{Binom}(200, p)\)</span>. We are testing <span class="math inline">\(H_0: p = 0.05\)</span> versus <span class="math inline">\(p \neq 0.05\)</span>.</p>
+<p>Let <span class="math inline">\(X\)</span> be the number of cataracts out of 200 over the five year period. Then <span class="math inline">\(X \sim \mathrm{Binom}(200, p)\)</span>. We are testing <span class="math inline">\(H_0: p = 0.05\)</span> versus <span class="math inline">\(p \neq 0.05\)</span>.</p>
 <p>We can actually use the normal method if we want:</p>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="fl">0.05</span> <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> <span class="fl">0.05</span>) <span class="sc">*</span> <span class="dv">200</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -2069,7 +2069,7 @@ z = \frac{|0.1 - 0.05| - 1 / 400}{\sqrt{0.05(1-0.05)/200}}
 1 0.00205</code></pre>
 </div>
 </div>
-<p>Either way, we reject <span class="math inline">\(H_0\)</span> and conclude that this population has different rates of cateracts than the general population.</p>
+<p>Either way, we reject <span class="math inline">\(H_0\)</span> and conclude that this population has different rates of cataracts than the general population.</p>
 </div>
 </div>
 </div>

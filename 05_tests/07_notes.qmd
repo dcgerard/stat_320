@@ -333,7 +333,7 @@ $$
 
 ::: {.panel-tabset}
 ## Exercise:
-- Mean infarct size (size of dead tissue in heart) is 25 (kg·Eq/m²) 
+- Mean infarct size (size of dead tissue in heart) is 25 (ck-g-Q/m²) 
 - 8 patients treated with drug have average infarct size of 16 with SD = 10  
 - Is drug effective in reducing infarct size?
 - Run a hypothesis test.
@@ -353,7 +353,7 @@ Our $p$-value is
 pt(q = -2.55, df = 7)
 ```
 
-We have significant results at the 0.05 level.*
+We have significant results at the 0.05 level.
 :::
 
 - Guidelines for $p$-value interpretation:
@@ -409,7 +409,7 @@ $$
 t = \frac{\bar{X} - \mu_0}{s / \sqrt{n}}
 $$
 
-The $p$-value is the probability under $H_0$ of being greater than $t$)  
+The $p$-value is the probability under $H_0$ of being greater than $t$  
 $$
 \text{p-value} = 1 - \texttt{pt}(t,\ n-1)
 $$
@@ -426,7 +426,7 @@ Reject for $t$ larger than the critical value.
 
 Mean cholesterol in the population is 175 mg/dL.
 
-We have a sampl e10 children of fathers who died from heart disease
+We have a sample 10 children of fathers who died from heart disease
 
 We observe $\bar{X} = 200$, $s = 50$
 
@@ -1093,7 +1093,7 @@ $X \sim \mathrm{Binom}(n,p)$, $\hat{p} = X/n$, $H_0: p = p_0$
       ylab("Binomial PMF")
     ```
 
-- $H_1: p \neq p_0$: 2 times the smaller of $\Pr(X \leq x \mid p = p_0)$ or $\Pr(X \leq x \mid p = p_0)$.
+- $H_1: p \neq p_0$: 2 times the smaller of $\Pr(X \leq x \mid p = p_0)$ or $\Pr(X \geq x \mid p = p_0)$.
 
 -   E.g., $X = 3$, $H_0: p_0 = 0.5$, $H_1: p < 0.5$. This the the PMF of $X$ under $H_0$ and the two times the sum of the orange bars is the $p$-value.
 
@@ -1490,10 +1490,10 @@ What test procedure can be used to compare the 1-year rate of cataracts in this 
 
 ## Hint
 
-Let $X$ be the number, out of 200, who develop cateracts. What distribution does it follow?
+Let $X$ be the number, out of 200, who develop cataracts. What distribution does it follow?
 
 ## Solution
-Let $X$ be the number, out of 200, who develop cateracts. Then $X \sim \mathrm{Binom}(200, p)$. We are testing $H_0: p = 0.01$ versus $H_0: p \neq 0.01$.
+Let $X$ be the number, out of 200, who develop cataracts. Then $X \sim \mathrm{Binom}(200, p)$. We are testing $H_0: p = 0.01$ versus $H_0: p \neq 0.01$.
 
 Let's calculate our rule of thumb ($p_0(1-p_0)n \geq 5$) to see if we have to use an exact approach.
 
@@ -1537,7 +1537,7 @@ binom.test(x = 4, n = 200, p = 0.01) |>
   select(p.value)
 ```
 
-Either way, we fail to reject the null and say that we do not have enough evidence to conclude that these folks have different rates of cateracts than the general population.
+Either way, we fail to reject the null and say that we do not have enough evidence to conclude that these folks have different rates of cataracts than the general population.
 :::
 
 The researchers decide to extend the study to a 5-year period and find that 20 of the 200 people develop a cataract over a 5-year period. Suppose the expected incidence of cataracts among 65- to 69-year-olds in the general population is 5% over a 5-year period.
@@ -1552,7 +1552,7 @@ The exact approach is the same as 7.53, just with different numbers. So try the 
 
 ## Solution
 
-Let $X$ be the number of cateracts out of 200 over the five year period. Then $X \sim \mathrm{Binom}(200, p)$. We are testing $H_0: p = 0.05$ versus $p \neq 0.05$. 
+Let $X$ be the number of cataracts out of 200 over the five year period. Then $X \sim \mathrm{Binom}(200, p)$. We are testing $H_0: p = 0.05$ versus $p \neq 0.05$. 
 
 We can actually use the normal method if we want:
 ```{r}
@@ -1587,7 +1587,7 @@ prop.test(x = 20, n = 200, p = 0.05) |>
   select(p.value)
 ```
 
-Either way, we reject $H_0$ and conclude that this population has different rates of cateracts than the general population.
+Either way, we reject $H_0$ and conclude that this population has different rates of cataracts than the general population.
 :::
 
 ::: {.panel-tabset}
