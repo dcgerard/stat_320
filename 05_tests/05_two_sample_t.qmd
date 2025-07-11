@@ -22,163 +22,190 @@ library(broom)
 
 # Paired $t$-tests
 
-- Data from 10 women containt eh systolic blood pressure (SBP) (in mm Hg) before and while using an oral contraceptive. 
+-   Data from 10 women contain the systolic blood pressure (SBP) (in mm Hg) before and while using an oral contraceptive. 
 
-  ```{r}
-  oc_df <- data.frame(
-    pre_sbp = c(115, 112, 107, 119, 115, 138, 126, 105, 104, 115),
-    post_sbp = c(128, 115, 106, 128, 122, 145, 132, 109, 102, 117)
-  )
-  ```
+    ```{r}
+    oc_df <- data.frame(
+      pre_sbp = c(115, 112, 107, 119, 115, 138, 126, 105, 104, 115),
+      post_sbp = c(128, 115, 106, 128, 122, 145, 132, 109, 102, 117)
+    )
+    ```
 
-- We use `t.test()` to run a paired $t$-test.
+-   We use `t.test()` to run a paired $t$-test.
     - `x`: The first column.
     - `y`: The second column. 
     - `paired`: set to `TRUE` to make it a paired $t$-test.
 
-  ```{r}
-  t.test(x = oc_df$post_sbp, y = oc_df$pre_sbp, paired = TRUE) |>
-    tidy()
-  ```
+    ```{r}
+    t.test(x = oc_df$post_sbp, y = oc_df$pre_sbp, paired = TRUE) |>
+      tidy()
+    ```
 
-- This is the exact same as just first calculating the differences then running a one-sample $t$-test.
+-   This is the exact same as just first calculating the differences then running a one-sample $t$-test.
 
-  ```{r}
-  oc_df <- mutate(oc_df, diff = post_sbp - pre_sbp)
-  t.test(diff ~ 1, data = oc_df) |>
-    tidy()
-  ```
+    ```{r}
+    oc_df <- mutate(oc_df, diff = post_sbp - pre_sbp)
+    t.test(diff ~ 1, data = oc_df) |>
+      tidy()
+    ```
 
 - Notice that the paired $t$-test uses `x - y`, not `y - x`, as the vector of differences.
 
-- Our conclusion might read like this:
+-   Our conclusion might read like this:
 
     > We have strong evidence that women who use an oral contraceptive (OC) have a different mean systolic blood pressure (SBP) than women  who do not use an OC ($p$ = 0.008874, $n$ = 10). We estimate that women who use an OC have on average an SBP 4.8 mm Hg higher than women who do not use an OC (95% CI 1.534 mm Hg to 8.066 mm Hg higher).
 
-- **Exercise**: A study included 15 twins where one has schizophrenia and the other does not. These data contain the volume (in cm$^3$) of the left hippocampus of each twin. These data are from *The Statistical Sleuth*, which in turn obtained the data from [doi:10.1056/NEJM199003223221201](https://www.doi.org/10.1056/NEJM199003223221201). Evaluate if there are any physical differences between the twins. Also, provide an interval estimate on the mean difference in volume between twin-types. Do this in two ways (i) by using `t.test()` and (ii) "by hand" after calculating the appropriate summary statistics. 
-
-  ```{r}
-  sc_df <- data.frame(
-    Unaffected = c(1.94, 1.44, 1.56, 1.58, 2.06, 1.66, 1.75, 1.77, 
-                   1.78, 1.92, 1.25, 1.93, 2.04, 1.62, 2.08), 
-    Affected = c(1.27, 1.63, 1.47, 1.39, 1.93, 1.26, 1.71, 1.67, 
-                 1.28, 1.85, 1.02, 1.34, 2.02, 1.59, 1.97)
-  )
-  ```
-
+::: {.panel-tabset}
+## Exercise
+A study included 15 twins where one has schizophrenia and the other does not. These data contain the volume (in cm$^3$) of the left hippocampus of each twin. These data are from *The Statistical Sleuth*, which in turn obtained the data from [doi:10.1056/NEJM199003223221201](https://www.doi.org/10.1056/NEJM199003223221201). Evaluate if there are any physical differences between the twins. Also, provide an interval estimate on the mean difference in volume between twin-types. Do this in two ways (i) by using `t.test()` and (ii) "by hand" after calculating the appropriate summary statistics. 
 
 ```{r}
-#| eval: false
-#| echo: false
+sc_df <- data.frame(
+  Unaffected = c(1.94, 1.44, 1.56, 1.58, 2.06, 1.66, 1.75, 1.77, 
+                 1.78, 1.92, 1.25, 1.93, 2.04, 1.62, 2.08), 
+  Affected = c(1.27, 1.63, 1.47, 1.39, 1.93, 1.26, 1.71, 1.67, 
+               1.28, 1.85, 1.02, 1.34, 2.02, 1.59, 1.97)
+)
+```
+
+## Solution
+Let $X_i$ be the difference in volume in the $i$th twin. Then we assume $X_i \sim N(\mu, \sigma^2)$. We are testing $H_0: \mu = 0$ versus $H_1: \mu \neq 0$. In R, we run this test using:
+```{r}
 t.test(x = sc_df$Affected, y = sc_df$Unaffected, paired = TRUE) |>
   tidy()
 ```
 
-```{block}
-#| eval: false
-#| echo: false
 We have strong evidence of a difference in mean volume between the twin types ($p$ = 0.00602, n = 15). We estimate that the unaffected twin has on average 0.2 cm$^3$ larger hippocampus than the affected twin (95% CI 0.0667 cm$^3$ to 0.3306 cm$^3$ larger).
+
+By hand,w e first calculate the difference between the two twins:
+```{r}
+sc_df <- mutate(sc_df, diff = Affected - Unaffected)
 ```
 
+We now need the summary statistics
 ```{r}
-#| eval: false
-#| echo: false
-sc_df <- mutate(sc_df, diff = Affected - Unaffected)
 xbar <- mean(sc_df$diff)
 s <- sd(sc_df$diff)
 n <- nrow(sc_df)
+```
+
+The $t$-statistic is $\frac{\bar{x}}{s/\sqrt{n}}$
+```{r}
 t <- xbar / (s / sqrt(n))
+t
+```
+
+We calculate the $p$-value by two times the tail area:
+```{r}
 p_value <- 2 * pt(-abs(t), df = n - 1)
+p_value
+```
+
+The 95% confidence interval is $\bar{x} \pm t_{1-\alpha/2,n-1}s/\sqrt{n}$
+```{r}
 lower <- xbar - qt(p = 0.975, df = n - 1) * s / sqrt(n)
 upper <- xbar + qt(p = 0.975, df = n - 1) * s / sqrt(n)
-c(p_value, lower, upper)
-```   
+c(lower, upper)
+```
+:::
 
 # Unpaired (Equal Variance)
 
-- Consider the lead data that you can read about [here](../data.qmd#lead).
+-   Consider the lead data that you can read about [here](../data.qmd#lead).
 
-  ```{r}
-  #| message: false
-  lead <- read_csv("https://dcgerard.github.io/stat_320/data/lead.csv")
-  lead <- filter(lead, !is.na(iqf))
-  ```
+    ```{r}
+    #| message: false
+    lead <- read_csv("https://dcgerard.github.io/stat_320/data/lead.csv")
+    lead <- filter(lead, !is.na(iqf))
+    ```
 
-- We are interested in if the exposed and control groups have the same mean full scale IQ. Let's explore the data
+-   We are interested in if the exposed and control groups have the same mean full scale IQ. Let's explore the data
 
-  ```{r}
-  ggplot(lead, aes(x = Group, y = iqf)) +
-    geom_boxplot()
-  ```
+    ```{r}
+    ggplot(lead, aes(x = Group, y = iqf)) +
+      geom_boxplot()
+    ```
 
 - Let $X_i$ be the $i$th IQ score in the control group, let $Y_i$ be the $i$th IQ score in the exposed group. 
 
 - Then we assume that $X_i \sim \mathrm{N}(\mu_1, \sigma^2)$ and $Y_i \sim \mathrm{N}(\mu_2, \sigma^2)$, and that all observations are independent.
 
-- We use `t.test()` to run a two-sample $t$-test.
+-   We use `t.test()` to run a two-sample $t$-test.
     - The quantitative variable is to the left of the tilde `~`
     - The variable encoding the two groups is to the right of the tilde
     - If we assume equal variances in each group, we set `var.equal = TRUE`
 
-  ```{r}
-  t.test(iqf ~ Group, data = lead, var.equal = TRUE) |>
-    tidy()
-  ```
+    ```{r}
+    t.test(iqf ~ Group, data = lead, var.equal = TRUE) |>
+      tidy()
+    ```
 
-- We can verify this result manually (you would never do this in real life, but you might on an exam).
+-   We can verify this result manually (you would never do this in real life, but you might on an exam).
 
-  ```{r}
-  ## Get summary statistics of the two groups
-  lead |>
-    group_by(Group) |>
-    summarize(mean = mean(iqf), var = var(iqf), n = n()) ->
-    sumdf
-  xbar <- sumdf$mean[[1]]
-  ybar <- sumdf$mean[[2]]
-  s2x <- sumdf$var[[1]]
-  s2y <- sumdf$var[[2]]
-  n1 <- sumdf$n[[1]]
-  n2 <- sumdf$n[[2]]
-  
-  ## Calculate pooled sample standard deviation
-  s <- sqrt(((n1 - 1) * s2x + (n2 - 1) * s2y) / (n1 + n2 - 2))
-  
-  ## Calculate t-statistic
-  tstat <- (xbar - ybar) / (s * sqrt(1 / n1 + 1 / n2))
-  
-  ## compare to t distribution with n1 + n2 - 2 df
-  pval <- 2 * pt(-abs(tstat), df = n1 + n2 - 2)
-  
-  ## Get confidence intervals
-  lower <- (xbar - ybar) - qt(0.975, df = n1 + n2 - 2) * s * sqrt(1 / n1 + 1 / n2)
-  upper <- (xbar - ybar) + qt(0.975, df = n1 + n2 - 2) * s * sqrt(1 / n1 + 1 / n2)
-  
-  c(pval = pval, lower = lower, upper = upper)
-  ```
+    ```{r}
+    ## Get summary statistics of the two groups
+    lead |>
+      group_by(Group) |>
+      summarize(mean = mean(iqf), var = var(iqf), n = n()) ->
+      sumdf
+    xbar <- sumdf$mean[[1]]
+    ybar <- sumdf$mean[[2]]
+    s2x <- sumdf$var[[1]]
+    s2y <- sumdf$var[[2]]
+    n1 <- sumdf$n[[1]]
+    n2 <- sumdf$n[[2]]
+    
+    ## Calculate pooled sample standard deviation
+    s <- sqrt(((n1 - 1) * s2x + (n2 - 1) * s2y) / (n1 + n2 - 2))
+    
+    ## Calculate t-statistic
+    tstat <- (xbar - ybar) / (s * sqrt(1 / n1 + 1 / n2))
+    
+    ## compare to t distribution with n1 + n2 - 2 df
+    pval <- 2 * pt(-abs(tstat), df = n1 + n2 - 2)
+    
+    ## Get confidence intervals
+    lower <- (xbar - ybar) - qt(0.975, df = n1 + n2 - 2) * s * sqrt(1 / n1 + 1 / n2)
+    upper <- (xbar - ybar) + qt(0.975, df = n1 + n2 - 2) * s * sqrt(1 / n1 + 1 / n2)
+    
+    c(pval = pval, lower = lower, upper = upper)
+    ```
 
 
-- **Exercise**: Is there any difference between exposed and control groups when it comes to the finger-wrist tapping test in dominant hand (`maxfwt`)? Assume equal variances.
+::: {.panel-tabset}
+## Exercise
+Is there any difference between exposed and control groups when it comes to the finger-wrist tapping test in dominant hand (`maxfwt`)? Assume equal variances.
 
+## Solution
+We read in the data
 ```{r}
-#| eval: false
-#| echo: false
+#| message: false
 lead <- read_csv("https://dcgerard.github.io/stat_320/data/lead.csv")
+```
+
+It appears that the exposed group might have a lower mean tapping value than the control group. But it is unclear.
+```{r}
 lead |>
   filter(!is.na(maxfwt)) |>
   ggplot(aes(x = Group, y = maxfwt)) +
   geom_boxplot()
-t.test(maxfwt ~ Group, data = lead, var.equal = TRUE) |> 
-  tidy()
-## Yes, we have strong evidence of a difference between groups (p = 0.005). 
-## We estimate that the control group taps about 7 more times on average
-## (95% CI of 1.8 to 12.2 more times).
 ```
 
-- **Exercise**: A sample of eight 35- to 39-year-old non-pregnant, premenoposaul OC users have a mean systoolic blood pressure (SBP) of 132.82 mm Hg and a sample standard deviation of 15.34 mm Hg. A different sample of 21 non-pregnant, premenopausal, non-OC users have a mean SBP of 127.44 mm Hg and a sample standard deviation of 18.23 mm Hg. What can be said about the underlying mean difference in blood pressure between the two groups? Provide a measure of how sure we are that there is a difference, and provide some interval estimate for this difference. Assume equal variances.
-
+We run the test using `t.test()`.
 ```{r}
-#| eval: false
-#| echo: false
+t.test(maxfwt ~ Group, data = lead, var.equal = TRUE) |> 
+  tidy()
+```
+Yes, we have strong evidence of a difference between groups (p = 0.005). We estimate that the control group taps about 7 more times on average (95% CI of 1.8 to 12.2 more times).
+:::
+
+::: {.panel-tabset}
+## Exercise
+A sample of eight 35- to 39-year-old non-pregnant, premenoposaul OC users have a mean systoolic blood pressure (SBP) of 132.82 mm Hg and a sample standard deviation of 15.34 mm Hg. A different sample of 21 non-pregnant, premenopausal, non-OC users have a mean SBP of 127.44 mm Hg and a sample standard deviation of 18.23 mm Hg. What can be said about the underlying mean difference in blood pressure between the two groups? Provide a measure of how sure we are that there is a difference, and provide some interval estimate for this difference. Assume equal variances.
+
+## Solution
+We plug in these summary statistics:
+```{r}
 xbar <- 132.82
 s2x <- 15.34^2
 n1 <- 8
@@ -186,83 +213,104 @@ n1 <- 8
 ybar <- 127.44
 s2y <- 18.23^2
 n2 <- 21
+```
 
-## Calculate pooled sample standard deviation
+Let's calculate the pooled sample standard deviation $s_p = \sqrt{\frac{(n_1-1)s_x^2 + (n_2 - 1) s_y^2}{n_1 + n_2 - 2}}$
+```{r}
 s <- sqrt(((n1 - 1) * s2x + (n2 - 1) * s2y) / (n1 + n2 - 2))
+```
+
+Now the $t$-statistic $t = \frac{\bar{x} - \bar{y}}{s\sqrt{1/n_1 + 1/n_2}}$
+```{r}
 tstat <- (xbar - ybar) / (s * sqrt(1 / n1 + 1 / n2))
+```
+
+The $p$-value of the test is area in both tails
+```{r}
 pval <- 2 * pt(-abs(tstat), df = n1 + n2 - 2)
+pval
+```
+
+The confidence interval:
+```{r}
 lower <- (xbar - ybar) - qt(0.975, df = n1 + n2 - 2) * s * sqrt(1 / n1 + 1 / n2)
 upper <- (xbar - ybar) + qt(0.975, df = n1 + n2 - 2) * s * sqrt(1 / n1 + 1 / n2)
-
-c(pval = pval, lower = lower, upper = upper)
+c(lower = lower, upper = upper)
 ```
+
+We don't have evidence that the non-OC and OC using groups differ in mean systolic blood pressure ($p$-value = 0.46664). The difference in mean blood pressure between groups is estimated to be 5.38 (95% CI of -9.561 to 20.321).
+:::
 
 # Test for Equal Variance
 
 - Suppose we have $X_i \sim N(\mu_1, \sigma_1^2)$ and $Y_i \sim N(\mu_2,\sigma_2^2)$. 
+
 - It is possible to test $H_0: \sigma_1 = \sigma_2$ versus $H_1: \sigma_1 \neq \sigma_2$. 
 
-- Folks don't typically do this test because:
+-   Folks don't typically do this test because:
     1. It is very sensitive to the normality assumption. Conversely, the $t$-test is not.
     2. The $t$-test with equal variances is relatively robust to violations in the equal variance assumption.
     3. Folks typically just use the unequal variances $t$-test below.
 
-- But if your boss asks you run such a test, use `var.test()`.
+-   But if your boss asks you run such a test, use `var.test()`.
 
-  ```{r}
-  var.test(iqf ~ Group, data = lead) |>
-    tidy()
-  ```
+    ```{r}
+    var.test(iqf ~ Group, data = lead) |>
+      tidy()
+    ```
 
-- This test is based on the ratio of the variances $s_1^2 / s_2^2$. Under the null, this follows a $F$-distribution with $n_1 - 1$ numerator degrees of freedom and $n_2 - 1$ denominator degrees of freedom.
+-   This test is based on the ratio of the variances $s_1^2 / s_2^2$. Under the null, this follows a $F$-distribution with $n_1 - 1$ numerator degrees of freedom and $n_2 - 1$ denominator degrees of freedom.
 
-  ```{r}
-  lead |>
-    group_by(Group) |>
-    summarize(var = var(iqf), n = n()) ->
-    sumdf
-  var1 <- sumdf$var[[1]]
-  var2 <- sumdf$var[[2]]
-  n1 <- sumdf$n[[1]]
-  n2 <- sumdf$n[[2]]
-  
-  ## for fstat > 1
-  fstat1 <- var1 / var2
-  2 * pf(q = fstat1, df1 = n1 - 1, df2 = n2 - 1, lower.tail = FALSE)
-  
-  ## For fstat < 1
-  fstat2 <- var2 / var1
-  2 * pf(q = fstat2, df1 = n2 - 1, df2 = n1 - 1, lower.tail = TRUE)
-  ```
+    ```{r}
+    lead |>
+      filter(!is.na(iqf)) |>
+      group_by(Group) |>
+      summarize(var = var(iqf), n = n()) ->
+      sumdf
+    var1 <- sumdf$var[[1]]
+    var2 <- sumdf$var[[2]]
+    n1 <- sumdf$n[[1]]
+    n2 <- sumdf$n[[2]]
+    
+    ## for fstat > 1
+    fstat1 <- var1 / var2
+    2 * pf(q = fstat1, df1 = n1 - 1, df2 = n2 - 1, lower.tail = FALSE)
+    
+    ## For fstat < 1
+    fstat2 <- var2 / var1
+    2 * pf(q = fstat2, df1 = n2 - 1, df2 = n1 - 1, lower.tail = TRUE)
+    ```
 
 # Unpaired (Unequal Variance)
 
-- When you don't want to assume equal variances (typically the case), just use the default settings of `t.test()` that has `var.equal = FALSE`.
+-   When you don't want to assume equal variances (typically the case), just use the default settings of `t.test()` that has `var.equal = FALSE`.
 
-
-```{r}
-#| message: false
-lead <- read_csv("https://dcgerard.github.io/stat_320/data/lead.csv")
-lead <- filter(lead, !is.na(iqf))
-t.test(iqf ~ Group, data = lead) |>
-  tidy()
-```
+    ```{r}
+    #| message: false
+    lead <- read_csv("https://dcgerard.github.io/stat_320/data/lead.csv")
+    lead <- filter(lead, !is.na(iqf))
+    t.test(iqf ~ Group, data = lead) |>
+      tidy()
+    ```
+    
 - Don't bother memorizing Satterthwaite's approximation for the degrees of freedom. Just do this in the computer.
 
-- **Exercise**: Is there a difference in finger tapping between groups? Don't assume equal variances.
+::: {.panel-tabset}
+## Exercise
+Is there a difference in finger tapping between groups? Don't assume equal variances.
 
+## Solution
 ```{r}
 #| message: false
-#| echo: false
-#| eval: false
 lead <- read_csv("https://dcgerard.github.io/stat_320/data/lead.csv")
 lead <- filter(lead, !is.na(maxfwt))
 t.test(maxfwt ~ Group, data = lead) |>
   tidy()
-
-## Some evidence of a difference (p = 0.01125). Estimate that control 
-## group has 7 more taps on average (95% CI of 1.6 to 12.3 more taps on average).
 ```
+
+Some evidence of a difference (p = 0.01125). We estimate that the control group has 7 more taps on average (95% CI of 1.6 to 12.3 more taps on average).
+:::
+
 
 # Power and Sample Size Calculations in Two-sample $t$-tests
 
@@ -272,57 +320,59 @@ t.test(maxfwt ~ Group, data = lead) |>
 
 - It also assumes the standard deviations are equal, so you need to use a pooled estimate of the standard deviation.
 
-- If you need more precise power or sample size calculations, then those exist. 
+-   If you need more precise power or sample size calculations, then those exist. 
     - But I think these calculations are so much guess work that the error of assuming equal sample sizes is less than the error of the wild guesses you are giving it.
 
-- E.g., suppose we have the OC user exercise above as a pilot experiment.
+-   E.g., suppose we have the OC user exercise above as a pilot experiment.
 
-  ```{r}
-  xbar <- 132.82
-  s2x <- 15.34^2
-  n1 <- 8
-  
-  ybar <- 127.44
-  s2y <- 18.23^2
-  n2 <- 21
-  ```
+    ```{r}
+    xbar <- 132.82
+    s2x <- 15.34^2
+    n1 <- 8
+    
+    ybar <- 127.44
+    s2y <- 18.23^2
+    n2 <- 21
+    ```
 
-- Let's calculate a pooled estimate of the variance, and we will assume that is the true variance for the power calculations.
+-   Let's calculate a pooled estimate of the variance, and we will assume that is the true variance for the power calculations.
 
-  ```{r}
-  s <- sqrt(((n1 - 1) * s2x + (n2 - 1) * s2y) / (n1 + n2 - 2))
-  s
-  ```
+    ```{r}
+    s <- sqrt(((n1 - 1) * s2x + (n2 - 1) * s2y) / (n1 + n2 - 2))
+    s
+    ```
 
 
-- Let's suppose we want a power of 0.8. Then the sample size we would need is 168 **per group**:
+-   Let's suppose we want a power of 0.8. Then the sample size we would need is 168 **per group**:
 
-  ```{r}
-  power.t.test(
-    delta = xbar - ybar, 
-    sd = s, 
-    sig.level = 0.05,
-    power = 0.8, 
-    type = "two.sample")
-  ```
+    ```{r}
+    power.t.test(
+      delta = xbar - ybar, 
+      sd = s, 
+      sig.level = 0.05,
+      power = 0.8, 
+      type = "two.sample")
+    ```
 
-- If a researcher can only afford $n = 100$ per gropu, then the power calculation would be 0.58:
+-   If a researcher can only afford $n = 100$ per gropu, then the power calculation would be 0.58:
 
-  ```{r}
-  power.t.test(
-    n = 100,
-    delta = xbar - ybar, 
-    sd = s, 
-    sig.level = 0.05,
-    type = "two.sample")
-  ```
+    ```{r}
+    power.t.test(
+      n = 100,
+      delta = xbar - ybar, 
+      sd = s, 
+      sig.level = 0.05,
+      type = "two.sample")
+    ```
 
-- **Exercise**: Suppose a new drug is proposed to lower intraocular pressure (IOP) among people with glaucoma. It is anticipated that mean IOP will drop by 8 mm Hg after 1 month with the new drug. The comparison group will get the standard drug, which is anticipated to have a mean drop in IOP of 5 mm Hg after 1 month. It is expected that the sd of change within each group will be 10 mm Hg. How many subjects need to be enrolled to achieve 90% power if an equal sample size is planned within each group and a two-sided test with $\alpha$ = 0.05 will be used?
+::: {.panel-tabset}
+## Exercise
+Suppose a new drug is proposed to lower intraocular pressure (IOP) among people with glaucoma. It is anticipated that mean IOP will drop by 8 mm Hg after 1 month with the new drug. The comparison group will get the standard drug, which is anticipated to have a mean drop in IOP of 5 mm Hg after 1 month. It is expected that the sd of change within each group will be 10 mm Hg. How many subjects need to be enrolled to achieve 90% power if an equal sample size is planned within each group and a two-sided test with $\alpha$ = 0.05 will be used?
 
+## Solution
 ```{r}
-#| echo: false
-#| eval: false
-# 235 subjects per group
 power.t.test(delta = 3, sd = 10, sig.level = 0.05, power = 0.9)
 ```
+235 subjects per group
+:::
 

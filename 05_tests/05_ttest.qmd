@@ -79,33 +79,46 @@ bout <- tidy(tout)
 bout$p.value
 ```
 
-- **Exercise**: Consider the lead data that you can read about [here](../data.qmd#lead) and download from <https://dcgerard.github.io/stat_320/data/lead.csv>. IQ tests are designed to have a mean of 100. Use `iqf` to test if the control group has an average IQ value of 100. Separately test if the exposed group has an average IQ less than 100. State the hypotheses, test results, and conclusions.
 
+::: {.panel-tabset}
+## Exercise
+Consider the lead data that you can read about [here](../data.qmd#lead) and download from <https://dcgerard.github.io/stat_320/data/lead.csv>. IQ tests are designed to have a mean of 100. Use `iqf` to test if the control group has an average IQ value of 100. Separately test if the exposed group has an average IQ less than 100. State the hypotheses, test results, and conclusions.
+
+## Solution
+Let's load in the lead data
 ```{r}
-#| echo: false
-#| eval: false
+#| message: false
 lead <- read_csv("https://dcgerard.github.io/stat_320/data/lead.csv")
+```
 
-# Control
+We'll filter for just the control group
+```{r}
 lead |>
   filter(Group == "control", !is.na(iqf)) ->
   df_control
+```
 
-# Null mu = 100, alternative mu neq 100.
+Let $X_i$ be the IQ of the $i$th control individual. We assume that $X_i \sim N(\mu, \sigma^2)$. We are testing $H_0: \mu = 100$ versus $H_1: \mu \neq 100$. We can run this test using `t.test()`:
+```{r}
 t.test(iqf ~ 1, data = df_control, mu = 100) |>
   tidy()
+```
 
-# p = 0.0001128, so we have strong evidence that mean IQ is not 100
+The $p$-value is 0.0001128, so we have very strong evidence that mean IQ in the control group is not 100
 
+We'll now filter for the exposed group
+```{r}
 lead |>
   filter(Group == "exposed", !is.na(iqf)) ->
   df_exposed
-
-# Null mu = 100, alternative mu < 100.
-t.test(iqf ~ 1, data = df_exposed, mu = 100, alternative = "less") |>
-  tidy()
-
-# p = 1.7e-08, so we have very strong evidence that mu < 100
 ```
 
 
+Let $X_i$ be the IQ of the $i$th exposed individual. We assume that $X_i \sim N(\mu, \sigma^2)$. We are testing $H_0: \mu = 100$ versus $H_1: \mu < 100$. We can run this test using `t.test()`:
+```{r}
+t.test(iqf ~ 1, data = df_exposed, mu = 100, alternative = "less") |>
+  tidy()
+```
+
+The $p$-value is 1.7e-08, so we again have very strong evidence that mu < 100.
+:::
