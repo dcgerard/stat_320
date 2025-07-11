@@ -1698,10 +1698,14 @@ H_1 &amp;: \mu \ne 3.3
 \end{align*}\]</span></p>
 <p>In R, there is an easy function for the Poisson test:</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>pout <span class="ot">&lt;-</span> <span class="fu">poisson.test</span>(<span class="at">x =</span> <span class="dv">4</span>, <span class="at">r =</span> <span class="fl">3.3</span>)</span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>pout<span class="sc">$</span>p.value</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">poisson.test</span>(<span class="at">x =</span> <span class="dv">4</span>, <span class="at">r =</span> <span class="fl">3.3</span>) <span class="sc">|&gt;</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tidy</span>() <span class="sc">|&gt;</span></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(p.value)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.5783</code></pre>
+<pre><code># A tibble: 1 × 1
+  p.value
+    &lt;dbl&gt;
+1   0.578</code></pre>
 </div>
 </div>
 <p>The p-value is 0.5783, so we fail to reject the null and conclude that we do not have enough evidence that rubber workers have different Hodgkins disease rates from the general public.</p>
@@ -1992,10 +1996,14 @@ t = \frac{1.2 - 1}{0.6/\sqrt{12}}
 </div>
 <p>We can get R’s <span class="math inline">\(p\)</span>-value just by <code>binom.test()</code>:</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a>bout <span class="ot">&lt;-</span> <span class="fu">binom.test</span>(<span class="at">x =</span> <span class="dv">4</span>, <span class="at">n =</span> <span class="dv">200</span>, <span class="at">p =</span> <span class="fl">0.01</span>)</span>
-<span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a>bout<span class="sc">$</span>p.value</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="fu">binom.test</span>(<span class="at">x =</span> <span class="dv">4</span>, <span class="at">n =</span> <span class="dv">200</span>, <span class="at">p =</span> <span class="fl">0.01</span>) <span class="sc">|&gt;</span></span>
+<span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tidy</span>() <span class="sc">|&gt;</span></span>
+<span id="cb53-3"><a href="#cb53-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(p.value)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.142</code></pre>
+<pre><code># A tibble: 1 × 1
+  p.value
+    &lt;dbl&gt;
+1   0.142</code></pre>
 </div>
 </div>
 <p>Either way, we fail to reject the null and say that we do not have enough evidence to conclude that these folks have different rates of cateracts than the general population.</p>
@@ -2023,10 +2031,14 @@ t = \frac{1.2 - 1}{0.6/\sqrt{12}}
 </div>
 <p>The exact method is the same as before, just changing numbers around. In R, this results in</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a>bout <span class="ot">&lt;-</span> <span class="fu">binom.test</span>(<span class="at">x =</span> <span class="dv">20</span>, <span class="at">n =</span> <span class="dv">200</span>, <span class="at">p =</span> <span class="fl">0.05</span>)</span>
-<span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a>bout<span class="sc">$</span>p.value</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="fu">binom.test</span>(<span class="at">x =</span> <span class="dv">20</span>, <span class="at">n =</span> <span class="dv">200</span>, <span class="at">p =</span> <span class="fl">0.05</span>) <span class="sc">|&gt;</span></span>
+<span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tidy</span>() <span class="sc">|&gt;</span></span>
+<span id="cb57-3"><a href="#cb57-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(p.value)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.003069</code></pre>
+<pre><code># A tibble: 1 × 1
+  p.value
+    &lt;dbl&gt;
+1 0.00307</code></pre>
 </div>
 </div>
 <p>For the normal method, let’s get a <span class="math inline">\(z\)</span> value. We have <span class="math inline">\(\hat{p} = 20/200 = 0.1\)</span>. <span class="math display">\[
@@ -2047,10 +2059,14 @@ z = \frac{|0.1 - 0.05| - 1 / 400}{\sqrt{0.05(1-0.05)/200}}
 </div>
 <p>This agrees with R’s <code>prop.test()</code></p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb63"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a>pout <span class="ot">&lt;-</span> <span class="fu">prop.test</span>(<span class="at">x =</span> <span class="dv">20</span>, <span class="at">n =</span> <span class="dv">200</span>, <span class="at">p =</span> <span class="fl">0.05</span>)</span>
-<span id="cb63-2"><a href="#cb63-2" aria-hidden="true" tabindex="-1"></a>pout<span class="sc">$</span>p.value</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb63"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a><span class="fu">prop.test</span>(<span class="at">x =</span> <span class="dv">20</span>, <span class="at">n =</span> <span class="dv">200</span>, <span class="at">p =</span> <span class="fl">0.05</span>) <span class="sc">|&gt;</span></span>
+<span id="cb63-2"><a href="#cb63-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tidy</span>() <span class="sc">|&gt;</span></span>
+<span id="cb63-3"><a href="#cb63-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(p.value)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.002055</code></pre>
+<pre><code># A tibble: 1 × 1
+  p.value
+    &lt;dbl&gt;
+1 0.00205</code></pre>
 </div>
 </div>
 <p>Either way, we reject <span class="math inline">\(H_0\)</span> and conclude that this population has different rates of cateracts than the general population.</p>

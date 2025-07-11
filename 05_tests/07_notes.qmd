@@ -8,6 +8,7 @@ date: today
 #| message: false
 #| echo: false
 library(tidyverse)
+library(broom)
 knitr::opts_chunk$set(echo = TRUE, 
             fig.width = 4, 
             fig.height = 3, 
@@ -1277,8 +1278,9 @@ $$
     
     In R, there is an easy function for the Poisson test:
     ```{r}
-    pout <- poisson.test(x = 4, r = 3.3)
-    pout$p.value
+    poisson.test(x = 4, r = 3.3) |>
+      tidy() |>
+      select(p.value)
     ```
     The p-value is 0.5783, so we fail to reject the null and conclude that we do not have enough evidence that rubber workers have different Hodgkins disease rates from the general public.
     
@@ -1530,8 +1532,9 @@ sum(pmf[pmf <= p4])
 We can get R's $p$-value just by `binom.test()`:
 
 ```{r}
-bout <- binom.test(x = 4, n = 200, p = 0.01)
-bout$p.value
+binom.test(x = 4, n = 200, p = 0.01) |>
+  tidy() |>
+  select(p.value)
 ```
 
 Either way, we fail to reject the null and say that we do not have enough evidence to conclude that these folks have different rates of cateracts than the general population.
@@ -1558,8 +1561,9 @@ We can actually use the normal method if we want:
 
 The exact method is the same as before, just changing numbers around. In R, this results in
 ```{r}
-bout <- binom.test(x = 20, n = 200, p = 0.05)
-bout$p.value
+binom.test(x = 20, n = 200, p = 0.05) |>
+  tidy() |>
+  select(p.value)
 ```
 
 For the normal method, let's get a $z$ value. We have $\hat{p} = 20/200 = 0.1$.
@@ -1578,8 +1582,9 @@ The $p$-value using the normal based approach is
 This agrees with R's `prop.test()`
 
 ```{r}
-pout <- prop.test(x = 20, n = 200, p = 0.05)
-pout$p.value
+prop.test(x = 20, n = 200, p = 0.05) |>
+  tidy() |>
+  select(p.value)
 ```
 
 Either way, we reject $H_0$ and conclude that this population has different rates of cateracts than the general population.

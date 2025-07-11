@@ -392,8 +392,8 @@ window.Quarto = {
 </div>
 <ul>
 <li><p>We have <span class="math display">\[
-  X \sim \mathrm{Binom}(n,p)
-  \]</span> and we are testing</p>
+X \sim \mathrm{Binom}(n,p)
+\]</span> and we are testing</p>
 <ul>
 <li><span class="math inline">\(H_0\)</span>: <span class="math inline">\(p = p_0\)</span></li>
 <li><span class="math inline">\(H_1\)</span>: <span class="math inline">\(p \neq p_0\)</span> or <span class="math inline">\(p &gt; p_0\)</span> or <span class="math inline">\(p &lt; p_0\)</span></li>
@@ -403,10 +403,10 @@ window.Quarto = {
 <h1>Approximate Approach</h1>
 <ul>
 <li><p>We use the central limit theorem. If (rule-of-thumb) <span class="math inline">\(np_0(1-p_0) \geq 5\)</span> then <span class="math display">\[
-  X \sim N(p_0, p_0(1-p_0)/n)
-  \]</span> and we calculate the tail probabilities of (for <span class="math inline">\(\hat{p} = X/n\)</span>) <span class="math display">\[
-  Z = \frac{\hat{p} - p_0}{\sqrt{p_0(1-p_0)/n}}
-  \]</span></p></li>
+X \sim N(p_0, p_0(1-p_0)/n)
+\]</span> and we calculate the tail probabilities of (for <span class="math inline">\(\hat{p} = X/n\)</span>) <span class="math display">\[
+Z = \frac{\hat{p} - p_0}{\sqrt{p_0(1-p_0)/n}}
+\]</span></p></li>
 <li><p>This is done via <code>prop.test()</code>, which you can feed into <code>broom::tidy()</code></p>
 <ul>
 <li><code>x</code>: the observed number of successes</li>
@@ -469,8 +469,8 @@ window.Quarto = {
 </div></li>
 <li><p>When the alternative is 2-sided, <span class="math inline">\(H_1 \neq p_0\)</span>, R is a little different than the procedure Rosner proposes. It calculates the sums the probabilities under the null of all <span class="math inline">\(X\)</span> that are less probable than our observed <span class="math inline">\(x\)</span></p>
 <p><span class="math display">\[
-  \sum_{k \text{ s.t. } Pr(k) \leq Pr(x)}\binom{n}{k} p_0^k(1-p_0)^{n-k}
-  \]</span></p></li>
+\sum_{k \text{ s.t. } Pr(k) \leq Pr(x)}\binom{n}{k} p_0^k(1-p_0)^{n-k}
+\]</span></p></li>
 <li><p>In the infertility example, this would be</p>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>prob <span class="ot">&lt;-</span> <span class="fu">dbinom</span>(<span class="at">x =</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">40</span>, <span class="at">size =</span> <span class="dv">40</span>, <span class="at">prob =</span> <span class="fl">0.2</span>)</span>
@@ -490,8 +490,54 @@ window.Quarto = {
 1   0.430</code></pre>
 </div>
 </div></li>
-<li><p><strong>Exercise</strong>: Out of 13 deaths at a nuclear facility among men aged 55-64, 5 of them were due to cancer. The proportion of deaths caused by cancer in that group in the greater population is 0.2. Is there more cancer deaths in this nuclear facility? Use both the normal and exact approaches.</p></li>
 </ul>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true">Exercise</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false">Solution</a></li></ul>
+<div class="tab-content">
+<div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
+<p>Out of 13 deaths at a nuclear facility among men aged 55-64, 5 of them were due to cancer. The proportion of deaths caused by cancer in that group in the greater population is 0.2. Is there more cancer deaths in this nuclear facility? Use both the normal and exact approaches.</p>
+</div>
+<div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
+<p>We are testing <span class="math inline">\(H_0: p = 0.2\)</span> versus <span class="math inline">\(H_1: p &gt; 0.2\)</span> assuming that <span class="math inline">\(X \sim \mathrm{Binom}(13,p)\)</span>, where <span class="math inline">\(X\)</span> is the number who had cancer.</p>
+<p>The normal approach is done via <code>prop.test()</code>:</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">prop.test</span>(<span class="at">x =</span> <span class="dv">5</span>, <span class="at">n =</span> <span class="dv">13</span>, <span class="at">p =</span> <span class="fl">0.2</span>, <span class="at">alternative =</span> <span class="st">"greater"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tidy</span>() <span class="sc">|&gt;</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(p.value)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in prop.test(x = 5, n = 13, p = 0.2, alternative = "greater"):
+Chi-squared approximation may be incorrect</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 1
+  p.value
+    &lt;dbl&gt;
+1  0.0939</code></pre>
+</div>
+</div>
+<p>The exact approach is done via <code>binom.test()</code>:</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">binom.test</span>(<span class="at">x =</span> <span class="dv">5</span>, <span class="at">n =</span> <span class="dv">13</span>, <span class="at">p =</span> <span class="fl">0.2</span>, <span class="at">alternative =</span> <span class="st">"greater"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tidy</span>() <span class="sc">|&gt;</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(p.value)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 1
+  p.value
+    &lt;dbl&gt;
+1  0.0991</code></pre>
+</div>
+</div>
+<p>We should be using the exact approach by our rule-of-thumb being less than 5:</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fl">0.2</span> <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> <span class="fl">0.2</span>) <span class="sc">*</span> <span class="dv">13</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 2.08</code></pre>
+</div>
+</div>
+<p>The <span class="math inline">\(p\)</span>-value is about 0.1, so no real evidence of more cancer deaths.</p>
+</div>
+</div>
+</div>
 
 
 </section>

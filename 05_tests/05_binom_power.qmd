@@ -14,7 +14,7 @@ ggplot2::theme_set(ggplot2::theme_bw() + ggplot2::theme(strip.background = ggplo
 ```
 
 
-There are no base R functions that do power and sample size calculations. But I created some for you:
+There are no base R functions that do power and sample size calculations. But I created one for you based on Equations 7.32 and 7.33 from Rosner.
 
 ```{r}
 #' Power/sample size calculation of 1-sample proportion test
@@ -108,20 +108,31 @@ b1power <- function(
 }
 ```
 
-
 - Assumes the sample size is large enough to use the central limit theorem ($np_0(1-p_0) \geq 5$).
 
-- Suppose we wish to test the hypothesis that women with a sister history of breast cancer are at higher risk of developing breast cancer themselves. Suppose the prevalence rate of breast cancer is 2% among 50 to 54 year-old US women, whereas it is 5% among women with a sister history. We wish to interval 500 women 50 to 54 years old with a sistory history of the disease. What is the power of such a study assuming that we conduct a two-sided test with $\alpha = 0.05$?
+-   Suppose we wish to test the hypothesis that women with a sister history of breast cancer are at higher risk of developing breast cancer themselves. Suppose the prevalence rate of breast cancer is 2% among 50 to 54 year-old US women, whereas it is 5% among women with a sister history. We wish to interval 500 women 50 to 54 years old with a sistory history of the disease. What is the power of such a study assuming that we conduct a two-sided test with $\alpha = 0.05$?
 
-  ```{r}
-  # 0.9655
-  b1power(n = 500, power = NULL, p0 = 0.02, p1 = 0.05, alpha = 0.05)
-  ```
+    ```{r}
+    # 0.9655
+    b1power(n = 500, power = NULL, p0 = 0.02, p1 = 0.05, alpha = 0.05)
+    ```
 
-- How many women should we interview in the study proposed to achieve 90% power?
+-   How many women should we interview in the study proposed to achieve 90% power?
 
-  ```{r}
-  # 341
-  b1power(n = NULL, power = 0.9, p0 = 0.02, p1 = 0.05, alpha = 0.05)
-  ```
+    ```{r}
+    # 341
+    b1power(n = NULL, power = 0.9, p0 = 0.02, p1 = 0.05, alpha = 0.05)
+    ```
 
+-   There is also the `{pwr}` package that you can try out. It uses different equations from Rosner, so you need to do a funky pre-calculation for the effect size. The numbers are slightly different too:
+
+    ```{r}
+    library(pwr)
+    h <- ES.h(p1 = 0.05, p2 = 0.02)
+    pwr.p.test(h = h, n = 500, sig.level = 0.05)
+    ```
+    
+    ```{r}
+    h <- ES.h(p1 = 0.05, p2 = 0.02)
+    pwr.p.test(h = h, sig.level = 0.05, power = 0.9)
+    ```

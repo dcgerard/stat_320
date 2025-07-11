@@ -31,7 +31,7 @@ format: html
   - [chi-squared distribution](./04_est/04_chi2.qmd)
   - [Estimating Binomial Proportion](./04_est/04_binom.qmd)
 - 05 Testing
-  - [Chapter 7 Notes (One Sample Hypothesis Tests)](./notes/chapter7_notes.pdf)
+  - [Chapter 7 Notes (One Sample Hypothesis Tests)](./05_tests/07_notes.qmd)
   - [One Sample $t$-Tests in R](./05_tests/05_ttest.qmd)
   - [Power Calculations in R](./05_tests/05_power.qmd)
   - [One Sample Binomial Tests in R](./05_tests/05_binom.qmd)
