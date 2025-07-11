@@ -4,6 +4,43 @@ author: "David Gerard"
 date: today
 ---
 
+```{r}
+#| message: false
+#| echo: false
+library(tidyverse)
+library(broom)
+knitr::opts_chunk$set(echo = TRUE, 
+            fig.width = 4, 
+            fig.height = 3, 
+            fig.align = "center")
+ggplot2::theme_set(ggplot2::theme_bw() + ggplot2::theme(strip.background = ggplot2::element_rect(fill = "white")))
+plt_t <- function(mu = 0, sig = 1, lb = -Inf, ub = Inf, df = Inf, rng = c(-3, 3), two_sided = FALSE, col = "#E69F00", lwd = 1) {
+  tibble(x = seq(mu + rng[[1]] * sig, mu + rng[[2]] * sig, length.out = 500)) |>
+    mutate(y = dt(x = (x - mu) / sig, df = df)) ->
+    df1
+  df1 |>
+    filter(x > lb, x < ub) ->
+    df2
+  ggplot() +
+    geom_line(data = df1, mapping = aes(x = x, y = y), linewidth = lwd) +
+    geom_area(data = df2, mapping = aes(x = x, y = y), fill = col) +
+    geom_line(data = df2, mapping = aes(x = x, y = y), color = col, linewidth = lwd) +
+    theme_classic() +
+    theme(axis.title = element_blank()) ->
+    pl
+  
+  if (two_sided) {
+    df1 |>
+      filter(x > -ub, x < -lb) ->
+      df3
+    pl <- pl + 
+      geom_area(data = df3, mapping = aes(x = x, y = y), fill = col) +
+      geom_line(data = df3, mapping = aes(x = x, y = y), color = col, linewidth = lwd)
+  }
+  pl
+}
+```
+
 # Paired t-test
 
 - Compare 2 populations where parameters are not known.
@@ -13,21 +50,22 @@ date: today
 **XYZ IMAGE HERE**
 
 - Example: Twin study where one twin smokes more than the other.
-  - Pop 1: lighter smoking twin  
-  - Pop 2: heavier smoking twin  
-  - Matched: each pair of twins
+  - Population 1: lighter smoking twins
+  - Population 2: heavier smoking twins 
+  - Matched pair: each pair of twins
 
-- Example: Same individual at 2 time points
-  - Pop 1: pre oral contraceptive (OC)  
-  - Pop 2: post OC  
-  - Matched: the same individual  
-  - Measure: blood pressure pre and post OC
+- Example: We measure blood pressure on the same individual at 2 time points
+  - Population 1: pre oral contraceptive (OC)
+  - Population 2: post OC
+  - Matched pair: the same individual  
 
 - **Longitudinal study**: follow same people over time
 
 - Let  
-  $X_i \sim N(\mu_i, \sigma^2)$ for example, pre-OC  
-  $Y_i \sim N(\mu_i + \Delta, \sigma^2)$ for example, post-OC
+  - $X_i \sim N(\mu_i, \sigma^2)$ 
+    - For example, pre-OC  
+  - $Y_i \sim N(\mu_i + \Delta, \sigma^2)$ 
+    - For example, post-OC
 
 - Hypotheses:  
   $H_0$: $\Delta = 0$  
@@ -40,21 +78,27 @@ date: today
 
 - Variance of differences:  
   $\sigma_D^2 = \text{var}(X) + \text{var}(Y) - 2\ \text{cov}(X, Y)$  
-  - But nuisance parameters, so just call it $\sigma_D^2$
+  - But this is a nuisance parameter, so just call it $\sigma_D^2$
 
 - So, just use a one-sample t-test on $D_i$
 
 - A paired t-test is just a one-sample t-test on differences.
 
-$$
-t = \frac{\bar{D} - d_0}{s_D / \sqrt{n}} \sim t_{n-1}
-$$
+- If $H_0$ is true, then:
+  $$
+  t = \frac{\bar{D} - d_0}{s_D / \sqrt{n}} \sim t_{n-1}
+  $$
+  where
+  
+  - $d_0$ = null value (e.g. 0)
+  - $s_D$ = standard deviation of $D_i$'s  
+  - $\bar{D}$ = mean of $D_i$'s
+
+  - We compare our observed $t$ to this distribution to get a $p$-value
 
 **XYZ IMAGE HERE**
 
-- $d_0$ = null value  
-- $s_D$ = SD of $D_i$'s  
-- $\bar{D}$ = mean of $D_i$'s
+
 
 - Get $(1 - \alpha) \cdot 100\%$ confidence interval by
 

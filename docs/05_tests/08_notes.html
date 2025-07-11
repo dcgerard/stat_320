@@ -366,26 +366,29 @@ window.Quarto = {
 <ul>
 <li><p>Example: Twin study where one twin smokes more than the other.</p>
 <ul>
-<li>Pop 1: lighter smoking twin<br>
-</li>
-<li>Pop 2: heavier smoking twin<br>
-</li>
-<li>Matched: each pair of twins</li>
+<li>Population 1: lighter smoking twins</li>
+<li>Population 2: heavier smoking twins</li>
+<li>Matched pair: each pair of twins</li>
 </ul></li>
-<li><p>Example: Same individual at 2 time points</p>
+<li><p>Example: We measure blood pressure on the same individual at 2 time points</p>
 <ul>
-<li>Pop 1: pre oral contraceptive (OC)<br>
-</li>
-<li>Pop 2: post OC<br>
-</li>
-<li>Matched: the same individual<br>
-</li>
-<li>Measure: blood pressure pre and post OC</li>
+<li>Population 1: pre oral contraceptive (OC)</li>
+<li>Population 2: post OC</li>
+<li>Matched pair: the same individual</li>
 </ul></li>
 <li><p><strong>Longitudinal study</strong>: follow same people over time</p></li>
-<li><p>Let<br>
-<span class="math inline">\(X_i \sim N(\mu_i, \sigma^2)\)</span> for example, pre-OC<br>
-<span class="math inline">\(Y_i \sim N(\mu_i + \Delta, \sigma^2)\)</span> for example, post-OC</p></li>
+<li><p>Let</p>
+<ul>
+<li><span class="math inline">\(X_i \sim N(\mu_i, \sigma^2)\)</span>
+<ul>
+<li>For example, pre-OC<br>
+</li>
+</ul></li>
+<li><span class="math inline">\(Y_i \sim N(\mu_i + \Delta, \sigma^2)\)</span>
+<ul>
+<li>For example, post-OC</li>
+</ul></li>
+</ul></li>
 <li><p>Hypotheses:<br>
 <span class="math inline">\(H_0\)</span>: <span class="math inline">\(\Delta = 0\)</span><br>
 <span class="math inline">\(H_1\)</span>: <span class="math inline">\(\Delta \ne 0\)</span></p></li>
@@ -395,7 +398,7 @@ window.Quarto = {
 <li><p>Variance of differences:<br>
 <span class="math inline">\(\sigma_D^2 = \text{var}(X) + \text{var}(Y) - 2\ \text{cov}(X, Y)\)</span></p>
 <ul>
-<li>But nuisance parameters, so just call it <span class="math inline">\(\sigma_D^2\)</span></li>
+<li>But this is a nuisance parameter, so just call it <span class="math inline">\(\sigma_D^2\)</span></li>
 </ul></li>
 <li><p>So, just use a one-sample t-test on <span class="math inline">\(D_i\)</span></p></li>
 <li><p>A paired t-test is just a one-sample t-test on differences.</p></li>
