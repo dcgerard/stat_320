@@ -402,18 +402,20 @@ window.Quarto = {
 </ul></li>
 <li><p>So, just use a one-sample t-test on <span class="math inline">\(D_i\)</span></p></li>
 <li><p>A paired t-test is just a one-sample t-test on differences.</p></li>
-</ul>
-<p><span class="math display">\[
+<li><p>If <span class="math inline">\(H_0\)</span> is true, then: <span class="math display">\[
 t = \frac{\bar{D} - d_0}{s_D / \sqrt{n}} \sim t_{n-1}
-\]</span></p>
-<p><strong>XYZ IMAGE HERE</strong></p>
+\]</span> where</p>
 <ul>
-<li><p><span class="math inline">\(d_0\)</span> = null value<br>
-</p></li>
-<li><p><span class="math inline">\(s_D\)</span> = SD of <span class="math inline">\(D_i\)</span>’s<br>
+<li><p><span class="math inline">\(d_0\)</span> = null value (e.g.&nbsp;0)</p></li>
+<li><p><span class="math inline">\(s_D\)</span> = standard deviation of <span class="math inline">\(D_i\)</span>’s<br>
 </p></li>
 <li><p><span class="math inline">\(\bar{D}\)</span> = mean of <span class="math inline">\(D_i\)</span>’s</p></li>
-<li><p>Get <span class="math inline">\((1 - \alpha) \cdot 100\%\)</span> confidence interval by</p></li>
+<li><p>We compare our observed <span class="math inline">\(t\)</span> to this distribution to get a <span class="math inline">\(p\)</span>-value</p></li>
+</ul></li>
+</ul>
+<p><strong>XYZ IMAGE HERE</strong></p>
+<ul>
+<li>Get <span class="math inline">\((1 - \alpha) \cdot 100\%\)</span> confidence interval by</li>
 </ul>
 <p><span class="math display">\[
 \bar{D} \pm t_{n-1, 1 - \alpha/2} \cdot \frac{s_D}{\sqrt{n}}

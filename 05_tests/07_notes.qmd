@@ -14,18 +14,39 @@ knitr::opts_chunk$set(echo = TRUE,
             fig.height = 3, 
             fig.align = "center")
 ggplot2::theme_set(ggplot2::theme_bw() + ggplot2::theme(strip.background = ggplot2::element_rect(fill = "white")))
-plt_norm <- function(mu = 0, sig = 1, lb = -Inf, ub = Inf) {
-  tibble(x = seq(mu - 3 * sig, mu + 3 * sig, length.out = 500)) |>
-    mutate(y = dnorm(x = x, mean = mu, sd = sig)) ->
+plt_t <- function(
+    mu = 0, 
+    sig = 1, 
+    lb = -Inf,
+    ub = Inf,
+    df = Inf, 
+    rng = c(-3, 3), 
+    two_sided = FALSE,
+    col = "#E69F00",
+    lwd = 1) {
+  tibble(x = seq(mu + rng[[1]] * sig, mu + rng[[2]] * sig, length.out = 500)) |>
+    mutate(y = dt(x = (x - mu) / sig, df = df)) ->
     df1
   df1 |>
     filter(x > lb, x < ub) ->
     df2
   ggplot() +
-    geom_line(data = df1, mapping = aes(x = x, y = y)) +
-    geom_area(data = df2, mapping = aes(x = x, y = y)) +
+    geom_line(data = df1, mapping = aes(x = x, y = y), linewidth = lwd) +
+    geom_area(data = df2, mapping = aes(x = x, y = y), fill = col) +
+    geom_line(data = df2, mapping = aes(x = x, y = y), color = col, linewidth = lwd) +
     theme_classic() +
-    theme(axis.title = element_blank())
+    theme(axis.title = element_blank()) ->
+    pl
+  
+  if (two_sided) {
+    df1 |>
+      filter(x > -ub, x < -lb) ->
+      df3
+    pl <- pl + 
+      geom_area(data = df3, mapping = aes(x = x, y = y), fill = col) +
+      geom_line(data = df3, mapping = aes(x = x, y = y), color = col, linewidth = lwd)
+  }
+  pl
 }
 ```
 
@@ -162,7 +183,6 @@ There is a new pain relief drug for osteoarthritis (OA).
     \Pr(t < a) = \alpha
     $$
 
-
     ```{r}
     #| echo: false
     #| warning: false
@@ -170,16 +190,15 @@ There is a new pain relief drug for osteoarthritis (OA).
     df <- 9
     crit <- qt(alpha, df)
     
-    ggplot(data.frame(x = c(-4, 4)), aes(x)) +
-      stat_function(fun = dt, args = list(df = df), geom = "line", linewidth = 1) +
-      stat_function(fun = dt, args = list(df = df), geom = "area",
-                    xlim = c(-4, crit), fill = "red", alpha = 0.3) +
-      geom_vline(xintercept = crit, linetype = "dashed") +
-      annotate("text", x = crit - 0.4, y = 0.02, label = expression(alpha), size = 5) +
-      labs(x = "t", y = "Density", title = expression(t[n-1]-Distribution)) +
-      theme_bw() +
+    plt_t(ub = crit, df = df, rng = c(-4, 4)) +
+      theme(axis.title = element_text(size = 17)) +
+      ylab("Density") +
+      xlab("t") +
       scale_x_continuous(breaks = crit, labels = "a") +
-      theme(axis.text = element_text(size = 15))
+      geom_vline(xintercept = crit, linetype = "dashed") +
+      annotate(geom = "text", x = crit - 0.4, y = 0.02, label = expression(alpha), size = 7) +
+      ggtitle(expression(t[n-1]-Distribution)) +
+      theme(axis.text.x = element_text(size = 17))
     ```
 
 - So choose $a = t_{n-1,\alpha} =$ `qt(alpha, n-1)`
@@ -260,18 +279,18 @@ A **critical value** is the value beyond which we reject $H_0$.
 
     ```{r}
     #| echo: false
+    #| message: false
     alpha <- 0.01
     df <- 99
     t_obs <- -2.08
     crit <- qt(alpha, df)
     
-    ggplot(data.frame(x = c(-4, 4)), aes(x)) +
-      stat_function(fun = dt, args = list(df = df), linewidth = 1) +
+    plt_t(col = NA, df = df) +
+      theme(axis.title = element_text()) +
       geom_vline(xintercept = crit, linetype = "dashed") +
       geom_vline(xintercept = t_obs, color = "blue", linewidth = 1) +
       annotate("text", x = crit - 0.15, y = 0.2, label = "Critical", size = 4, angle = 90) +
       annotate("text", x = t_obs + 0.15, y = 0.2, label = "Observed", size = 4, color = "blue", angle = 90) +
-      theme_bw() +
       labs(title = "t-distribution with Observed vs. Critical Value",
            x = "t", y = "Density")
     ```
@@ -300,20 +319,12 @@ Equivalently, the probability we would see data as extreme or more extreme than 
     t_obs <- -2.08
     crit <- qt(alpha, df)
     
-    ggplot(data.frame(x = c(-4, 4)), aes(x)) +
-      stat_function(fun = dt, args = list(df = df), linewidth = 1) +
+    plt_t( df = df, ub = t_obs) +
+      theme(axis.title = element_text()) +
       geom_vline(xintercept = crit, linetype = "dashed") +
       geom_vline(xintercept = t_obs, color = "blue", linewidth = 1) +
-      stat_function(
-        fun = dt, 
-        args = list(df = df), 
-        geom = "area", 
-        xlim = c(-4, t_obs), 
-        fill = "black",
-        alpha = 0.5) +
       annotate("text", x = crit - 0.15, y = 0.2, label = "Critical", size = 4, angle = 90) +
       annotate("text", x = t_obs + 0.15, y = 0.2, label = "Observed", size = 4, color = "blue", angle = 90) +
-      theme_bw() +
       labs(title = "t-distribution with Observed vs. Critical Value",
            x = "t", y = "Density")
     ```
@@ -465,25 +476,10 @@ Therefore, we have weak evidence that they have higher cholesterol.
     alpha <- 0.01
     df <- 10
     t_obs <- 1.5
-    ggplot(data.frame(x = c(-4, 4)), aes(x)) +
-      stat_function(fun = dt, args = list(df = df), linewidth = 1) +
+    plt_t(df = df, lb = t_obs, two_sided = TRUE) +
+      theme(axis.title = element_text()) +
       geom_vline(xintercept = t_obs, color = "blue", linewidth = 1) +
-      stat_function(
-        fun = dt, 
-        args = list(df = df), 
-        geom = "area", 
-        xlim = c(-4, -t_obs), 
-        fill = "black",
-        alpha = 0.5) +
-        stat_function(
-        fun = dt, 
-        args = list(df = df), 
-        geom = "area", 
-        xlim = c(t_obs, 4), 
-        fill = "black",
-        alpha = 0.5) +
       annotate("text", x = t_obs + 0.15, y = 0.2, label = "Observed", size = 4, color = "blue", angle = 90) +
-      theme_bw() +
       labs(title = "p-value from two-tailed test",
            x = "t", y = "Density")
     ```
@@ -720,7 +716,7 @@ Mean birthweight in the US is 120 oz. What is the power to detect low birthweigh
 ## Solution
 Plugging in these values into the power equation, we have
 $$
-\text{Power} &= \Phi\left(z_{0.05} + \frac{\sqrt{100}(120 - 115)}{24} \right) 
+\text{Power} = \Phi\left(z_{0.05} + \frac{\sqrt{100}(120 - 115)}{24} \right) 
 $$
 Doing this in R, we have
 ```{r}
@@ -863,9 +859,9 @@ Try to reason both by using the power equations and by using common sense.
     ```{r}
     #| echo: false
     #| fig-alt: "Normal curve with right tail shaded"
-    plt_norm(mu = 0, lb = 1.5) +
+    plt_t(mu = 0, lb = 1.5) +
       scale_x_continuous(breaks = 1.5, labels = "z") +
-      geom_vline(xintercept = 1.5, linetype = "dashed", color = "red") +
+      geom_vline(xintercept = 1.5, linetype = "dashed", color = "blue", size = 1) +
       theme(axis.text.x = element_text(size = 15),
             axis.text.y = element_blank(),
             axis.ticks.y = element_blank())
@@ -881,30 +877,10 @@ Try to reason both by using the power equations and by using common sense.
     ```{r}
     #| echo: false
     #| fig-alt: "Normal curve with shaded tails, showing two-sided test"
-    mu <- 0
-    sig <- 1
-    ub <- 1.5
-    lb <- -1.5
-    tibble(x = seq(mu - 3 * sig, mu + 3 * sig, length.out = 500)) |>
-      mutate(y = dnorm(x = x, mean = mu, sd = sig)) ->
-      df1
-    df1 |>
-      filter(x < lb) ->
-      df2
-    df1 |>
-      filter(x > ub) ->
-      df3
-    ggplot() +
-      geom_line(data = df1, mapping = aes(x = x, y = y)) +
-      geom_area(data = df2, mapping = aes(x = x, y = y)) +
-      geom_area(data = df3, mapping = aes(x = x, y = y)) +
-      theme_classic() +
-      theme(axis.title = element_blank()) +
+    plt_t(lb = 1.5, two_sided = TRUE) +
       scale_x_continuous(breaks = c(-1.5, 1.5), labels = c("-z", "z")) +
-      geom_vline(xintercept = c(-1.5, 1.5), linetype = "dashed", color = "red") +
-      theme(axis.text.x = element_text(size = 15),
-            axis.text.y = element_blank(),
-            axis.ticks.y = element_blank())
+      geom_vline(xintercept = c(-1.5, 1.5), linetype = "dashed", color = "blue", size = 1) +
+      theme(axis.text.x = element_text(size = 15))
     ```
 
 - Because this is the normal approximation to the binomial, you can get better results with the continuity correction:
@@ -935,11 +911,11 @@ $X \sim \mathrm{Binom}(n,p)$, $\hat{p} = X/n$, $H_0: p = p_0$
     #| fig-height: 1.5
     #| fig-width: 2
     #| fig-alt: "Normal curve with left tail shaded"
-    plt_norm(mu = 0, ub = -1.5) +
+    plt_t(mu = 0, ub = -1.5) +
       scale_x_continuous(breaks = c(-1.5, -2), labels = c("z", expression(z[alpha]))) +
-      geom_vline(xintercept = -1.5, linetype = "dashed", color = "red") +
-      geom_vline(xintercept = -2, linetype = "dashed", color = "blue") +
-      theme(axis.text.x = element_text(size = 10, angle = 90, hjust = 1, vjust = 0.5),
+      geom_vline(xintercept = -1.5, linetype = "dashed", color = "red", size = 1) +
+      geom_vline(xintercept = -2, linetype = "dashed", color = "blue", size = 1) +
+      theme(axis.text.x = element_text(size = 15, angle = 90, hjust = 1, vjust = 0.5),
             axis.text.y = element_blank(),
             axis.ticks.y = element_blank())
     ```
@@ -963,11 +939,11 @@ $X \sim \mathrm{Binom}(n,p)$, $\hat{p} = X/n$, $H_0: p = p_0$
     #| fig-height: 1.5
     #| fig-width: 2
     #| fig-alt: "Normal curve with right tail shaded"
-    plt_norm(mu = 0, lb = 1.5) +
+    plt_t(mu = 0, lb = 1.5) +
       scale_x_continuous(breaks = c(1.5, 2), labels = c("z", expression(z[1-alpha]))) +
-      geom_vline(xintercept = 1.5, linetype = "dashed", color = "red") +
-      geom_vline(xintercept = 2, linetype = "dashed", color = "blue") +
-      theme(axis.text.x = element_text(size = 10, angle = 90, hjust = 1, vjust = 0.5),
+      geom_vline(xintercept = 1.5, linetype = "dashed", color = "red", size = 1) +
+      geom_vline(xintercept = 2, linetype = "dashed", color = "blue", size = 1) +
+      theme(axis.text.x = element_text(size = 15, angle = 90, hjust = 1, vjust = 0.5),
             axis.text.y = element_blank(),
             axis.ticks.y = element_blank())
     ```
@@ -991,29 +967,11 @@ $X \sim \mathrm{Binom}(n,p)$, $\hat{p} = X/n$, $H_0: p = p_0$
     #| fig-height: 1.5
     #| fig-width: 2
     #| fig-alt: "Normal curve with shaded tails, showing two-sided test"
-    mu <- 0
-    sig <- 1
-    ub <- 1.5
-    lb <- -1.5
-    tibble(x = seq(mu - 3 * sig, mu + 3 * sig, length.out = 500)) |>
-      mutate(y = dnorm(x = x, mean = mu, sd = sig)) ->
-      df1
-    df1 |>
-      filter(x < lb) ->
-      df2
-    df1 |>
-      filter(x > ub) ->
-      df3
-    ggplot() +
-      geom_line(data = df1, mapping = aes(x = x, y = y)) +
-      geom_area(data = df2, mapping = aes(x = x, y = y)) +
-      geom_area(data = df3, mapping = aes(x = x, y = y)) +
-      theme_classic() +
-      theme(axis.title = element_blank()) +
+    plt_t(lb = 1.5, two_sided = TRUE) +
       scale_x_continuous(breaks = c(-1.5, 1.5, 2), labels = c("-z", "z", expression(z[1-alpha/2]))) +
-      geom_vline(xintercept = c(-1.5, 1.5), linetype = "dashed", color = "red") +
-      geom_vline(xintercept = 2, linetype = "dashed", color = "blue") +
-      theme(axis.text.x = element_text(size = 10, angle = 90, hjust = 1, vjust = 0.5),
+      geom_vline(xintercept = c(-1.5, 1.5), linetype = "dashed", color = "red", size = 1) +
+      geom_vline(xintercept = 2, linetype = "dashed", color = "blue", size = 1) +
+      theme(axis.text.x = element_text(size = 15, angle = 90, hjust = 1, vjust = 0.5),
             axis.text.y = element_blank(),
             axis.ticks.y = element_blank())
     ```
@@ -1356,8 +1314,8 @@ We compare this to a standard normal distribution to get the $p$-value. We multi
 
 ```{r}
 #| echo: false
-plt_norm(lb = 1.732) +
-  annotate(geom = "text", x = 2.5, y = 0.1, label = "x2", size = 15) +
+plt_t(lb = 1.732) +
+  annotate(geom = "text", x = 2.5, y = 0.1, label = "x2", size = 15, color = "#E69F00") +
   geom_vline(xintercept = 1.732, linetype = "dashed")
 ```
 :::
@@ -1444,8 +1402,8 @@ We compare this value to a $t$ distribution with $n-1=7-1=6$ degrees of freedom.
 
 ```{r}
 #| echo: false
-plt_norm(lb = 1.52) +
-  annotate(geom = "text", x = 2.5, y = 0.1, label = "x2", size = 15) +
+plt_t(lb = 1.52) +
+  annotate(geom = "text", x = 2.5, y = 0.1, label = "x2", size = 15, color = "#E69F00") +
   geom_vline(xintercept = 1.52, linetype = "dashed") +
   ggtitle("t-distribution with 6 degrees of freedom")
 ```
