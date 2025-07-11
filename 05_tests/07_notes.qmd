@@ -1402,9 +1402,9 @@ We compare this value to a $t$ distribution with $n-1=7-1=6$ degrees of freedom.
 
 ```{r}
 #| echo: false
-plt_t(lb = 1.52) +
+plt_t(lb = 1.52, df = 6) +
   annotate(geom = "text", x = 2.5, y = 0.1, label = "x2", size = 15, color = "#E69F00") +
-  geom_vline(xintercept = 1.52, linetype = "dashed") +
+  geom_vline(xintercept = 1.52, linetype = "dashed", size = 1) +
   ggtitle("t-distribution with 6 degrees of freedom")
 ```
 :::
