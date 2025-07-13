@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="David Gerard">
-<meta name="dcterms.date" content="2025-07-11">
+<meta name="dcterms.date" content="2025-07-13">
 
 <title>Chapter 8: Two-sample Inference – Stat 320: Biostatistics</title>
 <style>
@@ -344,7 +344,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">July 11, 2025</p>
+      <p class="date">July 13, 2025</p>
     </div>
   </div>
   
@@ -360,10 +360,8 @@ window.Quarto = {
 <h1>Paired t-test</h1>
 <ul>
 <li><p>Compare 2 populations where parameters are not known.</p></li>
-<li><p>A <strong>paired sample</strong> is where observations in each population are matched.</p></li>
-</ul>
-<p><strong>XYZ IMAGE HERE</strong></p>
-<ul>
+<li><p>A <strong>paired sample</strong> is where observations in each population are matched.</p>
+<p><img src="./05_figs/paired_pop.png" class="img-fluid" alt="diagram showing paired samples">&nbsp;</p></li>
 <li><p>Example: Twin study where one twin smokes more than the other.</p>
 <ul>
 <li>Population 1: lighter smoking twins</li>
@@ -376,7 +374,7 @@ window.Quarto = {
 <li>Population 2: post OC</li>
 <li>Matched pair: the same individual</li>
 </ul></li>
-<li><p><strong>Longitudinal study</strong>: follow same people over time</p></li>
+<li><p>This second example is one of a <strong>longitudinal study</strong>, where we follow the same people over time</p></li>
 <li><p>Let</p>
 <ul>
 <li><span class="math inline">\(X_i \sim N(\mu_i, \sigma^2)\)</span>
@@ -401,33 +399,99 @@ window.Quarto = {
 <li>But this is a nuisance parameter, so just call it <span class="math inline">\(\sigma_D^2\)</span></li>
 </ul></li>
 <li><p>So, just use a one-sample t-test on <span class="math inline">\(D_i\)</span></p></li>
-<li><p>A paired t-test is just a one-sample t-test on differences.</p></li>
-<li><p>If <span class="math inline">\(H_0\)</span> is true, then: <span class="math display">\[
-t = \frac{\bar{D} - d_0}{s_D / \sqrt{n}} \sim t_{n-1}
-\]</span> where</p>
+</ul>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Important
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>A paired t-test is just a one-sample t-test on differences.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Paired t-test
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Input: <span class="math inline">\(X_1,X_2,\ldots,X_n\)</span> and <span class="math inline">\(Y_1,Y_2,\ldots,Y_n\)</span> where <span class="math inline">\(X_i\)</span> and <span class="math inline">\(Y_i\)</span> are matched pairs.</p>
 <ul>
-<li><p><span class="math inline">\(d_0\)</span> = null value (e.g.&nbsp;0)</p></li>
-<li><p><span class="math inline">\(s_D\)</span> = standard deviation of <span class="math inline">\(D_i\)</span>’s<br>
-</p></li>
-<li><p><span class="math inline">\(\bar{D}\)</span> = mean of <span class="math inline">\(D_i\)</span>’s</p></li>
-<li><p>We compare our observed <span class="math inline">\(t\)</span> to this distribution to get a <span class="math inline">\(p\)</span>-value</p></li>
+<li><p>We assume <span class="math inline">\(X_i \sim N(\mu_i, \sigma_x^2)\)</span> and <span class="math inline">\(Y_i \sim N(\mu_i + \Delta, \sigma_y^2)\)</span>.</p></li>
+<li><p>We test:</p>
+<ul>
+<li><span class="math inline">\(H_0: \Delta = d_0\)</span></li>
+<li><span class="math inline">\(H_A: \Delta \neq d_0\)</span> or <span class="math inline">\(\Delta &gt; d_0\)</span> or <span class="math inline">\(\Delta &lt; d_0\)</span>.</li>
+<li>where <span class="math inline">\(d_0\)</span> = null mean difference between populatoins (e.g.&nbsp;0)</li>
 </ul></li>
-</ul>
-<p><strong>XYZ IMAGE HERE</strong></p>
+<li><p>We calculate:</p>
 <ul>
-<li>Get <span class="math inline">\((1 - \alpha) \cdot 100\%\)</span> confidence interval by</li>
-</ul>
-<p><span class="math display">\[
-\bar{D} \pm t_{n-1, 1 - \alpha/2} \cdot \frac{s_D}{\sqrt{n}}
+<li><span class="math inline">\(D_i = X_i - Y_i\)</span></li>
+<li><span class="math inline">\(s_D\)</span> = standard deviation of <span class="math inline">\(D_i\)</span>’s<br>
+</li>
+<li><span class="math inline">\(\bar{D}\)</span> = mean of <span class="math inline">\(D_i\)</span>’s</li>
+</ul></li>
+<li><p>The <span class="math inline">\(t\)</span> statistic follows a <span class="math inline">\(t_{n-1}\)</span> distribution if <span class="math inline">\(H_0\)</span> is true: <span class="math display">\[
+t = \frac{\bar{D} - d_0}{s_D / \sqrt{n}}
+\]</span></p></li>
+<li><p><span class="math inline">\(H_1: \Delta \neq d_0\)</span>: <span class="math display">\[
+\text{p-value} = 2\texttt{pt}(-|t|, n-1)
 \]</span></p>
-<p>where<br>
-<span class="math inline">\(t_{n-1, 1 - \alpha/2}\)</span> is the <span class="math inline">\(t\)</span>-quantile with df = <span class="math inline">\(n - 1\)</span><br>
-(typically <span class="math inline">\(\alpha = 0.05\)</span>)</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="08_notes_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="288"></p>
+</figure>
+</div>
+</div>
+</div></li>
+<li><p><span class="math inline">\(H_1: \Delta &gt; d_0\)</span>: <span class="math display">\[
+\text{p-value} = 1 - \texttt{pt}(t, n-1)
+\]</span></p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="08_notes_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="288"></p>
+</figure>
+</div>
+</div>
+</div></li>
+<li><p><span class="math inline">\(H_1: \Delta &lt; d_0\)</span>: <span class="math display">\[
+\text{p-value} = \texttt{pt}(t, n-1)
+\]</span></p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="08_notes_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="288"></p>
+</figure>
+</div>
+</div>
+</div></li>
+<li><p>A <span class="math inline">\((1 - \alpha) \cdot 100\%\)</span> confidence interval for <span class="math inline">\(\Delta\)</span> is: <span class="math display">\[
+\bar{D} \pm t_{n-1, 1 - \alpha/2} \cdot \frac{s_D}{\sqrt{n}}
+\]</span></p></li>
+</ul>
+</div>
+</div>
+<hr>
+<p><a href="../05_tests/05_two_sample_t.html#paired-t-tests">Paired t-tests in R</a></p>
+<hr>
 </section>
 <section id="two-sample-t-tests-with-equal-variances" class="level1">
 <h1>Two-sample t-tests with equal variances</h1>
 <ul>
-<li><p>More common studies have 2 independent samples.</p></li>
+<li><p>More commonly, studies have 2 independent samples.</p></li>
 <li><p>Example:</p>
 <ul>
 <li>Collect one group of OC users<br>
@@ -435,21 +499,22 @@ t = \frac{\bar{D} - d_0}{s_D / \sqrt{n}} \sim t_{n-1}
 <li>Collect a separate group of non-OC users</li>
 </ul></li>
 <li><p><strong>Cross-sectional study</strong>: data collected at one point in time (units under different conditions)</p></li>
-</ul>
-<p><span class="math display">\[
+<li><p>Assume: <span class="math display">\[
 X_1, X_2, \ldots, X_{n_1} \overset{\text{iid}}{\sim} N(\mu_1, \sigma_1^2)
-\]</span></p>
-<p><span class="math display">\[
+\]</span> <span class="math display">\[
 Y_1, Y_2, \ldots, Y_{n_2} \overset{\text{iid}}{\sim} N(\mu_2, \sigma_2^2)
-\]</span></p>
-<ul>
-<li><p>Different sample sizes possible, not paired.</p></li>
+\]</span></p></li>
+<li><p>Note: different sample sizes are possible, and the observations are not paired.</p></li>
 <li><p>Hypotheses:</p>
 <ul>
 <li><span class="math inline">\(H_0\)</span>: <span class="math inline">\(\mu_1 = \mu_2\)</span></li>
 <li><span class="math inline">\(H_1\)</span>: <span class="math inline">\(\mu_1 \ne \mu_2\)</span>, or <span class="math inline">\(\mu_1 &lt; \mu_2\)</span>, or <span class="math inline">\(\mu_1 &gt; \mu_2\)</span></li>
 </ul></li>
-<li><p>For now, assume <span class="math inline">\(\sigma_1^2 = \sigma_2^2 = \sigma^2\)</span> (i.e., equal/pooled variance)</p></li>
+<li><p>For now, assume <span class="math inline">\(\sigma_1^2 = \sigma_2^2 = \sigma^2\)</span></p>
+<ul>
+<li>Assumes the two populations have the same variability, which is often not valid.</li>
+<li>We will relax this later</li>
+</ul></li>
 <li><p>We observe:</p>
 <ul>
 <li><span class="math inline">\(\bar{X} =\)</span> mean of <span class="math inline">\(X_i\)</span>’s<br>
@@ -464,119 +529,180 @@ Y_1, Y_2, \ldots, Y_{n_2} \overset{\text{iid}}{\sim} N(\mu_2, \sigma_2^2)
 </li>
 <li><span class="math inline">\(n_2 =\)</span> sample size 2</li>
 </ul></li>
-<li><p>Consider <span class="math inline">\(\bar{X} - \bar{Y}\)</span></p></li>
-</ul>
+<li><p>Consider <span class="math inline">\(\bar{X} - \bar{Y}\)</span></p>
 <p><span class="math display">\[
-\mathbb{E}[\bar{X} - \bar{Y}] = \mathbb{E}[\bar{X}] - \mathbb{E}[\bar{Y}] = \mu_1 - \mu_2
+E[\bar{X} - \bar{Y}] = E[\bar{X}] - E[\bar{Y}] = \mu_1 - \mu_2
 \]</span></p>
 <ul>
-<li><p>Equals 0 under <span class="math inline">\(H_0\)</span>, not 0 under <span class="math inline">\(H_1\)</span></p></li>
-<li><p>Variance of difference:</p></li>
-</ul>
-<p><span class="math display">\[
-\text{Var}(\bar{X} - \bar{Y}) = \text{Var}(\bar{X}) + \text{Var}(\bar{Y}) - 2\,\text{Cov}(\bar{X}, \bar{Y})
-\]</span></p>
-<ul>
-<li>Covariance term is 0 due to independence</li>
-</ul>
-<p><span class="math display">\[
-= \frac{\sigma^2}{n_1} + \frac{\sigma^2}{n_2} = \sigma^2 \left(\frac{1}{n_1} + \frac{1}{n_2} \right)
-\]</span></p>
-<ul>
-<li>Therefore,</li>
-</ul>
-<p><span class="math display">\[
+<li>Equals 0 under <span class="math inline">\(H_0\)</span>, not 0 under <span class="math inline">\(H_1\)</span></li>
+</ul></li>
+<li><p>Variance of difference:</p>
+<p><span class="math display">\[\begin{align*}
+\text{Var}(\bar{X} - \bar{Y}) &amp;= \text{Var}(\bar{X}) + \text{Var}(\bar{Y}) - 2\,\text{Cov}(\bar{X}, \bar{Y})\\
+&amp;= \frac{\sigma^2}{n_1} + \frac{\sigma^2}{n_2} \\
+&amp;= \sigma^2 \left(\frac{1}{n_1} + \frac{1}{n_2} \right)
+\end{align*}\]</span> (Covariance term is 0 due to independence)</p></li>
+<li><p>Therefore, by properties of the normal distribution: <span class="math display">\[
 \bar{X} - \bar{Y} \sim N\left(\mu_1 - \mu_2, \sigma^2\left(\frac{1}{n_1} + \frac{1}{n_2} \right)\right)
-\]</span></p>
-<ul>
-<li>If <span class="math inline">\(\sigma^2\)</span> were known, then could test using</li>
-</ul>
+\]</span></p></li>
+<li><p>If <span class="math inline">\(\sigma^2\)</span> were known, then could base our test on the distribution of the mean divided by the standard deviation:</p>
 <p><span class="math display">\[
 \frac{\bar{X} - \bar{Y}}{\sqrt{\frac{1}{n_1} + \frac{1}{n_2}}} \sim N(0, 1)
-\]</span></p>
+\]</span></p></li>
+<li><p>We could then compare this statistic to a <span class="math inline">\(N(0,1)\)</span> distribution to get p-value.</p></li>
+<li><p>However, <span class="math inline">\(\sigma^2\)</span> is never known in practice, so we need to estimate it.</p></li>
+</ul>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Pooled Sample Variance
+</div>
+</div>
+<div class="callout-body-container callout-body">
 <ul>
-<li><p>If <span class="math inline">\(H_0\)</span> true, compare stat to <span class="math inline">\(N(0,1)\)</span> to get p-value</p></li>
-<li><p>Assuming <span class="math inline">\(\sigma_1^2 = \sigma_2^2 = \sigma^2\)</span>, estimate <span class="math inline">\(\sigma^2\)</span> with the <strong>pooled sample variance</strong>:</p></li>
+<li>Assuming <span class="math inline">\(\sigma_1^2 = \sigma_2^2 = \sigma^2\)</span>, then we estimate <span class="math inline">\(\sigma^2\)</span> with the <strong>pooled sample variance</strong>:</li>
 </ul>
 <p><span class="math display">\[
 s^2 = \frac{(n_1 - 1)s_1^2 + (n_2 - 1)s_2^2}{n_1 + n_2 - 2}
 \]</span></p>
+</div>
+</div>
 <ul>
-<li>Equivalent to</li>
-</ul>
+<li><p>The pooled sample variance can equivalently be written as:</p>
 <p><span class="math display">\[
 s^2 = \frac{n_1 - 1}{n_1 + n_2 - 2} s_1^2 + \frac{n_2 - 1}{n_1 + n_2 - 2} s_2^2
 \]</span></p>
 <ul>
-<li><p>Higher weight goes to sample with larger <span class="math inline">\(n\)</span></p></li>
-<li><p>Test statistic becomes:</p></li>
-</ul>
+<li>This should show you that higher weight goes to the sample with larger <span class="math inline">\(n\)</span></li>
+</ul></li>
+<li><p>Our test statistic becomes:</p>
 <p><span class="math display">\[
-\frac{\bar{X} - \bar{Y}}{s \sqrt{\frac{1}{n_1} + \frac{1}{n_2}}} \sim t_{n_1 + n_2 - 2}
-\]</span></p>
+\frac{\bar{X} - \bar{Y}}{s \sqrt{\frac{1}{n_1} + \frac{1}{n_2}}}
+\]</span></p></li>
+<li><p>This follows a <span class="math inline">\(t_{n_1 + n_2 - 2}\)</span> distribution only if <span class="math inline">\(H_0\)</span> is true.</p>
 <ul>
-<li><p>If <span class="math inline">\(H_0\)</span> true</p></li>
-<li><p>Let:</p></li>
+<li>It follows something else if <span class="math inline">\(H_1\)</span> is true.</li>
+</ul></li>
 </ul>
-<p><span class="math display">\[
-X_1, X_2, \ldots, X_{n_1} \sim N(\mu_1, \sigma^2)
-\]</span></p>
-<p><span class="math display">\[
-Y_1, Y_2, \ldots, Y_{n_2} \sim N(\mu_2, \sigma^2)
-\]</span></p>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Two-sample t-test with Equal Variances
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Input: <span class="math inline">\(X_1, X_2, \ldots, X_{n_1}\)</span> and <span class="math inline">\(Y_1, Y_2, \ldots, Y_{n_2}\)</span> (sample sizes might be different)</p>
 <ul>
-<li>Pooled variance:</li>
-</ul>
-<p><span class="math display">\[
+<li><p>We assume <span class="math inline">\(X_i \sim N(\mu_1, \sigma^2)\)</span> and <span class="math inline">\(Y_i \sim N(\mu_2, \sigma^2)\)</span>.</p>
+<ul>
+<li>Equal variances, possibly different means</li>
+</ul></li>
+<li><p>We test:</p>
+<ul>
+<li><span class="math inline">\(H_0: \mu_1 = \mu_2\)</span></li>
+<li><span class="math inline">\(H_A: \mu_1 \neq \mu_2\)</span> or <span class="math inline">\(\mu_1 &gt; \mu_2\)</span> or <span class="math inline">\(\mu_1 &lt; \mu_2\)</span>.</li>
+</ul></li>
+<li><p>We calculate:</p>
+<ul>
+<li><span class="math inline">\(\bar{X}\)</span>, <span class="math inline">\(\bar{Y}\)</span>, and the pooled sample variance <span class="math display">\[
 s^2 = \frac{(n_1 - 1)s_1^2 + (n_2 - 1)s_2^2}{n_1 + n_2 - 2}
-\]</span></p>
-<ul>
-<li>Test statistic:</li>
-</ul>
-<p><span class="math display">\[
+\]</span></li>
+</ul></li>
+<li><p>The <span class="math inline">\(t\)</span> statistic follows a <span class="math inline">\(t_{n_1 + n_2 - 2}\)</span> distribution if <span class="math inline">\(H_0\)</span> is true: <span class="math display">\[
 t = \frac{\bar{X} - \bar{Y}}{s \sqrt{\frac{1}{n_1} + \frac{1}{n_2}}} \sim t_{n_1 + n_2 - 2}
+\]</span></p></li>
+<li><p><span class="math inline">\(H_1: \mu_1 \neq \mu_2\)</span>: <span class="math display">\[
+\text{p-value} = 2\texttt{pt}(-|t|, n_1 + n_2 - 2)
 \]</span></p>
-<p><strong>XYZ IMAGE HERE</strong></p>
-<ul>
-<li><p>Calculate area in only one tail if alternative is one-sided.</p></li>
-<li><p><span class="math inline">\((1 - \alpha) \cdot 100\%\)</span> confidence interval:</p></li>
-</ul>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="08_notes_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="288"></p>
+</figure>
+</div>
+</div>
+</div></li>
+<li><p><span class="math inline">\(H_1: \mu_1 &gt; \mu_2\)</span>: <span class="math display">\[
+\text{p-value} = 1 - \texttt{pt}(t, n_1 + n_2 - 2)
+\]</span></p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="08_notes_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="288"></p>
+</figure>
+</div>
+</div>
+</div></li>
+<li><p><span class="math inline">\(H_1: \mu_1 &lt; \mu_2\)</span>: <span class="math display">\[
+\text{p-value} = \texttt{pt}(t, n_1 + n_2 - 2)
+\]</span></p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="08_notes_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="288"></p>
+</figure>
+</div>
+</div>
+</div></li>
+<li><p>A <span class="math inline">\((1 - \alpha)100\%\)</span> confidence interval is</p>
 <p><span class="math display">\[
 (\bar{X} - \bar{Y}) \pm t_{n_1 + n_2 - 2,\ 1 - \alpha/2} \cdot s \sqrt{\frac{1}{n_1} + \frac{1}{n_2}}
-\]</span></p>
-<p>where<br>
-<span class="math inline">\(t_{n_1 + n_2 - 2,\ 1 - \alpha/2}\)</span> is the <span class="math inline">\(t\)</span>-quantile with df = <span class="math inline">\(n_1 + n_2 - 2\)</span></p>
+\]</span></p></li>
+</ul>
+</div>
+</div>
 <hr>
-<p><a href="../05_tests/05_two_sample_t.html">t-test in R</a></p>
+<p><a href="../05_tests/05_two_sample_t.html#unpaired-equal-variance">Two-sample t-test in R, equal variance</a></p>
 <hr>
 </section>
 <section id="test-for-equal-variances" class="level1">
 <h1>Test for Equal Variances</h1>
 <ul>
-<li><p><span class="math inline">\(X_i \sim N(\mu_1, \sigma_1^2)\)</span><br>
-<span class="math inline">\(Y_i \sim N(\mu_2, \sigma_2^2)\)</span></p></li>
+<li><p>Because of the equal variance assumption above, folks have developed statistical tests for whether the variances are indeed equal.</p></li>
+<li><p>Let: <span class="math display">\[
+X_i \sim N(\mu_1, \sigma_1^2)
+\]</span><br>
+<span class="math display">\[
+Y_i \sim N(\mu_2, \sigma_2^2)
+\]</span></p></li>
 <li><p>Hypotheses:</p>
 <ul>
 <li><span class="math inline">\(H_0\)</span>: <span class="math inline">\(\sigma_1^2 = \sigma_2^2\)</span><br>
 </li>
 <li><span class="math inline">\(H_1\)</span>: <span class="math inline">\(\sigma_1^2 \ne \sigma_2^2\)</span></li>
 </ul></li>
-<li><p>Run a test based on <span class="math inline">\(s_1^2\)</span>, <span class="math inline">\(s_2^2\)</span></p></li>
+<li><p>The test is based on <span class="math inline">\(s_1^2\)</span> and <span class="math inline">\(s_2^2\)</span>.</p>
+<ul>
+<li>If they are very different, this provides evidence that <span class="math inline">\(\sigma_1^2 \neq \sigma_2^2\)</span>.</li>
+</ul></li>
 <li><p>Nobody does this in real life because:</p>
 <ol type="1">
-<li>Very sensitive to non-normality — <span class="math inline">\(t\)</span>-test is not sensitive because of the CLT</li>
-<li>Equal variance <span class="math inline">\(t\)</span>-test is robust to violations in equal variance assumption</li>
+<li>Very sensitive to non-normality. In contrast, the <span class="math inline">\(t\)</span>-test is not sensitive because of the CLT</li>
+<li>The equal variance <span class="math inline">\(t\)</span>-test is robust to violations in equal variance assumption.</li>
 <li>Nobody assumes equal variances anyway because they all use Welch’s 2-sample <span class="math inline">\(t\)</span>-test (§8.7)</li>
 </ol></li>
 <li><p>If your boss asks you to test for equal variances, use <code>var.test()</code></p></li>
 </ul>
 <hr>
-<p>F-stat in R</p>
+<p><a href="../05_tests/05_two_sample_t.html#test-for-equal-variance">Test for equal variance in R</a></p>
 <hr>
 </section>
 <section id="two-sample-t-test-with-unequal-variances" class="level1">
 <h1>Two-sample t-test with unequal variances</h1>
 <ul>
+<li><p>We’ll now relax the equal variance assumption</p>
+<ul>
+<li>This is a mathy way to say that we won’t assume equal variances.</li>
+</ul></li>
 <li><p>Always use this unless you know for sure that the variances are equal.</p></li>
 <li><p>Let:</p>
 <ul>
