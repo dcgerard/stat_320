@@ -1,0 +1,1950 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.7.32">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="David Gerard">
+<meta name="dcterms.date" content="2025-07-14">
+
+<title>Chapter 10: Categorical Data – Stat 320: Biostatistics</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-2fef5ea3f8957b3e4ecc936fc74692ca.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-6bdd2aebeb936dcddaa5f935a5de481c.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark-ccd81253fefb92e9cd3f9eb5b5d87b54.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../site_libs/bootstrap/bootstrap-6bdd2aebeb936dcddaa5f935a5de481c.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="../styles.css">
+</head>
+
+<body class="nav-fixed quarto-light"><script id="quarto-html-before-body" type="application/javascript">
+    const toggleBodyColorMode = (bsSheetEl) => {
+      const mode = bsSheetEl.getAttribute("data-mode");
+      const bodyEl = window.document.querySelector("body");
+      if (mode === "dark") {
+        bodyEl.classList.add("quarto-dark");
+        bodyEl.classList.remove("quarto-light");
+      } else {
+        bodyEl.classList.add("quarto-light");
+        bodyEl.classList.remove("quarto-dark");
+      }
+    }
+    const toggleBodyColorPrimary = () => {
+      const bsSheetEl = window.document.querySelector("link#quarto-bootstrap:not([rel=disabled-stylesheet])");
+      if (bsSheetEl) {
+        toggleBodyColorMode(bsSheetEl);
+      }
+    }
+    const setColorSchemeToggle = (alternate) => {
+      const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+      for (let i=0; i < toggles.length; i++) {
+        const toggle = toggles[i];
+        if (toggle) {
+          if (alternate) {
+            toggle.classList.add("alternate");
+          } else {
+            toggle.classList.remove("alternate");
+          }
+        }
+      }
+    };
+    const toggleColorMode = (alternate) => {
+      // Switch the stylesheets
+      const primaryStylesheets = window.document.querySelectorAll('link.quarto-color-scheme:not(.quarto-color-alternate)');
+      const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+      manageTransitions('#quarto-margin-sidebar .nav-link', false);
+      if (alternate) {
+        // note: dark is layered on light, we don't disable primary!
+        enableStylesheet(alternateStylesheets);
+        for (const sheetNode of alternateStylesheets) {
+          if (sheetNode.id === "quarto-bootstrap") {
+            toggleBodyColorMode(sheetNode);
+          }
+        }
+      } else {
+        disableStylesheet(alternateStylesheets);
+        enableStylesheet(primaryStylesheets)
+        toggleBodyColorPrimary();
+      }
+      manageTransitions('#quarto-margin-sidebar .nav-link', true);
+      // Switch the toggles
+      setColorSchemeToggle(alternate)
+      // Hack to workaround the fact that safari doesn't
+      // properly recolor the scrollbar when toggling (#1455)
+      if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+        manageTransitions("body", false);
+        window.scrollTo(0, 1);
+        setTimeout(() => {
+          window.scrollTo(0, 0);
+          manageTransitions("body", true);
+        }, 40);
+      }
+    }
+    const disableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        stylesheet.rel = 'disabled-stylesheet';
+      }
+    }
+    const enableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        if(stylesheet.rel !== 'stylesheet') { // for Chrome, which will still FOUC without this check
+          stylesheet.rel = 'stylesheet';
+        }
+      }
+    }
+    const manageTransitions = (selector, allowTransitions) => {
+      const els = window.document.querySelectorAll(selector);
+      for (let i=0; i < els.length; i++) {
+        const el = els[i];
+        if (allowTransitions) {
+          el.classList.remove('notransition');
+        } else {
+          el.classList.add('notransition');
+        }
+      }
+    }
+    const isFileUrl = () => {
+      return window.location.protocol === 'file:';
+    }
+    const hasAlternateSentinel = () => {
+      let styleSentinel = getColorSchemeSentinel();
+      if (styleSentinel !== null) {
+        return styleSentinel === "alternate";
+      } else {
+        return false;
+      }
+    }
+    const setStyleSentinel = (alternate) => {
+      const value = alternate ? "alternate" : "default";
+      if (!isFileUrl()) {
+        window.localStorage.setItem("quarto-color-scheme", value);
+      } else {
+        localAlternateSentinel = value;
+      }
+    }
+    const getColorSchemeSentinel = () => {
+      if (!isFileUrl()) {
+        const storageValue = window.localStorage.getItem("quarto-color-scheme");
+        return storageValue != null ? storageValue : localAlternateSentinel;
+      } else {
+        return localAlternateSentinel;
+      }
+    }
+    const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+      const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+      const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+      let newTheme = '';
+      if(authorPrefersDark) {
+        newTheme = isAlternate ? baseTheme : alternateTheme;
+      } else {
+        newTheme = isAlternate ? alternateTheme : baseTheme;
+      }
+      const changeGiscusTheme = () => {
+        // From: https://github.com/giscus/giscus/issues/336
+        const sendMessage = (message) => {
+          const iframe = document.querySelector('iframe.giscus-frame');
+          if (!iframe) return;
+          iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+        }
+        sendMessage({
+          setConfig: {
+            theme: newTheme
+          }
+        });
+      }
+      const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+      if (isGiscussLoaded) {
+        changeGiscusTheme();
+      }
+    };
+    const authorPrefersDark = false;
+    const darkModeDefault = authorPrefersDark;
+      document.querySelector('link#quarto-text-highlighting-styles.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+      document.querySelector('link#quarto-bootstrap.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+    let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
+    // Dark / light mode switch
+    window.quartoToggleColorScheme = () => {
+      // Read the current dark / light value
+      let toAlternate = !hasAlternateSentinel();
+      toggleColorMode(toAlternate);
+      setStyleSentinel(toAlternate);
+      toggleGiscusIfUsed(toAlternate, darkModeDefault);
+      window.dispatchEvent(new Event('resize'));
+    };
+    // Switch to dark mode if need be
+    if (hasAlternateSentinel()) {
+      toggleColorMode(true);
+    } else {
+      toggleColorMode(false);
+    }
+  </script>
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">Stat 320: Biostatistics</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../index.html"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../data.html"> 
+<span class="menu-text">Data</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a></li>
+  <li><a href="#two-sample-test-for-binomial-proportions" id="toc-two-sample-test-for-binomial-proportions" class="nav-link" data-scroll-target="#two-sample-test-for-binomial-proportions">Two-sample Test for Binomial Proportions</a></li>
+  <li><a href="#test-for-homogeneity-in-2-times-2-tables" id="toc-test-for-homogeneity-in-2-times-2-tables" class="nav-link" data-scroll-target="#test-for-homogeneity-in-2-times-2-tables">Test for Homogeneity in 2 <span class="math inline">\(\times\)</span> 2 Tables</a></li>
+  <li><a href="#fishers-exact-test" id="toc-fishers-exact-test" class="nav-link" data-scroll-target="#fishers-exact-test">Fisher’s Exact Test</a></li>
+  <li><a href="#mcnemars-test" id="toc-mcnemars-test" class="nav-link" data-scroll-target="#mcnemars-test">McNemar’s Test</a></li>
+  <li><a href="#larger-contingency-tables" id="toc-larger-contingency-tables" class="nav-link" data-scroll-target="#larger-contingency-tables">Larger Contingency Tables</a></li>
+  <li><a href="#chi2-goodness-of-fit-test" id="toc-chi2-goodness-of-fit-test" class="nav-link" data-scroll-target="#chi2-goodness-of-fit-test"><span class="math inline">\(\chi^2\)</span> Goodness-of-Fit Test</a>
+  <ul class="collapse">
+  <li><a href="#example-2-times-2-table" id="toc-example-2-times-2-table" class="nav-link" data-scroll-target="#example-2-times-2-table">Example: <span class="math inline">\(2 \times 2\)</span> Table</a></li>
+  </ul></li>
+  <li><a href="#cohens-kappa" id="toc-cohens-kappa" class="nav-link" data-scroll-target="#cohens-kappa">Cohen’s Kappa</a>
+  <ul class="collapse">
+  <li><a href="#properties-of-cohens-kappa" id="toc-properties-of-cohens-kappa" class="nav-link" data-scroll-target="#properties-of-cohens-kappa">Properties of Cohen’s Kappa</a></li>
+  </ul></li>
+  <li><a href="#exercises-10.810.13" id="toc-exercises-10.810.13" class="nav-link" data-scroll-target="#exercises-10.810.13">Exercises 10.8–10.13</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Chapter 10: Categorical Data</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>David Gerard </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">July 14, 2025</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="introduction" class="level1">
+<h1>Introduction</h1>
+<ul>
+<li><p><strong>Categorical Variable</strong>: Groups units into different categories.</p>
+<ul>
+<li>Oral contraceptive user vs.&nbsp;Non-OC-user</li>
+<li>Has cancer vs.&nbsp;Does not have cancer, etc.</li>
+</ul></li>
+<li><p><strong>Example</strong>: Test if cancer incidence is the same between OC users and non-OC users.</p>
+<ul>
+<li>Association between two categorical variables.</li>
+</ul></li>
+<li><p><strong>Example</strong>: Test if heavy OC users, light OC users, and non-OC users have the same cancer rates.</p></li>
+<li><p><strong>Example</strong>:</p></li>
+</ul>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Diastolic Blood Pressure</th>
+<th>Frequency</th>
+<th>Expected Probability</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>&lt; 50</td>
+<td>57</td>
+<td>1%</td>
+</tr>
+<tr class="even">
+<td>≥ 50, &lt; 60</td>
+<td>330</td>
+<td>7%</td>
+</tr>
+<tr class="odd">
+<td>≥ 60, &lt; 70</td>
+<td>2132</td>
+<td>30%</td>
+</tr>
+<tr class="even">
+<td>≥ 70, &lt; 80</td>
+<td>4584</td>
+<td>62%</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>Are the observed frequencies consistent with the theoretical probabilities?</li>
+</ul>
+</section>
+<section id="two-sample-test-for-binomial-proportions" class="level1">
+<h1>Two-sample Test for Binomial Proportions</h1>
+<ul>
+<li><strong>Example</strong>: Age at first birth vs.&nbsp;breast cancer incidence.</li>
+</ul>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th></th>
+<th>Control (No Cancer)</th>
+<th>Case (Cancer)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Age at 1st birth ≤ 29 years</td>
+<td>8747</td>
+<td>2537</td>
+</tr>
+<tr class="even">
+<td>Age at 1st birth ≥ 30 years</td>
+<td>1498</td>
+<td>683</td>
+</tr>
+<tr class="odd">
+<td><strong>Total</strong></td>
+<td>10245</td>
+<td>3220</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><p>Data collection scheme: Chose women with cancer and women without cancer, then measured age.</p></li>
+<li><p><strong>Goal</strong>: Test if cancer is associated with age.</p></li>
+<li><p>Two populations:</p>
+<ul>
+<li>Those with cancer</li>
+<li>Those without cancer</li>
+</ul></li>
+<li><p>Let:</p>
+<ul>
+<li><span class="math inline">\(p_1 = P(\text{age} \geq 30 \mid \text{cancer})\)</span></li>
+<li><span class="math inline">\(p_2 = P(\text{age} \geq 30 \mid \text{no cancer})\)</span></li>
+</ul></li>
+<li><p>Hypotheses:</p>
+<ul>
+<li><span class="math inline">\(H_0\)</span>: <span class="math inline">\(p_1 = p_2\)</span> vs.&nbsp;<span class="math inline">\(H_1\)</span>: <span class="math inline">\(p_1 \neq p_2\)</span></li>
+</ul></li>
+<li><p>Sample proportions: <span class="math display">\[
+\hat{p}_1 = \frac{683}{3220} = 0.212, \quad \hat{p}_2 = \frac{1498}{10245} = 0.146
+\]</span></p></li>
+<li><p>Idea: Base test on <span class="math inline">\(\hat{p}_1 - \hat{p}_2\)</span>.</p></li>
+<li><p>Let:</p>
+<ul>
+<li><span class="math inline">\(X_1\)</span> = number of women age <span class="math inline">\(\geq 30\)</span> with cancer</li>
+<li><span class="math inline">\(X_2\)</span> = number of women age <span class="math inline">\(\geq 30\)</span> without cancer</li>
+</ul></li>
+<li><p><span class="math inline">\(X_1 \sim \text{Binom}(n_1, p_1)\)</span>, where <span class="math inline">\(\hat{p}_1 = X_1 / n_1\)</span>, <span class="math inline">\(n_1 = 3220\)</span></p></li>
+<li><p><span class="math inline">\(X_2 \sim \text{Binom}(n_2, p_2)\)</span>, where <span class="math inline">\(\hat{p}_2 = X_2 / n_2\)</span>, <span class="math inline">\(n_2 = 10245\)</span></p></li>
+<li><p>Very large sample sizes, so can use normal theory:</p></li>
+</ul>
+<p><span class="math display">\[
+\hat{p}_1 \sim N\left(p_1, \frac{1}{n_1} p_1 (1 - p_1) \right), \quad
+\hat{p}_2 \sim N\left(p_2, \frac{1}{n_2} p_2 (1 - p_2) \right)
+\]</span></p>
+<ul>
+<li>Under <span class="math inline">\(H_0: p_1 = p_2 = p\)</span>:</li>
+</ul>
+<p><span class="math display">\[
+\hat{p}_1 - \hat{p}_2 \sim N\left(0, \left(\frac{1}{n_1} + \frac{1}{n_2} \right)p(1 - p)\right)
+\]</span></p>
+<ul>
+<li>So:</li>
+</ul>
+<p><span class="math display">\[
+\frac{\hat{p}_1 - \hat{p}_2}{\sqrt{\left( \frac{1}{n_1} + \frac{1}{n_2} \right)p(1 - p)}} \sim N(0,1)
+\]</span></p>
+<ul>
+<li>Estimate <span class="math inline">\(p\)</span> under <span class="math inline">\(H_0\)</span> by:</li>
+</ul>
+<p><span class="math display">\[
+X_1 + X_2 \sim \text{Binom}(n_1 + n_2, p)
+\]</span></p>
+<p><span class="math display">\[
+\hat{p} = \frac{X_1 + X_2}{n_1 + n_2}
+\]</span></p>
+<ul>
+<li>Then:</li>
+</ul>
+<p><span class="math display">\[
+\frac{\hat{p}_1 - \hat{p}_2}{\sqrt{\left( \frac{1}{n_1} + \frac{1}{n_2} \right)\hat{p}(1 - \hat{p})}} \sim N(0,1)
+\]</span></p>
+<p><strong>XYZ IMAGE HERE</strong></p>
+<ul>
+<li><p>Compare to <span class="math inline">\(N(0,1)\)</span> to get p-value.</p></li>
+<li><p>Need to do continuity correction for better performance.</p></li>
+<li><p><strong>Example</strong>:</p>
+<ul>
+<li><p><span class="math inline">\(\hat{p}_1 = 0.212\)</span>, <span class="math inline">\(\hat{p}_2 = 0.146\)</span></p></li>
+<li><p><span class="math inline">\(X_1 = 683\)</span>, <span class="math inline">\(n_1 = 3220\)</span></p></li>
+<li><p><span class="math inline">\(X_2 = 1498\)</span>, <span class="math inline">\(n_2 = 10245\)</span></p></li>
+<li><p>Pooled estimate: <span class="math display">\[
+\hat{p} = \frac{X_1 + X_2}{n_1 + n_2} = \frac{683 + 1498}{3220 + 10245} = 0.162
+\]</span></p></li>
+<li><p>Test statistic: <span class="math display">\[
+z = \frac{\hat{p}_1 - \hat{p}_2}{\sqrt{\left( \frac{1}{n_1} + \frac{1}{n_2} \right)\hat{p}(1 - \hat{p})}}
+= \frac{0.212 - 0.146}{\sqrt{\left( \frac{1}{3220} + \frac{1}{10245} \right)(0.162)(1 - 0.162)}}
+= 8.866
+\]</span></p></li>
+<li><p>p-value: <span class="math display">\[
+p = 2 \cdot \text{pnorm}(-8.866) \approx 1 \times 10^{-15}
+\]</span></p></li>
+</ul></li>
+</ul>
+<p>Strong evidence that women with cancer are more likely to have had their first child after age 30.</p>
+<hr>
+<p>2-sample binomial tests in R</p>
+<hr>
+</section>
+<section id="test-for-homogeneity-in-2-times-2-tables" class="level1">
+<h1>Test for Homogeneity in 2 <span class="math inline">\(\times\)</span> 2 Tables</h1>
+<ul>
+<li>What I showed before was a <span class="math inline">\(2 \times 2\)</span> contingency table:</li>
+</ul>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Status</th>
+<th>Age ≥ 30</th>
+<th>Age &lt; 30</th>
+<th>Total</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Case</td>
+<td>683</td>
+<td>2537</td>
+<td>3220</td>
+</tr>
+<tr class="even">
+<td>Control</td>
+<td>1498</td>
+<td>8747</td>
+<td>10245</td>
+</tr>
+<tr class="odd">
+<td><strong>Total</strong></td>
+<td>2181</td>
+<td>11284</td>
+<td>13465</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><p>Row margins and column margins are shown above; the total is the grand total.</p></li>
+<li><p>An equivalent (exact same <span class="math inline">\(p\)</span>-value) method is to test for <strong>homogeneity</strong> or <strong>independence</strong> between the two variables.</p></li>
+<li><p>Suppose our table looks like this:</p></li>
+</ul>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th></th>
+<th>Z = A</th>
+<th>Z = B</th>
+<th>Row Total</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>W = C</td>
+<td><span class="math inline">\(X_{11}\)</span></td>
+<td><span class="math inline">\(X_{12}\)</span></td>
+<td><span class="math inline">\(m_1\)</span></td>
+</tr>
+<tr class="even">
+<td>W = D</td>
+<td><span class="math inline">\(X_{21}\)</span></td>
+<td><span class="math inline">\(X_{22}\)</span></td>
+<td><span class="math inline">\(m_2\)</span></td>
+</tr>
+<tr class="odd">
+<td><strong>Col Total</strong></td>
+<td><span class="math inline">\(n_1\)</span></td>
+<td><span class="math inline">\(n_2\)</span></td>
+<td><span class="math inline">\(N\)</span></td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>Definitions:
+<ul>
+<li><span class="math inline">\(n_1 = X_{11} + X_{21}\)</span></li>
+<li><span class="math inline">\(n_2 = X_{12} + X_{22}\)</span></li>
+<li><span class="math inline">\(m_1 = X_{11} + X_{12}\)</span></li>
+<li><span class="math inline">\(m_2 = X_{21} + X_{22}\)</span></li>
+<li><span class="math inline">\(N = n_1 + n_2 = m_1 + m_2\)</span></li>
+</ul></li>
+<li>If <span class="math inline">\(Z \perp W\)</span>, then:</li>
+</ul>
+<p><span class="math display">\[
+P(Z = A \land W = C) = P(Z = A) \cdot P(W = C)
+\]</span></p>
+<p><span class="math display">\[
+P(Z = A \land W = D) = P(Z = A) \cdot P(W = D)
+\]</span></p>
+<ul>
+<li><p>etc…</p></li>
+<li><p><strong>Idea</strong>: If independent, calculate expected counts based on margins.</p></li>
+</ul>
+<p><span class="math display">\[
+P(Z = A) = \frac{n_1}{N}, \quad P(Z = B) = \frac{n_2}{N}
+\]</span></p>
+<p><span class="math display">\[
+P(W = C) = \frac{m_1}{N}, \quad P(W = D) = \frac{m_2}{N}
+\]</span></p>
+<p><span class="math display">\[
+P(Z = A \land W = C) = \frac{n_1}{N} \cdot \frac{m_1}{N}
+\]</span></p>
+<ul>
+<li>Expected count under independence:</li>
+</ul>
+<p><span class="math display">\[
+E[X_{11} \text{ (expected)}] = N \cdot \frac{n_1}{N} \cdot \frac{m_1}{N} = \frac{n_1 m_1}{N}
+\]</span></p>
+<ul>
+<li><p>Compare observed <span class="math inline">\(X_{11}\)</span> to expected <span class="math inline">\(X_{11}\)</span>.</p></li>
+<li><p><strong>Expected counts from age at first birth example</strong>:</p></li>
+</ul>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 13%">
+<col style="width: 43%">
+<col style="width: 42%">
+</colgroup>
+<thead>
+<tr class="header">
+<th></th>
+<th>≥ 30</th>
+<th>&lt; 30</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Case</td>
+<td><span class="math inline">\(\frac{2181 \cdot 3220}{13465}\)</span></td>
+<td><span class="math inline">\(\frac{11284 \cdot 3220}{13465}\)</span></td>
+</tr>
+<tr class="even">
+<td>Control</td>
+<td><span class="math inline">\(\frac{2181 \cdot 10245}{13465}\)</span></td>
+<td><span class="math inline">\(\frac{11284 \cdot 10245}{13465}\)</span></td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>Numerical values</strong>:</li>
+</ul>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th></th>
+<th>≥ 30</th>
+<th>&lt; 30</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Case</td>
+<td>521.6</td>
+<td>2698.4</td>
+</tr>
+<tr class="even">
+<td>Control</td>
+<td>1659.4</td>
+<td>8585.6</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><p>How do these compare to observed counts?</p></li>
+<li><p>Whenever you compare observed counts to expected counts, do a Pearson <span class="math inline">\(\chi^2\)</span> test.</p></li>
+</ul>
+<p><span class="math display">\[
+\chi^2 = \sum_{\text{categories}} \frac{(O - E)^2}{E}
+\]</span></p>
+<ul>
+<li><p>Where:</p>
+<ul>
+<li><span class="math inline">\(O\)</span> = observed count</li>
+<li><span class="math inline">\(E\)</span> = expected count</li>
+</ul></li>
+<li><p>If <span class="math inline">\(H_0\)</span> is true, then <span class="math inline">\(\chi^2 \sim \chi^2_\nu\)</span></p>
+<ul>
+<li><span class="math inline">\(\nu\)</span> = degrees of freedom</li>
+</ul></li>
+<li><p>For a test of homogeneity in <span class="math inline">\(2 \times 2\)</span> tables, <span class="math inline">\(\nu = 1\)</span></p></li>
+<li><p><strong>Example</strong>: Birth example</p></li>
+</ul>
+<p><span class="math display">\[
+\chi^2 = \frac{(683 - 521.6)^2}{521.6} + \frac{(2537 - 2698.4)^2}{2698.4}
++ \frac{(1498 - 1659.4)^2}{1659.4} + \frac{(8747 - 8585.6)^2}{8585.6}
+= 77.84
+\]</span></p>
+<p><strong>XYZ IMAGE HERE</strong></p>
+<ul>
+<li>In R:</li>
+</ul>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pchisq</span>(<span class="fl">77.84</span>, <span class="at">df =</span> <span class="dv">1</span>, <span class="at">lower.tail =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true">Exercise</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false">Hint</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-3" role="tab" aria-controls="tabset-1-3" aria-selected="false">Solution</a></li></ul>
+<div class="tab-content">
+<div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
+<p>What are the expected counts of the following OC use vs.&nbsp;MI table?</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>OC Use</th>
+<th>MI Yes</th>
+<th>MI No</th>
+<th>Total</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Yes</td>
+<td>13</td>
+<td>4987</td>
+<td>5000</td>
+</tr>
+<tr class="even">
+<td>No</td>
+<td>7</td>
+<td>9993</td>
+<td>10000</td>
+</tr>
+<tr class="odd">
+<td><strong>Total</strong></td>
+<td>20</td>
+<td>14980</td>
+<td>15000</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
+<p>Use:<br>
+<span class="math display">\[
+E = \frac{\text{row total} \cdot \text{column total}}{\text{grand total}}
+\]</span><br>
+Apply for each cell.</p>
+</div>
+<div id="tabset-1-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-3-tab">
+<p>Expected counts:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>OC Use</th>
+<th>MI Yes</th>
+<th>MI No</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Yes</td>
+<td>6.7</td>
+<td>4993.3</td>
+</tr>
+<tr class="even">
+<td>No</td>
+<td>13.3</td>
+<td>9986.7</td>
+</tr>
+</tbody>
+</table>
+<p>Chi-squared test statistic:</p>
+<p><span class="math display">\[
+\chi^2 =
+\frac{(13 - 6.7)^2}{6.7} +
+\frac{(4987 - 4993.3)^2}{4993.3} +
+\frac{(7 - 13.3)^2}{13.3} +
+\frac{(9993 - 9986.7)^2}{9986.7}
+\]</span></p>
+</div>
+</div>
+</div>
+<hr>
+<p>Contingency test perspective in R.</p>
+<hr>
+</section>
+<section id="fishers-exact-test" class="level1">
+<h1>Fisher’s Exact Test</h1>
+<ul>
+<li><p>Used when expected counts are small.</p></li>
+<li><p>What if <span class="math inline">\(n\)</span> is small?</p></li>
+<li><p>“Small”: Any <strong>expected</strong> count <span class="math inline">\(\leq 5\)</span></p></li>
+<li><p><strong>Example</strong>: Salt diet vs.&nbsp;cardiovascular disease (CVD) death</p></li>
+</ul>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Cause of Death</th>
+<th>High Salt</th>
+<th>Low Salt</th>
+<th>Total</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Non-CVD</td>
+<td>2</td>
+<td>23</td>
+<td>25</td>
+</tr>
+<tr class="even">
+<td>CVD</td>
+<td>5</td>
+<td>30</td>
+<td>35</td>
+</tr>
+<tr class="odd">
+<td><strong>Total</strong></td>
+<td>7</td>
+<td>53</td>
+<td>60</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><p>Expected count for top-left cell: <span class="math display">\[
+E_{11} = \frac{7 \cdot 25}{60} = 2.92 &lt; 5
+\]</span></p></li>
+<li><p>Use <span class="math inline">\(2.92\)</span> (not <span class="math inline">\(2\)</span>) to determine normality approximation validity.</p></li>
+</ul>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Exact Test
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Controls Type I error for <strong>any</strong> <span class="math inline">\(n\)</span>, not just large <span class="math inline">\(n\)</span>.</p>
+</div>
+</div>
+<p>Steps:</p>
+<ol type="1">
+<li>Fix margins<br>
+</li>
+<li>Enumerate all possible tables with those margins<br>
+</li>
+<li>Each table has a known probability (under <span class="math inline">\(H_0\)</span>)<br>
+</li>
+<li>Find how likely our observed table is (if <span class="math inline">\(H_0\)</span> true)</li>
+</ol>
+<ul>
+<li><strong>Observed table</strong>:</li>
+</ul>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>High Salt</th>
+<th>Low Salt</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>2</td>
+<td>23</td>
+</tr>
+<tr class="even">
+<td>5</td>
+<td>30</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>All possible <span class="math inline">\(2 \times 2\)</span> tables with fixed margins:</li>
+</ul>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Non-CVD</th>
+<th>CVD</th>
+<th>p-value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>0, 25</td>
+<td>7, 28</td>
+<td>0.017</td>
+</tr>
+<tr class="even">
+<td>1, 24</td>
+<td>6, 29</td>
+<td>0.105</td>
+</tr>
+<tr class="odd">
+<td>2, 23</td>
+<td>5, 30</td>
+<td>0.252 ⬅️ observed table</td>
+</tr>
+<tr class="even">
+<td>3, 22</td>
+<td>4, 31</td>
+<td>0.312</td>
+</tr>
+<tr class="odd">
+<td>4, 21</td>
+<td>3, 32</td>
+<td>0.214</td>
+</tr>
+<tr class="even">
+<td>5, 20</td>
+<td>2, 33</td>
+<td>0.082</td>
+</tr>
+<tr class="odd">
+<td>6, 19</td>
+<td>1, 34</td>
+<td>0.016</td>
+</tr>
+<tr class="even">
+<td>7, 18</td>
+<td>0, 35</td>
+<td>0.001</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><p>Sum all probabilities <span class="math inline">\(\leq\)</span> the observed one to get the <strong>p-value</strong>.</p></li>
+<li><p>These probabilities come from the <strong>hypergeometric distribution</strong><br>
+<em>(don’t need to know the formula)</em></p></li>
+</ul>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-2-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-1" role="tab" aria-controls="tabset-2-1" aria-selected="true">Exercise</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-2" role="tab" aria-controls="tabset-2-2" aria-selected="false">Solution</a></li></ul>
+<div class="tab-content">
+<div id="tabset-2-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-2-1-tab">
+<p>What are the possible tables with fixed margins from the following?</p>
+<table class="caption-top table">
+<tbody>
+<tr class="odd">
+<td>2</td>
+<td>1</td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td>2</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="tabset-2-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-2-tab">
+<ul>
+<li>Valid tables with these margins:</li>
+</ul>
+<table class="caption-top table">
+<tbody>
+<tr class="odd">
+<td>3</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td>1</td>
+<td>3</td>
+</tr>
+</tbody>
+</table>
+<table class="caption-top table">
+<tbody>
+<tr class="odd">
+<td>2</td>
+<td>1</td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td>2</td>
+</tr>
+</tbody>
+</table>
+<table class="caption-top table">
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td>2</td>
+</tr>
+<tr class="even">
+<td>3</td>
+<td>1</td>
+</tr>
+</tbody>
+</table>
+<table class="caption-top table">
+<tbody>
+<tr class="odd">
+<td>0</td>
+<td>3</td>
+</tr>
+<tr class="even">
+<td>4</td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<hr>
+<p>Fisher Exact Test in R</p>
+<hr>
+</section>
+<section id="mcnemars-test" class="level1">
+<h1>McNemar’s Test</h1>
+<ul>
+<li><p>Used for matched samples where each unit has two binary outcomes.</p></li>
+<li><p><strong>Study design</strong>: Have matched samples, each with two binary variables.</p></li>
+<li><p><strong>Example</strong>:</p>
+<ul>
+<li>Treatment A vs.&nbsp;Treatment B<br>
+</li>
+<li>Survive vs.&nbsp;Not</li>
+</ul></li>
+<li><p>Procedure:</p>
+<ul>
+<li>Choose a woman to go into A.</li>
+<li>Match another woman with similar characteristics to go into B.</li>
+<li>Observe survival for both.</li>
+</ul></li>
+<li><p>“Similar characteristics”: age, weight, clinical condition, etc.</p></li>
+<li><p><strong>Naive Way</strong>: Treat each individual as an independent unit and use:</p></li>
+</ul>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Treatment</th>
+<th>Survive</th>
+<th>Die</th>
+<th>Total</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>A</td>
+<td>526</td>
+<td>95</td>
+<td>621</td>
+</tr>
+<tr class="even">
+<td>B</td>
+<td>515</td>
+<td>106</td>
+<td>621</td>
+</tr>
+<tr class="odd">
+<td><strong>Total</strong></td>
+<td>1041</td>
+<td>201</td>
+<td>1242</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><p>You could run a <span class="math inline">\(\chi^2\)</span> test for homogeneity, but this is <strong>wrong</strong> — the data are matched, not independent.</p></li>
+<li><p>Instead, use a <strong>matched-pair contingency table</strong>.</p></li>
+</ul>
+<p><strong>Pair structure</strong>:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th></th>
+<th>B: Survive</th>
+<th>B: Die</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>A: Survive</td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td>A: Die</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><p>For example, if Pair 1: A = Y, B = N<br>
+→ contributes to (A:Y, B:N) cell.</p></li>
+<li><p>Use this matched format to apply McNemar’s Test.</p></li>
+<li><p><strong>Correct way</strong>: Each matched pair is a unit</p></li>
+</ul>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>A Outcome &nbsp;B Outcome</th>
+<th>Survive</th>
+<th>Die</th>
+<th>Total</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Survive</td>
+<td>510</td>
+<td>16</td>
+<td>526</td>
+</tr>
+<tr class="even">
+<td>Die</td>
+<td>5</td>
+<td>90</td>
+<td>95</td>
+</tr>
+<tr class="odd">
+<td><strong>Total</strong></td>
+<td>515</td>
+<td>106</td>
+<td>621</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><p><strong>Concordant pair</strong>: Same outcome (both survive or both die)</p></li>
+<li><p><strong>Discordant pair</strong>: Different outcomes (one dies, one survives)</p></li>
+<li><p>Concordant pairs tell you nothing about which treatment is better.</p></li>
+<li><p>Test whether the two discordant cells have approximately the same counts.</p></li>
+<li><p>Let:</p>
+<ul>
+<li><span class="math inline">\(X\)</span> = number of pairs where A survives and B dies</li>
+<li><span class="math inline">\(n\)</span> = number of discordant pairs</li>
+</ul></li>
+</ul>
+<p><span class="math display">\[
+X \sim \text{Binom}(n, p)
+\]</span></p>
+<ul>
+<li>Hypotheses:
+<ul>
+<li><span class="math inline">\(H_0\)</span>: <span class="math inline">\(p = \frac{1}{2}\)</span> (treatments A and B equally effective)</li>
+<li><span class="math inline">\(H_1\)</span>: <span class="math inline">\(p \ne \frac{1}{2}\)</span></li>
+</ul></li>
+</ul>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Don’t use <span class="math inline">\(\chi^2\)</span> on this table because we know observations are associated (matched).<br>
+We only want to know which treatment does better.</p>
+</div>
+</div>
+<ul>
+<li>Just use <strong>binomial methods</strong> on discordant pairs.
+<ul>
+<li>Use normal approximation for large counts</li>
+<li>Use exact test for small counts</li>
+</ul></li>
+</ul>
+<hr>
+<p>McNemar’s Test in R</p>
+<hr>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-3-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-1" role="tab" aria-controls="tabset-3-1" aria-selected="true">Exercise</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-3-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-2" role="tab" aria-controls="tabset-3-2" aria-selected="false">Hint</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-3-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-3" role="tab" aria-controls="tabset-3-3" aria-selected="false">Solution</a></li></ul>
+<div class="tab-content">
+<div id="tabset-3-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-3-1-tab">
+<p><strong>Hypertension diagnosis</strong>: Each person is assessed (1) by trained observer and (2) by a machine.<br>
+Each person is a unit and the assessments are matched.<br>
+Test if they give the same result (on average).</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th></th>
+<th>Trained +</th>
+<th>Trained −</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Machine +</td>
+<td>3</td>
+<td>7</td>
+</tr>
+<tr class="even">
+<td>Machine −</td>
+<td>1</td>
+<td>9</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="tabset-3-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-3-2-tab">
+<p>Only discordant pairs (7 and 1) matter.</p>
+</div>
+<div id="tabset-3-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-3-3-tab">
+<p>Let: - <span class="math inline">\(X \sim \text{Binom}(8, p)\)</span> (discordant total = 8) - <span class="math inline">\(H_0: p = \frac{1}{2}\)</span> vs.&nbsp;<span class="math inline">\(H_1: p \ne \frac{1}{2}\)</span></p>
+<p>Run binomial test in R:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">binom.test</span>(<span class="at">x =</span> <span class="dv">7</span>, <span class="at">n =</span> <span class="dv">8</span>, <span class="at">p =</span> <span class="fl">0.5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Cannot use mcnemar.test() here because it uses a normal approximation.</p>
+</div>
+</div>
+</div>
+<ul>
+<li>Summary: If you can group individuals into concordant vs.&nbsp;discordant pairs, then use McNemar’s test.</li>
+</ul>
+<p><strong>Skip Power calculations §10.5</strong></p>
+</section>
+<section id="larger-contingency-tables" class="level1">
+<h1>Larger Contingency Tables</h1>
+<ul>
+<li>Instead of 2 binary variables, we now have 2 categorical variables.
+<ul>
+<li>Variable 1 has <span class="math inline">\(R\)</span> levels<br>
+</li>
+<li>Variable 2 has <span class="math inline">\(C\)</span> levels</li>
+</ul></li>
+<li><strong>Example</strong>: Cancer vs.&nbsp;Age at First Birth</li>
+</ul>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Age</th>
+<th>&lt; 20</th>
+<th>20–24</th>
+<th>25–29</th>
+<th>30–34</th>
+<th>≥ 35</th>
+<th>Total</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Case</td>
+<td>326</td>
+<td>1206</td>
+<td>1011</td>
+<td>463</td>
+<td>220</td>
+<td>3226</td>
+</tr>
+<tr class="even">
+<td>Control</td>
+<td>1422</td>
+<td>4432</td>
+<td>2893</td>
+<td>1092</td>
+<td>906</td>
+<td>10245</td>
+</tr>
+<tr class="odd">
+<td><strong>Total</strong></td>
+<td>1748</td>
+<td>5638</td>
+<td>3904</td>
+<td>1555</td>
+<td>1126</td>
+<td>13465</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><p><span class="math inline">\(H_0\)</span>: Cancer status ⟂ Age at first birth<br>
+</p></li>
+<li><p><span class="math inline">\(H_1\)</span>: The two variables are <strong>related</strong></p></li>
+<li><p>Use the same contingency table approach as for <span class="math inline">\(2 \times 2\)</span> tables:</p></li>
+</ul>
+<ol type="1">
+<li>Calculate expected counts assuming independence<br>
+</li>
+<li>Compare to observed counts using <span class="math inline">\(\chi^2\)</span> statistic:</li>
+</ol>
+<p><span class="math display">\[
+\chi^2 = \sum_{\text{cells}} \frac{(O - E)^2}{E}
+\]</span></p>
+<ol start="3" type="1">
+<li><span class="math inline">\(\chi^2 \sim \chi^2_\nu\)</span> if <span class="math inline">\(H_0\)</span> is true</li>
+</ol>
+<ul>
+<li>Degrees of freedom: <span class="math display">\[
+\nu = (R - 1)(C - 1)
+\]</span></li>
+</ul>
+<p><strong>XYZ IMAGE HERE</strong></p>
+<ul>
+<li>Example expected cell computations:</li>
+</ul>
+<p><span class="math display">\[
+E_{11} = \frac{1742 \cdot 3220}{13465} = 416.6
+\]</span> - <span class="math inline">\(P(\text{&lt;20}) \cdot P(\text{case})\)</span></p>
+<p><span class="math display">\[
+E_{12} = \frac{1742 \cdot 10245}{13465} = 1348.3
+\]</span> - <span class="math inline">\(P(\text{&lt;20}) \cdot P(\text{control})\)</span></p>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-4-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-1" role="tab" aria-controls="tabset-4-1" aria-selected="true">Exercise</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-4-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-2" role="tab" aria-controls="tabset-4-2" aria-selected="false">Solution</a></li></ul>
+<div class="tab-content">
+<div id="tabset-4-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-4-1-tab">
+<p>Compute <span class="math inline">\(E_{25}\)</span>:</p>
+<p><span class="math display">\[
+E_{25} = \frac{626 \cdot 10245}{13465} = 476.3
+\]</span></p>
+</div>
+<div id="tabset-4-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-4-2-tab">
+<p>Plug into <span class="math inline">\(\chi^2\)</span> formula:</p>
+<p><span class="math display">\[
+\chi^2 = \sum_{\text{cell}} \frac{(O - E)^2}{E}
+= \frac{(416.6 - 326)^2}{416.6} + \cdots + \frac{(476.3 - 406)^2}{476.3} = 130.3
+\]</span></p>
+<p>Degrees of freedom: <span class="math display">\[
+\nu = (2 - 1)(5 - 1) = 4
+\]</span></p>
+<p>R code:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pchisq</span>(<span class="fl">130.3</span>, <span class="at">df =</span> <span class="dv">4</span>, <span class="at">lower.tail =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+<hr>
+<p>Larger contingency tables in R</p>
+<hr>
+<p>Skip: <span class="math inline">\(\chi^2\)</span> test for trend</p>
+</section>
+<section id="chi2-goodness-of-fit-test" class="level1">
+<h1><span class="math inline">\(\chi^2\)</span> Goodness-of-Fit Test</h1>
+<ul>
+<li><p>The <span class="math inline">\(\chi^2\)</span> tests of homogeneity are <strong>special cases</strong> of <span class="math inline">\(\chi^2\)</span> goodness-of-fit tests.</p></li>
+<li><p>Let <span class="math inline">\(e\)</span> be the expected counts under the null hypothesis.<br>
+Then: <span class="math display">\[
+\chi^2 = \sum_{\text{categories}} \frac{(e - o)^2}{e}, \quad o = \text{observed count}
+\]</span></p></li>
+<li><p>Under <span class="math inline">\(H_0\)</span>, <span class="math inline">\(\chi^2 \sim \chi^2_\nu\)</span></p></li>
+<li><p>Degrees of freedom: <span class="math display">\[
+\nu = \text{\# parameters under } H_1 - \text{\# parameters under } H_0
+\]</span></p></li>
+<li><p><span class="math inline">\(H_1\)</span> usually has more parameters (is more complex).</p></li>
+</ul>
+<hr>
+<section id="example-2-times-2-table" class="level3">
+<h3 class="anchored" data-anchor-id="example-2-times-2-table">Example: <span class="math inline">\(2 \times 2\)</span> Table</h3>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th></th>
+<th>C</th>
+<th>D</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>A</td>
+<td><span class="math inline">\(x_{11}\)</span></td>
+<td><span class="math inline">\(x_{12}\)</span></td>
+</tr>
+<tr class="even">
+<td>B</td>
+<td><span class="math inline">\(x_{21}\)</span></td>
+<td><span class="math inline">\(x_{22}\)</span></td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><p><strong><span class="math inline">\(H_0\)</span>: Independence</strong></p>
+<ul>
+<li>2 parameters:
+<ul>
+<li><span class="math inline">\(P(A)\)</span>, <span class="math inline">\(P(C)\)</span></li>
+<li><span class="math inline">\(P(B) = 1 - P(A)\)</span></li>
+<li><span class="math inline">\(P(D) = 1 - P(C)\)</span></li>
+</ul></li>
+</ul></li>
+<li><p><strong><span class="math inline">\(H_1\)</span>: Association</strong></p>
+<ul>
+<li>3 parameters:
+<ul>
+<li><span class="math inline">\(P(A \cap C)\)</span>, <span class="math inline">\(P(A \cap D)\)</span>, <span class="math inline">\(P(B \cap C)\)</span></li>
+<li><span class="math inline">\(P(B \cap D) = 1 - \left[ P(A \cap C) + P(A \cap D) + P(B \cap C) \right]\)</span></li>
+</ul></li>
+</ul></li>
+<li><p>So: <span class="math display">\[
+\nu = 3 - 2 = 1
+\]</span></p></li>
+</ul>
+</section>
+</section>
+<section id="cohens-kappa" class="level1">
+<h1>Cohen’s Kappa</h1>
+<ul>
+<li><p>Want a measure of how <strong>reliable</strong> a test is</p></li>
+<li><p>Or measure how <strong>similar</strong> two judges rate something</p></li>
+<li><p><strong>Example</strong>: 2 surveys measuring beef consumption</p></li>
+</ul>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 17%">
+<col style="width: 35%">
+<col style="width: 36%">
+<col style="width: 10%">
+</colgroup>
+<thead>
+<tr class="header">
+<th></th>
+<th>Survey 2: ≤ 1 serving/week</th>
+<th>Survey 2: &gt; 1 serving/week</th>
+<th>Total</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Survey 1: ≤ 1 serving/week</td>
+<td>136</td>
+<td>92</td>
+<td>228</td>
+</tr>
+<tr class="even">
+<td>Survey 1: &gt; 1 serving/week</td>
+<td>64</td>
+<td>240</td>
+<td>304</td>
+</tr>
+<tr class="odd">
+<td><strong>Total</strong></td>
+<td>205</td>
+<td>332</td>
+<td>537</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<ul>
+<li><p><strong>Idea</strong>: The “amount” of concordance reflects reliability of the survey</p></li>
+<li><p>Observed proportion concordant: <span class="math display">\[
+p_o = \frac{136 + 240}{537} = 0.7
+\]</span></p></li>
+<li><p>Expected concordance under independence: <span class="math display">\[
+p_e = \frac{205 \cdot 228}{537^2} + \frac{332 \cdot 304}{537^2} = 0.518
+\]</span></p></li>
+<li><p><strong>Cohen’s kappa</strong>: <span class="math display">\[
+\kappa = \frac{p_o - p_e}{1 - p_e}
+\]</span></p></li>
+</ul>
+<section id="properties-of-cohens-kappa" class="level2">
+<h2 class="anchored" data-anchor-id="properties-of-cohens-kappa">Properties of Cohen’s Kappa</h2>
+<ol type="1">
+<li><p>Bounds: <span class="math display">\[
+\frac{-p_e}{1 - p_e} \leq \kappa \leq 1
+\]</span></p>
+<ul>
+<li>Set <span class="math inline">\(p_o = 0\)</span> or <span class="math inline">\(1\)</span> for bounds.</li>
+</ul></li>
+<li><p><span class="math inline">\(\kappa = 1\)</span> implies <strong>perfect concordance</strong>.</p></li>
+<li><p><strong>Rules of thumb</strong>:</p>
+<ul>
+<li><span class="math inline">\(\kappa &gt; 0.75\)</span> → excellent reproducibility</li>
+<li><span class="math inline">\(0.4 &lt; \kappa \leq 0.75\)</span> → good reproducibility</li>
+<li><span class="math inline">\(0 \leq \kappa \leq 0.4\)</span> → marginal reproducibility</li>
+</ul></li>
+</ol>
+<ul>
+<li><p>Confidence intervals and tests for <span class="math inline">\(\kappa\)</span> are possible.</p></li>
+<li><p>Use <span class="math inline">\(\kappa\)</span> for <strong>repeated measures</strong> of the <strong>same variable</strong>.</p></li>
+<li><p>For <strong>two different variables</strong>, use <strong>sensitivity</strong> and <strong>specificity</strong>.</p></li>
+</ul>
+<hr>
+<p>Cohen’s Kappa in R</p>
+<hr>
+</section>
+</section>
+<section id="exercises-10.810.13" class="level1">
+<h1>Exercises 10.8–10.13</h1>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    // Ensure there is a toggle, if there isn't float one in the top right
+    if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+      const a = window.document.createElement('a');
+      a.classList.add('top-right');
+      a.classList.add('quarto-color-scheme-toggle');
+      a.href = "";
+      a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+      const i = window.document.createElement("i");
+      i.classList.add('bi');
+      a.appendChild(i);
+      window.document.body.appendChild(a);
+    }
+    setColorSchemeToggle(hasAlternateSentinel())
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
+        }
+        return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

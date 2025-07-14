@@ -922,5 +922,19 @@
     "title": "Chapter 9: Nonparametric Methods",
     "section": "",
     "text": "\\(t\\)-tests assume Normality\n\nMaking distributional assumpitons is called “parametric”, because it uses parameters (like \\(\\mu\\) and \\(\\sigma^2\\))\nBut it only makes this assumption for small \\(n\\) (we can rely on the CLT for large \\(n\\))\n\nWhat if you have small \\(n\\) and non-normal data?\n\nUse non-parametric methods (work for all data, not just normal)\n\nAlso, some variables are not on a numeric scale where differences are meaningful, and so the \\(t\\) methods cannot be meaningfully applied.\n\n\n\n\n\n\n\nCardinal variable\n\n\n\nA numeric variable where distances between points make sense\n\n\n\nExamples:\n\nBody weight\nSerum creatine levels\nSystolic blood pressure\n\n\n\n\n\n\n\n\nOrdinal Variable\n\n\n\nA variable where order matters, but not the specific numbers\n\n\n\nExamples:\n\nVisual acuity: 20–20 vs. 20–30 vs. 20–40\nLikert scales (1 = very strongly disagree, 2 = disagree, …)\n\nMeans and variances not meaningful for ordinal data.\n\n\n\n\n\n\n\nNominal Variable\n\n\n\nA categorical variable with no ordering\n\n\n\nExamples:\n\nDeath classification (cancer, cardiovascular disease, …)\nEthnicity\nHair color\n\nMethods described in Chapter 9 are for\n\nOrdinal data, or\nCardinal data with normality violations.\n\nWe’ll talk about analyzing nominal data in Chapter 10."
+  },
+  {
+    "objectID": "07_cat/10_notes.html",
+    "href": "07_cat/10_notes.html",
+    "title": "Chapter 10: Categorical Data",
+    "section": "",
+    "text": "Categorical Variable: Groups units into different categories.\n\nOral contraceptive user vs. Non-OC-user\nHas cancer vs. Does not have cancer, etc.\n\nExample: Test if cancer incidence is the same between OC users and non-OC users.\n\nAssociation between two categorical variables.\n\nExample: Test if heavy OC users, light OC users, and non-OC users have the same cancer rates.\nExample:\n\n\n\n\nDiastolic Blood Pressure\nFrequency\nExpected Probability\n\n\n\n\n&lt; 50\n57\n1%\n\n\n≥ 50, &lt; 60\n330\n7%\n\n\n≥ 60, &lt; 70\n2132\n30%\n\n\n≥ 70, &lt; 80\n4584\n62%\n\n\n\n\nAre the observed frequencies consistent with the theoretical probabilities?"
+  },
+  {
+    "objectID": "07_cat/10_notes.html#properties-of-cohens-kappa",
+    "href": "07_cat/10_notes.html#properties-of-cohens-kappa",
+    "title": "Chapter 10: Categorical Data",
+    "section": "Properties of Cohen’s Kappa",
+    "text": "Properties of Cohen’s Kappa\n\nBounds: \\[\n\\frac{-p_e}{1 - p_e} \\leq \\kappa \\leq 1\n\\]\n\nSet \\(p_o = 0\\) or \\(1\\) for bounds.\n\n\\(\\kappa = 1\\) implies perfect concordance.\nRules of thumb:\n\n\\(\\kappa &gt; 0.75\\) → excellent reproducibility\n\\(0.4 &lt; \\kappa \\leq 0.75\\) → good reproducibility\n\\(0 \\leq \\kappa \\leq 0.4\\) → marginal reproducibility\n\n\n\nConfidence intervals and tests for \\(\\kappa\\) are possible.\nUse \\(\\kappa\\) for repeated measures of the same variable.\nFor two different variables, use sensitivity and specificity.\n\n\nCohen’s Kappa in R"
   }
 ]
