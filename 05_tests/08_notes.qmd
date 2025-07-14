@@ -570,7 +570,7 @@ There are three assumptions, in decreasing order of importance (first is most im
   
   4. Use a nonparametric method (see Chapter 9)
 
-# Exercises 8.3--8.8
+# Exercises 8.3--8.11
 
 The mean ±1 sd of ln [calcium intake (mg)] among 25 females, 12 to 14 years of age, below the poverty level is 6.56 ± 0.64. Similarly, the mean ± 1 sd of ln [calcium intake (mg)] among 40 females, 12 to 14 years of age, above the poverty level is 6.80 ± 0.76.
 
@@ -578,18 +578,57 @@ The mean ±1 sd of ln [calcium intake (mg)] among 25 females, 12 to 14 years of 
 ## Exercise 8.3
 What is the appropriate procedure to test for a significant difference in means between the two groups?
 
-## Hint
-
 ## Solution
+A two-sample t-test. Equal variance would probably be OK, but why not just use Welch <img src="./05_figs/grapes_small.png" width="3%">?
+
+I think Rosner has you run a test for equal variance to determine if we assume equal variances or not. But don't do this. In real life, just run Welch <img src="./05_figs/grapes_small.png" width="3%">.
+
+But it's easier for me to test the equal variance approach. So in subsequent problems, assume the variances are equal.
 :::
 
 ::: {.panel-tabset}
 ## Exercise 8.4
-Implement the procedure in Problem 8.3 using the critical-value method.
+Implement the procedure in Problem 8.3 using the critical-value method at significance level 0.1.
 
 ## Hint
 
+- $\bar{X} = 6.56$
+- $\bar{Y} = 6.80$
+- $s_1^2 = 0.64^2 = 0.4096$
+- $s_2^2 = 0.76^2 - 0.5776$
+- $n_1 = 25$
+- $n_2 = 40$
+
+First calculate the pooled sample variance.
+
 ## Solution
+
+We assume
+
+- $X_1,\ldots,X_{25} \sim N(\mu_1,\sigma^2)$
+- $Y_1,\ldots,Y_{40} \sim N(\mu_2,\sigma^2)$
+
+We are testing
+
+- $H_0: \mu_1 = \mu_2$
+- $H_1: \mu_1 \neq \mu_2$
+
+We need the the pooled sample variance:
+```{r}
+((25 - 1) * 0.64^2 + (40 - 1) * 0.76^2) / (25 + 40 - 2)
+```
+
+The $t$-statistic is then
+```{r}
+(6.56 - 6.8) / (sqrt(.5136) * sqrt(1 / 25 + 1/40))
+```
+
+We compare this to a $t$ distribution with 25 + 40 - 2 = 63 degrees of freedom. We calculate the $1-\alpha/2 = 1 - 0.1 / 2 = 0.95$ quantile of the $t$ distribution (it's $\alpha/2$ because it's a two-sided test) to get
+```{r}
+qt(p = 0.95, df = 63)
+```
+
+Since $|-1.314| = 1.314 < 1.669$, we fail to reject the null hypothesis at significance level 0.1 and conclude that we do not have evidence to say that females above and below the poverty level have different mean calcium intakes.
 :::
 
 ::: {.panel-tabset}
@@ -598,7 +637,30 @@ What is the p-value corresponding to your answer to Problem 8.4?
 
 ## Hint
 
+```{r}
+#| echo: false
+plt_t(ub = -1.314, two_sided = TRUE) +
+  theme_void()
+```
+
+
 ## Solution
+We compare the t-statistic of -1.314 for a $t$ distribution with 25 + 40 - 2 = 63 degrees of freedom. Since this is a two-sided test, we need the area in both tails.
+```{r}
+2 * pt(-1.314, df = 63)
+```
+
+```{r}
+#| echo: false
+#| fig-height: 2
+#| fig-width: 3
+plt_t(ub = -1.314, two_sided = TRUE) +
+  scale_x_continuous(breaks = c(-1.314, 1.314), labels = c("-1.314", 1.314)) +
+  geom_vline(xintercept = -1.314, linetype = "dashed") +
+  theme(axis.text.x = element_text(size = 15),
+        axis.text.y = element_blank(),
+        axis.ticks.y = element_blank())
+```
 :::
 
 ::: {.panel-tabset}
@@ -607,7 +669,27 @@ Compute a 95% CI for the difference in means between the two groups.
 
 ## Hint
 
+Estimate $\pm$ Multiplier $\times$ Standard Error
+
+We already calculate the pooled sample variance. You need the $1 - \alpha/2$ quantile of the $t$ distribution with $n_1 + n_2 - 2$ degrees of freedom, which you can get with `qt()`.
+
+
 ## Solution
+We calculate, for $\alpha = 0.05$:
+$$
+(\bar{X} - \bar{Y}) \pm t_{n_1 + n_2 - 2,\ 1 - \alpha/2} \cdot s \sqrt{\frac{1}{n_1} + \frac{1}{n_2}}
+$$
+
+We already calculated the pooled sample variance as $s^2 = 0.5136$. Thus We also have that the 1 - 0.05/2 = 0.975 quantile of the t distribution with 25 + 40 -2 = 63 degrees of freedom is
+```{r}
+qt(0.975, df = 63)
+```
+
+Thus, our interval is:
+```{r}
+6.56 - 6.8 - 1.998 * sqrt(0.5136) * sqrt(1/25 + 1/40)
+6.56 - 6.8 + 1.998 * sqrt(0.5136) * sqrt(1/25 + 1/40)
+```
 :::
 
 ::: {.panel-tabset}
@@ -616,7 +698,29 @@ Suppose an equal number of 12- to 14-year-old girls below and above the poverty 
 
 ## Hint
 
+Use `power.t.test()`. Use the estimates above for your effect size and standard deviation.
+
 ## Solution
+We'll use the estimates above as our "wild guess" for the effect size
+$$
+\bar{X} - \bar{Y} = 6.56 - 6.8 = -0.24
+$$
+and the estimated standard deviation comes from the pooled sample variance
+$$
+\sqrt{0.5136} = 0.7167
+$$
+
+```{r}
+power.t.test(
+  delta = 0.24,
+  sd = 0.7167, 
+  sig.level = 0.05,
+  power = 0.8,
+  type = "two.sample",
+  alternative = "two.sided")
+```
+
+That means we need at least 141 individual per group.
 :::
 
 ::: {.panel-tabset}
@@ -625,16 +729,19 @@ Answer Problem 8.7 if a one-sided rather than a two-sided test is used.
 
 ## Hint
 
-## Solution
-:::
-
-::: {.panel-tabset}
-## Exercise 8.9
-Using a two-sided test with α = .05, answer Problem 8.7, anticipating that two girls above the poverty level will be recruited for every one girl below the poverty level who is recruited.
-
-## Hint
+It's just one change in `power.t.test()` from 8.7.
 
 ## Solution
+```{r}
+power.t.test(
+  delta = 0.24,
+  sd = 0.7167, 
+  sig.level = 0.05,
+  power = 0.8,
+  type = "two.sample",
+  alternative = "one.sided")
+```
+So we need at least 111 individuals.
 :::
 
 ::: {.panel-tabset}
@@ -643,7 +750,20 @@ Suppose 50 girls above the poverty level and 50 girls below the poverty level ar
 
 ## Hint
 
+Just give `power.t.test()` `n` instead of `power`.
+
 ## Solution
+```{r}
+power.t.test(
+  n = 50,
+  delta = 0.24,
+  sd = 0.7167, 
+  sig.level = 0.05,
+  type = "two.sample",
+  alternative = "two.sided")
+```
+The power will be 0.3813.
+
 :::
 
 ::: {.panel-tabset}
@@ -652,23 +772,17 @@ Answer Problem 8.10 assuming a one-sided rather than a two-sided test is used.
 
 ## Hint
 
-## Solution
-:::
-
-::: {.panel-tabset}
-## Exercise 8.12
-Suppose 50 girls above the poverty level and 25 girls below the poverty level are recruited for the study. How much power will the study have if a two-sided test is used with α = .05?
-
-## Hint
+Just change one thing from `power.t.test()` in problem 8.10.
 
 ## Solution
-:::
-
-::: {.panel-tabset}
-## Exercise 8.13
-Answer Problem 8.12 assuming a one-sided test is used with α = .05.
-
-## Hint
-
-## Solution
+```{r}
+power.t.test(
+  n = 50,
+  delta = 0.24,
+  sd = 0.7167, 
+  sig.level = 0.05,
+  type = "two.sample",
+  alternative = "one.sided")
+```
+The power will be 0.5071.
 :::
