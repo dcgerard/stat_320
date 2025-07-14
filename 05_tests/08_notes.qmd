@@ -365,7 +365,7 @@ Input: $X_1, X_2, \ldots, X_{n_1}$ and $Y_1, Y_2, \ldots, Y_{n_2}$ (sample sizes
 - Nobody does this in real life because:
   1. Very sensitive to non-normality. In contrast, the $t$-test is not sensitive because of the CLT
   2. The equal variance $t$-test is robust to violations in equal variance assumption.
-  3. Nobody assumes equal variances anyway because they all use Welch’s 2-sample $t$-test (§8.7)
+  3. Nobody assumes equal variances anyway because they all use Welch's <img src="./05_figs/grapes_small.png" width="3%"> 2-sample $t$-test (§8.7)
 
 - If your boss asks you to test for equal variances, use `var.test()`
 
@@ -379,6 +379,8 @@ Input: $X_1, X_2, \ldots, X_{n_1}$ and $Y_1, Y_2, \ldots, Y_{n_2}$ (sample sizes
 
 - We'll now relax the equal variance assumption
   - This is a mathy way to say that we won't assume equal variances.
+  
+- Our approach is called Welch's <img src="./05_figs/grapes_small.png" width="3%"> t-test 
 
 - Always use this unless you know for sure that the variances are equal.
 
@@ -392,64 +394,127 @@ $$
 \bar{X} - \bar{Y} \sim N\left(\mu_1 - \mu_2,\ \frac{1}{n_1} \sigma_1^2 + \frac{1}{n_2} \sigma_2^2\right)
 $$
 
-- Test statistic:
+- The test statistic is the mean divided by the estimated standard error
 
-$$
-t = \frac{\bar{X} - \bar{Y}}{\sqrt{\frac{1}{n_1} s_1^2 + \frac{1}{n_2} s_2^2}} = \frac{\text{effect}}{\text{SE}}
-$$
+  $$
+  t = \frac{\bar{X} - \bar{Y}}{\sqrt{\frac{1}{n_1} s_1^2 + \frac{1}{n_2} s_2^2}}
+  $$
 
-- Approximately $t_\nu$ if $H_0$ is true
+- This is approximately $t_\nu$ if $H_0$ is true
 
-- Degrees of freedom $\nu$ is a weird thing called the **Satterthwaite approximation**:
+- The degrees of freedom $\nu$ for the null distribution is a weird thing called the **Satterthwaite approximation**:
 
-$$
-\nu = \frac{\left(\frac{s_1^2}{n_1} + \frac{s_2^2}{n_2} \right)^2}{\frac{(s_1^2/n_1)^2}{n_1 - 1} + \frac{(s_2^2/n_2)^2}{n_2 - 1}}
-$$
+  $$
+  \nu = \frac{\left(\frac{s_1^2}{n_1} + \frac{s_2^2}{n_2} \right)^2}{\frac{(s_1^2/n_1)^2}{n_1 - 1} + \frac{(s_2^2/n_2)^2}{n_2 - 1}}
+  $$
 
-- You don’t need to remember this.
+  - You don't need to remember this.
+  
+  - This $\nu$ is just to make the $t_\nu$ distribution as close as possible to the actual null distribution of test statistic.
+  
+::: {.callout-important}
+## Two-sample t-test with Equal Variances
+Input: $X_1, X_2, \ldots, X_{n_1}$ and $Y_1, Y_2, \ldots, Y_{n_2}$ (sample sizes might be different)
 
-**XYZ IMAGE HERE**
+- We assume $X_i \sim N(\mu_1, \sigma_1^2)$ and $Y_i \sim N(\mu_2, \sigma_2^2)$.
+  - Possibly unequal variances, possibly different means
+- We test:
+  - $H_0: \mu_1 = \mu_2$
+  - $H_A: \mu_1 \neq \mu_2$ or $\mu_1 > \mu_2$ or $\mu_1 < \mu_2$.
+- We calculate:
+  - $\bar{X}$, $\bar{Y}$, $s_1^2$, and $s_2^2$
+  
+-   The $t$ statistic follows a $t_{\nu}$ distribution if $H_0$ is true:
+    $$
+    t = \frac{\bar{X} - \bar{Y}}{\sqrt{\frac{1}{n_1} s_1^2 + \frac{1}{n_2} s_2^2}}
+    $$
 
-- Use this $\nu$ to make the $t$ as close to the actual distribution of $t$ as possible.
+-   $\nu$ is derived from Satterthwaite's Equation.
 
-- Confidence interval:
+-   $H_1: \mu_1 \neq \mu_2$:
+    $$
+    \text{p-value} = 2\texttt{pt}(-|t|, \nu)
+    $$
+    
+    ```{r}
+    #| echo: false
+    #| fig-height: 2
+    #| fig-width: 3
+    plt_t(lb = 1.5, two_sided = TRUE) +
+      scale_x_continuous(breaks = c(-1.5, 1.5), labels = c("-t", "t")) +
+      geom_vline(xintercept = 1.5, linetype = "dashed") +
+      theme(axis.text.x = element_text(size = 15),
+            axis.text.y = element_blank(),
+            axis.ticks.y = element_blank())
+    ```
 
-$$
-(\bar{X} - \bar{Y}) \pm t_{\nu,\ 1 - \alpha/2} \cdot \sqrt{\frac{1}{n_1} s_1^2 + \frac{1}{n_2} s_2^2}
-$$
+-   $H_1: \mu_1 > \mu_2$:
+    $$
+    \text{p-value} = 1 - \texttt{pt}(t, \nu)
+    $$
+    
+    ```{r}
+    #| echo: false
+    #| fig-height: 2
+    #| fig-width: 3
+    plt_t(lb = 1.5) +
+      scale_x_continuous(breaks = c(1.5), labels = c("t")) +
+      geom_vline(xintercept = 1.5, linetype = "dashed") +
+      theme(axis.text.x = element_text(size = 15),
+            axis.text.y = element_blank(),
+            axis.ticks.y = element_blank())
+    ```
+    
+-   $H_1: \mu_1 < \mu_2$:
+    $$
+    \text{p-value} = \texttt{pt}(t, \nu)
+    $$
+    ```{r}
+    #| echo: false
+    #| fig-height: 2
+    #| fig-width: 3
+    plt_t(ub = 1.5) +
+      scale_x_continuous(breaks = c(1.5), labels = c("t")) +
+      geom_vline(xintercept = 1.5, linetype = "dashed") +
+      theme(axis.text.x = element_text(size = 15),
+            axis.text.y = element_blank(),
+            axis.ticks.y = element_blank())
+    ```
+
+- A $(1 - \alpha)100\%$ confidence interval is
+
+  $$
+  (\bar{X} - \bar{Y}) \pm t_{\nu,\ 1 - \alpha/2} \cdot \sqrt{\frac{1}{n_1} s_1^2 + \frac{1}{n_2} s_2^2}
+  $$
+:::
 
 ---
 
-t-tests in R
+[Two-sample t-test in R, equal variance](./05_two_sample_t.qmd#unpaired-unequal-variance)
 
 ---
 
 # Sample Size and Power for 2-Sample t-tests
 
 - Idea: Given
-  - $\mu_1 - \mu_2$ (effect)  
+  - $\mu_1 - \mu_2$ (effect size)  
   - $\sigma_1^2$ (variance of sample 1)  
   - $\sigma_2^2$ (variance of sample 2)  
   - $\alpha$ (significance level)  
   - $n_1$ (sample size 1)  
   - $n_2$ (sample size 2)  
 
-- Can calculate power $1 - \beta$ using similar methods as before.
+  Then we can calculate power $1 - \beta$ using similar methods as before.
 
 - To get $n_1$, $n_2$, assume $n_2 = k n_1$ for known $k$  
-  (i.e., known equal sample sizes or group 1 will have twice as many folks)
-
-- Then solve for $n_1$ given a fixed power.
-
-- Total sample size:
-
-$$
-\text{Sample Size} = n_1 + k n_1 = n_1 \left(1 + k\right)
-$$
+  - E.g., we know we have equal sample sizes, or we know group 1 will have twice as many folks, etc.
+  - Total sample size: $n_1 + k n_1 = n_1 \left(1 + k\right)$
+  - You then have an equation of the form $g(n_1) = 1-\beta$, where $g(\cdot)$ is a function that gets the power given a known sample size.
+  - To get the sample size given power, you can solve for $n_1$.
 
 ---
 
-Power in R
+[Power in R](./05_two_sample_t.qmd#power-and-sample-size-calculations-in-two-sample-t-tests)
 
 ---
 
@@ -457,38 +522,53 @@ Power in R
 
 # Assumptions of t-methods
 
+There are three assumptions, in decreasing order of importance (first is most important):
+
 1. **Independence**  
    - Check by thinking about sampling design  
+     - Did you measure units in clusters (e.g. all from the same family)
+     - Did you measure the same units over time
    - If violated, use more complicated methods
+     - Anova, multiple linear regression, longitudinal approaches
 
 2. **Equal variance**  
-   - Not required for Welch's t-test  
-   - Just use Welch’s t-test
+   - Not required for Welch's <img src="./05_figs/grapes_small.png" width="3%"> t-test  
+   - Just use Welch’s <img src="./05_figs/grapes_small.png" width="3%"> t-test
 
 3. **Normality**
+   - Violated if there are outliers or skew
    - Check using:
      - Histograms
      - Boxplots
-     - Shapiro test
-   - Only a big deal if $n$ is small (e.g., $< 50$) **and** there are lots of skew/outliers
+     - QQ-plots (more on this later)
+   - Only a big deal if $n$ is small (e.g., $< 50$) **and** there are **lots** of skew/outliers
 
-::: {.callout-important}
-Note: Need **normality within each group**, not for the pooled or marginal distribution.
-:::
+-   Note: Need **normality within each group**, not for the pooled or marginal distribution.
 
-**XYZ IMAGE HERE**  (Boxplots and density plots for group 1 and group 2)
+    ```{r}
+    #| echo: false
+    set.seed(1)
+    bind_rows(
+      tibble(x = rnorm(n = 100, mean = -2, sd = 1), group = "A"),
+      tibble(x = rnorm(n = 100, mean = 2, sd = 1), group = "B")
+    ) |>
+      ggplot(aes(x = x, fill = group)) +
+      geom_histogram(bins = 30)
+    ```
 
-Marginal distribution is not normal → that's okay
+    - Marginal distribution is not normal → that's okay
 
-- Check by histograms and Q–Q plots (more later) in each group.
+    - - Check by histograms and Q–Q plots in each group.
 
-- If violated:
+- If normality is violated:
 
-1. If all $> 0$, try logging $X_i$'s
-
-2. Remove outliers and report both results
-
-3. Use a nonparametric method (see Chapter 9)
+  1. If all values are $> 0$, try logging the $X_i$'s
+  
+  2. If all values are $\geq 0$, try taking the square root of the $X_i$'s
+  
+  3. Remove outliers and report both results
+  
+  4. Use a nonparametric method (see Chapter 9)
 
 # Exercises 8.3--8.8
 

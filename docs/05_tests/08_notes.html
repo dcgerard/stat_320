@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="David Gerard">
-<meta name="dcterms.date" content="2025-07-13">
+<meta name="dcterms.date" content="2025-07-14">
 
 <title>Chapter 8: Two-sample Inference – Stat 320: Biostatistics</title>
 <style>
@@ -344,7 +344,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">July 13, 2025</p>
+      <p class="date">July 14, 2025</p>
     </div>
   </div>
   
@@ -688,7 +688,7 @@ Y_i \sim N(\mu_2, \sigma_2^2)
 <ol type="1">
 <li>Very sensitive to non-normality. In contrast, the <span class="math inline">\(t\)</span>-test is not sensitive because of the CLT</li>
 <li>The equal variance <span class="math inline">\(t\)</span>-test is robust to violations in equal variance assumption.</li>
-<li>Nobody assumes equal variances anyway because they all use Welch’s 2-sample <span class="math inline">\(t\)</span>-test (§8.7)</li>
+<li>Nobody assumes equal variances anyway because they all use Welch’s <img src="./05_figs/grapes_small.png" width="3%"> 2-sample <span class="math inline">\(t\)</span>-test (§8.7)</li>
 </ol></li>
 <li><p>If your boss asks you to test for equal variances, use <code>var.test()</code></p></li>
 </ul>
@@ -703,6 +703,7 @@ Y_i \sim N(\mu_2, \sigma_2^2)
 <ul>
 <li>This is a mathy way to say that we won’t assume equal variances.</li>
 </ul></li>
+<li><p>Our approach is called Welch’s <img src="./05_figs/grapes_small.png" width="3%"> t-test</p></li>
 <li><p>Always use this unless you know for sure that the variances are equal.</p></li>
 <li><p>Let:</p>
 <ul>
@@ -716,31 +717,94 @@ Y_i \sim N(\mu_2, \sigma_2^2)
 \bar{X} - \bar{Y} \sim N\left(\mu_1 - \mu_2,\ \frac{1}{n_1} \sigma_1^2 + \frac{1}{n_2} \sigma_2^2\right)
 \]</span></p>
 <ul>
-<li>Test statistic:</li>
-</ul>
+<li><p>The test statistic is the mean divided by the estimated standard error</p>
 <p><span class="math display">\[
-t = \frac{\bar{X} - \bar{Y}}{\sqrt{\frac{1}{n_1} s_1^2 + \frac{1}{n_2} s_2^2}} = \frac{\text{effect}}{\text{SE}}
-\]</span></p>
-<ul>
-<li><p>Approximately <span class="math inline">\(t_\nu\)</span> if <span class="math inline">\(H_0\)</span> is true</p></li>
-<li><p>Degrees of freedom <span class="math inline">\(\nu\)</span> is a weird thing called the <strong>Satterthwaite approximation</strong>:</p></li>
-</ul>
+t = \frac{\bar{X} - \bar{Y}}{\sqrt{\frac{1}{n_1} s_1^2 + \frac{1}{n_2} s_2^2}}
+\]</span></p></li>
+<li><p>This is approximately <span class="math inline">\(t_\nu\)</span> if <span class="math inline">\(H_0\)</span> is true</p></li>
+<li><p>The degrees of freedom <span class="math inline">\(\nu\)</span> for the null distribution is a weird thing called the <strong>Satterthwaite approximation</strong>:</p>
 <p><span class="math display">\[
 \nu = \frac{\left(\frac{s_1^2}{n_1} + \frac{s_2^2}{n_2} \right)^2}{\frac{(s_1^2/n_1)^2}{n_1 - 1} + \frac{(s_2^2/n_2)^2}{n_2 - 1}}
 \]</span></p>
 <ul>
-<li>You don’t need to remember this.</li>
+<li><p>You don’t need to remember this.</p></li>
+<li><p>This <span class="math inline">\(\nu\)</span> is just to make the <span class="math inline">\(t_\nu\)</span> distribution as close as possible to the actual null distribution of test statistic.</p></li>
+</ul></li>
 </ul>
-<p><strong>XYZ IMAGE HERE</strong></p>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Two-sample t-test with Equal Variances
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Input: <span class="math inline">\(X_1, X_2, \ldots, X_{n_1}\)</span> and <span class="math inline">\(Y_1, Y_2, \ldots, Y_{n_2}\)</span> (sample sizes might be different)</p>
 <ul>
-<li><p>Use this <span class="math inline">\(\nu\)</span> to make the <span class="math inline">\(t\)</span> as close to the actual distribution of <span class="math inline">\(t\)</span> as possible.</p></li>
-<li><p>Confidence interval:</p></li>
-</ul>
+<li><p>We assume <span class="math inline">\(X_i \sim N(\mu_1, \sigma_1^2)\)</span> and <span class="math inline">\(Y_i \sim N(\mu_2, \sigma_2^2)\)</span>.</p>
+<ul>
+<li>Possibly unequal variances, possibly different means</li>
+</ul></li>
+<li><p>We test:</p>
+<ul>
+<li><span class="math inline">\(H_0: \mu_1 = \mu_2\)</span></li>
+<li><span class="math inline">\(H_A: \mu_1 \neq \mu_2\)</span> or <span class="math inline">\(\mu_1 &gt; \mu_2\)</span> or <span class="math inline">\(\mu_1 &lt; \mu_2\)</span>.</li>
+</ul></li>
+<li><p>We calculate:</p>
+<ul>
+<li><span class="math inline">\(\bar{X}\)</span>, <span class="math inline">\(\bar{Y}\)</span>, <span class="math inline">\(s_1^2\)</span>, and <span class="math inline">\(s_2^2\)</span></li>
+</ul></li>
+<li><p>The <span class="math inline">\(t\)</span> statistic follows a <span class="math inline">\(t_{\nu}\)</span> distribution if <span class="math inline">\(H_0\)</span> is true: <span class="math display">\[
+t = \frac{\bar{X} - \bar{Y}}{\sqrt{\frac{1}{n_1} s_1^2 + \frac{1}{n_2} s_2^2}}
+\]</span></p></li>
+<li><p><span class="math inline">\(\nu\)</span> is derived from Satterthwaite’s Equation.</p></li>
+<li><p><span class="math inline">\(H_1: \mu_1 \neq \mu_2\)</span>: <span class="math display">\[
+\text{p-value} = 2\texttt{pt}(-|t|, \nu)
+\]</span></p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="08_notes_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="288"></p>
+</figure>
+</div>
+</div>
+</div></li>
+<li><p><span class="math inline">\(H_1: \mu_1 &gt; \mu_2\)</span>: <span class="math display">\[
+\text{p-value} = 1 - \texttt{pt}(t, \nu)
+\]</span></p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="08_notes_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="288"></p>
+</figure>
+</div>
+</div>
+</div></li>
+<li><p><span class="math inline">\(H_1: \mu_1 &lt; \mu_2\)</span>: <span class="math display">\[
+\text{p-value} = \texttt{pt}(t, \nu)
+\]</span></p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="08_notes_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="288"></p>
+</figure>
+</div>
+</div>
+</div></li>
+<li><p>A <span class="math inline">\((1 - \alpha)100\%\)</span> confidence interval is</p>
 <p><span class="math display">\[
 (\bar{X} - \bar{Y}) \pm t_{\nu,\ 1 - \alpha/2} \cdot \sqrt{\frac{1}{n_1} s_1^2 + \frac{1}{n_2} s_2^2}
-\]</span></p>
+\]</span></p></li>
+</ul>
+</div>
+</div>
 <hr>
-<p>t-tests in R</p>
+<p><a href="../05_tests/05_two_sample_t.html#unpaired-unequal-variance">Two-sample t-test in R, equal variance</a></p>
 <hr>
 </section>
 <section id="sample-size-and-power-for-2-sample-t-tests" class="level1">
@@ -748,7 +812,7 @@ t = \frac{\bar{X} - \bar{Y}}{\sqrt{\frac{1}{n_1} s_1^2 + \frac{1}{n_2} s_2^2}} =
 <ul>
 <li><p>Idea: Given</p>
 <ul>
-<li><span class="math inline">\(\mu_1 - \mu_2\)</span> (effect)<br>
+<li><span class="math inline">\(\mu_1 - \mu_2\)</span> (effect size)<br>
 </li>
 <li><span class="math inline">\(\sigma_1^2\)</span> (variance of sample 1)<br>
 </li>
@@ -759,71 +823,80 @@ t = \frac{\bar{X} - \bar{Y}}{\sqrt{\frac{1}{n_1} s_1^2 + \frac{1}{n_2} s_2^2}} =
 <li><span class="math inline">\(n_1\)</span> (sample size 1)<br>
 </li>
 <li><span class="math inline">\(n_2\)</span> (sample size 2)</li>
-</ul></li>
-<li><p>Can calculate power <span class="math inline">\(1 - \beta\)</span> using similar methods as before.</p></li>
-<li><p>To get <span class="math inline">\(n_1\)</span>, <span class="math inline">\(n_2\)</span>, assume <span class="math inline">\(n_2 = k n_1\)</span> for known <span class="math inline">\(k\)</span><br>
-(i.e., known equal sample sizes or group 1 will have twice as many folks)</p></li>
-<li><p>Then solve for <span class="math inline">\(n_1\)</span> given a fixed power.</p></li>
-<li><p>Total sample size:</p></li>
 </ul>
-<p><span class="math display">\[
-\text{Sample Size} = n_1 + k n_1 = n_1 \left(1 + k\right)
-\]</span></p>
+<p>Then we can calculate power <span class="math inline">\(1 - \beta\)</span> using similar methods as before.</p></li>
+<li><p>To get <span class="math inline">\(n_1\)</span>, <span class="math inline">\(n_2\)</span>, assume <span class="math inline">\(n_2 = k n_1\)</span> for known <span class="math inline">\(k\)</span></p>
+<ul>
+<li>E.g., we know we have equal sample sizes, or we know group 1 will have twice as many folks, etc.</li>
+<li>Total sample size: <span class="math inline">\(n_1 + k n_1 = n_1 \left(1 + k\right)\)</span></li>
+<li>You then have an equation of the form <span class="math inline">\(g(n_1) = 1-\beta\)</span>, where <span class="math inline">\(g(\cdot)\)</span> is a function that gets the power given a known sample size.</li>
+<li>To get the sample size given power, you can solve for <span class="math inline">\(n_1\)</span>.</li>
+</ul></li>
+</ul>
 <hr>
-<p>Power in R</p>
+<p><a href="../05_tests/05_two_sample_t.html#power-and-sample-size-calculations-in-two-sample-t-tests">Power in R</a></p>
 <hr>
 <p><strong>Skip Section 8.10</strong></p>
 </section>
 <section id="assumptions-of-t-methods" class="level1">
 <h1>Assumptions of t-methods</h1>
+<p>There are three assumptions, in decreasing order of importance (first is most important):</p>
 <ol type="1">
 <li><strong>Independence</strong>
 <ul>
-<li>Check by thinking about sampling design<br>
-</li>
-<li>If violated, use more complicated methods</li>
+<li>Check by thinking about sampling design
+<ul>
+<li>Did you measure units in clusters (e.g.&nbsp;all from the same family)</li>
+<li>Did you measure the same units over time</li>
+</ul></li>
+<li>If violated, use more complicated methods
+<ul>
+<li>Anova, multiple linear regression, longitudinal approaches</li>
+</ul></li>
 </ul></li>
 <li><strong>Equal variance</strong>
 <ul>
-<li>Not required for Welch’s t-test<br>
+<li>Not required for Welch’s <img src="./05_figs/grapes_small.png" width="3%"> t-test<br>
 </li>
-<li>Just use Welch’s t-test</li>
+<li>Just use Welch’s <img src="./05_figs/grapes_small.png" width="3%"> t-test</li>
 </ul></li>
 <li><strong>Normality</strong>
 <ul>
+<li>Violated if there are outliers or skew</li>
 <li>Check using:
 <ul>
 <li>Histograms</li>
 <li>Boxplots</li>
-<li>Shapiro test</li>
+<li>QQ-plots (more on this later)</li>
 </ul></li>
-<li>Only a big deal if <span class="math inline">\(n\)</span> is small (e.g., <span class="math inline">\(&lt; 50\)</span>) <strong>and</strong> there are lots of skew/outliers</li>
+<li>Only a big deal if <span class="math inline">\(n\)</span> is small (e.g., <span class="math inline">\(&lt; 50\)</span>) <strong>and</strong> there are <strong>lots</strong> of skew/outliers</li>
 </ul></li>
 </ol>
-<div class="callout callout-style-default callout-important callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Important
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Note: Need <strong>normality within each group</strong>, not for the pooled or marginal distribution.</p>
-</div>
-</div>
-<p><strong>XYZ IMAGE HERE</strong> (Boxplots and density plots for group 1 and group 2)</p>
-<p>Marginal distribution is not normal → that’s okay</p>
 <ul>
-<li><p>Check by histograms and Q–Q plots (more later) in each group.</p></li>
-<li><p>If violated:</p></li>
-</ul>
+<li><p>Note: Need <strong>normality within each group</strong>, not for the pooled or marginal distribution.</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="08_notes_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="384"></p>
+</figure>
+</div>
+</div>
+</div>
+<ul>
+<li><p>Marginal distribution is not normal → that’s okay</p></li>
+<li><ul>
+<li>Check by histograms and Q–Q plots in each group.</li>
+</ul></li>
+</ul></li>
+<li><p>If normality is violated:</p>
 <ol type="1">
-<li><p>If all <span class="math inline">\(&gt; 0\)</span>, try logging <span class="math inline">\(X_i\)</span>’s</p></li>
+<li><p>If all values are <span class="math inline">\(&gt; 0\)</span>, try logging the <span class="math inline">\(X_i\)</span>’s</p></li>
+<li><p>If all values are <span class="math inline">\(\geq 0\)</span>, try taking the square root of the <span class="math inline">\(X_i\)</span>’s</p></li>
 <li><p>Remove outliers and report both results</p></li>
 <li><p>Use a nonparametric method (see Chapter 9)</p></li>
-</ol>
+</ol></li>
+</ul>
 </section>
 <section id="exercises-8.38.8" class="level1">
 <h1>Exercises 8.3–8.8</h1>
