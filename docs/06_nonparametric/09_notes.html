@@ -9,7 +9,7 @@
 <meta name="author" content="David Gerard">
 <meta name="dcterms.date" content="2025-07-14">
 
-<title>Two-sample Nonparametric Methods – Stat 320: Biostatistics</title>
+<title>Chapter 9: Nonparametric Methods – Stat 320: Biostatistics</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -346,8 +346,10 @@ window.Quarto = {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#wilcoxin-rank-sum-test-aka-mann-whitney-u-test" id="toc-wilcoxin-rank-sum-test-aka-mann-whitney-u-test" class="nav-link active" data-scroll-target="#wilcoxin-rank-sum-test-aka-mann-whitney-u-test">Wilcoxin Rank-sum test (AKA Mann-Whitney <span class="math inline">\(U\)</span> test)</a></li>
-  <li><a href="#permutation-tests" id="toc-permutation-tests" class="nav-link" data-scroll-target="#permutation-tests">Permutation Tests</a></li>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a></li>
+  <li><a href="#sign-test" id="toc-sign-test" class="nav-link" data-scroll-target="#sign-test">Sign Test</a></li>
+  <li><a href="#wilcoxon-signed-rank-test" id="toc-wilcoxon-signed-rank-test" class="nav-link" data-scroll-target="#wilcoxon-signed-rank-test">Wilcoxon Signed-Rank Test</a></li>
+  <li><a href="#wilcoxon-rank-sum-test" id="toc-wilcoxon-rank-sum-test" class="nav-link" data-scroll-target="#wilcoxon-rank-sum-test">Wilcoxon Rank-Sum Test</a></li>
   </ul>
 </nav>
     </div>
@@ -357,7 +359,7 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Two-sample Nonparametric Methods</h1>
+<h1 class="title">Chapter 9: Nonparametric Methods</h1>
 </div>
 
 
@@ -386,301 +388,445 @@ window.Quarto = {
 </header>
 
 
-<p>Consider the study on the effects of lead, described <a href="https://dcgerard.github.io/stat_320/data.html#lead">here</a>.</p>
-<div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(broom)</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>lead <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"https://dcgerard.github.io/stat_320/data/lead.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<section id="wilcoxin-rank-sum-test-aka-mann-whitney-u-test" class="level1">
-<h1>Wilcoxin Rank-sum test (AKA Mann-Whitney <span class="math inline">\(U\)</span> test)</h1>
+<section id="introduction" class="level2">
+<h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
 <ul>
-<li><p>The Wilcoxin rank-sum test is the nonparametric version of the two-sample <span class="math inline">\(t\)</span>-test.</p></li>
-<li><p>The null is that the distributions of the two samples are the same. The alternative is that they are the same except shifted. That is,</p>
+<li><span class="math inline">\(t\)</span>-tests assume Normality
 <ul>
-<li><span class="math inline">\(X_i \sim F_1\)</span> for <span class="math inline">\(i = 1,\ldots,n_1\)</span> and <span class="math inline">\(Y_j \sim F_2\)</span> for <span class="math inline">\(j = 1,\ldots,n_2\)</span>. Here, <span class="math inline">\(F_1\)</span> and <span class="math inline">\(F_2\)</span> are the CDF’s of samples 1 and 2, respectively.</li>
-<li><span class="math inline">\(H_0\)</span>: <span class="math inline">\(F_1 = F_1\)</span></li>
-<li><span class="math inline">\(H_1\)</span>: <span class="math inline">\(F_1(x) = F_2(x + \Delta)\)</span> for some <span class="math inline">\(\Delta \neq 0\)</span>.</li>
+<li>Making distributional assumpitons is called “parametric”, because it uses parameters (like <span class="math inline">\(\mu\)</span> and <span class="math inline">\(\sigma^2\)</span>)</li>
+<li>But it only makes this assumption for small <span class="math inline">\(n\)</span> (we can rely on the CLT for large <span class="math inline">\(n\)</span>)</li>
 </ul></li>
-<li><p>This shift interpretation is only valid if the distributions are about the same but shifted (checkable using histograms). If the distributions vary wildly, the hypothesis test is actually</p>
+<li>What if you have small <span class="math inline">\(n\)</span> and non-normal data?
 <ul>
-<li><span class="math inline">\(H_0\)</span>: <span class="math inline">\(P(X &gt; Y) = P(Y &gt; X)\)</span></li>
-<li><span class="math inline">\(H_1\)</span>: <span class="math inline">\(P(X &gt; Y) \neq P(Y &gt; X)\)</span></li>
+<li>Use non-parametric methods (work for all data, not just normal)</li>
 </ul></li>
-<li><p>The idea of this test is that the rank-sums should be about the same on average (if <span class="math inline">\(n_1 = n_2\)</span>)</p>
-<div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">68</span>)</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">value =</span> <span class="fu">c</span>(<span class="fu">rnorm</span>(<span class="dv">20</span>), <span class="fu">rnorm</span>(<span class="dv">20</span>)),</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">group =</span> <span class="fu">c</span>(<span class="fu">rep</span>(<span class="dv">1</span>, <span class="dv">20</span>), <span class="fu">rep</span>(<span class="dv">2</span>, <span class="dv">20</span>))</span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>df <span class="sc">|&gt;</span></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">rank =</span> <span class="fu">rank</span>(value)) <span class="sc">|&gt;</span></span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(group) <span class="sc">|&gt;</span></span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">sum =</span> <span class="fu">sum</span>(rank))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 2 × 2
-  group   sum
-  &lt;dbl&gt; &lt;dbl&gt;
-1     1   413
-2     2   407</code></pre>
-</div>
-</div></li>
-<li><p>But, if the two distributions differ by some location shift, then the distribution shifted up will have higher ranks on average, and so a larger rank sum.</p>
-<div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">68</span>)</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">value =</span> <span class="fu">c</span>(<span class="fu">rnorm</span>(<span class="dv">20</span>), <span class="fu">rnorm</span>(<span class="dv">20</span>, <span class="at">mean =</span> <span class="dv">1</span>)),</span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">group =</span> <span class="fu">c</span>(<span class="fu">rep</span>(<span class="dv">1</span>, <span class="dv">20</span>), <span class="fu">rep</span>(<span class="dv">2</span>, <span class="dv">20</span>))</span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>df <span class="sc">|&gt;</span></span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">rank =</span> <span class="fu">rank</span>(value)) <span class="sc">|&gt;</span></span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(group) <span class="sc">|&gt;</span></span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">sum =</span> <span class="fu">sum</span>(rank))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 2 × 2
-  group   sum
-  &lt;dbl&gt; &lt;dbl&gt;
-1     1   303
-2     2   517</code></pre>
-</div>
-</div></li>
-<li><p>Visualization: If the two distributions are the same, the average rankings should be about the same (when <span class="math inline">\(n_1 = n_2\)</span>). Sample of 5 individuals from each group (rug plot) from distribution whose PDF is plotted. The ranks are the numbers above the rug plots. The rank sum of each sample is in red.</p>
-<div class="cell" data-layout-align="center">
-<div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="06_wilcoxin_2_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="384"></p>
-</figure>
-</div>
-</div>
-</div></li>
-<li><p>Visualization: If one distribution is shifted, the rankings for the shifted to the right distribution will in general be larger than expected than if the distributions were the same.</p>
-<div class="cell" data-layout-align="center">
-<div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="06_wilcoxin_2_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="384"></p>
-</figure>
-</div>
-</div>
-</div></li>
-<li><p>We can evaluate if the exposed and the control groups have different distributions of IQF</p>
-<div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(lead, <span class="fu">aes</span>(<span class="at">x =</span> Group, <span class="at">y =</span> iqf)) <span class="sc">+</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="06_wilcoxin_2_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="384"></p>
-</figure>
-</div>
-</div>
-</div></li>
-<li><p>Use <code>wilcox.text()</code> to run a Wilcoxin rank-sum test.</p>
-<ul>
-<li>Response variable is to the left of the tilde <code>~</code></li>
-<li>Grouping variable is to the right of the tilde</li>
-<li><code>data</code>: The data frame that containst hte variables</li>
+<li>Also, some variables are not on a numeric scale where differences are meaningful, and so the <span class="math inline">\(t\)</span> methods cannot be meaningfully applied.</li>
 </ul>
-<div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">wilcox.test</span>(iqf <span class="sc">~</span> Group, <span class="at">data =</span> lead) <span class="sc">|&gt;</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tidy</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 1 × 4
-  statistic p.value method                                           alternative
-      &lt;dbl&gt;   &lt;dbl&gt; &lt;chr&gt;                                            &lt;chr&gt;      
-1     1996.   0.114 Wilcoxon rank sum test with continuity correcti… two.sided  </code></pre>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
 </div>
-</div></li>
-<li><p>The <span class="math inline">\(p\)</span>-value above was pretty large, so we don’t have evidence of a difference of IQ between the two groups.</p></li>
-</ul>
-<div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true">Exercise</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false">Solution</a></li></ul>
-<div class="tab-content">
-<div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
-<p>Calculate the rank sum statistic using these data. First by hand and then using R.</p>
-<div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">group =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">2</span>),</span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">val =</span> <span class="fu">c</span>(<span class="dv">80</span>, <span class="sc">-</span><span class="dv">36</span>, <span class="sc">-</span><span class="dv">83</span>, <span class="dv">63</span>, <span class="dv">79</span>, <span class="dv">93</span>)</span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="callout-title-container flex-fill">
+Cardinal variable
 </div>
 </div>
-<div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
-<p>By hand, we have the ranks are: (5, 2, 1, 3, 4, 6)</p>
-<p>We add up the first three to get 8</p>
-<p>We can also do this in R:</p>
-<div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>df <span class="sc">|&gt;</span></span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">rank =</span> <span class="fu">rank</span>(val)) <span class="sc">|&gt;</span></span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(group) <span class="sc">|&gt;</span></span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">sum =</span> <span class="fu">sum</span>(rank))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 2 × 2
-  group   sum
-  &lt;dbl&gt; &lt;dbl&gt;
-1     1     8
-2     2    13</code></pre>
+<div class="callout-body-container callout-body">
+<p>A numeric variable where distances between points make sense</p>
 </div>
 </div>
-</div>
-</div>
-</div>
-<div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-2-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-1" role="tab" aria-controls="tabset-2-1" aria-selected="true">Exercise*</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-2" role="tab" aria-controls="tabset-2-2" aria-selected="false">Solution</a></li></ul>
-<div class="tab-content">
-<div id="tabset-2-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-2-1-tab">
-<p>The Wilcoxin rank-sum test is most often used for ordinal data. E.g. consider the Werry-Weiss-Peters scale for hyperactivity (as reported by parents), which goes from 0 for no hyperactivity to 4 for severe hyperactivity. Is there a difference in hyperactivity between the exposed and control groups? Do an EDA and then answer with a formal hypothesis test.</p>
-</div>
-<div id="tabset-2-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-2-tab">
-<p>Looks like exposed group is a little higher in the scale on average.</p>
-<div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>lead <span class="sc">|&gt;</span></span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(hyperact)) <span class="sc">|&gt;</span></span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Group, hyperact) <span class="sc">|&gt;</span></span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">n =</span> <span class="fu">n</span>()) <span class="sc">|&gt;</span></span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">|&gt;</span></span>
-<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Group) <span class="sc">|&gt;</span></span>
-<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">prop =</span> n <span class="sc">/</span> <span class="fu">sum</span>(n))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>`summarise()` has grouped output by 'Group'. You can override using the
-`.groups` argument.</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 8 × 4
-# Groups:   Group [2]
-  Group   hyperact     n   prop
-  &lt;chr&gt;      &lt;dbl&gt; &lt;int&gt;  &lt;dbl&gt;
-1 control        0    24 0.490 
-2 control        1    20 0.408 
-3 control        2     3 0.0612
-4 control        3     2 0.0408
-5 exposed        0    15 0.429 
-6 exposed        1    14 0.4   
-7 exposed        2     5 0.143 
-8 exposed        3     1 0.0286</code></pre>
-</div>
-</div>
-<p>Let’s run the Wilcoxin rank sum test:</p>
-<div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">wilcox.test</span>(hyperact <span class="sc">~</span> Group, <span class="at">data =</span> lead, <span class="at">exact =</span> <span class="cn">FALSE</span>) <span class="sc">|&gt;</span></span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tidy</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 1 × 4
-  statistic p.value method                                           alternative
-      &lt;dbl&gt;   &lt;dbl&gt; &lt;chr&gt;                                            &lt;chr&gt;      
-1      784.   0.465 Wilcoxon rank sum test with continuity correcti… two.sided  </code></pre>
-</div>
-</div>
-<p>P-value for group differences is 0.4649, so we don’t have evidence of any group differences.</p>
-</div>
-</div>
-</div>
-</section>
-<section id="permutation-tests" class="level1">
-<h1>Permutation Tests</h1>
 <ul>
-<li><p>The the distribution of the two groups are indeed the exact same, then hypothetically we could arbitrarily choose which individuals belong to which group and the distribution of the rank sum should be the same.</p></li>
-<li><p>This is the idea of the permutation test.</p></li>
-<li><p>You generate a null distribution via:</p>
-<ol type="1">
-<li>Randomly assign group labels to individuals</li>
-<li>Calculate the rank-sum statistic</li>
-<li>Repeat 1 and 2 many many times.</li>
+<li>Examples:
+<ul>
+<li>Body weight</li>
+<li>Serum creatine levels</li>
+<li>Systolic blood pressure</li>
+</ul></li>
+</ul>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Ordinal Variable
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>A variable where order matters, but not the specific numbers</p>
+</div>
+</div>
+<ul>
+<li>Examples:
+<ul>
+<li>Visual acuity: 20–20 vs.&nbsp;20–30 vs.&nbsp;20–40</li>
+<li>Likert scales (1 = very strongly disagree, 2 = disagree, …)</li>
+</ul></li>
+<li>Means and variances not meaningful for ordinal data.</li>
+</ul>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Nominal Variable
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>A categorical variable with no ordering</p>
+</div>
+</div>
+<ul>
+<li>Examples:
+<ul>
+<li>Death classification (cancer, cardiovascular disease, …)</li>
+<li>Ethnicity</li>
+<li>Hair color</li>
+</ul></li>
+<li>Methods described in Chapter 9 are for
+<ol type="i">
+<li>Ordinal data, or</li>
+<li>Cardinal data with normality violations.</li>
 </ol></li>
-<li><p>If the null is true, then our observed rank sum statistic should be about the same as the rank sum statistics from this null distribution. So we calculate a <span class="math inline">\(p\)</span>-value by seeing how extreme our observed rank sum statistic is.</p></li>
-<li><p>You can randomly assign labels by randomly permuting them with <code>sample()</code>.</p>
-<div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>lead <span class="sc">|&gt;</span></span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(iqf)) <span class="sc">|&gt;</span> <span class="do">## always remove NA's first</span></span>
-<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">rank =</span> <span class="fu">rank</span>(iqf)) <span class="sc">|&gt;</span></span>
-<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(iqf, rank, Group) <span class="ot">-&gt;</span></span>
-<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>  lead_sub</span>
-<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>lead_sub <span class="sc">|&gt;</span></span>
-<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">new_group =</span> <span class="fu">sample</span>(Group)) <span class="sc">|&gt;</span></span>
-<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 6 × 4
-    iqf  rank Group   new_group
-  &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;   &lt;chr&gt;    
-1    70   4   control exposed  
-2    85  40   control control  
-3    86  46   control control  
-4    76  15.5 control control  
-5    84  36   control exposed  
-6    96  81.5 control control  </code></pre>
+<li>We’ll talk about analyzing nominal data in Chapter 10.</li>
+</ul>
+</section>
+<section id="sign-test" class="level2">
+<h2 class="anchored" data-anchor-id="sign-test">Sign Test</h2>
+<ul>
+<li><p>The Sign test is a non-parametric version of the paired <span class="math inline">\(t\)</span>-test</p></li>
+<li><p>Wherever you would use a paired <span class="math inline">\(t\)</span>-test, you can instead use a sign test.</p>
+<ul>
+<li>It is very robust to assumptions</li>
+<li>It has very low power, so use a one-sample t-test unless your data don’t allow for a normality assumption.</li>
+</ul></li>
+<li><p>Suppose we just know (or use) that for two paired observations <span class="math inline">\((A, B)\)</span>, that either<br>
+<span class="math inline">\(A &gt; B\)</span>, <span class="math inline">\(A &lt; B\)</span>, or <span class="math inline">\(A = B\)</span></p></li>
+<li><p>Example: Two ointments (A and B). Randomly apply one to left arm and the other to right. See which ointment produces more redness for each person.</p></li>
+<li><p>For <span class="math inline">\(n = 45\)</span>, suppose we saw:</p>
+<ul>
+<li>22 with <span class="math inline">\(A &lt; B\)</span><br>
+</li>
+<li>18 with <span class="math inline">\(A &gt; B\)</span><br>
+</li>
+<li>5 with <span class="math inline">\(A = B\)</span></li>
+</ul></li>
+<li><p><span class="math inline">\(X_i\)</span> = redness on arm A</p></li>
+<li><p><span class="math inline">\(Y_i\)</span> = redness on arm B</p></li>
+<li><p><span class="math inline">\(d_i = X_i - Y_i\)</span></p></li>
+<li><p><span class="math inline">\(\Delta = \text{median}(d_i)\)</span></p>
+<ul>
+<li>population median, not sample median</li>
+</ul></li>
+<li><p><span class="math inline">\(H_0\)</span>: <span class="math inline">\(\Delta = 0\)</span><br>
+</p></li>
+<li><p><span class="math inline">\(H_A\)</span>: <span class="math inline">\(\Delta \ne 0\)</span></p></li>
+<li><p><span class="math inline">\(d_i\)</span> not observed, only observe whether <span class="math inline">\(d_i &gt; 0\)</span> (A &gt; B), <span class="math inline">\(d_i &lt; 0\)</span> (A &lt; B), or <span class="math inline">\(d_i = 0\)</span> (A = B)</p></li>
+<li><p>Let <span class="math inline">\(n = \#(d_i &gt; 0) + \#(d_i &lt; 0)\)</span></p>
+<ul>
+<li>exclude <span class="math inline">\(d_i = 0\)</span></li>
+</ul></li>
+<li><p>Let <span class="math inline">\(X = \#(d_i &gt; 0)\)</span></p></li>
+<li><p>If <span class="math inline">\(H_0\)</span> were true, <span class="math inline">\(X \sim \text{Binom}\left(n, \frac{1}{2}\right)\)</span></p></li>
+<li><p>Why: “success” = <span class="math inline">\(d_i &gt; 0\)</span>?<br>
+<span class="math display">\[\begin{align*}
+\mathbb{P}(\text{success}) &amp;= \mathbb{P}(d_i &gt; 0) \\
+&amp;= \mathbb{P}(d_i &gt; \text{median}(d_i)) \text{ (if $H_0: \Delta = 0$ true)}\\
+&amp;= \frac{1}{2} \text{ (definition of median)}
+\end{align*}\]</span></p></li>
+<li><p>So just use binomial methods on the sign of the differences (normal or exact)</p></li>
+</ul>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
 </div>
-</div></li>
-<li><p>So one iteration of generating the null distribution would be to first choose each individual’s group, the calculate the rank sum statistic.</p>
-<div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>lead_sub <span class="sc">|&gt;</span></span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">new_group =</span> <span class="fu">sample</span>(Group)) <span class="sc">|&gt;</span></span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(new_group) <span class="sc">|&gt;</span></span>
-<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">rsum =</span> <span class="fu">sum</span>(rank)) <span class="ot">-&gt;</span></span>
-<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>  sumdf</span>
-<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>sumdf<span class="sc">$</span>rsum[[<span class="dv">1</span>]]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 4622</code></pre>
+<div class="callout-title-container flex-fill">
+Sign Test
 </div>
-</div></li>
-<li><p>You can replicate this process with <code>replicate()</code>.</p>
-<div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>rout <span class="ot">&lt;-</span> <span class="fu">replicate</span>(<span class="at">n =</span> <span class="dv">1000</span>, <span class="at">expr =</span> {</span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>  lead_sub <span class="sc">|&gt;</span></span>
-<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">new_group =</span> <span class="fu">sample</span>(Group)) <span class="sc">|&gt;</span></span>
-<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(new_group) <span class="sc">|&gt;</span></span>
-<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">rsum =</span> <span class="fu">sum</span>(rank)) <span class="ot">-&gt;</span></span>
-<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>  sumdf</span>
-<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>sumdf<span class="sc">$</span>rsum[[<span class="dv">1</span>]]</span>
-<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div></li>
-<li><p>Our observed rank-sum statistic is</p>
-<div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>lead_sub <span class="sc">|&gt;</span> </span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Group) <span class="sc">|&gt;</span></span>
-<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">rsum =</span> <span class="fu">sum</span>(rank)) <span class="ot">-&gt;</span></span>
-<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>  sumdf</span>
-<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>robs <span class="ot">&lt;-</span> sumdf<span class="sc">$</span>rsum[[<span class="dv">1</span>]]</span>
-<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>robs</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 4770</code></pre>
 </div>
-</div></li>
-<li><p>Our observed rank-sum statistic is a little rare:</p>
+<div class="callout-body-container callout-body">
+<p>Let <span class="math inline">\(X = \#(A &gt; B)\)</span> and <span class="math inline">\(n = \#(A&gt;B) + \#(A&lt;B)\)</span></p>
+<ul>
+<li><p><span class="math inline">\(H_0\)</span>: <span class="math inline">\(\Pr(A &gt; B) = \Pr(A &lt; B)\)</span></p></li>
+<li><p>If <span class="math inline">\(H_0\)</span> is true, then <span class="math display">\[
+X | n \sim \mathrm{Binom(n, 1/2)}
+\]</span></p></li>
+<li><p>The sign test is equivalent to assuming <span class="math inline">\(X \sim \mathrm{Binom}(n, p)\)</span> and testing <span class="math inline">\(H_0: p = 1/2\)</span>.</p></li>
+<li><p>Use Binomial methods (exact or normal).</p></li>
+</ul>
+</div>
+</div>
+<ul>
+<li><p>Example: If <span class="math inline">\(X \sim \text{Binom}\left(n, \frac{1}{2}\right)\)</span> (the null is true), then <span class="math display">\[
+\frac{X}{n} \sim N(p, p(1-p)/n) = N\left(\frac{1}{2}, \frac{1/2(1-1/2)}{n}\right) = N\left(\frac{1}{2}, \frac{1}{4n}\right)
+\]</span><br>
+Plugging in <span class="math inline">\(X = 22\)</span> and <span class="math inline">\(n = 40\)</span>, we calculate our <span class="math inline">\(z\)</span> statistic:</p>
+<p><span class="math display">\[
+z = \frac{\hat{p} - 1/2 - 1/(2n)}{\sqrt{1/2(1-1/2)/n}} = \frac{22/40 - 1/2 - 1/80}{\sqrt{1/(40 \times 4)}}
+\]</span></p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data.frame</span>(<span class="at">rsum =</span> rout) <span class="sc">|&gt;</span></span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> rsum)) <span class="sc">+</span></span>
-<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins =</span> <span class="dv">20</span>, <span class="at">color =</span> <span class="st">"black"</span>, <span class="at">fill =</span> <span class="st">"white"</span>) <span class="sc">+</span></span>
-<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> robs, <span class="at">linetype =</span> <span class="st">"dashed"</span>, <span class="at">color =</span> <span class="st">"red"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>(<span class="dv">22</span><span class="sc">/</span><span class="dv">40</span> <span class="sc">-</span> <span class="dv">1</span><span class="sc">/</span><span class="dv">2</span> <span class="sc">-</span> <span class="dv">1</span><span class="sc">/</span><span class="dv">80</span>) <span class="sc">/</span> <span class="fu">sqrt</span>(<span class="dv">1</span> <span class="sc">/</span> (<span class="dv">40</span> <span class="sc">*</span> <span class="dv">4</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.4743</code></pre>
+</div>
+</div>
+<p>We compare this <span class="math inline">\(z\)</span>-statistic to a standard normal distribution</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span> <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> <span class="fu">pnorm</span>(<span class="fl">0.4743</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.6353</code></pre>
+</div>
+</div>
+<div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="06_wilcoxin_2_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="384"></p>
+<p><img src="09_notes_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="384"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>This agrees with the value from <code>prop.test()</code></p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">prop.test</span>(<span class="at">x =</span> <span class="dv">22</span>, <span class="at">n =</span> <span class="dv">40</span>, <span class="at">p =</span> <span class="dv">1</span><span class="sc">/</span><span class="dv">2</span>) <span class="sc">|&gt;</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tidy</span>() <span class="sc">|&gt;</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(p.value)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 1
+  p.value
+    &lt;dbl&gt;
+1   0.635</code></pre>
+</div>
+</div>
+<ul>
+<li>Or, we can do exact method with <code>binom.test()</code>. Sum all probabilities less probabe than or equally probable to our observed value of <span class="math inline">\(X = 22\)</span>:</li>
+</ul>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="09_notes_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="384"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">binom.test</span>(<span class="at">x =</span> <span class="dv">22</span>, <span class="at">n =</span> <span class="dv">40</span>, <span class="at">p =</span> <span class="dv">1</span><span class="sc">/</span><span class="dv">2</span>) <span class="sc">|&gt;</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tidy</span>() <span class="sc">|&gt;</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(p.value)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 1
+  p.value
+    &lt;dbl&gt;
+1   0.636</code></pre>
+</div>
+</div></li>
+</ul>
+</section>
+<section id="wilcoxon-signed-rank-test" class="level2">
+<h2 class="anchored" data-anchor-id="wilcoxon-signed-rank-test">Wilcoxon Signed-Rank Test</h2>
+<ul>
+<li><p>The Wilcoxin Signed-Rank test is also an alternative to the paired $t$-test</p></li>
+<li><p>It’s more powerful than the sign test, but makes some additional assumptions, making it slightly less robust.</p></li>
+<li><p>Idea: still use <span class="math inline">\(d_i\)</span>, but take into account the rank of the magnitudes</p></li>
+<li><p>Intution: suppose we observed <span class="math inline">\(d_i\)</span>: -10, -7, -6, -5, 1, 2, 3, 4</p>
+<ul>
+<li>Since <span class="math inline">\(\#(d_i &gt; 0) = \#(d_i &lt; 0)\)</span>, so the sign test would fail to reject.</li>
+<li>But, the negative differences are <strong>way</strong> more negative. This makes it seem that the median is less than 0.</li>
+</ul></li>
+<li><p>Idea:</p>
+<ol type="1">
+<li>Rank observations from <span class="math inline">\(1\)</span> to <span class="math inline">\(n\)</span> in terms of <span class="math inline">\(|d_i|\)</span> (smallest to largest of the absolute values)</li>
+<li>Sum ranks such that <span class="math inline">\(d_i &gt; 0\)</span></li>
+</ol></li>
+<li><p>Example:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th><span class="math inline">\(d_i\)</span></th>
+<th><span class="math inline">\(|d_i|\)</span></th>
+<th>Rank <span class="math inline">\(|d_i|\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>-10</td>
+<td>10</td>
+<td>8</td>
+</tr>
+<tr class="even">
+<td>-7</td>
+<td>7</td>
+<td>7</td>
+</tr>
+<tr class="odd">
+<td>-6</td>
+<td>6</td>
+<td>6</td>
+</tr>
+<tr class="even">
+<td>-5</td>
+<td>5</td>
+<td>5</td>
+</tr>
+<tr class="odd">
+<td>1</td>
+<td>1</td>
+<td>1</td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td>2</td>
+<td>2</td>
+</tr>
+<tr class="odd">
+<td>3</td>
+<td>3</td>
+<td>3</td>
+</tr>
+<tr class="even">
+<td>4</td>
+<td>4</td>
+<td>4</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>You now sum the ranks of the positive numbers: 1 + 2 + 3 + 4 = 10</li>
+</ul></li>
+<li><p>Let <span class="math inline">\(R\)</span> be the rank sum (sum of the ranks of the positive numbers).</p></li>
+<li><p>If <span class="math inline">\(H_0: \Delta = 0\)</span> is true, then, theoretical results are that:</p>
+<p><span class="math display">\[\begin{align*}
+E[R] &amp;= \frac{n(n+1)}{4}\\
+\text{Var}(R) &amp;= \frac{n(n+1)(2n+1)}{24}
+\end{align*}\]</span></p></li>
+<li><p><span class="math inline">\(R \sim N\left(E[R], \text{Var}(R)\right)\)</span> for large <span class="math inline">\(n\)</span></p></li>
+<li><p>Compare <span class="math inline">\(R\)</span> to null distribution to get <span class="math inline">\(p\)</span>-value</p></li>
+<li><p>Exact methods exist when <span class="math inline">\(n\)</span> is small</p></li>
+<li><p>Variations exist when there are ties in <span class="math inline">\(d_i\)</span></p></li>
+<li><p>Note: The null is really that <span class="math inline">\(\Delta = 0\)</span> <strong>and</strong> <span class="math inline">\(d_i\)</span> are symmetric (though possibly non-normal).</p>
+<ul>
+<li><p>Might reject <span class="math inline">\(H_0\)</span> if <span class="math inline">\(\Delta = 0\)</span> but <span class="math inline">\(d_i\)</span> are skewed</p></li>
+<li><p>So really only testing <span class="math inline">\(H_0: \Delta = 0\)</span> if <span class="math inline">\(d_i\)</span> are symmetric (checkable via histograms)</p></li>
+<li><p>If symmatry is not a good assumption, use the sign test.</p></li>
+</ul></li>
+</ul>
+<hr>
+<p><a href="../06_nonparametric/06_wilcoxin_1.html">Wilcoxon signed-rank test in R</a></p>
+<hr>
+</section>
+<section id="wilcoxon-rank-sum-test" class="level2">
+<h2 class="anchored" data-anchor-id="wilcoxon-rank-sum-test">Wilcoxon Rank-Sum Test</h2>
+<ul>
+<li><p>This is also called the Mann–Whitney <span class="math inline">\(U\)</span> test.</p></li>
+<li><p>It’s a nonparametric alternative to two-sample <span class="math inline">\(t\)</span>-test</p></li>
+<li><p>We want to test if the distribution is shifted in one group or the other</p></li>
+<li><p>Let <span class="math inline">\(F_1\)</span> be the CDF of group 1<br>
+</p></li>
+<li><p>Let <span class="math inline">\(F_2\)</span> be the CDF of group 2</p></li>
+<li><p>Hypotheses:</p>
+<ul>
+<li><p><span class="math inline">\(H_0\)</span>: <span class="math inline">\(F_1 = F_2\)</span></p></li>
+<li><p><span class="math inline">\(H_A\)</span>: <span class="math inline">\(F_1(x) = F_2(x + \Delta)\)</span> for some <span class="math inline">\(\Delta \ne 0\)</span></p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="09_notes_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="384"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="09_notes_files/figure-html/unnamed-chunk-8-2.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="384"></p>
 </figure>
 </div>
 </div>
 </div></li>
-<li><p>We can quantify how rare by seeing how many null rank sum statistics are at or above our observed statistic. This is our permutation test <span class="math inline">\(p\)</span>-value</p>
-<div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span> <span class="sc">*</span> <span class="fu">mean</span>(robs <span class="sc">&lt;=</span> rout)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.12</code></pre>
-</div>
-</div></li>
-<li><p>For large <span class="math inline">\(n\)</span>, this will be about the same as the normality approximation from the Wilcoxin rank-sum test:</p>
-<div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">wilcox.test</span>(iqf <span class="sc">~</span> Group, <span class="at">data =</span> lead) <span class="sc">|&gt;</span></span>
-<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tidy</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 1 × 4
-  statistic p.value method                                           alternative
-      &lt;dbl&gt;   &lt;dbl&gt; &lt;chr&gt;                                            &lt;chr&gt;      
-1     1996.   0.114 Wilcoxon rank sum test with continuity correcti… two.sided  </code></pre>
-</div>
-</div></li>
+</ul></li>
+<li><p>Assume distribution is same in each group except one is shifted over (for <span class="math inline">\(H_1\)</span>)</p></li>
+<li><p>Procedure: Rank all values (not magnitudes like before)</p>
+<ul>
+<li><p>Add up ranks in one group</p></li>
+<li><p>Let <span class="math inline">\(R_1\)</span> = sum of ranks in group 1</p></li>
+<li><p>Under <span class="math inline">\(H_0\)</span>:</p>
+<p><span class="math display">\[\begin{align*}
+E[R_1] &amp;= \frac{n_1(n_1 + n_2 + 1)}{2}\\
+\text{Var}(R_1) &amp;= \frac{n_1 n_2 (n_1 + n_2 + 1)}{12}
+\end{align*}\]</span></p></li>
+<li><p>By CLT, for large <span class="math inline">\(n\)</span>, <span class="math inline">\(R_1 \sim N(E[R_1], \text{Var}(R_1))\)</span></p></li>
+<li><p>So compare to this distribution to get a <span class="math inline">\(p\)</span>-value</p></li>
+</ul></li>
+<li><p>Example: <span class="math inline">\(X\)</span> = -3, -1, 0, 1, 3 <span class="math inline">\(Y\)</span> = -2, 2, 4</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Sample</th>
+<th>Value</th>
+<th>Rank</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>X</td>
+<td>-3</td>
+<td>1</td>
+</tr>
+<tr class="even">
+<td>Y</td>
+<td>-2</td>
+<td>2</td>
+</tr>
+<tr class="odd">
+<td>X</td>
+<td>-1</td>
+<td>3</td>
+</tr>
+<tr class="even">
+<td>X</td>
+<td>0</td>
+<td>4</td>
+</tr>
+<tr class="odd">
+<td>X</td>
+<td>1</td>
+<td>5</td>
+</tr>
+<tr class="even">
+<td>Y</td>
+<td>2</td>
+<td>6</td>
+</tr>
+<tr class="odd">
+<td>X</td>
+<td>3</td>
+<td>7</td>
+</tr>
+<tr class="even">
+<td>Y</td>
+<td>4</td>
+<td>8</td>
+</tr>
+</tbody>
+</table></li>
+<li><p>Sum ranks for group X: <span class="math display">\[
+R_1 = 1 + 3 + 4 + 5 + 7 = 20
+\]</span></p></li>
 </ul>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="09_notes_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="384"></p>
+</figure>
+</div>
+</div>
+</div>
+<ul>
+<li><p>Intuition for when <span class="math inline">\(n_1 = n_2\)</span>:</p>
+<ul>
+<li>We expect <span class="math inline">\(R_1 \approx R_2\)</span> = So if <span class="math inline">\(R_1 \gg R_2\)</span> or <span class="math inline">\(R_1 \ll R_2\)</span>, then reject <span class="math inline">\(H_0\)</span></li>
+</ul></li>
+<li><p>Since <span class="math inline">\(R_1 + R_2 = \sum_{i=1}^{n_1 + n_2} i = \frac{(n_1 + n_2)(n_1 + n_2 + 1)}{2}\)</span> just need to look at distribution of <span class="math inline">\(R_1\)</span>.</p>
+<ul>
+<li>The sum of <span class="math inline">\(R_1\)</span> and <span class="math inline">\(R_2\)</span> is equal to some number which does not change from sample to sample</li>
+<li>So if we know <span class="math inline">\(R_1\)</span> then we automatically know <span class="math inline">\(R_2\)</span></li>
+<li>So we only need to see one of these.</li>
+</ul></li>
+<li><p>For small <span class="math inline">\(n\)</span>, an exact distribution of <span class="math inline">\(R_1\)</span> (when <span class="math inline">\(H_0\)</span> is true) is available</p></li>
+<li><p>Modifications exist when there are ties</p></li>
+<li><p>Can use this to compare ordinal data</p></li>
+<li><p>Example: Visual acuity for individuals with dominant form of retinitis pigmentosa (RP) vs.&nbsp;visual acuity for sex-linked RP</p>
+<ul>
+<li>Visual acuity: 20–20, 20–25, 20–30, …</li>
+</ul></li>
+</ul>
+<hr>
+<p><a href="../06_nonparametric/06_wilcoxin_2.html">Wilcoxon Rank-Sum in R</a></p>
+<hr>
 
 
 </section>

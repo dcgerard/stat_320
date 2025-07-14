@@ -39,7 +39,7 @@ format: html
   - [**Chapter 8 Notes** (Two Sample Hypothesis Tests)](./05_tests/08_notes.qmd)
     - [Two Sample $t$-Tests in R](./05_tests/05_two_sample_t.qmd)
 - 06 Nonparametric Methods
-  - [**Chapter 9 Notes** (Nonparametric Methods)](./notes/chapter9_notes.pdf)
+  - [**Chapter 9 Notes** (Nonparametric Methods)](./06_nonparametric/09_notes.qmd)
     - [One Sample Inference in R](./06_nonparametric/06_wilcoxin_1.qmd)
     - [Two Sample Inference in R](./06_nonparametric/06_wilcoxin_2.qmd)
 - 07 Categorical Tests

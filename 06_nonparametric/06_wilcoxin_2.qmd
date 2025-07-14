@@ -26,160 +26,161 @@ lead <- read_csv("https://dcgerard.github.io/stat_320/data/lead.csv")
 
 - The Wilcoxin rank-sum test is the nonparametric version of the two-sample $t$-test.
 
-- The null is that the distributions of the two samples are the same. The alternative is that they are the same except shifted. That is,
+-   The null is that the distributions of the two samples are the same. The alternative is that they are the same except shifted. That is,
     - $X_i \sim F_1$ for $i = 1,\ldots,n_1$ and $Y_j \sim F_2$ for $j = 1,\ldots,n_2$. Here, $F_1$ and $F_2$ are the CDF's of samples 1 and 2, respectively.
     - $H_0$: $F_1 = F_1$
     - $H_1$: $F_1(x) = F_2(x + \Delta)$ for some $\Delta \neq 0$.
     
-- This shift interpretation is only valid if the distributions are about the same but shifted (checkable using histograms). If the distributions vary wildly, the hypothesis test is actually
+-   This shift interpretation is only valid if the distributions are about the same but shifted (checkable using histograms). If the distributions vary wildly, the hypothesis test is actually
     - $H_0$: $P(X > Y) = P(Y > X)$
     - $H_1$: $P(X > Y) \neq P(Y > X)$
     
-- The idea of this test is that the rank-sums should be about the same on average (if $n_1 = n_2$)
-  ```{r}
-  set.seed(68)
-  df <- tibble(
-    value = c(rnorm(20), rnorm(20)),
-    group = c(rep(1, 20), rep(2, 20))
-  )
-  df |>
-    mutate(rank = rank(value)) |>
-    group_by(group) |>
-    summarize(sum = sum(rank))
-  ```
+-   The idea of this test is that the rank-sums should be about the same on average (if $n_1 = n_2$)
+    ```{r}
+    set.seed(68)
+    df <- tibble(
+      value = c(rnorm(20), rnorm(20)),
+      group = c(rep(1, 20), rep(2, 20))
+    )
+    df |>
+      mutate(rank = rank(value)) |>
+      group_by(group) |>
+      summarize(sum = sum(rank))
+    ```
 
-- But, if the two distributions differ by some location shift, then the distribution shifted up will have higher ranks on average, and so a larger rank sum.
+-   But, if the two distributions differ by some location shift, then the distribution shifted up will have higher ranks on average, and so a larger rank sum.
 
-  ```{r}
-  set.seed(68)
-  df <- tibble(
-    value = c(rnorm(20), rnorm(20, mean = 1)),
-    group = c(rep(1, 20), rep(2, 20))
-  )
-  df |>
-    mutate(rank = rank(value)) |>
-    group_by(group) |>
-    summarize(sum = sum(rank))
-  ```
+    ```{r}
+    set.seed(68)
+    df <- tibble(
+      value = c(rnorm(20), rnorm(20, mean = 1)),
+      group = c(rep(1, 20), rep(2, 20))
+    )
+    df |>
+      mutate(rank = rank(value)) |>
+      group_by(group) |>
+      summarize(sum = sum(rank))
+    ```
 
 
-- Visualization: If the two distributions are the same, the average rankings should be about the same (when $n_1 = n_2$). Sample of 5 individuals from each group (rug plot) from distribution whose PDF is plotted. The ranks are the numbers above the rug plots. The rank sum of each sample is in red.
-  ```{r}
-  #| echo: false
-  set.seed(7)
-  shift <- 0
-  nsamp <- 5
-  xlim <- 12
-  df <- 3
-  df_dist <- tibble(
-    x = c(seq(0, xlim, length.out = 200),
-          seq(shift, xlim + shift, length.out = 200)),
-    pdf = c(dchisq(seq(0, 7, length.out = 200), df = df),
-            dchisq(seq(0, 7, length.out = 200), df = df)),
-    group = c(rep(1, 200), rep(2, 200)))
-  
-  df_rug <- tibble(
-    x = c(rchisq(n = nsamp, df = df), rchisq(n = nsamp, df = df) + shift),
-    group = c(rep(1, nsamp), rep(2, nsamp))) |>
-    mutate(rank = rank(x))
-  
-  df_sum <- df_rug |>
-    group_by(group) |>
-    summarize(sum = sum(rank)) |>
-    mutate(x = xlim / 2, y = 0.1)
-  
-  ggplot() +
-    geom_line(data = df_dist, mapping = aes(x = x, y = pdf)) +
-    geom_rug(data = df_rug, mapping = aes(x = x)) +
-    geom_text(data = df_rug, mapping = aes(x = x, label = rank), y = 0.01) +
-    geom_text(data = df_sum, mapping = aes(x = x, y = y, label = sum), color = "red") +
-    facet_grid(group ~ .)
-  ```
-
-- Visualization: If one distribution is shifted, the rankings for the shifted to the right distribution will in general be larger than expected than if the distributions were the same.
-  ```{r}
-  #| echo: false
-  set.seed(7)
-  shift <- 2
-  nsamp <- 5
-  xlim <- 12
-  df <- 3
-  df_dist <- tibble(
-    x = c(seq(0, xlim, length.out = 200),
-          seq(shift, xlim + shift, length.out = 200)),
-    pdf = c(dchisq(seq(0, 7, length.out = 200), df = df),
-            dchisq(seq(0, 7, length.out = 200), df = df)),
-    group = c(rep(1, 200), rep(2, 200)))
-  
-  df_rug <- tibble(
-    x = c(rchisq(n = nsamp, df = df), rchisq(n = nsamp, df = df) + shift),
-    group = c(rep(1, nsamp), rep(2, nsamp))) |>
-    mutate(rank = rank(x))
-  
-  df_sum <- df_rug |>
-    group_by(group) |>
-    summarize(sum = sum(rank)) |>
-    mutate(x = xlim / 2, y = 0.1)
-  
-  ggplot() +
-    geom_line(data = df_dist, mapping = aes(x = x, y = pdf)) +
-    geom_rug(data = df_rug, mapping = aes(x = x)) +
-    geom_text(data = df_rug, mapping = aes(x = x, label = rank), y = 0.01) +
-    geom_text(data = df_sum, mapping = aes(x = x, y = y, label = sum), color = "red") +
-    facet_grid(group ~ .)
-  ```
+-   Visualization: If the two distributions are the same, the average rankings should be about the same (when $n_1 = n_2$). Sample of 5 individuals from each group (rug plot) from distribution whose PDF is plotted. The ranks are the numbers above the rug plots. The rank sum of each sample is in red.
+    ```{r}
+    #| echo: false
+    set.seed(7)
+    shift <- 0
+    nsamp <- 5
+    xlim <- 12
+    df <- 3
+    df_dist <- tibble(
+      x = c(seq(0, xlim, length.out = 200),
+            seq(shift, xlim + shift, length.out = 200)),
+      pdf = c(dchisq(seq(0, 7, length.out = 200), df = df),
+              dchisq(seq(0, 7, length.out = 200), df = df)),
+      group = c(rep(1, 200), rep(2, 200)))
     
-- We can evaluate if the exposed and the control groups have different distributions of IQF
-  ```{r}
-  #| warning: false
-  ggplot(lead, aes(x = Group, y = iqf)) +
-    geom_boxplot()
-  ```
+    df_rug <- tibble(
+      x = c(rchisq(n = nsamp, df = df), rchisq(n = nsamp, df = df) + shift),
+      group = c(rep(1, nsamp), rep(2, nsamp))) |>
+      mutate(rank = rank(x))
+    
+    df_sum <- df_rug |>
+      group_by(group) |>
+      summarize(sum = sum(rank)) |>
+      mutate(x = xlim / 2, y = 0.1)
+    
+    ggplot() +
+      geom_line(data = df_dist, mapping = aes(x = x, y = pdf)) +
+      geom_rug(data = df_rug, mapping = aes(x = x)) +
+      geom_text(data = df_rug, mapping = aes(x = x, label = rank), y = 0.01) +
+      geom_text(data = df_sum, mapping = aes(x = x, y = y, label = sum), color = "red") +
+      facet_grid(group ~ .)
+    ```
+
+-   Visualization: If one distribution is shifted, the rankings for the shifted to the right distribution will in general be larger than expected than if the distributions were the same.
+    ```{r}
+    #| echo: false
+    set.seed(7)
+    shift <- 2
+    nsamp <- 5
+    xlim <- 12
+    df <- 3
+    df_dist <- tibble(
+      x = c(seq(0, xlim, length.out = 200),
+            seq(shift, xlim + shift, length.out = 200)),
+      pdf = c(dchisq(seq(0, 7, length.out = 200), df = df),
+              dchisq(seq(0, 7, length.out = 200), df = df)),
+      group = c(rep(1, 200), rep(2, 200)))
+    
+    df_rug <- tibble(
+      x = c(rchisq(n = nsamp, df = df), rchisq(n = nsamp, df = df) + shift),
+      group = c(rep(1, nsamp), rep(2, nsamp))) |>
+      mutate(rank = rank(x))
+    
+    df_sum <- df_rug |>
+      group_by(group) |>
+      summarize(sum = sum(rank)) |>
+      mutate(x = xlim / 2, y = 0.1)
+    
+    ggplot() +
+      geom_line(data = df_dist, mapping = aes(x = x, y = pdf)) +
+      geom_rug(data = df_rug, mapping = aes(x = x)) +
+      geom_text(data = df_rug, mapping = aes(x = x, label = rank), y = 0.01) +
+      geom_text(data = df_sum, mapping = aes(x = x, y = y, label = sum), color = "red") +
+      facet_grid(group ~ .)
+    ```
+    
+-   We can evaluate if the exposed and the control groups have different distributions of IQF
+    ```{r}
+    #| warning: false
+    ggplot(lead, aes(x = Group, y = iqf)) +
+      geom_boxplot()
+    ```
 
 
-- Use `wilcox.text()` to run a Wilcoxin rank-sum test. 
+-   Use `wilcox.text()` to run a Wilcoxin rank-sum test. 
     - Response variable is to the left of the tilde `~`
     - Grouping variable is to the right of the tilde
     - `data`: The data frame that containst hte variables
 
-  ```{r}
-  wilcox.test(iqf ~ Group, data = lead) |>
-    tidy()
-  ```
+    ```{r}
+    wilcox.test(iqf ~ Group, data = lead) |>
+      tidy()
+    ```
   
 - The $p$-value above was pretty large, so we don't have evidence of a difference of IQ between the two groups.
 
-- **Exercise**: Calculate the rank sum statistic using these data. First by hand and then using R.
+::: {.panel-tabset}
+## Exercise
+Calculate the rank sum statistic using these data. First by hand and then using R.
 
-  ```{r}
-  df <- tibble(
-    group = c(1, 1, 1, 2, 2, 2),
-    val = c(80, -36, -83, 63, 79, 93)
-  )
-  ```
+```{r}
+df <- tibble(
+  group = c(1, 1, 1, 2, 2, 2),
+  val = c(80, -36, -83, 63, 79, 93)
+)
+```
 
-```{block}
-#| eval: false
-#| echo: false
+## Solution
 By hand, we have the ranks are: (5, 2, 1, 3, 4, 6)
 
 We add up the first three to get 8
-```
 
+We can also do this in R:
 ```{r}
-#| eval: false
-#| echo: false
 df |>
   mutate(rank = rank(val)) |>
   group_by(group) |>
   summarize(sum = sum(rank))
 ```
+:::
 
-- **Exercise**: The Wilcoxin rank-sum test is most often used for ordinal data. E.g. consider the Werry-Weiss-Peters scale for hyperactivity (as reported by parents), which goes from 0 for no hyperactivity to 4 for severe hyperactivity. Is there a difference in hyperactivity between the exposed and control groups? Do an EDA and then answer with a formal hypothesis test.
+::: {.panel-tabset}
+## Exercise*
+The Wilcoxin rank-sum test is most often used for ordinal data. E.g. consider the Werry-Weiss-Peters scale for hyperactivity (as reported by parents), which goes from 0 for no hyperactivity to 4 for severe hyperactivity. Is there a difference in hyperactivity between the exposed and control groups? Do an EDA and then answer with a formal hypothesis test.
 
+## Solution
+Looks like exposed group is a little higher in the scale on average.
 ```{r}
-#| eval: false
-#| echo: false
 lead |>
   filter(!is.na(hyperact)) |>
   group_by(Group, hyperact) |>
@@ -187,95 +188,96 @@ lead |>
   ungroup() |>
   group_by(Group) |>
   mutate(prop = n / sum(n))
+```
 
-## Looks like exposed group is a little higher in the scale on average.
-lead_sub <- filter(lead, !is.na(hyperact))
-
+Let's run the Wilcoxin rank sum test:
+```{r}
 wilcox.test(hyperact ~ Group, data = lead, exact = FALSE) |>
   tidy()
-
-## P-value for group differences is 0.4649, so we don't have evidence of any group differences.
 ```
+
+P-value for group differences is 0.4649, so we don't have evidence of any group differences.
+:::
 
 # Permutation Tests
 
-- The the distribution of the two groups are indeed the exact same, then hypothetically we could arbitrarily choose which individuals belong to which group and the distribution of the rank sum should be the same.
+-   The the distribution of the two groups are indeed the exact same, then hypothetically we could arbitrarily choose which individuals belong to which group and the distribution of the rank sum should be the same.
 
-- This is the idea of the permutation test.
+-   This is the idea of the permutation test.
 
-- You generate a null distribution via: 
+-   You generate a null distribution via: 
     1. Randomly assign group labels to individuals
     2. Calculate the rank-sum statistic 
     3. Repeat 1 and 2 many many times.
 
-- If the null is true, then our observed rank sum statistic should be about the same as the rank sum statistics from this null distribution. So we calculate a $p$-value by seeing how extreme our observed rank sum statistic is.
+-   If the null is true, then our observed rank sum statistic should be about the same as the rank sum statistics from this null distribution. So we calculate a $p$-value by seeing how extreme our observed rank sum statistic is.
 
-- You can randomly assign labels by randomly permuting them with `sample()`.
+-   You can randomly assign labels by randomly permuting them with `sample()`.
 
-  ```{r}
-  set.seed(1)
-  lead |>
-    filter(!is.na(iqf)) |> ## always remove NA's first
-    mutate(rank = rank(iqf)) |>
-    select(iqf, rank, Group) ->
-    lead_sub
-  lead_sub |>
-    mutate(new_group = sample(Group)) |>
-    head()
-  ```
-
-- So one iteration of generating the null distribution would be to first choose each individual's group, the calculate the rank sum statistic.
-
-  ```{r}
-  lead_sub |>
-    mutate(new_group = sample(Group)) |>
-    group_by(new_group) |>
-    summarize(rsum = sum(rank)) ->
-    sumdf
-  sumdf$rsum[[1]]
-  ```
-
-- You can replicate this process with `replicate()`.
-
-  ```{r}
-  rout <- replicate(n = 1000, expr = {
+    ```{r}
+    set.seed(1)
+    lead |>
+      filter(!is.na(iqf)) |> ## always remove NA's first
+      mutate(rank = rank(iqf)) |>
+      select(iqf, rank, Group) ->
+      lead_sub
     lead_sub |>
-    mutate(new_group = sample(Group)) |>
-    group_by(new_group) |>
-    summarize(rsum = sum(rank)) ->
-    sumdf
-  sumdf$rsum[[1]]
-  })
-  ```
+      mutate(new_group = sample(Group)) |>
+      head()
+    ```
 
-- Our observed rank-sum statistic is
+-   So one iteration of generating the null distribution would be to first choose each individual's group, the calculate the rank sum statistic.
 
-  ```{r}
-  lead_sub |> 
-    group_by(Group) |>
-    summarize(rsum = sum(rank)) ->
-    sumdf
-  robs <- sumdf$rsum[[1]]
-  robs
-  ```
+    ```{r}
+    lead_sub |>
+      mutate(new_group = sample(Group)) |>
+      group_by(new_group) |>
+      summarize(rsum = sum(rank)) ->
+      sumdf
+    sumdf$rsum[[1]]
+    ```
 
-- Our observed rank-sum statistic is a little rare:
+-   You can replicate this process with `replicate()`.
 
-  ```{r}
-  data.frame(rsum = rout) |>
-    ggplot(aes(x = rsum)) +
-    geom_histogram(bins = 20, color = "black", fill = "white") +
-    geom_vline(xintercept = robs, linetype = "dashed", color = "red")
-  ```
+    ```{r}
+    rout <- replicate(n = 1000, expr = {
+      lead_sub |>
+      mutate(new_group = sample(Group)) |>
+      group_by(new_group) |>
+      summarize(rsum = sum(rank)) ->
+      sumdf
+    sumdf$rsum[[1]]
+    })
+    ```
 
-- We can quantify how rare by seeing how many null rank sum statistics are at or above our observed statistic. This is our permutation test $p$-value
+-   Our observed rank-sum statistic is
 
-  ```{r}
-  2 * mean(robs <= rout)
-  ```
+    ```{r}
+    lead_sub |> 
+      group_by(Group) |>
+      summarize(rsum = sum(rank)) ->
+      sumdf
+    robs <- sumdf$rsum[[1]]
+    robs
+    ```
 
-- For large $n$, this will be about the same as the normality approximation from the Wilcoxin rank-sum test:
-  ```{r}
-  wilcox.test(iqf ~ Group, data = lead) |>
-    tidy()
-  ```
+-   Our observed rank-sum statistic is a little rare:
+
+    ```{r}
+    data.frame(rsum = rout) |>
+      ggplot(aes(x = rsum)) +
+      geom_histogram(bins = 20, color = "black", fill = "white") +
+      geom_vline(xintercept = robs, linetype = "dashed", color = "red")
+    ```
+
+-   We can quantify how rare by seeing how many null rank sum statistics are at or above our observed statistic. This is our permutation test $p$-value
+
+    ```{r}
+    2 * mean(robs <= rout)
+    ```
+
+-   For large $n$, this will be about the same as the normality approximation from the Wilcoxin rank-sum test:
+    ```{r}
+    wilcox.test(iqf ~ Group, data = lead) |>
+      tidy()
+    ```

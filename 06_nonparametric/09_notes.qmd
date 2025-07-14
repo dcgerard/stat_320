@@ -1,0 +1,399 @@
+---
+title: "Chapter 9: Nonparametric Methods"
+author: "David Gerard"
+date: today
+---
+
+```{r}
+#| message: false
+#| echo: false
+library(tidyverse)
+library(broom)
+knitr::opts_chunk$set(echo = TRUE, 
+            fig.width = 4, 
+            fig.height = 3, 
+            fig.align = "center")
+ggplot2::theme_set(ggplot2::theme_bw() + ggplot2::theme(strip.background = ggplot2::element_rect(fill = "white")))
+plt_t <- function(mu = 0, sig = 1, lb = -Inf, ub = Inf, df = Inf, rng = c(-3, 3), two_sided = FALSE, col = "#E69F00", lwd = 1) {
+  tibble(x = seq(mu + rng[[1]] * sig, mu + rng[[2]] * sig, length.out = 500)) |>
+    mutate(y = dt(x = (x - mu) / sig, df = df)) ->
+    df1
+  df1 |>
+    filter(x > lb, x < ub) ->
+    df2
+  ggplot() +
+    geom_line(data = df1, mapping = aes(x = x, y = y), linewidth = lwd) +
+    geom_area(data = df2, mapping = aes(x = x, y = y), fill = col) +
+    geom_line(data = df2, mapping = aes(x = x, y = y), color = col, linewidth = lwd) +
+    theme_classic() +
+    theme(axis.title = element_blank()) ->
+    pl
+  
+  if (two_sided) {
+    df1 |>
+      filter(x > 2 * mu - ub, x < 2 * mu - lb) ->
+      df3
+    pl <- pl + 
+      geom_area(data = df3, mapping = aes(x = x, y = y), fill = col) +
+      geom_line(data = df3, mapping = aes(x = x, y = y), color = col, linewidth = lwd)
+  }
+  pl
+}
+```
+
+## Introduction
+
+- $t$-tests assume Normality 
+  - Making distributional assumpitons is called "parametric", because it uses parameters (like $\mu$ and $\sigma^2$)
+  - But it only makes this assumption for small $n$ (we can rely on the CLT for large $n$)
+- What if you have small $n$ and non-normal data?
+  - Use non-parametric methods (work for all data, not just normal)
+
+- Also, some variables are not on a numeric scale where differences are meaningful, and so the $t$ methods cannot be meaningfully applied.
+
+::: {.callout-tip}
+## Cardinal variable
+A numeric variable where distances between points make sense  
+:::
+
+- Examples:
+  - Body weight
+  - Serum creatine levels
+  - Systolic blood pressure
+
+::: {.callout-tip}
+## Ordinal Variable
+A variable where order matters, but not the specific numbers
+:::
+
+- Examples:
+  - Visual acuity: 20–20 vs. 20–30 vs. 20–40
+  - Likert scales (1 = very strongly disagree, 2 = disagree, ...)
+
+- Means and variances not meaningful for ordinal data.
+
+::: {.callout-tip}
+## Nominal Variable
+A categorical variable with no ordering
+:::
+
+- Examples:
+  - Death classification (cancer, cardiovascular disease, ...)
+  - Ethnicity
+  - Hair color
+
+- Methods described in Chapter 9 are for
+  i. Ordinal data, or 
+  ii. Cardinal data with normality violations.
+  
+- We'll talk about analyzing nominal data in Chapter 10.
+
+## Sign Test  
+
+- The Sign test is a non-parametric version of the paired $t$-test
+
+- Wherever you would use a paired $t$-test, you can instead use a sign test.
+  - It is very robust to assumptions
+  - It has very low power, so use a one-sample t-test unless your data don't allow for a normality assumption.
+
+- Suppose we just know (or use) that for two paired observations $(A, B)$, that either  
+  $A > B$, $A < B$, or $A = B$
+
+- Example: Two ointments (A and B). Randomly apply one to left arm and the other to right. See which ointment produces more redness for each person.
+
+- For $n = 45$, suppose we saw:  
+  - 22 with $A < B$  
+  - 18 with $A > B$  
+  - 5 with $A = B$
+
+- $X_i$ = redness on arm A
+
+- $Y_i$ = redness on arm B  
+
+- $d_i = X_i - Y_i$  
+
+- $\Delta = \text{median}(d_i)$  
+  - population median, not sample median
+
+- $H_0$: $\Delta = 0$  
+- $H_A$: $\Delta \ne 0$
+
+- $d_i$ not observed, only observe whether $d_i > 0$ (A > B), $d_i < 0$ (A < B), or $d_i = 0$ (A = B)
+
+- Let $n = \#(d_i > 0) + \#(d_i < 0)$  
+  - exclude $d_i = 0$
+
+- Let $X = \#(d_i > 0)$
+
+- If $H_0$ were true, $X \sim \text{Binom}\left(n, \frac{1}{2}\right)$
+
+- Why: "success" = $d_i > 0$?  
+  \begin{align*}
+  \mathbb{P}(\text{success}) &= \mathbb{P}(d_i > 0) \\
+  &= \mathbb{P}(d_i > \text{median}(d_i)) \text{ (if $H_0: \Delta = 0$ true)}\\
+  &= \frac{1}{2} \text{ (definition of median)}
+  \end{align*}
+
+- So just use binomial methods on the sign of the differences (normal or exact)
+
+::: {.callout-important}
+## Sign Test
+Let $X = \#(A > B)$ and $n = \#(A>B) + \#(A<B)$
+
+- $H_0$: $\Pr(A > B) = \Pr(A < B)$
+
+- If $H_0$ is true, then
+  $$
+  X | n \sim \mathrm{Binom(n, 1/2)}
+  $$
+
+- The sign test is equivalent to assuming $X \sim \mathrm{Binom}(n, p)$ and testing $H_0: p = 1/2$.
+
+- Use Binomial methods (exact or normal).
+:::
+
+-   Example: If $X \sim \text{Binom}\left(n, \frac{1}{2}\right)$ (the null is true), then 
+    $$
+    \frac{X}{n} \sim N(p, p(1-p)/n) = N\left(\frac{1}{2}, \frac{1/2(1-1/2)}{n}\right) = N\left(\frac{1}{2}, \frac{1}{4n}\right)
+    $$  
+    Plugging in $X = 22$ and $n = 40$, we calculate our $z$ statistic:
+  
+    $$
+    z = \frac{\hat{p} - 1/2 - 1/(2n)}{\sqrt{1/2(1-1/2)/n}} = \frac{22/40 - 1/2 - 1/80}{\sqrt{1/(40 \times 4)}}
+    $$
+  
+    ```{r}
+    (22/40 - 1/2 - 1/80) / sqrt(1 / (40 * 4))
+    ```
+    
+    We compare this $z$-statistic to a standard normal distribution
+    ```{r}
+    2 * (1 - pnorm(0.4743))
+    ```
+    
+    ```{r}
+    #| echo: false
+    plt_t(lb = 0.4743, two_sided = TRUE) +
+      scale_x_continuous(breaks = c(-0.4743, 0.4743), labels = c(-0.4743, 0.4743)) +
+      geom_vline(xintercept = 0.4743, linetype = "dashed") +
+      theme(axis.text.x = element_text(size = 15))
+    ```
+    
+    
+    This agrees with the value from `prop.test()`
+    ```{r}
+    prop.test(x = 22, n = 40, p = 1/2) |>
+      tidy() |>
+      select(p.value)
+    ```
+
+    - Or, we can do exact method with `binom.test()`. Sum all probabilities less probabe than or equally probable to our observed value of $X = 22$:
+    ```{r}
+    #| echo: false
+    dval <- dbinom(x = 22, size = 40, prob = 0.5) + 1e-6
+    tibble(x = 0:40) |>
+      mutate(
+        y = dbinom(x = x, size = 40, prob = 0.5),
+        less = y <= dval) |>
+      ggplot(aes(x = x, xend = x, yend = y, color = less)) +
+      geom_segment(y = 0, linewidth = 1) +
+      scale_color_manual(values = palette.colors(2)) +
+      guides(color = "none") +
+      geom_hline(yintercept = dval, linetype = "dashed") +
+      scale_x_continuous(breaks = seq(0, 40, by = 5), minor_breaks = 0:40)
+    ```
+    
+    ```{r}
+    binom.test(x = 22, n = 40, p = 1/2) |>
+      tidy() |>
+      select(p.value)
+    ```
+
+## Wilcoxon Signed-Rank Test
+
+- The Wilcoxin Signed-Rank test is also an alternative to the paired \$t\$-test
+
+- It's more powerful than the sign test, but makes some additional assumptions, making it slightly less robust.
+
+- Idea: still use $d_i$, but take into account the rank of the magnitudes
+
+- Intution: suppose we observed $d_i$: -10, -7, -6, -5, 1, 2, 3, 4
+  - Since $\#(d_i > 0) = \#(d_i < 0)$, so the sign test would fail to reject.
+  - But, the negative differences are **way** more negative. This makes it seem that the median is less than 0.
+
+- Idea:
+  1. Rank observations from $1$ to $n$ in terms of $|d_i|$ (smallest to largest of the absolute values)
+  2. Sum ranks such that $d_i > 0$
+
+- Example:  
+
+  | $d_i$ | $|d_i|$ | Rank $|d_i|$ |
+  |-------|---------|--------------|
+  | -10   | 10      | 8            |
+  | -7    | 7       | 7            |
+  | -6    | 6       | 6            |
+  | -5    | 5       | 5            |
+  | 1     | 1       | 1            |
+  | 2     | 2       | 2            |
+  | 3     | 3       | 3            |
+  | 4     | 4       | 4            |
+  
+  - You now sum the ranks of the positive numbers: 1 + 2 + 3 + 4 = 10
+
+- Let $R$ be the rank sum (sum of the ranks of the positive numbers).
+
+- If $H_0: \Delta = 0$ is true, then, theoretical results are that:
+
+  \begin{align*}
+  E[R] &= \frac{n(n+1)}{4}\\
+  \text{Var}(R) &= \frac{n(n+1)(2n+1)}{24}
+  \end{align*}
+
+- $R \sim N\left(E[R], \text{Var}(R)\right)$ for large $n$
+
+- Compare $R$ to null distribution to get $p$-value
+
+- Exact methods exist when $n$ is small
+
+- Variations exist when there are ties in $d_i$
+
+- Note: The null is really that $\Delta = 0$ **and** $d_i$ are symmetric (though possibly non-normal).
+
+  - Might reject $H_0$ if $\Delta = 0$ but $d_i$ are skewed
+
+  - So really only testing $H_0: \Delta = 0$ if $d_i$ are symmetric (checkable via histograms)
+
+  - If symmatry is not a good assumption, use the sign test.
+
+---
+
+[Wilcoxon signed-rank test in R](./06_wilcoxin_1.qmd)
+
+---
+
+## Wilcoxon Rank-Sum Test  
+
+- This is also called the Mann–Whitney $U$ test.
+
+- It's a nonparametric alternative to two-sample $t$-test
+
+- We want to test if the distribution is shifted in one group or the other
+
+- Let $F_1$ be the CDF of group 1  
+- Let $F_2$ be the CDF of group 2
+
+- Hypotheses:
+  - $H_0$: $F_1 = F_2$
+  - $H_A$: $F_1(x) = F_2(x + \Delta)$ for some $\Delta \ne 0$
+
+    ```{r}
+    #| echo: false
+    tibble(x = seq(0, 15, length.out = 200)) |>
+      mutate(y = dchisq(x = x, df = 3),
+             x1 = x / 3,
+             x2 = x1 + 2) |>
+      select(y, x1, x2) ->
+      df
+    
+    df |>
+      mutate(x2 = x1) |>
+      pivot_longer(cols = c("x1", "x2")) |>
+      mutate(Group = if_else(name == "x1", "Group 1", "Group 2")) |>
+      ggplot(aes(x = value, y = y, color = Group)) +
+      geom_line(linewidth = 1) +
+      xlab("Variable") +
+      ylab("Density") +
+      ggtitle(expression(H[0])) +
+      facet_grid(.~Group) +
+      guides(color = "none") +
+      scale_color_manual(values = palette.colors(2))
+    
+    df |>
+      pivot_longer(cols = c("x1", "x2")) |>
+      mutate(Group = if_else(name == "x1", "Group 1", "Group 2")) |>
+      ggplot(aes(x = value, y = y, color = Group)) +
+      geom_line(linewidth = 1) +
+      xlab("Variable") +
+      ylab("Density") +
+      ggtitle(expression(H[1])) +
+      facet_grid(.~Group) +
+      guides(color = "none") +
+      scale_color_manual(values = palette.colors(2))
+    ```
+
+
+- Assume distribution is same in each group except one is shifted over (for $H_1$)
+
+- Procedure: Rank all values (not magnitudes like before)
+
+  - Add up ranks in one group
+
+  - Let $R_1$ = sum of ranks in group 1
+
+  - Under $H_0$:
+
+    \begin{align*}
+    E[R_1] &= \frac{n_1(n_1 + n_2 + 1)}{2}\\
+    \text{Var}(R_1) &= \frac{n_1 n_2 (n_1 + n_2 + 1)}{12}
+    \end{align*}
+
+  - By CLT, for large $n$, $R_1 \sim N(E[R_1], \text{Var}(R_1))$
+
+  - So compare to this distribution to get a $p$-value
+
+- Example: 
+  $X$ = -3, -1, 0, 1, 3
+  $Y$ = -2, 2, 4
+
+  | Sample | Value | Rank |
+  |--------|-------|------|
+  | X      | -3    | 1    |
+  | Y      | -2    | 2    |
+  | X      | -1    | 3    |
+  | X      | 0     | 4    |
+  | X      | 1     | 5    |
+  | Y      | 2     | 6    |
+  | X      | 3     | 7    |
+  | Y      | 4     | 8    |
+
+- Sum ranks for group X:
+  $$
+  R_1 = 1 + 3 + 4 + 5 + 7 = 20
+  $$
+  
+```{r}
+#| echo: false
+n1 <- 5
+n2 <- 3
+mu = n1 * (n1 + n2 + 1)/2
+sig2 = n1 * n2 * (n1 + n2 + 1) / 12
+plt_t(mu = mu, sig = sqrt(sig2), ub = 20, two_sided = TRUE) +
+  geom_vline(xintercept = 20, linetype = "dashed") +
+  scale_x_continuous(breaks = c(20, mu), labels = c("20", expression(n[1]*(n[1]+n[2]+1)/2))) +
+  theme(axis.text.x = element_text(size = 12, angle = 90, hjust = 1, vjust = 0.5))
+```
+  
+
+- Intuition for when $n_1 = n_2$: 
+  - We expect $R_1 \approx R_2$
+  = So if $R_1 \gg R_2$ or $R_1 \ll R_2$, then reject $H_0$
+
+- Since $R_1 + R_2 = \sum_{i=1}^{n_1 + n_2} i = \frac{(n_1 + n_2)(n_1 + n_2 + 1)}{2}$ just need to look at distribution of $R_1$. 
+  - The sum of $R_1$ and $R_2$ is equal to some number which does not change from sample to sample
+  - So if we know $R_1$ then we automatically know $R_2$
+  - So we only need to see one of these.
+
+- For small $n$, an exact distribution of $R_1$ (when $H_0$ is true) is available
+
+- Modifications exist when there are ties
+
+- Can use this to compare ordinal data
+
+- Example: Visual acuity for individuals with dominant form of retinitis pigmentosa (RP) vs. visual acuity for sex-linked RP
+  - Visual acuity: 20–20, 20–25, 20–30, ...
+
+---
+
+[Wilcoxon Rank-Sum in R](./06_wilcoxin_2.qmd)
+
+---
