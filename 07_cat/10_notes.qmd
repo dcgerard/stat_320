@@ -43,39 +43,46 @@ plt_t <- function(mu = 0, sig = 1, lb = -Inf, ub = Inf, df = Inf, rng = c(-3, 3)
 
 # Introduction
 
-- **Categorical Variable**: Groups units into different categories.
+::: {.callout-tip}
+## Categorical Variable
+A variable that groups units into different categories.
+:::
+
+- Examples:
   - Oral contraceptive user vs. Non-OC-user
-  - Has cancer vs. Does not have cancer, etc.
+  - Has cancer vs. Does not have cancer
 
-- **Example**: Test if cancer incidence is the same between OC users and non-OC users.
-  - Association between two categorical variables.
+- There are lots of inference problems that are interesting using categorical variables:
 
-- **Example**: Test if heavy OC users, light OC users, and non-OC users have the same cancer rates.
+- Example 1: Test if cancer incidence is the same between OC users and non-OC users.
+  - Test the association between two categorical variables (cancer status and OC status).
 
-- **Example**:
+- Example 2: Test if heavy OC users, light OC users, and non-OC users have the same cancer rates.
+  - Same as exame 1 above, but now OC status has three categories instead of 2.
 
-| Diastolic Blood Pressure | Frequency | Expected Probability |
-|--------------------------|-----------|----------------------|
-| < 50                     | 57        | 1%                   |
-| ≥ 50, < 60               | 330       | 7%                   |
-| ≥ 60, < 70               | 2132      | 30%                  |
-| ≥ 70, < 80               | 4584      | 62%                  |
+- Example 3: Are the observed frequencies below consistent with the theoretical probabilities?
 
-- Are the observed frequencies consistent with the theoretical probabilities?
+  | Diastolic Blood Pressure | Frequency | Expected Probability |
+  |--------------------------|-----------|----------------------|
+  | < 50                     | 57        | 1%                   |
+  | ≥ 50, < 60               | 330       | 7%                   |
+  | ≥ 60, < 70               | 2132      | 30%                  |
+  | ≥ 70, < 80               | 4584      | 62%                  |
+
 
 # Two-sample Test for Binomial Proportions
 
-- **Example**: Age at first birth vs. breast cancer incidence.
+- Example: Age at first birth vs. breast cancer incidence.
 
-|                     | Control (No Cancer) | Case (Cancer) |
-|---------------------|---------------------|---------------|
-| Age at 1st birth ≤ 29 years | 8747                | 2537          |
-| Age at 1st birth ≥ 30 years | 1498                | 683           |
-| **Total**           | 10245               | 3220          |
+  |                             | Control (No Cancer) | Case (Cancer) |
+  |-----------------------------|---------------------|---------------|
+  | Age at 1st birth ≤ 29 years | 8747                | 2537          |
+  | Age at 1st birth ≥ 30 years | 1498                | 683           |
+  | Total                       | 10245               | 3220          |
 
-- Data collection scheme: Chose women with cancer and women without cancer, then measured age.
+- Data collection scheme: Chose women with cancer and women without cancer, then measured age of their first births
 
-- **Goal**: Test if cancer is associated with age.
+- Goal: Test if cancer is associated with age.
 
 - Two populations:
   - Those with cancer
@@ -89,9 +96,8 @@ plt_t <- function(mu = 0, sig = 1, lb = -Inf, ub = Inf, df = Inf, rng = c(-3, 3)
   - $H_0$: $p_1 = p_2$ vs. $H_1$: $p_1 \neq p_2$
 
 - Sample proportions:
-  $$
-  \hat{p}_1 = \frac{683}{3220} = 0.212, \quad \hat{p}_2 = \frac{1498}{10245} = 0.146
-  $$
+  - $\hat{p}_1 = \frac{683}{3220} = 0.212$
+  - $\hat{p}_2 = \frac{1498}{10245} = 0.146$
 
 - Idea: Base test on $\hat{p}_1 - \hat{p}_2$.
 
@@ -99,79 +105,143 @@ plt_t <- function(mu = 0, sig = 1, lb = -Inf, ub = Inf, df = Inf, rng = c(-3, 3)
   - $X_1$ = number of women age $\geq 30$ with cancer
   - $X_2$ = number of women age $\geq 30$ without cancer
 
-- $X_1 \sim \text{Binom}(n_1, p_1)$, where $\hat{p}_1 = X_1 / n_1$, $n_1 = 3220$
+- $X_1 \sim \text{Binom}(n_1, p_1)$, where $n_1 = 3220$
 
-- $X_2 \sim \text{Binom}(n_2, p_2)$, where $\hat{p}_2 = X_2 / n_2$, $n_2 = 10245$
+  - $\hat{p}_1 = X_1 / n_1$
 
-- Very large sample sizes, so can use normal theory:
+- $X_2 \sim \text{Binom}(n_2, p_2)$, where $n_2 = 10245$
 
-$$
-\hat{p}_1 \sim N\left(p_1, \frac{1}{n_1} p_1 (1 - p_1) \right), \quad 
-\hat{p}_2 \sim N\left(p_2, \frac{1}{n_2} p_2 (1 - p_2) \right)
-$$
+  - $\hat{p}_2 = X_2 / n_2$
 
-- Under $H_0: p_1 = p_2 = p$:
+- We have very large sample sizes, so we can use normal theory.
+  - $\hat{p}_1 \sim N\left(p_1, \frac{1}{n_1} p_1 (1 - p_1) \right)$
+  - $\hat{p}_2 \sim N\left(p_2, \frac{1}{n_2} p_2 (1 - p_2) \right)$
 
-$$
-\hat{p}_1 - \hat{p}_2 \sim N\left(0, \left(\frac{1}{n_1} + \frac{1}{n_2} \right)p(1 - p)\right)
-$$
+- Under, $H_0$, $p_1 = p_2 = p$, so
+  - $\hat{p}_1 \sim N\left(p, \frac{1}{n_1} p (1 - p) \right)$
+  - $\hat{p}_2 \sim N\left(p, \frac{1}{n_2} p (1 - p) \right)$
 
-- So:
+- Thus,
+  $$
+  \hat{p}_1 - \hat{p}_2 \sim N\left(0, \left(\frac{1}{n_1} + \frac{1}{n_2} \right)p(1 - p)\right)
+  $$
 
-$$
-\frac{\hat{p}_1 - \hat{p}_2}{\sqrt{\left( \frac{1}{n_1} + \frac{1}{n_2} \right)p(1 - p)}} \sim N(0,1)
-$$
+- So we divide by the standard error to get a $z$ statistic that follows a standard normal distribution (but only if $H_0$ is true):
+  $$
+  \frac{\hat{p}_1 - \hat{p}_2}{\sqrt{\left( \frac{1}{n_1} + \frac{1}{n_2} \right)p(1 - p)}} \sim N(0,1)
+  $$
 
-- Estimate $p$ under $H_0$ by:
+- We estimate $p$ under $H_0$ by noting that, if $H_0$ were ture, then
+  $$
+  X_1 + X_2 \sim \text{Binom}(n_1 + n_2, p)
+  $$
+  Thus,
+  $$
+  \hat{p} = \frac{X_1 + X_2}{n_1 + n_2}
+  $$
 
-$$
-X_1 + X_2 \sim \text{Binom}(n_1 + n_2, p)
-$$
+- Plugging in $\hat{p}$ for $p$ we get something that is asymptotically standard normal
+  $$
+  \frac{\hat{p}_1 - \hat{p}_2}{\sqrt{\left( \frac{1}{n_1} + \frac{1}{n_2} \right)\hat{p}(1 - \hat{p})}} \sim N(0,1)
+  $$
+  
+- Note: don't use the $t$-distribution here. That depends on the data actually being normal.
 
-$$
-\hat{p} = \frac{X_1 + X_2}{n_1 + n_2}
-$$
+- In practice, we need to do a continuity correction for better performance.
 
-- Then:
+::: {.callout-important}
+## Two-sample Binomial Test
+Observe $X_1 \sim \mathrm{Binom}(n_1,p_1)$ and $X_2 \sim \mathrm{Binom}(n_2, p_2)$
 
-$$
-\frac{\hat{p}_1 - \hat{p}_2}{\sqrt{\left( \frac{1}{n_1} + \frac{1}{n_2} \right)\hat{p}(1 - \hat{p})}} \sim N(0,1)
-$$
+- Null Hypothesis: $H_0: p_1 = p_2$
 
-**XYZ IMAGE HERE**
+Calculate
+  - $\hat{p_1} = X_1 / n_1$
+  - $\hat{p_2} = X_2 / n_2$
+  - $\hat{p} = (X_1 + X_2) / (n_1 + n_2)$
 
-- Compare to $N(0,1)$ to get p-value.
+- $z$-statistic
+  $$
+  z = \frac{\hat{p}_1 - \hat{p}_2}{\sqrt{\left( \frac{1}{n_1} + \frac{1}{n_2} \right)\hat{p}(1 - \hat{p})}}
+  $$
 
-- Need to do continuity correction for better performance.
+-   $H_1: p_1 \neq p_2$
+    $$
+    \text{p-value} = 2 \times \texttt{pnorm}(-|z|)
+    $$
+    ```{r}
+    #| echo: false
+    #| fig-height: 2
+    #| fig-width: 3
+    plt_t(lb = 1.5, two_sided = TRUE) +
+      scale_x_continuous(breaks = c(-1.5, 1.5), labels = c("-z", "z")) +
+      geom_vline(xintercept = 1.5, linetype = "dashed") +
+      theme(axis.text.x = element_text(size = 15),
+            axis.text.y = element_blank(),
+            axis.ticks.y = element_blank())
+    ```
 
-- **Example**:
+-   $H_1: p_1 > p_2$
+    $$
+    \text{p-value} = 1 - \texttt{pnorm}(z)
+    $$
+    ```{r}
+    #| echo: false
+    #| fig-height: 2
+    #| fig-width: 3
+    plt_t(lb = 1.5) +
+      scale_x_continuous(breaks = c(1.5), labels = c("z")) +
+      geom_vline(xintercept = 1.5, linetype = "dashed") +
+      theme(axis.text.x = element_text(size = 15),
+            axis.text.y = element_blank(),
+            axis.ticks.y = element_blank())
+    ```
+    
+-   $H_1: p_1 < p_2$
+    $$
+    \text{p-value} = \texttt{pnorm}(z)
+    $$
+    ```{r}
+    #| echo: false
+    #| fig-height: 2
+    #| fig-width: 3
+    plt_t(ub = 1.5) +
+      scale_x_continuous(breaks = c(1.5), labels = c("z")) +
+      geom_vline(xintercept = 1.5, linetype = "dashed") +
+      theme(axis.text.x = element_text(size = 15),
+            axis.text.y = element_blank(),
+            axis.ticks.y = element_blank())
+    ```
+    
+- A $(1 - \alpha)100\%$ confidence interval for the difference is
+  $$
+  \hat{p}_1 - \hat{p_2} \pm z_{1-\alpha/2}\sqrt{\left( \frac{1}{n_1} + \frac{1}{n_2} \right)\hat{p}(1 - \hat{p})}
+  $$
 
-  - $\hat{p}_1 = 0.212$, $\hat{p}_2 = 0.146$
+- Rule of thumb: The normal approximation works if $n_1\hat{p}(1-\hat{p}) \geq 5$ and $n_2\hat{p}(1-\hat{p}) \geq 5$
+:::
+
+- Age at first birth vs cancer example continued:
   - $X_1 = 683$, $n_1 = 3220$
   - $X_2 = 1498$, $n_2 = 10245$
-
-  - Pooled estimate:
-    $$
-    \hat{p} = \frac{X_1 + X_2}{n_1 + n_2} = \frac{683 + 1498}{3220 + 10245} = 0.162
-    $$
-
+  - $\hat{p}_1 = 683/3220 = 0.2121$
+  - $\hat{p}_2 = 1498 / 10245 = 0.1462$
+  - $\hat{p} = (683 + 1498) / (3220 + 10245) = 0.162$ 
   - Test statistic:
     $$
     z = \frac{\hat{p}_1 - \hat{p}_2}{\sqrt{\left( \frac{1}{n_1} + \frac{1}{n_2} \right)\hat{p}(1 - \hat{p})}} 
-    = \frac{0.212 - 0.146}{\sqrt{\left( \frac{1}{3220} + \frac{1}{10245} \right)(0.162)(1 - 0.162)}}
+    = \frac{0.2121 - 0.1462}{\sqrt{\left( \frac{1}{3220} + \frac{1}{10245} \right)(0.162)(1 - 0.162)}}
     = 8.866
     $$
-
   - p-value:
-    $$
-    p = 2 \cdot \text{pnorm}(-8.866) \approx 1 \times 10^{-15}
-    $$
-
-Strong evidence that women with cancer are more likely to have had their first child after age 30.
+    ```{r}
+    2 * pnorm(-8.866)
+    ```
+  - We have strong evidence that women with cancer are more likely to have had their first child after age 30.
 
 ---
 
-2-sample binomial tests in R
+[2-sample binomial tests in R](./07_binom.qmd#two-sample-binomial-test)
 
 ---
 
@@ -179,25 +249,27 @@ Strong evidence that women with cancer are more likely to have had their first c
 
 - What I showed before was a $2 \times 2$ contingency table:
 
-| Status | Age ≥ 30 | Age < 30 | Total |
-|--------|----------|----------|-------|
-| Case   | 683      | 2537     | 3220  |
-| Control| 1498     | 8747     | 10245 |
-| **Total** | 2181     | 11284    | 13465 |
+  | Status    | Age ≥ 30 | Age < 30 | Row Total |
+  |-----------|----------|----------|-----------|
+  | Case      | 683      | 2537     | 3220      |
+  | Control   | 1498     | 8747     | 10245     |
+  | Col Total | 2181     | 11284    | 13465     |
 
-- Row margins and column margins are shown above; the total is the grand total.
+- Row margins and column margins are shown above. The total is the grand total.
 
 - An equivalent (exact same $p$-value) method is to test for **homogeneity** or **independence** between the two variables.
 
 - Suppose our table looks like this:
 
-|      | Z = A | Z = B | Row Total |
-|------|-------|-------|------------|
-| W = C| $X_{11}$ | $X_{12}$ | $m_1$ |
-| W = D| $X_{21}$ | $X_{22}$ | $m_2$ |
-| **Col Total** | $n_1$ | $n_2$ | $N$ |
+  |           | Z = A    | Z = B    | Row Total |
+  |-----------|----------|----------|-----------|
+  | W = C     | $X_{11}$ | $X_{12}$ | $m_1$     |
+  | W = D     | $X_{21}$ | $X_{22}$ | $m_2$     |
+  | Col Total | $n_1$    | $n_2$    | $N$       |
 
 - Definitions:
+  - $Z$ is a variable with possible values of $A$ and $B$
+  - $W$ is a variable with possible values $C$ and $D$.
   - $n_1 = X_{11} + X_{21}$
   - $n_2 = X_{12} + X_{22}$
   - $m_1 = X_{11} + X_{12}$
@@ -205,21 +277,16 @@ Strong evidence that women with cancer are more likely to have had their first c
   - $N = n_1 + n_2 = m_1 + m_2$
 
 - If $Z \perp W$, then:
+  - $P(Z = A \cap W = C) = P(Z = A) \cdot P(W = C)$
+  - $P(Z = A \cap W = D) = P(Z = A) \cdot P(W = D)$
+  - $P(Z = b \cap W = C) = P(Z = b) \cdot P(W = C)$
+  - $P(Z = b \cap W = D) = P(Z = b) \cdot P(W = D)$
+
+- Idea: Calculate expected counts from the assumption of independendence based on the margin totals.
+  - $P(Z = A) = \frac{n_1}{N}$
 
 $$
-P(Z = A \land W = C) = P(Z = A) \cdot P(W = C)
-$$
-
-$$
-P(Z = A \land W = D) = P(Z = A) \cdot P(W = D)
-$$
-
-- etc...
-
-- **Idea**: If independent, calculate expected counts based on margins.
-
-$$
-P(Z = A) = \frac{n_1}{N}, \quad P(Z = B) = \frac{n_2}{N}
+, \quad P(Z = B) = \frac{n_2}{N}
 $$
 
 $$
