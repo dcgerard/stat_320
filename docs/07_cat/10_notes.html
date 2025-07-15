@@ -1115,30 +1115,25 @@ Fisher’s Exact Test
 <section id="mcnemars-test" class="level1">
 <h1>McNemar’s Test</h1>
 <ul>
-<li><p>Used for matched samples where each unit has two binary outcomes.</p></li>
-<li><p><strong>Study design</strong>: Have matched samples, each with two binary variables.</p></li>
-<li><p><strong>Example</strong>:</p>
+<li><p>Study design: Have matched samples, where each unit has two binary variables.</p></li>
+<li><p>Example:</p>
 <ul>
-<li>Treatment A vs.&nbsp;Treatment B<br>
+<li>Variable 1: Treatment A vs.&nbsp;Treatment B<br>
 </li>
-<li>Survive vs.&nbsp;Not</li>
-</ul></li>
-<li><p>Procedure:</p>
-<ul>
+<li>Variable 2: Survive vs.&nbsp;Not</li>
 <li>Choose a woman to go into A.</li>
-<li>Match another woman with similar characteristics to go into B.</li>
+<li><strong>Match</strong> another woman with similar characteristics to go into B.</li>
 <li>Observe survival for both.</li>
 </ul></li>
 <li><p>“Similar characteristics”: age, weight, clinical condition, etc.</p></li>
-<li><p><strong>Naive Way</strong>: Treat each individual as an independent unit and use:</p></li>
-</ul>
+<li><p>Naive Way: Treat each individual as an independent unit and put these in a 2 <span class="math inline">\(\times\)</span> 2 table:</p>
 <table class="caption-top table">
 <thead>
 <tr class="header">
 <th>Treatment</th>
 <th>Survive</th>
 <th>Die</th>
-<th>Total</th>
+<th>Row Total</th>
 </tr>
 </thead>
 <tbody>
@@ -1155,7 +1150,7 @@ Fisher’s Exact Test
 <td>621</td>
 </tr>
 <tr class="odd">
-<td><strong>Total</strong></td>
+<td>Col Total</td>
 <td>1041</td>
 <td>201</td>
 <td>1242</td>
@@ -1163,87 +1158,44 @@ Fisher’s Exact Test
 </tbody>
 </table>
 <ul>
-<li><p>You could run a <span class="math inline">\(\chi^2\)</span> test for homogeneity, but this is <strong>wrong</strong> — the data are matched, not independent.</p></li>
-<li><p>Instead, use a <strong>matched-pair contingency table</strong>.</p></li>
-</ul>
-<p><strong>Pair structure</strong>:</p>
+<li>You could run a <span class="math inline">\(\chi^2\)</span> test for homogeneity, but this is <strong>wrong</strong> — the data are matched, not independent.</li>
+</ul></li>
+<li><p>Instead, use a <strong>matched-pair contingency table</strong>.</p>
+<ul>
+<li>Above, each count is a person.</li>
+<li>Instead, each count should be a pair.</li>
+</ul></li>
+<li><p>Correct way: Each matched pair is a unit</p>
 <table class="caption-top table">
 <thead>
 <tr class="header">
 <th></th>
-<th>B: Survive</th>
-<th>B: Die</th>
+<th>B Survive</th>
+<th>B Die</th>
+<th>Row Total</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td>A: Survive</td>
-<td></td>
-<td></td>
-</tr>
-<tr class="even">
-<td>A: Die</td>
-<td></td>
-<td></td>
-</tr>
-</tbody>
-</table>
-<ul>
-<li><p>For example, if Pair 1: A = Y, B = N<br>
-→ contributes to (A:Y, B:N) cell.</p></li>
-<li><p>Use this matched format to apply McNemar’s Test.</p></li>
-<li><p><strong>Correct way</strong>: Each matched pair is a unit</p></li>
-</ul>
-<table class="caption-top table">
-<thead>
-<tr class="header">
-<th>A Outcome &nbsp;B Outcome</th>
-<th>Survive</th>
-<th>Die</th>
-<th>Total</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>Survive</td>
+<td>A Survive</td>
 <td>510</td>
 <td>16</td>
 <td>526</td>
 </tr>
 <tr class="even">
-<td>Die</td>
+<td>A Die</td>
 <td>5</td>
 <td>90</td>
 <td>95</td>
 </tr>
 <tr class="odd">
-<td><strong>Total</strong></td>
+<td>Col Total</td>
 <td>515</td>
 <td>106</td>
 <td>621</td>
 </tr>
 </tbody>
-</table>
-<ul>
-<li><p><strong>Concordant pair</strong>: Same outcome (both survive or both die)</p></li>
-<li><p><strong>Discordant pair</strong>: Different outcomes (one dies, one survives)</p></li>
-<li><p>Concordant pairs tell you nothing about which treatment is better.</p></li>
-<li><p>Test whether the two discordant cells have approximately the same counts.</p></li>
-<li><p>Let:</p>
-<ul>
-<li><span class="math inline">\(X\)</span> = number of pairs where A survives and B dies</li>
-<li><span class="math inline">\(n\)</span> = number of discordant pairs</li>
-</ul></li>
-</ul>
-<p><span class="math display">\[
-X \sim \text{Binom}(n, p)
-\]</span></p>
-<ul>
-<li>Hypotheses:
-<ul>
-<li><span class="math inline">\(H_0\)</span>: <span class="math inline">\(p = \frac{1}{2}\)</span> (treatments A and B equally effective)</li>
-<li><span class="math inline">\(H_1\)</span>: <span class="math inline">\(p \ne \frac{1}{2}\)</span></li>
-</ul></li>
+</table></li>
 </ul>
 <div class="callout callout-style-default callout-important callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -1259,23 +1211,62 @@ Note
 We only want to know which treatment does better.</p>
 </div>
 </div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Concordant pair
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Same outcome (e.g., both survive or both die)</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Discordant pair
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Different outcomes (e.g.&nbsp;one dies, one survives)</p>
+</div>
+</div>
 <ul>
-<li>Just use <strong>binomial methods</strong> on discordant pairs.
+<li><p>Concordant pairs tell you nothing about which treatment is better.</p></li>
+<li><p>Idea: Treatments are the same if they the discordant cells have approximately the same counts.</p></li>
+<li><p>Let:</p>
+<ul>
+<li><span class="math inline">\(X\)</span> = number of pairs where A survives and B dies</li>
+<li><span class="math inline">\(n\)</span> = number of discordant pairs</li>
+</ul>
+<p><span class="math display">\[
+X \sim \text{Binom}(n, p)
+\]</span></p></li>
+<li><p>Hypotheses:</p>
+<ul>
+<li><span class="math inline">\(H_0\)</span>: <span class="math inline">\(p = \frac{1}{2}\)</span> (treatments A and B equally effective)</li>
+<li><span class="math inline">\(H_1\)</span>: <span class="math inline">\(p \ne \frac{1}{2}\)</span></li>
+</ul></li>
+<li><p>Just use <strong>binomial methods</strong> on discordant pairs.</p>
 <ul>
 <li>Use normal approximation for large counts</li>
 <li>Use exact test for small counts</li>
 </ul></li>
 </ul>
 <hr>
-<p>McNemar’s Test in R</p>
+<p><a href="../07_cat/07_mcnemar.html">McNemar’s Test in R</a></p>
 <hr>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-4-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-1" role="tab" aria-controls="tabset-4-1" aria-selected="true">Exercise</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-4-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-2" role="tab" aria-controls="tabset-4-2" aria-selected="false">Hint</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-4-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-3" role="tab" aria-controls="tabset-4-3" aria-selected="false">Solution</a></li></ul>
 <div class="tab-content">
 <div id="tabset-4-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-4-1-tab">
-<p><strong>Hypertension diagnosis</strong>: Each person is assessed (1) by trained observer and (2) by a machine.<br>
-Each person is a unit and the assessments are matched.<br>
-Test if they give the same result (on average).</p>
+<p><strong>Hypertension diagnosis</strong>: Each person is assessed (i) by trained observer and (ii) by a machine. Each person is a unit and the assessments are matched. Test if they give the same result (on average).</p>
 <table class="caption-top table">
 <thead>
 <tr class="header">
@@ -1303,9 +1294,25 @@ Test if they give the same result (on average).</p>
 </div>
 <div id="tabset-4-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-4-3-tab">
 <p>Let: - <span class="math inline">\(X \sim \text{Binom}(8, p)\)</span> (discordant total = 8) - <span class="math inline">\(H_0: p = \frac{1}{2}\)</span> vs.&nbsp;<span class="math inline">\(H_1: p \ne \frac{1}{2}\)</span></p>
-<p>Run binomial test in R:</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">binom.test</span>(<span class="at">x =</span> <span class="dv">7</span>, <span class="at">n =</span> <span class="dv">8</span>, <span class="at">p =</span> <span class="fl">0.5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Cannot use mcnemar.test() here because it uses a normal approximation.</p>
+<p>Run an exact binomial test in R:</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">binom.test</span>(<span class="at">x =</span> <span class="dv">7</span>, <span class="at">n =</span> <span class="dv">8</span>, <span class="at">p =</span> <span class="fl">0.5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Exact binomial test
+
+data:  7 and 8
+number of successes = 7, number of trials = 8, p-value = 0.07
+alternative hypothesis: true probability of success is not equal to 0.5
+95 percent confidence interval:
+ 0.4735 0.9968
+sample estimates:
+probability of success 
+                 0.875 </code></pre>
+</div>
+</div>
+<p>The p-value is 0.07, so we only have weak evidence that the machines and technicians differ.</p>
+<p>Cannot use <code>mcnemar.test()</code> here because it uses a normal approximation.</p>
 </div>
 </div>
 </div>
@@ -1418,7 +1425,7 @@ E_{25} = \frac{626 \cdot 10245}{13465} = 476.3
 \nu = (2 - 1)(5 - 1) = 4
 \]</span></p>
 <p>R code:</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pchisq</span>(<span class="fl">130.3</span>, <span class="at">df =</span> <span class="dv">4</span>, <span class="at">lower.tail =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pchisq</span>(<span class="fl">130.3</span>, <span class="at">df =</span> <span class="dv">4</span>, <span class="at">lower.tail =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 </div>

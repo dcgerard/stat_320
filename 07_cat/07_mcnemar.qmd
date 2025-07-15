@@ -19,124 +19,124 @@ library(broom)
 
 # Contingency Table Approach
 
-- Women were matched into pairs based on age and clinical characteristics. One woman of each pair was given treatment A and the other treatment B. The doctors then followed the women to see which survived and which died within 5 years.
+-   Women were matched into pairs based on age and clinical characteristics. One woman of each pair was given treatment A and the other treatment B. The doctors then followed the women to see which survived and which died within 5 years.
 
-  ```{r}
-  #| message: false
-  #| echo: false
-  library(tidyverse)
-  library(janitor)
-  library(gt)
+    ```{r}
+    #| message: false
+    #| echo: false
+    library(tidyverse)
+    library(janitor)
+    library(gt)
+    
+    tribble(~A, ~Survived, ~Died,
+            "Survived", 510, 16,
+            "Died", 5, 90) |>
+      as_tabyl() |>
+      adorn_totals(c("col", "row")) |>
+      gt(rowname_col = "A") |>
+      tab_spanner(
+        columns = 2:3, # select all columns except the row variable
+        label = "B" # the name to display
+      ) |>
+      tab_stubhead(         # add row variable header
+        label = "A" 
+      ) 
+    ```
+
+-   If we have a 2x2 contingency taable with matched pairs as the sampling unit, we can put it into R using `matrix()`, as with other contingency tables.
   
-  tribble(~A, ~Survived, ~Died,
-          "Survived", 510, 16,
-          "Died", 5, 90) |>
-    as_tabyl() |>
-    adorn_totals(c("col", "row")) |>
-    gt(rowname_col = "A") |>
-    tab_spanner(
-      columns = 2:3, # select all columns except the row variable
-      label = "B" # the name to display
-    ) |>
-    tab_stubhead(         # add row variable header
-      label = "A" 
-    ) 
-  ```
+    ```{r}
+    tab <- matrix(c(510, 16, 5, 90), nrow = 2, byrow = TRUE)
+    dimnames(tab) <- list(A = c("Survived", "Died"), B = c("Survived", "Died"))
+    tab
+    ```
 
-- If we have a 2x2 contingency taable with matched pairs as the sampling unit, we can put it into R using `matrix()`, as with other contingency tables.
+-   To run McNemar's test, we can run `mcnemar.test()` for the large-sample approach
 
-  ```{r}
-  tab <- matrix(c(510, 16, 5, 90), nrow = 2, byrow = TRUE)
-  dimnames(tab) <- list(A = c("Survived", "Died"), B = c("Survived", "Died"))
-  tab
-  ```
+    ```{r}
+    mcnemar.test(tab) |>
+      tidy()
+    ```
 
-- To run McNemar's test, we can run `mcnemar.test()` for the large-sample approach
+-   This is the exact same as running `prop.test()` on the discordant pairs.
 
-  ```{r}
-  mcnemar.test(tab) |>
-    tidy()
-  ```
+    ```{r}
+    prop.test(x = 16, n = 5 + 16, p = 0.5) |>
+      tidy()
+    ```
 
-- This is the exact same as running `prop.test()` on the discordant pairs.
+-   For an exact test, we can run `binom.test()` on the discordant pairs. 
 
-  ```{r}
-  prop.test(x = 16, n = 5 + 16, p = 0.5) |>
-    tidy()
-  ```
+    ```{r}
+    binom.test(x = 16, n = 5 + 16, p = 0.5) |>
+      tidy()
+    ```
+    
+-   This is best for small sample sizes.
 
-- For an exact test, we can run `binom.test()` on the discordant pairs. 
+-   Rule of thumb: 20 or more discordant pairs is enough for McNemar's test. Fewer than that and use the binomial method.
 
-  ```{r}
-  binom.test(x = 16, n = 5 + 16, p = 0.5) |>
-    tidy()
-  ```
-- This is best for small sample sizes.
-
-- Rule of thumb: 20 or more discordant pairs is enough for McNemar's test. Fewer than that and use the binomial method.
-
-- But for this sample size, asymptotic approaches are fine.
+-   But for this sample size, asymptotic approaches are fine.
 
 # Raw Data Approach
 
-- Now suppose we don't have a 2x2 contingency table of pairs, but just two binary variables.
+-   Now suppose we don't have a 2x2 contingency table of pairs, but just two binary variables.
 
-- E.g., a mall device and a trained observer assess if a person is hypertensive. The data are as follows
+-   E.g., a mall device and a trained observer assess if a person is hypertensive. The data are as follows
 
-  ```{r, max.print=20}
-  df <- data.frame(
-    mall = c("-", "-", "+", "+", "-", "+", "-", "+", "+", "-", 
-             "+", "+", "-", "+", "-", "+", "+", "-", "-", "-"),
-    trained = c("-", "-", "-", "+", "-", "-", "-", "+", "+", "-", 
-                "-", "-", "-", "-", "+", "-", "-", "-", "-", "-")
-  )
-  df
-  ```
+    ```{r, max.print=20}
+    df <- data.frame(
+      mall = c("-", "-", "+", "+", "-", "+", "-", "+", "+", "-", 
+               "+", "+", "-", "+", "-", "+", "+", "-", "-", "-"),
+      trained = c("-", "-", "-", "+", "-", "-", "-", "+", "+", "-", 
+                  "-", "-", "-", "-", "+", "-", "-", "-", "-", "-")
+    )
+    df
+    ```
 
-- You can create the contingency table with `table()` and then run `mcnemar.test()`.
+-   You can create the contingency table with `table()` and then run `mcnemar.test()`.
 
-  ```{r}
-  tab <- table(df$mall, df$trained)
-  tab
-  mcnemar.test(tab) |>
-    tidy()
-  ```
+    ```{r}
+    tab <- table(df$mall, df$trained)
+    tab
+    mcnemar.test(tab) |>
+      tidy()
+    ```
 
-- Or run the exact test, which you should here since there are 8 discordant pairs, which is less than our rule of thumb of 20.
+-   Or run the exact test, which you should here since there are 8 discordant pairs, which is less than our rule of thumb of 20.
 
-  ```{r}
-  binom.test(x = 7, n = 7 + 1) |>
-    tidy()
-  ```
+    ```{r}
+    binom.test(x = 7, n = 7 + 1) |>
+      tidy()
+    ```
 
-- An alternative to first creating the contingency table is to just put each variable in `mcnemar.test()` (as long as the sample size is large enough.
+-   An alternative to first creating the contingency table is to just put each variable in `mcnemar.test()` (as long as the sample size is large enough.
 
-  ```{r}
-  mcnemar.test(x = df$mall, y = df$trained) |>
-    tidy()
-  ```
+    ```{r}
+    mcnemar.test(x = df$mall, y = df$trained) |>
+      tidy()
+    ```
 
-# Exercise
+::: {.panel-tabset}
+## Exercise (from Rosner): 
+A twin design is used to study age-related macular degeneration (AMD), a common eye disease of the elderly that results in substantial losses in vision. Suppose we contact 66 twinships in which one twin has AMD and the other twin does not. The twins are given a dietary questionnaire to report their usual diet. We find that in 10 twinships the AMD twin takes multivitamin supplements and the normal twin does not. In 8 twinships the normal twin takes multivitamin supplements and the AMD twin does not. In 3 twinships both twins take multivitamin supplements, and in 45 twinships neither twin takes multivitamin supplements.
 
-- **Exercise** (from Rosner): A twin design is used to study age-related macular degeneration (AMD), a common eye disease of the elderly that results in substantial losses in vision. Suppose we contact 66 twinships in which one twin has AMD and the other twin does not. The twins are given a dietary questionnaire to report their usual diet. We find that in 10 twinships the AMD twin takes multivitamin supplements and the normal twin does not. In 8 twinships the normal twin takes multivitamin supplements and the AMD twin does not. In 3 twinships both twins take multivitamin supplements, and in 45 twinships neither twin takes multivitamin supplements.
-    a. What test can be used to assess whether there is an association between AMD and taking multivitamin supplements?
-    b. Are AMD and taking multivitamin supplements significantly associated based on these data?
- 
+a. What test can be used to assess whether there is an association between AMD and taking multivitamin supplements?
+b. Are AMD and taking multivitamin supplements significantly associated based on these data?
+
+## Solution 
 ```{r}
-#| eval: false
-#| echo: false
 tab <- matrix(c(3, 10, 8, 45), nrow = 2, byrow = TRUE)
 dimnames(tab) <- list(AMD = c("Yes", "No"), normal = c("Yes", "No"))
 tab
-
-# This has 18 discordant pairs, so we should use the exact method.
-
-binom.test(x = 10, n = 10 + 8, p = 0.5) |>
-  tidy()
-
-# p-value = 0.8145, so no evidence of an association
 ```
 
- 
+This has 18 discordant pairs, so we should use the exact method.
 
+```{r}
+binom.test(x = 10, n = 10 + 8, p = 0.5) |>
+  tidy()
+```
 
+p-value = 0.8145, so no evidence of an association
+:::

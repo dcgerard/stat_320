@@ -513,79 +513,70 @@ $$
 
 # McNemar's Test
 
-- Used for matched samples where each unit has two binary outcomes.
+- Study design: Have matched samples, where each unit has two binary variables.
 
-- **Study design**: Have matched samples, each with two binary variables.
-
-- **Example**:  
-  - Treatment A vs. Treatment B  
-  - Survive vs. Not
-
-- Procedure:
+- Example:  
+  - Variable 1: Treatment A vs. Treatment B  
+  - Variable 2: Survive vs. Not
   - Choose a woman to go into A.
-  - Match another woman with similar characteristics to go into B.
+  - **Match** another woman with similar characteristics to go into B.
   - Observe survival for both.
 
-- “Similar characteristics”: age, weight, clinical condition, etc.
+- "Similar characteristics": age, weight, clinical condition, etc.
 
-- **Naive Way**: Treat each individual as an independent unit and use:
+- Naive Way: Treat each individual as an independent unit and put these in a 2 $\times$ 2 table:
 
-| Treatment | Survive | Die | Total |
-|-----------|---------|-----|-------|
-| A         | 526     | 95  | 621   |
-| B         | 515     | 106 | 621   |
-| **Total** | 1041    | 201 | 1242  |
+  | Treatment | Survive | Die | Row Total |
+  |-----------|---------|-----|-----------|
+  | A         | 526     | 95  | 621       |
+  | B         | 515     | 106 | 621       |
+  | Col Total | 1041    | 201 | 1242      |
 
-- You could run a $\chi^2$ test for homogeneity, but this is **wrong** — the data are matched, not independent.
+  - You could run a $\chi^2$ test for homogeneity, but this is **wrong** — the data are matched, not independent.
 
 - Instead, use a **matched-pair contingency table**.
+  - Above, each count is a person.
+  - Instead, each count should be a pair.
 
-**Pair structure**:
+- Correct way: Each matched pair is a unit
 
-|         | B: Survive | B: Die |
-|---------|------------|--------|
-| A: Survive |        |        |
-| A: Die     |        |        |
-
-- For example, if Pair 1: A = Y, B = N  
-  → contributes to (A:Y, B:N) cell.
-
-- Use this matched format to apply McNemar's Test.
-
-- **Correct way**: Each matched pair is a unit
-
-| A Outcome \ B Outcome | Survive | Die | Total |
-|-----------------------|---------|-----|-------|
-| Survive               | 510     | 16  | 526   |
-| Die                   | 5       | 90  | 95    |
-| **Total**             | 515     | 106 | 621   |
-
-- **Concordant pair**: Same outcome (both survive or both die)
-
-- **Discordant pair**: Different outcomes (one dies, one survives)
-
-- Concordant pairs tell you nothing about which treatment is better.
-
-- Test whether the two discordant cells have approximately the same counts.
-
-- Let:
-  - $X$ = number of pairs where A survives and B dies
-  - $n$ = number of discordant pairs
-
-$$
-X \sim \text{Binom}(n, p)
-$$
-
-- Hypotheses:
-  - $H_0$: $p = \frac{1}{2}$ (treatments A and B equally effective)
-  - $H_1$: $p \ne \frac{1}{2}$
-
+  |           | B Survive | B Die | Row Total |
+  |-----------|-----------|-------|-----------|
+  | A Survive | 510       | 16    | 526       |
+  | A Die     | 5         | 90    | 95        |
+  | Col Total | 515       | 106   | 621       |
+  
 ::: {.callout-important}
 ## Note
 Don’t use $\chi^2$ on this table because we know observations are associated (matched).  
 We only want to know which treatment does better.
 :::
 
+::: {.callout-tip}
+## Concordant pair
+Same outcome (e.g., both survive or both die)
+:::
+
+::: {.callout-tip}
+## Discordant pair
+Different outcomes (e.g. one dies, one survives)
+:::
+
+- Concordant pairs tell you nothing about which treatment is better.
+
+- Idea: Treatments are the same if they the discordant cells have approximately the same counts.
+
+- Let:
+  - $X$ = number of pairs where A survives and B dies
+  - $n$ = number of discordant pairs
+
+  $$
+  X \sim \text{Binom}(n, p)
+  $$
+
+- Hypotheses:
+  - $H_0$: $p = \frac{1}{2}$ (treatments A and B equally effective)
+  - $H_1$: $p \ne \frac{1}{2}$
 
 - Just use **binomial methods** on discordant pairs.
   - Use normal approximation for large counts
@@ -593,15 +584,13 @@ We only want to know which treatment does better.
 
 ---
 
- McNemar's Test in R
+[McNemar's Test in R](07_mcnemar.qmd)
 
 ---
 
 ::: {.panel-tabset}
 ## Exercise
-**Hypertension diagnosis**: Each person is assessed (1) by trained observer and (2) by a machine.  
-Each person is a unit and the assessments are matched.  
-Test if they give the same result (on average).
+**Hypertension diagnosis**: Each person is assessed (i) by trained observer and (ii) by a machine. Each person is a unit and the assessments are matched. Test if they give the same result (on average).
 
 |             | Trained + | Trained − |
 |-------------|-----------|-----------|
@@ -617,13 +606,15 @@ Let:
 - $X \sim \text{Binom}(8, p)$ (discordant total = 8)
 - $H_0: p = \frac{1}{2}$ vs. $H_1: p \ne \frac{1}{2}$
 
-Run binomial test in R:
+Run an exact binomial test in R:
 
-```r
+```{r}
 binom.test(x = 7, n = 8, p = 0.5)
 ```
 
-Cannot use mcnemar.test() here because it uses a normal approximation.
+The p-value is 0.07, so we only have weak evidence that the machines and technicians differ.
+
+Cannot use `mcnemar.test()` here because it uses a normal approximation.
 :::
 
 - Summary: If you can group individuals into concordant vs. discordant pairs, then use McNemar’s test.
