@@ -352,14 +352,8 @@ window.Quarto = {
   <li><a href="#fishers-exact-test" id="toc-fishers-exact-test" class="nav-link" data-scroll-target="#fishers-exact-test">Fisher’s Exact Test</a></li>
   <li><a href="#mcnemars-test" id="toc-mcnemars-test" class="nav-link" data-scroll-target="#mcnemars-test">McNemar’s Test</a></li>
   <li><a href="#larger-contingency-tables" id="toc-larger-contingency-tables" class="nav-link" data-scroll-target="#larger-contingency-tables">Larger Contingency Tables</a></li>
-  <li><a href="#chi2-goodness-of-fit-test" id="toc-chi2-goodness-of-fit-test" class="nav-link" data-scroll-target="#chi2-goodness-of-fit-test"><span class="math inline">\(\chi^2\)</span> Goodness-of-Fit Test</a>
-  <ul class="collapse">
-  <li><a href="#example-2-times-2-table" id="toc-example-2-times-2-table" class="nav-link" data-scroll-target="#example-2-times-2-table">Example: <span class="math inline">\(2 \times 2\)</span> Table</a></li>
-  </ul></li>
-  <li><a href="#cohens-kappa" id="toc-cohens-kappa" class="nav-link" data-scroll-target="#cohens-kappa">Cohen’s Kappa</a>
-  <ul class="collapse">
-  <li><a href="#properties-of-cohens-kappa" id="toc-properties-of-cohens-kappa" class="nav-link" data-scroll-target="#properties-of-cohens-kappa">Properties of Cohen’s Kappa</a></li>
-  </ul></li>
+  <li><a href="#chi2-goodness-of-fit-test" id="toc-chi2-goodness-of-fit-test" class="nav-link" data-scroll-target="#chi2-goodness-of-fit-test"><span class="math inline">\(\chi^2\)</span> Goodness-of-Fit Test</a></li>
+  <li><a href="#cohens-kappa" id="toc-cohens-kappa" class="nav-link" data-scroll-target="#cohens-kappa">Cohen’s Kappa</a></li>
   <li><a href="#exercises-10.810.13" id="toc-exercises-10.810.13" class="nav-link" data-scroll-target="#exercises-10.810.13">Exercises 10.8–10.13</a></li>
   </ul>
 </nav>
@@ -1447,25 +1441,21 @@ X^2 = \sum_{\text{cell}} \frac{(O - E)^2}{E}
 <hr>
 <p><a href="../07_cat/07_larger.html">Larger contingency tables in R</a></p>
 <hr>
-<p>Skip: <span class="math inline">\(\chi^2\)</span> test for trend</p>
+<p><strong>Skip <span class="math inline">\(\chi^2\)</span> test for trend</strong></p>
 </section>
 <section id="chi2-goodness-of-fit-test" class="level1">
 <h1><span class="math inline">\(\chi^2\)</span> Goodness-of-Fit Test</h1>
 <ul>
 <li><p>The <span class="math inline">\(\chi^2\)</span> tests of homogeneity are <strong>special cases</strong> of <span class="math inline">\(\chi^2\)</span> goodness-of-fit tests.</p></li>
-<li><p>Let <span class="math inline">\(e\)</span> be the expected counts under the null hypothesis.<br>
-Then: <span class="math display">\[
-\chi^2 = \sum_{\text{categories}} \frac{(e - o)^2}{e}, \quad o = \text{observed count}
+<li><p>Let <span class="math inline">\(e\)</span> be the expected counts under the null hypothesis. Let <span class="math inline">\(o\)</span> be the observed count. Let <span class="math display">\[
+X^2 = \sum_{\text{categories}} \frac{(e - o)^2}{e}.
 \]</span></p></li>
 <li><p>Under <span class="math inline">\(H_0\)</span>, <span class="math inline">\(\chi^2 \sim \chi^2_\nu\)</span></p></li>
 <li><p>Degrees of freedom: <span class="math display">\[
 \nu = \text{\# parameters under } H_1 - \text{\# parameters under } H_0
 \]</span></p></li>
-<li><p><span class="math inline">\(H_1\)</span> usually has more parameters (is more complex).</p></li>
-</ul>
-<hr>
-<section id="example-2-times-2-table" class="level3">
-<h3 class="anchored" data-anchor-id="example-2-times-2-table">Example: <span class="math inline">\(2 \times 2\)</span> Table</h3>
+<li><p><span class="math inline">\(H_1\)</span> has more parameters (is more complex).</p></li>
+<li><p>Example: <span class="math inline">\(2 \times 2\)</span> Table</p>
 <table class="caption-top table">
 <thead>
 <tr class="header">
@@ -1488,41 +1478,34 @@ Then: <span class="math display">\[
 </tbody>
 </table>
 <ul>
-<li><p><strong><span class="math inline">\(H_0\)</span>: Independence</strong></p>
+<li><span class="math inline">\(H_0\)</span>: Independence
 <ul>
-<li>2 parameters:
+<li>2 parameters: <span class="math inline">\(P(A)\)</span> and <span class="math inline">\(P(C)\)</span></li>
+<li>Since <span class="math inline">\(P(B) = 1 - P(A)\)</span>, it is redundant (know <span class="math inline">\(P(A)\)</span> then know <span class="math inline">\(P(B)\)</span>).</li>
+<li>Since <span class="math inline">\(P(D) = 1 - P(C)\)</span>, it is redundant (know <span class="math inline">\(P(C)\)</span> then know <span class="math inline">\(P(D)\)</span>).</li>
+</ul></li>
+<li><span class="math inline">\(H_1\)</span>: Association
 <ul>
-<li><span class="math inline">\(P(A)\)</span>, <span class="math inline">\(P(C)\)</span></li>
-<li><span class="math inline">\(P(B) = 1 - P(A)\)</span></li>
-<li><span class="math inline">\(P(D) = 1 - P(C)\)</span></li>
+<li>3 parameters: <span class="math inline">\(P(A \cap C)\)</span>, <span class="math inline">\(P(A \cap D)\)</span>, and <span class="math inline">\(P(B \cap C)\)</span></li>
+<li>Since <span class="math inline">\(P(B \cap D) = 1 - \left[ P(A \cap C) + P(A \cap D) + P(B \cap C) \right]\)</span>, it is redundant.</li>
 </ul></li>
-</ul></li>
-<li><p><strong><span class="math inline">\(H_1\)</span>: Association</strong></p>
-<ul>
-<li>3 parameters:
-<ul>
-<li><span class="math inline">\(P(A \cap C)\)</span>, <span class="math inline">\(P(A \cap D)\)</span>, <span class="math inline">\(P(B \cap C)\)</span></li>
-<li><span class="math inline">\(P(B \cap D) = 1 - \left[ P(A \cap C) + P(A \cap D) + P(B \cap C) \right]\)</span></li>
-</ul></li>
-</ul></li>
-<li><p>So: <span class="math display">\[
+<li>So: <span class="math display">\[
 \nu = 3 - 2 = 1
-\]</span></p></li>
+\]</span></li>
+</ul></li>
 </ul>
-</section>
 </section>
 <section id="cohens-kappa" class="level1">
 <h1>Cohen’s Kappa</h1>
 <ul>
-<li><p>Want a measure of how <strong>reliable</strong> a test is</p></li>
-<li><p>Or measure how <strong>similar</strong> two judges rate something</p></li>
-<li><p><strong>Example</strong>: 2 surveys measuring beef consumption</p></li>
-</ul>
+<li><p>Want a measure of how reliable a test is</p></li>
+<li><p>Or measure how similar two judges rate something</p></li>
+<li><p>Example: 2 surveys measuring beef consumption</p>
 <table class="caption-top table">
 <colgroup>
-<col style="width: 17%">
-<col style="width: 35%">
-<col style="width: 36%">
+<col style="width: 29%">
+<col style="width: 29%">
+<col style="width: 30%">
 <col style="width: 10%">
 </colgroup>
 <thead>
@@ -1530,7 +1513,7 @@ Then: <span class="math display">\[
 <th></th>
 <th>Survey 2: ≤ 1 serving/week</th>
 <th>Survey 2: &gt; 1 serving/week</th>
-<th>Total</th>
+<th>Row Total</th>
 </tr>
 </thead>
 <tbody>
@@ -1542,57 +1525,65 @@ Then: <span class="math display">\[
 </tr>
 <tr class="even">
 <td>Survey 1: &gt; 1 serving/week</td>
-<td>64</td>
+<td>69</td>
 <td>240</td>
 <td>304</td>
 </tr>
 <tr class="odd">
-<td><strong>Total</strong></td>
+<td>Col Total</td>
 <td>205</td>
 <td>332</td>
 <td>537</td>
 </tr>
 </tbody>
-</table>
-<hr>
-<ul>
-<li><p><strong>Idea</strong>: The “amount” of concordance reflects reliability of the survey</p></li>
+</table></li>
+<li><p>Idea: The “amount” of concordance reflects the reliability of the survey</p></li>
 <li><p>Observed proportion concordant: <span class="math display">\[
 p_o = \frac{136 + 240}{537} = 0.7
 \]</span></p></li>
 <li><p>Expected concordance under independence: <span class="math display">\[
-p_e = \frac{205 \cdot 228}{537^2} + \frac{332 \cdot 304}{537^2} = 0.518
-\]</span></p></li>
-<li><p><strong>Cohen’s kappa</strong>: <span class="math display">\[
-\kappa = \frac{p_o - p_e}{1 - p_e}
+p_e = \frac{205}{537} \cdot \frac{228}{537} + \frac{332}{537} \cdot \frac{304}{537} = 0.518
 \]</span></p></li>
 </ul>
-<section id="properties-of-cohens-kappa" class="level2">
-<h2 class="anchored" data-anchor-id="properties-of-cohens-kappa">Properties of Cohen’s Kappa</h2>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Cohen’s kappa
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><span class="math display">\[
+\kappa = \frac{p_o - p_e}{1 - p_e}
+\]</span></p>
+</div>
+</div>
+<ul>
+<li><p>Properties:</p>
 <ol type="1">
 <li><p>Bounds: <span class="math display">\[
 \frac{-p_e}{1 - p_e} \leq \kappa \leq 1
 \]</span></p>
 <ul>
-<li>Set <span class="math inline">\(p_o = 0\)</span> or <span class="math inline">\(1\)</span> for bounds.</li>
+<li>Set <span class="math inline">\(p_o = 0\)</span> or <span class="math inline">\(1\)</span> to prove this.</li>
 </ul></li>
-<li><p><span class="math inline">\(\kappa = 1\)</span> implies <strong>perfect concordance</strong>.</p></li>
-<li><p><strong>Rules of thumb</strong>:</p>
+<li><p><span class="math inline">\(\kappa = 1\)</span> implies perfect concordance.</p></li>
+<li><p>Rules of thumb:</p>
 <ul>
 <li><span class="math inline">\(\kappa &gt; 0.75\)</span> → excellent reproducibility</li>
 <li><span class="math inline">\(0.4 &lt; \kappa \leq 0.75\)</span> → good reproducibility</li>
 <li><span class="math inline">\(0 \leq \kappa \leq 0.4\)</span> → marginal reproducibility</li>
 </ul></li>
-</ol>
-<ul>
+</ol></li>
 <li><p>Confidence intervals and tests for <span class="math inline">\(\kappa\)</span> are possible.</p></li>
 <li><p>Use <span class="math inline">\(\kappa\)</span> for <strong>repeated measures</strong> of the <strong>same variable</strong>.</p></li>
-<li><p>For <strong>two different variables</strong>, use <strong>sensitivity</strong> and <strong>specificity</strong>.</p></li>
+<li><p>For <strong>two different variables</strong>, use <strong>sensitivity</strong> and <strong>specificity</strong>, not <span class="math inline">\(\kappa\)</span></p></li>
 </ul>
 <hr>
-<p>Cohen’s Kappa in R</p>
+<p><a href="../07_cat/07_kappa.html">Cohen’s Kappa in R</a></p>
 <hr>
-</section>
 </section>
 <section id="exercises-10.810.13" class="level1">
 <h1>Exercises 10.8–10.13</h1>
