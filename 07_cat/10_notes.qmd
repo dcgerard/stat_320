@@ -284,84 +284,96 @@ Calculate
 
 - Idea: Calculate expected counts from the assumption of independendence based on the margin totals.
   - $P(Z = A) = \frac{n_1}{N}$
+  - $P(Z = B) = \frac{n_2}{N}$
+  - $P(W = C) = \frac{m_1}{N}$
+  - $P(W = D) = \frac{m_2}{N}$
 
-$$
-, \quad P(Z = B) = \frac{n_2}{N}
-$$
+- The expected count under independence:
+  - $E[X_{11} \mid Z \perp W] = N \Pr(Z = A \cap W = C) = N\Pr(Z = A)\Pr(W=C) =  N \cdot \frac{n_1}{N} \cdot \frac{m_1}{N} = \frac{n_1 m_1}{N}$
+  - $E[X_{12} \mid Z \perp W] = N \Pr(Z = B \cap W = C) = N\Pr(Z = B)\Pr(W=C) =  N \cdot \frac{n_2}{N} \cdot \frac{m_1}{N} = \frac{n_2 m_1}{N}$
+  - $E[X_{21} \mid Z \perp W] = N \Pr(Z = A \cap W = D) = N\Pr(Z = A)\Pr(W=D) =  N \cdot \frac{n_1}{N} \cdot \frac{m_2}{N} = \frac{n_1 m_2}{N}$
+  - $E[X_{22} \mid Z \perp W] = N \Pr(Z = B \cap W = D) = N\Pr(Z = A)\Pr(W=C) =  N \cdot \frac{n_2}{N} \cdot \frac{m_2}{N} = \frac{n_2 m_2}{N}$
 
-$$
-P(W = C) = \frac{m_1}{N}, \quad P(W = D) = \frac{m_2}{N}
-$$
 
-$$
-P(Z = A \land W = C) = \frac{n_1}{N} \cdot \frac{m_1}{N}
-$$
+- Compare $X_{ij}$ to the expected value of $X_{ij}$ if variables were independent.
 
-- Expected count under independence:
+- Expected counts from age at first birth example:
 
-$$
-E[X_{11} \text{ (expected)}] = N \cdot \frac{n_1}{N} \cdot \frac{m_1}{N} = \frac{n_1 m_1}{N}
-$$
+  |          | ≥ 30                            | < 30                             |
+  |----------|---------------------------------|----------------------------------|
+  | Case     | $\frac{2181 \cdot 3220}{13465}$ | $\frac{11284 \cdot 3220}{13465}$ |
+  | Control  | $\frac{2181 \cdot 10245}{13465}$| $\frac{11284 \cdot 10245}{13465}$|
 
-- Compare observed $X_{11}$ to expected $X_{11}$.
+- This results in:
 
-- **Expected counts from age at first birth example**:
-
-|          | ≥ 30                           | < 30                          |
-|----------|--------------------------------|-------------------------------|
-| Case     | $\frac{2181 \cdot 3220}{13465}$ | $\frac{11284 \cdot 3220}{13465}$ |
-| Control  | $\frac{2181 \cdot 10245}{13465}$| $\frac{11284 \cdot 10245}{13465}$|
-
-- **Numerical values**:
-
-|          | ≥ 30   | < 30   |
-|----------|--------|--------|
-| Case     | 521.6  | 2698.4 |
-| Control  | 1659.4 | 8585.6 |
+  |          | ≥ 30   | < 30   |
+  |----------|--------|--------|
+  | Case     | 521.6  | 2698.4 |
+  | Control  | 1659.4 | 8585.6 |
 
 - How do these compare to observed counts?
 
 - Whenever you compare observed counts to expected counts, do a Pearson $\chi^2$ test.
 
-$$
-\chi^2 = \sum_{\text{categories}} \frac{(O - E)^2}{E}
-$$
+  $$
+  X^2 = \sum_{\text{categories}} \frac{(O - E)^2}{E}
+  $$
 
-- Where:
   - $O$ = observed count
   - $E$ = expected count
 
-- If $H_0$ is true, then $\chi^2 \sim \chi^2_\nu$
+- If $H_0$ is true, then $X^2 \sim \chi^2_\nu$
   - $\nu$ = degrees of freedom
 
 - For a test of homogeneity in $2 \times 2$ tables, $\nu = 1$
 
-- **Example**: Birth example
+-   Birth example:
 
-$$
-\chi^2 = \frac{(683 - 521.6)^2}{521.6} + \frac{(2537 - 2698.4)^2}{2698.4} 
-+ \frac{(1498 - 1659.4)^2}{1659.4} + \frac{(8747 - 8585.6)^2}{8585.6}
-= 77.84
-$$
+    $$
+    X^2 = \frac{(683 - 521.6)^2}{521.6} + \frac{(2537 - 2698.4)^2}{2698.4} 
+    + \frac{(1498 - 1659.4)^2}{1659.4} + \frac{(8747 - 8585.6)^2}{8585.6}
+    = 77.89
+    $$
 
-**XYZ IMAGE HERE**
+    ```{r}
+    #| echo: false
+    tibble(x = seq(0, 80, length.out = 500)) |>
+      mutate(y = dchisq(x = x, df = 1),
+             up = x > 77.89) |>
+      ggplot(aes(x = x, y = y, color = up)) +
+      geom_line(linewidth = 1) +
+      scale_color_manual(values = palette.colors(2)) +
+      guides(color = "none") +
+      xlab(expression(x^2)) +
+      ylab("Density") +
+      ggtitle(expression(chi[1]^2-Distribution)) +
+      geom_vline(xintercept = 77.89, linetype = "dashed") +
+      scale_x_continuous(breaks = 77.89, labels = "77.89")
+    ```
 
-- In R:
-```r
-pchisq(77.84, df = 1, lower.tail = FALSE)
-```
+
+-   In R:
+    ```{r}
+    1 - pchisq(77.89, df = 1)
+    ```
+    
+-   It's more numerically accurate to use `lower.tail = FALSE` because R has better precision for numbers close to 0 than for numbers close to 1.
+    ```{r}
+    pchisq(77.89, df = 1, lower.tail = FALSE)
+    ```
 
 ::: {.panel-tabset}
 ## Exercise
 What are the expected counts of the following OC use vs. MI table?
 
-| OC Use | MI Yes | MI No | Total |
-|--------|--------|-------|-------|
-| Yes    | 13     | 4987  | 5000  |
-| No     | 7      | 9993  | 10000 |
-| **Total** | 20     | 14980 | 15000 |
+| OC Use    | MI Yes | MI No | Row Total |
+|-----------|--------|-------|-----------|
+| Yes       | 13     | 4987  | 5000      |
+| No        | 7      | 9993  | 10000     |
+| Col Total | 20     | 14980 | 15000     |
 
 ## Hint
+
 Use:  
 $$
 E = \frac{\text{row total} \cdot \text{column total}}{\text{grand total}}
@@ -369,13 +381,26 @@ $$
 Apply for each cell.
 
 ## Solution
-Expected counts:
+
+| OC Use | MI Yes                         | MI No                             |
+|--------|--------------------------------|-----------------------------------|
+| Yes    | $\frac{20 \cdot 5000}{15000}$  | $\frac{14980 \cdot 5000}{15000}$  |
+| No     | $\frac{20 \cdot 10000}{15000}$ | $\frac{14980 \cdot 10000}{15000}$ |
+
 
 | OC Use | MI Yes | MI No   |
 |--------|--------|---------|
 | Yes    | 6.7    | 4993.3  |
 | No     | 13.3   | 9986.7  |
 
+:::
+
+
+::: {.panel-tabset}
+## Exercise
+Calculate the $\chi^2$ statistic from the previous exercise.
+
+## Solution:
 Chi-squared test statistic:
 
 $$
@@ -383,115 +408,106 @@ $$
 \frac{(13 - 6.7)^2}{6.7} +
 \frac{(4987 - 4993.3)^2}{4993.3} +
 \frac{(7 - 13.3)^2}{13.3} +
-\frac{(9993 - 9986.7)^2}{9986.7}
+\frac{(9993 - 9986.7)^2}{9986.7} = 8.92
 $$
-
 :::
 
 ---
 
-Contingency test perspective in R.
+[Contingency test perspective in R](07_binom.qmd#contingency-table-perspective)
 
 ---
 
 # Fisher's Exact Test
 
-- Used when expected counts are small.
-
 - What if $n$ is small?
 
-- "Small": Any **expected** count $\leq 5$
+- Rule of thumb for "small": Any **expected** count $< 5$
+  - It's OK if the observed counts are $< 5$.
 
-- **Example**: Salt diet vs. cardiovascular disease (CVD) death
+- Example: Salt diet vs. cardiovascular disease (CVD) death
 
-| Cause of Death | High Salt | Low Salt | Total |
-|----------------|-----------|----------|--------|
-| Non-CVD        | 2         | 23       | 25     |
-| CVD            | 5         | 30       | 35     |
-| **Total**      | 7         | 53       | 60     |
+  | Cause of Death | High Salt | Low Salt | Row Total |
+  |----------------|-----------|----------|-----------|
+  | Non-CVD        | 2         | 23       | 25        |
+  | CVD            | 5         | 30       | 35        |
+  | Col Total      | 7         | 53       | 60        |
 
 - Expected count for top-left cell:
   $$
   E_{11} = \frac{7 \cdot 25}{60} = 2.92 < 5
   $$
 
-- Use $2.92$ (not $2$) to determine normality approximation validity.
+  - Use $2.92$ (not $2$) to determine normality approximation validity.
 
-::: {.callout-important}
+::: {.callout-tip}
 ## Exact Test
-Controls Type I error for **any** $n$, not just large $n$.
+An exact test is one that controls Type I error for **any** $n$, not just large $n$.
 :::
 
-Steps:
 
-1. Fix margins  
-2. Enumerate all possible tables with those margins  
-3. Each table has a known probability (under $H_0$)  
-4. Find how likely our observed table is (if $H_0$ true)  
+::: {.callout-important}
+## Fisher's Exact Test
+1. Fix the margin totals.
+2. Enumerate all possible tables with those same margin totals. 
+3. Each table has a known probability (under $H_0$).
+4. Find how likely our observed table is (if $H_0$ true) by summing over all tables less than or as probable as our observed table.
+:::
 
-- **Observed table**:
+- To find all tables that maintain margin totals, you can start from your observed table and perform one of these two operations until the operations become impossible (because doing so would create negative counts).
 
-| High Salt | Low Salt |
-|-----------|----------|
-| 2         | 23       |
-| 5         | 30       |
+  $$
+  \pmatrix{x_{11} - 1 & x_{12} + 1 \\ x_{21} + 1 & x_{22} - 1}
+  $$
+  or
+  $$
+  \pmatrix{x_{11} + 1 & x_{12} - 1 \\ x_{21} - 1 & x_{22} + 1}
+  $$
 
-- All possible $2 \times 2$ tables with fixed margins:
+- Our observe table is
 
-| Non-CVD | CVD | p-value |
-|---------|-----|---------|
-| 0, 25   | 7, 28 | 0.017 |
-| 1, 24   | 6, 29 | 0.105 |
-| 2, 23   | 5, 30 | 0.252 ⬅️ observed table |
-| 3, 22   | 4, 31 | 0.312 |
-| 4, 21   | 3, 32 | 0.214 |
-| 5, 20   | 2, 33 | 0.082 |
-| 6, 19   | 1, 34 | 0.016 |
-| 7, 18   | 0, 35 | 0.001 |
+  $$
+  \pmatrix{2 & 23 \\ 5 & 30}
+  $$
+- All possible $2 \times 2$ tables with the exact same margins
 
-- Sum all probabilities $\leq$ the observed one to get the **p-value**.
+  | Table                        | Probability Under Null     |
+  |------------------------------|----------------------------|
+  | $\pmatrix{0 & 25 \\ 7 & 28}$ | **0.017**                  |
+  | $\pmatrix{1 & 24 \\ 6 & 29}$ | **0.105**                  |
+  | $\pmatrix{2 & 23 \\ 5 & 30}$ | **0.252** (observed table) |
+  | $\pmatrix{3 & 22 \\ 4 & 31}$ | 0.312                      |
+  | $\pmatrix{4 & 21 \\ 3 & 32}$ | **0.214**                  |
+  | $\pmatrix{5 & 20 \\ 2 & 33}$ | **0.082**                  |
+  | $\pmatrix{6 & 19 \\ 1 & 34}$ | **0.016**                  |
+  | $\pmatrix{7 & 18 \\ 0 & 35}$ | **0.001**                  |
 
-- These probabilities come from the **hypergeometric distribution**  
-  *(don’t need to know the formula)*
+- Sum all probabilities $\leq$ the observed one (in bold) to get the p-value.
+
+- These probabilities come from the hypergeometric distribution (we won't cover the exact formula).
+
+
 
 ::: {.panel-tabset}
 ## Exercise
 What are the possible tables with fixed margins from the following?
 
-|   |   |
-|---|---|
-| 2 | 1 |
-| 2 | 2 |
+$$
+\pmatrix{2 & 1 \\ 2 & 2}
+$$
 
 ## Solution
 
 - Valid tables with these margins:
-
-|   |   |
-|---|---|
-| 3 | 0 |
-| 1 | 3 |
-
-|   |   |
-|---|---|
-| 2 | 1 |
-| 2 | 2 |
-
-|   |   |
-|---|---|
-| 1 | 2 |
-| 3 | 1 |
-
-|   |   |
-|---|---|
-| 0 | 3 |
-| 4 | 0 |
-
+  - $\pmatrix{3 & 0 \\ 1 & 3}$
+  - $\pmatrix{2 & 1 \\ 2 & 2}$
+  - $\pmatrix{1 & 2 \\ 3 & 1}$
+  - $\pmatrix{0 & 3 \\ 4 & 0}$
 :::
 
 ---
 
-Fisher Exact Test in R
+[Fisher Exact Test in R](07_binom.qmd#fishers-exact-test)
 
 ---
 

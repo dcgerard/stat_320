@@ -87,109 +87,129 @@ library(broom)
     2 * pnorm(-abs(z))
     ```
 
-- **Exercise**: A study looked at the effects of oral contraceptive (OC) use on heart disease in women 40 to 44 years of age. The researchers found that among 5000 current OC users at baseline, 13 women developed a myocardial infarction (MI) over a 3-year period, whereas among 10,000 never-OC users, 7 developed an MI over a 3-year period. Assess the statistical significance of the results. Do this both "by hand" and using `prop.test()`. State your results.
+::: {.panel-tabset}
+## Exercise
+A study looked at the effects of oral contraceptive (OC) use on heart disease in women 40 to 44 years of age. The researchers found that among 5000 current OC users at baseline, 13 women developed a myocardial infarction (MI) over a 3-year period, whereas among 10,000 never-OC users, 7 developed an MI over a 3-year period. Assess the statistical significance of the results. Do this both "by hand" and using `prop.test()`. State your results.
 
+## Solution
+Let $X_1$ be the number of OC users that have MI (out of $n_1 = 5000$). Let $X_2$ be the number of never-OC users that have MI (out of $n_1 = 10000$). Then $X_1 \sim \mathrm{Binom}(n_1,p_1)$ and $X_2 \sim \mathrm{Binom}(n_2,p_2)$. We are testing $H_0: p_1 = p_2$ versus $H_1: p_1 \neq p_2$.
+
+Using `prop.test()` we get:
 ```{r}
-#| echo: false
-#| eval: false
 prop.test(x = c(13, 7), n = c(5000, 10000)) |>
   tidy()
+```
+
+We calculate $\hat{p}_1$, $\hat{p}_2$, and $\hat{p}$
+```{r}
 p1hat <- 13 / 5000
 p2hat <- 7 / 10000
 phat <- (13 + 7) / (5000 + 10000)
-z <- (p1hat - p2hat) / sqrt((1 / 5000 + 1 / 10000) * phat * (1 - phat))
-2 * pnorm(-abs(z))
-
-## With continuity correction
-# z <- (p1hat - p2hat - 1/10000 - 1/20000) / sqrt((1 / 5000 + 1 / 10000) * phat * (1 - phat))
-
-# We have strong evidence that there is a difference in MI rates between OC users and non-OC users.
 ```
+
+The $z$ statistic is
+```{r}
+z <- (p1hat - p2hat) / sqrt((1 / 5000 + 1 / 10000) * phat * (1 - phat))
+```
+
+The two-sided $p$-value is:
+```{r}
+2 * pnorm(-abs(z))
+```
+
+With continuity correction, this becomes:
+```{r}
+z <- (p1hat - p2hat - 1/10000 - 1/20000) / sqrt((1 / 5000 + 1 / 10000) * phat * (1 - phat))
+2 * pnorm(-abs(z))
+```
+
+We have strong evidence that there is a difference in MI rates between OC users and non-OC users (p = 0.005626).
+:::
 
 # Contingency Table Perspective
 
 - In this study design, we collected case women and control women, and measured their age.
 
-- If we would have run the test accidentally assuming that we had collected younger and older women, and measured their cancer status, then it turns out that we would have gotten the **exact same** $p$-value.
+-   If we would have run the test accidentally assuming that we had collected younger and older women, and measured their cancer status, then it turns out that we would have gotten the **exact same** $p$-value.
 
-  ```{r}
-  prop.test(x = c(683, 1498), n = c(3220, 10245))$p.value
-  prop.test(x = c(683, 2537), n = c(2181, 11284))$p.value
-  ```
+    ```{r}
+    prop.test(x = c(683, 1498), n = c(3220, 10245))$p.value
+    prop.test(x = c(683, 2537), n = c(2181, 11284))$p.value
+    ```
 
-- You can consider the binomial test, then, as a test for **association** between two variables that each are binary (categorical with only two categories).
+-   You can consider the binomial test, then, as a test for **association** between two variables that each are binary (categorical with only two categories).
 
-- To run the **equivalent** test of association using a contingency table, first create it using `matrix()`:
+-   To run the **equivalent** test of association using a contingency table, first create it using `matrix()`:
 
-  ```{r}
-  tab <- matrix(c(683, 1498, 2537, 8747), nrow = 2, ncol = 2, byrow = TRUE)
-  dimnames(tab) <- list(Age = c("≥30", "≤29"), Status = c("Case", "Control"))
-  tab
-  ```
+    ```{r}
+    tab <- matrix(c(683, 1498, 2537, 8747), nrow = 2, ncol = 2, byrow = TRUE)
+    dimnames(tab) <- list(Age = c("≥30", "≤29"), Status = c("Case", "Control"))
+    tab
+    ```
   
-- The `dimnames()` code above sets the row names (first) and the column names (second) via a list object.
+-   The `dimnames()` code above sets the row names (first) and the column names (second) via a list object.
 
-- Then just plug it into `chisq.test()`.
+-   Then just plug it into `chisq.test()`.
 
-  ```{r}
-  chisq.test(tab) |>
-    tidy()
-  ```
+    ```{r}
+    chisq.test(tab) |>
+      tidy()
+    ```
 
-- **Exercise**: From OC exercise above, insert these data into a 2x2 contingency table. Then run a chi-squared test for homogeneity. Verify that your results are the same as in the first exercise.
+::: {.panel-tabset}
+## Exercise
+From OC exercise above, insert these data into a 2x2 contingency table. Then run a chi-squared test for homogeneity. Verify that your results are the same as above.
 
+## Solution
 ```{r}
-#| echo: false
-#| eval: false
 tab <- matrix(c(13, 5000 - 13, 7, 10000 - 7), nrow = 2, byrow = TRUE)
 dimnames(tab) <- list(OC = c("Yes", "No"), MI = c("Yes", "No"))
 tab
 chisq.test(tab) |>
   tidy()
-## p-value is the same as above
 ```
+p-value is the same as above
+:::
 
 # Fisher's Exact Test
 
-- The above methods are only valid for large $n$ (expected counts at least 5 in *every* cell).
+-   The above methods are only valid for large $n$ (expected counts at least 5 in *every* cell).
 
-- If this is not a valid assumption, then you can use `fisher.test()` to run an exact test (controls Type I error for all $n$, not just large $n$).
+-   If this is not a valid assumption, then you can use `fisher.test()` to run an exact test (controls Type I error for all $n$, not just large $n$).
 
-- The syntax is the exact same as `chisq.test()`
+-   The syntax is the exact same as `chisq.test()`
 
-  ```{r}
-  tab
-  fisher.test(tab) |>
-    tidy()
-  ```
+    ```{r}
+    tab
+    fisher.test(tab) |>
+      tidy()
+    ```
   
-- For large $n$, the chi-squared and Fisher tests will provide about the same values. So why use `chisq.test()`? Sometimes, approximate methods can be better. But my opinion is that the stated benefits are minor compared to the benefit of controlling type I error exactly. So I would always use the Fisher test.
+-   For large $n$, the chi-squared and Fisher tests will provide about the same values. So why use `chisq.test()`? Sometimes, approximate methods can be better. But my opinion is that the stated benefits are minor compared to the benefit of controlling type I error exactly. So I would always use the Fisher test.
 
-- **Exercise**: Researchers collected information on salt diet versus cardiovascular death. Run a Fisher's exact test using the below table to evaluate if diet is associated with cardiovascular death. How does it compare to the chi-squared test?
-
-
-  ```{r}
-  #| message: false
-  #| echo: false
-  tribble(~`Cause of death`, ~`High salt`, ~`Low salt`,
-          "Non-CVD", 2, 23,
-          "CVD", 5, 30) |>
-    as_tabyl() |>
-    adorn_totals(c("col", "row")) |>
-    gt(rowname_col = "Cause of death") |>
-    tab_spanner(
-      columns = 2:3, # select all columns except the row variable
-      label = "Type of diet" # the name to display
-    ) |>
-    tab_stubhead(         # add row variable header
-      label = "Cause of death" 
-    ) 
-  ```
-
-
+::: {.panel-tabset}
+## Exercise
+Researchers collected information on salt diet versus cardiovascular death. Run a Fisher's exact test using the below table to evaluate if diet is associated with cardiovascular death. How does it compare to the chi-squared test?
 ```{r}
+#| message: false
 #| echo: false
-#| eval: false
+tribble(~`Cause of death`, ~`High salt`, ~`Low salt`,
+        "Non-CVD", 2, 23,
+        "CVD", 5, 30) |>
+  as_tabyl() |>
+  adorn_totals(c("col", "row")) |>
+  gt(rowname_col = "Cause of death") |>
+  tab_spanner(
+    columns = 2:3, # select all columns except the row variable
+    label = "Type of diet" # the name to display
+  ) |>
+  tab_stubhead(         # add row variable header
+    label = "Cause of death" 
+  ) 
+```
+
+## Solution
+```{r}
 #| warning: false
 tab <- matrix(c(2, 23, 5, 30), nrow = 2, byrow = TRUE)
 dimnames(tab) <- list(cause = c("Non-CVD", "CVD"), diet = c("High salt", "Low salt"))
@@ -198,8 +218,7 @@ fisher.test(tab) |>
   tidy()
 chisq.test(tab) |>
   tidy()
-
-# Same conclusion. No evidence of an association. But p-value is smaller in
-# Fisher's exact test.
 ```
 
+Same conclusion. No evidence of an association. But p-value is smaller in Fisher's exact test.
+:::
