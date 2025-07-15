@@ -939,7 +939,7 @@ Apply for each cell.</p>
 <div id="tabset-2-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-2-tab">
 <p>Chi-squared test statistic:</p>
 <p><span class="math display">\[
-\chi^2 =
+X^2 =
 \frac{(13 - 6.7)^2}{6.7} +
 \frac{(4987 - 4993.3)^2}{4993.3} +
 \frac{(7 - 13.3)^2}{13.3} +
@@ -1324,14 +1324,13 @@ probability of success
 <section id="larger-contingency-tables" class="level1">
 <h1>Larger Contingency Tables</h1>
 <ul>
-<li>Instead of 2 binary variables, we now have 2 categorical variables.
+<li><p>Instead of 2 binary variables, we now have 2 categorical variables.</p>
 <ul>
 <li>Variable 1 has <span class="math inline">\(R\)</span> levels<br>
 </li>
 <li>Variable 2 has <span class="math inline">\(C\)</span> levels</li>
 </ul></li>
-<li><strong>Example</strong>: Cancer vs.&nbsp;Age at First Birth</li>
-</ul>
+<li><p>Example: Cancer vs.&nbsp;Age at First Birth</p>
 <table class="caption-top table">
 <thead>
 <tr class="header">
@@ -1341,18 +1340,18 @@ probability of success
 <th>25–29</th>
 <th>30–34</th>
 <th>≥ 35</th>
-<th>Total</th>
+<th>Col Total</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
 <td>Case</td>
-<td>326</td>
+<td>320</td>
 <td>1206</td>
 <td>1011</td>
 <td>463</td>
 <td>220</td>
-<td>3226</td>
+<td>3220</td>
 </tr>
 <tr class="even">
 <td>Control</td>
@@ -1360,77 +1359,93 @@ probability of success
 <td>4432</td>
 <td>2893</td>
 <td>1092</td>
-<td>906</td>
+<td>406</td>
 <td>10245</td>
 </tr>
 <tr class="odd">
-<td><strong>Total</strong></td>
-<td>1748</td>
+<td>Row Total</td>
+<td>1742</td>
 <td>5638</td>
 <td>3904</td>
 <td>1555</td>
-<td>1126</td>
+<td>626</td>
 <td>13465</td>
 </tr>
 </tbody>
-</table>
-<ul>
+</table></li>
 <li><p><span class="math inline">\(H_0\)</span>: Cancer status ⟂ Age at first birth<br>
 </p></li>
-<li><p><span class="math inline">\(H_1\)</span>: The two variables are <strong>related</strong></p></li>
+<li><p><span class="math inline">\(H_1\)</span>: The two variables are related</p></li>
 <li><p>Use the same contingency table approach as for <span class="math inline">\(2 \times 2\)</span> tables:</p></li>
 </ul>
 <ol type="1">
-<li>Calculate expected counts assuming independence<br>
-</li>
-<li>Compare to observed counts using <span class="math inline">\(\chi^2\)</span> statistic:</li>
-</ol>
-<p><span class="math display">\[
-\chi^2 = \sum_{\text{cells}} \frac{(O - E)^2}{E}
-\]</span></p>
-<ol start="3" type="1">
-<li><span class="math inline">\(\chi^2 \sim \chi^2_\nu\)</span> if <span class="math inline">\(H_0\)</span> is true</li>
-</ol>
-<ul>
-<li>Degrees of freedom: <span class="math display">\[
+<li><p>Calculate expected counts assuming independence<br>
+</p></li>
+<li><p>Compare to observed counts using <span class="math inline">\(\chi^2\)</span> statistic: <span class="math display">\[
+X^2 = \sum_{\text{cells}} \frac{(O - E)^2}{E}
+\]</span></p></li>
+<li><p><span class="math inline">\(X^2 \sim \chi^2_\nu\)</span> if <span class="math inline">\(H_0\)</span> is true where <span class="math display">\[
 \nu = (R - 1)(C - 1)
-\]</span></li>
-</ul>
-<p><strong>XYZ IMAGE HERE</strong></p>
+\]</span></p></li>
+<li><p><span class="math inline">\(p\)</span>-value is the upper tail area</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="10_notes_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="384"></p>
+</figure>
+</div>
+</div>
+</div></li>
+</ol>
 <ul>
-<li>Example expected cell computations:</li>
+<li>For example, from the table above we have
+<ul>
+<li><span class="math inline">\(E_{11} = \frac{1742 \cdot 3220}{13465} = 416.6\)</span></li>
+<li><span class="math inline">\(E_{12} = \frac{1742 \cdot 10245}{13465} = 1348.3\)</span></li>
+<li>Etc…</li>
+</ul></li>
 </ul>
-<p><span class="math display">\[
-E_{11} = \frac{1742 \cdot 3220}{13465} = 416.6
-\]</span> - <span class="math inline">\(P(\text{&lt;20}) \cdot P(\text{case})\)</span></p>
-<p><span class="math display">\[
-E_{12} = \frac{1742 \cdot 10245}{13465} = 1348.3
-\]</span> - <span class="math inline">\(P(\text{&lt;20}) \cdot P(\text{control})\)</span></p>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-5-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-5-1" role="tab" aria-controls="tabset-5-1" aria-selected="true">Exercise</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-5-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-5-2" role="tab" aria-controls="tabset-5-2" aria-selected="false">Solution</a></li></ul>
 <div class="tab-content">
 <div id="tabset-5-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-5-1-tab">
 <p>Compute <span class="math inline">\(E_{25}\)</span>:</p>
+</div>
+<div id="tabset-5-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-5-2-tab">
 <p><span class="math display">\[
 E_{25} = \frac{626 \cdot 10245}{13465} = 476.3
 \]</span></p>
 </div>
-<div id="tabset-5-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-5-2-tab">
-<p>Plug into <span class="math inline">\(\chi^2\)</span> formula:</p>
+</div>
+</div>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-6-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-6-1" role="tab" aria-controls="tabset-6-1" aria-selected="true">Exercise</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-6-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-6-2" role="tab" aria-controls="tabset-6-2" aria-selected="false">Solution</a></li></ul>
+<div class="tab-content">
+<div id="tabset-6-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-6-1-tab">
+<p>It turns out that the <span class="math inline">\(\chi^2\)</span> statistic is:</p>
 <p><span class="math display">\[
-\chi^2 = \sum_{\text{cell}} \frac{(O - E)^2}{E}
-= \frac{(416.6 - 326)^2}{416.6} + \cdots + \frac{(476.3 - 406)^2}{476.3} = 130.3
+X^2 = \sum_{\text{cell}} \frac{(O - E)^2}{E}
+= \frac{(416.6 - 320)^2}{416.6} + \cdots + \frac{(476.3 - 406)^2}{476.3} = 130.3
 \]</span></p>
-<p>Degrees of freedom: <span class="math display">\[
+<p>What is the <span class="math inline">\(p\)</span>-value for the test for independence?</p>
+</div>
+<div id="tabset-6-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-6-2-tab">
+<p>The degrees of freedom of the <span class="math inline">\(\chi^2\)</span> distribution is: <span class="math display">\[
 \nu = (2 - 1)(5 - 1) = 4
 \]</span></p>
-<p>R code:</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pchisq</span>(<span class="fl">130.3</span>, <span class="at">df =</span> <span class="dv">4</span>, <span class="at">lower.tail =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>So the <span class="math inline">\(p\)</span>-value is</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pchisq</span>(<span class="fl">130.3</span>, <span class="at">df =</span> <span class="dv">4</span>, <span class="at">lower.tail =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 3.359e-27</code></pre>
+</div>
+</div>
 </div>
 </div>
 </div>
 <hr>
-<p>Larger contingency tables in R</p>
+<p><a href="../07_cat/07_larger.html">Larger contingency tables in R</a></p>
 <hr>
 <p>Skip: <span class="math inline">\(\chi^2\)</span> test for trend</p>
 </section>

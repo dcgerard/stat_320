@@ -404,7 +404,7 @@ Calculate the $\chi^2$ statistic from the previous exercise.
 Chi-squared test statistic:
 
 $$
-\chi^2 =
+X^2 =
 \frac{(13 - 6.7)^2}{6.7} +
 \frac{(4987 - 4993.3)^2}{4993.3} +
 \frac{(7 - 13.3)^2}{13.3} +
@@ -627,81 +627,96 @@ Cannot use `mcnemar.test()` here because it uses a normal approximation.
   - Variable 1 has $R$ levels  
   - Variable 2 has $C$ levels
 
-- **Example**: Cancer vs. Age at First Birth
+- Example: Cancer vs. Age at First Birth
 
-| Age       | < 20 | 20–24 | 25–29 | 30–34 | ≥ 35 | Total |
-|-----------|------|-------|-------|-------|------|--------|
-| Case      | 326  | 1206  | 1011  | 463   | 220  | 3226   |
-| Control   | 1422 | 4432  | 2893  | 1092  | 906  | 10245  |
-| **Total** | 1748 | 5638  | 3904  | 1555  | 1126 | 13465  |
+  | Age       | < 20 | 20–24 | 25–29 | 30–34 | ≥ 35 | Col Total |
+  |-----------|------|-------|-------|-------|------|-----------|
+  | Case      | 320  | 1206  | 1011  | 463   | 220  | 3220      |
+  | Control   | 1422 | 4432  | 2893  | 1092  | 406  | 10245     |
+  | Row Total | 1742 | 5638  | 3904  | 1555  | 626  | 13465     |
 
 - $H_0$: Cancer status ⟂ Age at first birth  
-- $H_1$: The two variables are **related**
+- $H_1$: The two variables are related
 
 - Use the same contingency table approach as for $2 \times 2$ tables:
 
 1. Calculate expected counts assuming independence  
 2. Compare to observed counts using $\chi^2$ statistic:
+   $$
+   X^2 = \sum_{\text{cells}} \frac{(O - E)^2}{E}
+   $$
+3. $X^2 \sim \chi^2_\nu$ if $H_0$ is true where
+   $$
+   \nu = (R - 1)(C - 1)
+   $$
+4.  $p$-value is the upper tail area
 
-$$
-\chi^2 = \sum_{\text{cells}} \frac{(O - E)^2}{E}
-$$
+    ```{r}
+    #| echo: false
+    tibble(x = seq(0, 15, length.out = 200)) |>
+      mutate(y = dchisq(x = x, df = 3)) ->
+      df1
+    df1 |>
+      filter(x > 3.5) ->
+      df2
+    ggplot() +
+      geom_line(data = df1, mapping = aes(x = x, y = y), linewidth = 1) +
+      geom_line(data = df2, mapping = aes(x = x, y = y), linewidth = 1, color = palette.colors(2)[[2]]) +
+      geom_area(data = df2, mapping = aes(x = x, y = y), fill = palette.colors(2)[[2]]) +
+      guides(color = "none") +
+      ylab("Density") +
+      ggtitle(expression(chi[nu]^2-Distribution)) +
+      geom_vline(xintercept = 3.5, linetype = "dashed") +
+      scale_x_continuous(breaks = 3.5, labels = expression(x^2)) +
+      theme(axis.title.x = element_blank())
+    ```
 
-3. $\chi^2 \sim \chi^2_\nu$ if $H_0$ is true
 
-- Degrees of freedom:
-$$
-\nu = (R - 1)(C - 1)
-$$
-
-**XYZ IMAGE HERE**
-
-- Example expected cell computations:
-
-$$
-E_{11} = \frac{1742 \cdot 3220}{13465} = 416.6
-$$
-- $P(\text{<20}) \cdot P(\text{case})$
-
-$$
-E_{12} = \frac{1742 \cdot 10245}{13465} = 1348.3
-$$
-- $P(\text{<20}) \cdot P(\text{control})$
+- For example, from the table above we have
+  - $E_{11} = \frac{1742 \cdot 3220}{13465} = 416.6$
+  - $E_{12} = \frac{1742 \cdot 10245}{13465} = 1348.3$
+  - Etc...
 
 ::: {.panel-tabset}
 ## Exercise
 Compute $E_{25}$:
 
+## Solution
 $$
 E_{25} = \frac{626 \cdot 10245}{13465} = 476.3
 $$
+:::
+
+::: {.panel-tabset}
+## Exercise
+It turns out that the $\chi^2$ statistic is:
+
+$$
+X^2 = \sum_{\text{cell}} \frac{(O - E)^2}{E} 
+= \frac{(416.6 - 320)^2}{416.6} + \cdots + \frac{(476.3 - 406)^2}{476.3} = 130.3
+$$
+
+What is the $p$-value for the test for independence?
 
 ## Solution
-Plug into $\chi^2$ formula:
-
-$$
-\chi^2 = \sum_{\text{cell}} \frac{(O - E)^2}{E} 
-= \frac{(416.6 - 326)^2}{416.6} + \cdots + \frac{(476.3 - 406)^2}{476.3} = 130.3
-$$
-
-Degrees of freedom:
+The degrees of freedom of the $\chi^2$ distribution is: 
 $$
 \nu = (2 - 1)(5 - 1) = 4
 $$
 
-R code:
-```r
+So the $p$-value is
+```{r}
 pchisq(130.3, df = 4, lower.tail = FALSE)
 ```
 :::
 
 ---
 
-Larger contingency tables in R
+[Larger contingency tables in R](./07_larger.qmd)
 
 ---
 
-Skip: $\chi^2$ test for trend
+**Skip $\chi^2$ test for trend**
 
 # $\chi^2$ Goodness-of-Fit Test
 

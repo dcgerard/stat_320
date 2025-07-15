@@ -17,99 +17,103 @@ ggplot2::theme_set(ggplot2::theme_bw() + ggplot2::theme(strip.background = ggplo
 library(broom)
 ```
 
-- Suppose we measure case and control status (for breast cancer) for various ages at first birth.
+-   Suppose we measure case and control status (for breast cancer) for various ages at first birth.
 
-  ```{r}
-  #| message: false
-  #| echo: false
-  library(tidyverse)
-  library(janitor)
-  library(gt)
-  
-  tribble(~Status, ~`<20`, ~`20-24`, ~`25-29`, ~`30-34`, ~`≥35`,
-          "Case", 320, 1206, 1011, 463, 220,
-          "Control", 1422, 4432, 2893, 1092, 406) |>
-    as_tabyl() |>
-    adorn_totals(c("col", "row")) |>
-    gt(rowname_col = "Status") |>
-    tab_spanner(
-      columns = 2:6, # select all columns except the row variable
-      label = "Age at First Birth" # the name to display
-    ) |>
-    tab_stubhead(         # add row variable header
-      label = "Age at First Birth" 
-    )
-  ```
+    ```{r}
+    #| message: false
+    #| echo: false
+    library(tidyverse)
+    library(janitor)
+    library(gt)
+    
+    tribble(~Status, ~`<20`, ~`20-24`, ~`25-29`, ~`30-34`, ~`≥35`,
+            "Case", 320, 1206, 1011, 463, 220,
+            "Control", 1422, 4432, 2893, 1092, 406) |>
+      as_tabyl() |>
+      adorn_totals(c("col", "row")) |>
+      gt(rowname_col = "Status") |>
+      tab_spanner(
+        columns = 2:6, # select all columns except the row variable
+        label = "Age at First Birth" # the name to display
+      ) |>
+      tab_stubhead(         # add row variable header
+        label = "Age at First Birth" 
+      )
+    ```
 
 
-- As in the 2x2 case, we use `matrix()` to insert the data. Just change the `nrow` and `ncol` arguments to represent the number of rows and columns
-  ```{r}
-  tab <- matrix(
-    c(320, 1206, 1011, 463, 220,
-      1422, 4432, 2893, 1092, 406),
-    nrow = 2, ncol = 5, byrow = TRUE)
-  dimnames(tab) <- list(status = c("Case", "Control"),
-                        age = c("<20", "20-24", "25-29", "30-34", "≥35"))
-  tab
-  ```
+-   As in the 2x2 case, we use `matrix()` to insert the data. Just change the `nrow` and `ncol` arguments to represent the number of rows and columns
+    ```{r}
+    tab <- matrix(
+      c(320, 1206, 1011, 463, 220,
+        1422, 4432, 2893, 1092, 406),
+      nrow = 2, ncol = 5, byrow = TRUE)
+    dimnames(tab) <- list(status = c("Case", "Control"),
+                          age = c("<20", "20-24", "25-29", "30-34", "≥35"))
+    tab
+    ```
 
-- You then just plug this into `chisq.test()`.
+-   You then just plug this into `chisq.test()`.
 
-  ```{r}
-  chisq.test(tab) |>
-    tidy()
-  ```
+    ```{r}
+    chisq.test(tab) |>
+      tidy()
+    ```
 
-- As in the 2x2 case, you can generate a contingency table from raw data using `table()`.
+-   As in the 2x2 case, you can generate a contingency table from raw data using `table()`.
 
-- E.g., from the [lead data](../data.qmd#lead), suppose that we are interested in testing if there is an association between `lead_grp` and `sex`.
+-   E.g., from the [lead data](../data.qmd#lead), suppose that we are interested in testing if there is an association between `lead_grp` and `sex`.
 
-  ```{r}
-  #| message: false
-  library(tidyverse)
-  lead <- read_csv("https://dcgerard.github.io/stat_320/data/lead.csv")
-  ```
+    ```{r}
+    #| message: false
+    library(tidyverse)
+    lead <- read_csv("https://dcgerard.github.io/stat_320/data/lead.csv")
+    ```
 
-- We can create this contingency table by `table()`
+-   We can create this contingency table by `table()`
 
-  ```{r}
-  tab <- table(lead$sex, lead$lead_grp)
-  tab
-  ```
+    ```{r}
+    tab <- table(lead$sex, lead$lead_grp)
+    tab
+    ```
 
-- And we can plug this into `chisq.test()`.
+-   And we can plug this into `chisq.test()`.
 
-  ```{r}
-  chisq.test(tab) |>
-    tidy()
-  ```
+    ```{r}
+    chisq.test(tab) |>
+      tidy()
+    ```
 
-- Alternatively, we could plug the two variables under consideration from the raw data frame directly into `chisq.test()`.
+-   Alternatively, we could plug the two variables under consideration from the raw data frame directly into `chisq.test()`.
 
-  ```{r}
-  chisq.test(x = lead$sex, y = lead$lead_grp) |>
-    tidy()
-  ```
+    ```{r}
+    chisq.test(x = lead$sex, y = lead$lead_grp) |>
+      tidy()
+    ```
 
-- **Exercise** (from Rosner): We are interested in studying the relationship between the prevalence of hypertension in adolescents and ethnic group, where hypertension is defined as being above the 90th percentile for a child's age, sex, and height, based on national norms.
-    a. Suppose that 8 of 100 Caucasian adolescent girls, 12 out of 95 African-American adolescent girls, and 10 of 90 Hispanic adolescent girls are above the 90th percentile for blood pressure. What test can be used to assess whether there is an association between adolescent hypertension and ethnic group?
-    b. Implement this test and report a two-tailed $p$-value.
+::: {.panel-tabset}
+## Exercise (from Rosner)
+We are interested in studying the relationship between the prevalence of hypertension in adolescents and ethnic group, where hypertension is defined as being above the 90th percentile for a child's age, sex, and height, based on national norms.
 
-```{r}
-#| eval: false
-#| echo: false
+a. Suppose that 8 of 100 Caucasian adolescent girls, 12 out of 95 African-American adolescent girls, and 10 of 90 Hispanic adolescent girls are above the 90th percentile for blood pressure. What test can be used to assess whether there is an association between adolescent hypertension and ethnic group?
+b. Implement this test and report a $p$-value.
 
-# obviously, the chi-squared test for homogeneity, since that is the only
-# test we talked about in these notes.
+## Solution
+a. Obviously, the chi-squared test for homogeneity, since that is the only test we talked about in these notes.
 
-tab <- matrix(c(8, 100 - 8, 12, 95 - 12, 10, 90 - 10), nrow = 2, byrow = FALSE)
-dimnames(tab) <- list(Status = c("hypertensive", "normotensive"),
-                      Ethnicity = c("Caucasion", "African-American", "Hispanic"))
-tab
+b.  Let's create this table:
+    ```{r}
+    tab <- matrix(c(8, 100 - 8, 12, 95 - 12, 10, 90 - 10), nrow = 2, byrow = FALSE)
+    dimnames(tab) <- list(Status = c("hypertensive", "normotensive"),
+                          Ethnicity = c("Caucasion", "African-American", "Hispanic"))
+    tab
+    ```
+    Let's run the $\chi^2$ test:
+    ```{r}
+    chisq.test(tab) |>
+      tidy()
+    ```
+    We have no evidence of an association (p = 0.5606).
+:::
 
-chisq.test(tab) |>
-  tidy()
-
-# No evidence of an association (p = 0.5606).
-```
 
