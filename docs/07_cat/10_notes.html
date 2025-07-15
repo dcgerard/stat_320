@@ -354,7 +354,8 @@ window.Quarto = {
   <li><a href="#larger-contingency-tables" id="toc-larger-contingency-tables" class="nav-link" data-scroll-target="#larger-contingency-tables">Larger Contingency Tables</a></li>
   <li><a href="#chi2-goodness-of-fit-test" id="toc-chi2-goodness-of-fit-test" class="nav-link" data-scroll-target="#chi2-goodness-of-fit-test"><span class="math inline">\(\chi^2\)</span> Goodness-of-Fit Test</a></li>
   <li><a href="#cohens-kappa" id="toc-cohens-kappa" class="nav-link" data-scroll-target="#cohens-kappa">Cohen’s Kappa</a></li>
-  <li><a href="#exercises-10.810.13" id="toc-exercises-10.810.13" class="nav-link" data-scroll-target="#exercises-10.810.13">Exercises 10.8–10.13</a></li>
+  <li><a href="#exercises-10.810.12" id="toc-exercises-10.810.12" class="nav-link" data-scroll-target="#exercises-10.810.12">Exercises 10.8–10.12</a></li>
+  <li><a href="#exercise-10.13" id="toc-exercise-10.13" class="nav-link" data-scroll-target="#exercise-10.13">Exercise 10.13</a></li>
   </ul>
 </nav>
     </div>
@@ -1585,8 +1586,260 @@ Cohen’s kappa
 <p><a href="../07_cat/07_kappa.html">Cohen’s Kappa in R</a></p>
 <hr>
 </section>
-<section id="exercises-10.810.13" class="level1">
-<h1>Exercises 10.8–10.13</h1>
+<section id="exercises-10.810.12" class="level1">
+<h1>Exercises 10.8–10.12</h1>
+<p>Two drugs (A, B) are compared for the medical treatment of duodenal ulcer. For this purpose, patients are carefully matched with regard to age, gender, and clinical condition. The treatment results based on 200 matched pairs show that for 89 matched pairs both treatments are effective; for 90 matched pairs both treatments are ineffective; for 5 matched pairs drug A is effective, whereas drug B is ineffective; and for 16 matched pairs drug B is effective, whereas drug A is ineffective.</p>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-7-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-7-1" role="tab" aria-controls="tabset-7-1" aria-selected="true">Exercise 10.8</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-7-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-7-2" role="tab" aria-controls="tabset-7-2" aria-selected="false">Solution</a></li></ul>
+<div class="tab-content">
+<div id="tabset-7-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-7-1-tab">
+<p>What test procedure can be used to assess the results?</p>
+</div>
+<div id="tabset-7-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-7-2-tab">
+<p>McNemar’s test. Since we have 5 + 16 = 21 discordant pairs, and 21/4 = 5.25 <span class="math inline">\(\geq\)</span> 5, we can use either the normal approximation approach or the exact approach.</p>
+</div>
+</div>
+</div>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-8-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-8-1" role="tab" aria-controls="tabset-8-1" aria-selected="true">Exercise 10.9</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-8-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-8-2" role="tab" aria-controls="tabset-8-2" aria-selected="false">Solution</a></li></ul>
+<div class="tab-content">
+<div id="tabset-8-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-8-1-tab">
+<p>Perform the test in Problem 10.8, and report a p-value.</p>
+</div>
+<div id="tabset-8-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-8-2-tab">
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">prop.test</span>(<span class="at">x =</span> <span class="dv">5</span>, <span class="at">n =</span> <span class="dv">21</span>, <span class="at">p =</span> <span class="dv">1</span><span class="sc">/</span><span class="dv">2</span>) <span class="sc">|&gt;</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tidy</span>() <span class="sc">|&gt;</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(p.value)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 1
+  p.value
+    &lt;dbl&gt;
+1  0.0291</code></pre>
+</div>
+</div>
+<p>We have evidence that there is a difference between drugs (p = 0.0291).</p>
+</div>
+</div>
+</div>
+<p>In the same study, if the focus is on the 100 matched pairs consisting of male patients, then the following results are obtained: for 52 matched pairs both drugs are effective; for 35 matched pairs both drugs are ineffective; for 4 matched pairs drug A is effective, whereas drug B is ineffective; and for 9 matched pairs drug B is effective, whereas drug A is ineffective.</p>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-9-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-9-1" role="tab" aria-controls="tabset-9-1" aria-selected="true">Exercise 10.10</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-9-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-9-2" role="tab" aria-controls="tabset-9-2" aria-selected="false">Solution</a></li></ul>
+<div class="tab-content">
+<div id="tabset-9-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-9-1-tab">
+<p>How many concordant pairs are there among the male matched pairs?</p>
+</div>
+<div id="tabset-9-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-9-2-tab">
+<p>52 + 35 = 87 concordant pairs</p>
+</div>
+</div>
+</div>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-10-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-10-1" role="tab" aria-controls="tabset-10-1" aria-selected="true">Exercise 10.11</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-10-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-10-2" role="tab" aria-controls="tabset-10-2" aria-selected="false">Solution</a></li></ul>
+<div class="tab-content">
+<div id="tabset-10-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-10-1-tab">
+<p>How many discordant pairs are there among the male matched pairs?</p>
+</div>
+<div id="tabset-10-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-10-2-tab">
+<p>9 + 4 = 13 discordant pairs.</p>
+</div>
+</div>
+</div>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-11-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-11-1" role="tab" aria-controls="tabset-11-1" aria-selected="true">Exercise 10.12</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-11-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-11-2" role="tab" aria-controls="tabset-11-2" aria-selected="false">Solution</a></li></ul>
+<div class="tab-content">
+<div id="tabset-11-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-11-1-tab">
+<p>Perform a significance test to assess any differences in effectiveness between the drugs among males. Report a p-value.</p>
+</div>
+<div id="tabset-11-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-11-2-tab">
+<p>Since 13/4 = 3.25 &lt; 5, we should use the exact approach.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">binom.test</span>(<span class="at">x =</span> <span class="dv">4</span>, <span class="at">n =</span> <span class="dv">13</span>, <span class="at">p =</span> <span class="dv">1</span><span class="sc">/</span><span class="dv">2</span>) <span class="sc">|&gt;</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tidy</span>() <span class="sc">|&gt;</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(p.value)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 1
+  p.value
+    &lt;dbl&gt;
+1   0.267</code></pre>
+</div>
+</div>
+<p>We do not have any evidence that the two drugs differ in males (p = 0.2668).</p>
+</div>
+</div>
+</div>
+</section>
+<section id="exercise-10.13" class="level1">
+<h1>Exercise 10.13</h1>
+<p>Suppose researchers do an epidemiologic investigation of people entering a sexually transmitted disease clinic. They find that 160 of 200 patients who are diagnosed as having gonorrhea and 50 of 105 patients who are diagnosed as having nongonococcal urethritis have had previous episodes of urethritis.</p>
+<p>Try doing it “by hand” and in R.</p>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-12-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-12-1" role="tab" aria-controls="tabset-12-1" aria-selected="true">Exercise 10.13</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-12-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-12-2" role="tab" aria-controls="tabset-12-2" aria-selected="false">Solution</a></li></ul>
+<div class="tab-content">
+<div id="tabset-12-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-12-1-tab">
+<p>Are the present diagnosis and prior episodes of urethritis associated? Use the two-sample binomial approach.</p>
+</div>
+<div id="tabset-12-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-12-2-tab">
+<p>Let <span class="math inline">\(X_1\)</span> be the number of gonorrhea patients (out of 200) who have had previous episodes of urethritis.</p>
+<p>Let <span class="math inline">\(X_2\)</span> be the number of nongonococcal urethritis patients (out of 105) who have had previous episodes of urethritis.</p>
+<p>We have <span class="math inline">\(X_1 \sim \mathrm{Binom}(200, p_1)\)</span> and <span class="math inline">\(X_2 \sim \mathrm{Binom}(105, p_2)\)</span>. We are testing <span class="math inline">\(H_0: p_1 = p_2\)</span> versus <span class="math inline">\(H_1: p_1 \neq p_2\)</span>.</p>
+<p><span class="math inline">\(\hat{p}_1 = 160 / 200 = 0.8\)</span>, <span class="math inline">\(\hat{p}_2 = 50/105 = 0.4762\)</span>, <span class="math inline">\(\hat{p} = (160 + 50) / (200 + 105) = 0.6885\)</span></p>
+<p>We can run this test using the two-sample binomial approach since the normal conditions are met.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="dv">200</span> <span class="sc">*</span> <span class="fl">0.6885</span> <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> <span class="fl">0.6885</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 42.89</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="dv">105</span> <span class="sc">*</span> <span class="fl">0.6885</span> <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> <span class="fl">0.6885</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 22.52</code></pre>
+</div>
+</div>
+<p>Our <span class="math inline">\(z\)</span> statistic is</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>(<span class="fl">0.8</span> <span class="sc">-</span> <span class="fl">0.4762</span>) <span class="sc">/</span> <span class="fu">sqrt</span>(<span class="fl">0.6885</span> <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> <span class="fl">0.6885</span>) <span class="sc">*</span> (<span class="dv">1</span><span class="sc">/</span><span class="dv">200</span> <span class="sc">+</span> <span class="dv">1</span><span class="sc">/</span><span class="dv">105</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 5.802</code></pre>
+</div>
+</div>
+<p>We compare this to a standard normal distribution to get a <span class="math inline">\(p\)</span>-value</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span> <span class="sc">*</span> <span class="fu">pnorm</span>(<span class="sc">-</span><span class="fl">5.802</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 6.553e-09</code></pre>
+</div>
+</div>
+<p>We can also just use <code>prop.test()</code></p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">prop.test</span>(<span class="at">x =</span> <span class="fu">c</span>(<span class="dv">160</span>, <span class="dv">50</span>), <span class="at">n =</span> <span class="fu">c</span>(<span class="dv">200</span>, <span class="dv">105</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tidy</span>()  <span class="sc">|&gt;</span></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(p.value)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 1
+       p.value
+         &lt;dbl&gt;
+1 0.0000000141</code></pre>
+</div>
+</div>
+<p>The <span class="math inline">\(p\)</span>-values differ because we didn’t use the continuity correction. If we did, then we would get equivalent results:</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>p1 <span class="ot">&lt;-</span> <span class="dv">160</span><span class="sc">/</span><span class="dv">200</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>p2 <span class="ot">&lt;-</span> <span class="dv">50</span><span class="sc">/</span><span class="dv">105</span></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> (<span class="dv">160</span> <span class="sc">+</span> <span class="dv">50</span>) <span class="sc">/</span> (<span class="dv">200</span> <span class="sc">+</span> <span class="dv">105</span>)</span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>zstat <span class="ot">&lt;-</span> (p1 <span class="sc">-</span> p2 <span class="sc">-</span> <span class="dv">1</span><span class="sc">/</span>(<span class="dv">2</span> <span class="sc">*</span> <span class="dv">200</span>) <span class="sc">-</span> <span class="dv">1</span><span class="sc">/</span>(<span class="dv">2</span> <span class="sc">*</span> <span class="dv">105</span>)) <span class="sc">/</span> <span class="fu">sqrt</span>(p <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> p) <span class="sc">*</span> (<span class="dv">1</span><span class="sc">/</span><span class="dv">200</span> <span class="sc">+</span> <span class="dv">1</span><span class="sc">/</span><span class="dv">105</span>))</span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span> <span class="sc">*</span> <span class="fu">pnorm</span>(<span class="sc">-</span>zstat)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1.412e-08</code></pre>
+</div>
+</div>
+<p>Either way, we have very strong evidence of an association between present diagnosis and prior episodes of urethritis (p &lt; 0.001)</p>
+</div>
+</div>
+</div>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-13-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-13-1" role="tab" aria-controls="tabset-13-1" aria-selected="true">Exercise 10.13b</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-13-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-13-2" role="tab" aria-controls="tabset-13-2" aria-selected="false">Solution</a></li></ul>
+<div class="tab-content">
+<div id="tabset-13-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-13-1-tab">
+<p>Repeat Exercise 10.13 using the chi-squared approach.</p>
+</div>
+<div id="tabset-13-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-13-2-tab">
+<p>Setting up our contingency table, we have:</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>tab <span class="ot">&lt;-</span> <span class="fu">matrix</span>(</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">c</span>(<span class="dv">160</span>, <span class="dv">50</span>, </span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>    <span class="dv">40</span> , <span class="dv">55</span>), </span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">nrow =</span> <span class="dv">2</span>, <span class="at">ncol =</span> <span class="dv">2</span>, <span class="at">byrow =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a><span class="fu">dimnames</span>(tab) <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="at">Prior =</span> <span class="fu">c</span>(<span class="st">"Yes"</span>, <span class="st">"No"</span>), <span class="at">Gonorrhea =</span> <span class="fu">c</span>(<span class="st">"Yes"</span>, <span class="st">"No"</span>))</span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>tab</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     Gonorrhea
+Prior Yes No
+  Yes 160 50
+  No   40 55</code></pre>
+</div>
+</div>
+<p>Let’s get the expected counts:</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Column margins</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="fu">colSums</span>(tab)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Yes  No 
+200 105 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Row margins</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="fu">rowSums</span>(tab)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Yes  No 
+210  95 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Grand total</span></span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(tab)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 305</code></pre>
+</div>
+</div>
+<p>Expected counts</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>etab <span class="ot">&lt;-</span> <span class="fu">matrix</span>(</span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">c</span>(<span class="dv">200</span> <span class="sc">*</span> <span class="dv">210</span> <span class="sc">/</span> <span class="dv">305</span>, <span class="dv">105</span> <span class="sc">*</span> <span class="dv">210</span> <span class="sc">/</span> <span class="dv">305</span>,</span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>    <span class="dv">200</span> <span class="sc">*</span> <span class="dv">95</span> <span class="sc">/</span> <span class="dv">305</span> , <span class="dv">105</span> <span class="sc">*</span> <span class="dv">95</span> <span class="sc">/</span> <span class="dv">305</span>),</span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">nrow =</span> <span class="dv">2</span>, <span class="at">ncol =</span> <span class="dv">2</span>, <span class="at">byrow =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a><span class="fu">dimnames</span>(etab) <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="at">Prior =</span> <span class="fu">c</span>(<span class="st">"Yes"</span>, <span class="st">"No"</span>), <span class="at">Gonorrhea =</span> <span class="fu">c</span>(<span class="st">"Yes"</span>, <span class="st">"No"</span>))</span>
+<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a>etab</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     Gonorrhea
+Prior   Yes   No
+  Yes 137.7 72.3
+  No   62.3 32.7</code></pre>
+</div>
+</div>
+<p>Let’s get the <span class="math inline">\(\chi^2\)</span> statistic:</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>(<span class="dv">160</span> <span class="sc">-</span> <span class="fl">137.7</span>)<span class="sc">^</span><span class="dv">2</span> <span class="sc">/</span> <span class="fl">137.7</span> <span class="sc">+</span></span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>  (<span class="dv">50</span> <span class="sc">-</span> <span class="fl">72.3</span>)<span class="sc">^</span><span class="dv">2</span> <span class="sc">/</span> <span class="fl">107.6</span> <span class="sc">+</span></span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>  (<span class="dv">40</span> <span class="sc">-</span> <span class="fl">62.3</span>)<span class="sc">^</span><span class="dv">2</span> <span class="sc">/</span> <span class="fl">62.3</span> <span class="sc">+</span></span>
+<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a>  (<span class="dv">55</span> <span class="sc">-</span> <span class="fl">32.7</span>)<span class="sc">^</span><span class="dv">2</span> <span class="sc">/</span> <span class="fl">32.7</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 31.42</code></pre>
+</div>
+</div>
+<p>We compare this to a <span class="math inline">\(\chi^2_1\)</span> distribution to get the <span class="math inline">\(p\)</span>-value</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pchisq</span>(<span class="at">q =</span> <span class="fl">31.42</span>, <span class="at">df =</span> <span class="dv">1</span>, <span class="at">lower.tail =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 2.078e-08</code></pre>
+</div>
+</div>
+<p>In R, this is:</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="fu">chisq.test</span>(<span class="at">x =</span> tab) <span class="sc">|&gt;</span></span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tidy</span>() <span class="sc">|&gt;</span></span>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(p.value)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 1
+       p.value
+         &lt;dbl&gt;
+1 0.0000000141</code></pre>
+</div>
+</div>
+<p>The p-value is different because we didn’t do the continuity correction. The continuity correction is a little weirder for <span class="math inline">\(\chi^2\)</span> tests. You subtract off a half value from the absolute value of the differences inside the square.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>etab <span class="ot">&lt;-</span> <span class="fu">outer</span>(<span class="fu">rowSums</span>(tab), <span class="fu">colSums</span>(tab)) <span class="sc">/</span> <span class="dv">305</span></span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>etab</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>      Yes   No
+Yes 137.7 72.3
+No   62.3 32.7</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>chstat <span class="ot">&lt;-</span> <span class="fu">sum</span>((<span class="fu">abs</span>(etab <span class="sc">-</span> tab) <span class="sc">-</span> <span class="fl">0.5</span>)<span class="sc">^</span><span class="dv">2</span> <span class="sc">/</span> etab)</span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a><span class="fu">pchisq</span>(<span class="at">q =</span> chstat, <span class="at">df =</span> <span class="dv">1</span>, <span class="at">lower.tail =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1.412e-08</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
 
 
 </section>
