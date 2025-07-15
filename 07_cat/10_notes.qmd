@@ -58,7 +58,7 @@ A variable that groups units into different categories.
   - Test the association between two categorical variables (cancer status and OC status).
 
 - Example 2: Test if heavy OC users, light OC users, and non-OC users have the same cancer rates.
-  - Same as exame 1 above, but now OC status has three categories instead of 2.
+  - Same as example 1 above, but now OC status has three categories instead of 2.
 
 - Example 3: Are the observed frequencies below consistent with the theoretical probabilities?
 
@@ -131,7 +131,7 @@ A variable that groups units into different categories.
   \frac{\hat{p}_1 - \hat{p}_2}{\sqrt{\left( \frac{1}{n_1} + \frac{1}{n_2} \right)p(1 - p)}} \sim N(0,1)
   $$
 
-- We estimate $p$ under $H_0$ by noting that, if $H_0$ were ture, then
+- We estimate $p$ under $H_0$ by noting that, if $H_0$ were true, then
   $$
   X_1 + X_2 \sim \text{Binom}(n_1 + n_2, p)
   $$
@@ -156,8 +156,8 @@ Observe $X_1 \sim \mathrm{Binom}(n_1,p_1)$ and $X_2 \sim \mathrm{Binom}(n_2, p_2
 - Null Hypothesis: $H_0: p_1 = p_2$
 
 Calculate
-  - $\hat{p_1} = X_1 / n_1$
-  - $\hat{p_2} = X_2 / n_2$
+  - $\hat{p}_1 = X_1 / n_1$
+  - $\hat{p}_2 = X_2 / n_2$
   - $\hat{p} = (X_1 + X_2) / (n_1 + n_2)$
 
 - $z$-statistic
@@ -215,7 +215,7 @@ Calculate
     
 - A $(1 - \alpha)100\%$ confidence interval for the difference is
   $$
-  \hat{p}_1 - \hat{p_2} \pm z_{1-\alpha/2}\sqrt{\left( \frac{1}{n_1} + \frac{1}{n_2} \right)\hat{p}(1 - \hat{p})}
+  \hat{p}_1 - \hat{p}_2 \pm z_{1-\alpha/2}\sqrt{ \frac{\hat{p}_1(1-\hat{p}_1)}{n_1} + \frac{\hat{p}_2(1-\hat{p}_2)}{n_2}}
   $$
 
 - Rule of thumb: The normal approximation works if $n_1\hat{p}(1-\hat{p}) \geq 5$ and $n_2\hat{p}(1-\hat{p}) \geq 5$
@@ -282,7 +282,7 @@ Calculate
   - $P(Z = b \cap W = C) = P(Z = b) \cdot P(W = C)$
   - $P(Z = b \cap W = D) = P(Z = b) \cdot P(W = D)$
 
-- Idea: Calculate expected counts from the assumption of independendence based on the margin totals.
+- Idea: Calculate expected counts from the assumption of independence based on the margin totals.
   - $P(Z = A) = \frac{n_1}{N}$
   - $P(Z = B) = \frac{n_2}{N}$
   - $P(W = C) = \frac{m_1}{N}$
@@ -292,7 +292,7 @@ Calculate
   - $E[X_{11} \mid Z \perp W] = N \Pr(Z = A \cap W = C) = N\Pr(Z = A)\Pr(W=C) =  N \cdot \frac{n_1}{N} \cdot \frac{m_1}{N} = \frac{n_1 m_1}{N}$
   - $E[X_{12} \mid Z \perp W] = N \Pr(Z = B \cap W = C) = N\Pr(Z = B)\Pr(W=C) =  N \cdot \frac{n_2}{N} \cdot \frac{m_1}{N} = \frac{n_2 m_1}{N}$
   - $E[X_{21} \mid Z \perp W] = N \Pr(Z = A \cap W = D) = N\Pr(Z = A)\Pr(W=D) =  N \cdot \frac{n_1}{N} \cdot \frac{m_2}{N} = \frac{n_1 m_2}{N}$
-  - $E[X_{22} \mid Z \perp W] = N \Pr(Z = B \cap W = D) = N\Pr(Z = A)\Pr(W=C) =  N \cdot \frac{n_2}{N} \cdot \frac{m_2}{N} = \frac{n_2 m_2}{N}$
+  - $E[X_{22} \mid Z \perp W] = N \Pr(Z = B \cap W = D) = N\Pr(Z = B)\Pr(W=D) =  N \cdot \frac{n_2}{N} \cdot \frac{m_2}{N} = \frac{n_2 m_2}{N}$
 
 
 - Compare $X_{ij}$ to the expected value of $X_{ij}$ if variables were independent.
@@ -464,7 +464,7 @@ An exact test is one that controls Type I error for **any** $n$, not just large 
   \pmatrix{x_{11} + 1 & x_{12} - 1 \\ x_{21} - 1 & x_{22} + 1}
   $$
 
-- Our observe table is
+- Our observed table is
 
   $$
   \pmatrix{2 & 23 \\ 5 & 30}
@@ -564,7 +564,7 @@ Different outcomes (e.g. one dies, one survives)
 
 - Concordant pairs tell you nothing about which treatment is better.
 
-- Idea: Treatments are the same if they the discordant cells have approximately the same counts.
+- Idea: Treatments are the same if the discordant cells have approximately the same counts.
 
 - Let:
   - $X$ = number of pairs where A survives and B dies
@@ -970,7 +970,7 @@ etab
 Let's get the $\chi^2$ statistic:
 ```{r}
 (160 - 137.7)^2 / 137.7 +
-  (50 - 72.3)^2 / 107.6 +
+  (50 - 72.3)^2 / 72.3 +
   (40 - 62.3)^2 / 62.3 +
   (55 - 32.7)^2 / 32.7
 ```
@@ -978,7 +978,7 @@ Let's get the $\chi^2$ statistic:
 We compare this to a $\chi^2_1$ distribution to get the $p$-value
 
 ```{r}
-pchisq(q = 31.42, df = 1, lower.tail = FALSE)
+pchisq(q = 33.68, df = 1, lower.tail = FALSE)
 ```
 
 In R, this is:
@@ -997,5 +997,4 @@ etab
 chstat <- sum((abs(etab - tab) - 0.5)^2 / etab)
 pchisq(q = chstat, df = 1, lower.tail = FALSE)
 ```
-
 :::

@@ -422,7 +422,7 @@ Categorical Variable
 </ul></li>
 <li><p>Example 2: Test if heavy OC users, light OC users, and non-OC users have the same cancer rates.</p>
 <ul>
-<li>Same as exame 1 above, but now OC status has three categories instead of 2.</li>
+<li>Same as example 1 above, but now OC status has three categories instead of 2.</li>
 </ul></li>
 <li><p>Example 3: Are the observed frequencies below consistent with the theoretical probabilities?</p>
 <table class="caption-top table">
@@ -539,7 +539,7 @@ Categorical Variable
 <li><p>So we divide by the standard error to get a <span class="math inline">\(z\)</span> statistic that follows a standard normal distribution (but only if <span class="math inline">\(H_0\)</span> is true): <span class="math display">\[
 \frac{\hat{p}_1 - \hat{p}_2}{\sqrt{\left( \frac{1}{n_1} + \frac{1}{n_2} \right)p(1 - p)}} \sim N(0,1)
 \]</span></p></li>
-<li><p>We estimate <span class="math inline">\(p\)</span> under <span class="math inline">\(H_0\)</span> by noting that, if <span class="math inline">\(H_0\)</span> were ture, then <span class="math display">\[
+<li><p>We estimate <span class="math inline">\(p\)</span> under <span class="math inline">\(H_0\)</span> by noting that, if <span class="math inline">\(H_0\)</span> were true, then <span class="math display">\[
 X_1 + X_2 \sim \text{Binom}(n_1 + n_2, p)
 \]</span> Thus, <span class="math display">\[
 \hat{p} = \frac{X_1 + X_2}{n_1 + n_2}
@@ -564,7 +564,7 @@ Two-sample Binomial Test
 <ul>
 <li>Null Hypothesis: <span class="math inline">\(H_0: p_1 = p_2\)</span></li>
 </ul>
-<p>Calculate - <span class="math inline">\(\hat{p_1} = X_1 / n_1\)</span> - <span class="math inline">\(\hat{p_2} = X_2 / n_2\)</span> - <span class="math inline">\(\hat{p} = (X_1 + X_2) / (n_1 + n_2)\)</span></p>
+<p>Calculate - <span class="math inline">\(\hat{p}_1 = X_1 / n_1\)</span> - <span class="math inline">\(\hat{p}_2 = X_2 / n_2\)</span> - <span class="math inline">\(\hat{p} = (X_1 + X_2) / (n_1 + n_2)\)</span></p>
 <ul>
 <li><p><span class="math inline">\(z\)</span>-statistic <span class="math display">\[
 z = \frac{\hat{p}_1 - \hat{p}_2}{\sqrt{\left( \frac{1}{n_1} + \frac{1}{n_2} \right)\hat{p}(1 - \hat{p})}}
@@ -606,7 +606,7 @@ z = \frac{\hat{p}_1 - \hat{p}_2}{\sqrt{\left( \frac{1}{n_1} + \frac{1}{n_2} \rig
 </div>
 </div></li>
 <li><p>A <span class="math inline">\((1 - \alpha)100\%\)</span> confidence interval for the difference is <span class="math display">\[
-\hat{p}_1 - \hat{p_2} \pm z_{1-\alpha/2}\sqrt{\left( \frac{1}{n_1} + \frac{1}{n_2} \right)\hat{p}(1 - \hat{p})}
+\hat{p}_1 - \hat{p}_2 \pm z_{1-\alpha/2}\sqrt{ \frac{\hat{p}_1(1-\hat{p}_1)}{n_1} + \frac{\hat{p}_2(1-\hat{p}_2)}{n_2}}
 \]</span></p></li>
 <li><p>Rule of thumb: The normal approximation works if <span class="math inline">\(n_1\hat{p}(1-\hat{p}) \geq 5\)</span> and <span class="math inline">\(n_2\hat{p}(1-\hat{p}) \geq 5\)</span></p></li>
 </ul>
@@ -723,7 +723,7 @@ z = \frac{\hat{p}_1 - \hat{p}_2}{\sqrt{\left( \frac{1}{n_1} + \frac{1}{n_2} \rig
 <li><span class="math inline">\(P(Z = b \cap W = C) = P(Z = b) \cdot P(W = C)\)</span></li>
 <li><span class="math inline">\(P(Z = b \cap W = D) = P(Z = b) \cdot P(W = D)\)</span></li>
 </ul></li>
-<li><p>Idea: Calculate expected counts from the assumption of independendence based on the margin totals.</p>
+<li><p>Idea: Calculate expected counts from the assumption of independence based on the margin totals.</p>
 <ul>
 <li><span class="math inline">\(P(Z = A) = \frac{n_1}{N}\)</span></li>
 <li><span class="math inline">\(P(Z = B) = \frac{n_2}{N}\)</span></li>
@@ -735,7 +735,7 @@ z = \frac{\hat{p}_1 - \hat{p}_2}{\sqrt{\left( \frac{1}{n_1} + \frac{1}{n_2} \rig
 <li><span class="math inline">\(E[X_{11} \mid Z \perp W] = N \Pr(Z = A \cap W = C) = N\Pr(Z = A)\Pr(W=C) =  N \cdot \frac{n_1}{N} \cdot \frac{m_1}{N} = \frac{n_1 m_1}{N}\)</span></li>
 <li><span class="math inline">\(E[X_{12} \mid Z \perp W] = N \Pr(Z = B \cap W = C) = N\Pr(Z = B)\Pr(W=C) =  N \cdot \frac{n_2}{N} \cdot \frac{m_1}{N} = \frac{n_2 m_1}{N}\)</span></li>
 <li><span class="math inline">\(E[X_{21} \mid Z \perp W] = N \Pr(Z = A \cap W = D) = N\Pr(Z = A)\Pr(W=D) =  N \cdot \frac{n_1}{N} \cdot \frac{m_2}{N} = \frac{n_1 m_2}{N}\)</span></li>
-<li><span class="math inline">\(E[X_{22} \mid Z \perp W] = N \Pr(Z = B \cap W = D) = N\Pr(Z = A)\Pr(W=C) =  N \cdot \frac{n_2}{N} \cdot \frac{m_2}{N} = \frac{n_2 m_2}{N}\)</span></li>
+<li><span class="math inline">\(E[X_{22} \mid Z \perp W] = N \Pr(Z = B \cap W = D) = N\Pr(Z = B)\Pr(W=D) =  N \cdot \frac{n_2}{N} \cdot \frac{m_2}{N} = \frac{n_2 m_2}{N}\)</span></li>
 </ul></li>
 <li><p>Compare <span class="math inline">\(X_{ij}\)</span> to the expected value of <span class="math inline">\(X_{ij}\)</span> if variables were independent.</p></li>
 <li><p>Expected counts from age at first birth example:</p>
@@ -1031,7 +1031,7 @@ Fisher’s Exact Test
 \]</span> or <span class="math display">\[
 \pmatrix{x_{11} + 1 &amp; x_{12} - 1 \\ x_{21} - 1 &amp; x_{22} + 1}
 \]</span></p></li>
-<li><p>Our observe table is</p>
+<li><p>Our observed table is</p>
 <p><span class="math display">\[
 \pmatrix{2 &amp; 23 \\ 5 &amp; 30}
 \]</span></p></li>
@@ -1234,7 +1234,7 @@ Discordant pair
 </div>
 <ul>
 <li><p>Concordant pairs tell you nothing about which treatment is better.</p></li>
-<li><p>Idea: Treatments are the same if they the discordant cells have approximately the same counts.</p></li>
+<li><p>Idea: Treatments are the same if the discordant cells have approximately the same counts.</p></li>
 <li><p>Let:</p>
 <ul>
 <li><span class="math inline">\(X\)</span> = number of pairs where A survives and B dies</li>
@@ -1796,18 +1796,18 @@ Prior   Yes   No
 <p>Let’s get the <span class="math inline">\(\chi^2\)</span> statistic:</p>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>(<span class="dv">160</span> <span class="sc">-</span> <span class="fl">137.7</span>)<span class="sc">^</span><span class="dv">2</span> <span class="sc">/</span> <span class="fl">137.7</span> <span class="sc">+</span></span>
-<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>  (<span class="dv">50</span> <span class="sc">-</span> <span class="fl">72.3</span>)<span class="sc">^</span><span class="dv">2</span> <span class="sc">/</span> <span class="fl">107.6</span> <span class="sc">+</span></span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>  (<span class="dv">50</span> <span class="sc">-</span> <span class="fl">72.3</span>)<span class="sc">^</span><span class="dv">2</span> <span class="sc">/</span> <span class="fl">72.3</span> <span class="sc">+</span></span>
 <span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>  (<span class="dv">40</span> <span class="sc">-</span> <span class="fl">62.3</span>)<span class="sc">^</span><span class="dv">2</span> <span class="sc">/</span> <span class="fl">62.3</span> <span class="sc">+</span></span>
 <span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a>  (<span class="dv">55</span> <span class="sc">-</span> <span class="fl">32.7</span>)<span class="sc">^</span><span class="dv">2</span> <span class="sc">/</span> <span class="fl">32.7</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 31.42</code></pre>
+<pre><code>[1] 33.68</code></pre>
 </div>
 </div>
 <p>We compare this to a <span class="math inline">\(\chi^2_1\)</span> distribution to get the <span class="math inline">\(p\)</span>-value</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pchisq</span>(<span class="at">q =</span> <span class="fl">31.42</span>, <span class="at">df =</span> <span class="dv">1</span>, <span class="at">lower.tail =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pchisq</span>(<span class="at">q =</span> <span class="fl">33.68</span>, <span class="at">df =</span> <span class="dv">1</span>, <span class="at">lower.tail =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 2.078e-08</code></pre>
+<pre><code>[1] 6.497e-09</code></pre>
 </div>
 </div>
 <p>In R, this is:</p>
