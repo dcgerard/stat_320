@@ -1,0 +1,19 @@
+---
+title: "Practice Problems"
+author: "David Gerard"
+date: today
+---
+
+These practice problems mostly come from Rosner's publicly available study sheet at the books [companion website](https://www.cengage.com/cgi-wadsworth/course_products_wp.pl?fid=M20b&product_isbn_issn=9781305268920). The solutions are my own, since we differ slightly on what we are looking for in the solutions.
+
+I have only kept the problems most relevant for this course.
+
+- [Chapter 2](./pp_02.qmd)
+- Chapter 3
+- Chapter 4
+- Chapter 5
+- Chapter 6
+- Chapter 7
+- Chapter 8
+- Chapter 9
+- Chapter 10
