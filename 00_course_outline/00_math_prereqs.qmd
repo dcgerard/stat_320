@@ -1,7 +1,7 @@
 ---
 title: "00 Math Prerequisites"
 author: "David Gerard"
-date: "`r Sys.Date()`"
+date: today
 format: html
 urlcolor: "blue"
 ---
@@ -11,14 +11,6 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 We do not emphasize the mathematics underlying statistics in this course. However, you should have some familiarity with pre-calculus topics. Here are some facts you should know off the top of your head:
-
-
-# Powers, Exponentials, Logarithms
-- $e^{ab} = {e^{a}}^{b} = {e^{b}}^{a}$
-- $e^{a+b+c} = e^a(e^{b+c}) = e^ae^be^c$
-- $\log(ab) = \log(a) + \log(b)$
-- $\log(a/b) = \log(a) - \log(b)$
-- $x^ny^n = (xy)^n$
 
 # Summations
 
@@ -30,3 +22,37 @@ We do not emphasize the mathematics underlying statistics in this course. Howeve
     $$\sum_{i = 1}^n cx_i = c\sum_{i = 1}^n x_i$$
 - The order that you sum elements does not matter:
     $$\sum_{i = 1}^n (x_i + y_i) = \sum_{i = 1}^n x_i + \sum_{i = 1}^n y_i$$
+
+::: {.panel-tabset}
+## Exercise
+Let $X_1 = 5$, $X_2 = 10$, $X_3 = 1$, $X_4 = 3$
+
+1. What is $\sum_{i=1}^4 X_i$?
+
+2. What is $\sum_{i=2}^3 X_i$?
+
+3. What is $\sum_{i=2}^3 2X_i$?
+
+4. What is $\sum_{i=1}^4 (X_i + 1)$?
+
+5. What is $\sum_{i=1}^4 X_i^2$?
+
+## Solution
+1. $X_1 + X_2 + X_3 + X_4 = 5 + 10 + 1 + 3 = 19$
+
+2. $X_2 + X_3= 10 + 1 = 11$
+
+3. $2X_2 + 2X_3 = 2\times 10 + 2\times 1 = 22$. 
+   You can also just multiply part 2 by 2 since $\sum_{i=2}^3 2X_i = 2 \sum_{i=2}^3 X_i$.
+
+4. $\sum_{i=1}^4 (X_i + 1) = \sum_{i=1}^4 X_i + \sum_{i=1}^4 1 = \sum_{i=1}^4 X_i + 4 = 19 + 4 = 23$
+
+5. $X_1^2 + X_2^2 + X_3^2 + X_4^2 = 5^2 + 10^2 + 1^2 + 3^2 = 135$
+:::
+
+# Powers, Exponentials, Logarithms
+- $e^{ab} = {e^{a}}^{b} = {e^{b}}^{a}$
+- $e^{a+b+c} = e^a(e^{b+c}) = e^ae^be^c$
+- $\log(ab) = \log(a) + \log(b)$
+- $\log(a/b) = \log(a) - \log(b)$
+- $x^ny^n = (xy)^n$
