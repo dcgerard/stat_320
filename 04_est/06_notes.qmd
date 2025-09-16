@@ -3,6 +3,7 @@ title: "Chapter 6 Notes: Estimation"
 author: "David Gerard"
 format: html
 date: today
+bibliography: est_bib.bib
 ---
 
 ```{r}
@@ -728,3 +729,447 @@ This gives us the following lower bound:
 
 So the one-sided confidence interval is $p > 0.3194$.
 :::
+
+# Exercises 6.5 -- 6.10
+
+The data in Table 6.10 concern the mean triceps skin-fold thickness in a group of normal men and a group of men with chronic airflow limitation [@arora1984effect].
+
+
+| Group                      | Mean | sd  | n  |
+|---------------------------:|-----:|----:|---:|
+| Normal                     | 1.35 | 0.5 | 40 |
+| Chronic airflow limitation | 0.92 | 0.4 | 32 |
+
+: Table 6.10: Triceps skin-fold thickness in normal men and men with chronic airflow limitation
+
+::: {.panel-tabset}
+## Exercise 6.5 
+What is the standard error of the mean for each group?
+
+## Solution
+
+- Normal group: $0.5 / \sqrt{40}$ = 0.07906
+- Chronic airflow limitation group: $0.4 / \sqrt{32}$ = 0.07071
+:::
+
+::: {.panel-tabset}
+## Exercise 6.6 
+Assume that the central-limit theorem is applicable. What does it mean in this context?
+
+## Solution
+
+That the sample mean skin-fold thickness within each group is (approximately) normally distributed.
+
+:::
+
+::: {.panel-tabset}
+## Exercise 6.7 
+Find the upper 1st percentile of a $t$ distribution with 16 df.
+
+## Solution
+
+```{r}
+qt(p = 0.99, df = 16)
+```
+:::
+
+::: {.panel-tabset}
+## Exercise 6.8 
+Find the lower 10th percentile of a $t$ distribution with 28 df.
+
+## Solution
+
+```{r}
+qt(p = 0.1, df = 28)
+```
+
+:::
+
+::: {.panel-tabset}
+## Exercise 6.9 
+Find the upper 2.5th percentile of a $t$ distribution with 7 df.
+
+## Solution
+
+```{r}
+qt(p = 0.975, df = 7)
+```
+:::
+
+::: {.panel-tabset}
+## Exercise 6.10 
+What are the upper and lower 2.5th percentiles for a chi-square distribution with 2 df? What notation is used to denote these percentiles?
+
+## Solution
+
+```{r}
+qchisq(p = c(0.025, 0.975), df = 2)
+```
+
+$$
+\chi^2_{2,0.025} \text{ and } \chi^2_{2,0.975}
+$$
+:::
+
+# Exercises 6.11 -- 6.17
+
+Consider the hospital data that you can download from [here](https://dcgerard.github.io/stat_320/data/hospital.csv) and read about [here](https://dcgerard.github.io/stat_320/data.html#hospital). Regard this hospital as typical of Pennsylvania hospitals.
+
+::: {.panel-tabset}
+## Exercise 6.11 
+Compute a 95% CI for the mean age.
+
+## Solution by Hand
+
+The CI is:
+$$
+\bar{x} \pm t_{n - 1, 1 - 0.05/2}s/\sqrt{n}
+$$
+Let's calculate these elements
+
+```{r}
+#| message: false
+library(tidyverse)
+library(broom)
+hospital <- read_csv("https://dcgerard.github.io/stat_320/data/hospital.csv")
+hospital |>
+  summarize(
+    xbar = mean(Age),
+    s = sd(Age),
+    n = n(),
+    t = qt(p = 1 - 0.05 / 2, df = n() - 1)
+  )
+```
+
+So the CI is
+$$
+41.24 \pm 2.064 \times 20.1 / \sqrt{25}
+$$
+
+Plugging in R, we get:
+```{r}
+c(
+  41.24 - 2.064 * 20.1 / sqrt(25),
+  41.24 + 2.064 * 20.1 / sqrt(25)
+)
+```
+
+## Solution in R
+
+```{r}
+t.test(Age ~ 1, data = hospital) |>
+  tidy() |>
+  select(conf.low, conf.high)
+```
+
+
+:::
+
+::: {.panel-tabset}
+## Exercise 6.12 
+Compute a 95% CI for the mean white blood count following admission.
+
+## Solution by Hand
+
+The CI is again
+$$
+\bar{x} \pm t_{n - 1, 1 - 0.05/2}s/\sqrt{n}
+$$
+
+Calculating these summaries, we get
+```{r}
+hospital |>
+  summarize(
+    xbar = mean(WBC),
+    s = sd(WBC),
+    n = n(),
+    t = qt(p = 1 - 0.05 / 2, df = n() - 1)
+  )
+```
+
+So the CI is
+$$
+7.84 \pm 2.064 \times 3.21 / \sqrt{25}
+$$
+
+Plugging in R, we get:
+```{r}
+c(
+  7.84 - 2.064 * 3.21 / sqrt(25),
+  7.84 + 2.064 * 3.21 / sqrt(25)
+)
+```
+
+## Solution in R
+
+```{r}
+t.test(WBC ~ 1, data = hospital) |>
+  tidy() |>
+  select(conf.low, conf.high)
+```
+
+
+You might think that since we have counts, you could try to assume that $X_i \sim \mathrm{Poi}(\mu)$ and try to come up with an exact confidence interval based on this assumption. This could be done by calculating $X = \sum_{i=1}^n X_i$, which follows a Poisson with mean parameter $n\mu$. You can get an exact CI for $n\mu$ and divide it by $n$ to get an exact CI for $\mu$. But, the normal approximation would be appropriate for this approach anyway. More importantly, the $t$-method is probably better anyway because it allows for over/underdispersion. Anyway, for comparison, this approach would result in:
+```{r}
+x <- sum(hospital$WBC)
+poisson.test(x = x) |>
+  tidy() |>
+  select(conf.low, conf.high) |>
+  mutate(conf.low = conf.low / 25, conf.high = conf.high / 25)
+```
+
+:::
+
+::: {.panel-tabset}
+## Exercise 6.13 
+Answer Problem 6.12 for a 90% CI.
+
+## Solution
+
+For the by-hand way, we just use the 0.95 quantile of the $t$ distribution with $n-1$ degrees of freedom.
+```{r}
+qt(p = 1 - 0.1 / 2, df = 25 - 1)
+```
+```{r}
+c(
+  7.84 - 1.711 * 3.21 / sqrt(25),
+  7.84 + 1.711 * 3.21 / sqrt(25)
+)
+```
+
+For the R way, we change the `conf.level` argument
+```{r}
+t.test(WBC ~ 1, data = hospital, conf.level = 0.9) |>
+  tidy() |>
+  select(conf.low, conf.high)
+```
+:::
+
+::: {.panel-tabset}
+## Exercise 6.14 
+What is the relationship between your answers to Problems 6.12 and 6.13?
+
+## Solution
+
+The CI in 6.12 is larger than the CI in 6.13 because it has a higher confidence level (you need wider intervals to capture the parameter more often).
+
+:::
+
+::: {.panel-tabset}
+## Exercise 6.15 
+What is the best point estimate of the percentage of males among patients discharged from Pennsylvania hospitals?
+
+## Solution
+
+This is $\hat{p}$, the proportion of patients that are male:
+```{r}
+hospital |>
+  summarize(x = sum(Sex == "male"), n = n())
+```
+Since $\hat{p} = 11 / 25 = 0.44$, 44\% is the best estimate.
+:::
+
+::: {.panel-tabset}
+## Exercise 6.16 
+What is the standard error of the estimate obtained in Problem 6.15?
+
+## Solution
+
+This is $\sqrt{\hat{p}(1-\hat{p})/n} = \sqrt{0.44 * (1 - 0.44) / 25}$
+```{r}
+sqrt(0.44 * (1 - 0.44) / 25)
+```
+This is the standard error for $\hat{p}$. If you really want to keep it in in units of percent (instead of proportions), then standard error is 9.928\%.
+:::
+
+::: {.panel-tabset}
+## Exercise 6.17 
+Provide a 95% CI for the percentage of males among patients discharged from Pennsylvania hospitals.
+
+## Solution by Hand
+
+If we want to keep things in terms of proportions, we havee
+$$
+\hat{p} \pm z_{1-0.5/2} \times\sqrt{\hat{p}(1-\hat{p})/n}
+$$
+
+If we really want to keep things in terms of percent, then this is
+
+$$
+100 \times \hat{p} \pm z_{1-0.5/2}\times 100 \times\sqrt{\hat{p}(1-\hat{p})/n}
+$$
+That normal quantile $z_{1-0.05/2}$ is
+```{r}
+qnorm(0.975)
+```
+
+So, we have
+```{r}
+c(
+  44 - 1.96 * 9.928,
+  44 + 1.96 * 9.928
+)
+```
+
+## Solution in R
+
+```{r}
+binom.test(x = 11, n = 25) |>
+  tidy() |>
+  select(conf.low, conf.high) |>
+  mutate(conf.low = 100 * conf.low, conf.high = 100 * conf.high)
+```
+
+:::
+
+# Exercises 6.77 -- 6.80
+
+The value of mammography as a screening test for breast cancer has been controversial, particularly among young women. A study was recently performed looking at the rate of false positives for repeated screening mammograms among approximately 10,000 women who were members of Harvard Pilgrim Health Care, a large health-maintenance organization in New England [@elmore1998ten]. The study reported that of a total of 1996 tests given to 40- to 49-year-old women, 156 yielded false-positive results.
+
+::: {.panel-tabset}
+## Exercise 6.77
+What does a false-positive test result mean, in words, in this context?
+
+## Solutions
+
+The mammogram result is positive (indicating breast cancer), but the woman does not have breast cancer.
+
+:::
+
+::: {.panel-tabset}
+## Exercise 6.78 
+Some physicians feel a mammogram is not cost effective unless one can be reasonably certain (e.g., 95\% certain) that the false-positive rate is less than 10%. Can you address this issue based on the preceding data? (Hint: Use a CI approach.)
+
+## Solutions
+
+We will create a 95\% lower confidence interval. If the upper bound of this is less than 0.1, then we can be reasonably certain (at the 0.05 significance level) that the test is cost effective.
+
+The lower one-sided CI has an upper bound of
+
+$$
+\hat{p} + z_{1 - \alpha} \sqrt{\hat{p}(1 - \hat{p})/n}
+$$
+
+Calculating values we get
+```{r}
+phat <- 156 / 1996
+phat
+z <- qnorm(1 - 0.05)
+z
+n <- 1996
+```
+
+So the upper bound is
+$$
+0.07816 + 1.645 \times \sqrt{0.07816(1 - 0.07816) / 1996}
+$$
+```{r}
+0.07816 + 1.645 * sqrt(0.07816 * (1 - 0.07816) / 1996)
+```
+
+Since this upper bound is less than 0.1, we are reasonably certain (at the 0.05 significance level) that the test is cost effective.
+
+In R, the upper bound is
+```{r}
+binom.test(x = 156, n = 1996, alternative = "less") |>
+  tidy() |>
+  select(conf.low, conf.high)
+```
+
+:::
+
+::: {.panel-tabset}
+## Exercise 6.79
+Suppose a woman is given a mammogram every 2 years starting at age 40. What is the probability that she will have at least one false-positive test result among 5 screening tests during her forties? (Assume the repeated screening tests are independent.)
+
+## Solutions
+
+Let $p$ be the probability of a false positive. Let $X$ be the number of tests, out of 5, whihch is a false positive. Then $X \sim \mathrm{Binomial}(5, p)$. We want $\mathrm{P}(X \geq 1) = 1 - \mathrm{P}(X = 0)$. This is, using the binomial PMF,
+$$
+1 - (1 - p)^5.
+$$
+
+We can estimate this probability with $\hat{p}$
+$$
+1 - (1 - \hat{p})^5.
+$$
+
+In R, this estimate is
+```{r}
+phat <- 156 / 1996
+1 - (1 - phat)^5
+```
+
+It is very important to note that 0.3343 is *not* the answer. It is an *estimate* of the probability of at least one false positive. It is not the probability of at least one false positive.
+
+
+:::
+
+::: {.panel-tabset}
+## Exercise 6.80 
+Provide a two-sided 95% CI for the probability estimate in Problem 6.79.
+
+## Solutions
+
+A 95\% confidence interval for $p$ is
+```{r}
+bindf <- binom.test(x = 156, n = 1996) |>
+  tidy() |>
+  select(conf.low, conf.high)
+bindf
+```
+
+So we just transform these bounds using the formula from part 6.79
+```{r}
+1 - (1 - bindf)^5
+```
+
+So a 95\% confidence interval for the probability that a woman will have at least one false positive in her forties is (0.2921, 0.3787).
+
+:::
+
+# Exercises 6.102 -- 6.103
+
+Injuries are common in football and may be related to a number of factors, including the type of playing surface, the number of years of playing experience, and whether any previous injury exists. A study of factors affecting injury among Canadian football players was recently reported [@hagel2003injury]. The rate of injury to the upper extremity (that is, shoulder to hand) on a dry field consisting of natural grass was 2.73 injuries per 1000 games. Assume this rate is known without error.
+
+::: {.panel-tabset}
+## Exercise 6.102 
+The study reported 45 injuries to the upper extremity on a dry field consisting of artificial turf over the course of 10,112 games. What procedure can be used to assess whether the risk of injury is different on artificial turf versus natural grass?
+
+## Solutions
+
+Let $X$ be the number of injuries to the upper extremity on turf. If it were the same as natural grass, then we would expect
+$$
+X \sim \mathrm{Poisson}(t\lambda) = \mathrm{Poisson}\left(\frac{2.73}{1000} \times 10112\right) = \mathrm{Poisson}(27.61)
+$$
+Suppose $X \sim \mathrm{Poisson}(\mu)$. If this were chapter seven, we would run a hypothesis test of the null that $\mu = 27.61$ versus the alternative that $\mu \neq 27.61$. But this is chapter 6, so we just calculate a 95\% confidence interval and see that 27.61 is included in it.
+
+```{r}
+poisson.test(x = 45, r = 27.61) |>
+  tidy() |>
+  select(conf.low, conf.high)
+```
+
+The confidence interval does not include 27.61, so we have evidence (at the 0.05 significance level) that the two rates differ.
+
+:::
+
+::: {.panel-tabset}
+## Exercise 6.103 
+Provide a 95% CI for the rate of injury to the upper extremity on artificial turf. (Hint: Use the Poisson distribution.) Express each rate as the number of injuries per 1000 games.
+
+## Solutions
+
+The time period in 1000 game increments for this study is 10112 / 1000 = 10.112. We can just plug this into `poisson.test()` using this time increment.
+```{r}
+poisson.test(x = 45, T = 10.112, r = 2.73) |>
+  tidy()
+```
+
+The 95\% CI is 3.246 to 5.955 injuries per 1000 games.
+
+You could also use this CI, like in the previous question, and note that since it does not include 2.73, we have evidence (at the 0.05 significance level) that the injury rates differ between the two fields.
+
+:::
+
+# References
