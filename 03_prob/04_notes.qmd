@@ -226,6 +226,7 @@ pmf <- tibble(
   r = 0:4,
   pr = c(0.008, 0.076, 0.265, 0.411, 0.240)
 )
+pmf
 ```
 
 We can verify that the PMF sums to 1
