@@ -208,7 +208,7 @@ Calculate $E(X)$, $SD(X)$, $F(X)$
 
 - There are $\frac{n!}{(n-k)!}$ permutations of size $k$.
 
-  - Each of those shares elements with $k! = k P_k$.
+  - Each of those shares elements with $k! = {}_kP_k$ other permutations.
 
   - Example: $A, B, C, D \quad {}_4C_3$
 
