@@ -234,3 +234,247 @@ Answer Problem 3.30 for lung cancer.
 
 3.32
 Answer Problem 3.30 for stomach cancer.
+
+## Cardiovascular Disease
+
+The relationship between physical fitness and cardiovascular-disease mortality was recently studied in a group of railroad working men, ages 22–79. Data were presented relating baseline exercise-test heart rate and coronary heart-disease mortality (Table 3.4).
+
+```{r}
+#| echo: false
+#| eval: true
+#| message: false
+
+# Load the gt package
+library(gt)
+
+# Create the data frame
+heart_data <- tibble(
+  `Exercise-test heart rate (beats/min)` = c("≤ 105", "106–115", "116–127", "> 127"),
+  `Coronary heart-disease mortality (20 years) (per 100)` = c(9.1, 8.7, 11.6, 13.2)
+)
+
+# Create the gt table
+gt_table <- gt(heart_data) |>
+  tab_header(
+    title = "Table 3.4",
+    subtitle = "Relationship between baseline exercise-test heart rate and coronary heart-disease mortality"
+  )
+
+# Print the table
+gt_table
+```
+
+Suppose that 20, 30, 30, and 20% of the population, respectively, have exercise-test heart rates of ≤ 105, 106–115, 116–127, > 127 beats/minute. Suppose a test is positive if the exercise-test heart rate is > 127 beats/min and negative otherwise.
+
+3.33
+What is the probability of a positive test among men who have died over the 20-year period? Is there a name for this quantity?
+
+3.34
+What is the probability of a positive test among men who survived the 20-year period? Is there a name for this quantity?
+
+3.35
+What is the probability of death among men with a negative test? Is there a name for this quantity?
+
+
+## Cardiovascular Disease
+
+Exercise testing has sometimes been used to diagnose patients with coronary-artery disease. One test criterion that has been used to identify those with disease is the abnormal ejection-fraction criterion; that is, an absolute rise of less than 0.05 with exercise. The validity of this noninvasive test was assessed in 196 patients versus coronary angiography, the gold standard, a procedure that can unequivocally diagnose the disease but the administration of which carries some risk for the patient. A sensitivity of 79% and a specificity of 68% were found for the exercise test in this group.
+
+3.36
+What does the sensitivity mean in words in this setting?
+
+3.37
+What does the specificity mean in words in this setting?
+
+Suppose a new patient undergoes exercise testing and a physician feels before seeing the exercise-test results that the patient has a 20% chance of having coronary-artery disease.
+
+3.38
+If the exercise test is positive, then what is the probability that such a patient has disease?
+
+3.39
+Answer Problem 3.38 if the exercise test is negative.
+
+
+## Nutrition
+
+The food-frequency questionnaire (FFQ) is a commonly used method for assessing dietary intake, where individuals are asked to record the number of times per week they usually eat for each of about 100 food items over the previous year. It has the advantage of being easy to administer to large groups of people, but has the disadvantage of being subject to recall error. The gold standard instrument for assessing dietary intake is the diet record (DR), where people are asked to record each food item eaten on a daily basis over a 1-week period. To investigate the accuracy of the FFQ, both the FFQ and the DR were administered to 173 participants in the United States. The reporting of alcohol consumption with each instrument is given in Table 3.5, where alcohol is coded as alcohol = some drinking, versus no alcohol = no drinking.
+
+
+```{r}
+#| echo: false
+#| eval: true
+#| message: False
+
+library(gt)
+
+# Create the data frame
+table_3_5 <- data.frame(
+  Diet_Record = c("Alcohol", "No alcohol", "Total"),
+  Alcohol = c(138, 1, 139),
+  No_Alcohol = c(18, 16, 34),
+  Total = c(156, 17, 173)
+)
+
+# Create the gt table
+gt_table <- table_3_5 |>
+  gt(rowname_col = "Diet_Record") |>
+  tab_header(
+    title = "Table 3.5",
+    subtitle = "Actual drinking habits as determined from the diet record cross-classified by self-reported drinking status from the food-frequency questionnaire"
+  ) |>
+  tab_spanner(
+    label = "Food-frequency questionnaire",
+    columns = c("Alcohol", "No_Alcohol", "Total")
+  ) |>
+  cols_label(
+    Alcohol = "Alcohol",
+    No_Alcohol = "No alcohol",
+    Total = "Total"
+  )
+
+# Print the table
+gt_table
+```
+
+3.40
+What is the sensitivity of the FFQ?
+
+3.41
+What is the specificity of the FFQ?
+
+Let us treat the 173 participants in this study as representative
+of people who would use the FFQ.
+
+3.42
+What is the predictive value positive of the FFQ?
+
+3.43
+What is the predictive value negative of the FFQ?
+
+3.44
+Suppose the questionnaire is to be administered in a different country where the true proportion of drinkers is 80%. What would be the predictive value positive if administered in this setting?
+
+
+## Genetics
+Two healthy parents have a child with a severe autosomal recessive condition that cannot be identified by prenatal diagnosis. They realize that the risk of this condition for subsequent offspring is 1/4, but wish to embark on a second pregnancy. During the early stages of the pregnancy, an ultrasound test determines that there are twins.
+
+3.45
+Suppose that there are monozygotic, or MZ (identical) twins. What is the probability that both twins are affected? one twin affected? neither twin affected? Are the outcomes for the two MZ twins independent or dependent events?
+
+3.46
+Suppose that there are dizygotic, or DZ (fraternal) twins. What is the probability that both twins are affected? one twin affected? neither twin affected? Are the outcomes for the two DZ twins independent or dependent events?
+
+3.47
+Suppose there is a 1/3 probability of MZ twins and a 2/3 probability of DZ twins. What is the overall probability that both twins are affected? One twin affected? Neither affected?
+
+3.48
+Suppose we learn that both twins are affected but don’t know whether they are MZ or DZ twins. What is the probability that they are MZ twins given this additional information?
+
+
+## Cerebrovascular Disease
+Atrial fibrillation (AF) is a common cardiac condition in the elderly (e.g., former President George H.W. Bush has this condition) characterized by an abnormal heart rhythm that greatly increases the risk of stroke. The following estimates of the prevalence rate of AF and the incidence rate of stroke for people with and without AF by age from the Framingham Heart Study are given in Table 3.6.
+
+```{r}
+#| echo: false
+#| eval: true
+#| message: false
+
+# Load required package
+library(gt)
+
+# Create the data frame
+af_stroke_data <-tibble(
+  Age_group = c("60–69", "70–79", "80–89"),
+  Prevalence_AF = c(1.8, 4.7, 10.2),
+  Stroke_No_AF = c(4.5, 9.0, 14.3),
+  Stroke_AF = c(21.2, 48.9, 71.4)
+)
+
+# Create the gt table
+af_stroke_table <- af_stroke_data %>%
+  gt() %>%
+  tab_header(
+    title = "Table 3.6: Relationship between atrial fibrillation and stroke"
+  ) %>%
+  cols_label(
+    Age_group = "Age group",
+    Prevalence_AF = "Prevalence of AF (%)",
+    Stroke_No_AF = "No AF",
+    Stroke_AF = "AF"
+  ) %>%
+  tab_spanner(
+    label = "Incidence rate of stroke per 1000 person-years",
+    columns = c(Stroke_No_AF, Stroke_AF)
+  )
+
+# Print the table
+af_stroke_table
+```
+
+
+3.49
+What does an incidence rate of 48.9 strokes per 1000 person-years among 70–79-year-olds with AF mean in Table 3.6?
+
+3.50
+What is the relative risk of stroke for people with AF compared with people without AF in each age group? Does the relative risk seem to be the same for different age groups
+
+
+Suppose we screen 500 subjects from the general population of age 60–89, of whom 200 are 60–69, 200 are 70–79, and 100 are 80–89.
+
+3.51
+What is the incidence rate of stroke in the screened population over a 1-year period?
+
+3.52
+Suppose the study of 500 subjects is a “pilot study” for a larger study. How many 60-89 year old subjects need to be screened if we wish to observe an average of 50 strokes in the larger study over 1 year?
+
+## Radiology
+
+It is well-known that there is variation among readers in evaluating radiologic images. For this purpose, we present evaluations from a 2nd reader of the same 100 images for the study described in Section 3.6.1 of the Study Guide. The results are given in Table 3.7.
+
+
+```{r}
+#| echo: false
+#| eval: true
+#| message: false
+
+library(gt)
+
+# Create the data frame
+data <- tibble(
+  `True Status` = c("Negative", "Positive", "Total"),
+  `1` = c(0, 0, 0),
+  `2` = c(3, 49, 52),
+  `3` = c(7, 11, 18),
+  `4` = c(14, 4, 18),
+  `5` = c(9, 3, 12),
+  `Total` = c(33, 67, 100)
+)
+
+# Generate the gt table
+gt_table <- gt(data) |>
+  tab_header(
+    title = "Table 3.7",
+    subtitle = "Ratings from Reader 2 using PACS film for the study described in Section 3.6.1"
+  ) |>
+  cols_label(
+    `True Status` = "True Status"
+  )
+
+# Print the table
+gt_table
+```
+
+Suppose different cutpoints are considered for positivity, viz, ≤ 0 , ≤ 1, ≤ 2, ≤ 3, ≤ 4 and ≤ 5.
+
+3.53
+Compute the sensitivity of the test for each cutpoint for Reader 2.
+
+3.54
+Compute the specificity of the test for each cutpoint for Reader 2.
+
+3.55
+Draw the ROC curve for Reader 2.
+
+3.56
+Compare the accuracy of the test for Reader 2 vs Reader 1.
+
