@@ -1,0 +1,236 @@
+---
+title: "Chapter 3 Practice Problems"
+author: "David Gerard"
+date: today
+---
+
+These practice problems mostly come from Rosner's publicly available study sheet at the books [companion website](https://www.cengage.com/cgi-wadsworth/course_products_wp.pl?fid=M20b&product_isbn_issn=9781305268920). The solutions are my own, since we differ slightly on what we are looking for in the solutions.
+
+```{r}
+#| echo: false
+#| eval: true
+#| message: false
+library(tidyverse)
+```
+
+
+## Basic Probability
+
+Let 
+
+- A = {serum cholesterol $=$ 250–299},
+- B = {serum cholesterol $\geq$ 300},
+- C = {serum cholesterol $\leq$ 280}.
+
+3.1
+Are the events A and B mutually exclusive?
+
+3.2
+Are the events A and C mutually exclusive?
+
+3.3
+Suppose $P(A) = 0.2$, $P(B) = 0.1$. What is $P(\text{serum cholesteroal} \geq 250)$?
+
+3.4
+What does $A \cup C$ mean?
+
+3.5
+What does $A \cap C$ mean?
+
+3.6
+What does $B \cup C$ mean?
+
+3.7
+What does $B \cap C$ mean?
+
+3.8
+Are the events $B$ and $C$ mutually exclusive?
+
+3.9
+What does the event $\bar{B}$ mean? What is its probability? 
+
+Suppose that the gender of successive offspring in the same family are independent events and that the probability of a male or female offspring is 0.5.
+
+3.10
+What is the probability of two successive female offspring?
+
+3.11
+What is the probability that exactly one of two successive children will be female?
+
+3.12
+Suppose that three successive offspring are male. What is the probability that a fourth child will be male?
+
+## Cardiovascular Disease
+
+A survey was performed among people 65 years of age and older who underwent open-heart surgery. It was found that 30% of patients died within 90 days of the operation, whereas an additional 25% of those who survived 90 days died within 5 years after the operation.
+
+3.13
+What is the probability that a patient undergoing open-heart surgery will die within 5 years?
+
+3.14
+What is the mortality incidence (per patient month) in patients receiving this operation in the first 90 days after the operation? (Assume that 90 days = 3 months.)
+
+3.15
+Answer the same question as in Problem 3.14 for the period from 90 days to 5 years after the operation.
+
+3.16
+Can you tell if the operation prolongs life from the data presented? If not, then what additional data do you need?
+
+A study relating smoking history to several measures of cardiopulmonary disability was recently reported. The data in the table below were presented relating the number of people with different disabilities according to cigarette-smoking status.
+
+```{r}
+#| echo: false
+#| eval: true
+#| message: False
+
+library(gt)
+
+# Create the data frame
+data <- tibble(
+  Disability = c("Shortness of breath", "Angina", "Possible infarction"),
+  None = c(7, 15, 3),
+  Ex = c(15, 19, 7),
+  Current_less = c(18, 19, 8),
+  Current_more = c(13, 16, 6)
+)
+
+# Generate the gt table
+gt_table <- gt(data) %>%
+  tab_header(
+    title = md("**Table 3.1** Number of people with selected cardiopulmonary disabilities versus cigarette-smoking status")
+  ) %>%
+  cols_label(
+    Disability = "Disability",
+    None = md("*None*<br>(n=656)"),
+    Ex = md("*Ex*<br>(n=826)"),
+    Current_less = md("*Current*<br>< 15 g/day (n=955)"),
+    Current_more = md("*Current*<br>>= 15 g/day (n=654)")
+  )
+
+# Print the table
+gt_table
+```
+
+
+3.17
+What is the prevalence of angina among light current smokers (< 15g/day)?
+
+3.18
+What is the relative risk of ex-smokers, light current smokers, and heavy current smokers, respectively, for shortness of breath as compared with nonsmokers?
+
+3.19
+Answer Problem 3.18 for angina.
+
+3.20
+Answer Problem 3.18 for possible infarction
+
+## Pulmonary Disease
+
+Pulmonary embolism is a relatively common condition that necessitates hospitalization and also often occurs in patients hospitalized for other reasons. An oxygen tension (arterial Po$_{2}$) < 90 mm Hg is one of the important criteria used in diagnosing this condition. Suppose that the sensitivity of this test is 95%, the specificity is 75%, and the estimated prevalence is 20% (i.e., a doctor estimates that a patient has a 20% chance of pulmonary embolism before performing the test).
+
+3.21
+What is the predictive value positive of this test? What does it mean in words?
+
+3.22
+What is the predictive value negative of this test? What does it mean in words?
+
+3.23
+Answer Problem 3.21 if the estimated prevalence is 80%.
+
+3.24
+Answer Problem 3.22 if the estimated prevalence is 80%.
+
+## Environmental Health, Pediatrics
+
+3.25
+Suppose that a company plans to build a lead smelter in a community and that the city council wishes to assess the health effects of the smelter. In particular, there is concern from previous literature that children living very close to the smelter will experience unusually high rates of lead poisoning in the first 3 years of life. The projected rates of lead poisoning over this time period are 50 per 100,000 for those children living within 2 km of the smelter, 20 per 100,000 for children living > 2 km but ≤ 5 km from the smelter, and 5 per 100,000 for children living > 5 km from the smelter. If 80% of the children live more than 5 km from the smelter, 15% live > 2 km but ≤ 5 km from the smelter, and the remainder live ≤ 2 km from the smelter, then what is the overall probability that a child from this community will get lead poisoning?
+
+## Diabetes
+
+The prevalence of diabetes in adults at least 20 years old has been studied in Tecumseh, Michigan. The age-sex-specific prevalence (per 1000) is given in Table 3.2.
+
+```{r}
+#| echo: false
+#| eval: true
+#| message: false
+
+# Load the gt package
+library(gt)
+
+# Create the data frame
+diabetes_data <- tibble(
+  Age_Group = c("20–39", "40–54", "55+"),
+  Male = c(5, 23, 57),
+  Female = c(7, 31, 89)
+)
+
+# Create the gt table
+gt_table <- diabetes_data %>%
+  gt() %>%
+  tab_header(
+    title = "Table 3.2 Age-sex-specific prevalence of diabetes in Tecumseh, MI (per 1000)"
+  ) %>%
+  cols_label(
+    Age_Group = "Age group (years)",
+    Male = "Male",
+    Female = "Female"
+  )
+
+# Print the table
+gt_table
+```
+
+3.26
+Suppose we plan a new study in a town that consists of 48% males and 52% females. Of the males, 40% are ages 20–39, 32% are 40–54, and 28% are 55+. Of the females, 44% are ages 20–39, 37% are 40–54, and 19% are 55+. Assuming that the Tecumseh prevalence rates hold, what is the expected prevalence of diabetes in the new study?
+
+3.27
+What proportion of diabetics in the new study would be expected in each of the six age-sex groups?
+
+## Cancer
+
+Table 3.3 shows the annual incidence rates for colon cancer, lung cancer, and stomach cancer in males ages 50 years and older from the Connecticut Tumor Registry, 1963–1965.
+
+```{r}
+#| echo: false
+#| eval: true
+#| message: false
+
+# Load the gt package
+library(gt)
+
+# Create the data frame
+cancer_data <- tibble(
+  `Type of cancer` = c("Colon", "Lung", "Stomach"),
+  `Ages 50-54` = c(35.7, 76.1, 20.8),
+  `Ages 55-59` = c(60.3, 137.5, 39.1),
+  `Ages 60-64` = c(98.9, 231.7, 46.0)
+)
+
+# Create the gt table
+gt_table <- cancer_data %>%
+  gt() %>%
+  tab_header(
+    title = "Table 3.3",
+    subtitle = "Average annual incidence per 100,000 males for colon, lung, and stomach cancer\nfrom the Connecticut Tumor Registry 1963–1965"
+  )
+
+# Print the table
+gt_table
+
+```
+
+
+3.28
+What is the probability that a 57-year-old, disease-free male will develop lung cancer over the next year?
+
+3.29
+What is the probability that a 55-year-old, disease-free male will develop colon cancer over the next 5 years?
+
+3.30
+Suppose there is a cohort of 1000 50-year-old men who have never had cancer. How many colon cancers would be expected to develop in this cohort over a 15-year period?
+
+3.31
+Answer Problem 3.30 for lung cancer.
+
+3.32
+Answer Problem 3.30 for stomach cancer.

@@ -992,5 +992,54 @@
     "title": "Chapter 2 Practice Problems",
     "section": "Nutrition",
     "text": "Nutrition\nThe data frame below shows the distribution of dietary vitamin-A intake as reported by 14 students who filled out a dietary questionnaire in class. The total intake is a combination of intake from individual food items and from vitamin pills. The units are in IU/100 (International Units/100).\n\nvita &lt;- tibble(\n  Student_number = 1:14,\n  Intake_IU_100 = c(31.1, 21.5, 74.7, 95.5, 19.4, 64.8, 108.7,\n                    48.1, 24.4, 13.4, 37.1, 21.3, 78.5, 17.7)\n)\n\n\n\n\n\n\n\n\n\nStudent_number\nIntake_IU_100\n\n\n\n\n1\n31.1\n\n\n2\n21.5\n\n\n3\n74.7\n\n\n4\n95.5\n\n\n5\n19.4\n\n\n6\n64.8\n\n\n7\n108.7\n\n\n8\n48.1\n\n\n9\n24.4\n\n\n10\n13.4\n\n\n11\n37.1\n\n\n12\n21.3\n\n\n13\n78.5\n\n\n14\n17.7\n\n\n\n\n\n\n\n\n2.13Solution\n\n\nCompute the mean and median from these data.\n\n\nThe mean\n\nsumx &lt;- 31.1 + 21.5 + 74.7 + 95.5 + 19.4 + 64.8 + 108.7 +\n  48.1 + 24.4 + 13.4 + 37.1 + 21.3 + 78.5 + 17.7\nn &lt;- 14\nxbar &lt;- sumx / n\nxbar\n\n[1] 46.87\n\n\nThe median is the mean of the 7th and 8th largest observations. Ordering the observations we get \\[\n13.4, 17.7, 19.4, 21.3, 21.5, 24.4, 31.1, 37.1, 48.1, 64.8, 74.7, 78.5, 95.5, 108\n\\] So the median is\n\n(31.1 + 37.1) / 2\n\n[1] 34.1\n\n\nWe can verify in R\n\nmedian(vita$Intake_IU_100)\n\n[1] 34.1\n\n\n\n\n\n\n2.14Solution\n\n\nCompute the standard deviation and coefficient of variation from these data.\n\n\nSum of the squared values\n\nsumx2 &lt;- 31.1^2 + 21.5^2 + 74.7^2 + 95.5^2 + 19.4^2 + 64.8^2 + 108.7^2 +\n  48.1^2 + 24.4^2 + 13.4^2 + 37.1^2 + 21.3^2 + 78.5^2 + 17.7^2\n\nSince \\(\\frac{1}{n}\\sum (x_i - \\bar{x})^2 = \\frac{1}{n}\\sum x_i^2 - \\bar{x}^2\\), we get variance is\n\n(sumx2 / n - xbar^2) * n / (n-1)\n\n[1] 1012\n\n\nAnd so the standard deviation is\n\nsqrt(1012)\n\n[1] 31.81\n\n\nWe can verify in R\n\nsd(vita$Intake_IU_100)\n\n[1] 31.81\n\n\nThe coefficient of variation is the standard deviation divided by the mean. So\n\n31.8 / 46.9\n\n[1] 0.678\n\n\n\n\n\n\n2.15Solution\n\n\nSuppose the data are expressed in IU rather than IU/100. What are the mean, standard deviation, and coefficient of variation in the new units?\n\n\nJust multiply the mean and sd by 100.\n\n46.9 * 100 ## mean\n\n[1] 4690\n\n31.8 * 100 ## sd\n\n[1] 3180\n\n\nThe CV is unchanged.\n\n(31.8 * 100) / (46.9 * 100)\n\n[1] 0.678\n\n\n\n\n\n\n2.17Solution\n\n\nDo you think the mean or median is a more appropriate measure of location for this data set? Here is a histogram\n\nggplot(vita, aes(x = Intake_IU_100)) + \n  geom_histogram(bins = 5)\n\n\n\n\n\n\n\n\n\n\nHard to tell. Maybe the median because of the slight skew? But there is too few data to say for sure."
+  },
+  {
+    "objectID": "review/pp_03.html",
+    "href": "review/pp_03.html",
+    "title": "Chapter 3 Practice Problems",
+    "section": "",
+    "text": "These practice problems mostly come from Rosner’s publicly available study sheet at the books companion website. The solutions are my own, since we differ slightly on what we are looking for in the solutions."
+  },
+  {
+    "objectID": "review/pp_03.html#basic-probability",
+    "href": "review/pp_03.html#basic-probability",
+    "title": "Chapter 3 Practice Problems",
+    "section": "Basic Probability",
+    "text": "Basic Probability\nLet\n\nA = {serum cholesterol \\(=\\) 250–299},\nB = {serum cholesterol \\(\\geq\\) 300},\nC = {serum cholesterol \\(\\leq\\) 280}.\n\n3.1 Are the events A and B mutually exclusive?\n3.2 Are the events A and C mutually exclusive?\n3.3 Suppose \\(P(A) = 0.2\\), \\(P(B) = 0.1\\). What is \\(P(\\text{serum cholesteroal} \\geq 250)\\)?\n3.4 What does \\(A \\cup C\\) mean?\n3.5 What does \\(A \\cap C\\) mean?\n3.6 What does \\(B \\cup C\\) mean?\n3.7 What does \\(B \\cap C\\) mean?\n3.8 Are the events \\(B\\) and \\(C\\) mutually exclusive?\n3.9 What does the event \\(\\bar{B}\\) mean? What is its probability?\nSuppose that the gender of successive offspring in the same family are independent events and that the probability of a male or female offspring is 0.5.\n3.10 What is the probability of two successive female offspring?\n3.11 What is the probability that exactly one of two successive children will be female?\n3.12 Suppose that three successive offspring are male. What is the probability that a fourth child will be male?"
+  },
+  {
+    "objectID": "review/pp_03.html#cardiovascular-disease",
+    "href": "review/pp_03.html#cardiovascular-disease",
+    "title": "Chapter 3 Practice Problems",
+    "section": "Cardiovascular Disease",
+    "text": "Cardiovascular Disease\nA survey was performed among people 65 years of age and older who underwent open-heart surgery. It was found that 30% of patients died within 90 days of the operation, whereas an additional 25% of those who survived 90 days died within 5 years after the operation.\n3.13 What is the probability that a patient undergoing open-heart surgery will die within 5 years?\n3.14 What is the mortality incidence (per patient month) in patients receiving this operation in the first 90 days after the operation? (Assume that 90 days = 3 months.)\n3.15 Answer the same question as in Problem 3.14 for the period from 90 days to 5 years after the operation.\n3.16 Can you tell if the operation prolongs life from the data presented? If not, then what additional data do you need?\nA study relating smoking history to several measures of cardiopulmonary disability was recently reported. The data in the table below were presented relating the number of people with different disabilities according to cigarette-smoking status.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nTable 3.1 Number of people with selected cardiopulmonary disabilities versus cigarette-smoking status\n\n\nDisability\nNone(n=656)\nEx(n=826)\nCurrent&lt; 15 g/day (n=955)\nCurrent&gt;= 15 g/day (n=654)\n\n\n\n\nShortness of breath\n7\n15\n18\n13\n\n\nAngina\n15\n19\n19\n16\n\n\nPossible infarction\n3\n7\n8\n6\n\n\n\n\n\n\n\n3.17 What is the prevalence of angina among light current smokers (&lt; 15g/day)?\n3.18 What is the relative risk of ex-smokers, light current smokers, and heavy current smokers, respectively, for shortness of breath as compared with nonsmokers?\n3.19 Answer Problem 3.18 for angina.\n3.20 Answer Problem 3.18 for possible infarction"
+  },
+  {
+    "objectID": "review/pp_03.html#pulmonary-disease",
+    "href": "review/pp_03.html#pulmonary-disease",
+    "title": "Chapter 3 Practice Problems",
+    "section": "Pulmonary Disease",
+    "text": "Pulmonary Disease\nPulmonary embolism is a relatively common condition that necessitates hospitalization and also often occurs in patients hospitalized for other reasons. An oxygen tension (arterial Po\\(_{2}\\)) &lt; 90 mm Hg is one of the important criteria used in diagnosing this condition. Suppose that the sensitivity of this test is 95%, the specificity is 75%, and the estimated prevalence is 20% (i.e., a doctor estimates that a patient has a 20% chance of pulmonary embolism before performing the test).\n3.21 What is the predictive value positive of this test? What does it mean in words?\n3.22 What is the predictive value negative of this test? What does it mean in words?\n3.23 Answer Problem 3.21 if the estimated prevalence is 80%.\n3.24 Answer Problem 3.22 if the estimated prevalence is 80%."
+  },
+  {
+    "objectID": "review/pp_03.html#environmental-health-pediatrics",
+    "href": "review/pp_03.html#environmental-health-pediatrics",
+    "title": "Chapter 3 Practice Problems",
+    "section": "Environmental Health, Pediatrics",
+    "text": "Environmental Health, Pediatrics\n3.25 Suppose that a company plans to build a lead smelter in a community and that the city council wishes to assess the health effects of the smelter. In particular, there is concern from previous literature that children living very close to the smelter will experience unusually high rates of lead poisoning in the first 3 years of life. The projected rates of lead poisoning over this time period are 50 per 100,000 for those children living within 2 km of the smelter, 20 per 100,000 for children living &gt; 2 km but ≤ 5 km from the smelter, and 5 per 100,000 for children living &gt; 5 km from the smelter. If 80% of the children live more than 5 km from the smelter, 15% live &gt; 2 km but ≤ 5 km from the smelter, and the remainder live ≤ 2 km from the smelter, then what is the overall probability that a child from this community will get lead poisoning?"
+  },
+  {
+    "objectID": "review/pp_03.html#diabetes",
+    "href": "review/pp_03.html#diabetes",
+    "title": "Chapter 3 Practice Problems",
+    "section": "Diabetes",
+    "text": "Diabetes\nThe prevalence of diabetes in adults at least 20 years old has been studied in Tecumseh, Michigan. The age-sex-specific prevalence (per 1000) is given in Table 3.2.\n\n\n\n\n\n\n\n\nTable 3.2 Age-sex-specific prevalence of diabetes in Tecumseh, MI (per 1000)\n\n\nAge group (years)\nMale\nFemale\n\n\n\n\n20–39\n5\n7\n\n\n40–54\n23\n31\n\n\n55+\n57\n89\n\n\n\n\n\n\n\n3.26 Suppose we plan a new study in a town that consists of 48% males and 52% females. Of the males, 40% are ages 20–39, 32% are 40–54, and 28% are 55+. Of the females, 44% are ages 20–39, 37% are 40–54, and 19% are 55+. Assuming that the Tecumseh prevalence rates hold, what is the expected prevalence of diabetes in the new study?\n3.27 What proportion of diabetics in the new study would be expected in each of the six age-sex groups?"
+  },
+  {
+    "objectID": "review/pp_03.html#cancer",
+    "href": "review/pp_03.html#cancer",
+    "title": "Chapter 3 Practice Problems",
+    "section": "Cancer",
+    "text": "Cancer\nTable 3.3 shows the annual incidence rates for colon cancer, lung cancer, and stomach cancer in males ages 50 years and older from the Connecticut Tumor Registry, 1963–1965.\n\n\n\n\n\n\n\n\nTable 3.3\n\n\nAverage annual incidence per 100,000 males for colon, lung, and stomach cancer from the Connecticut Tumor Registry 1963–1965\n\n\nType.of.cancer\nAges.50.54\nAges.55.59\nAges.60.64\n\n\n\n\nColon\n35.7\n60.3\n98.9\n\n\nLung\n76.1\n137.5\n231.7\n\n\nStomach\n20.8\n39.1\n46.0\n\n\n\n\n\n\n\n3.28 What is the probability that a 57-year-old, disease-free male will develop lung cancer over the next year?\n3.29 What is the probability that a 55-year-old, disease-free male will develop colon cancer over the next 5 years?\n3.30 Suppose there is a cohort of 1000 50-year-old men who have never had cancer. How many colon cancers would be expected to develop in this cohort over a 15-year period?\n3.31 Answer Problem 3.30 for lung cancer.\n3.32 Answer Problem 3.30 for stomach cancer."
   }
 ]
