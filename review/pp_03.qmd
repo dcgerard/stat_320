@@ -18,63 +18,170 @@ library(tidyverse)
 
 Let 
 
-- A = {serum cholesterol $=$ 250–299},
-- B = {serum cholesterol $\geq$ 300},
-- C = {serum cholesterol $\leq$ 280}.
+- $A$ = {serum cholesterol $=$ 250–299},
+- $B$ = {serum cholesterol $\geq$ 300},
+- $C$ = {serum cholesterol $\leq$ 280}.
 
-3.1
-Are the events A and B mutually exclusive?
+::: {.panel-tabset} 
+## 3.1
+Are the events $A$ and $B$ mutually exclusive?
 
-3.2
-Are the events A and C mutually exclusive?
+## Solution
+Yes. You cannot both have a value between 250 and 299 AND have a value greater than 300.
+:::
 
-3.3
+::: {.panel-tabset} 
+## 3.2
+Are the events $A$ and $C$ mutually exclusive?
+
+## Solution
+No. Both $A$ and $C$ occur if the serum colesterol level is anywhere between 250 and 280.
+:::
+
+::: {.panel-tabset} 
+## 3.3
 Suppose $P(A) = 0.2$, $P(B) = 0.1$. What is $P(\text{serum cholesteroal} \geq 250)$?
 
-3.4
+## Solution
+This is $P(A \cup B) = P(A) + P(B) = 0.2 + 0.1 = 0.3$
+:::
+
+::: {.panel-tabset} 
+## 3.4
 What does $A \cup C$ mean?
 
-3.5
+## Solution
+The serum cholesterol level is less than or equal to 299.
+:::
+
+::: {.panel-tabset} 
+## 3.5
 What does $A \cap C$ mean?
 
-3.6
+## Solution
+The serum cholesterol level is between 250 and 280 (inclusive).
+:::
+
+::: {.panel-tabset} 
+## 3.6
 What does $B \cup C$ mean?
 
-3.7
+## Solution
+The serum cholesterol level is either less than or equal to 280, or greater than or equal to 300.
+:::
+
+::: {.panel-tabset} 
+## 3.7
 What does $B \cap C$ mean?
 
-3.8
+## Solution
+The null set. Both events cannot happen.
+:::
+
+::: {.panel-tabset} 
+## 3.8
 Are the events $B$ and $C$ mutually exclusive?
 
-3.9
-What does the event $\bar{B}$ mean? What is its probability? 
+## Solution
+Yes. They cannot both happen.
+:::
+
+::: {.panel-tabset} 
+## 3.9
+What does the event $\bar{B}$ mean? What is its probability?
+
+## Solution
+The serum cholesterol level is less than or equal to 299. 
+$$
+P(\bar{B}) = 1 - P(B) = 1 - 0.1 = 0.9
+$$
+:::
 
 Suppose that the gender of successive offspring in the same family are independent events and that the probability of a male or female offspring is 0.5.
 
-3.10
+::: {.panel-tabset} 
+## 3.10
 What is the probability of two successive female offspring?
 
-3.11
+## Solution
+Let $A$ = first female and $B$ = second female. Then
+$$
+P(A \cap B) = P(A)P(B) = 0.5 \times 0.5  = 0.25
+$$
+:::
+
+::: {.panel-tabset} 
+## 3.11
 What is the probability that exactly one of two successive children will be female?
 
-3.12
+## Solution
+
+\begin{align*}
+P[(\bar{A} \cap B) \cup (A \cap \bar{B})] &= P(\bar{A} \cap B) + P(A \cap \bar{B}) \text{ (mutually exclusive events)}\\
+&= P(\bar{A})P(B) + P(A)P(\bar{B}) \text{ (independent events)}\\
+&= 0.5 \times 0.5 + 0.5 \times 0.5 \text{ (substituting in probabilities)}\\
+&= 0.5.
+\end{align*}
+
+:::
+
+::: {.panel-tabset} 
+## 3.12
 Suppose that three successive offspring are male. What is the probability that a fourth child will be male?
 
-## Cardiovascular Disease
+## Solution
+Still 0.5. These events are all independent.
+:::
+
+## Cardiovascular Disease 1
 
 A survey was performed among people 65 years of age and older who underwent open-heart surgery. It was found that 30% of patients died within 90 days of the operation, whereas an additional 25% of those who survived 90 days died within 5 years after the operation.
 
-3.13
+::: {.panel-tabset} 
+## 3.13
 What is the probability that a patient undergoing open-heart surgery will die within 5 years?
 
-3.14
-What is the mortality incidence (per patient month) in patients receiving this operation in the first 90 days after the operation? (Assume that 90 days = 3 months.)
+## Hint
+Let $A$ be died in first 90 days. Let $B$ be died between 90 days and 5 years. We are given
+$$
+P(A) = 0.3\\
+P(B|\bar{A}) = 0.25
+$$
+We are asked to calculate $P(A\cup B)$
 
-3.15
-Answer the same question as in Problem 3.14 for the period from 90 days to 5 years after the operation.
+## Solution
+Let $A$ be died in first 90 days. Let $B$ be died between 90 days and 5 years. We are given
+$$
+P(A) = 0.3\\
+P(B|\bar{A}) = 0.25
+$$
+We are asked to calculate $P(A\cup B)$
 
-3.16
+Note that $A$ and $B$ are mutually exclusive events. This is because you can't die twice (some eastern religions excepted). This means that
+$$
+P(A \cup B) = P(A) + P(B)
+$$
+$P(A)$ was given to us. Let's get $P(B)$ from the law of total probability.
+\begin{align*}
+P(B) = P(B|A)P(A) + P(B|\bar{A})P(\bar{A})\\
+&= 0 * 0.3 + 0.25 * (1 \times 0.3)\\
+&= 0.25 \times (1 - 0.3)
+\end{align*}
+($P(B|A) = 0$ because, again, you cannot die if you already dead).
+
+So, putting these together, we get
+$$
+P(A \cup B) = 0.3 + 0.25 \times (1 - 0.3) = 0.475
+$$
+:::
+
+::: {.panel-tabset} 
+## 3.16
 Can you tell if the operation prolongs life from the data presented? If not, then what additional data do you need?
+
+## Solution
+No. We need a control group to see if folks doing the operation do better than those without doing the operation.
+:::
 
 A study relating smoking history to several measures of cardiopulmonary disability was recently reported. The data in the table below were presented relating the number of people with different disabilities according to cigarette-smoking status.
 
@@ -112,38 +219,161 @@ gt_table
 ```
 
 
-3.17
+::: {.panel-tabset} 
+## 3.17
 What is the prevalence of angina among light current smokers (< 15g/day)?
 
-3.18
+## Solution
+$$
+19 / 955 = 0.0199
+$$
+:::
+
+::: {.panel-tabset} 
+## 3.18
 What is the relative risk of ex-smokers, light current smokers, and heavy current smokers, respectively, for shortness of breath as compared with nonsmokers?
 
-3.19
+## Solution
+Let $B$ be shortness of breath. Let $A_1$ be ex-smoker, $A_2$ be light current smoker, $A_3$ be heavy current smoker, and $A_0$ be nonsmoker. Then
+
+- RR of ex-smoker vs non-smoker = $\frac{P(B|A_1)}{P(B|A_0)} = \frac{15/826}{7/656}$
+- RR of light current smoker vs non-smoker = $\frac{P(B|A_2)}{P(B|A_0)} = \frac{18/955}{7/656}$
+- RR of heavy current smoker vs non-smoker = $\frac{P(B|A_3)}{P(B|A_0)} = \frac{13/654}{7/656}$
+:::
+
+::: {.panel-tabset} 
+## 3.19
 Answer Problem 3.18 for angina.
 
-3.20
+## Solution
+Let $B$ be angina. Let $A_1$ be ex-smoker, $A_2$ be light current smoker, $A_3$ be heavy current smoker, and $A_0$ be nonsmoker. Then
+
+- RR of ex-smoker vs non-smoker = $\frac{P(B|A_1)}{P(B|A_0)} = \frac{19/826}{15/656}$
+- RR of light current smoker vs non-smoker = $\frac{P(B|A_2)}{P(B|A_0)} = \frac{19/955}{15/656}$
+- RR of heavy current smoker vs non-smoker = $\frac{P(B|A_3)}{P(B|A_0)} = \frac{16/654}{15/656}$
+:::
+
+::: {.panel-tabset} 
+## 3.20
 Answer Problem 3.18 for possible infarction
+
+## Solution
+Let $B$ be possible infarction Let $A_1$ be ex-smoker, $A_2$ be light current smoker, $A_3$ be heavy current smoker, and $A_0$ be nonsmoker. Then
+
+- RR of ex-smoker vs non-smoker = $\frac{P(B|A_1)}{P(B|A_0)} = \frac{7/826}{3/656}$
+- RR of light current smoker vs non-smoker = $\frac{P(B|A_2)}{P(B|A_0)} = \frac{8/955}{3/656}$
+- RR of heavy current smoker vs non-smoker = $\frac{P(B|A_3)}{P(B|A_0)} = \frac{6/654}{3/656}$
+:::
 
 ## Pulmonary Disease
 
 Pulmonary embolism is a relatively common condition that necessitates hospitalization and also often occurs in patients hospitalized for other reasons. An oxygen tension (arterial Po$_{2}$) < 90 mm Hg is one of the important criteria used in diagnosing this condition. Suppose that the sensitivity of this test is 95%, the specificity is 75%, and the estimated prevalence is 20% (i.e., a doctor estimates that a patient has a 20% chance of pulmonary embolism before performing the test).
 
-3.21
+::: {.panel-tabset} 
+## 3.21
 What is the predictive value positive of this test? What does it mean in words?
 
-3.22
+## Hint
+- Sensitivity: $P(T^+|D^+) = 0.95$
+- Specificity: $P(T^-|D^-) = 0.75$
+- Prevalence: $P(D^+) = 0.2$
+
+We want 
+
+- $PV^+ = P(D^+|T^+)$
+
+## Solution
+- Sensitivity: $P(T^+|D^+) = 0.95$
+- Specificity: $P(T^-|D^-) = 0.75$
+- Prevalence: $P(D^+) = 0.2$
+
+We want 
+
+- $PV^+ = P(D^+|T^+)$
+
+Using Bayes rule, we have
+$$
+P(D^+|T^+) = \frac{P(T^+|D^+) P(D+^)}{P(T^+)}
+$$
+So we can use the law of total probability to get
+\begin{align*}
+P(T^+) &= P(T^+|D^+)P(D^+) + P(T^+|D^-)P(D^-)\\
+&= P(T^+|D^+)P(D^+) + [1 - P(T^-|D^-)][1 - P(D^+)]\\
+&= 0.95 \times 0.2 + (1 - 0.75)\times(1 - 0.2)
+\end{align*}
+
+So we have
+$$
+P(D^+|T^+) = \frac{0.95 \times 0.2}{0.95 \times 0.2 + (1 - 0.75)\times(1 - 0.2)} = 0.4872
+$$
+
+It means the chance of having Pulmonary embolism given that oxygen tension < 90 mm Hg is about 0.487.
+
+:::
+
+::: {.panel-tabset} 
+## 3.22
 What is the predictive value negative of this test? What does it mean in words?
 
-3.23
-Answer Problem 3.21 if the estimated prevalence is 80%.
+## Solution
+We need $PV^- = P(D^-|T^-)$. Using Bayes rule we have
+\begin{align*}
+P(D^-|T^-) &= \frac{P(T^-|D^-)P(D^-)}{P(T^-)}\\
+&= \frac{P(T^-|D^-)P(D^-)}{1 - P(T^+)}\\
+&= \frac{0.75 \times (1 - 0.2)}{1 - [0.95 \times 0.2 + (1 - 0.75)\times(1 - 0.2)]}\\
+&= 0.9836
+\end{align*}
 
-3.24
-Answer Problem 3.22 if the estimated prevalence is 80%.
+It means the chance of not having Pulmonary embolism given that oxygen tension <>90 mm Hg is about 0.9836
+:::
 
 ## Environmental Health, Pediatrics
 
-3.25
+::: {.panel-tabset} 
+## 3.25
 Suppose that a company plans to build a lead smelter in a community and that the city council wishes to assess the health effects of the smelter. In particular, there is concern from previous literature that children living very close to the smelter will experience unusually high rates of lead poisoning in the first 3 years of life. The projected rates of lead poisoning over this time period are 50 per 100,000 for those children living within 2 km of the smelter, 20 per 100,000 for children living > 2 km but ≤ 5 km from the smelter, and 5 per 100,000 for children living > 5 km from the smelter. If 80% of the children live more than 5 km from the smelter, 15% live > 2 km but ≤ 5 km from the smelter, and the remainder live ≤ 2 km from the smelter, then what is the overall probability that a child from this community will get lead poisoning?
+
+## Hint
+Let
+
+- $A_1$: living within 2 km
+- $A_2$: living > 2 km but ≤ 5 km 
+- $A_3$: living > 5 km
+- $B$: Lead poisened.
+
+Then we are given
+
+- $P(B|A_1) = 50/100000$
+- $P(B|A_2) = 20/100000$
+- $P(B|A_3) = 5/100000$
+- $P(A_1) = 1 - (0.15 + 0.8) = 0.05$
+- $P(A_2) = 0.15$
+- $P(A_3) = 0.8$
+
+## Solution
+Let
+
+- $A_1$: living within 2 km
+- $A_2$: living > 2 km but ≤ 5 km 
+- $A_3$: living > 5 km
+- $B$: Lead poisened.
+
+Then we are given
+
+- $P(B|A_1) = 50/100000$
+- $P(B|A_2) = 20/100000$
+- $P(B|A_3) = 5/100000$
+- $P(A_1) = 1 - (0.15 + 0.8) = 0.05$
+- $P(A_2) = 0.15$
+- $P(A_3) = 0.8$
+
+We want $P(B)$, which we can get by the law of total probability
+\begin{align*}
+P(B) &= P(B|A_1)P(A_1) + P(B|A_2)P(A_2) + P(B|A_3)P(A_3)\\
+&= 50/100000 \times 0.05 + 20/100000 \times 0.15 + 5/100000 \times 0.8\\
+&= 0.000095
+\end{align*}
+:::
 
 ## Diabetes
 
@@ -180,11 +410,78 @@ gt_table <- diabetes_data %>%
 gt_table
 ```
 
-3.26
+::: {.panel-tabset} 
+## 3.26
 Suppose we plan a new study in a town that consists of 48% males and 52% females. Of the males, 40% are ages 20–39, 32% are 40–54, and 28% are 55+. Of the females, 44% are ages 20–39, 37% are 40–54, and 19% are 55+. Assuming that the Tecumseh prevalence rates hold, what is the expected prevalence of diabetes in the new study?
 
-3.27
+## Hint
+Let 
+
+- $A$ be male. 
+- $B_1$ be 20--39
+- $B_2$ be 40--54
+- $B_3$ be 55+
+- $C$ be Diabetes.
+
+We are given
+- $P(A) = 0.48$ and $P(\bar{A}) = 0.52$
+- $P(B_1|A) = 0.4$, $P(B_2|A) = 0.32$, and $P(B_3|A) = 0.28$
+- $P(B_1|\bar{A}) = 0.44$, $P(B_2|\bar{A}) = 0.37$, and $P(B_3|\bar{A}) = 0.19$
+- $P(C|A \cap B_1) = 5/1000$
+- $P(C|A \cap B_2) = 23/1000$
+- $P(C|A \cap B_3) = 57/1000$
+- $P(C|\bar{A} \cap B_1) = 7/1000$
+- $P(C|\bar{A} \cap B_2) = 31/1000$
+- $P(C|\bar{A} \cap B_3) = 89/1000$
+
+We are asked to calculate $P(C)$.
+
+## Solution
+Let 
+
+- $A$ be male. 
+- $B_1$ be 20--39
+- $B_2$ be 40--54
+- $B_3$ be 55+
+- $C$ be Diabetes.
+
+We are given
+- $P(A) = 0.48$ and $P(\bar{A}) = 0.52$
+- $P(B_1|A) = 0.4$, $P(B_2|A) = 0.32$, and $P(B_3|A) = 0.28$
+- $P(B_1|\bar{A}) = 0.44$, $P(B_2|\bar{A}) = 0.37$, and $P(B_3|\bar{A}) = 0.19$
+- $P(C|A \cap B_1) = 5/1000$
+- $P(C|A \cap B_2) = 23/1000$
+- $P(C|A \cap B_3) = 57/1000$
+- $P(C|\bar{A} \cap B_1) = 7/1000$
+- $P(C|\bar{A} \cap B_2) = 31/1000$
+- $P(C|\bar{A} \cap B_3) = 89/1000$
+
+We are asked to calculate $P(C)$.
+
+\begin{align*}
+P(C) &= P(C|A\cap B_1)P(B_1|A)P(A) + P(C|A\cap B_2)P(B_2|A)P(A) + P(C|A\cap B_3)P(B_3|A)P(A) + \\
+&P(C|\bar{A}\cap B_1)P(B_1|\bar{A})P(\bar{A}) + P(C|\bar{A}\cap B_2)P(B_2|\bar{A})P(\bar{A}) + P(C|\bar{A}\cap B_3)P(B_3|\bar{A})P(\bar{A})
+\end{align*}
+
+Plugging in values, we get:
+\begin{align*}
+P(C) &= \frac{5}{1000} \times 0.4 \times 0.48 + \frac{23}{1000} \times 0.32 \times 0.48 + \frac{57}{1000} \times 0.28 \times 0.48 +\\
+&\frac{7}{1000} \times 0.44 \times 0.52 + \frac{31}{1000} \times 0.37 \times 0.52 + \frac{89}{1000} \times 0.19 \times 0.52
+\end{align*}
+
+:::
+
+::: {.panel-tabset} 
+## 3.27
 What proportion of diabetics in the new study would be expected in each of the six age-sex groups?
+
+## Solution
+E.g., we want $P(A \cap B_1 | C)$ for the proportion of diabetics that are men between 20 and 29. This is obtained by Bayes theorem
+$$
+P(A \cap B_1 | C) = \frac{P(C|A\cap B_1)P(A\cap B_1)}{P(C)} = \frac{P(C|A\cap B_1)P(B_1| A)P(A)}{P(C)}.
+$$
+The numerator values are given, the denominator was calculated in 3.26.
+:::
 
 ## Cancer
 
@@ -220,22 +517,42 @@ gt_table
 ```
 
 
-3.28
+::: {.panel-tabset} 
+## 3.28
 What is the probability that a 57-year-old, disease-free male will develop lung cancer over the next year?
 
-3.29
+## Solution
+:::
+
+::: {.panel-tabset} 
+## 3.29
 What is the probability that a 55-year-old, disease-free male will develop colon cancer over the next 5 years?
 
-3.30
+## Solution
+:::
+
+::: {.panel-tabset} 
+## 3.30
 Suppose there is a cohort of 1000 50-year-old men who have never had cancer. How many colon cancers would be expected to develop in this cohort over a 15-year period?
 
-3.31
+## Solution
+:::
+
+::: {.panel-tabset} 
+## 3.31
 Answer Problem 3.30 for lung cancer.
 
-3.32
+## Solution
+:::
+
+::: {.panel-tabset} 
+## 3.32
 Answer Problem 3.30 for stomach cancer.
 
-## Cardiovascular Disease
+## Solution
+:::
+
+## Cardiovascular Disease 2
 
 The relationship between physical fitness and cardiovascular-disease mortality was recently studied in a group of railroad working men, ages 22–79. Data were presented relating baseline exercise-test heart rate and coronary heart-disease mortality (Table 3.4).
 
@@ -266,33 +583,61 @@ gt_table
 
 Suppose that 20, 30, 30, and 20% of the population, respectively, have exercise-test heart rates of ≤ 105, 106–115, 116–127, > 127 beats/minute. Suppose a test is positive if the exercise-test heart rate is > 127 beats/min and negative otherwise.
 
-3.33
+::: {.panel-tabset} 
+## 3.33
 What is the probability of a positive test among men who have died over the 20-year period? Is there a name for this quantity?
 
-3.34
+## Solution
+:::
+
+::: {.panel-tabset} 
+## 3.34
 What is the probability of a positive test among men who survived the 20-year period? Is there a name for this quantity?
 
-3.35
+## Solution
+:::
+
+::: {.panel-tabset} 
+## 3.35
 What is the probability of death among men with a negative test? Is there a name for this quantity?
 
+## Solution
+:::
 
-## Cardiovascular Disease
+
+## Cardiovascular Disease 3
 
 Exercise testing has sometimes been used to diagnose patients with coronary-artery disease. One test criterion that has been used to identify those with disease is the abnormal ejection-fraction criterion; that is, an absolute rise of less than 0.05 with exercise. The validity of this noninvasive test was assessed in 196 patients versus coronary angiography, the gold standard, a procedure that can unequivocally diagnose the disease but the administration of which carries some risk for the patient. A sensitivity of 79% and a specificity of 68% were found for the exercise test in this group.
 
-3.36
+::: {.panel-tabset} 
+## 3.36
 What does the sensitivity mean in words in this setting?
 
-3.37
+## Solution
+:::
+
+::: {.panel-tabset} 
+## 3.37
 What does the specificity mean in words in this setting?
+
+## Solution
+:::
 
 Suppose a new patient undergoes exercise testing and a physician feels before seeing the exercise-test results that the patient has a 20% chance of having coronary-artery disease.
 
-3.38
+::: {.panel-tabset} 
+## 3.38
 If the exercise test is positive, then what is the probability that such a patient has disease?
 
-3.39
+## Solution
+:::
+
+::: {.panel-tabset} 
+## 3.39
 Answer Problem 3.38 if the exercise test is negative.
+
+## Solution
+:::
 
 
 ## Nutrition
@@ -336,39 +681,75 @@ gt_table <- table_3_5 |>
 gt_table
 ```
 
-3.40
+::: {.panel-tabset} 
+## 3.40
 What is the sensitivity of the FFQ?
 
-3.41
+## Solution
+:::
+
+::: {.panel-tabset} 
+## 3.41
 What is the specificity of the FFQ?
+
+## Solution
+:::
 
 Let us treat the 173 participants in this study as representative
 of people who would use the FFQ.
 
-3.42
+::: {.panel-tabset} 
+## 3.42
 What is the predictive value positive of the FFQ?
 
-3.43
+## Solution
+:::
+
+::: {.panel-tabset} 
+## 3.43
 What is the predictive value negative of the FFQ?
 
-3.44
+## Solution
+:::
+
+::: {.panel-tabset} 
+## 3.44
 Suppose the questionnaire is to be administered in a different country where the true proportion of drinkers is 80%. What would be the predictive value positive if administered in this setting?
+
+## Solution
+:::
 
 
 ## Genetics
 Two healthy parents have a child with a severe autosomal recessive condition that cannot be identified by prenatal diagnosis. They realize that the risk of this condition for subsequent offspring is 1/4, but wish to embark on a second pregnancy. During the early stages of the pregnancy, an ultrasound test determines that there are twins.
 
-3.45
+::: {.panel-tabset} 
+## 3.45
 Suppose that there are monozygotic, or MZ (identical) twins. What is the probability that both twins are affected? one twin affected? neither twin affected? Are the outcomes for the two MZ twins independent or dependent events?
 
-3.46
+## Solution
+:::
+
+::: {.panel-tabset} 
+## 3.46
 Suppose that there are dizygotic, or DZ (fraternal) twins. What is the probability that both twins are affected? one twin affected? neither twin affected? Are the outcomes for the two DZ twins independent or dependent events?
 
-3.47
+## Solution
+:::
+
+::: {.panel-tabset} 
+## 3.47
 Suppose there is a 1/3 probability of MZ twins and a 2/3 probability of DZ twins. What is the overall probability that both twins are affected? One twin affected? Neither affected?
 
-3.48
+## Solution
+:::
+
+::: {.panel-tabset} 
+## 3.48
 Suppose we learn that both twins are affected but don’t know whether they are MZ or DZ twins. What is the probability that they are MZ twins given this additional information?
+
+## Solution
+:::
 
 
 ## Cerebrovascular Disease
@@ -412,20 +793,36 @@ af_stroke_table
 ```
 
 
-3.49
+::: {.panel-tabset} 
+## 3.49
 What does an incidence rate of 48.9 strokes per 1000 person-years among 70–79-year-olds with AF mean in Table 3.6?
 
-3.50
+## Solution
+:::
+
+::: {.panel-tabset} 
+## 3.50
 What is the relative risk of stroke for people with AF compared with people without AF in each age group? Does the relative risk seem to be the same for different age groups
+
+## Solution
+:::
 
 
 Suppose we screen 500 subjects from the general population of age 60–89, of whom 200 are 60–69, 200 are 70–79, and 100 are 80–89.
 
-3.51
+::: {.panel-tabset} 
+## 3.51
 What is the incidence rate of stroke in the screened population over a 1-year period?
 
-3.52
+## Solution
+:::
+
+::: {.panel-tabset} 
+## 3.52
 Suppose the study of 500 subjects is a “pilot study” for a larger study. How many 60-89 year old subjects need to be screened if we wish to observe an average of 50 strokes in the larger study over 1 year?
+
+## Solution
+:::
 
 ## Radiology
 
@@ -466,15 +863,31 @@ gt_table
 
 Suppose different cutpoints are considered for positivity, viz, ≤ 0 , ≤ 1, ≤ 2, ≤ 3, ≤ 4 and ≤ 5.
 
-3.53
+::: {.panel-tabset} 
+## 3.53
 Compute the sensitivity of the test for each cutpoint for Reader 2.
 
-3.54
+## Solution
+:::
+
+::: {.panel-tabset} 
+## 3.54
 Compute the specificity of the test for each cutpoint for Reader 2.
 
-3.55
+## Solution
+:::
+
+::: {.panel-tabset} 
+## 3.55
 Draw the ROC curve for Reader 2.
 
-3.56
+## Solution
+:::
+
+::: {.panel-tabset} 
+## 3.56
 Compare the accuracy of the test for Reader 2 vs Reader 1.
+
+## Solution
+:::
 
