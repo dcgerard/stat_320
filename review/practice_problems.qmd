@@ -9,7 +9,7 @@ These practice problems mostly come from Rosner's publicly available study sheet
 I have only kept the problems most relevant for this course.
 
 - [Chapter 2](./pp_02.qmd)
-- Chapter 3
+- [Chapter 3](./pp_03.qmd)
 - Chapter 4
 - Chapter 5
 - Chapter 6
