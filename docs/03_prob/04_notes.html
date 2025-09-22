@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="David Gerard">
-<meta name="dcterms.date" content="2025-09-17">
+<meta name="dcterms.date" content="2025-09-22">
 
 <title>Chapter 4 Notes: Discrete Distributions – Stat 320: Biostatistics</title>
 <style>
@@ -391,7 +391,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">September 17, 2025</p>
+      <p class="date">September 22, 2025</p>
     </div>
   </div>
   
@@ -1618,6 +1618,18 @@ f(p) = \min(x) \text{ such that } p \leq Pr(X \leq x)
 <li>October 1984: 2</li>
 </ul>
 <p>The distribution of the number of cases during a month is likely well approximated by a binomial, with <span class="math inline">\(n\)</span> equaling the population of Finland. But we don’t know <span class="math inline">\(n\)</span>, so we can use a Poisson distribution to model these counts.</p></li>
+<li><p>It is also useful if you want to add two Binomial counts together. If <span class="math inline">\(X \sim \mathrm{Binom}(n_1, p_1)\)</span> and <span class="math inline">\(Y \sim \mathrm{Binom}(n_2, p_2)\)</span>, suppose we want to calculated the distribution of <span class="math inline">\(Z = X + Y\)</span>.</p>
+<ul>
+<li>To do this exactly, we need to use a <a href="https://en.wikipedia.org/wiki/Convolution#Discrete_convolution">discrete linear convolution</a>, which is annoying.
+<ul>
+<li>(unless <span class="math inline">\(p_1 = p_2\)</span>)</li>
+</ul></li>
+<li>But if we can approximate <span class="math inline">\(X \sim \mathrm{Poi}(n_1p_1)\)</span> and <span class="math inline">\(Y \sim \mathrm{Poi}(n_2p_2)\)</span>, then <span class="math inline">\(Z \sim \mathrm{Poi}(n_1p_1 + n_1p_2)\)</span>, which is super nice.</li>
+<li>E.g. Population 1 has 100 individuals and each individual has a 0.002 probability of getting a disease. Population 2 has 200 individuals and each individual has a 0.004 probability of getting the disease. What is the distribution of the total number of folks who get the disease?
+<ul>
+<li>It’s about Poisson(0.2 + 0.8) = Poisson(1).</li>
+</ul></li>
+</ul></li>
 </ul>
 </section>
 </section>

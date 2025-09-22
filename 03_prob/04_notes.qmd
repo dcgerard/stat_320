@@ -669,6 +669,13 @@ Yes, very unusual.
   - October 1984:  2
   
   The distribution of the number of cases during a month is likely well approximated by a binomial, with $n$ equaling the population of Finland. But we don't know $n$, so we can use a Poisson distribution to model these counts.
+  
+- It is also useful if you want to add two Binomial counts together. If $X \sim \mathrm{Binom}(n_1, p_1)$ and $Y \sim \mathrm{Binom}(n_2, p_2)$, suppose we want to calculated the distribution of $Z = X + Y$. 
+  - To do this exactly, we need to use a [discrete linear convolution](https://en.wikipedia.org/wiki/Convolution#Discrete_convolution), which is annoying.
+    - (unless $p_1 = p_2$)
+  - But if we can approximate $X \sim \mathrm{Poi}(n_1p_1)$ and $Y \sim \mathrm{Poi}(n_2p_2)$, then $Z \sim \mathrm{Poi}(n_1p_1 + n_1p_2)$, which is super nice.
+  - E.g. Population 1 has 100 individuals and each individual has a 0.002 probability of getting a disease. Population 2 has 200 individuals and each individual has a 0.004 probability of getting the disease. What is the distribution of the total number of folks who get the disease?
+    - It's about Poisson(0.2 + 0.8) = Poisson(1).
 
 # Exercises (4.24–4.29)
 
