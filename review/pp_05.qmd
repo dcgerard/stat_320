@@ -15,84 +15,160 @@ library(tidyverse)
 
 ## Basice
 
-5.1
+::: {.panel-tabset} 
+## 5.1
 What are the deciles of the standard normal distribution; that is, the 10, 20, 30, ... , 90 percentiles?
 
-5.2 
+## Solutions
+:::
+
+::: {.panel-tabset} 
+## 5.2 
 What are the quartiles of the standard normal distribution?
+
+## Solutions
+:::
 
 ## Hypertension 1
 
 Blood pressure (BP) in childhood tends to increase with age, but differently for boys and girls. Suppose that for both boys and girls, mean systolic blood pressure is 95 mm Hg at 3 years of age and increases 1.5 mm Hg per year up to the age of 13. Furthermore, starting at age 13, the mean increases by 2 mm Hg per year for boys and 1 mm Hg per year for girls up to the age of 18. Finally, assume that blood pressure is normally distributed and that the standard deviation is 12 mm Hg for all age-sex groups.
 
-5.3
+::: {.panel-tabset} 
+## 5.3
 What is the probability that an 11-year-old boy will have an SBP greater than 130 mm Hg?
 
-5.4
+## Solutions
+:::
+
+::: {.panel-tabset} 
+## 5.4
 What is the probability that a 15-year-old girl will have an SBP between 100 and 120 mm Hg?
 
-5.5
+## Solutions
+:::
+
+::: {.panel-tabset} 
+## 5.5
 What proportion of 17-year-old boys have an SBP between 120 and 140 mm Hg?
 
-5.6
+## Solutions
+:::
+
+::: {.panel-tabset} 
+## 5.6
 What is the probability that of 200 15-year-old boys, at least 10 will have an SBP of 130 mm Hg or greater?
 
-5.7 
+## Solutions
+:::
+
+::: {.panel-tabset} 
+## 5.7 
 What level of SBP is at the 80th percentile for 7-year- old boys?
 
-5.8 
+## Solutions
+:::
+
+::: {.panel-tabset} 
+## 5.8 
 What level of SBP is at the 70th percentile for 12-year- old girls?
 
-5.9 
+## Solutions
+:::
+
+::: {.panel-tabset} 
+## 5.9 
 Suppose that a task force of pediatricians decides that children over the 95th percentile, but not over the 99th percentile, for their age-sex group should be encouraged to take preventive nonpharmacologic measures to reduce their blood pressure, whereas those children over the 99th percentile should receive antihypertensive drug therapy. Construct a table giving the appropriate BP levels to identify these groups for boys and girls for each year of age from 3 to 18.
+
+## Solutions
+:::
 
 
 ## Cancer 1
 The incidence of breast cancer in 40–49-year-old women is approximately 1 new case per 1000 women per year.
 
-5.10 
+::: {.panel-tabset} 
+## 5.10 
 What is the incidence of breast cancer over 10 years in women initially 40 years old?
 
-5.11 
+## Solutions
+:::
+
+::: {.panel-tabset} 
+## 5.11 
 Suppose we are planning a study based on an enrollment of 10,000 women. What is the probability of obtaining at least 120 new breast-cancer cases over a 10-year follow-up period?
+
+## Solutions
+:::
 
 ## Accident Epidemiology
 
 Suppose the annual death rate from motor-vehicle accidents in 1980 was 10 per 100,000 in urban areas of the United States.
 
-5.12 
+::: {.panel-tabset} 
+## 5.12 
 In an urban state with a population of 2 million, what is the probability of observing not more than 150 traffic fatalities in a given year?
+
+## Solutions
+:::
 
 In rural areas of the United States the annual death rate from motor-vehicle accidents is on the order of 100 per 100,000 population.
 
-5.13 
+::: {.panel-tabset} 
+## 5.13 
 In a rural state with a population of 100,000, what is the probability of observing not more than 80 traffic fatalities in a given year?
 
-5.14 
+## Solutions
+:::
+
+::: {.panel-tabset} 
+## 5.14 
 How large should x be so that the probability of observing not more than x traffic fatalities in a given year in a rural state with population 100,000 is 5%?
 
-5.15
+## Solutions
+:::
+
+::: {.panel-tabset} 
+## 5.15
 How large should x be so that the probability of observing x or more traffic fatalities in a given year, in an urban state with population 500,000 is 10%?
+
+## Solutions
+:::
 
 ## Obstetrics
 
 Assume that birthweights are normally distributed with a mean of 3400 g and a standard deviation of 700 g.
 
-5.16 
+::: {.panel-tabset} 
+## 5.16 
 Find the probability of a low-birthweight child, where low birthweight is defined as ≤ 2500 g.
 
-5.17 
+## Solutions
+:::
+
+::: {.panel-tabset} 
+## 5.17 
 Find the probability of a very low birthweight child, where very low birthweight is defined as ≤ 2000 g.
 
-5.18 
+## Solutions
+:::
+
+::: {.panel-tabset} 
+## 5.18 
 Assuming that successive deliveries by the same woman have the same probability of being low birthweight, what is the probability that a woman with exactly 3 deliveries will have 2 or more low-birthweight deliveries?
+
+## Solutions
+:::
 
 ## Renal Disease
 
 The presence of bacteria in a urine sample (bacteriuria) is sometimes associated with symptoms of kidney disease. Assume that a determination of bacteriuria has been made over a large population at one point in time and that 5% of those sampled are positive for bacteriuria.
 
-5.19 
+::: {.panel-tabset} 
+## 5.19 
 Suppose that 500 people from this population are sampled. What is the probability that 50 or more people would be positive for bacteriuria?
+
+## Solutions
+:::
 
 ## Ophthalmology 1
 
@@ -129,83 +205,155 @@ df %>%
   )
 ```
 
-5.20
+::: {.panel-tabset} 
+## 5.20
 Assuming that change in visual field over 3 years is normally distributed when using the ln scale, what is the proportion of patients who showed a decline in visual field over 3 years?
 
-5.21 
+## Solutions
+:::
+
+::: {.panel-tabset} 
+## 5.21 
 What percentage of patients would be expected to show a decline of at least 20% in visual field over 3 years? (Note: In the ln scale this is equivalent to a decline of at least log(1/0.8) = 0.223).
 
-5.22 
+## Solutions
+:::
+
+::: {.panel-tabset} 
+## 5.22 
 Answer Problem 5.21 for a 50% decline over 3 years.
+
+## Solutions
+:::
 
 ## Cancer 2
 
 A study of the Massachusetts Department of Health found 46 deaths due to cancer among women in the city of Bedford, MA over the period 1974–1978, where 30 deaths had been expected from statewide rates.
 
-5.23 
+::: {.panel-tabset} 
+## 5.23 
 Write an expression for the probability of observing exactly $k$ deaths due to cancer over this period if the statewide rates are correct.
 
-5.24 
+## Solutions
+:::
+
+::: {.panel-tabset} 
+## 5.24 
 Can the occurrence of 46 deaths due to cancer be attributed to chance? Specifically, what is the probability of observing at least 46 deaths due to cancer if the statewide rates are correct?
+
+## Solutions
+:::
 
 ## Hypertension 2
 
 Suppose we want to recruit subjects for a hypertension treatment study and we feel that 10% of the population to be sampled is hypertensive.
 
-5.25 
+::: {.panel-tabset} 
+## 5.25 
 If 100 subjects are required for the study and perfect cooperation is assumed, then how many people need to be sampled to be 80% sure of ascertaining at least 100 hypertensives?
 
-5.26
+## Solutions
+:::
+
+::: {.panel-tabset} 
+## 5.26
 How many people need to be sampled to be 90% sure of ascertaining at least 100 hypertensives?
+
+## Solutions
+:::
 
 ## Nutrition
 
 The distribution of serum levels of alpha tocopherol (serum vitamin E) is approximately normal with mean 860 µg dL and standard deviation 340 µg dL.
 
-5.27
+::: {.panel-tabset} 
+## 5.27
 What percentage of people have serum alpha tocopherol levels between 400 and 1000 µg dL ?
 
-5.28
+## Solutions
+:::
+
+::: {.panel-tabset} 
+## 5.28
 Suppose a person is identified as having toxic levels of alpha tocopherol if his or her serum level is > 2000 µg dL . What percentage of people will be so identified?
 
-5.29
+## Solutions
+:::
+
+::: {.panel-tabset} 
+## 5.29
 A study is undertaken for evidence of toxicity among 2000 people who regularly take vitamin-E supplements. The investigators found that 4 people have serum alpha tocopherol levels > 2000 µg dL . Is this an unusual number of people with toxic levels of serum alpha tocopherol?
+
+## Solutions
+:::
 
 
 ## Epidemiology
 
 A major problem in performing longitudinal studies in medicine is that people initially entered into a study are lost to follow-up for various reasons.
 
-5.30
+::: {.panel-tabset} 
+## 5.30
 Suppose we wish to evaluate our data after 2 years and anticipate that the probability a patient will be available for study after 2 years is 90%. How many patients should be entered into the study to be 80% sure of having at least 100 patients left at the end of this period?
 
-5.31 
+## Solutions
+:::
+
+::: {.panel-tabset} 
+## 5.31 
 How many patients should be entered to be 90% sure of having at least 150 patients after 4 years if the probability of remaining in the study after 4 years is 80%?
+
+## Solutions
+:::
 
 
 ## Pulmonary Disease
 
-5.32 
+::: {.panel-tabset} 
+## 5.32 
 The usual annual death rate from asthma in England over the period 1862–1962 for people aged 5–34 was approximately 1 per 100,000. Suppose that in 1963 twenty deaths were observed in a group of 1 million people in this age group living in Britain. Is this number of deaths inconsistent with the preceding 100-year rate? In particular, what is the probability of observing 20 or more deaths in 1 year in a group of 1 million people? Note: This finding is both statistically and medically interesting, since it was found that the excess risk could be attributed to certain aerosols used by asthmatics in Britain during the period 1963–1967. The rate returned to normal during the period 1968–1972, when these types of aerosols were no longer used.
+
+## Solutions
+:::
 
 ## Hypertension 3
 
 Blood-pressure measurements are known to be variable, and repeated measurements are essential to accurately characterize a person’s BP status. Suppose a person is measured on $n$ visits with $k$ measurements per visit and the average of all $nk$ diastolic blood pressure (DBP) measurements ($\bar{x}$) is used to classify a person as to BP status. Specifically, if $\bar{x}$ ≥ 95 mm Hg, then the person is classified as hypertensive; if $\bar{x}$ < 90 mm Hg, then the person is classified as normotensive; and if $\bar{x}$ ≥ 90 mm Hg, and < 95 mm Hg, the person is classified as borderline. It is also assumed that a person's "true" blood pressure is $\mu$ , representing an average over a large number of visits with a large number of measurements per visit, and that $\bar{X}$ is normally distributed with mean $\mu$ and variance = $27.7/n + 7.9/(nk)$
 
-5.33 
+::: {.panel-tabset} 
+## 5.33 
 If a person’s true diastolic blood pressure is 100 mm Hg, then what is the probability that the person will be classified accurately (as hypertensive) if a single measurement is taken at 1 visit?
 
-5.34 
+## Solutions
+:::
+
+::: {.panel-tabset} 
+## 5.34 
 Is the probability in Problem 5.33 a measure of sensitivity, specificity, or predictive value?
 
-5.35 
+## Solutions
+:::
+
+::: {.panel-tabset} 
+## 5.35 
 If a person’s true blood pressure is 85 mm Hg, then what is the probability that the person will be accurately classified (as normotensive) if 3 measurements are taken at each of 2 visits?
 
-5.36 
+## Solutions
+:::
+
+::: {.panel-tabset} 
+## 5.36 
 Is the probability in Problem 5.35 a measure of sensitivity, specificity, or predictive value?
 
-5.37 
+## Solutions
+:::
+
+::: {.panel-tabset} 
+## 5.37 
 Suppose we decide to take 2 measurements per visit. How many visits are needed so that the sensitivity and specificity in Problems 5.33 and 5.35 would each be at least 95%?
+
+## Solutions
+:::
 
 
 ## Hypertension 4
@@ -215,16 +363,28 @@ A study is planned to look at the effect of sodium restriction on lowering blood
 Assume that in free-living individuals (individuals with no sodium restriction) 24-hour urinary sodium excretion is normally distributed with mean 160.5 mEq/24 hrs and standard deviation = 57.4 mEq/24 hrs.
 
 
-5.38 
+::: {.panel-tabset} 
+## 5.38 
 If 100 mEq/24 hr is the cutoff value chosen to measure compliance, then what percentage of noncompliant individuals—that is, individuals who do not restrict sodium—will have a 24-hour sodium level below this cutoff point?
+
+## Solutions
+:::
 
 Suppose that in an experimental study it is found that people who are on a sodium-restricted diet have 24-hour sodium excretion that is normally distributed with mean 57.5 mEq/24 hrs and standard deviation of 11.3 mEq/24 hrs.
 
-5.39
+::: {.panel-tabset} 
+## 5.39
 What is the probability that a person who is on a sodium-restricted diet will have a 24-hour urinary sodium level above the cutoff point (100 mEq/24 hrs)? 
 
-5.40 
+## Solutions
+:::
+
+::: {.panel-tabset} 
+## 5.40 
 Suppose the investigators in the study wish to change the cutoff value (from 100 mEq/24 hrs) to another value such that the misclassification probabilities in Problems 5.38 and 5.39 are the same. What should the new cutoff value be, and what are the misclassification probabilities corresponding to your answers to Problems 5.38 and 5.39?
+
+## Solutions
+:::
 
 
 Table 5.2 shows data reported relating alcohol consumption and blood-pressure level among 18–39-year-old males.
@@ -282,46 +442,90 @@ df %>%
 ```
 
 
-5.42 
+::: {.panel-tabset} 
+## 5.42 
 If we assume that the distributions of SBP are normal, then what proportion of nondrinkers have SBP ≥ 140 mm Hg?
 
-5.43
+## Solutions
+:::
+
+::: {.panel-tabset} 
+## 5.43
 What proportion of heavy drinkers have SBP ≥ 140 mm Hg?
 
-5.44
+## Solutions
+:::
+
+::: {.panel-tabset} 
+## 5.44
 What proportion of heavy drinkers have “isolated systolic hypertension”; i.e., SBP ≥ 140 mm Hg but DBP < 90 mm Hg?
 
-5.45 
+## Solutions
+:::
+
+::: {.panel-tabset} 
+## 5.45 
 What proportion of heavy drinkers have “isolated diastolic hypertension”; i.e., DBP ≥ 90 mm Hg but SBP < 140 mm Hg?
+
+## Solutions
+:::
 
 ## Hypertension 5
 
 The Pediatric Task Force Report on Blood Pressure Control in Children reports blood-pressure norms for children by age and sex group. The mean ± standard deviation for 17-year-old boys for diastolic blood pressure (DBP) is 63.7 ± 11.4 mm Hg based on a large sample.
 
-5.46
+::: {.panel-tabset} 
+## 5.46
 Suppose the 90th percentile of the distribution is the cutoff for elevated BP. If we assume that the distribution of blood pressure for 17-year-old boys is normally distributed, then what is the cutoff in mm Hg?
 
-5.47 
+## Solutions
+:::
+
+::: {.panel-tabset} 
+## 5.47 
 Another approach for defining elevated BP is to use 90 mm Hg as the cutoff (the standard for elevated adult DBP). What percentage of 17-year-old boys would have elevated BP using this approach?
 
-5.48 
+## Solutions
+:::
+
+::: {.panel-tabset} 
+## 5.48 
 Suppose there are 200 17-year-old boys in the 11th grade of whom 25 have elevated BP using the criteria in Problem 5.46. Are there an unusually large number of boys with elevated BP? Why or why not?
+
+## Solutions
+:::
 
 ## Environmental Health
 
-5.49 
+::: {.panel-tabset} 
+## 5.49 
 A study was conducted relating particulate air pollution and daily mortality in Steubenville, Ohio. On average over the last 10 years, there have been 3 deaths per day. Suppose that on 90 high-pollution days (where the total suspended particulates are in the highest quartile among all days) the death rate is 3.2 deaths per day or 288 deaths observed over the 90 high-pollution days. Are there an unusual number of deaths on high-pollution days?
+
+## Solutions
+:::
 
 
 ## Ophthalmology 2
 
 In ophthalmology, it is customary to obtain measurements on both the right eye (OD) and the left eye (OS). Suppose intraocular pressure (IOP) is measured on each eye and an average of the OD and OS values (denoted by the OU value) is computed. We wish to compute the variance of the IOP OU values for an individual person. Assume that the standard deviation is 4 mm Hg for the OD values and 4 mm Hg for the OS values (as estimated from the sample standard deviation of IOP from right and left eyes, respectively, from a sample of 100 people).
 
-5.53 
+::: {.panel-tabset} 
+## 5.53 
 If the OD and OS values are assumed to be independent, then what is the variance of the IOP OU value for individual persons?
 
-5.54
+## Solutions
+:::
+
+::: {.panel-tabset} 
+## 5.54
 The correlation between OD and OS IOP values is typically about .8. What is the covariance between IOP OD values and IOP OS values for individual persons?
 
-5.55
+## Solutions
+:::
+
+::: {.panel-tabset} 
+## 5.55
 What is the variance of the IOP OU values for individual persons under the assumptions in Problem 5.54?
+
+## Solutions
+:::
