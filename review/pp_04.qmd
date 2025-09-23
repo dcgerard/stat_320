@@ -175,7 +175,7 @@ pbinom(q = 4, size = 20, prob = 0.05)
 Can you draw any conclusions based on the results in Problems 4.8–4.13 regarding any effects of the change in hospital administration on in-hospital mortality rates?
 
 ## Solution
-It would be very unlikely that this many patients would die if this hospital was representative of the 981 hospitals. Assuming that it was representative, we would only have a 5.2% chance of seeing as many or more deaths among the coronary-artery patients, and we would only have a 1.6% chance of seeing as many ore more hip-deaths.
+It would be very unlikely that this many patients would die if this hospital was representative of the 981 hospitals. Assuming that it was representative, we would only have a 5.2% chance of seeing as many or more deaths among the coronary-artery patients, and we would only have a 1.6% chance of seeing as many or more hip-deaths.
 :::
 
 ## Cardiovascular Disease 1
@@ -288,13 +288,24 @@ The incidence rate of malignant melanoma is suspected to be increasing over time
 If the annual incidence rate from previous cancer-registry data is 10 per 100,000, then what is the expected number of new cases over 2 years?
 
 ## Solution
+$$
+100000 \times \frac{10}{100000} \times 2 = 20
+$$
 :::
 
 ::: {.panel-tabset} 
 ## 4.23 
-Are the preceding results consistent or inconsistent with the cancer-registry data? Specifically, what is the prob- ability of observing at least 30 new cases over a 2-year period if the cancer-registry incidence rate is correct?
+Are the preceding results consistent or inconsistent with the cancer-registry data? Specifically, what is the probability of observing at least 30 new cases over a 2-year period if the cancer-registry incidence rate is correct?
 
 ## Solution
+The exact distribution is a $\mathrm{Binom}(100000, 20/100000)$. We want $P(X \geq 30)$
+```{r}
+1 - pbinom(q = 29, size = 100000, prob = 20/100000)
+```
+You can also use a $\mathrm{Pois}(20)$
+```{r}
+1 - ppois(q = 29, lambda = 20)
+```
 :::
 
 ## Accident Epidemiology
@@ -305,6 +316,10 @@ Suppose the annual number of traffic fatalities at a given intersection follows 
 What is the probability of observing exactly 10 traffic fatalities in 1992?
 
 ## Solution
+```{r}
+dpois(x = 10, lambda = 10)
+```
+
 :::
 
 ::: {.panel-tabset} 
@@ -312,6 +327,11 @@ What is the probability of observing exactly 10 traffic fatalities in 1992?
 What is the probability of observing exactly 25 traffic fatalities over the 2-year period from January 1, 1990, to December 31, 1991?
 
 ## Solution
+Let $X$ be the number of fatalities over 2 years. Then $X \sim \mathrm{Pois}(20)$. We want $P(X = 25)$
+```{r}
+dpois(x = 25, lambda = 20)
+```
+
 :::
 
 ::: {.panel-tabset} 
@@ -319,6 +339,12 @@ What is the probability of observing exactly 25 traffic fatalities over the 2-ye
 Suppose that the traffic intersection is redesigned with better lighting, and 12 traffic fatalities are observed over the next 2 years. Is this rate a meaningful improvement over the previous rate of traffic fatalities?
 
 ## Solution
+Let's calculate $P(X \leq 12)$ when $X \sim \mathrm{Pois}(20)$
+```{r}
+ppois(q = 12, lambda = 20)
+```
+Yes, it would be very unlikely to see so few deaths (0.03901) if nothing changed.
+
 :::
 
 ## Pulmonary Disease, Environmental Health
@@ -330,6 +356,11 @@ Suppose the number of people seen for violent asthma attacks in the emergency wa
 What is the probability of observing 5 or more cases over a 2-day period?
 
 ## Solution
+Let $X$ be the number observed over 2 days. Then $X \sim \mathrm{Pois}(3)$. We want $P(X \geq 5)$
+```{r}
+1 - ppois(q = 4, lambda = 3)
+```
+
 :::
 
 On a particular 2-day period, the air-pollution levels increase dramatically and the distribution of attacks over a 1-day period is now estimated to be Poisson distributed with parameter λ = 3.
@@ -339,6 +370,11 @@ On a particular 2-day period, the air-pollution levels increase dramatically and
 Answer Problem 4.27 under these assumptions.
 
 ## Solution
+Let $Y$ be the number observed over the 2 day period. Then $Y \sim \mathrm{Pois}(6)$. We want $P(Y \geq 5)$
+```{r}
+1 - ppois(q = 4, lambda = 6)
+```
+
 :::
 
 ::: {.panel-tabset} 
@@ -346,6 +382,7 @@ Answer Problem 4.27 under these assumptions.
 If 10 days out of every year are high-pollution days, then what is the expected number of asthma cases seen in the emergency ward over a 1-year period? (Assume there are 365 days in a year.)
 
 ## Solution
+10 days are $\mathrm{Pois}(3)$ and 355 days are $\mathrm{Pois}(1.5)$. So if $Z$is number in a year, we have $Z \sim \mathrm{Pois}(10 \times 3 + 355 \times 1.5) = \mathrm{Pois}(562.5)$. The expected number is 562.5.
 :::
 
 ## Pulmonary Disease
@@ -357,6 +394,7 @@ Each year approximately 4% of current smokers attempt to quit smoking, and 50% o
 What is the probability that a current smoker will quit for at least 1 year?
 
 ## Solution
+$P(\mathrm{Quit}) = P(\mathrm{Quit}|\mathrm{Try})P(\mathrm{Try}) = 0.5 \times 0.04 = 0.02$.
 :::
 
 
@@ -365,15 +403,24 @@ What is the probability that a current smoker will quit for at least 1 year?
 What is the probability that among 100 current smokers, at least 5 will quit smoking for at least 1 year?
 
 ## Solution
-:::
+Let $X$ be the number that quit. Then $X \sim \mathrm{Binom}(100, 0.02)$. We want $P(X \geq 5)$
+```{r}
+1 - pbinom(q = 4, size = 100, prob = 0.02)
+```
 
-An educational program was conducted among smokers who attempt to quit to maximize the likelihood that such individuals would continue to abstain for the long term.
+:::
 
 ::: {.panel-tabset} 
 ## 4.37 
-Suppose that of 20 people who enter the program when they first stop smoking, 15 still abstain from smoking 1 year later. Can the program be considered successful?
+An educational program was conducted among smokers who attempt to quit to maximize the likelihood that such individuals would continue to abstain for the long term. Suppose that of 20 people who enter the program when they first stop smoking, 15 still abstain from smoking 1 year later. Can the program be considered successful?
 
 ## Solution
+Assuming that it wasn't, $X \sim \mathrm{Binom}(20, 0.5)$. We use 0.5 instead of 0.02 because these are folks who have decided they want to quit. We want $P(X \geq 15)$
+```{r}
+1 - pbinom(q = 14, size = 20, prob = 0.5)
+```
+
+So we are very sure that the program is successful, since if it weren't we would only have a 2% probability of seeing as many or more successful quitters.
 :::
 
 ## Infectious Disease
@@ -422,9 +469,14 @@ df %>%
 
 ::: {.panel-tabset} 
 ## 4.47
-If the binomial distribution holds, what is the probabil- ity distribution of the number of affected people in rooms with 2 occupants? That is, what is the probability of finding zero affected people? One affected person? Two affected people?
+If the binomial distribution holds, what is the probability distribution of the number of affected people in rooms with 2 occupants? That is, what is the probability of finding zero affected people? One affected person? Two affected people?
 
 ## Solution
+Let's assume the probability of disease is the estimated probabiliy of disease 46/98 = 0.4694. Let $X$ be the number of affected out of 2. Then $X \sim \mathrm{Binom}(2, 0.4694)$. These probabilities are
+```{r}
+dbinom(x = 0:2, size = 2, prob = 0.4694)
+```
+
 :::
 
 ::: {.panel-tabset} 
@@ -432,6 +484,11 @@ If the binomial distribution holds, what is the probabil- ity distribution of th
 Answer Problem 4.47 for the probability distribution of the number of affected people in rooms with 3 occupants.
 
 ## Solution
+Let $Y$ be the number affected out of 3. Then $Y \sim \mathrm{Binom}(3, 0.4694)$. The probabilities are
+```{r}
+dbinom(x = 0:3, size = 3, prob = 0.4694)
+```
+
 :::
 
 ::: {.panel-tabset} 
@@ -439,6 +496,10 @@ Answer Problem 4.47 for the probability distribution of the number of affected p
 Answer Problem 4.47 for the probability distribution of the number of affected people in rooms with 4 occupants.
 
 ## Solution
+Let $Z$ be the number affected out of 4. Then $Z \sim \mathrm{Binom}(4, 0.4694)$. The probabilities are
+```{r}
+dbinom(x = 0:4, size = 4, prob = 0.4694)
+```
 :::
 
 ::: {.panel-tabset} 
@@ -446,13 +507,17 @@ Answer Problem 4.47 for the probability distribution of the number of affected p
 One useful summary measure of geographical clustering is the number of rooms with 2 or more affected occupants. If the binomial distribution holds, what is the expected number of rooms with 2 or more affected occupants over the entire nursing home?
 
 ## Solution
-:::
+There are 13 2-rooms, 4 3-rooms, and 15 4-rooms. The expected number of rooms with 2 or more affected folks is
+$$
+13 P(X \geq 2) + 4 P(Y \geq 2) + 15 P(Z \geq 2)
+$$
+where the random variables were defined in 4.47, 4.48, and 4.49. We calculate these probabilities as
+```{r}
+13 * (1 - pbinom(q = 1, size = 2, prob = 0.4694)) +
+  4 * (1 - pbinom(q = 1, size = 3, prob = 0.4694)) +
+  15 * (1 - pbinom(q = 1, size = 4, prob = 0.4694))
+```
 
-::: {.panel-tabset} 
-## 4.51
-Compare the observed number of rooms with 2 or more affected occupants with the expected number of rooms. Does this comparison give any evidence that clustering of disease occurs within rooms?
-
-## Solution
 :::
 
 ## Cancer 2
@@ -464,6 +529,9 @@ The incidence rate of malignant melanoma in women ages 35–59 is approximately 
 What is the expected number of cases among 10,000 women over 4 years? (Assume no excess risk due to sunlight exposure.) 
 
 ## Solution
+$$
+10000 \text{ women} \times 4 \text{ years} \times \frac{11 \text{ cases}}{100000 \text{ women year}} = 4.4 \text{ cases}
+$$
 :::
 
 ::: {.panel-tabset} 
@@ -471,17 +539,30 @@ What is the expected number of cases among 10,000 women over 4 years? (Assume no
 Suppose that 9 new cases are observed in this period. How unusual a finding is this?
 
 ## Solution
+Let $X$ be the number of new cases over 4 years. The exact distribution is Binomial with size 10000 and probability 4 $\times$ 11 / 100000 = 0.00044. We want $P(X \geq 9)$
+```{r}
+1 - pbinom(q = 8, size = 10000, prob = 0.00044)
+```
+We can approximate this with a $\mathrm{Pois}(4.4)$
+```{r}
+1 - ppois(q = 8, lambda = 4.4)
+```
+
+So, somewhat unusual.
 :::
 
 ## Cancer 3
 
-A study was performed in Woburn, MA, looking at the rate of leukemia among children (≤ age 19) in the community in comparison to statewide leukemia rates. Suppose there arc 12,000 children in the community that have lived there for a 10-year period and 12 leukemias have occurred in 10 years.
+A study was performed in Woburn, MA, looking at the rate of leukemia among children (≤ age 19) in the community in comparison to statewide leukemia rates. Suppose there are 12,000 children in the community that have lived there for a 10-year period and 12 leukemias have occurred in 10 years.
 
 ::: {.panel-tabset} 
 ## 4.54 
 If the statewide incidence rate of leukemia in children is 5 events per 100,000 children per year (i.e., per 100,000 person-years) then how many leukemias would be expected in Woburn over the 10-year period if the statewide rates were applicable?
 
 ## Solution
+$$
+12000 \text{ children} \times 10 \text{ years} \times \frac{5 \text{ cases}}{100000 \text{ children year}} = 6
+$$
 :::
 
 ::: {.panel-tabset} 
@@ -489,6 +570,16 @@ If the statewide incidence rate of leukemia in children is 5 events per 100,000 
 What is the probability of obtaining exactly 12 events over a 10-year period if statewide incidence rates were applicable?
 
 ## Solution
+Let $X$ be the number of cases of 10 years. Then $X$ exactly follows a binomial with size 12000 and probability 10 $\times$ 5 / 100000 = 0.0005. We want $P(X = 12)$
+```{r}
+dbinom(x = 12, size = 12000, prob = 0.0005)
+```
+We can approximate this calculate with a $\mathrm{Pois}(6)$
+```{r}
+dpois(x = 12, lambda = 6)
+```
+
+
 :::
 
 ::: {.panel-tabset} 
@@ -496,6 +587,16 @@ What is the probability of obtaining exactly 12 events over a 10-year period if 
 What is the probability of obtaining at least 12 events over the 10-year period if the statewide incidence rates were applicable?
 
 ## Solution
+We want $P(X \geq 12)$. We can do this with binomial
+```{r}
+1 - pbinom(q = 11, size = 12000, prob = 0.0005)
+```
+or the Poisson
+```{r}
+1 - ppois(q = 11, lambda = 6)
+```
+
+
 :::
 
 ::: {.panel-tabset} 
@@ -503,4 +604,5 @@ What is the probability of obtaining at least 12 events over the 10-year period 
 How do you interpret the results in Problem 4.56?
 
 ## Solution
+It's rare to see so many. So there is likely extra risk in Woburn.
 :::

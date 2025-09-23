@@ -619,7 +619,7 @@ window.Quarto = {
 <p>Can you draw any conclusions based on the results in Problems 4.8–4.13 regarding any effects of the change in hospital administration on in-hospital mortality rates?</p>
 </div>
 <div id="tabset-14-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-14-2-tab">
-<p>It would be very unlikely that this many patients would die if this hospital was representative of the 981 hospitals. Assuming that it was representative, we would only have a 5.2% chance of seeing as many or more deaths among the coronary-artery patients, and we would only have a 1.6% chance of seeing as many ore more hip-deaths.</p>
+<p>It would be very unlikely that this many patients would die if this hospital was representative of the 981 hospitals. Assuming that it was representative, we would only have a 5.2% chance of seeing as many or more deaths among the coronary-artery patients, and we would only have a 1.6% chance of seeing as many or more hip-deaths.</p>
 </div>
 </div>
 </div>
@@ -783,7 +783,9 @@ window.Quarto = {
 <p>If the annual incidence rate from previous cancer-registry data is 10 per 100,000, then what is the expected number of new cases over 2 years?</p>
 </div>
 <div id="tabset-22-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-22-2-tab">
-
+<p><span class="math display">\[
+100000 \times \frac{10}{100000} \times 2 = 20
+\]</span></p>
 </div>
 </div>
 </div>
@@ -791,10 +793,23 @@ window.Quarto = {
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-23-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-23-1" role="tab" aria-controls="tabset-23-1" aria-selected="true" href="">4.23</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-23-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-23-2" role="tab" aria-controls="tabset-23-2" aria-selected="false" href="">Solution</a></li></ul>
 <div class="tab-content">
 <div id="tabset-23-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-23-1-tab">
-<p>Are the preceding results consistent or inconsistent with the cancer-registry data? Specifically, what is the prob- ability of observing at least 30 new cases over a 2-year period if the cancer-registry incidence rate is correct?</p>
+<p>Are the preceding results consistent or inconsistent with the cancer-registry data? Specifically, what is the probability of observing at least 30 new cases over a 2-year period if the cancer-registry incidence rate is correct?</p>
 </div>
 <div id="tabset-23-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-23-2-tab">
-
+<p>The exact distribution is a <span class="math inline">\(\mathrm{Binom}(100000, 20/100000)\)</span>. We want <span class="math inline">\(P(X \geq 30)\)</span></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">-</span> <span class="fu">pbinom</span>(<span class="at">q =</span> <span class="dv">29</span>, <span class="at">size =</span> <span class="dv">100000</span>, <span class="at">prob =</span> <span class="dv">20</span><span class="sc">/</span><span class="dv">100000</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.02181</code></pre>
+</div>
+</div>
+<p>You can also use a <span class="math inline">\(\mathrm{Pois}(20)\)</span></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">-</span> <span class="fu">ppois</span>(<span class="at">q =</span> <span class="dv">29</span>, <span class="at">lambda =</span> <span class="dv">20</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.02182</code></pre>
+</div>
+</div>
 </div>
 </div>
 </div>
@@ -809,7 +824,12 @@ window.Quarto = {
 <p>What is the probability of observing exactly 10 traffic fatalities in 1992?</p>
 </div>
 <div id="tabset-24-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-24-2-tab">
-
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dpois</span>(<span class="at">x =</span> <span class="dv">10</span>, <span class="at">lambda =</span> <span class="dv">10</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.1251</code></pre>
+</div>
+</div>
 </div>
 </div>
 </div>
@@ -820,7 +840,13 @@ window.Quarto = {
 <p>What is the probability of observing exactly 25 traffic fatalities over the 2-year period from January 1, 1990, to December 31, 1991?</p>
 </div>
 <div id="tabset-25-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-25-2-tab">
-
+<p>Let <span class="math inline">\(X\)</span> be the number of fatalities over 2 years. Then <span class="math inline">\(X \sim \mathrm{Pois}(20)\)</span>. We want <span class="math inline">\(P(X = 25)\)</span></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dpois</span>(<span class="at">x =</span> <span class="dv">25</span>, <span class="at">lambda =</span> <span class="dv">20</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.04459</code></pre>
+</div>
+</div>
 </div>
 </div>
 </div>
@@ -831,7 +857,14 @@ window.Quarto = {
 <p>Suppose that the traffic intersection is redesigned with better lighting, and 12 traffic fatalities are observed over the next 2 years. Is this rate a meaningful improvement over the previous rate of traffic fatalities?</p>
 </div>
 <div id="tabset-26-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-26-2-tab">
-
+<p>Let’s calculate <span class="math inline">\(P(X \leq 12)\)</span> when <span class="math inline">\(X \sim \mathrm{Pois}(20)\)</span></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ppois</span>(<span class="at">q =</span> <span class="dv">12</span>, <span class="at">lambda =</span> <span class="dv">20</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.03901</code></pre>
+</div>
+</div>
+<p>Yes, it would be very unlikely to see so few deaths (0.03901) if nothing changed.</p>
 </div>
 </div>
 </div>
@@ -846,7 +879,13 @@ window.Quarto = {
 <p>What is the probability of observing 5 or more cases over a 2-day period?</p>
 </div>
 <div id="tabset-27-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-27-2-tab">
-
+<p>Let <span class="math inline">\(X\)</span> be the number observed over 2 days. Then <span class="math inline">\(X \sim \mathrm{Pois}(3)\)</span>. We want <span class="math inline">\(P(X \geq 5)\)</span></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">-</span> <span class="fu">ppois</span>(<span class="at">q =</span> <span class="dv">4</span>, <span class="at">lambda =</span> <span class="dv">3</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.1847</code></pre>
+</div>
+</div>
 </div>
 </div>
 </div>
@@ -858,7 +897,13 @@ window.Quarto = {
 <p>Answer Problem 4.27 under these assumptions.</p>
 </div>
 <div id="tabset-28-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-28-2-tab">
-
+<p>Let <span class="math inline">\(Y\)</span> be the number observed over the 2 day period. Then <span class="math inline">\(Y \sim \mathrm{Pois}(6)\)</span>. We want <span class="math inline">\(P(Y \geq 5)\)</span></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">-</span> <span class="fu">ppois</span>(<span class="at">q =</span> <span class="dv">4</span>, <span class="at">lambda =</span> <span class="dv">6</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.7149</code></pre>
+</div>
+</div>
 </div>
 </div>
 </div>
@@ -869,7 +914,7 @@ window.Quarto = {
 <p>If 10 days out of every year are high-pollution days, then what is the expected number of asthma cases seen in the emergency ward over a 1-year period? (Assume there are 365 days in a year.)</p>
 </div>
 <div id="tabset-29-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-29-2-tab">
-
+<p>10 days are <span class="math inline">\(\mathrm{Pois}(3)\)</span> and 355 days are <span class="math inline">\(\mathrm{Pois}(1.5)\)</span>. So if <span class="math inline">\(Z\)</span>is number in a year, we have <span class="math inline">\(Z \sim \mathrm{Pois}(10 \times 3 + 355 \times 1.5) = \mathrm{Pois}(562.5)\)</span>. The expected number is 562.5.</p>
 </div>
 </div>
 </div>
@@ -884,7 +929,7 @@ window.Quarto = {
 <p>What is the probability that a current smoker will quit for at least 1 year?</p>
 </div>
 <div id="tabset-30-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-30-2-tab">
-
+<p><span class="math inline">\(P(\mathrm{Quit}) = P(\mathrm{Quit}|\mathrm{Try})P(\mathrm{Try}) = 0.5 \times 0.04 = 0.02\)</span>.</p>
 </div>
 </div>
 </div>
@@ -895,19 +940,31 @@ window.Quarto = {
 <p>What is the probability that among 100 current smokers, at least 5 will quit smoking for at least 1 year?</p>
 </div>
 <div id="tabset-31-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-31-2-tab">
-
+<p>Let <span class="math inline">\(X\)</span> be the number that quit. Then <span class="math inline">\(X \sim \mathrm{Binom}(100, 0.02)\)</span>. We want <span class="math inline">\(P(X \geq 5)\)</span></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">-</span> <span class="fu">pbinom</span>(<span class="at">q =</span> <span class="dv">4</span>, <span class="at">size =</span> <span class="dv">100</span>, <span class="at">prob =</span> <span class="fl">0.02</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.05083</code></pre>
 </div>
 </div>
 </div>
-<p>An educational program was conducted among smokers who attempt to quit to maximize the likelihood that such individuals would continue to abstain for the long term.</p>
+</div>
+</div>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-32-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-32-1" role="tab" aria-controls="tabset-32-1" aria-selected="true" href="">4.37</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-32-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-32-2" role="tab" aria-controls="tabset-32-2" aria-selected="false" href="">Solution</a></li></ul>
 <div class="tab-content">
 <div id="tabset-32-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-32-1-tab">
-<p>Suppose that of 20 people who enter the program when they first stop smoking, 15 still abstain from smoking 1 year later. Can the program be considered successful?</p>
+<p>An educational program was conducted among smokers who attempt to quit to maximize the likelihood that such individuals would continue to abstain for the long term. Suppose that of 20 people who enter the program when they first stop smoking, 15 still abstain from smoking 1 year later. Can the program be considered successful?</p>
 </div>
 <div id="tabset-32-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-32-2-tab">
-
+<p>Assuming that it wasn’t, <span class="math inline">\(X \sim \mathrm{Binom}(20, 0.5)\)</span>. We use 0.5 instead of 0.02 because these are folks who have decided they want to quit. We want <span class="math inline">\(P(X \geq 15)\)</span></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">-</span> <span class="fu">pbinom</span>(<span class="at">q =</span> <span class="dv">14</span>, <span class="at">size =</span> <span class="dv">20</span>, <span class="at">prob =</span> <span class="fl">0.5</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.02069</code></pre>
+</div>
+</div>
+<p>So we are very sure that the program is successful, since if it weren’t we would only have a 2% probability of seeing as many or more successful quitters.</p>
 </div>
 </div>
 </div>
@@ -918,23 +975,23 @@ window.Quarto = {
 <p>A summary of the number of affected people and the total number of people in a room is given in Table 4.3.</p>
 <div class="cell">
 <div class="cell-output-display">
-<div id="tnqdvujsab" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#tnqdvujsab table {
+<div id="yarlcaeczu" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#yarlcaeczu table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#tnqdvujsab thead, #tnqdvujsab tbody, #tnqdvujsab tfoot, #tnqdvujsab tr, #tnqdvujsab td, #tnqdvujsab th {
+#yarlcaeczu thead, #yarlcaeczu tbody, #yarlcaeczu tfoot, #yarlcaeczu tr, #yarlcaeczu td, #yarlcaeczu th {
   border-style: none;
 }
 
-#tnqdvujsab p {
+#yarlcaeczu p {
   margin: 0;
   padding: 0;
 }
 
-#tnqdvujsab .gt_table {
+#yarlcaeczu .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -960,12 +1017,12 @@ window.Quarto = {
   border-left-color: #D3D3D3;
 }
 
-#tnqdvujsab .gt_caption {
+#yarlcaeczu .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#tnqdvujsab .gt_title {
+#yarlcaeczu .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -977,7 +1034,7 @@ window.Quarto = {
   border-bottom-width: 0;
 }
 
-#tnqdvujsab .gt_subtitle {
+#yarlcaeczu .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -989,7 +1046,7 @@ window.Quarto = {
   border-top-width: 0;
 }
 
-#tnqdvujsab .gt_heading {
+#yarlcaeczu .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -1001,13 +1058,13 @@ window.Quarto = {
   border-right-color: #D3D3D3;
 }
 
-#tnqdvujsab .gt_bottom_border {
+#yarlcaeczu .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#tnqdvujsab .gt_col_headings {
+#yarlcaeczu .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1022,7 +1079,7 @@ window.Quarto = {
   border-right-color: #D3D3D3;
 }
 
-#tnqdvujsab .gt_col_heading {
+#yarlcaeczu .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1042,7 +1099,7 @@ window.Quarto = {
   overflow-x: hidden;
 }
 
-#tnqdvujsab .gt_column_spanner_outer {
+#yarlcaeczu .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1054,15 +1111,15 @@ window.Quarto = {
   padding-right: 4px;
 }
 
-#tnqdvujsab .gt_column_spanner_outer:first-child {
+#yarlcaeczu .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#tnqdvujsab .gt_column_spanner_outer:last-child {
+#yarlcaeczu .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#tnqdvujsab .gt_column_spanner {
+#yarlcaeczu .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -1074,11 +1131,11 @@ window.Quarto = {
   width: 100%;
 }
 
-#tnqdvujsab .gt_spanner_row {
+#yarlcaeczu .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#tnqdvujsab .gt_group_heading {
+#yarlcaeczu .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1104,7 +1161,7 @@ window.Quarto = {
   text-align: left;
 }
 
-#tnqdvujsab .gt_empty_group_heading {
+#yarlcaeczu .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -1119,15 +1176,15 @@ window.Quarto = {
   vertical-align: middle;
 }
 
-#tnqdvujsab .gt_from_md > :first-child {
+#yarlcaeczu .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#tnqdvujsab .gt_from_md > :last-child {
+#yarlcaeczu .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#tnqdvujsab .gt_row {
+#yarlcaeczu .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1146,7 +1203,7 @@ window.Quarto = {
   overflow-x: hidden;
 }
 
-#tnqdvujsab .gt_stub {
+#yarlcaeczu .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1159,7 +1216,7 @@ window.Quarto = {
   padding-right: 5px;
 }
 
-#tnqdvujsab .gt_stub_row_group {
+#yarlcaeczu .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1173,15 +1230,15 @@ window.Quarto = {
   vertical-align: top;
 }
 
-#tnqdvujsab .gt_row_group_first td {
+#yarlcaeczu .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#tnqdvujsab .gt_row_group_first th {
+#yarlcaeczu .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#tnqdvujsab .gt_summary_row {
+#yarlcaeczu .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1191,16 +1248,16 @@ window.Quarto = {
   padding-right: 5px;
 }
 
-#tnqdvujsab .gt_first_summary_row {
+#yarlcaeczu .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#tnqdvujsab .gt_first_summary_row.thick {
+#yarlcaeczu .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#tnqdvujsab .gt_last_summary_row {
+#yarlcaeczu .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1210,7 +1267,7 @@ window.Quarto = {
   border-bottom-color: #D3D3D3;
 }
 
-#tnqdvujsab .gt_grand_summary_row {
+#yarlcaeczu .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1220,7 +1277,7 @@ window.Quarto = {
   padding-right: 5px;
 }
 
-#tnqdvujsab .gt_first_grand_summary_row {
+#yarlcaeczu .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1230,7 +1287,7 @@ window.Quarto = {
   border-top-color: #D3D3D3;
 }
 
-#tnqdvujsab .gt_last_grand_summary_row_top {
+#yarlcaeczu .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1240,11 +1297,11 @@ window.Quarto = {
   border-bottom-color: #D3D3D3;
 }
 
-#tnqdvujsab .gt_striped {
+#yarlcaeczu .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#tnqdvujsab .gt_table_body {
+#yarlcaeczu .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1253,7 +1310,7 @@ window.Quarto = {
   border-bottom-color: #D3D3D3;
 }
 
-#tnqdvujsab .gt_footnotes {
+#yarlcaeczu .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1267,7 +1324,7 @@ window.Quarto = {
   border-right-color: #D3D3D3;
 }
 
-#tnqdvujsab .gt_footnote {
+#yarlcaeczu .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -1276,7 +1333,7 @@ window.Quarto = {
   padding-right: 5px;
 }
 
-#tnqdvujsab .gt_sourcenotes {
+#yarlcaeczu .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1290,7 +1347,7 @@ window.Quarto = {
   border-right-color: #D3D3D3;
 }
 
-#tnqdvujsab .gt_sourcenote {
+#yarlcaeczu .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -1298,72 +1355,72 @@ window.Quarto = {
   padding-right: 5px;
 }
 
-#tnqdvujsab .gt_left {
+#yarlcaeczu .gt_left {
   text-align: left;
 }
 
-#tnqdvujsab .gt_center {
+#yarlcaeczu .gt_center {
   text-align: center;
 }
 
-#tnqdvujsab .gt_right {
+#yarlcaeczu .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#tnqdvujsab .gt_font_normal {
+#yarlcaeczu .gt_font_normal {
   font-weight: normal;
 }
 
-#tnqdvujsab .gt_font_bold {
+#yarlcaeczu .gt_font_bold {
   font-weight: bold;
 }
 
-#tnqdvujsab .gt_font_italic {
+#yarlcaeczu .gt_font_italic {
   font-style: italic;
 }
 
-#tnqdvujsab .gt_super {
+#yarlcaeczu .gt_super {
   font-size: 65%;
 }
 
-#tnqdvujsab .gt_footnote_marks {
+#yarlcaeczu .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#tnqdvujsab .gt_asterisk {
+#yarlcaeczu .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#tnqdvujsab .gt_indent_1 {
+#yarlcaeczu .gt_indent_1 {
   text-indent: 5px;
 }
 
-#tnqdvujsab .gt_indent_2 {
+#yarlcaeczu .gt_indent_2 {
   text-indent: 10px;
 }
 
-#tnqdvujsab .gt_indent_3 {
+#yarlcaeczu .gt_indent_3 {
   text-indent: 15px;
 }
 
-#tnqdvujsab .gt_indent_4 {
+#yarlcaeczu .gt_indent_4 {
   text-indent: 20px;
 }
 
-#tnqdvujsab .gt_indent_5 {
+#yarlcaeczu .gt_indent_5 {
   text-indent: 25px;
 }
 
-#tnqdvujsab .katex-display {
+#yarlcaeczu .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#tnqdvujsab div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#yarlcaeczu div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
@@ -1438,10 +1495,16 @@ Number of rooms with
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-33-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-33-1" role="tab" aria-controls="tabset-33-1" aria-selected="true" href="">4.47</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-33-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-33-2" role="tab" aria-controls="tabset-33-2" aria-selected="false" href="">Solution</a></li></ul>
 <div class="tab-content">
 <div id="tabset-33-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-33-1-tab">
-<p>If the binomial distribution holds, what is the probabil- ity distribution of the number of affected people in rooms with 2 occupants? That is, what is the probability of finding zero affected people? One affected person? Two affected people?</p>
+<p>If the binomial distribution holds, what is the probability distribution of the number of affected people in rooms with 2 occupants? That is, what is the probability of finding zero affected people? One affected person? Two affected people?</p>
 </div>
 <div id="tabset-33-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-33-2-tab">
-
+<p>Let’s assume the probability of disease is the estimated probabiliy of disease 46/98 = 0.4694. Let <span class="math inline">\(X\)</span> be the number of affected out of 2. Then <span class="math inline">\(X \sim \mathrm{Binom}(2, 0.4694)\)</span>. These probabilities are</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb59"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dbinom</span>(<span class="at">x =</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">2</span>, <span class="at">size =</span> <span class="dv">2</span>, <span class="at">prob =</span> <span class="fl">0.4694</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.2815 0.4981 0.2203</code></pre>
+</div>
+</div>
 </div>
 </div>
 </div>
@@ -1452,7 +1515,13 @@ Number of rooms with
 <p>Answer Problem 4.47 for the probability distribution of the number of affected people in rooms with 3 occupants.</p>
 </div>
 <div id="tabset-34-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-34-2-tab">
-
+<p>Let <span class="math inline">\(Y\)</span> be the number affected out of 3. Then <span class="math inline">\(Y \sim \mathrm{Binom}(3, 0.4694)\)</span>. The probabilities are</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb61"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dbinom</span>(<span class="at">x =</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">3</span>, <span class="at">size =</span> <span class="dv">3</span>, <span class="at">prob =</span> <span class="fl">0.4694</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.1494 0.3965 0.3507 0.1034</code></pre>
+</div>
+</div>
 </div>
 </div>
 </div>
@@ -1463,7 +1532,13 @@ Number of rooms with
 <p>Answer Problem 4.47 for the probability distribution of the number of affected people in rooms with 4 occupants.</p>
 </div>
 <div id="tabset-35-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-35-2-tab">
-
+<p>Let <span class="math inline">\(Z\)</span> be the number affected out of 4. Then <span class="math inline">\(Z \sim \mathrm{Binom}(4, 0.4694)\)</span>. The probabilities are</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb63"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dbinom</span>(<span class="at">x =</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">4</span>, <span class="at">size =</span> <span class="dv">4</span>, <span class="at">prob =</span> <span class="fl">0.4694</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.07926 0.28048 0.37220 0.21951 0.04855</code></pre>
+</div>
+</div>
 </div>
 </div>
 </div>
@@ -1474,18 +1549,17 @@ Number of rooms with
 <p>One useful summary measure of geographical clustering is the number of rooms with 2 or more affected occupants. If the binomial distribution holds, what is the expected number of rooms with 2 or more affected occupants over the entire nursing home?</p>
 </div>
 <div id="tabset-36-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-36-2-tab">
-
+<p>There are 13 2-rooms, 4 3-rooms, and 15 4-rooms. The expected number of rooms with 2 or more affected folks is <span class="math display">\[
+13 P(X \geq 2) + 4 P(Y \geq 2) + 15 P(Z \geq 2)
+\]</span> where the random variables were defined in 4.47, 4.48, and 4.49. We calculate these probabilities as</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb65"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a><span class="dv">13</span> <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> <span class="fu">pbinom</span>(<span class="at">q =</span> <span class="dv">1</span>, <span class="at">size =</span> <span class="dv">2</span>, <span class="at">prob =</span> <span class="fl">0.4694</span>)) <span class="sc">+</span></span>
+<span id="cb65-2"><a href="#cb65-2" aria-hidden="true" tabindex="-1"></a>  <span class="dv">4</span> <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> <span class="fu">pbinom</span>(<span class="at">q =</span> <span class="dv">1</span>, <span class="at">size =</span> <span class="dv">3</span>, <span class="at">prob =</span> <span class="fl">0.4694</span>)) <span class="sc">+</span></span>
+<span id="cb65-3"><a href="#cb65-3" aria-hidden="true" tabindex="-1"></a>  <span class="dv">15</span> <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> <span class="fu">pbinom</span>(<span class="at">q =</span> <span class="dv">1</span>, <span class="at">size =</span> <span class="dv">4</span>, <span class="at">prob =</span> <span class="fl">0.4694</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 14.28</code></pre>
 </div>
 </div>
-</div>
-<div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-37-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-37-1" role="tab" aria-controls="tabset-37-1" aria-selected="true" href="">4.51</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-37-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-37-2" role="tab" aria-controls="tabset-37-2" aria-selected="false" href="">Solution</a></li></ul>
-<div class="tab-content">
-<div id="tabset-37-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-37-1-tab">
-<p>Compare the observed number of rooms with 2 or more affected occupants with the expected number of rooms. Does this comparison give any evidence that clustering of disease occurs within rooms?</p>
-</div>
-<div id="tabset-37-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-37-2-tab">
-
 </div>
 </div>
 </div>
@@ -1494,72 +1568,116 @@ Number of rooms with
 <h2 class="anchored" data-anchor-id="cancer-2">Cancer 2</h2>
 <p>The incidence rate of malignant melanoma in women ages 35–59 is approximately 11 new cases per 100,000 women per year. A study is planned to follow 10,000 women with excessive exposure to sunlight.</p>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-38-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-38-1" role="tab" aria-controls="tabset-38-1" aria-selected="true" href="">4.52</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-38-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-38-2" role="tab" aria-controls="tabset-38-2" aria-selected="false" href="">Solution</a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-37-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-37-1" role="tab" aria-controls="tabset-37-1" aria-selected="true" href="">4.52</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-37-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-37-2" role="tab" aria-controls="tabset-37-2" aria-selected="false" href="">Solution</a></li></ul>
 <div class="tab-content">
-<div id="tabset-38-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-38-1-tab">
+<div id="tabset-37-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-37-1-tab">
 <p>What is the expected number of cases among 10,000 women over 4 years? (Assume no excess risk due to sunlight exposure.)</p>
 </div>
-<div id="tabset-38-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-38-2-tab">
-
+<div id="tabset-37-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-37-2-tab">
+<p><span class="math display">\[
+10000 \text{ women} \times 4 \text{ years} \times \frac{11 \text{ cases}}{100000 \text{ women year}} = 4.4 \text{ cases}
+\]</span></p>
 </div>
 </div>
 </div>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-39-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-39-1" role="tab" aria-controls="tabset-39-1" aria-selected="true" href="">4.53</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-39-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-39-2" role="tab" aria-controls="tabset-39-2" aria-selected="false" href="">Solution</a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-38-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-38-1" role="tab" aria-controls="tabset-38-1" aria-selected="true" href="">4.53</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-38-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-38-2" role="tab" aria-controls="tabset-38-2" aria-selected="false" href="">Solution</a></li></ul>
 <div class="tab-content">
-<div id="tabset-39-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-39-1-tab">
+<div id="tabset-38-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-38-1-tab">
 <p>Suppose that 9 new cases are observed in this period. How unusual a finding is this?</p>
 </div>
-<div id="tabset-39-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-39-2-tab">
-
+<div id="tabset-38-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-38-2-tab">
+<p>Let <span class="math inline">\(X\)</span> be the number of new cases over 4 years. The exact distribution is Binomial with size 10000 and probability 4 <span class="math inline">\(\times\)</span> 11 / 100000 = 0.00044. We want <span class="math inline">\(P(X \geq 9)\)</span></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb67"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb67-1"><a href="#cb67-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">-</span> <span class="fu">pbinom</span>(<span class="at">q =</span> <span class="dv">8</span>, <span class="at">size =</span> <span class="dv">10000</span>, <span class="at">prob =</span> <span class="fl">0.00044</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.03577</code></pre>
+</div>
+</div>
+<p>We can approximate this with a <span class="math inline">\(\mathrm{Pois}(4.4)\)</span></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb69"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb69-1"><a href="#cb69-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">-</span> <span class="fu">ppois</span>(<span class="at">q =</span> <span class="dv">8</span>, <span class="at">lambda =</span> <span class="fl">4.4</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.0358</code></pre>
+</div>
+</div>
+<p>So, somewhat unusual.</p>
 </div>
 </div>
 </div>
 </section>
 <section id="cancer-3" class="level2">
 <h2 class="anchored" data-anchor-id="cancer-3">Cancer 3</h2>
-<p>A study was performed in Woburn, MA, looking at the rate of leukemia among children (≤ age 19) in the community in comparison to statewide leukemia rates. Suppose there arc 12,000 children in the community that have lived there for a 10-year period and 12 leukemias have occurred in 10 years.</p>
+<p>A study was performed in Woburn, MA, looking at the rate of leukemia among children (≤ age 19) in the community in comparison to statewide leukemia rates. Suppose there are 12,000 children in the community that have lived there for a 10-year period and 12 leukemias have occurred in 10 years.</p>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-40-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-40-1" role="tab" aria-controls="tabset-40-1" aria-selected="true" href="">4.54</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-40-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-40-2" role="tab" aria-controls="tabset-40-2" aria-selected="false" href="">Solution</a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-39-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-39-1" role="tab" aria-controls="tabset-39-1" aria-selected="true" href="">4.54</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-39-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-39-2" role="tab" aria-controls="tabset-39-2" aria-selected="false" href="">Solution</a></li></ul>
 <div class="tab-content">
-<div id="tabset-40-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-40-1-tab">
+<div id="tabset-39-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-39-1-tab">
 <p>If the statewide incidence rate of leukemia in children is 5 events per 100,000 children per year (i.e., per 100,000 person-years) then how many leukemias would be expected in Woburn over the 10-year period if the statewide rates were applicable?</p>
 </div>
-<div id="tabset-40-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-40-2-tab">
-
+<div id="tabset-39-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-39-2-tab">
+<p><span class="math display">\[
+12000 \text{ children} \times 10 \text{ years} \times \frac{5 \text{ cases}}{100000 \text{ children year}} = 6
+\]</span></p>
 </div>
 </div>
 </div>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-41-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-41-1" role="tab" aria-controls="tabset-41-1" aria-selected="true" href="">4.55</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-41-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-41-2" role="tab" aria-controls="tabset-41-2" aria-selected="false" href="">Solution</a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-40-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-40-1" role="tab" aria-controls="tabset-40-1" aria-selected="true" href="">4.55</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-40-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-40-2" role="tab" aria-controls="tabset-40-2" aria-selected="false" href="">Solution</a></li></ul>
 <div class="tab-content">
-<div id="tabset-41-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-41-1-tab">
+<div id="tabset-40-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-40-1-tab">
 <p>What is the probability of obtaining exactly 12 events over a 10-year period if statewide incidence rates were applicable?</p>
 </div>
-<div id="tabset-41-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-41-2-tab">
-
+<div id="tabset-40-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-40-2-tab">
+<p>Let <span class="math inline">\(X\)</span> be the number of cases of 10 years. Then <span class="math inline">\(X\)</span> exactly follows a binomial with size 12000 and probability 10 <span class="math inline">\(\times\)</span> 5 / 100000 = 0.0005. We want <span class="math inline">\(P(X = 12)\)</span></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb71"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb71-1"><a href="#cb71-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dbinom</span>(<span class="at">x =</span> <span class="dv">12</span>, <span class="at">size =</span> <span class="dv">12000</span>, <span class="at">prob =</span> <span class="fl">0.0005</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.01125</code></pre>
+</div>
+</div>
+<p>We can approximate this calculate with a <span class="math inline">\(\mathrm{Pois}(6)\)</span></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb73"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb73-1"><a href="#cb73-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dpois</span>(<span class="at">x =</span> <span class="dv">12</span>, <span class="at">lambda =</span> <span class="dv">6</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.01126</code></pre>
+</div>
+</div>
 </div>
 </div>
 </div>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-42-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-42-1" role="tab" aria-controls="tabset-42-1" aria-selected="true" href="">4.56</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-42-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-42-2" role="tab" aria-controls="tabset-42-2" aria-selected="false" href="">Solution</a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-41-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-41-1" role="tab" aria-controls="tabset-41-1" aria-selected="true" href="">4.56</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-41-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-41-2" role="tab" aria-controls="tabset-41-2" aria-selected="false" href="">Solution</a></li></ul>
 <div class="tab-content">
-<div id="tabset-42-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-42-1-tab">
+<div id="tabset-41-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-41-1-tab">
 <p>What is the probability of obtaining at least 12 events over the 10-year period if the statewide incidence rates were applicable?</p>
 </div>
-<div id="tabset-42-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-42-2-tab">
-
+<div id="tabset-41-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-41-2-tab">
+<p>We want <span class="math inline">\(P(X \geq 12)\)</span>. We can do this with binomial</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb75"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb75-1"><a href="#cb75-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">-</span> <span class="fu">pbinom</span>(<span class="at">q =</span> <span class="dv">11</span>, <span class="at">size =</span> <span class="dv">12000</span>, <span class="at">prob =</span> <span class="fl">0.0005</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.02006</code></pre>
+</div>
+</div>
+<p>or the Poisson</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb77"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb77-1"><a href="#cb77-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">-</span> <span class="fu">ppois</span>(<span class="at">q =</span> <span class="dv">11</span>, <span class="at">lambda =</span> <span class="dv">6</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.02009</code></pre>
+</div>
+</div>
 </div>
 </div>
 </div>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-43-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-43-1" role="tab" aria-controls="tabset-43-1" aria-selected="true" href="">4.57</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-43-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-43-2" role="tab" aria-controls="tabset-43-2" aria-selected="false" href="">Solution</a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-42-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-42-1" role="tab" aria-controls="tabset-42-1" aria-selected="true" href="">4.57</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-42-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-42-2" role="tab" aria-controls="tabset-42-2" aria-selected="false" href="">Solution</a></li></ul>
 <div class="tab-content">
-<div id="tabset-43-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-43-1-tab">
+<div id="tabset-42-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-42-1-tab">
 <p>How do you interpret the results in Problem 4.56?</p>
 </div>
-<div id="tabset-43-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-43-2-tab">
-
+<div id="tabset-42-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-42-2-tab">
+<p>It’s rare to see so many. So there is likely extra risk in Woburn.</p>
 </div>
 </div>
 </div>
