@@ -22,6 +22,41 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -75,6 +110,35 @@ ul.task-list li input[type="checkbox"] {
   }
 }</script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <link rel="stylesheet" href="../styles.css">
 </head>
@@ -345,7 +409,7 @@ ul.task-list li input[type="checkbox"] {
 <p>Evaluate the number of ways of selecting 4 objects out of 10 if the order of selection matters. What term is used to denote this quantity?</p>
 </div>
 <div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
-
+<p>The book’s notation is <span class="math inline">\(_{10}P_4\)</span>. This is the number of permutations of 10 things taken 4 times. This is <span class="math inline">\(10 \times 9 \times 8 \times 7 = 5040\)</span>.</p>
 </div>
 </div>
 </div>
@@ -356,19 +420,26 @@ ul.task-list li input[type="checkbox"] {
 <p>Evaluate the number of ways of selecting 4 objects out of 10 if the order of selection does not matter. What term is used to denote this quantity?</p>
 </div>
 <div id="tabset-2-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-2-tab">
-
+<p>This is the number of combination sof 10 things taken 4 times. The book notation is <span class="math inline">\(_{10}C_4\)</span>, but everyone else uses <span class="math inline">\(\binom{10}{4}\)</span>. <span class="math display">\[
+\binom{10}{4} = \frac{10 \times 9 \times 8 \times 7}{4 \times 3 \times 2 \times 1} = 210
+\]</span> Checking in R, we get:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">choose</span>(<span class="dv">10</span>, <span class="dv">4</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 210</code></pre>
 </div>
 </div>
 </div>
-<p>Suppose that the probability that a person will develop hypertension over a lifetime is 20%.</p>
+</div>
+</div>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-3-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-1" role="tab" aria-controls="tabset-3-1" aria-selected="true" href="">4.3</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-3-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-2" role="tab" aria-controls="tabset-3-2" aria-selected="false" href="">Solution</a></li></ul>
 <div class="tab-content">
 <div id="tabset-3-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-3-1-tab">
-<p>What is the probability distribution of the number of hypertensives over a lifetime among 20 students graduating from the same high school class?</p>
+<p>Suppose that the probability that a person will develop hypertension over a lifetime is 20%. What is the probability distribution of the number of hypertensives over a lifetime among 20 students graduating from the same high school class?</p>
 </div>
 <div id="tabset-3-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-3-2-tab">
-
+<p>Binomial(20, 0.2)</p>
 </div>
 </div>
 </div>
@@ -379,7 +450,13 @@ ul.task-list li input[type="checkbox"] {
 <p>What is the probability that exactly 4 people out of 50 aged 60–64 will die after receiving the flu vaccine if the probability that 1 person will die is .028?</p>
 </div>
 <div id="tabset-4-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-4-2-tab">
-
+<p>Let <span class="math inline">\(X\)</span> be the number that die out of 50. Then <span class="math inline">\(X \sim \mathrm{Binom}(50, 0.028)\)</span>. We calculate <span class="math inline">\(P(X = 4)\)</span> via</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dbinom</span>(<span class="at">x =</span> <span class="dv">4</span>, <span class="at">size =</span> <span class="dv">50</span>, <span class="at">prob =</span> <span class="fl">0.028</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.03833</code></pre>
+</div>
+</div>
 </div>
 </div>
 </div>
@@ -390,7 +467,12 @@ ul.task-list li input[type="checkbox"] {
 <p>What is the probability that at least 4 people will die after receiving the vaccine?</p>
 </div>
 <div id="tabset-5-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-5-2-tab">
-
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">-</span> <span class="fu">pbinom</span>(<span class="at">q =</span> <span class="dv">3</span>, <span class="at">size =</span> <span class="dv">50</span>, <span class="at">prob =</span> <span class="fl">0.028</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.05116</code></pre>
+</div>
+</div>
 </div>
 </div>
 </div>
@@ -401,7 +483,7 @@ ul.task-list li input[type="checkbox"] {
 <p>What is the expected number of deaths following the flu vaccine?</p>
 </div>
 <div id="tabset-6-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-6-2-tab">
-
+<p><span class="math inline">\(np\)</span> = 50 <span class="math inline">\(\times\)</span> 0.028 = 1.4.</p>
 </div>
 </div>
 </div>
@@ -412,7 +494,15 @@ ul.task-list li input[type="checkbox"] {
 <p>What is the standard deviation of the number of deaths following the flu vaccine?</p>
 </div>
 <div id="tabset-7-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-7-2-tab">
-
+<p><span class="math display">\[
+\sqrt{np(1-p)} = \sqrt{50 \times 0.028 \times (1 - 0.028)}
+\]</span> Evalulating in R, we get</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sqrt</span>(<span class="dv">50</span> <span class="sc">*</span> <span class="fl">0.028</span> <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> <span class="fl">0.028</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1.167</code></pre>
+</div>
+</div>
 </div>
 </div>
 </div>
@@ -427,7 +517,13 @@ ul.task-list li input[type="checkbox"] {
 <p>What is the probability that of 20 patients receiving coronary-bypass surgery, exactly 5 will die in-hospital, if this hospital is representative of the total pool of 981 hospitals?</p>
 </div>
 <div id="tabset-8-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-8-2-tab">
-
+<p>Let <span class="math inline">\(X\)</span> be the number among the coronary-bypass patients that die out of 20. Then <span class="math inline">\(X \sim \mathrm{Binom}(20, 0.105)\)</span>. We want <span class="math inline">\(P(X = 5)\)</span></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dbinom</span>(<span class="at">x =</span> <span class="dv">5</span>, <span class="at">size =</span> <span class="dv">20</span>, <span class="at">prob =</span> <span class="fl">0.105</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.03747</code></pre>
+</div>
+</div>
 </div>
 </div>
 </div>
@@ -438,7 +534,13 @@ ul.task-list li input[type="checkbox"] {
 <p>What is the probability of at least 5 deaths among the coronary-bypass patients?</p>
 </div>
 <div id="tabset-9-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-9-2-tab">
-
+<p>We want <span class="math inline">\(P(X \geq 5) = 1 - P(X \leq 4)\)</span></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">-</span> <span class="fu">pbinom</span>(<span class="at">q =</span> <span class="dv">4</span>, <span class="at">size =</span> <span class="dv">20</span>, <span class="at">prob =</span> <span class="fl">0.105</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.05162</code></pre>
+</div>
+</div>
 </div>
 </div>
 </div>
@@ -449,7 +551,13 @@ ul.task-list li input[type="checkbox"] {
 <p>What is the probability of no more than 5 deaths among the coronary-bypass patients?</p>
 </div>
 <div id="tabset-10-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-10-2-tab">
-
+<p>We want <span class="math inline">\(P(X \leq 5)\)</span></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pbinom</span>(<span class="at">q =</span> <span class="dv">5</span>, <span class="at">size =</span> <span class="dv">20</span>, <span class="at">prob =</span> <span class="fl">0.105</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.9859</code></pre>
+</div>
+</div>
 </div>
 </div>
 </div>
@@ -460,7 +568,13 @@ ul.task-list li input[type="checkbox"] {
 <p>What is the probability that exactly 4 will die among the hip-replacement patients?</p>
 </div>
 <div id="tabset-11-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-11-2-tab">
-
+<p>Let <span class="math inline">\(Y\)</span> be the number that die among the hip-replacement patients out of 20. Then <span class="math inline">\(Y \sim \mathrm{Binom}(20, 0.05)\)</span>. We want <span class="math inline">\(P(X = 4)\)</span></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dbinom</span>(<span class="at">x =</span> <span class="dv">4</span>, <span class="at">size =</span> <span class="dv">20</span>, <span class="at">prob =</span> <span class="fl">0.05</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.01333</code></pre>
+</div>
+</div>
 </div>
 </div>
 </div>
@@ -471,7 +585,13 @@ ul.task-list li input[type="checkbox"] {
 <p>What is the probability that at least 4 will die among the hip-replacement patients?</p>
 </div>
 <div id="tabset-12-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-12-2-tab">
-
+<p>We want <span class="math inline">\(P(X \geq 4) = 1 - P(X \leq 3)\)</span></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">-</span> <span class="fu">pbinom</span>(<span class="at">q =</span> <span class="dv">3</span>, <span class="at">size =</span> <span class="dv">20</span>, <span class="at">prob =</span> <span class="fl">0.05</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.0159</code></pre>
+</div>
+</div>
 </div>
 </div>
 </div>
@@ -482,7 +602,13 @@ ul.task-list li input[type="checkbox"] {
 <p>What is the probability of 4 or fewer deaths among the hip-replacement patients?</p>
 </div>
 <div id="tabset-13-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-13-2-tab">
-
+<p>We want <span class="math inline">\(P(X \leq 4)\)</span></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pbinom</span>(<span class="at">q =</span> <span class="dv">4</span>, <span class="at">size =</span> <span class="dv">20</span>, <span class="at">prob =</span> <span class="fl">0.05</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.9974</code></pre>
+</div>
+</div>
 </div>
 </div>
 </div>
@@ -493,7 +619,7 @@ ul.task-list li input[type="checkbox"] {
 <p>Can you draw any conclusions based on the results in Problems 4.8–4.13 regarding any effects of the change in hospital administration on in-hospital mortality rates?</p>
 </div>
 <div id="tabset-14-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-14-2-tab">
-
+<p>It would be very unlikely that this many patients would die if this hospital was representative of the 981 hospitals. Assuming that it was representative, we would only have a 5.2% chance of seeing as many or more deaths among the coronary-artery patients, and we would only have a 1.6% chance of seeing as many ore more hip-deaths.</p>
 </div>
 </div>
 </div>
@@ -508,7 +634,14 @@ ul.task-list li input[type="checkbox"] {
 <p>Use the binomial distribution to see if this experience represents an unusually small number of events based on the overall rate.</p>
 </div>
 <div id="tabset-15-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-15-2-tab">
-
+<p>Let <span class="math inline">\(X\)</span> be the number of MI’s out of 1000 over the 5 years. The probability of MI over that time is 10/1000 = 0.01. Then we have that <span class="math inline">\(X \sim \mathrm{Binom}(1000, 0.01)\)</span>. We want <span class="math inline">\(P(X \leq 3)\)</span>, because this probability tells us if <span class="math inline">\(X\)</span> is unusually small:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pbinom</span>(<span class="at">q =</span> <span class="dv">3</span>, <span class="at">size =</span> <span class="dv">1000</span>, <span class="at">prob =</span> <span class="fl">0.01</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.01007</code></pre>
+</div>
+</div>
+<p>So it is unusually small. We would only expect to see this 1% of the time.</p>
 </div>
 </div>
 </div>
@@ -519,7 +652,13 @@ ul.task-list li input[type="checkbox"] {
 <p>Answer Problem 4.15 using the Poisson approximation to the binomial distribution.</p>
 </div>
 <div id="tabset-16-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-16-2-tab">
-
+<p><span class="math inline">\(X \approx \mathrm{Pois}(1000 \times 0.01) = \mathrm{Pois}(10)\)</span>. Calculation <span class="math inline">\(P(X\leq 3)\)</span> we get:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ppois</span>(<span class="at">q =</span> <span class="dv">3</span>, <span class="at">lambda =</span> <span class="dv">10</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.01034</code></pre>
+</div>
+</div>
 </div>
 </div>
 </div>
@@ -530,7 +669,7 @@ ul.task-list li input[type="checkbox"] {
 <p>Compare your answers in Problems 4.15 and 4.16.</p>
 </div>
 <div id="tabset-17-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-17-2-tab">
-
+<p>They are close.</p>
 </div>
 </div>
 </div>
@@ -544,7 +683,13 @@ ul.task-list li input[type="checkbox"] {
 <p>An accepted hypothesis in the etiology of heart disease is that aspirin intake of 325 mg per day reduces subsequent cardiovascular mortality in men with a prior heart attack. Suppose that in a pilot study of 50 women who received 1 tablet per day (325 mg), only 2 die over a 3-year period from cardiovascular disease. How likely is it that not more than 2 women will die if the underlying 3-year mortality rate is 10% in such women?</p>
 </div>
 <div id="tabset-18-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-18-2-tab">
-
+<p>Let <span class="math inline">\(X\)</span> be the number of women that die out of 50. Then <span class="math inline">\(X \sim \mathrm{Binom}(50, 0.1)\)</span>. We want to calculate <span class="math inline">\(P(X \leq 2)\)</span>:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pbinom</span>(<span class="at">q =</span> <span class="dv">2</span>, <span class="at">size =</span> <span class="dv">50</span>, <span class="at">prob =</span> <span class="fl">0.1</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.1117</code></pre>
+</div>
+</div>
 </div>
 </div>
 </div>
@@ -556,10 +701,17 @@ ul.task-list li input[type="checkbox"] {
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-19-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-19-1" role="tab" aria-controls="tabset-19-1" aria-selected="true" href="">4.19</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-19-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-19-2" role="tab" aria-controls="tabset-19-2" aria-selected="false" href="">Solution</a></li></ul>
 <div class="tab-content">
 <div id="tabset-19-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-19-1-tab">
-<p>If the number of premature births in any 4-day period is binomially distributed with parameters n = 25 and p= .1, then find the probability of 0, 1, 2, …, 7 premature births over this period.</p>
+<p>If the number of premature births in any 4-day period is binomially distributed with parameters n = 25 and p = .1, then find the probability of 0, 1, 2, …, 7 premature births over this period.</p>
 </div>
 <div id="tabset-19-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-19-2-tab">
-
+<p>Let <span class="math inline">\(X\)</span> be the number of premature births out of 25. Then <span class="math inline">\(X \sim \mathrm{Binom}(25, 0.1)\)</span>. We want <span class="math inline">\(P(X = 0), P(X = 1),\ldots,P(X = 7)\)</span>. We can do this in R via:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>pvec <span class="ot">&lt;-</span> <span class="fu">dbinom</span>(<span class="at">x =</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">7</span>, <span class="at">size =</span> <span class="dv">25</span>, <span class="at">prob =</span> <span class="fl">0.1</span>)</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>pvec</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.071790 0.199416 0.265888 0.226497 0.138415 0.064594 0.023924 0.007215</code></pre>
+</div>
+</div>
 </div>
 </div>
 </div>
@@ -567,10 +719,28 @@ ul.task-list li input[type="checkbox"] {
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-20-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-20-1" role="tab" aria-controls="tabset-20-1" aria-selected="true" href="">4.20</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-20-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-20-2" role="tab" aria-controls="tabset-20-2" aria-selected="false" href="">Solution</a></li></ul>
 <div class="tab-content">
 <div id="tabset-20-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-20-1-tab">
-<p>The administrator wishes to allocate x beds where the probability of having more than x premature births over a 4-day period is less than 5%. What is the smallest value of x that satisfies this criterion?</p>
+<p>The administrator wishes to allocate <span class="math inline">\(x\)</span> beds where the probability of having more than <span class="math inline">\(x\)</span> premature births over a 4-day period is less than 5%. What is the smallest value of <span class="math inline">\(x\)</span> that satisfies this criterion?</p>
 </div>
 <div id="tabset-20-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-20-2-tab">
-
+<p>This is the same thing as finding the smallest value <span class="math inline">\(x\)</span> such that <span class="math inline">\(P(X \leq x) &gt; 0.95\)</span>. This is exactly the 0.95 quantile from the binomial distribution.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">qbinom</span>(<span class="at">p =</span> <span class="fl">0.95</span>, <span class="at">size =</span> <span class="dv">25</span>, <span class="at">prob =</span> <span class="fl">0.1</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 5</code></pre>
+</div>
+</div>
+<p>So, 5 beds.</p>
+<p>We can confirm by seeing if <span class="math inline">\(P(X \geq 5)\)</span> is less than 0.05 and <span class="math inline">\(P(X \geq 4)\)</span> is greater than 0.05.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">-</span> <span class="fu">pbinom</span>(<span class="at">q =</span> <span class="dv">5</span>, <span class="at">size =</span> <span class="dv">25</span>, <span class="at">prob =</span> <span class="fl">0.1</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.0334</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">-</span> <span class="fu">pbinom</span>(<span class="at">q =</span> <span class="dv">4</span>, <span class="at">size =</span> <span class="dv">25</span>, <span class="at">prob =</span> <span class="fl">0.1</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.09799</code></pre>
+</div>
+</div>
 </div>
 </div>
 </div>
@@ -581,7 +751,24 @@ ul.task-list li input[type="checkbox"] {
 <p>Answer Problem 4.20 for 1%.</p>
 </div>
 <div id="tabset-21-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-21-2-tab">
-
+<p>Using the same logic, we want the 0.99 quantile of a <span class="math inline">\(\mathrm{Binom}(25, 0.1)\)</span> distribution</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">qbinom</span>(<span class="at">p =</span> <span class="fl">0.99</span>, <span class="at">size =</span> <span class="dv">25</span>, <span class="at">prob =</span> <span class="fl">0.1</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 6</code></pre>
+</div>
+</div>
+<p>So, six beds. Verifying, we get</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">-</span> <span class="fu">pbinom</span>(<span class="at">q =</span> <span class="dv">6</span>, <span class="at">size =</span> <span class="dv">25</span>, <span class="at">prob =</span> <span class="fl">0.1</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.009476</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">-</span> <span class="fu">pbinom</span>(<span class="at">q =</span> <span class="dv">5</span>, <span class="at">size =</span> <span class="dv">25</span>, <span class="at">prob =</span> <span class="fl">0.1</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.0334</code></pre>
+</div>
+</div>
 </div>
 </div>
 </div>
@@ -731,23 +918,23 @@ ul.task-list li input[type="checkbox"] {
 <p>A summary of the number of affected people and the total number of people in a room is given in Table 4.3.</p>
 <div class="cell">
 <div class="cell-output-display">
-<div id="blflqtncsx" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#blflqtncsx table {
+<div id="tnqdvujsab" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#tnqdvujsab table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#blflqtncsx thead, #blflqtncsx tbody, #blflqtncsx tfoot, #blflqtncsx tr, #blflqtncsx td, #blflqtncsx th {
+#tnqdvujsab thead, #tnqdvujsab tbody, #tnqdvujsab tfoot, #tnqdvujsab tr, #tnqdvujsab td, #tnqdvujsab th {
   border-style: none;
 }
 
-#blflqtncsx p {
+#tnqdvujsab p {
   margin: 0;
   padding: 0;
 }
 
-#blflqtncsx .gt_table {
+#tnqdvujsab .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -773,12 +960,12 @@ ul.task-list li input[type="checkbox"] {
   border-left-color: #D3D3D3;
 }
 
-#blflqtncsx .gt_caption {
+#tnqdvujsab .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#blflqtncsx .gt_title {
+#tnqdvujsab .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -790,7 +977,7 @@ ul.task-list li input[type="checkbox"] {
   border-bottom-width: 0;
 }
 
-#blflqtncsx .gt_subtitle {
+#tnqdvujsab .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -802,7 +989,7 @@ ul.task-list li input[type="checkbox"] {
   border-top-width: 0;
 }
 
-#blflqtncsx .gt_heading {
+#tnqdvujsab .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -814,13 +1001,13 @@ ul.task-list li input[type="checkbox"] {
   border-right-color: #D3D3D3;
 }
 
-#blflqtncsx .gt_bottom_border {
+#tnqdvujsab .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#blflqtncsx .gt_col_headings {
+#tnqdvujsab .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -835,7 +1022,7 @@ ul.task-list li input[type="checkbox"] {
   border-right-color: #D3D3D3;
 }
 
-#blflqtncsx .gt_col_heading {
+#tnqdvujsab .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -855,7 +1042,7 @@ ul.task-list li input[type="checkbox"] {
   overflow-x: hidden;
 }
 
-#blflqtncsx .gt_column_spanner_outer {
+#tnqdvujsab .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -867,15 +1054,15 @@ ul.task-list li input[type="checkbox"] {
   padding-right: 4px;
 }
 
-#blflqtncsx .gt_column_spanner_outer:first-child {
+#tnqdvujsab .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#blflqtncsx .gt_column_spanner_outer:last-child {
+#tnqdvujsab .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#blflqtncsx .gt_column_spanner {
+#tnqdvujsab .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -887,11 +1074,11 @@ ul.task-list li input[type="checkbox"] {
   width: 100%;
 }
 
-#blflqtncsx .gt_spanner_row {
+#tnqdvujsab .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#blflqtncsx .gt_group_heading {
+#tnqdvujsab .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -917,7 +1104,7 @@ ul.task-list li input[type="checkbox"] {
   text-align: left;
 }
 
-#blflqtncsx .gt_empty_group_heading {
+#tnqdvujsab .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -932,15 +1119,15 @@ ul.task-list li input[type="checkbox"] {
   vertical-align: middle;
 }
 
-#blflqtncsx .gt_from_md > :first-child {
+#tnqdvujsab .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#blflqtncsx .gt_from_md > :last-child {
+#tnqdvujsab .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#blflqtncsx .gt_row {
+#tnqdvujsab .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -959,7 +1146,7 @@ ul.task-list li input[type="checkbox"] {
   overflow-x: hidden;
 }
 
-#blflqtncsx .gt_stub {
+#tnqdvujsab .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -972,7 +1159,7 @@ ul.task-list li input[type="checkbox"] {
   padding-right: 5px;
 }
 
-#blflqtncsx .gt_stub_row_group {
+#tnqdvujsab .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -986,15 +1173,15 @@ ul.task-list li input[type="checkbox"] {
   vertical-align: top;
 }
 
-#blflqtncsx .gt_row_group_first td {
+#tnqdvujsab .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#blflqtncsx .gt_row_group_first th {
+#tnqdvujsab .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#blflqtncsx .gt_summary_row {
+#tnqdvujsab .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1004,16 +1191,16 @@ ul.task-list li input[type="checkbox"] {
   padding-right: 5px;
 }
 
-#blflqtncsx .gt_first_summary_row {
+#tnqdvujsab .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#blflqtncsx .gt_first_summary_row.thick {
+#tnqdvujsab .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#blflqtncsx .gt_last_summary_row {
+#tnqdvujsab .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1023,7 +1210,7 @@ ul.task-list li input[type="checkbox"] {
   border-bottom-color: #D3D3D3;
 }
 
-#blflqtncsx .gt_grand_summary_row {
+#tnqdvujsab .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1033,7 +1220,7 @@ ul.task-list li input[type="checkbox"] {
   padding-right: 5px;
 }
 
-#blflqtncsx .gt_first_grand_summary_row {
+#tnqdvujsab .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1043,7 +1230,7 @@ ul.task-list li input[type="checkbox"] {
   border-top-color: #D3D3D3;
 }
 
-#blflqtncsx .gt_last_grand_summary_row_top {
+#tnqdvujsab .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1053,11 +1240,11 @@ ul.task-list li input[type="checkbox"] {
   border-bottom-color: #D3D3D3;
 }
 
-#blflqtncsx .gt_striped {
+#tnqdvujsab .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#blflqtncsx .gt_table_body {
+#tnqdvujsab .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1066,7 +1253,7 @@ ul.task-list li input[type="checkbox"] {
   border-bottom-color: #D3D3D3;
 }
 
-#blflqtncsx .gt_footnotes {
+#tnqdvujsab .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1080,7 +1267,7 @@ ul.task-list li input[type="checkbox"] {
   border-right-color: #D3D3D3;
 }
 
-#blflqtncsx .gt_footnote {
+#tnqdvujsab .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -1089,7 +1276,7 @@ ul.task-list li input[type="checkbox"] {
   padding-right: 5px;
 }
 
-#blflqtncsx .gt_sourcenotes {
+#tnqdvujsab .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1103,7 +1290,7 @@ ul.task-list li input[type="checkbox"] {
   border-right-color: #D3D3D3;
 }
 
-#blflqtncsx .gt_sourcenote {
+#tnqdvujsab .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -1111,72 +1298,72 @@ ul.task-list li input[type="checkbox"] {
   padding-right: 5px;
 }
 
-#blflqtncsx .gt_left {
+#tnqdvujsab .gt_left {
   text-align: left;
 }
 
-#blflqtncsx .gt_center {
+#tnqdvujsab .gt_center {
   text-align: center;
 }
 
-#blflqtncsx .gt_right {
+#tnqdvujsab .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#blflqtncsx .gt_font_normal {
+#tnqdvujsab .gt_font_normal {
   font-weight: normal;
 }
 
-#blflqtncsx .gt_font_bold {
+#tnqdvujsab .gt_font_bold {
   font-weight: bold;
 }
 
-#blflqtncsx .gt_font_italic {
+#tnqdvujsab .gt_font_italic {
   font-style: italic;
 }
 
-#blflqtncsx .gt_super {
+#tnqdvujsab .gt_super {
   font-size: 65%;
 }
 
-#blflqtncsx .gt_footnote_marks {
+#tnqdvujsab .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#blflqtncsx .gt_asterisk {
+#tnqdvujsab .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#blflqtncsx .gt_indent_1 {
+#tnqdvujsab .gt_indent_1 {
   text-indent: 5px;
 }
 
-#blflqtncsx .gt_indent_2 {
+#tnqdvujsab .gt_indent_2 {
   text-indent: 10px;
 }
 
-#blflqtncsx .gt_indent_3 {
+#tnqdvujsab .gt_indent_3 {
   text-indent: 15px;
 }
 
-#blflqtncsx .gt_indent_4 {
+#tnqdvujsab .gt_indent_4 {
   text-indent: 20px;
 }
 
-#blflqtncsx .gt_indent_5 {
+#tnqdvujsab .gt_indent_5 {
   text-indent: 25px;
 }
 
-#blflqtncsx .katex-display {
+#tnqdvujsab .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#blflqtncsx div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#tnqdvujsab div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
