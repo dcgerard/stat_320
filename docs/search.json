@@ -1090,5 +1090,110 @@
     "title": "Chapter 3 Practice Problems",
     "section": "Cardiovascular Disease 3",
     "text": "Cardiovascular Disease 3\nExercise testing has sometimes been used to diagnose patients with coronary-artery disease. One test criterion that has been used to identify those with disease is the abnormal ejection-fraction criterion; that is, an absolute rise of less than 0.05 with exercise. The validity of this noninvasive test was assessed in 196 patients versus coronary angiography, the gold standard, a procedure that can unequivocally diagnose the disease but the administration of which carries some risk for the patient. A sensitivity of 79% and a specificity of 68% were found for the exercise test in this group.\n\n3.36Solution\n\n\nWhat does the sensitivity mean in words in this setting?\n\n\nThe probability of abnormal ejection-fraction given coronary-artery disease (as determined by coronary angiography).\n\n\n\n\n3.37Solution\n\n\nWhat does the specificity mean in words in this setting?\n\n\nThe probability of a normal ejection-fraction given no coronoary-artery disease (as determined by coronary angiography).\n\n\n\nSuppose a new patient undergoes exercise testing and a physician feels before seeing the exercise-test results that the patient has a 20% chance of having coronary-artery disease.\n\n3.38Solution\n\n\nIf the exercise test is positive, then what is the probability that such a patient has disease?\n\n\nFrom the sensitivity and specificity, we have\n\n\\(P(T^+|D^+) = 0.79\\)\n\\(P(T^-|D^-) = 0.68\\)\n\nThe doctor told us that \\(P(D^+) = 0.2\\).\nWe want \\(P(D^+|T^+)\\). We can do this by Bayes rule: \\[\nP(D^+|T^+) = \\frac{P(T^+|D^+)P(D^+)}{P(T^+)}\n\\] The numerator terms are given. We can calculate the denominator by the law of total probability \\[\nP(T^+) = P(T^+|D^+)P(D^+) + P(T^+|D^-)P(D^-) = 0.79 \\times 0.2 + (1 - 0.68) \\times (1 - 0.2) = 0.414\n\\]\nSo, \\[\nP(D^+|T^+) = \\frac{0.79 \\times 0.2}{0.414} = 0.3816\n\\]\n\n\n\n\n3.39Solution\n\n\nAnswer Problem 3.38 if the exercise test is negative.\n\n\nWe want \\(P(D^+|T^-)\\), which we can do by Bayes rule \\[\nP(D^+|T^-) = \\frac{P(T^-|D^+)P(D^+)}{P(T^-)}\n=\\frac{(1 - 0.79)\\times 0.2}{1 - 0.414}\n= 0.07167\n\\]"
+  },
+  {
+    "objectID": "review/pp_04.html",
+    "href": "review/pp_04.html",
+    "title": "Chapter 4 Practice Problems",
+    "section": "",
+    "text": "These practice problems mostly come from Rosner’s publicly available study sheet at the books companion website. The solutions are my own, since we differ slightly on what we are looking for in the solutions."
+  },
+  {
+    "objectID": "review/pp_04.html#health-services-administration",
+    "href": "review/pp_04.html#health-services-administration",
+    "title": "Chapter 4 Practice Problems",
+    "section": "Health-Services Administration",
+    "text": "Health-Services Administration\nThe in-hospital mortality rate for 16 clinical conditions at 981 hospitals was recently reported. It was reported that in-hospital mortality was 10.5% for coronary-bypass surgery and 5.0% for total hip replacement. Suppose an institution changes from an academic institution to a private for-profit institution. They find that after the change, of the first 20 patients receiving coronary-bypass surgery, 5 die, while of 20 patients receiving total hip replacement, 4 die.\n\n4.8Solution\n\n\nWhat is the probability that of 20 patients receiving coronary-bypass surgery, exactly 5 will die in-hospital, if this hospital is representative of the total pool of 981 hospitals?\n\n\n\n\n\n\n\n4.9Solution\n\n\nWhat is the probability of at least 5 deaths among the coronary-bypass patients?\n\n\n\n\n\n\n\n4.10Solution\n\n\nWhat is the probability of no more than 5 deaths among the coronary-bypass patients?\n\n\n\n\n\n\n\n4.11Solution\n\n\nWhat is the probability that exactly 4 will die among the hip-replacement patients?\n\n\n\n\n\n\n\n4.12Solution\n\n\nWhat is the probability that at least 4 will die among the hip-replacement patients?\n\n\n\n\n\n\n\n4.13Solution\n\n\nWhat is the probability of 4 or fewer deaths among the hip-replacement patients?\n\n\n\n\n\n\n\n4.14Solution\n\n\nCan you draw any conclusions based on the results in Problems 4.8–4.13 regarding any effects of the change in hospital administration on in-hospital mortality rates?"
+  },
+  {
+    "objectID": "review/pp_04.html#cardiovascular-disease",
+    "href": "review/pp_04.html#cardiovascular-disease",
+    "title": "Chapter 4 Practice Problems",
+    "section": "Cardiovascular Disease",
+    "text": "Cardiovascular Disease\nThe rate of myocardial infarction (MI) in 50–59-year-old, disease-free women is approximately 2 per 1000 per year or 10 per 1000 over 5 years. Suppose that 3 MI’s are reported over 5 years among 1000 postmenopausal women initially disease free who have been taking postmenopausal hormones.\n4.15 Use the binomial distribution to see if this experience represents an unusually small number of events based on the overall rate.\n4.16 Answer Problem 4.15 using the Poisson approximation to the binomial distribution.\n4.17 Compare your answers in Problems 4.15 and 4.16."
+  },
+  {
+    "objectID": "review/pp_04.html#cardiovascular-disease-1",
+    "href": "review/pp_04.html#cardiovascular-disease-1",
+    "title": "Chapter 4 Practice Problems",
+    "section": "Cardiovascular Disease 1",
+    "text": "Cardiovascular Disease 1\nThe rate of myocardial infarction (MI) in 50–59-year-old, disease-free women is approximately 2 per 1000 per year or 10 per 1000 over 5 years. Suppose that 3 MI’s are reported over 5 years among 1000 postmenopausal women initially disease free who have been taking postmenopausal hormones.\n\n4.15Solution\n\n\nUse the binomial distribution to see if this experience represents an unusually small number of events based on the overall rate.\n\n\n\n\n\n\n\n4.16Solution\n\n\nAnswer Problem 4.15 using the Poisson approximation to the binomial distribution.\n\n\n\n\n\n\n\n4.17Solution\n\n\nCompare your answers in Problems 4.15 and 4.16."
+  },
+  {
+    "objectID": "review/pp_04.html#pediatrics",
+    "href": "review/pp_04.html#pediatrics",
+    "title": "Chapter 4 Practice Problems",
+    "section": "Pediatrics",
+    "text": "Pediatrics\nA hospital administrator wants to construct a special-care nursery for low-birthweight infants (≤ 2500 g) and wants to have some idea as to the number of beds she should allocate to the nursery. She is willing to assume that the recovery period of each baby is exactly 4 days and thus is interested in the expected number of premature births over the period.\n\n4.19Solution\n\n\nIf the number of premature births in any 4-day period is binomially distributed with parameters n = 25 and p= .1, then find the probability of 0, 1, 2, …, 7 premature births over this period.\n\n\n\n\n\n\n\n4.20Solution\n\n\nThe administrator wishes to allocate x beds where the probability of having more than x premature births over a 4-day period is less than 5%. What is the smallest value of x that satisfies this criterion?\n\n\n\n\n\n\n\n4.21Solution\n\n\nAnswer Problem 4.20 for 1%."
+  },
+  {
+    "objectID": "review/pp_04.html#cancer",
+    "href": "review/pp_04.html#cancer",
+    "title": "Chapter 4 Practice Problems",
+    "section": "Cancer",
+    "text": "Cancer\nThe incidence rate of malignant melanoma is suspected to be increasing over time. To document this increase, a questionnaire was mailed to 100,000 U.S. nurses in 1976 and 1978, asking about any current or previous tumors. Thirty new cases of malignant melanoma were found to have developed over the 2-year period among women with no previous cancers in 1976.\n4.22 If the annual incidence rate from previous cancer-registry data is 10 per 100,000, then what is the expected number of new cases over 2 years?\n4.23 Are the preceding results consistent or inconsistent with the cancer-registry data? Specifically, what is the prob- ability of observing at least 30 new cases over a 2-year period if the cancer-registry incidence rate is correct?"
+  },
+  {
+    "objectID": "review/pp_04.html#accident-epidemiology",
+    "href": "review/pp_04.html#accident-epidemiology",
+    "title": "Chapter 4 Practice Problems",
+    "section": "Accident Epidemiology",
+    "text": "Accident Epidemiology\nSuppose the annual number of traffic fatalities at a given intersection follows a Poisson distribution with parameter µ = 10 .\n\n4.24Solution\n\n\nWhat is the probability of observing exactly 10 traffic fatalities in 1992?\n\n\n\n\n\n\n\n4.25Solution\n\n\nWhat is the probability of observing exactly 25 traffic fatalities over the 2-year period from January 1, 1990, to December 31, 1991?\n\n\n\n\n\n\n\n4.26Solution\n\n\nSuppose that the traffic intersection is redesigned with better lighting, and 12 traffic fatalities are observed over the next 2 years. Is this rate a meaningful improvement over the previous rate of traffic fatalities?"
+  },
+  {
+    "objectID": "review/pp_04.html#pulmonary-disease-environmental-health",
+    "href": "review/pp_04.html#pulmonary-disease-environmental-health",
+    "title": "Chapter 4 Practice Problems",
+    "section": "Pulmonary Disease, Environmental Health",
+    "text": "Pulmonary Disease, Environmental Health\nSuppose the number of people seen for violent asthma attacks in the emergency ward of a hospital over a 1-day period is usually Poisson distributed with parameter λ = 1.5\n\n4.27Solution\n\n\nWhat is the probability of observing 5 or more cases over a 2-day period?\n\n\n\n\n\n\nOn a particular 2-day period, the air-pollution levels increase dramatically and the distribution of attacks over a 1-day period is now estimated to be Poisson distributed with parameter λ = 3.\n\n4.28Solution\n\n\nAnswer Problem 4.27 under these assumptions.\n\n\n\n\n\n\n\n4.29Solution\n\n\nIf 10 days out of every year are high-pollution days, then what is the expected number of asthma cases seen in the emergency ward over a 1-year period? (Assume there are 365 days in a year.)"
+  },
+  {
+    "objectID": "review/pp_04.html#pulmonary-disease",
+    "href": "review/pp_04.html#pulmonary-disease",
+    "title": "Chapter 4 Practice Problems",
+    "section": "Pulmonary Disease",
+    "text": "Pulmonary Disease\nEach year approximately 4% of current smokers attempt to quit smoking, and 50% of those who try to quit are successful in the sense that they abstain from smoking for at least 1 year from the date they quit.\n\n4.35Solution\n\n\nWhat is the probability that a current smoker will quit for at least 1 year?\n\n\n\n\n\n\n\n4.36Solution\n\n\nWhat is the probability that among 100 current smokers, at least 5 will quit smoking for at least 1 year?\n\n\n\n\n\n\nAn educational program was conducted among smokers who attempt to quit to maximize the likelihood that such individuals would continue to abstain for the long term.\n\n4.37Solution\n\n\nSuppose that of 20 people who enter the program when they first stop smoking, 15 still abstain from smoking 1 year later. Can the program be considered successful?"
+  },
+  {
+    "objectID": "review/pp_04.html#infectious-disease",
+    "href": "review/pp_04.html#infectious-disease",
+    "title": "Chapter 4 Practice Problems",
+    "section": "Infectious Disease",
+    "text": "Infectious Disease\nAn outbreak of acute gastroenteritis occurred at a nursing home in Baltimore, Maryland, in December 1980. A total of 46 out of 98 residents of the nursing home became ill. People living in the nursing home shared rooms: 13 rooms contained 2 occupants, 4 rooms contained 3 occupants, and 15 rooms contained 4 occupants. One question that arises is whether or not a geographical clustering of disease occurred for persons living in the same room.\nA summary of the number of affected people and the total number of people in a room is given in Table 4.3.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nTable 4.3\n\n\nNumber of affected people and total number of people in a room for an outbreak of acute gastroenteritis in a nursing home in Baltimore, Maryland\n\n\nPeople in room\nTotal number of rooms\n\nNumber of rooms with\n\n\n\n0 affected people\n1 affected person\n2 affected people\n3 affected people\n4 affected people\n\n\n\n\n2\n13\n5\n4\n4\n0\n0\n\n\n3\n4\n1\n2\n0\n1\n0\n\n\n4\n15\n2\n4\n3\n5\n1\n\n\n\n\n\n\n\n\n4.47Solution\n\n\nIf the binomial distribution holds, what is the probabil- ity distribution of the number of affected people in rooms with 2 occupants? That is, what is the probability of finding zero affected people? One affected person? Two affected people?\n\n\n\n\n\n\n\n4.48Solution\n\n\nAnswer Problem 4.47 for the probability distribution of the number of affected people in rooms with 3 occupants.\n\n\n\n\n\n\n\n4.49Solution\n\n\nAnswer Problem 4.47 for the probability distribution of the number of affected people in rooms with 4 occupants.\n\n\n\n\n\n\n\n4.50Solution\n\n\nOne useful summary measure of geographical clustering is the number of rooms with 2 or more affected occupants. If the binomial distribution holds, what is the expected number of rooms with 2 or more affected occupants over the entire nursing home?\n\n\n\n\n\n\n\n4.51Solution\n\n\nCompare the observed number of rooms with 2 or more affected occupants with the expected number of rooms. Does this comparison give any evidence that clustering of disease occurs within rooms?"
+  },
+  {
+    "objectID": "review/pp_04.html#cancer-1",
+    "href": "review/pp_04.html#cancer-1",
+    "title": "Chapter 4 Practice Problems",
+    "section": "Cancer 1",
+    "text": "Cancer 1\nThe incidence rate of malignant melanoma is suspected to be increasing over time. To document this increase, a questionnaire was mailed to 100,000 U.S. nurses in 1976 and 1978, asking about any current or previous tumors. Thirty new cases of malignant melanoma were found to have developed over the 2-year period among women with no previous cancers in 1976.\n\n4.22Solution\n\n\nIf the annual incidence rate from previous cancer-registry data is 10 per 100,000, then what is the expected number of new cases over 2 years?\n\n\n\n\n\n\n\n4.23Solution\n\n\nAre the preceding results consistent or inconsistent with the cancer-registry data? Specifically, what is the prob- ability of observing at least 30 new cases over a 2-year period if the cancer-registry incidence rate is correct?"
+  },
+  {
+    "objectID": "review/pp_04.html#cancer-2",
+    "href": "review/pp_04.html#cancer-2",
+    "title": "Chapter 4 Practice Problems",
+    "section": "Cancer 2",
+    "text": "Cancer 2\nThe incidence rate of malignant melanoma in women ages 35–59 is approximately 11 new cases per 100,000 women per year. A study is planned to follow 10,000 women with excessive exposure to sunlight.\n\n4.52Solution\n\n\nWhat is the expected number of cases among 10,000 women over 4 years? (Assume no excess risk due to sunlight exposure.)\n\n\n\n\n\n\n\n4.53Solution\n\n\nSuppose that 9 new cases are observed in this period. How unusual a finding is this?"
+  },
+  {
+    "objectID": "review/pp_04.html#cardiovascular-disease-2",
+    "href": "review/pp_04.html#cardiovascular-disease-2",
+    "title": "Chapter 4 Practice Problems",
+    "section": "Cardiovascular Disease 2",
+    "text": "Cardiovascular Disease 2\n\n4.18Solution\n\n\nAn accepted hypothesis in the etiology of heart disease is that aspirin intake of 325 mg per day reduces subsequent cardiovascular mortality in men with a prior heart attack. Suppose that in a pilot study of 50 women who received 1 tablet per day (325 mg), only 2 die over a 3-year period from cardiovascular disease. How likely is it that not more than 2 women will die if the underlying 3-year mortality rate is 10% in such women?"
+  },
+  {
+    "objectID": "review/pp_04.html#cancer-3",
+    "href": "review/pp_04.html#cancer-3",
+    "title": "Chapter 4 Practice Problems",
+    "section": "Cancer 3",
+    "text": "Cancer 3\nA study was performed in Woburn, MA, looking at the rate of leukemia among children (≤ age 19) in the community in comparison to statewide leukemia rates. Suppose there arc 12,000 children in the community that have lived there for a 10-year period and 12 leukemias have occurred in 10 years.\n\n4.54Solution\n\n\nIf the statewide incidence rate of leukemia in children is 5 events per 100,000 children per year (i.e., per 100,000 person-years) then how many leukemias would be expected in Woburn over the 10-year period if the statewide rates were applicable?\n\n\n\n\n\n\n\n4.55Solution\n\n\nWhat is the probability of obtaining exactly 12 events over a 10-year period if statewide incidence rates were applicable?\n\n\n\n\n\n\n\n4.56Solution\n\n\nWhat is the probability of obtaining at least 12 events over the 10-year period if the statewide incidence rates were applicable?\n\n\n\n\n\n\n\n4.57Solution\n\n\nHow do you interpret the results in Problem 4.56?"
+  },
+  {
+    "objectID": "review/pp_04.html#basic-discrete-probability",
+    "href": "review/pp_04.html#basic-discrete-probability",
+    "title": "Chapter 4 Practice Problems",
+    "section": "Basic Discrete Probability",
+    "text": "Basic Discrete Probability\n\n4.1Solution\n\n\nEvaluate the number of ways of selecting 4 objects out of 10 if the order of selection matters. What term is used to denote this quantity?\n\n\n\n\n\n\n\n4.2Solution\n\n\nEvaluate the number of ways of selecting 4 objects out of 10 if the order of selection does not matter. What term is used to denote this quantity?\n\n\n\n\n\n\nSuppose that the probability that a person will develop hypertension over a lifetime is 20%.\n\n4.3Solution\n\n\nWhat is the probability distribution of the number of hypertensives over a lifetime among 20 students graduating from the same high school class?\n\n\n\n\n\n\n\n4.4Solution\n\n\nWhat is the probability that exactly 4 people out of 50 aged 60–64 will die after receiving the flu vaccine if the probability that 1 person will die is .028?\n\n\n\n\n\n\n\n4.5Solution\n\n\nWhat is the probability that at least 4 people will die after receiving the vaccine?\n\n\n\n\n\n\n\n4.6Solution\n\n\nWhat is the expected number of deaths following the flu vaccine?\n\n\n\n\n\n\n\n4.7Solution\n\n\nWhat is the standard deviation of the number of deaths following the flu vaccine?"
   }
 ]
