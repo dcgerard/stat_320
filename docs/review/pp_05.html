@@ -1,0 +1,1920 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.24">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="David Gerard">
+<meta name="dcterms.date" content="2025-09-23">
+
+<title>Chapter 5 Practice Problems – Stat 320: Biostatistics</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dc55a5b9e770e841cd82e46aadbfb9b0.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-b651517ce65839d647a86e2780455cfb.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dc55a5b9e770e841cd82e46aadbfb9b0.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-f93c2b1f3f0577f377aefa4848a86a36.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark-0d4a9d19931feb4fee1ddab4b2489000.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../site_libs/bootstrap/bootstrap-f93c2b1f3f0577f377aefa4848a86a36.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="../styles.css">
+</head>
+
+<body class="nav-fixed quarto-light"><script id="quarto-html-before-body" type="application/javascript">
+    const toggleBodyColorMode = (bsSheetEl) => {
+      const mode = bsSheetEl.getAttribute("data-mode");
+      const bodyEl = window.document.querySelector("body");
+      if (mode === "dark") {
+        bodyEl.classList.add("quarto-dark");
+        bodyEl.classList.remove("quarto-light");
+      } else {
+        bodyEl.classList.add("quarto-light");
+        bodyEl.classList.remove("quarto-dark");
+      }
+    }
+    const toggleBodyColorPrimary = () => {
+      const bsSheetEl = window.document.querySelector("link#quarto-bootstrap:not([rel=disabled-stylesheet])");
+      if (bsSheetEl) {
+        toggleBodyColorMode(bsSheetEl);
+      }
+    }
+    const setColorSchemeToggle = (alternate) => {
+      const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+      for (let i=0; i < toggles.length; i++) {
+        const toggle = toggles[i];
+        if (toggle) {
+          if (alternate) {
+            toggle.classList.add("alternate");
+          } else {
+            toggle.classList.remove("alternate");
+          }
+        }
+      }
+    };
+    const toggleColorMode = (alternate) => {
+      // Switch the stylesheets
+      const primaryStylesheets = window.document.querySelectorAll('link.quarto-color-scheme:not(.quarto-color-alternate)');
+      const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+      manageTransitions('#quarto-margin-sidebar .nav-link', false);
+      if (alternate) {
+        // note: dark is layered on light, we don't disable primary!
+        enableStylesheet(alternateStylesheets);
+        for (const sheetNode of alternateStylesheets) {
+          if (sheetNode.id === "quarto-bootstrap") {
+            toggleBodyColorMode(sheetNode);
+          }
+        }
+      } else {
+        disableStylesheet(alternateStylesheets);
+        enableStylesheet(primaryStylesheets)
+        toggleBodyColorPrimary();
+      }
+      manageTransitions('#quarto-margin-sidebar .nav-link', true);
+      // Switch the toggles
+      setColorSchemeToggle(alternate)
+      // Hack to workaround the fact that safari doesn't
+      // properly recolor the scrollbar when toggling (#1455)
+      if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+        manageTransitions("body", false);
+        window.scrollTo(0, 1);
+        setTimeout(() => {
+          window.scrollTo(0, 0);
+          manageTransitions("body", true);
+        }, 40);
+      }
+    }
+    const disableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        stylesheet.rel = 'disabled-stylesheet';
+      }
+    }
+    const enableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        if(stylesheet.rel !== 'stylesheet') { // for Chrome, which will still FOUC without this check
+          stylesheet.rel = 'stylesheet';
+        }
+      }
+    }
+    const manageTransitions = (selector, allowTransitions) => {
+      const els = window.document.querySelectorAll(selector);
+      for (let i=0; i < els.length; i++) {
+        const el = els[i];
+        if (allowTransitions) {
+          el.classList.remove('notransition');
+        } else {
+          el.classList.add('notransition');
+        }
+      }
+    }
+    const isFileUrl = () => {
+      return window.location.protocol === 'file:';
+    }
+    const hasAlternateSentinel = () => {
+      let styleSentinel = getColorSchemeSentinel();
+      if (styleSentinel !== null) {
+        return styleSentinel === "alternate";
+      } else {
+        return false;
+      }
+    }
+    const setStyleSentinel = (alternate) => {
+      const value = alternate ? "alternate" : "default";
+      if (!isFileUrl()) {
+        window.localStorage.setItem("quarto-color-scheme", value);
+      } else {
+        localAlternateSentinel = value;
+      }
+    }
+    const getColorSchemeSentinel = () => {
+      if (!isFileUrl()) {
+        const storageValue = window.localStorage.getItem("quarto-color-scheme");
+        return storageValue != null ? storageValue : localAlternateSentinel;
+      } else {
+        return localAlternateSentinel;
+      }
+    }
+    const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+      const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+      const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+      let newTheme = '';
+      if(authorPrefersDark) {
+        newTheme = isAlternate ? baseTheme : alternateTheme;
+      } else {
+        newTheme = isAlternate ? alternateTheme : baseTheme;
+      }
+      const changeGiscusTheme = () => {
+        // From: https://github.com/giscus/giscus/issues/336
+        const sendMessage = (message) => {
+          const iframe = document.querySelector('iframe.giscus-frame');
+          if (!iframe) return;
+          iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+        }
+        sendMessage({
+          setConfig: {
+            theme: newTheme
+          }
+        });
+      }
+      const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+      if (isGiscussLoaded) {
+        changeGiscusTheme();
+      }
+    };
+    const authorPrefersDark = false;
+    const darkModeDefault = authorPrefersDark;
+      document.querySelector('link#quarto-text-highlighting-styles.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+      document.querySelector('link#quarto-bootstrap.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+    let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
+    // Dark / light mode switch
+    window.quartoToggleColorScheme = () => {
+      // Read the current dark / light value
+      let toAlternate = !hasAlternateSentinel();
+      toggleColorMode(toAlternate);
+      setStyleSentinel(toAlternate);
+      toggleGiscusIfUsed(toAlternate, darkModeDefault);
+      window.dispatchEvent(new Event('resize'));
+    };
+    // Switch to dark mode if need be
+    if (hasAlternateSentinel()) {
+      toggleColorMode(true);
+    } else {
+      toggleColorMode(false);
+    }
+  </script>
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a href="../index.html" class="navbar-brand navbar-brand-logo">
+    </a>
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">Stat 320: Biostatistics</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../index.html"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../data.html"> 
+<span class="menu-text">Data</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#basice" id="toc-basice" class="nav-link active" data-scroll-target="#basice">Basice</a></li>
+  <li><a href="#hypertension-1" id="toc-hypertension-1" class="nav-link" data-scroll-target="#hypertension-1">Hypertension 1</a></li>
+  <li><a href="#cancer-1" id="toc-cancer-1" class="nav-link" data-scroll-target="#cancer-1">Cancer 1</a></li>
+  <li><a href="#accident-epidemiology" id="toc-accident-epidemiology" class="nav-link" data-scroll-target="#accident-epidemiology">Accident Epidemiology</a></li>
+  <li><a href="#obstetrics" id="toc-obstetrics" class="nav-link" data-scroll-target="#obstetrics">Obstetrics</a></li>
+  <li><a href="#renal-disease" id="toc-renal-disease" class="nav-link" data-scroll-target="#renal-disease">Renal Disease</a></li>
+  <li><a href="#ophthalmology-1" id="toc-ophthalmology-1" class="nav-link" data-scroll-target="#ophthalmology-1">Ophthalmology 1</a></li>
+  <li><a href="#cancer-2" id="toc-cancer-2" class="nav-link" data-scroll-target="#cancer-2">Cancer 2</a></li>
+  <li><a href="#hypertension-2" id="toc-hypertension-2" class="nav-link" data-scroll-target="#hypertension-2">Hypertension 2</a></li>
+  <li><a href="#nutrition" id="toc-nutrition" class="nav-link" data-scroll-target="#nutrition">Nutrition</a></li>
+  <li><a href="#epidemiology" id="toc-epidemiology" class="nav-link" data-scroll-target="#epidemiology">Epidemiology</a></li>
+  <li><a href="#pulmonary-disease" id="toc-pulmonary-disease" class="nav-link" data-scroll-target="#pulmonary-disease">Pulmonary Disease</a></li>
+  <li><a href="#hypertension-3" id="toc-hypertension-3" class="nav-link" data-scroll-target="#hypertension-3">Hypertension 3</a></li>
+  <li><a href="#hypertension-4" id="toc-hypertension-4" class="nav-link" data-scroll-target="#hypertension-4">Hypertension 4</a></li>
+  <li><a href="#hypertension-5" id="toc-hypertension-5" class="nav-link" data-scroll-target="#hypertension-5">Hypertension 5</a></li>
+  <li><a href="#environmental-health" id="toc-environmental-health" class="nav-link" data-scroll-target="#environmental-health">Environmental Health</a></li>
+  <li><a href="#ophthalmology-2" id="toc-ophthalmology-2" class="nav-link" data-scroll-target="#ophthalmology-2">Ophthalmology 2</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Chapter 5 Practice Problems</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>David Gerard </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">September 23, 2025</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p>These practice problems mostly come from Rosner’s publicly available study sheet at the books <a href="https://www.cengage.com/cgi-wadsworth/course_products_wp.pl?fid=M20b&amp;product_isbn_issn=9781305268920">companion website</a>. The solutions are my own, since we differ slightly on what we are looking for in the solutions.</p>
+<section id="basice" class="level2">
+<h2 class="anchored" data-anchor-id="basice">Basice</h2>
+<p>5.1 What are the deciles of the standard normal distribution; that is, the 10, 20, 30, … , 90 percentiles?</p>
+<p>5.2 What are the quartiles of the standard normal distribution?</p>
+</section>
+<section id="hypertension-1" class="level2">
+<h2 class="anchored" data-anchor-id="hypertension-1">Hypertension 1</h2>
+<p>Blood pressure (BP) in childhood tends to increase with age, but differently for boys and girls. Suppose that for both boys and girls, mean systolic blood pressure is 95 mm Hg at 3 years of age and increases 1.5 mm Hg per year up to the age of 13. Furthermore, starting at age 13, the mean increases by 2 mm Hg per year for boys and 1 mm Hg per year for girls up to the age of 18. Finally, assume that blood pressure is normally distributed and that the standard deviation is 12 mm Hg for all age-sex groups.</p>
+<p>5.3 What is the probability that an 11-year-old boy will have an SBP greater than 130 mm Hg?</p>
+<p>5.4 What is the probability that a 15-year-old girl will have an SBP between 100 and 120 mm Hg?</p>
+<p>5.5 What proportion of 17-year-old boys have an SBP between 120 and 140 mm Hg?</p>
+<p>5.6 What is the probability that of 200 15-year-old boys, at least 10 will have an SBP of 130 mm Hg or greater?</p>
+<p>5.7 What level of SBP is at the 80th percentile for 7-year- old boys?</p>
+<p>5.8 What level of SBP is at the 70th percentile for 12-year- old girls?</p>
+<p>5.9 Suppose that a task force of pediatricians decides that children over the 95th percentile, but not over the 99th percentile, for their age-sex group should be encouraged to take preventive nonpharmacologic measures to reduce their blood pressure, whereas those children over the 99th percentile should receive antihypertensive drug therapy. Construct a table giving the appropriate BP levels to identify these groups for boys and girls for each year of age from 3 to 18.</p>
+</section>
+<section id="cancer-1" class="level2">
+<h2 class="anchored" data-anchor-id="cancer-1">Cancer 1</h2>
+<p>The incidence of breast cancer in 40–49-year-old women is approximately 1 new case per 1000 women per year.</p>
+<p>5.10 What is the incidence of breast cancer over 10 years in women initially 40 years old?</p>
+<p>5.11 Suppose we are planning a study based on an enrollment of 10,000 women. What is the probability of obtaining at least 120 new breast-cancer cases over a 10-year follow-up period?</p>
+</section>
+<section id="accident-epidemiology" class="level2">
+<h2 class="anchored" data-anchor-id="accident-epidemiology">Accident Epidemiology</h2>
+<p>Suppose the annual death rate from motor-vehicle accidents in 1980 was 10 per 100,000 in urban areas of the United States.</p>
+<p>5.12 In an urban state with a population of 2 million, what is the probability of observing not more than 150 traffic fatalities in a given year?</p>
+<p>In rural areas of the United States the annual death rate from motor-vehicle accidents is on the order of 100 per 100,000 population.</p>
+<p>5.13 In a rural state with a population of 100,000, what is the probability of observing not more than 80 traffic fatalities in a given year?</p>
+<p>5.14 How large should x be so that the probability of observing not more than x traffic fatalities in a given year in a rural state with population 100,000 is 5%?</p>
+<p>5.15 How large should x be so that the probability of observing x or more traffic fatalities in a given year, in an urban state with population 500,000 is 10%?</p>
+</section>
+<section id="obstetrics" class="level2">
+<h2 class="anchored" data-anchor-id="obstetrics">Obstetrics</h2>
+<p>Assume that birthweights are normally distributed with a mean of 3400 g and a standard deviation of 700 g.</p>
+<p>5.16 Find the probability of a low-birthweight child, where low birthweight is defined as ≤ 2500 g.</p>
+<p>5.17 Find the probability of a very low birthweight child, where very low birthweight is defined as ≤ 2000 g.</p>
+<p>5.18 Assuming that successive deliveries by the same woman have the same probability of being low birthweight, what is the probability that a woman with exactly 3 deliveries will have 2 or more low-birthweight deliveries?</p>
+</section>
+<section id="renal-disease" class="level2">
+<h2 class="anchored" data-anchor-id="renal-disease">Renal Disease</h2>
+<p>The presence of bacteria in a urine sample (bacteriuria) is sometimes associated with symptoms of kidney disease. Assume that a determination of bacteriuria has been made over a large population at one point in time and that 5% of those sampled are positive for bacteriuria.</p>
+<p>5.19 Suppose that 500 people from this population are sampled. What is the probability that 50 or more people would be positive for bacteriuria?</p>
+</section>
+<section id="ophthalmology-1" class="level2">
+<h2 class="anchored" data-anchor-id="ophthalmology-1">Ophthalmology 1</h2>
+<p>A study was conducted among patients with retinitis pigmentosa, an ocular condition where pigment appears over the retina, resulting in substantial loss of vision in many cases. The study was based on 94 patients who were seen annually at a baseline visit and at three annual follow-up visits. In this study, 90 patients provided visual-field measurements at each of the four examinations and are the subjects of the following data analyses. Visual field was transformed to the ln scale to better approximate normality and yielded the data given in Table 5.1.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="lhofutehrs" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#lhofutehrs table {
+  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#lhofutehrs thead, #lhofutehrs tbody, #lhofutehrs tfoot, #lhofutehrs tr, #lhofutehrs td, #lhofutehrs th {
+  border-style: none;
+}
+
+#lhofutehrs p {
+  margin: 0;
+  padding: 0;
+}
+
+#lhofutehrs .gt_table {
+  display: table;
+  border-collapse: collapse;
+  line-height: normal;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#lhofutehrs .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#lhofutehrs .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#lhofutehrs .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 3px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#lhofutehrs .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#lhofutehrs .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#lhofutehrs .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#lhofutehrs .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#lhofutehrs .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#lhofutehrs .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#lhofutehrs .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#lhofutehrs .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#lhofutehrs .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
+#lhofutehrs .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+#lhofutehrs .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#lhofutehrs .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#lhofutehrs .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#lhofutehrs .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#lhofutehrs .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#lhofutehrs .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#lhofutehrs .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#lhofutehrs .gt_row_group_first th {
+  border-top-width: 2px;
+}
+
+#lhofutehrs .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#lhofutehrs .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#lhofutehrs .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#lhofutehrs .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#lhofutehrs .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#lhofutehrs .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#lhofutehrs .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
+#lhofutehrs .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#lhofutehrs .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#lhofutehrs .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#lhofutehrs .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#lhofutehrs .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#lhofutehrs .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#lhofutehrs .gt_left {
+  text-align: left;
+}
+
+#lhofutehrs .gt_center {
+  text-align: center;
+}
+
+#lhofutehrs .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#lhofutehrs .gt_font_normal {
+  font-weight: normal;
+}
+
+#lhofutehrs .gt_font_bold {
+  font-weight: bold;
+}
+
+#lhofutehrs .gt_font_italic {
+  font-style: italic;
+}
+
+#lhofutehrs .gt_super {
+  font-size: 65%;
+}
+
+#lhofutehrs .gt_footnote_marks {
+  font-size: 75%;
+  vertical-align: 0.4em;
+  position: initial;
+}
+
+#lhofutehrs .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#lhofutehrs .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#lhofutehrs .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#lhofutehrs .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#lhofutehrs .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#lhofutehrs .gt_indent_5 {
+  text-indent: 25px;
+}
+
+#lhofutehrs .katex-display {
+  display: inline-flex !important;
+  margin-bottom: 0.75em !important;
+}
+
+#lhofutehrs div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+  height: 0px !important;
+}
+</style>
+
+<table class="gt_table caption-top table table-sm table-striped small" data-quarto-bootstrap="false">
+<thead>
+<tr class="gt_heading header">
+<td colspan="4" class="gt_heading gt_title gt_font_normal gt_bottom_border"><strong>Table 5.1</strong> Visual-field measurements in retinitis-pigmentosa patients</td>
+</tr>
+<tr class="gt_col_headings even">
+<th id="Year-of-examination" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">Year of examination</th>
+<th id="Mean" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">Mean<sup>a</sup></th>
+<th id="Standard-deviation" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">Standard deviation</th>
+<th id="n" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col"><em>n</em></th>
+</tr>
+</thead>
+<tbody class="gt_table_body">
+<tr class="odd">
+<td class="gt_row gt_left" headers="Year of examination">Year 0 (baseline)</td>
+<td class="gt_row gt_right" headers="Mean">8.15</td>
+<td class="gt_row gt_right" headers="Standard deviation">1.23</td>
+<td class="gt_row gt_right" headers="n">90</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Year of examination">Year 3</td>
+<td class="gt_row gt_right" headers="Mean">8.01</td>
+<td class="gt_row gt_right" headers="Standard deviation">1.33</td>
+<td class="gt_row gt_right" headers="n">90</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Year of examination">Year 0–year 3</td>
+<td class="gt_row gt_right" headers="Mean">0.14</td>
+<td class="gt_row gt_right" headers="Standard deviation">0.66</td>
+<td class="gt_row gt_right" headers="n">90</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<p>5.20 Assuming that change in visual field over 3 years is normally distributed when using the ln scale, what is the proportion of patients who showed a decline in visual field over 3 years?</p>
+<p>5.21 What percentage of patients would be expected to show a decline of at least 20% in visual field over 3 years? (Note: In the ln scale this is equivalent to a decline of at least log(1/0.8) = 0.223).</p>
+<p>5.22 Answer Problem 5.21 for a 50% decline over 3 years.</p>
+</section>
+<section id="cancer-2" class="level2">
+<h2 class="anchored" data-anchor-id="cancer-2">Cancer 2</h2>
+<p>A study of the Massachusetts Department of Health found 46 deaths due to cancer among women in the city of Bedford, MA over the period 1974–1978, where 30 deaths had been expected from statewide rates.</p>
+<p>5.23 Write an expression for the probability of observing exactly <span class="math inline">\(k\)</span> deaths due to cancer over this period if the statewide rates are correct.</p>
+<p>5.24 Can the occurrence of 46 deaths due to cancer be attributed to chance? Specifically, what is the probability of observing at least 46 deaths due to cancer if the statewide rates are correct?</p>
+</section>
+<section id="hypertension-2" class="level2">
+<h2 class="anchored" data-anchor-id="hypertension-2">Hypertension 2</h2>
+<p>Suppose we want to recruit subjects for a hypertension treatment study and we feel that 10% of the population to be sampled is hypertensive.</p>
+<p>5.25 If 100 subjects are required for the study and perfect cooperation is assumed, then how many people need to be sampled to be 80% sure of ascertaining at least 100 hypertensives?</p>
+<p>5.26 How many people need to be sampled to be 90% sure of ascertaining at least 100 hypertensives?</p>
+</section>
+<section id="nutrition" class="level2">
+<h2 class="anchored" data-anchor-id="nutrition">Nutrition</h2>
+<p>The distribution of serum levels of alpha tocopherol (serum vitamin E) is approximately normal with mean 860 µg dL and standard deviation 340 µg dL.</p>
+<p>5.27 What percentage of people have serum alpha tocopherol levels between 400 and 1000 µg dL ?</p>
+<p>5.28 Suppose a person is identified as having toxic levels of alpha tocopherol if his or her serum level is &gt; 2000 µg dL . What percentage of people will be so identified?</p>
+<p>5.29 A study is undertaken for evidence of toxicity among 2000 people who regularly take vitamin-E supplements. The investigators found that 4 people have serum alpha tocopherol levels &gt; 2000 µg dL . Is this an unusual number of people with toxic levels of serum alpha tocopherol?</p>
+</section>
+<section id="epidemiology" class="level2">
+<h2 class="anchored" data-anchor-id="epidemiology">Epidemiology</h2>
+<p>A major problem in performing longitudinal studies in medicine is that people initially entered into a study are lost to follow-up for various reasons.</p>
+<p>5.30 Suppose we wish to evaluate our data after 2 years and anticipate that the probability a patient will be available for study after 2 years is 90%. How many patients should be entered into the study to be 80% sure of having at least 100 patients left at the end of this period?</p>
+<p>5.31 How many patients should be entered to be 90% sure of having at least 150 patients after 4 years if the probability of remaining in the study after 4 years is 80%?</p>
+</section>
+<section id="pulmonary-disease" class="level2">
+<h2 class="anchored" data-anchor-id="pulmonary-disease">Pulmonary Disease</h2>
+<p>5.32 The usual annual death rate from asthma in England over the period 1862–1962 for people aged 5–34 was approximately 1 per 100,000. Suppose that in 1963 twenty deaths were observed in a group of 1 million people in this age group living in Britain. Is this number of deaths inconsistent with the preceding 100-year rate? In particular, what is the probability of observing 20 or more deaths in 1 year in a group of 1 million people? Note: This finding is both statistically and medically interesting, since it was found that the excess risk could be attributed to certain aerosols used by asthmatics in Britain during the period 1963–1967. The rate returned to normal during the period 1968–1972, when these types of aerosols were no longer used.</p>
+</section>
+<section id="hypertension-3" class="level2">
+<h2 class="anchored" data-anchor-id="hypertension-3">Hypertension 3</h2>
+<p>Blood-pressure measurements are known to be variable, and repeated measurements are essential to accurately characterize a person’s BP status. Suppose a person is measured on <span class="math inline">\(n\)</span> visits with <span class="math inline">\(k\)</span> measurements per visit and the average of all <span class="math inline">\(nk\)</span> diastolic blood pressure (DBP) measurements (<span class="math inline">\(\bar{x}\)</span>) is used to classify a person as to BP status. Specifically, if <span class="math inline">\(\bar{x}\)</span> ≥ 95 mm Hg, then the person is classified as hypertensive; if <span class="math inline">\(\bar{x}\)</span> &lt; 90 mm Hg, then the person is classified as normotensive; and if <span class="math inline">\(\bar{x}\)</span> ≥ 90 mm Hg, and &lt; 95 mm Hg, the person is classified as borderline. It is also assumed that a person’s “true” blood pressure is <span class="math inline">\(\mu\)</span> , representing an average over a large number of visits with a large number of measurements per visit, and that <span class="math inline">\(\bar{X}\)</span> is normally distributed with mean <span class="math inline">\(\mu\)</span> and variance = <span class="math inline">\(27.7/n + 7.9/(nk)\)</span></p>
+<p>5.33 If a person’s true diastolic blood pressure is 100 mm Hg, then what is the probability that the person will be classified accurately (as hypertensive) if a single measurement is taken at 1 visit?</p>
+<p>5.34 Is the probability in Problem 5.33 a measure of sensitivity, specificity, or predictive value?</p>
+<p>5.35 If a person’s true blood pressure is 85 mm Hg, then what is the probability that the person will be accurately classified (as normotensive) if 3 measurements are taken at each of 2 visits?</p>
+<p>5.36 Is the probability in Problem 5.35 a measure of sensitivity, specificity, or predictive value?</p>
+<p>5.37 Suppose we decide to take 2 measurements per visit. How many visits are needed so that the sensitivity and specificity in Problems 5.33 and 5.35 would each be at least 95%?</p>
+</section>
+<section id="hypertension-4" class="level2">
+<h2 class="anchored" data-anchor-id="hypertension-4">Hypertension 4</h2>
+<p>A study is planned to look at the effect of sodium restriction on lowering blood pressure. Nutritional counseling sessions are planned for the participants to encourage dietary sodium restriction. An important component in the study is validatingthe extent to which individuals comply with a sodium-restricted diet. This is usually accomplished by obtaining urine specimens and measuring sodium in the urine.</p>
+<p>Assume that in free-living individuals (individuals with no sodium restriction) 24-hour urinary sodium excretion is normally distributed with mean 160.5 mEq/24 hrs and standard deviation = 57.4 mEq/24 hrs.</p>
+<p>5.38 If 100 mEq/24 hr is the cutoff value chosen to measure compliance, then what percentage of noncompliant individuals—that is, individuals who do not restrict sodium—will have a 24-hour sodium level below this cutoff point?</p>
+<p>Suppose that in an experimental study it is found that people who are on a sodium-restricted diet have 24-hour sodium excretion that is normally distributed with mean 57.5 mEq/24 hrs and standard deviation of 11.3 mEq/24 hrs.</p>
+<p>5.39 What is the probability that a person who is on a sodium-restricted diet will have a 24-hour urinary sodium level above the cutoff point (100 mEq/24 hrs)?</p>
+<p>5.40 Suppose the investigators in the study wish to change the cutoff value (from 100 mEq/24 hrs) to another value such that the misclassification probabilities in Problems 5.38 and 5.39 are the same. What should the new cutoff value be, and what are the misclassification probabilities corresponding to your answers to Problems 5.38 and 5.39?</p>
+<p>Table 5.2 shows data reported relating alcohol consumption and blood-pressure level among 18–39-year-old males.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="bmndstutiv" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#bmndstutiv table {
+  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#bmndstutiv thead, #bmndstutiv tbody, #bmndstutiv tfoot, #bmndstutiv tr, #bmndstutiv td, #bmndstutiv th {
+  border-style: none;
+}
+
+#bmndstutiv p {
+  margin: 0;
+  padding: 0;
+}
+
+#bmndstutiv .gt_table {
+  display: table;
+  border-collapse: collapse;
+  line-height: normal;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: small;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#bmndstutiv .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#bmndstutiv .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#bmndstutiv .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 3px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#bmndstutiv .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#bmndstutiv .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#bmndstutiv .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#bmndstutiv .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#bmndstutiv .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#bmndstutiv .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#bmndstutiv .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#bmndstutiv .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#bmndstutiv .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
+#bmndstutiv .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+#bmndstutiv .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#bmndstutiv .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#bmndstutiv .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#bmndstutiv .gt_row {
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#bmndstutiv .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#bmndstutiv .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#bmndstutiv .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#bmndstutiv .gt_row_group_first th {
+  border-top-width: 2px;
+}
+
+#bmndstutiv .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#bmndstutiv .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#bmndstutiv .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#bmndstutiv .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#bmndstutiv .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#bmndstutiv .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#bmndstutiv .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
+#bmndstutiv .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#bmndstutiv .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#bmndstutiv .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#bmndstutiv .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#bmndstutiv .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#bmndstutiv .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#bmndstutiv .gt_left {
+  text-align: left;
+}
+
+#bmndstutiv .gt_center {
+  text-align: center;
+}
+
+#bmndstutiv .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#bmndstutiv .gt_font_normal {
+  font-weight: normal;
+}
+
+#bmndstutiv .gt_font_bold {
+  font-weight: bold;
+}
+
+#bmndstutiv .gt_font_italic {
+  font-style: italic;
+}
+
+#bmndstutiv .gt_super {
+  font-size: 65%;
+}
+
+#bmndstutiv .gt_footnote_marks {
+  font-size: 75%;
+  vertical-align: 0.4em;
+  position: initial;
+}
+
+#bmndstutiv .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#bmndstutiv .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#bmndstutiv .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#bmndstutiv .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#bmndstutiv .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#bmndstutiv .gt_indent_5 {
+  text-indent: 25px;
+}
+
+#bmndstutiv .katex-display {
+  display: inline-flex !important;
+  margin-bottom: 0.75em !important;
+}
+
+#bmndstutiv div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+  height: 0px !important;
+}
+</style>
+
+<table class="gt_table caption-top table table-sm table-striped small" data-quarto-bootstrap="false">
+<colgroup>
+<col style="width: 12%">
+<col style="width: 12%">
+<col style="width: 12%">
+<col style="width: 12%">
+<col style="width: 12%">
+<col style="width: 12%">
+<col style="width: 12%">
+<col style="width: 12%">
+</colgroup>
+<thead>
+<tr class="gt_heading header">
+<td colspan="8" class="gt_heading gt_title gt_font_normal gt_bottom_border"><strong>TABLE 5.2</strong> The relationship of blood pressure level to drinking behavior</td>
+</tr>
+<tr class="gt_col_headings gt_spanner_row even">
+<th rowspan="2" id="a::stub" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col"></th>
+<th colspan="3" id="Systolic blood pressure (SBP)" class="gt_center gt_columns_top_border gt_column_spanner_outer" data-quarto-table-cell-role="th" scope="colgroup"><div class="gt_column_spanner">
+Systolic blood pressure (SBP)
+</div></th>
+<th colspan="3" id="Diastolic blood pressure (DBP)" class="gt_center gt_columns_top_border gt_column_spanner_outer" data-quarto-table-cell-role="th" scope="colgroup"><div class="gt_column_spanner">
+Diastolic blood pressure (DBP)
+</div></th>
+<th id="Elevated blood pressure" class="gt_center gt_columns_top_border gt_column_spanner_outer" data-quarto-table-cell-role="th" scope="col"><div class="gt_column_spanner">
+Elevated blood pressure
+</div></th>
+</tr>
+<tr class="gt_col_headings header">
+<th id="SBP_Mean" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">Mean</th>
+<th id="SBP_SD" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">sd</th>
+<th id="SBP_n" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">n</th>
+<th id="DBP_Mean" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">Mean</th>
+<th id="DBP_SD" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">sd</th>
+<th id="DBP_n" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">n</th>
+<th id="Elevated_BP" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">&nbsp;</th>
+</tr>
+</thead>
+<tbody class="gt_table_body">
+<tr class="odd">
+<th id="stub_1_1" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row">Nondrinker</th>
+<td class="gt_row gt_right" headers="stub_1_1 SBP_Mean">120.2</td>
+<td class="gt_row gt_right" headers="stub_1_1 SBP_SD">10.7</td>
+<td class="gt_row gt_right" headers="stub_1_1 SBP_n">96</td>
+<td class="gt_row gt_right" headers="stub_1_1 DBP_Mean">74.8</td>
+<td class="gt_row gt_right" headers="stub_1_1 DBP_SD">10.2</td>
+<td class="gt_row gt_right" headers="stub_1_1 DBP_n">96</td>
+<td class="gt_row gt_right" headers="stub_1_1 Elevated_BP">11.5%</td>
+</tr>
+<tr class="even">
+<th id="stub_1_2" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row">Heavy drinker</th>
+<td class="gt_row gt_right" headers="stub_1_2 SBP_Mean">123.5</td>
+<td class="gt_row gt_right" headers="stub_1_2 SBP_SD">12.8</td>
+<td class="gt_row gt_right" headers="stub_1_2 SBP_n">124</td>
+<td class="gt_row gt_right" headers="stub_1_2 DBP_Mean">78.5</td>
+<td class="gt_row gt_right" headers="stub_1_2 DBP_SD">9.2</td>
+<td class="gt_row gt_right" headers="stub_1_2 DBP_n">124</td>
+<td class="gt_row gt_right" headers="stub_1_2 Elevated_BP">17.7%</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<p>5.42 If we assume that the distributions of SBP are normal, then what proportion of nondrinkers have SBP ≥ 140 mm Hg?</p>
+<p>5.43 What proportion of heavy drinkers have SBP ≥ 140 mm Hg?</p>
+<p>5.44 What proportion of heavy drinkers have “isolated systolic hypertension”; i.e., SBP ≥ 140 mm Hg but DBP &lt; 90 mm Hg?</p>
+<p>5.45 What proportion of heavy drinkers have “isolated diastolic hypertension”; i.e., DBP ≥ 90 mm Hg but SBP &lt; 140 mm Hg?</p>
+</section>
+<section id="hypertension-5" class="level2">
+<h2 class="anchored" data-anchor-id="hypertension-5">Hypertension 5</h2>
+<p>The Pediatric Task Force Report on Blood Pressure Control in Children reports blood-pressure norms for children by age and sex group. The mean ± standard deviation for 17-year-old boys for diastolic blood pressure (DBP) is 63.7 ± 11.4 mm Hg based on a large sample.</p>
+<p>5.46 Suppose the 90th percentile of the distribution is the cutoff for elevated BP. If we assume that the distribution of blood pressure for 17-year-old boys is normally distributed, then what is the cutoff in mm Hg?</p>
+<p>5.47 Another approach for defining elevated BP is to use 90 mm Hg as the cutoff (the standard for elevated adult DBP). What percentage of 17-year-old boys would have elevated BP using this approach?</p>
+<p>5.48 Suppose there are 200 17-year-old boys in the 11th grade of whom 25 have elevated BP using the criteria in Problem 5.46. Are there an unusually large number of boys with elevated BP? Why or why not?</p>
+</section>
+<section id="environmental-health" class="level2">
+<h2 class="anchored" data-anchor-id="environmental-health">Environmental Health</h2>
+<p>5.49 A study was conducted relating particulate air pollution and daily mortality in Steubenville, Ohio. On average over the last 10 years, there have been 3 deaths per day. Suppose that on 90 high-pollution days (where the total suspended particulates are in the highest quartile among all days) the death rate is 3.2 deaths per day or 288 deaths observed over the 90 high-pollution days. Are there an unusual number of deaths on high-pollution days?</p>
+</section>
+<section id="ophthalmology-2" class="level2">
+<h2 class="anchored" data-anchor-id="ophthalmology-2">Ophthalmology 2</h2>
+<p>In ophthalmology, it is customary to obtain measurements on both the right eye (OD) and the left eye (OS). Suppose intraocular pressure (IOP) is measured on each eye and an average of the OD and OS values (denoted by the OU value) is computed. We wish to compute the variance of the IOP OU values for an individual person. Assume that the standard deviation is 4 mm Hg for the OD values and 4 mm Hg for the OS values (as estimated from the sample standard deviation of IOP from right and left eyes, respectively, from a sample of 100 people).</p>
+<p>5.53 If the OD and OS values are assumed to be independent, then what is the variance of the IOP OU value for individual persons?</p>
+<p>5.54 The correlation between OD and OS IOP values is typically about .8. What is the covariance between IOP OD values and IOP OS values for individual persons?</p>
+<p>5.55 What is the variance of the IOP OU values for individual persons under the assumptions in Problem 5.54?</p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    // Ensure there is a toggle, if there isn't float one in the top right
+    if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+      const a = window.document.createElement('a');
+      a.classList.add('top-right');
+      a.classList.add('quarto-color-scheme-toggle');
+      a.href = "";
+      a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+      const i = window.document.createElement("i");
+      i.classList.add('bi');
+      a.appendChild(i);
+      window.document.body.appendChild(a);
+    }
+    setColorSchemeToggle(hasAlternateSentinel())
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
