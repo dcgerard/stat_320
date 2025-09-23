@@ -598,7 +598,61 @@ Suppose that 20, 30, 30, and 20% of the population, respectively, have exercise-
 ## 3.33
 What is the probability of a positive test among men who have died over the 20-year period? Is there a name for this quantity?
 
+## Hint
+Let 
+
+- $A_1$ be ≤ 105
+- $A_2$ be 106–115
+- $A_3$ be 116–127
+- $A_4$ be > 127
+- $D^+$ be death
+
+We are given
+
+- $P(A_1) = 0.2$
+- $P(A_2) = 0.3$
+- $P(A_3) = 0.3$
+- $P(A_4) = 0.2$
+- $P(D^+|A_1) = 9.1/100$
+- $P(D^+|A_2) = 8.7/100$
+- $P(D^+|A_3) = 11.6/100$
+- $P(D^+|A_4) = 13.2/100$
+
 ## Solution
+Let 
+
+- $A_1$ be ≤ 105
+- $A_2$ be 106–115
+- $A_3$ be 116–127
+- $A_4$ be > 127
+- $D^+$ be death
+
+We are given
+
+- $P(A_1) = 0.2$
+- $P(A_2) = 0.3$
+- $P(A_3) = 0.3$
+- $P(A_4) = 0.2$
+- $P(D^+|A_1) = 9.1/100$
+- $P(D^+|A_2) = 8.7/100$
+- $P(D^+|A_3) = 11.6/100$
+- $P(D^+|A_4) = 13.2/100$
+
+We are told that $A_4 = T^+$ (a positive test result). We want $P(T^+|D^+) = P(A_4|D^+)$. We can use Bayes rule
+$$
+P(A_4|D^+) = \frac{P(D^+|A_4)P(A_4)}{P(D^+)}
+$$\
+The numerator terms are given, the denominator can be found by the law of total probability.
+\begin{align*}
+P(D^+) &= P(D^+|A_1)P(A_1) + P(D^+|A_2)P(A_2) + P(D^+|A_3)P(A_3) + P(D^+|A_4)P(A_4)\\
+&= 0.091 \times 0.2 + 0.087 \times 0.3 + 0.116 \times 0.3 + 0.132 \times 0.2\\
+&= 0.1055
+\end{align*}
+So, the solution is
+$$
+P(A_4|D^+) = \frac{0.132 \times 0.2}{0.1055} = 0.2502
+$$
+This is called the sensitivity.
 :::
 
 ::: {.panel-tabset} 
@@ -606,13 +660,36 @@ What is the probability of a positive test among men who have died over the 20-y
 What is the probability of a positive test among men who survived the 20-year period? Is there a name for this quantity?
 
 ## Solution
+Using the same notation from 3.33, we want $P(A_4|D^-)$. We can use Bayes rule
+$$
+P(A_4|D^-) = \frac{P(D^-|A_4)P(A_4)}{P(D^-)} = \frac{(1 - 0.132) \times 0.2}{1 - 0.1055} = 0.1941
+$$
+$P(T^+|D^-)$ is the false positive rate, but you don't need to know this term.
 :::
 
 ::: {.panel-tabset} 
 ## 3.35
 What is the probability of death among men with a negative test? Is there a name for this quantity?
 
+## Hint
+$$
+D^+ \cap (A_1 \cup A_2 \cup A_3) = (D^+\cap A_1) \cup (D^+\cap A_2) \cup (D^+\cap A_3)
+$$
+
+
 ## Solution
+Using the same notation from 3.33, we want $P(D^+|\bar{A_4})$. This is
+\begin{align*}
+P(D^+|\bar{A_4}) &= P(D^+|A_1 \cup A_2 \cup A_3)\\
+&= \frac{P[D^+ \cap (A_1 \cup A_2 \cup A_3)]}{P(A_1 \cup A_2 \cup A_3)}\\
+&= \frac{P[(D^+\cap A_1) \cup (D^+\cap A_2) \cup (D^+\cap A_3)}{P(A_1) + P(A_2) + P(A_3)}\\
+&= \frac{P(D^+\cap A_1) + P(D^+\cap A_2) + P(D^+\cap A_3)}{P(A_1) + P(A_2) + P(A_3)}\\
+&= \frac{P(D^+|A_1)P(A_1) + P(D^+| A_2)P(A_2) + P(D^+| A_3)P(A_3)}{P(A_1) + P(A_2) + P(A_3)}\\
+&= \frac{0.091 \times 0.2 + 0.087 \times 0.3 + 0.116 \times 0.3}{0.2 + 0.3 + 0.3}\\
+&= 0.09888
+\end{align*}
+
+$P(D^+|T^-)$ is the false omission rate. But you don't need to know this term.
 :::
 
 
@@ -625,6 +702,7 @@ Exercise testing has sometimes been used to diagnose patients with coronary-arte
 What does the sensitivity mean in words in this setting?
 
 ## Solution
+The probability of abnormal ejection-fraction given coronary-artery disease (as determined by coronary angiography).
 :::
 
 ::: {.panel-tabset} 
@@ -632,6 +710,7 @@ What does the sensitivity mean in words in this setting?
 What does the specificity mean in words in this setting?
 
 ## Solution
+The probability of a normal ejection-fraction given no coronoary-artery disease (as determined by coronary angiography).
 :::
 
 Suppose a new patient undergoes exercise testing and a physician feels before seeing the exercise-test results that the patient has a 20% chance of having coronary-artery disease.
@@ -641,6 +720,26 @@ Suppose a new patient undergoes exercise testing and a physician feels before se
 If the exercise test is positive, then what is the probability that such a patient has disease?
 
 ## Solution
+From the sensitivity and specificity, we have
+
+- $P(T^+|D^+) = 0.79$
+- $P(T^-|D^-) = 0.68$
+
+The doctor told us that $P(D^+) = 0.2$.
+
+We want $P(D^+|T^+)$. We can do this by Bayes rule:
+$$
+P(D^+|T^+) = \frac{P(T^+|D^+)P(D^+)}{P(T^+)}
+$$
+The numerator terms are given. We can calculate the denominator by the law of total probability
+$$
+P(T^+) = P(T^+|D^+)P(D^+) + P(T^+|D^-)P(D^-) = 0.79 \times 0.2 + (1 - 0.68) \times (1 - 0.2) = 0.414
+$$
+
+So,
+$$
+P(D^+|T^+) = \frac{0.79 \times 0.2}{0.414} = 0.3816
+$$
 :::
 
 ::: {.panel-tabset} 
@@ -648,6 +747,12 @@ If the exercise test is positive, then what is the probability that such a patie
 Answer Problem 3.38 if the exercise test is negative.
 
 ## Solution
+We want $P(D^+|T^-)$, which we can do by Bayes rule
+$$
+P(D^+|T^-) = \frac{P(T^-|D^+)P(D^+)}{P(T^-)}
+=\frac{(1 - 0.79)\times 0.2}{1 - 0.414}
+= 0.07167
+$$
 :::
 
 
@@ -697,6 +802,10 @@ gt_table
 What is the sensitivity of the FFQ?
 
 ## Solution
+Here, if the FFQ says alcohol, this is a "positive test". If the DR says alcohol, then this is a "positive disease". So, in this context, the sensitivity of FFQ is the proportion of DR+ that are also FFQ+. Or,
+$$
+138 / 156 = 0.8846
+$$
 :::
 
 ::: {.panel-tabset} 
@@ -704,6 +813,10 @@ What is the sensitivity of the FFQ?
 What is the specificity of the FFQ?
 
 ## Solution
+This is the proportion of DR- that are also FFQ-, or
+$$
+16 / 17 = 0.9412
+$$
 :::
 
 Let us treat the 173 participants in this study as representative
@@ -714,6 +827,10 @@ of people who would use the FFQ.
 What is the predictive value positive of the FFQ?
 
 ## Solution
+This is the proportion of FFQ+ that are also DR+. So
+$$
+138 / 139 = 0.9928
+$$
 :::
 
 ::: {.panel-tabset} 
@@ -721,6 +838,10 @@ What is the predictive value positive of the FFQ?
 What is the predictive value negative of the FFQ?
 
 ## Solution
+This is the proportion of FFQ- that are also DR-. So
+$$
+16 / 34 = 0.4706
+$$
 :::
 
 ::: {.panel-tabset} 
@@ -728,6 +849,12 @@ What is the predictive value negative of the FFQ?
 Suppose the questionnaire is to be administered in a different country where the true proportion of drinkers is 80%. What would be the predictive value positive if administered in this setting?
 
 ## Solution
+We are told that $P(D^+) = 0.8$. We will also assume, from the questionnaire, that the sensitivity and specificty are known: $P(T^+|D^+) = 138 / 156 = 0.8846$ and $P(T^-|D^-) = 16 / 17 = 0.9412$. We want $P(D^+|T^+)$, which we can get using Bayes rule
+\begin{align*}
+P(D^+|T^+) &= \frac{P(T^+|D^+)P(D^+)}{P(T^+|D^+)P(D^+) + P(T^+|D^-)P(D^-)} \\
+&= \frac{0.8846 \times 0.8}{0.8846 \times 0.8 + (1 - 0.9412) \times (1 - 0.8)}\\
+&= 0.9837
+\end{align*}
 :::
 
 
@@ -739,6 +866,20 @@ Two healthy parents have a child with a severe autosomal recessive condition tha
 Suppose that there are monozygotic, or MZ (identical) twins. What is the probability that both twins are affected? one twin affected? neither twin affected? Are the outcomes for the two MZ twins independent or dependent events?
 
 ## Solution
+Let $A$ be the first is affected. Let $B$ be the second is affected. Note that for monozygotic twins, we have $P(A|B) = 1$ and $P(\bar{A}|\bar{B}) = 1$, since if one is affected then the other must also be affected. Using this, we have
+
+$$
+P(\text{both}) = P(A \cap B) = P(A|B)P(B) = 1 \times 0.25 = 0.25
+$$
+$$
+P(\text{one}) = P(\bar{A}|B)P(B) + P(A|\bar{B})P(\bar{B}) = 0 \times 0.25 + 0 \times (1 - 0.25) = 0
+$$
+$$
+P(\text{neither}) = P(\bar{A} \cap \bar{B}) = P(\bar{A}|\bar{B})P(\bar{B}) = 1 \times (1 - 0.25) = 0.75
+$$
+
+These are not independent events because $P(A|B) = 1$ but $P(A|\bar{B}) = 0$.
+
 :::
 
 ::: {.panel-tabset} 
@@ -746,6 +887,16 @@ Suppose that there are monozygotic, or MZ (identical) twins. What is the probabi
 Suppose that there are dizygotic, or DZ (fraternal) twins. What is the probability that both twins are affected? one twin affected? neither twin affected? Are the outcomes for the two DZ twins independent or dependent events?
 
 ## Solution
+By the assumption of Mendelian segregation, these are independent events. Thus, we have
+$$
+P(\text{both}) = P(A\cap B) = P(A)P(B) = 0.25^2 = 0.0625
+$$
+$$
+P(\text{one}) = P(A\cap \bar{B}) + P(\bar{A} \cap B) = P(A)P(\bar{B}) + P(\bar{A})P(B) = 2 \times 0.25 \times (1 - 0.25) = 0.375
+$$
+$$
+P(\text{neither}) = P(\bar{A} \cap \bar{B}) = P(\bar{A})P(\bar{B}) = (1 - 0.25)^2 = 0.5625
+$$
 :::
 
 ::: {.panel-tabset} 
@@ -753,6 +904,15 @@ Suppose that there are dizygotic, or DZ (fraternal) twins. What is the probabili
 Suppose there is a 1/3 probability of MZ twins and a 2/3 probability of DZ twins. What is the overall probability that both twins are affected? One twin affected? Neither affected?
 
 ## Solution
+$$
+P(\text{both}) = P(\text{both}|MZ)P(MZ) + P(\text{both}|DZ)P(DZ) = 0.25 \times 1/3 + 0.0625 \times 2/3 = 0.125
+$$
+$$
+P(\text{one}) = P(\text{one}|MZ)P(MZ) + P(\text{one}|DZ)P(DZ) = 0 \times 1/3 + 0.375 \times 2/3 = 0.25
+$$
+$$
+P(\text{neither}) = P(\text{neither}|MZ)P(MZ) + P(\text{neither}|DZ)P(DZ) = 0.75 \times 1/3 + 0.5625 \times 2/3 = 0.625
+$$
 :::
 
 ::: {.panel-tabset} 
@@ -760,145 +920,10 @@ Suppose there is a 1/3 probability of MZ twins and a 2/3 probability of DZ twins
 Suppose we learn that both twins are affected but don’t know whether they are MZ or DZ twins. What is the probability that they are MZ twins given this additional information?
 
 ## Solution
-:::
+We use Bayes rule.
 
-
-## Cerebrovascular Disease
-Atrial fibrillation (AF) is a common cardiac condition in the elderly (e.g., former President George H.W. Bush has this condition) characterized by an abnormal heart rhythm that greatly increases the risk of stroke. The following estimates of the prevalence rate of AF and the incidence rate of stroke for people with and without AF by age from the Framingham Heart Study are given in Table 3.6.
-
-```{r}
-#| echo: false
-#| eval: true
-#| message: false
-
-# Load required package
-library(gt)
-
-# Create the data frame
-af_stroke_data <-tibble(
-  Age_group = c("60–69", "70–79", "80–89"),
-  Prevalence_AF = c(1.8, 4.7, 10.2),
-  Stroke_No_AF = c(4.5, 9.0, 14.3),
-  Stroke_AF = c(21.2, 48.9, 71.4)
-)
-
-# Create the gt table
-af_stroke_table <- af_stroke_data %>%
-  gt() %>%
-  tab_header(
-    title = "Table 3.6: Relationship between atrial fibrillation and stroke"
-  ) %>%
-  cols_label(
-    Age_group = "Age group",
-    Prevalence_AF = "Prevalence of AF (%)",
-    Stroke_No_AF = "No AF",
-    Stroke_AF = "AF"
-  ) %>%
-  tab_spanner(
-    label = "Incidence rate of stroke per 1000 person-years",
-    columns = c(Stroke_No_AF, Stroke_AF)
-  )
-
-# Print the table
-af_stroke_table
-```
-
-
-::: {.panel-tabset} 
-## 3.49
-What does an incidence rate of 48.9 strokes per 1000 person-years among 70–79-year-olds with AF mean in Table 3.6?
-
-## Solution
-:::
-
-::: {.panel-tabset} 
-## 3.50
-What is the relative risk of stroke for people with AF compared with people without AF in each age group? Does the relative risk seem to be the same for different age groups
-
-## Solution
-:::
-
-
-Suppose we screen 500 subjects from the general population of age 60–89, of whom 200 are 60–69, 200 are 70–79, and 100 are 80–89.
-
-::: {.panel-tabset} 
-## 3.51
-What is the incidence rate of stroke in the screened population over a 1-year period?
-
-## Solution
-:::
-
-::: {.panel-tabset} 
-## 3.52
-Suppose the study of 500 subjects is a “pilot study” for a larger study. How many 60-89 year old subjects need to be screened if we wish to observe an average of 50 strokes in the larger study over 1 year?
-
-## Solution
-:::
-
-## Radiology
-
-It is well-known that there is variation among readers in evaluating radiologic images. For this purpose, we present evaluations from a 2nd reader of the same 100 images for the study described in Section 3.6.1 of the Study Guide. The results are given in Table 3.7.
-
-
-```{r}
-#| echo: false
-#| eval: true
-#| message: false
-
-library(gt)
-
-# Create the data frame
-data <- tibble(
-  `True Status` = c("Negative", "Positive", "Total"),
-  `1` = c(0, 0, 0),
-  `2` = c(3, 49, 52),
-  `3` = c(7, 11, 18),
-  `4` = c(14, 4, 18),
-  `5` = c(9, 3, 12),
-  `Total` = c(33, 67, 100)
-)
-
-# Generate the gt table
-gt_table <- gt(data) |>
-  tab_header(
-    title = "Table 3.7",
-    subtitle = "Ratings from Reader 2 using PACS film for the study described in Section 3.6.1"
-  ) |>
-  cols_label(
-    `True Status` = "True Status"
-  )
-
-# Print the table
-gt_table
-```
-
-Suppose different cutpoints are considered for positivity, viz, ≤ 0 , ≤ 1, ≤ 2, ≤ 3, ≤ 4 and ≤ 5.
-
-::: {.panel-tabset} 
-## 3.53
-Compute the sensitivity of the test for each cutpoint for Reader 2.
-
-## Solution
-:::
-
-::: {.panel-tabset} 
-## 3.54
-Compute the specificity of the test for each cutpoint for Reader 2.
-
-## Solution
-:::
-
-::: {.panel-tabset} 
-## 3.55
-Draw the ROC curve for Reader 2.
-
-## Solution
-:::
-
-::: {.panel-tabset} 
-## 3.56
-Compare the accuracy of the test for Reader 2 vs Reader 1.
-
-## Solution
+$$
+P(MZ|\text{both}) = \frac{P(\text{both}|MZ)P(MZ)}{P(\text{both})} = \frac{0.25 \times 1/3}{0.125} = 2/3
+$$
 :::
 
