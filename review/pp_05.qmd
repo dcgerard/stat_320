@@ -429,39 +429,35 @@ The distribution of serum levels of alpha tocopherol (serum vitamin E) is approx
 What percentage of people have serum alpha tocopherol levels between 400 and 1000 µg dL ?
 
 ## Solutions
+Let $X$ be normal with mean 860 and standard deviation 340. We want $P(400 < X < 1000)$
+```{r}
+pnorm(1000, mean = 860, sd = 340) - pnorm(q = 400, mean = 860, sd = 340)
+```
+
 :::
 
 ::: {.panel-tabset} 
 ## 5.28
-Suppose a person is identified as having toxic levels of alpha tocopherol if his or her serum level is > 2000 µg dL . What percentage of people will be so identified?
+Suppose a person is identified as having toxic levels of alpha tocopherol if his or her serum level is > 2000 µg dL. What percentage of people will be so identified?
 
 ## Solutions
+Using the same notation as 5.27, we want $P(X > 2000)$
+```{r}
+1 - pnorm(2000, mean = 860, sd = 340)
+```
+
 :::
 
 ::: {.panel-tabset} 
 ## 5.29
-A study is undertaken for evidence of toxicity among 2000 people who regularly take vitamin-E supplements. The investigators found that 4 people have serum alpha tocopherol levels > 2000 µg dL . Is this an unusual number of people with toxic levels of serum alpha tocopherol?
+A study is undertaken for evidence of toxicity among 2000 people who regularly take vitamin-E supplements. The investigators found that 4 people have serum alpha tocopherol levels > 2000 µg dL. Is this an unusual number of people with toxic levels of serum alpha tocopherol?
 
 ## Solutions
-:::
-
-
-## Epidemiology
-
-A major problem in performing longitudinal studies in medicine is that people initially entered into a study are lost to follow-up for various reasons.
-
-::: {.panel-tabset} 
-## 5.30
-Suppose we wish to evaluate our data after 2 years and anticipate that the probability a patient will be available for study after 2 years is 90%. How many patients should be entered into the study to be 80% sure of having at least 100 patients left at the end of this period?
-
-## Solutions
-:::
-
-::: {.panel-tabset} 
-## 5.31 
-How many patients should be entered to be 90% sure of having at least 150 patients after 4 years if the probability of remaining in the study after 4 years is 80%?
-
-## Solutions
+Let $Y$ be the number out of 2000 with levels > 2000 µg. Then $Y$ is Binomial with size 2000 and probability 0.0003998 (from 5.28). We want $P(Y \geq 4)$
+```{r}
+1 - pbinom(q = 3, size = 2000, prob = 0.0003998)
+```
+This is very unusual.
 :::
 
 
@@ -472,6 +468,16 @@ How many patients should be entered to be 90% sure of having at least 150 patien
 The usual annual death rate from asthma in England over the period 1862–1962 for people aged 5–34 was approximately 1 per 100,000. Suppose that in 1963 twenty deaths were observed in a group of 1 million people in this age group living in Britain. Is this number of deaths inconsistent with the preceding 100-year rate? In particular, what is the probability of observing 20 or more deaths in 1 year in a group of 1 million people? Note: This finding is both statistically and medically interesting, since it was found that the excess risk could be attributed to certain aerosols used by asthmatics in Britain during the period 1963–1967. The rate returned to normal during the period 1968–1972, when these types of aerosols were no longer used.
 
 ## Solutions
+Let $X$ be the number of deaths in a year. Then $X$ is poisson with mean 1,000,000 $\times$ 1/100,000 = 10. We want $P(X \geq 20)$.
+```{r}
+1 - ppois(q = 19, lambda = 10)
+```
+This would be very rare.
+
+Note that the exact distribution is Binomial with size 1,000,000 and probability 1/100,000. But we get the same numbers:
+```{r}
+1 - pbinom(q = 19, size = 1e6, prob = 1e-5)
+```
 :::
 
 ## Hypertension 2
@@ -483,6 +489,11 @@ Blood-pressure measurements are known to be variable, and repeated measurements 
 If a person’s true diastolic blood pressure is 100 mm Hg, then what is the probability that the person will be classified accurately (as hypertensive) if a single measurement is taken at 1 visit?
 
 ## Solutions
+We are given that $\mu = 100$ and $n = 1$ and $k = 1$, so the variance is $27.7/1 + 7.9/(1\times 1) = 35.6$. Let $X$ be the person's single measurement, then we want $P(X \geq 95)$
+```{r}
+1 - pnorm(q = 95, mean = 100, sd = sqrt(35.6))
+```
+So there is only a 79.9% chance of correctly classifying that person on one visit.
 :::
 
 ::: {.panel-tabset} 
@@ -490,6 +501,7 @@ If a person’s true diastolic blood pressure is 100 mm Hg, then what is the pro
 Is the probability in Problem 5.33 a measure of sensitivity, specificity, or predictive value?
 
 ## Solutions
+Sensitifity. This is the probability of the test being positive given the disease is positive.
 :::
 
 ::: {.panel-tabset} 
@@ -497,6 +509,11 @@ Is the probability in Problem 5.33 a measure of sensitivity, specificity, or pre
 If a person’s true blood pressure is 85 mm Hg, then what is the probability that the person will be accurately classified (as normotensive) if 3 measurements are taken at each of 2 visits?
 
 ## Solutions
+We are given $\mu = 85$ and $k = 3$ and $n = 2$. So the variance is $27.7/2 + 7.9/(2\times 3) = 15.17$. So the probability of being accurately classified at is $P(X \leq 90)$
+```{r}
+pnorm(q = 90, mean = 85, sd = sqrt(15.17))
+```
+So there is a 90% chance of being correctly classified.
 :::
 
 ::: {.panel-tabset} 
@@ -504,6 +521,7 @@ If a person’s true blood pressure is 85 mm Hg, then what is the probability th
 Is the probability in Problem 5.35 a measure of sensitivity, specificity, or predictive value?
 
 ## Solutions
+Specificity. This is the probability of the test being negative given the disease is negative.
 :::
 
 ::: {.panel-tabset} 
@@ -511,6 +529,20 @@ Is the probability in Problem 5.35 a measure of sensitivity, specificity, or pre
 Suppose we decide to take 2 measurements per visit. How many visits are needed so that the sensitivity and specificity in Problems 5.33 and 5.35 would each be at least 95%?
 
 ## Solutions
+The book's solution is a lot of math, which is great, and something we'll go through later. But we can do a quick and dirty version on R by just trying out some values of n:
+```{r}
+k <- 2
+n <- 3
+sigma <- sqrt(27.7 / n + 7.9/(n *  k))
+1 - pnorm(q = 95, mean = 100, sd = sigma)
+pnorm(q = 90, mean = 85, sd = sigma)
+
+n <- 4
+sigma <- sqrt(27.7 / n + 7.9/(n *  k))
+1 - pnorm(q = 95, mean = 100, sd = sigma)
+pnorm(q = 90, mean = 85, sd = sigma)
+```
+So, 4 visits.
 :::
 
 
