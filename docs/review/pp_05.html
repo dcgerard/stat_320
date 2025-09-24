@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="David Gerard">
-<meta name="dcterms.date" content="2025-09-23">
+<meta name="dcterms.date" content="2025-09-24">
 
 <title>Chapter 5 Practice Problems – Stat 320: Biostatistics</title>
 <style>
@@ -21,6 +21,41 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -314,7 +349,7 @@ window.Quarto = {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#basice" id="toc-basice" class="nav-link active" data-scroll-target="#basice">Basice</a></li>
+  <li><a href="#quantiles" id="toc-quantiles" class="nav-link active" data-scroll-target="#quantiles">Quantiles</a></li>
   <li><a href="#hypertension-1" id="toc-hypertension-1" class="nav-link" data-scroll-target="#hypertension-1">Hypertension 1</a></li>
   <li><a href="#cancer-1" id="toc-cancer-1" class="nav-link" data-scroll-target="#cancer-1">Cancer 1</a></li>
   <li><a href="#accident-epidemiology" id="toc-accident-epidemiology" class="nav-link" data-scroll-target="#accident-epidemiology">Accident Epidemiology</a></li>
@@ -357,7 +392,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">September 23, 2025</p>
+      <p class="date">September 24, 2025</p>
     </div>
   </div>
   
@@ -370,8 +405,8 @@ window.Quarto = {
 
 
 <p>These practice problems mostly come from Rosner’s publicly available study sheet at the books <a href="https://www.cengage.com/cgi-wadsworth/course_products_wp.pl?fid=M20b&amp;product_isbn_issn=9781305268920">companion website</a>. The solutions are my own, since we differ slightly on what we are looking for in the solutions.</p>
-<section id="basice" class="level2">
-<h2 class="anchored" data-anchor-id="basice">Basice</h2>
+<section id="quantiles" class="level2">
+<h2 class="anchored" data-anchor-id="quantiles">Quantiles</h2>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" href="">5.1</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false" href="">Solutions</a></li></ul>
 <div class="tab-content">
@@ -379,7 +414,12 @@ window.Quarto = {
 <p>What are the deciles of the standard normal distribution; that is, the 10, 20, 30, … , 90 percentiles?</p>
 </div>
 <div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
-
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">qnorm</span>(<span class="at">p =</span> <span class="fu">seq</span>(<span class="fl">0.1</span>, <span class="fl">0.9</span>, <span class="at">by =</span> <span class="fl">0.1</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] -1.2816 -0.8416 -0.5244 -0.2533  0.0000  0.2533  0.5244  0.8416  1.2816</code></pre>
+</div>
+</div>
 </div>
 </div>
 </div>
@@ -390,7 +430,12 @@ window.Quarto = {
 <p>What are the quartiles of the standard normal distribution?</p>
 </div>
 <div id="tabset-2-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-2-tab">
-
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">qnorm</span>(<span class="at">p =</span> <span class="fu">c</span>(<span class="fl">0.25</span>, <span class="fl">0.5</span>, <span class="fl">0.75</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] -0.6745  0.0000  0.6745</code></pre>
+</div>
+</div>
 </div>
 </div>
 </div>
@@ -405,7 +450,13 @@ window.Quarto = {
 <p>What is the probability that an 11-year-old boy will have an SBP greater than 130 mm Hg?</p>
 </div>
 <div id="tabset-3-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-3-2-tab">
-
+<p>Let <span class="math inline">\(X\)</span> be the SBP of a randomly selected 11 year old boy. Then <span class="math inline">\(X\)</span> is normal with mean 95 + 1.5 <span class="math inline">\(\times\)</span> 8 = 107 and standard deviation 12. We want <span class="math inline">\(P(X &gt; 130)\)</span></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">-</span> <span class="fu">pnorm</span>(<span class="at">q =</span> <span class="dv">130</span>, <span class="at">mean =</span> <span class="dv">107</span>, <span class="at">sd =</span> <span class="dv">12</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.02764</code></pre>
+</div>
+</div>
 </div>
 </div>
 </div>
@@ -416,7 +467,13 @@ window.Quarto = {
 <p>What is the probability that a 15-year-old girl will have an SBP between 100 and 120 mm Hg?</p>
 </div>
 <div id="tabset-4-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-4-2-tab">
-
+<p>Let <span class="math inline">\(Y\)</span> be the SBP of a randomly selected 15-year old girl. Then <span class="math inline">\(Y\)</span> is normal with mean <span class="math inline">\(95 + 1.5 \times 10 + 1 \times 2 = 112\)</span> and standard deviation 12. We want <span class="math inline">\(P(100 &lt; Y &lt; 120) = P(Y &lt; 120) - P(Y &lt; 100)\)</span></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pnorm</span>(<span class="at">q =</span> <span class="dv">120</span>, <span class="at">mean =</span> <span class="dv">112</span>, <span class="at">sd =</span> <span class="dv">12</span>) <span class="sc">-</span> <span class="fu">pnorm</span>(<span class="at">q =</span> <span class="dv">100</span>, <span class="at">mean =</span> <span class="dv">112</span>, <span class="at">sd =</span> <span class="dv">12</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.5889</code></pre>
+</div>
+</div>
 </div>
 </div>
 </div>
@@ -427,18 +484,40 @@ window.Quarto = {
 <p>What proportion of 17-year-old boys have an SBP between 120 and 140 mm Hg?</p>
 </div>
 <div id="tabset-5-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-5-2-tab">
-
+<p>Let <span class="math inline">\(Z\)</span> be the SBP of a randomly selected 17-year-old boy. Then <span class="math inline">\(Z\)</span> is normal with mean <span class="math inline">\(95 + 1.5 \times 10 + 2 \times 4 = 118\)</span> and standard deviation 12. We want <span class="math inline">\(P(120 &lt; Z &lt; 140) = P(Z &lt; 140) - P(Z &lt; 120)\)</span></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pnorm</span>(<span class="at">q =</span> <span class="dv">140</span>, <span class="at">mean =</span> <span class="dv">118</span>, <span class="at">sd =</span> <span class="dv">12</span>) <span class="sc">-</span> <span class="fu">pnorm</span>(<span class="at">q =</span> <span class="dv">120</span>, <span class="at">mean =</span> <span class="dv">118</span>, <span class="at">sd =</span> <span class="dv">12</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.4004</code></pre>
+</div>
+</div>
 </div>
 </div>
 </div>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-6-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-6-1" role="tab" aria-controls="tabset-6-1" aria-selected="true" href="">5.6</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-6-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-6-2" role="tab" aria-controls="tabset-6-2" aria-selected="false" href="">Solutions</a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-6-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-6-1" role="tab" aria-controls="tabset-6-1" aria-selected="true" href="">5.6</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-6-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-6-2" role="tab" aria-controls="tabset-6-2" aria-selected="false" href="">Hint</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-6-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-6-3" role="tab" aria-controls="tabset-6-3" aria-selected="false" href="">Solutions</a></li></ul>
 <div class="tab-content">
 <div id="tabset-6-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-6-1-tab">
 <p>What is the probability that of 200 15-year-old boys, at least 10 will have an SBP of 130 mm Hg or greater?</p>
 </div>
 <div id="tabset-6-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-6-2-tab">
-
+<p>Let’s first find the probability for a single 15-year-old boy.</p>
+</div>
+<div id="tabset-6-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-6-3-tab">
+<p>Let’s first find the probability for a single 15-year-old boy. Their SBP is normal with mean <span class="math inline">\(95 + 1.5 \times 10 + 2 \times 2 = 114\)</span> and sd 12. So the probability of their SBP being greater than 130 is</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">-</span> <span class="fu">pnorm</span>(<span class="at">q =</span> <span class="dv">130</span>, <span class="at">mean =</span> <span class="dv">114</span>, <span class="at">sd =</span> <span class="dv">12</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.09121</code></pre>
+</div>
+</div>
+<p>Let <span class="math inline">\(X\)</span> now be the number of 15-year-old boys, out of 200, that have an SBP greater than 130. Then <span class="math inline">\(X \sim \mathrm{Binom}(200, 0.09121)\)</span>. We want <span class="math inline">\(P(X \geq 10)\)</span></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">-</span> <span class="fu">pbinom</span>(<span class="at">q =</span> <span class="dv">9</span>, <span class="at">size =</span> <span class="dv">200</span>, <span class="at">prob =</span> <span class="fl">0.09121</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.9895</code></pre>
+</div>
+</div>
 </div>
 </div>
 </div>
@@ -446,10 +525,16 @@ window.Quarto = {
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-7-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-7-1" role="tab" aria-controls="tabset-7-1" aria-selected="true" href="">5.7</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-7-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-7-2" role="tab" aria-controls="tabset-7-2" aria-selected="false" href="">Solutions</a></li></ul>
 <div class="tab-content">
 <div id="tabset-7-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-7-1-tab">
-<p>What level of SBP is at the 80th percentile for 7-year- old boys?</p>
+<p>What level of SBP is at the 80th percentile for 7-year-old boys?</p>
 </div>
 <div id="tabset-7-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-7-2-tab">
-
+<p>The SBP of a randomly sampled 7-year-old boy is normal with mean <span class="math inline">\(95 + 1.5 \times 4 = 101\)</span> and standard deviation 12. We want the 0.8 quantile of this distribution.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">qnorm</span>(<span class="at">p =</span> <span class="fl">0.8</span>, <span class="at">mean =</span> <span class="dv">101</span>, <span class="at">sd =</span> <span class="dv">12</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 111.1</code></pre>
+</div>
+</div>
 </div>
 </div>
 </div>
@@ -457,174 +542,66 @@ window.Quarto = {
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-8-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-8-1" role="tab" aria-controls="tabset-8-1" aria-selected="true" href="">5.8</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-8-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-8-2" role="tab" aria-controls="tabset-8-2" aria-selected="false" href="">Solutions</a></li></ul>
 <div class="tab-content">
 <div id="tabset-8-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-8-1-tab">
-<p>What level of SBP is at the 70th percentile for 12-year- old girls?</p>
+<p>What level of SBP is at the 70th percentile for 12-year-old girls?</p>
 </div>
 <div id="tabset-8-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-8-2-tab">
-
+<p>The SBP of a randomly sampled 12-year-old girl is normal with mean <span class="math inline">\(95 + 1.5 \times 9 = 108.5\)</span> and standard deviation 12. We want the 0.7 quantile of this distribution.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">qnorm</span>(<span class="at">p =</span> <span class="fl">0.7</span>, <span class="at">mean =</span> <span class="fl">108.5</span>, <span class="at">sd =</span> <span class="dv">12</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 114.8</code></pre>
+</div>
+</div>
 </div>
 </div>
 </div>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-9-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-9-1" role="tab" aria-controls="tabset-9-1" aria-selected="true" href="">5.9</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-9-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-9-2" role="tab" aria-controls="tabset-9-2" aria-selected="false" href="">Solutions</a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-9-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-9-1" role="tab" aria-controls="tabset-9-1" aria-selected="true" href="">5.9</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-9-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-9-2" role="tab" aria-controls="tabset-9-2" aria-selected="false" href="">Hint</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-9-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-9-3" role="tab" aria-controls="tabset-9-3" aria-selected="false" href="">Solutions</a></li></ul>
 <div class="tab-content">
 <div id="tabset-9-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-9-1-tab">
 <p>Suppose that a task force of pediatricians decides that children over the 95th percentile, but not over the 99th percentile, for their age-sex group should be encouraged to take preventive nonpharmacologic measures to reduce their blood pressure, whereas those children over the 99th percentile should receive antihypertensive drug therapy. Construct a table giving the appropriate BP levels to identify these groups for boys and girls for each year of age from 3 to 18.</p>
 </div>
 <div id="tabset-9-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-9-2-tab">
-
+<p>This is R heavy. You can skip for the exam. But it is great practice for a practical application of real statistics.</p>
 </div>
-</div>
-</div>
-</section>
-<section id="cancer-1" class="level2">
-<h2 class="anchored" data-anchor-id="cancer-1">Cancer 1</h2>
-<p>The incidence of breast cancer in 40–49-year-old women is approximately 1 new case per 1000 women per year.</p>
-<div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-10-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-10-1" role="tab" aria-controls="tabset-10-1" aria-selected="true" href="">5.10</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-10-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-10-2" role="tab" aria-controls="tabset-10-2" aria-selected="false" href="">Solutions</a></li></ul>
-<div class="tab-content">
-<div id="tabset-10-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-10-1-tab">
-<p>What is the incidence of breast cancer over 10 years in women initially 40 years old?</p>
-</div>
-<div id="tabset-10-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-10-2-tab">
-
-</div>
-</div>
-</div>
-<div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-11-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-11-1" role="tab" aria-controls="tabset-11-1" aria-selected="true" href="">5.11</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-11-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-11-2" role="tab" aria-controls="tabset-11-2" aria-selected="false" href="">Solutions</a></li></ul>
-<div class="tab-content">
-<div id="tabset-11-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-11-1-tab">
-<p>Suppose we are planning a study based on an enrollment of 10,000 women. What is the probability of obtaining at least 120 new breast-cancer cases over a 10-year follow-up period?</p>
-</div>
-<div id="tabset-11-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-11-2-tab">
-
-</div>
-</div>
-</div>
-</section>
-<section id="accident-epidemiology" class="level2">
-<h2 class="anchored" data-anchor-id="accident-epidemiology">Accident Epidemiology</h2>
-<p>Suppose the annual death rate from motor-vehicle accidents in 1980 was 10 per 100,000 in urban areas of the United States.</p>
-<div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-12-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-12-1" role="tab" aria-controls="tabset-12-1" aria-selected="true" href="">5.12</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-12-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-12-2" role="tab" aria-controls="tabset-12-2" aria-selected="false" href="">Solutions</a></li></ul>
-<div class="tab-content">
-<div id="tabset-12-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-12-1-tab">
-<p>In an urban state with a population of 2 million, what is the probability of observing not more than 150 traffic fatalities in a given year?</p>
-</div>
-<div id="tabset-12-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-12-2-tab">
-
-</div>
-</div>
-</div>
-<p>In rural areas of the United States the annual death rate from motor-vehicle accidents is on the order of 100 per 100,000 population.</p>
-<div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-13-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-13-1" role="tab" aria-controls="tabset-13-1" aria-selected="true" href="">5.13</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-13-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-13-2" role="tab" aria-controls="tabset-13-2" aria-selected="false" href="">Solutions</a></li></ul>
-<div class="tab-content">
-<div id="tabset-13-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-13-1-tab">
-<p>In a rural state with a population of 100,000, what is the probability of observing not more than 80 traffic fatalities in a given year?</p>
-</div>
-<div id="tabset-13-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-13-2-tab">
-
-</div>
-</div>
-</div>
-<div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-14-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-14-1" role="tab" aria-controls="tabset-14-1" aria-selected="true" href="">5.14</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-14-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-14-2" role="tab" aria-controls="tabset-14-2" aria-selected="false" href="">Solutions</a></li></ul>
-<div class="tab-content">
-<div id="tabset-14-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-14-1-tab">
-<p>How large should x be so that the probability of observing not more than x traffic fatalities in a given year in a rural state with population 100,000 is 5%?</p>
-</div>
-<div id="tabset-14-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-14-2-tab">
-
-</div>
-</div>
-</div>
-<div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-15-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-15-1" role="tab" aria-controls="tabset-15-1" aria-selected="true" href="">5.15</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-15-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-15-2" role="tab" aria-controls="tabset-15-2" aria-selected="false" href="">Solutions</a></li></ul>
-<div class="tab-content">
-<div id="tabset-15-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-15-1-tab">
-<p>How large should x be so that the probability of observing x or more traffic fatalities in a given year, in an urban state with population 500,000 is 10%?</p>
-</div>
-<div id="tabset-15-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-15-2-tab">
-
-</div>
-</div>
-</div>
-</section>
-<section id="obstetrics" class="level2">
-<h2 class="anchored" data-anchor-id="obstetrics">Obstetrics</h2>
-<p>Assume that birthweights are normally distributed with a mean of 3400 g and a standard deviation of 700 g.</p>
-<div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-16-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-16-1" role="tab" aria-controls="tabset-16-1" aria-selected="true" href="">5.16</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-16-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-16-2" role="tab" aria-controls="tabset-16-2" aria-selected="false" href="">Solutions</a></li></ul>
-<div class="tab-content">
-<div id="tabset-16-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-16-1-tab">
-<p>Find the probability of a low-birthweight child, where low birthweight is defined as ≤ 2500 g.</p>
-</div>
-<div id="tabset-16-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-16-2-tab">
-
-</div>
-</div>
-</div>
-<div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-17-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-17-1" role="tab" aria-controls="tabset-17-1" aria-selected="true" href="">5.17</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-17-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-17-2" role="tab" aria-controls="tabset-17-2" aria-selected="false" href="">Solutions</a></li></ul>
-<div class="tab-content">
-<div id="tabset-17-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-17-1-tab">
-<p>Find the probability of a very low birthweight child, where very low birthweight is defined as ≤ 2000 g.</p>
-</div>
-<div id="tabset-17-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-17-2-tab">
-
-</div>
-</div>
-</div>
-<div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-18-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-18-1" role="tab" aria-controls="tabset-18-1" aria-selected="true" href="">5.18</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-18-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-18-2" role="tab" aria-controls="tabset-18-2" aria-selected="false" href="">Solutions</a></li></ul>
-<div class="tab-content">
-<div id="tabset-18-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-18-1-tab">
-<p>Assuming that successive deliveries by the same woman have the same probability of being low birthweight, what is the probability that a woman with exactly 3 deliveries will have 2 or more low-birthweight deliveries?</p>
-</div>
-<div id="tabset-18-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-18-2-tab">
-
-</div>
-</div>
-</div>
-</section>
-<section id="renal-disease" class="level2">
-<h2 class="anchored" data-anchor-id="renal-disease">Renal Disease</h2>
-<p>The presence of bacteria in a urine sample (bacteriuria) is sometimes associated with symptoms of kidney disease. Assume that a determination of bacteriuria has been made over a large population at one point in time and that 5% of those sampled are positive for bacteriuria.</p>
-<div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-19-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-19-1" role="tab" aria-controls="tabset-19-1" aria-selected="true" href="">5.19</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-19-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-19-2" role="tab" aria-controls="tabset-19-2" aria-selected="false" href="">Solutions</a></li></ul>
-<div class="tab-content">
-<div id="tabset-19-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-19-1-tab">
-<p>Suppose that 500 people from this population are sampled. What is the probability that 50 or more people would be positive for bacteriuria?</p>
-</div>
-<div id="tabset-19-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-19-2-tab">
-
-</div>
-</div>
-</div>
-</section>
-<section id="ophthalmology-1" class="level2">
-<h2 class="anchored" data-anchor-id="ophthalmology-1">Ophthalmology 1</h2>
-<p>A study was conducted among patients with retinitis pigmentosa, an ocular condition where pigment appears over the retina, resulting in substantial loss of vision in many cases. The study was based on 94 patients who were seen annually at a baseline visit and at three annual follow-up visits. In this study, 90 patients provided visual-field measurements at each of the four examinations and are the subjects of the following data analyses. Visual field was transformed to the ln scale to better approximate normality and yielded the data given in Table 5.1.</p>
+<div id="tabset-9-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-9-3-tab">
+<p>There are fancier ways to do this with less code. But I’ll do it using just the techniques you know (except for <code>gt()</code>, which is a just function that makes a pretty table).</p>
 <div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>df_boy_young <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">age =</span> <span class="dv">3</span><span class="sc">:</span><span class="dv">13</span>, <span class="at">sex =</span> <span class="st">"M"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">mu =</span> <span class="dv">95</span> <span class="sc">+</span> <span class="fl">1.5</span> <span class="sc">*</span> (age <span class="sc">-</span> <span class="dv">3</span>), <span class="at">sd =</span> <span class="dv">12</span>)</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>df_boy_old <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">age =</span> <span class="dv">14</span><span class="sc">:</span><span class="dv">18</span>, <span class="at">sex =</span> <span class="st">"M"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">mu =</span> <span class="dv">95</span> <span class="sc">+</span> <span class="fl">1.5</span> <span class="sc">*</span> <span class="dv">10</span> <span class="sc">+</span> <span class="dv">2</span> <span class="sc">*</span> (age <span class="sc">-</span> <span class="dv">13</span>), <span class="at">sd =</span> <span class="dv">12</span>)</span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>df_girl_young <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">age =</span> <span class="dv">3</span><span class="sc">:</span><span class="dv">13</span>, <span class="at">sex =</span> <span class="st">"F"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">mu =</span> <span class="dv">95</span> <span class="sc">+</span> <span class="fl">1.5</span> <span class="sc">*</span> (age <span class="sc">-</span> <span class="dv">3</span>), <span class="at">sd =</span> <span class="dv">12</span>)</span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>df_girl_old <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">age =</span> <span class="dv">14</span><span class="sc">:</span><span class="dv">18</span>, <span class="at">sex =</span> <span class="st">"F"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">mu =</span> <span class="dv">95</span> <span class="sc">+</span> <span class="fl">1.5</span> <span class="sc">*</span> <span class="dv">10</span> <span class="sc">+</span> <span class="dv">1</span> <span class="sc">*</span> (age <span class="sc">-</span> <span class="dv">13</span>), <span class="at">sd =</span> <span class="dv">12</span>)</span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">bind_rows</span>(df_boy_young, df_boy_old, df_girl_young, df_girl_old)</span>
+<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a>df <span class="sc">|&gt;</span></span>
+<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">bp95 =</span> <span class="fu">qnorm</span>(<span class="at">p =</span> <span class="fl">0.95</span>, <span class="at">mean =</span> mu, <span class="at">sd =</span> sd),</span>
+<span id="cb19-14"><a href="#cb19-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">bp99 =</span> <span class="fu">qnorm</span>(<span class="at">p =</span> <span class="fl">0.99</span>, <span class="at">mean =</span> mu, <span class="at">sd =</span> sd)</span>
+<span id="cb19-15"><a href="#cb19-15" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">|&gt;</span></span>
+<span id="cb19-16"><a href="#cb19-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="at">Age =</span> age, <span class="at">Sex =</span> sex, bp95, bp99) <span class="sc">|&gt;</span></span>
+<span id="cb19-17"><a href="#cb19-17" aria-hidden="true" tabindex="-1"></a>  gt<span class="sc">::</span><span class="fu">gt</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
-<div id="qupfnlfajt" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#qupfnlfajt table {
+<div id="yeaamotovi" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#yeaamotovi table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#qupfnlfajt thead, #qupfnlfajt tbody, #qupfnlfajt tfoot, #qupfnlfajt tr, #qupfnlfajt td, #qupfnlfajt th {
+#yeaamotovi thead, #yeaamotovi tbody, #yeaamotovi tfoot, #yeaamotovi tr, #yeaamotovi td, #yeaamotovi th {
   border-style: none;
 }
 
-#qupfnlfajt p {
+#yeaamotovi p {
   margin: 0;
   padding: 0;
 }
 
-#qupfnlfajt .gt_table {
+#yeaamotovi .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -650,12 +627,12 @@ window.Quarto = {
   border-left-color: #D3D3D3;
 }
 
-#qupfnlfajt .gt_caption {
+#yeaamotovi .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#qupfnlfajt .gt_title {
+#yeaamotovi .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -667,7 +644,7 @@ window.Quarto = {
   border-bottom-width: 0;
 }
 
-#qupfnlfajt .gt_subtitle {
+#yeaamotovi .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -679,7 +656,7 @@ window.Quarto = {
   border-top-width: 0;
 }
 
-#qupfnlfajt .gt_heading {
+#yeaamotovi .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -691,13 +668,13 @@ window.Quarto = {
   border-right-color: #D3D3D3;
 }
 
-#qupfnlfajt .gt_bottom_border {
+#yeaamotovi .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#qupfnlfajt .gt_col_headings {
+#yeaamotovi .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -712,7 +689,7 @@ window.Quarto = {
   border-right-color: #D3D3D3;
 }
 
-#qupfnlfajt .gt_col_heading {
+#yeaamotovi .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -732,7 +709,7 @@ window.Quarto = {
   overflow-x: hidden;
 }
 
-#qupfnlfajt .gt_column_spanner_outer {
+#yeaamotovi .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -744,15 +721,15 @@ window.Quarto = {
   padding-right: 4px;
 }
 
-#qupfnlfajt .gt_column_spanner_outer:first-child {
+#yeaamotovi .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#qupfnlfajt .gt_column_spanner_outer:last-child {
+#yeaamotovi .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#qupfnlfajt .gt_column_spanner {
+#yeaamotovi .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -764,11 +741,11 @@ window.Quarto = {
   width: 100%;
 }
 
-#qupfnlfajt .gt_spanner_row {
+#yeaamotovi .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#qupfnlfajt .gt_group_heading {
+#yeaamotovi .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -794,7 +771,7 @@ window.Quarto = {
   text-align: left;
 }
 
-#qupfnlfajt .gt_empty_group_heading {
+#yeaamotovi .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -809,15 +786,15 @@ window.Quarto = {
   vertical-align: middle;
 }
 
-#qupfnlfajt .gt_from_md > :first-child {
+#yeaamotovi .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#qupfnlfajt .gt_from_md > :last-child {
+#yeaamotovi .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#qupfnlfajt .gt_row {
+#yeaamotovi .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -836,7 +813,7 @@ window.Quarto = {
   overflow-x: hidden;
 }
 
-#qupfnlfajt .gt_stub {
+#yeaamotovi .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -849,7 +826,7 @@ window.Quarto = {
   padding-right: 5px;
 }
 
-#qupfnlfajt .gt_stub_row_group {
+#yeaamotovi .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -863,15 +840,15 @@ window.Quarto = {
   vertical-align: top;
 }
 
-#qupfnlfajt .gt_row_group_first td {
+#yeaamotovi .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#qupfnlfajt .gt_row_group_first th {
+#yeaamotovi .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#qupfnlfajt .gt_summary_row {
+#yeaamotovi .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -881,16 +858,16 @@ window.Quarto = {
   padding-right: 5px;
 }
 
-#qupfnlfajt .gt_first_summary_row {
+#yeaamotovi .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#qupfnlfajt .gt_first_summary_row.thick {
+#yeaamotovi .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#qupfnlfajt .gt_last_summary_row {
+#yeaamotovi .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -900,7 +877,7 @@ window.Quarto = {
   border-bottom-color: #D3D3D3;
 }
 
-#qupfnlfajt .gt_grand_summary_row {
+#yeaamotovi .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -910,7 +887,7 @@ window.Quarto = {
   padding-right: 5px;
 }
 
-#qupfnlfajt .gt_first_grand_summary_row {
+#yeaamotovi .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -920,7 +897,7 @@ window.Quarto = {
   border-top-color: #D3D3D3;
 }
 
-#qupfnlfajt .gt_last_grand_summary_row_top {
+#yeaamotovi .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -930,11 +907,11 @@ window.Quarto = {
   border-bottom-color: #D3D3D3;
 }
 
-#qupfnlfajt .gt_striped {
+#yeaamotovi .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#qupfnlfajt .gt_table_body {
+#yeaamotovi .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -943,7 +920,7 @@ window.Quarto = {
   border-bottom-color: #D3D3D3;
 }
 
-#qupfnlfajt .gt_footnotes {
+#yeaamotovi .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -957,7 +934,7 @@ window.Quarto = {
   border-right-color: #D3D3D3;
 }
 
-#qupfnlfajt .gt_footnote {
+#yeaamotovi .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -966,7 +943,7 @@ window.Quarto = {
   padding-right: 5px;
 }
 
-#qupfnlfajt .gt_sourcenotes {
+#yeaamotovi .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -980,7 +957,7 @@ window.Quarto = {
   border-right-color: #D3D3D3;
 }
 
-#qupfnlfajt .gt_sourcenote {
+#yeaamotovi .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -988,72 +965,981 @@ window.Quarto = {
   padding-right: 5px;
 }
 
-#qupfnlfajt .gt_left {
+#yeaamotovi .gt_left {
   text-align: left;
 }
 
-#qupfnlfajt .gt_center {
+#yeaamotovi .gt_center {
   text-align: center;
 }
 
-#qupfnlfajt .gt_right {
+#yeaamotovi .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#qupfnlfajt .gt_font_normal {
+#yeaamotovi .gt_font_normal {
   font-weight: normal;
 }
 
-#qupfnlfajt .gt_font_bold {
+#yeaamotovi .gt_font_bold {
   font-weight: bold;
 }
 
-#qupfnlfajt .gt_font_italic {
+#yeaamotovi .gt_font_italic {
   font-style: italic;
 }
 
-#qupfnlfajt .gt_super {
+#yeaamotovi .gt_super {
   font-size: 65%;
 }
 
-#qupfnlfajt .gt_footnote_marks {
+#yeaamotovi .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#qupfnlfajt .gt_asterisk {
+#yeaamotovi .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#qupfnlfajt .gt_indent_1 {
+#yeaamotovi .gt_indent_1 {
   text-indent: 5px;
 }
 
-#qupfnlfajt .gt_indent_2 {
+#yeaamotovi .gt_indent_2 {
   text-indent: 10px;
 }
 
-#qupfnlfajt .gt_indent_3 {
+#yeaamotovi .gt_indent_3 {
   text-indent: 15px;
 }
 
-#qupfnlfajt .gt_indent_4 {
+#yeaamotovi .gt_indent_4 {
   text-indent: 20px;
 }
 
-#qupfnlfajt .gt_indent_5 {
+#yeaamotovi .gt_indent_5 {
   text-indent: 25px;
 }
 
-#qupfnlfajt .katex-display {
+#yeaamotovi .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#qupfnlfajt div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#yeaamotovi div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+  height: 0px !important;
+}
+</style>
+
+<table class="gt_table caption-top table table-sm table-striped small" data-quarto-bootstrap="false">
+<thead>
+<tr class="gt_col_headings header">
+<th id="Age" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">Age</th>
+<th id="Sex" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">Sex</th>
+<th id="bp95" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">bp95</th>
+<th id="bp99" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">bp99</th>
+</tr>
+</thead>
+<tbody class="gt_table_body">
+<tr class="odd">
+<td class="gt_row gt_right" headers="Age">3</td>
+<td class="gt_row gt_left" headers="Sex">M</td>
+<td class="gt_row gt_right" headers="bp95">114.7</td>
+<td class="gt_row gt_right" headers="bp99">122.9</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_right" headers="Age">4</td>
+<td class="gt_row gt_left" headers="Sex">M</td>
+<td class="gt_row gt_right" headers="bp95">116.2</td>
+<td class="gt_row gt_right" headers="bp99">124.4</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_right" headers="Age">5</td>
+<td class="gt_row gt_left" headers="Sex">M</td>
+<td class="gt_row gt_right" headers="bp95">117.7</td>
+<td class="gt_row gt_right" headers="bp99">125.9</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_right" headers="Age">6</td>
+<td class="gt_row gt_left" headers="Sex">M</td>
+<td class="gt_row gt_right" headers="bp95">119.2</td>
+<td class="gt_row gt_right" headers="bp99">127.4</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_right" headers="Age">7</td>
+<td class="gt_row gt_left" headers="Sex">M</td>
+<td class="gt_row gt_right" headers="bp95">120.7</td>
+<td class="gt_row gt_right" headers="bp99">128.9</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_right" headers="Age">8</td>
+<td class="gt_row gt_left" headers="Sex">M</td>
+<td class="gt_row gt_right" headers="bp95">122.2</td>
+<td class="gt_row gt_right" headers="bp99">130.4</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_right" headers="Age">9</td>
+<td class="gt_row gt_left" headers="Sex">M</td>
+<td class="gt_row gt_right" headers="bp95">123.7</td>
+<td class="gt_row gt_right" headers="bp99">131.9</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_right" headers="Age">10</td>
+<td class="gt_row gt_left" headers="Sex">M</td>
+<td class="gt_row gt_right" headers="bp95">125.2</td>
+<td class="gt_row gt_right" headers="bp99">133.4</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_right" headers="Age">11</td>
+<td class="gt_row gt_left" headers="Sex">M</td>
+<td class="gt_row gt_right" headers="bp95">126.7</td>
+<td class="gt_row gt_right" headers="bp99">134.9</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_right" headers="Age">12</td>
+<td class="gt_row gt_left" headers="Sex">M</td>
+<td class="gt_row gt_right" headers="bp95">128.2</td>
+<td class="gt_row gt_right" headers="bp99">136.4</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_right" headers="Age">13</td>
+<td class="gt_row gt_left" headers="Sex">M</td>
+<td class="gt_row gt_right" headers="bp95">129.7</td>
+<td class="gt_row gt_right" headers="bp99">137.9</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_right" headers="Age">14</td>
+<td class="gt_row gt_left" headers="Sex">M</td>
+<td class="gt_row gt_right" headers="bp95">131.7</td>
+<td class="gt_row gt_right" headers="bp99">139.9</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_right" headers="Age">15</td>
+<td class="gt_row gt_left" headers="Sex">M</td>
+<td class="gt_row gt_right" headers="bp95">133.7</td>
+<td class="gt_row gt_right" headers="bp99">141.9</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_right" headers="Age">16</td>
+<td class="gt_row gt_left" headers="Sex">M</td>
+<td class="gt_row gt_right" headers="bp95">135.7</td>
+<td class="gt_row gt_right" headers="bp99">143.9</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_right" headers="Age">17</td>
+<td class="gt_row gt_left" headers="Sex">M</td>
+<td class="gt_row gt_right" headers="bp95">137.7</td>
+<td class="gt_row gt_right" headers="bp99">145.9</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_right" headers="Age">18</td>
+<td class="gt_row gt_left" headers="Sex">M</td>
+<td class="gt_row gt_right" headers="bp95">139.7</td>
+<td class="gt_row gt_right" headers="bp99">147.9</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_right" headers="Age">3</td>
+<td class="gt_row gt_left" headers="Sex">F</td>
+<td class="gt_row gt_right" headers="bp95">114.7</td>
+<td class="gt_row gt_right" headers="bp99">122.9</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_right" headers="Age">4</td>
+<td class="gt_row gt_left" headers="Sex">F</td>
+<td class="gt_row gt_right" headers="bp95">116.2</td>
+<td class="gt_row gt_right" headers="bp99">124.4</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_right" headers="Age">5</td>
+<td class="gt_row gt_left" headers="Sex">F</td>
+<td class="gt_row gt_right" headers="bp95">117.7</td>
+<td class="gt_row gt_right" headers="bp99">125.9</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_right" headers="Age">6</td>
+<td class="gt_row gt_left" headers="Sex">F</td>
+<td class="gt_row gt_right" headers="bp95">119.2</td>
+<td class="gt_row gt_right" headers="bp99">127.4</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_right" headers="Age">7</td>
+<td class="gt_row gt_left" headers="Sex">F</td>
+<td class="gt_row gt_right" headers="bp95">120.7</td>
+<td class="gt_row gt_right" headers="bp99">128.9</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_right" headers="Age">8</td>
+<td class="gt_row gt_left" headers="Sex">F</td>
+<td class="gt_row gt_right" headers="bp95">122.2</td>
+<td class="gt_row gt_right" headers="bp99">130.4</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_right" headers="Age">9</td>
+<td class="gt_row gt_left" headers="Sex">F</td>
+<td class="gt_row gt_right" headers="bp95">123.7</td>
+<td class="gt_row gt_right" headers="bp99">131.9</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_right" headers="Age">10</td>
+<td class="gt_row gt_left" headers="Sex">F</td>
+<td class="gt_row gt_right" headers="bp95">125.2</td>
+<td class="gt_row gt_right" headers="bp99">133.4</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_right" headers="Age">11</td>
+<td class="gt_row gt_left" headers="Sex">F</td>
+<td class="gt_row gt_right" headers="bp95">126.7</td>
+<td class="gt_row gt_right" headers="bp99">134.9</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_right" headers="Age">12</td>
+<td class="gt_row gt_left" headers="Sex">F</td>
+<td class="gt_row gt_right" headers="bp95">128.2</td>
+<td class="gt_row gt_right" headers="bp99">136.4</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_right" headers="Age">13</td>
+<td class="gt_row gt_left" headers="Sex">F</td>
+<td class="gt_row gt_right" headers="bp95">129.7</td>
+<td class="gt_row gt_right" headers="bp99">137.9</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_right" headers="Age">14</td>
+<td class="gt_row gt_left" headers="Sex">F</td>
+<td class="gt_row gt_right" headers="bp95">130.7</td>
+<td class="gt_row gt_right" headers="bp99">138.9</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_right" headers="Age">15</td>
+<td class="gt_row gt_left" headers="Sex">F</td>
+<td class="gt_row gt_right" headers="bp95">131.7</td>
+<td class="gt_row gt_right" headers="bp99">139.9</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_right" headers="Age">16</td>
+<td class="gt_row gt_left" headers="Sex">F</td>
+<td class="gt_row gt_right" headers="bp95">132.7</td>
+<td class="gt_row gt_right" headers="bp99">140.9</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_right" headers="Age">17</td>
+<td class="gt_row gt_left" headers="Sex">F</td>
+<td class="gt_row gt_right" headers="bp95">133.7</td>
+<td class="gt_row gt_right" headers="bp99">141.9</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_right" headers="Age">18</td>
+<td class="gt_row gt_left" headers="Sex">F</td>
+<td class="gt_row gt_right" headers="bp95">134.7</td>
+<td class="gt_row gt_right" headers="bp99">142.9</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="cancer-1" class="level2">
+<h2 class="anchored" data-anchor-id="cancer-1">Cancer 1</h2>
+<p>The incidence of breast cancer in 40–49-year-old women is approximately 1 new case per 1000 women per year.</p>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-10-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-10-1" role="tab" aria-controls="tabset-10-1" aria-selected="true" href="">5.10</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-10-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-10-2" role="tab" aria-controls="tabset-10-2" aria-selected="false" href="">Solutions</a></li></ul>
+<div class="tab-content">
+<div id="tabset-10-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-10-1-tab">
+<p>What is the incidence of breast cancer over 10 years in women initially 40 years old?</p>
+</div>
+<div id="tabset-10-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-10-2-tab">
+<p>10 new cases per 1000 women per decade, which is the same as 1 case per 100 women, or 0.01.</p>
+</div>
+</div>
+</div>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-11-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-11-1" role="tab" aria-controls="tabset-11-1" aria-selected="true" href="">5.11</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-11-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-11-2" role="tab" aria-controls="tabset-11-2" aria-selected="false" href="">Solutions</a></li></ul>
+<div class="tab-content">
+<div id="tabset-11-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-11-1-tab">
+<p>Suppose we are planning a study based on an enrollment of 10,000 women. What is the probability of obtaining at least 120 new breast-cancer cases over a 10-year follow-up period?</p>
+</div>
+<div id="tabset-11-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-11-2-tab">
+<p>Let <span class="math inline">\(X\)</span> be the number of new breast-cancer cases. Then <span class="math inline">\(X \sim \mathrm{Binom}(10000, 0.01)\)</span>. We want <span class="math inline">\(P(X \geq 120)\)</span>, which is</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">-</span> <span class="fu">pbinom</span>(<span class="at">q =</span> <span class="dv">119</span>, <span class="at">size =</span> <span class="dv">10000</span>, <span class="at">prob =</span> <span class="fl">0.01</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.0276</code></pre>
+</div>
+</div>
+<p>We can use a normal approximation too since <span class="math inline">\(10000 \times 0.01 \times (1 - 0.01) = 99 \geq 5\)</span>. So <span class="math inline">\(X\)</span> is approximately normal with mean <span class="math inline">\(np = 10000 \times 0.01 = 100\)</span> and variance <span class="math inline">\(10000 \times 0.01 \times (1 - 0.01) = 99\)</span>. Using a continuity correction, we calculate <span class="math inline">\(P(X &gt; 119.5)\)</span></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">-</span> <span class="fu">pnorm</span>(<span class="at">q =</span> <span class="fl">119.5</span>, <span class="at">mean =</span> <span class="dv">100</span>, <span class="at">sd =</span> <span class="fu">sqrt</span>(<span class="dv">99</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.02501</code></pre>
+</div>
+</div>
+<p>These are pretty close.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="accident-epidemiology" class="level2">
+<h2 class="anchored" data-anchor-id="accident-epidemiology">Accident Epidemiology</h2>
+<p>Suppose the annual death rate from motor-vehicle accidents in 1980 was 10 per 100,000 in urban areas of the United States.</p>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-12-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-12-1" role="tab" aria-controls="tabset-12-1" aria-selected="true" href="">5.12</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-12-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-12-2" role="tab" aria-controls="tabset-12-2" aria-selected="false" href="">Solutions</a></li></ul>
+<div class="tab-content">
+<div id="tabset-12-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-12-1-tab">
+<p>In an urban state with a population of 2 million, what is the probability of observing not more than 150 traffic fatalities in a given year?</p>
+</div>
+<div id="tabset-12-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-12-2-tab">
+<p>The death rate is <span class="math display">\[
+2,000,000 \text{ folks} \times \frac{10 \text{ deaths}}{100,000 \text{ folks year}} = 200 \text{ deaths/year}
+\]</span> Let <span class="math inline">\(X\)</span> be the number of deaths in a year. The exact distribution is <span class="math inline">\(\mathrm{Binom}(2,000,000, 10/100,000)\)</span> and we want <span class="math inline">\(P(X \leq 150)\)</span></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pbinom</span>(<span class="at">q =</span> <span class="dv">150</span>, <span class="at">size =</span> <span class="fl">2e6</span>, <span class="at">prob =</span> <span class="fl">1e-4</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.0001313</code></pre>
+</div>
+</div>
+<p>The book wants you to use the normal approximation with mean 200 and standard deviation</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sqrt</span>(<span class="fl">2e6</span> <span class="sc">*</span> <span class="fl">1e-4</span> <span class="sc">*</span> (<span class="dv">1</span><span class="fl">-1e-4</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 14.14</code></pre>
+</div>
+</div>
+<p>Using a continuity correction, we calculation <span class="math inline">\(P(X \leq 150.5)\)</span></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pnorm</span>(<span class="at">q =</span> <span class="fl">150.5</span>, <span class="at">mean =</span> <span class="dv">200</span>, <span class="at">sd =</span> <span class="fl">14.14</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.000232</code></pre>
+</div>
+</div>
+<p>It’s actually very different (relatively speaking)! You should use the exact binomial probabilities in this case.</p>
+</div>
+</div>
+</div>
+<p>In rural areas of the United States the annual death rate from motor-vehicle accidents is on the order of 100 per 100,000 population.</p>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-13-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-13-1" role="tab" aria-controls="tabset-13-1" aria-selected="true" href="">5.13</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-13-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-13-2" role="tab" aria-controls="tabset-13-2" aria-selected="false" href="">Solutions</a></li></ul>
+<div class="tab-content">
+<div id="tabset-13-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-13-1-tab">
+<p>In a rural state with a population of 100,000, what is the probability of observing not more than 80 traffic fatalities in a given year?</p>
+</div>
+<div id="tabset-13-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-13-2-tab">
+<p>Let <span class="math inline">\(Y\)</span> be the number of fatalities. The exact distribution is Binomial with size 100,000 and probability 100/100,000. We want <span class="math inline">\(P(Y \leq 80)\)</span></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pbinom</span>(<span class="at">q =</span> <span class="dv">80</span>, <span class="at">size =</span> <span class="fl">1e5</span>, <span class="at">prob =</span> <span class="fl">0.001</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.0226</code></pre>
+</div>
+</div>
+<p>Using a normal approximation with mean <span class="math inline">\(np = 100,000 \times 0.001 = 100\)</span> and variance <span class="math inline">\(np(1-p) = 100,000 \times 0.001 \times (1 - 0.001) = 99.9\)</span>. Using a continuity correction, we calculation <span class="math inline">\(P(Y &lt; 80.5)\)</span></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pnorm</span>(<span class="fl">80.5</span>, <span class="at">mean =</span> <span class="dv">100</span>, <span class="at">sd =</span> <span class="fu">sqrt</span>(<span class="fl">99.9</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.02553</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-14-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-14-1" role="tab" aria-controls="tabset-14-1" aria-selected="true" href="">5.14</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-14-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-14-2" role="tab" aria-controls="tabset-14-2" aria-selected="false" href="">Solutions</a></li></ul>
+<div class="tab-content">
+<div id="tabset-14-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-14-1-tab">
+<p>What is the largest <span class="math inline">\(x\)</span> so that the probability of observing not more than <span class="math inline">\(x\)</span> traffic fatalities in a given year in a rural state with population 100,000 is less than 5%?</p>
+</div>
+<div id="tabset-14-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-14-2-tab">
+<p>We want <span class="math inline">\(x\)</span> such that <span class="math inline">\(P(X \leq x) &lt; 0.05\)</span>. This is one less than the 0.05 quantile of the binomial distribution with size 100,000 and probability 0.001. “One less” because the 0.05 quantile is defined as the smallest value such that <span class="math inline">\(P(X \leq x) \geq 0.05\)</span></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">qbinom</span>(<span class="at">p =</span> <span class="fl">0.05</span>, <span class="at">size =</span> <span class="dv">100000</span>, <span class="at">prob =</span> <span class="fl">0.001</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 84</code></pre>
+</div>
+</div>
+<p>So, <span class="math inline">\(x = 83\)</span>. Let’s verify</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pbinom</span>(<span class="at">q =</span> <span class="dv">83</span>, <span class="at">size =</span> <span class="dv">100000</span>, <span class="at">prob =</span> <span class="fl">0.001</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.04624</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pbinom</span>(<span class="at">q =</span> <span class="dv">84</span>, <span class="at">size =</span> <span class="dv">100000</span>, <span class="at">prob =</span> <span class="fl">0.001</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.05746</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-15-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-15-1" role="tab" aria-controls="tabset-15-1" aria-selected="true" href="">5.15</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-15-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-15-2" role="tab" aria-controls="tabset-15-2" aria-selected="false" href="">Solutions</a></li></ul>
+<div class="tab-content">
+<div id="tabset-15-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-15-1-tab">
+<p>What is the smallest <span class="math inline">\(x\)</span> so that the probability of observing <span class="math inline">\(x\)</span> or more traffic fatalities in a given year, in an urban state with population 500,000 is less than 10%?</p>
+</div>
+<div id="tabset-15-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-15-2-tab">
+<p>We want the 0.9 quantile of the binomial of size 500,000 and success probability 0.0001. This is exactly the definition of the quantile, the smallest <span class="math inline">\(x\)</span> such that <span class="math inline">\(P(X \geq x) &lt; 0.1\)</span> is the same as the smallest <span class="math inline">\(x\)</span> such that <span class="math inline">\(P(X \leq x) \geq 0.9\)</span>, which is the 0.9 quantile.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">qbinom</span>(<span class="at">p =</span> <span class="fl">0.9</span>, <span class="at">size =</span> <span class="dv">500000</span>, <span class="at">prob =</span> <span class="fl">0.0001</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 59</code></pre>
+</div>
+</div>
+<p>So <span class="math inline">\(x = 59\)</span>. Let’s verify</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pbinom</span>(<span class="at">q =</span> <span class="dv">59</span>, <span class="at">size =</span> <span class="dv">500000</span>, <span class="at">prob =</span> <span class="fl">0.0001</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.9077</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pbinom</span>(<span class="at">q =</span> <span class="dv">58</span>, <span class="at">size =</span> <span class="dv">500000</span>, <span class="at">prob =</span> <span class="fl">0.0001</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.8836</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="obstetrics" class="level2">
+<h2 class="anchored" data-anchor-id="obstetrics">Obstetrics</h2>
+<p>Assume that birthweights are normally distributed with a mean of 3400 g and a standard deviation of 700 g.</p>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-16-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-16-1" role="tab" aria-controls="tabset-16-1" aria-selected="true" href="">5.16</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-16-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-16-2" role="tab" aria-controls="tabset-16-2" aria-selected="false" href="">Solutions</a></li></ul>
+<div class="tab-content">
+<div id="tabset-16-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-16-1-tab">
+<p>Find the probability of a low-birthweight child, where low birthweight is defined as ≤ 2500 g.</p>
+</div>
+<div id="tabset-16-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-16-2-tab">
+<p>We want <span class="math inline">\(P(X \leq 2500)\)</span> when <span class="math inline">\(X \sim N(3400, 700^2)\)</span></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pnorm</span>(<span class="at">q =</span> <span class="dv">2500</span>, <span class="at">mean =</span> <span class="dv">3400</span>, <span class="at">sd =</span> <span class="dv">700</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.09927</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-17-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-17-1" role="tab" aria-controls="tabset-17-1" aria-selected="true" href="">5.17</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-17-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-17-2" role="tab" aria-controls="tabset-17-2" aria-selected="false" href="">Solutions</a></li></ul>
+<div class="tab-content">
+<div id="tabset-17-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-17-1-tab">
+<p>Find the probability of a very low birthweight child, where very low birthweight is defined as ≤ 2000 g.</p>
+</div>
+<div id="tabset-17-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-17-2-tab">
+<p>Similar to 5.16</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pnorm</span>(<span class="at">q =</span> <span class="dv">2000</span>, <span class="at">mean =</span> <span class="dv">3400</span>, <span class="at">sd =</span> <span class="dv">700</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.02275</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-18-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-18-1" role="tab" aria-controls="tabset-18-1" aria-selected="true" href="">5.18</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-18-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-18-2" role="tab" aria-controls="tabset-18-2" aria-selected="false" href="">Solutions</a></li></ul>
+<div class="tab-content">
+<div id="tabset-18-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-18-1-tab">
+<p>Assuming that successive deliveries by the same woman have the same probability of being low birthweight, what is the probability that a woman with exactly 3 deliveries will have 2 or more low-birthweight deliveries?</p>
+</div>
+<div id="tabset-18-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-18-2-tab">
+<p>Let <span class="math inline">\(X\)</span> be the number of low-birthweights out of 3. Then <span class="math inline">\(X \sim \mathrm{Binom}(3, 0.09927)\)</span>, where the success probability was calculated in 5.16. We want <span class="math inline">\(P(X \geq 2)\)</span></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">-</span> <span class="fu">pbinom</span>(<span class="at">q =</span> <span class="dv">1</span>, <span class="at">size =</span> <span class="dv">3</span>, <span class="at">prob =</span> <span class="fl">0.09927</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.02761</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="renal-disease" class="level2">
+<h2 class="anchored" data-anchor-id="renal-disease">Renal Disease</h2>
+<p>The presence of bacteria in a urine sample (bacteriuria) is sometimes associated with symptoms of kidney disease. Assume that a determination of bacteriuria has been made over a large population at one point in time and that 5% of those sampled are positive for bacteriuria.</p>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-19-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-19-1" role="tab" aria-controls="tabset-19-1" aria-selected="true" href="">5.19</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-19-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-19-2" role="tab" aria-controls="tabset-19-2" aria-selected="false" href="">Solutions</a></li></ul>
+<div class="tab-content">
+<div id="tabset-19-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-19-1-tab">
+<p>Suppose that 500 people from this population are sampled. What is the probability that 30 or more people would be positive for bacteriuria?</p>
+</div>
+<div id="tabset-19-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-19-2-tab">
+<p>Let <span class="math inline">\(X\)</span> be the number out of 500 that are positive. Then <span class="math inline">\(X \sim \mathrm{Binom}(500, 0.05)\)</span>. We want <span class="math inline">\(P(X \geq 30)\)</span></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">-</span> <span class="fu">pbinom</span>(<span class="at">q =</span> <span class="dv">30</span>, <span class="at">size =</span> <span class="dv">500</span>, <span class="at">prob =</span> <span class="fl">0.05</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.1309</code></pre>
+</div>
+</div>
+<p>We can use the normal approximation here since <span class="math inline">\(500 \times 0.05 \times (1 - 0.05) = 23.75 &gt; 5\)</span>. Then <span class="math inline">\(X\)</span> is about normal with mean <span class="math inline">\(np = 500 \times 0.05 = 25\)</span> and variance 23.75. Using a continutity correction, we calculation <span class="math inline">\(P(X &gt; 29.5)\)</span></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">-</span> <span class="fu">pnorm</span>(<span class="at">q =</span> <span class="fl">29.5</span>, <span class="at">mean =</span> <span class="dv">25</span>, <span class="at">sd =</span> <span class="fu">sqrt</span>(<span class="fl">23.75</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.1779</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="ophthalmology-1" class="level2">
+<h2 class="anchored" data-anchor-id="ophthalmology-1">Ophthalmology 1</h2>
+<p>A study was conducted among patients with retinitis pigmentosa, an ocular condition where pigment appears over the retina, resulting in substantial loss of vision in many cases. The study was based on 94 patients who were seen annually at a baseline visit and at three annual follow-up visits. In this study, 90 patients provided visual-field measurements at each of the four examinations and are the subjects of the following data analyses. Visual field was transformed to the ln scale to better approximate normality and yielded the data given in Table 5.1.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="brzbtvfsew" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#brzbtvfsew table {
+  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#brzbtvfsew thead, #brzbtvfsew tbody, #brzbtvfsew tfoot, #brzbtvfsew tr, #brzbtvfsew td, #brzbtvfsew th {
+  border-style: none;
+}
+
+#brzbtvfsew p {
+  margin: 0;
+  padding: 0;
+}
+
+#brzbtvfsew .gt_table {
+  display: table;
+  border-collapse: collapse;
+  line-height: normal;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#brzbtvfsew .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#brzbtvfsew .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#brzbtvfsew .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 3px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#brzbtvfsew .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#brzbtvfsew .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#brzbtvfsew .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#brzbtvfsew .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#brzbtvfsew .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#brzbtvfsew .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#brzbtvfsew .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#brzbtvfsew .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#brzbtvfsew .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
+#brzbtvfsew .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+#brzbtvfsew .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#brzbtvfsew .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#brzbtvfsew .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#brzbtvfsew .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#brzbtvfsew .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#brzbtvfsew .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#brzbtvfsew .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#brzbtvfsew .gt_row_group_first th {
+  border-top-width: 2px;
+}
+
+#brzbtvfsew .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#brzbtvfsew .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#brzbtvfsew .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#brzbtvfsew .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#brzbtvfsew .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#brzbtvfsew .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#brzbtvfsew .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
+#brzbtvfsew .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#brzbtvfsew .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#brzbtvfsew .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#brzbtvfsew .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#brzbtvfsew .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#brzbtvfsew .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#brzbtvfsew .gt_left {
+  text-align: left;
+}
+
+#brzbtvfsew .gt_center {
+  text-align: center;
+}
+
+#brzbtvfsew .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#brzbtvfsew .gt_font_normal {
+  font-weight: normal;
+}
+
+#brzbtvfsew .gt_font_bold {
+  font-weight: bold;
+}
+
+#brzbtvfsew .gt_font_italic {
+  font-style: italic;
+}
+
+#brzbtvfsew .gt_super {
+  font-size: 65%;
+}
+
+#brzbtvfsew .gt_footnote_marks {
+  font-size: 75%;
+  vertical-align: 0.4em;
+  position: initial;
+}
+
+#brzbtvfsew .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#brzbtvfsew .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#brzbtvfsew .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#brzbtvfsew .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#brzbtvfsew .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#brzbtvfsew .gt_indent_5 {
+  text-indent: 25px;
+}
+
+#brzbtvfsew .katex-display {
+  display: inline-flex !important;
+  margin-bottom: 0.75em !important;
+}
+
+#brzbtvfsew div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
@@ -1358,23 +2244,23 @@ window.Quarto = {
 <p>Table 5.2 shows data reported relating alcohol consumption and blood-pressure level among 18–39-year-old males.</p>
 <div class="cell">
 <div class="cell-output-display">
-<div id="ezbirvxbid" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#ezbirvxbid table {
+<div id="jvxigothcb" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#jvxigothcb table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#ezbirvxbid thead, #ezbirvxbid tbody, #ezbirvxbid tfoot, #ezbirvxbid tr, #ezbirvxbid td, #ezbirvxbid th {
+#jvxigothcb thead, #jvxigothcb tbody, #jvxigothcb tfoot, #jvxigothcb tr, #jvxigothcb td, #jvxigothcb th {
   border-style: none;
 }
 
-#ezbirvxbid p {
+#jvxigothcb p {
   margin: 0;
   padding: 0;
 }
 
-#ezbirvxbid .gt_table {
+#jvxigothcb .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -1400,12 +2286,12 @@ window.Quarto = {
   border-left-color: #D3D3D3;
 }
 
-#ezbirvxbid .gt_caption {
+#jvxigothcb .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#ezbirvxbid .gt_title {
+#jvxigothcb .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -1417,7 +2303,7 @@ window.Quarto = {
   border-bottom-width: 0;
 }
 
-#ezbirvxbid .gt_subtitle {
+#jvxigothcb .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -1429,7 +2315,7 @@ window.Quarto = {
   border-top-width: 0;
 }
 
-#ezbirvxbid .gt_heading {
+#jvxigothcb .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -1441,13 +2327,13 @@ window.Quarto = {
   border-right-color: #D3D3D3;
 }
 
-#ezbirvxbid .gt_bottom_border {
+#jvxigothcb .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#ezbirvxbid .gt_col_headings {
+#jvxigothcb .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1462,7 +2348,7 @@ window.Quarto = {
   border-right-color: #D3D3D3;
 }
 
-#ezbirvxbid .gt_col_heading {
+#jvxigothcb .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1482,7 +2368,7 @@ window.Quarto = {
   overflow-x: hidden;
 }
 
-#ezbirvxbid .gt_column_spanner_outer {
+#jvxigothcb .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1494,15 +2380,15 @@ window.Quarto = {
   padding-right: 4px;
 }
 
-#ezbirvxbid .gt_column_spanner_outer:first-child {
+#jvxigothcb .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#ezbirvxbid .gt_column_spanner_outer:last-child {
+#jvxigothcb .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#ezbirvxbid .gt_column_spanner {
+#jvxigothcb .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -1514,11 +2400,11 @@ window.Quarto = {
   width: 100%;
 }
 
-#ezbirvxbid .gt_spanner_row {
+#jvxigothcb .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#ezbirvxbid .gt_group_heading {
+#jvxigothcb .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1544,7 +2430,7 @@ window.Quarto = {
   text-align: left;
 }
 
-#ezbirvxbid .gt_empty_group_heading {
+#jvxigothcb .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -1559,15 +2445,15 @@ window.Quarto = {
   vertical-align: middle;
 }
 
-#ezbirvxbid .gt_from_md > :first-child {
+#jvxigothcb .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#ezbirvxbid .gt_from_md > :last-child {
+#jvxigothcb .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#ezbirvxbid .gt_row {
+#jvxigothcb .gt_row {
   padding-top: 4px;
   padding-bottom: 4px;
   padding-left: 5px;
@@ -1586,7 +2472,7 @@ window.Quarto = {
   overflow-x: hidden;
 }
 
-#ezbirvxbid .gt_stub {
+#jvxigothcb .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1599,7 +2485,7 @@ window.Quarto = {
   padding-right: 5px;
 }
 
-#ezbirvxbid .gt_stub_row_group {
+#jvxigothcb .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1613,15 +2499,15 @@ window.Quarto = {
   vertical-align: top;
 }
 
-#ezbirvxbid .gt_row_group_first td {
+#jvxigothcb .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#ezbirvxbid .gt_row_group_first th {
+#jvxigothcb .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#ezbirvxbid .gt_summary_row {
+#jvxigothcb .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1631,16 +2517,16 @@ window.Quarto = {
   padding-right: 5px;
 }
 
-#ezbirvxbid .gt_first_summary_row {
+#jvxigothcb .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#ezbirvxbid .gt_first_summary_row.thick {
+#jvxigothcb .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#ezbirvxbid .gt_last_summary_row {
+#jvxigothcb .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1650,7 +2536,7 @@ window.Quarto = {
   border-bottom-color: #D3D3D3;
 }
 
-#ezbirvxbid .gt_grand_summary_row {
+#jvxigothcb .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1660,7 +2546,7 @@ window.Quarto = {
   padding-right: 5px;
 }
 
-#ezbirvxbid .gt_first_grand_summary_row {
+#jvxigothcb .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1670,7 +2556,7 @@ window.Quarto = {
   border-top-color: #D3D3D3;
 }
 
-#ezbirvxbid .gt_last_grand_summary_row_top {
+#jvxigothcb .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1680,11 +2566,11 @@ window.Quarto = {
   border-bottom-color: #D3D3D3;
 }
 
-#ezbirvxbid .gt_striped {
+#jvxigothcb .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#ezbirvxbid .gt_table_body {
+#jvxigothcb .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1693,7 +2579,7 @@ window.Quarto = {
   border-bottom-color: #D3D3D3;
 }
 
-#ezbirvxbid .gt_footnotes {
+#jvxigothcb .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1707,7 +2593,7 @@ window.Quarto = {
   border-right-color: #D3D3D3;
 }
 
-#ezbirvxbid .gt_footnote {
+#jvxigothcb .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -1716,7 +2602,7 @@ window.Quarto = {
   padding-right: 5px;
 }
 
-#ezbirvxbid .gt_sourcenotes {
+#jvxigothcb .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1730,7 +2616,7 @@ window.Quarto = {
   border-right-color: #D3D3D3;
 }
 
-#ezbirvxbid .gt_sourcenote {
+#jvxigothcb .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -1738,72 +2624,72 @@ window.Quarto = {
   padding-right: 5px;
 }
 
-#ezbirvxbid .gt_left {
+#jvxigothcb .gt_left {
   text-align: left;
 }
 
-#ezbirvxbid .gt_center {
+#jvxigothcb .gt_center {
   text-align: center;
 }
 
-#ezbirvxbid .gt_right {
+#jvxigothcb .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#ezbirvxbid .gt_font_normal {
+#jvxigothcb .gt_font_normal {
   font-weight: normal;
 }
 
-#ezbirvxbid .gt_font_bold {
+#jvxigothcb .gt_font_bold {
   font-weight: bold;
 }
 
-#ezbirvxbid .gt_font_italic {
+#jvxigothcb .gt_font_italic {
   font-style: italic;
 }
 
-#ezbirvxbid .gt_super {
+#jvxigothcb .gt_super {
   font-size: 65%;
 }
 
-#ezbirvxbid .gt_footnote_marks {
+#jvxigothcb .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#ezbirvxbid .gt_asterisk {
+#jvxigothcb .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#ezbirvxbid .gt_indent_1 {
+#jvxigothcb .gt_indent_1 {
   text-indent: 5px;
 }
 
-#ezbirvxbid .gt_indent_2 {
+#jvxigothcb .gt_indent_2 {
   text-indent: 10px;
 }
 
-#ezbirvxbid .gt_indent_3 {
+#jvxigothcb .gt_indent_3 {
   text-indent: 15px;
 }
 
-#ezbirvxbid .gt_indent_4 {
+#jvxigothcb .gt_indent_4 {
   text-indent: 20px;
 }
 
-#ezbirvxbid .gt_indent_5 {
+#jvxigothcb .gt_indent_5 {
   text-indent: 25px;
 }
 
-#ezbirvxbid .katex-display {
+#jvxigothcb .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#ezbirvxbid div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#jvxigothcb div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>

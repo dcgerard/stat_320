@@ -13,13 +13,16 @@ These practice problems mostly come from Rosner's publicly available study sheet
 library(tidyverse)
 ```
 
-## Basice
+## Quantiles
 
 ::: {.panel-tabset} 
 ## 5.1
 What are the deciles of the standard normal distribution; that is, the 10, 20, 30, ... , 90 percentiles?
 
 ## Solutions
+```{r}
+qnorm(p = seq(0.1, 0.9, by = 0.1))
+```
 :::
 
 ::: {.panel-tabset} 
@@ -27,6 +30,10 @@ What are the deciles of the standard normal distribution; that is, the 10, 20, 3
 What are the quartiles of the standard normal distribution?
 
 ## Solutions
+```{r}
+qnorm(p = c(0.25, 0.5, 0.75))
+```
+
 :::
 
 ## Hypertension 1
@@ -38,6 +45,11 @@ Blood pressure (BP) in childhood tends to increase with age, but differently for
 What is the probability that an 11-year-old boy will have an SBP greater than 130 mm Hg?
 
 ## Solutions
+Let $X$ be the SBP of a randomly selected 11 year old boy. Then $X$ is normal with mean 95 + 1.5 $\times$ 8 = 107 and standard deviation 12. We want $P(X > 130)$
+```{r}
+1 - pnorm(q = 130, mean = 107, sd = 12)
+```
+
 :::
 
 ::: {.panel-tabset} 
@@ -45,6 +57,11 @@ What is the probability that an 11-year-old boy will have an SBP greater than 13
 What is the probability that a 15-year-old girl will have an SBP between 100 and 120 mm Hg?
 
 ## Solutions
+Let $Y$ be the SBP of a randomly selected 15-year old girl. Then $Y$ is normal with mean $95 + 1.5 \times 10 + 1 \times 2 = 112$ and standard deviation 12. We want $P(100 < Y < 120) = P(Y < 120) - P(Y < 100)$
+```{r}
+pnorm(q = 120, mean = 112, sd = 12) - pnorm(q = 100, mean = 112, sd = 12)
+```
+
 :::
 
 ::: {.panel-tabset} 
@@ -52,34 +69,84 @@ What is the probability that a 15-year-old girl will have an SBP between 100 and
 What proportion of 17-year-old boys have an SBP between 120 and 140 mm Hg?
 
 ## Solutions
+Let $Z$ be the SBP of a randomly selected 17-year-old boy. Then $Z$ is normal with mean $95 + 1.5 \times 10 + 2 \times 4 = 118$ and standard deviation 12. We want $P(120 < Z < 140) = P(Z < 140) - P(Z < 120)$
+```{r}
+pnorm(q = 140, mean = 118, sd = 12) - pnorm(q = 120, mean = 118, sd = 12)
+```
+
 :::
 
 ::: {.panel-tabset} 
 ## 5.6
 What is the probability that of 200 15-year-old boys, at least 10 will have an SBP of 130 mm Hg or greater?
 
+## Hint
+Let's first find the probability for a single 15-year-old boy.
+
 ## Solutions
+Let's first find the probability for a single 15-year-old boy. Their SBP is normal with mean $95 + 1.5 \times 10 + 2 \times 2 = 114$ and sd 12. So the probability of their SBP being greater than 130 is
+```{r}
+1 - pnorm(q = 130, mean = 114, sd = 12)
+```
+Let $X$ now be the number of 15-year-old boys, out of 200, that have an SBP greater than 130. Then $X \sim \mathrm{Binom}(200, 0.09121)$. We want $P(X \geq 10)$
+```{r}
+1 - pbinom(q = 9, size = 200, prob = 0.09121)
+```
+
 :::
 
 ::: {.panel-tabset} 
 ## 5.7 
-What level of SBP is at the 80th percentile for 7-year- old boys?
+What level of SBP is at the 80th percentile for 7-year-old boys?
 
 ## Solutions
+The SBP of a randomly sampled 7-year-old boy is normal with mean $95 + 1.5 \times 4 = 101$ and standard deviation 12. We want the 0.8 quantile of this distribution.
+```{r}
+qnorm(p = 0.8, mean = 101, sd = 12)
+```
+
 :::
 
 ::: {.panel-tabset} 
 ## 5.8 
-What level of SBP is at the 70th percentile for 12-year- old girls?
+What level of SBP is at the 70th percentile for 12-year-old girls?
 
 ## Solutions
+The SBP of a randomly sampled 12-year-old girl is normal with mean $95 + 1.5 \times 9 = 108.5$ and standard deviation 12. We want the 0.7 quantile of this distribution.
+```{r}
+qnorm(p = 0.7, mean = 108.5, sd = 12)
+```
 :::
 
 ::: {.panel-tabset} 
 ## 5.9 
 Suppose that a task force of pediatricians decides that children over the 95th percentile, but not over the 99th percentile, for their age-sex group should be encouraged to take preventive nonpharmacologic measures to reduce their blood pressure, whereas those children over the 99th percentile should receive antihypertensive drug therapy. Construct a table giving the appropriate BP levels to identify these groups for boys and girls for each year of age from 3 to 18.
 
+## Hint
+This is R heavy. You can skip for the exam. But it is great practice for a practical application of real statistics.
+
 ## Solutions
+There are fancier ways to do this with less code. But I'll do it using just the techniques you know (except for `gt()`, which is a just function that makes a pretty table).
+```{r}
+#| message: false
+library(tidyverse)
+df_boy_young <- tibble(age = 3:13, sex = "M") |>
+  mutate(mu = 95 + 1.5 * (age - 3), sd = 12)
+df_boy_old <- tibble(age = 14:18, sex = "M") |>
+  mutate(mu = 95 + 1.5 * 10 + 2 * (age - 13), sd = 12)
+df_girl_young <- tibble(age = 3:13, sex = "F") |>
+  mutate(mu = 95 + 1.5 * (age - 3), sd = 12)
+df_girl_old <- tibble(age = 14:18, sex = "F") |>
+  mutate(mu = 95 + 1.5 * 10 + 1 * (age - 13), sd = 12)
+df <- bind_rows(df_boy_young, df_boy_old, df_girl_young, df_girl_old)
+df |>
+  mutate(
+    bp95 = qnorm(p = 0.95, mean = mu, sd = sd),
+    bp99 = qnorm(p = 0.99, mean = mu, sd = sd)
+    ) |>
+  select(Age = age, Sex = sex, bp95, bp99) |>
+  gt::gt()
+```
 :::
 
 
@@ -91,6 +158,7 @@ The incidence of breast cancer in 40–49-year-old women is approximately 1 new 
 What is the incidence of breast cancer over 10 years in women initially 40 years old?
 
 ## Solutions
+10 new cases per 1000 women per decade, which is the same as 1 case per 100 women, or 0.01.
 :::
 
 ::: {.panel-tabset} 
@@ -98,6 +166,15 @@ What is the incidence of breast cancer over 10 years in women initially 40 years
 Suppose we are planning a study based on an enrollment of 10,000 women. What is the probability of obtaining at least 120 new breast-cancer cases over a 10-year follow-up period?
 
 ## Solutions
+Let $X$ be the number of new breast-cancer cases. Then $X \sim \mathrm{Binom}(10000, 0.01)$. We want $P(X \geq 120)$, which is
+```{r}
+1 - pbinom(q = 119, size = 10000, prob = 0.01)
+```
+We can use a normal approximation too since $10000 \times 0.01 \times (1 - 0.01) = 99 \geq 5$. So $X$ is approximately normal with mean $np = 10000 \times 0.01 = 100$ and variance $10000 \times 0.01 \times (1 - 0.01) = 99$. Using a continuity correction, we calculate $P(X > 119.5)$
+```{r}
+1 - pnorm(q = 119.5, mean = 100, sd = sqrt(99))
+```
+These are pretty close.
 :::
 
 ## Accident Epidemiology
@@ -109,6 +186,23 @@ Suppose the annual death rate from motor-vehicle accidents in 1980 was 10 per 10
 In an urban state with a population of 2 million, what is the probability of observing not more than 150 traffic fatalities in a given year?
 
 ## Solutions
+The death rate is 
+$$
+2,000,000 \text{ folks} \times \frac{10 \text{ deaths}}{100,000 \text{ folks year}} = 200 \text{ deaths/year}
+$$
+Let $X$ be the number of deaths in a year. The exact distribution is $\mathrm{Binom}(2,000,000, 10/100,000)$ and we want $P(X \leq 150)$
+```{r}
+pbinom(q = 150, size = 2e6, prob = 1e-4)
+```
+The book wants you to use the normal approximation with mean 200 and standard deviation
+```{r}
+sqrt(2e6 * 1e-4 * (1-1e-4))
+```
+Using a continuity correction, we calculation $P(X \leq 150.5)$
+```{r}
+pnorm(q = 150.5, mean = 200, sd = 14.14)
+```
+It's actually very different (relatively speaking)! You should use the exact binomial probabilities in this case.
 :::
 
 In rural areas of the United States the annual death rate from motor-vehicle accidents is on the order of 100 per 100,000 population.
@@ -118,20 +212,49 @@ In rural areas of the United States the annual death rate from motor-vehicle acc
 In a rural state with a population of 100,000, what is the probability of observing not more than 80 traffic fatalities in a given year?
 
 ## Solutions
+Let $Y$ be the number of fatalities. The exact distribution is Binomial with size 100,000 and probability 100/100,000. We want $P(Y \leq 80)$
+```{r}
+pbinom(q = 80, size = 1e5, prob = 0.001)
+```
+Using a normal approximation with mean $np = 100,000 \times 0.001 = 100$ and variance $np(1-p) = 100,000 \times 0.001 \times (1 - 0.001) = 99.9$. Using a continuity correction, we calculation $P(Y < 80.5)$
+```{r}
+pnorm(80.5, mean = 100, sd = sqrt(99.9))
+```
+
+
 :::
 
 ::: {.panel-tabset} 
 ## 5.14 
-How large should x be so that the probability of observing not more than x traffic fatalities in a given year in a rural state with population 100,000 is 5%?
+What is the largest $x$ so that the probability of observing not more than $x$ traffic fatalities in a given year in a rural state with population 100,000 is less than 5%?
 
 ## Solutions
+We want $x$ such that $P(X \leq x) < 0.05$. This is one less than the 0.05 quantile of the binomial distribution with size 100,000 and probability 0.001. "One less" because the 0.05 quantile is defined as the smallest value such that $P(X \leq x) \geq 0.05$
+```{r}
+qbinom(p = 0.05, size = 100000, prob = 0.001)
+```
+So, $x = 83$. Let's verify
+```{r}
+pbinom(q = 83, size = 100000, prob = 0.001)
+pbinom(q = 84, size = 100000, prob = 0.001)
+```
 :::
 
 ::: {.panel-tabset} 
 ## 5.15
-How large should x be so that the probability of observing x or more traffic fatalities in a given year, in an urban state with population 500,000 is 10%?
+What is the smallest $x$ so that the probability of observing $x$ or more traffic fatalities in a given year, in an urban state with population 500,000 is less than 10%?
 
 ## Solutions
+We want the 0.9 quantile of the binomial of size 500,000 and success probability 0.0001. This is exactly the definition of the quantile, the smallest $x$ such that $P(X \geq x) < 0.1$ is the same as the smallest $x$ such that $P(X \leq x) \geq 0.9$, which is the 0.9 quantile.
+```{r}
+qbinom(p = 0.9, size = 500000, prob = 0.0001)
+```
+So $x = 59$. Let's verify
+```{r}
+pbinom(q = 59, size = 500000, prob = 0.0001)
+pbinom(q = 58, size = 500000, prob = 0.0001)
+```
+
 :::
 
 ## Obstetrics
@@ -143,6 +266,11 @@ Assume that birthweights are normally distributed with a mean of 3400 g and a st
 Find the probability of a low-birthweight child, where low birthweight is defined as ≤ 2500 g.
 
 ## Solutions
+We want $P(X \leq 2500)$ when $X \sim N(3400, 700^2)$
+```{r}
+pnorm(q = 2500, mean = 3400, sd = 700)
+```
+
 :::
 
 ::: {.panel-tabset} 
@@ -150,6 +278,11 @@ Find the probability of a low-birthweight child, where low birthweight is define
 Find the probability of a very low birthweight child, where very low birthweight is defined as ≤ 2000 g.
 
 ## Solutions
+Similar to 5.16
+```{r}
+pnorm(q = 2000, mean = 3400, sd = 700)
+```
+
 :::
 
 ::: {.panel-tabset} 
@@ -157,6 +290,10 @@ Find the probability of a very low birthweight child, where very low birthweight
 Assuming that successive deliveries by the same woman have the same probability of being low birthweight, what is the probability that a woman with exactly 3 deliveries will have 2 or more low-birthweight deliveries?
 
 ## Solutions
+Let $X$ be the number of low-birthweights out of 3. Then $X \sim \mathrm{Binom}(3, 0.09927)$, where the success probability was calculated in 5.16. We want $P(X \geq 2)$
+```{r}
+1 - pbinom(q = 1, size = 3, prob = 0.09927)
+```
 :::
 
 ## Renal Disease
@@ -165,9 +302,20 @@ The presence of bacteria in a urine sample (bacteriuria) is sometimes associated
 
 ::: {.panel-tabset} 
 ## 5.19 
-Suppose that 500 people from this population are sampled. What is the probability that 50 or more people would be positive for bacteriuria?
+Suppose that 500 people from this population are sampled. What is the probability that 30 or more people would be positive for bacteriuria?
 
 ## Solutions
+Let $X$ be the number out of 500 that are positive. Then $X \sim \mathrm{Binom}(500, 0.05)$. We want $P(X \geq 30)$
+```{r}
+1 - pbinom(q = 30, size = 500, prob = 0.05)
+```
+We can use the normal approximation here since $500 \times 0.05 \times (1 - 0.05) = 23.75 > 5$. Then $X$ is about normal with mean $np = 500 \times 0.05 = 25$ and variance 23.75. Using a continutity correction, we calculation $P(X > 29.5)$
+```{r}
+1 - pnorm(q = 29.5, mean = 25, sd = sqrt(23.75))
+```
+
+
+
 :::
 
 ## Ophthalmology 1
