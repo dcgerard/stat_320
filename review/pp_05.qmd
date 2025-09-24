@@ -313,14 +313,11 @@ We can use the normal approximation here since $500 \times 0.05 \times (1 - 0.05
 ```{r}
 1 - pnorm(q = 29.5, mean = 25, sd = sqrt(23.75))
 ```
-
-
-
 :::
 
 ## Ophthalmology 1
 
-A study was conducted among patients with retinitis pigmentosa, an ocular condition where pigment appears over the retina, resulting in substantial loss of vision in many cases. The study was based on 94 patients who were seen annually at a baseline visit and at three annual follow-up visits. In this study, 90 patients provided visual-field measurements at each of the four examinations and are the subjects of the following data analyses. Visual field was transformed to the ln scale to better approximate normality and yielded the data given in Table 5.1.
+A study was conducted among patients with retinitis pigmentosa, an ocular condition where pigment appears over the retina, resulting in substantial loss of vision in many cases. The study was based on 94 patients who were seen annually at a baseline visit and at three annual follow-up visits. In this study, 90 patients provided visual-field measurements at each of the four examinations and are the subjects of the following data analyses. Visual field was transformed to the log scale to better approximate normality and yielded the data given in Table 5.1.
 
 ```{r}
 #| eval: true
@@ -347,7 +344,7 @@ df %>%
   ) %>%
   cols_label(
     `Year of examination` = "Year of examination",
-    Mean = html("Mean<sup>a</sup>"),
+    Mean = html("Mean"),
     `Standard deviation` = "Standard deviation",
     n = html("<i>n</i>")
   )
@@ -355,9 +352,14 @@ df %>%
 
 ::: {.panel-tabset} 
 ## 5.20
-Assuming that change in visual field over 3 years is normally distributed when using the ln scale, what is the proportion of patients who showed a decline in visual field over 3 years?
+Assuming that change in visual field over 3 years is normally distributed when using the log scale, what is the proportion of patients who showed a decline in visual field over 3 years?
 
 ## Solutions
+Let $X$ be the visual acuity change of a randomly selected patient. Then $X$ is normal with mean 0.14 and standard deviation 0.66. We want $P(X > 0)$ (greater than because it's year 0 minus year 3, so the decline happens if the $X$ is positive).
+```{r}
+1 - pnorm(q = 0, mean = 0.14, sd = 0.66)
+```
+
 :::
 
 ::: {.panel-tabset} 
@@ -365,6 +367,10 @@ Assuming that change in visual field over 3 years is normally distributed when u
 What percentage of patients would be expected to show a decline of at least 20% in visual field over 3 years? (Note: In the ln scale this is equivalent to a decline of at least log(1/0.8) = 0.223).
 
 ## Solutions
+Using the notation from 5.22, we want $P(X > 0.223)$
+```{r}
+1 - pnorm(q = 0.223, mean = 0.14, sd = 0.66)
+```
 :::
 
 ::: {.panel-tabset} 
@@ -372,6 +378,14 @@ What percentage of patients would be expected to show a decline of at least 20% 
 Answer Problem 5.21 for a 50% decline over 3 years.
 
 ## Solutions
+The lower bound is
+```{r}
+log(1 / 0.5)
+```
+So we want $P(X > 0.6931)$
+```{r}
+1 - pnorm(q = 0.6931, mean = 0.14, sd = 0.66)
+```
 :::
 
 ## Cancer 2
@@ -383,6 +397,10 @@ A study of the Massachusetts Department of Health found 46 deaths due to cancer 
 Write an expression for the probability of observing exactly $k$ deaths due to cancer over this period if the statewide rates are correct.
 
 ## Solutions
+Let $X$ be the number of deaths. Then $X$ is Poisson with mean $30$. You can write out the PMF here
+$$
+\frac{30^ke^{-30}}{k!}.
+$$
 :::
 
 ::: {.panel-tabset} 
@@ -390,24 +408,16 @@ Write an expression for the probability of observing exactly $k$ deaths due to c
 Can the occurrence of 46 deaths due to cancer be attributed to chance? Specifically, what is the probability of observing at least 46 deaths due to cancer if the statewide rates are correct?
 
 ## Solutions
-:::
+Using the same notation as in 5.23, we want $P(X \geq 46)$
+```{r}
+1 - ppois(q = 45, lambda = 30)
+```
+This is very rare, and so we strong evidence that the rates are different than the specified state-wide rates.
 
-## Hypertension 2
-
-Suppose we want to recruit subjects for a hypertension treatment study and we feel that 10% of the population to be sampled is hypertensive.
-
-::: {.panel-tabset} 
-## 5.25 
-If 100 subjects are required for the study and perfect cooperation is assumed, then how many people need to be sampled to be 80% sure of ascertaining at least 100 hypertensives?
-
-## Solutions
-:::
-
-::: {.panel-tabset} 
-## 5.26
-How many people need to be sampled to be 90% sure of ascertaining at least 100 hypertensives?
-
-## Solutions
+We can also use the normal approximation of the Poisson with mean and variance of 30. Using a contintuity correction, we want $P(X > 45.5)$
+```{r}
+1 - pnorm(q = 45.5, mean = 30, sd = sqrt(30))
+```
 :::
 
 ## Nutrition
@@ -464,7 +474,7 @@ The usual annual death rate from asthma in England over the period 1862–1962 f
 ## Solutions
 :::
 
-## Hypertension 3
+## Hypertension 2
 
 Blood-pressure measurements are known to be variable, and repeated measurements are essential to accurately characterize a person’s BP status. Suppose a person is measured on $n$ visits with $k$ measurements per visit and the average of all $nk$ diastolic blood pressure (DBP) measurements ($\bar{x}$) is used to classify a person as to BP status. Specifically, if $\bar{x}$ ≥ 95 mm Hg, then the person is classified as hypertensive; if $\bar{x}$ < 90 mm Hg, then the person is classified as normotensive; and if $\bar{x}$ ≥ 90 mm Hg, and < 95 mm Hg, the person is classified as borderline. It is also assumed that a person's "true" blood pressure is $\mu$ , representing an average over a large number of visits with a large number of measurements per visit, and that $\bar{X}$ is normally distributed with mean $\mu$ and variance = $27.7/n + 7.9/(nk)$
 
@@ -504,7 +514,7 @@ Suppose we decide to take 2 measurements per visit. How many visits are needed s
 :::
 
 
-## Hypertension 4
+## Hypertension 3
 
 A study is planned to look at the effect of sodium restriction on lowering blood pressure. Nutritional counseling sessions are planned for the participants to encourage dietary sodium restriction. An important component in the study is validatingthe extent to which individuals comply with a sodium-restricted diet. This is usually accomplished by obtaining urine specimens and measuring sodium in the urine.
 
@@ -618,7 +628,7 @@ What proportion of heavy drinkers have “isolated diastolic hypertension”; i.
 ## Solutions
 :::
 
-## Hypertension 5
+## Hypertension 4
 
 The Pediatric Task Force Report on Blood Pressure Control in Children reports blood-pressure norms for children by age and sex group. The mean ± standard deviation for 17-year-old boys for diastolic blood pressure (DBP) is 63.7 ± 11.4 mm Hg based on a large sample.
 
