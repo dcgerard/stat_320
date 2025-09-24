@@ -548,7 +548,7 @@ So, 4 visits.
 
 ## Hypertension 3
 
-A study is planned to look at the effect of sodium restriction on lowering blood pressure. Nutritional counseling sessions are planned for the participants to encourage dietary sodium restriction. An important component in the study is validatingthe extent to which individuals comply with a sodium-restricted diet. This is usually accomplished by obtaining urine specimens and measuring sodium in the urine.
+A study is planned to look at the effect of sodium restriction on lowering blood pressure. Nutritional counseling sessions are planned for the participants to encourage dietary sodium restriction. An important component in the study is validating the extent to which individuals comply with a sodium-restricted diet. This is usually accomplished by obtaining urine specimens and measuring sodium in the urine.
 
 Assume that in free-living individuals (individuals with no sodium restriction) 24-hour urinary sodium excretion is normally distributed with mean 160.5 mEq/24 hrs and standard deviation = 57.4 mEq/24 hrs.
 
@@ -558,6 +558,11 @@ Assume that in free-living individuals (individuals with no sodium restriction) 
 If 100 mEq/24 hr is the cutoff value chosen to measure compliance, then what percentage of noncompliant individuals—that is, individuals who do not restrict sodium—will have a 24-hour sodium level below this cutoff point?
 
 ## Solutions
+Let $X$ be normal with mean 160.5 and standard deviation 57.4. Then we want $P(X < 100)$
+```{r}
+pnorm(q = 100, mean = 160.5, sd = 57.4)
+```
+
 :::
 
 Suppose that in an experimental study it is found that people who are on a sodium-restricted diet have 24-hour sodium excretion that is normally distributed with mean 57.5 mEq/24 hrs and standard deviation of 11.3 mEq/24 hrs.
@@ -567,6 +572,11 @@ Suppose that in an experimental study it is found that people who are on a sodiu
 What is the probability that a person who is on a sodium-restricted diet will have a 24-hour urinary sodium level above the cutoff point (100 mEq/24 hrs)? 
 
 ## Solutions
+Let $X$ be normal with mean 57.5 and standard deviation 11.3. Then we want $P(X > 100)$.
+```{r}
+1 - pnorm(q = 100, mean = 57.5, sd = 11.3)
+```
+
 :::
 
 ::: {.panel-tabset} 
@@ -574,10 +584,29 @@ What is the probability that a person who is on a sodium-restricted diet will ha
 Suppose the investigators in the study wish to change the cutoff value (from 100 mEq/24 hrs) to another value such that the misclassification probabilities in Problems 5.38 and 5.39 are the same. What should the new cutoff value be, and what are the misclassification probabilities corresponding to your answers to Problems 5.38 and 5.39?
 
 ## Solutions
+
+Let $x$ be the cutoff value. Then we can re-write 5.38 at
+$$
+\Phi\left(\frac{x - 160.5}{57.4} \right),
+$$
+where $\Phi(\cdot)$ is the CDF of the standard normal. We can also re-write 5.39 as
+$$
+1 - \Phi\left(\frac{x - 57.5}{11.3} \right) = \Phi\left(-\frac{x - 57.5}{11.3} \right)
+$$
+So we want to solve for $x$ in the equation
+$$
+\Phi\left(\frac{x - 160.5}{57.4} \right) = \Phi\left(-\frac{x - 57.5}{11.3}\right)
+\Leftrightarrow \frac{x - 160.5}{57.4} = -\frac{x - 57.5}{11.3}
+$$
+This can be solved using basic algebra. You end up getting $x = 74.4$.
+
+You won't get such lengthy algebra on an exam. But you should absolutely know that
+`pnorm(x, μ, σ)` is the exact same thing as $\Phi\left(\frac{x - \mu}{\sigma}\right)$
 :::
 
+## Alcohol and Hypertension.
 
-Table 5.2 shows data reported relating alcohol consumption and blood-pressure level among 18–39-year-old males.
+Table 5.2 shows data reported relating alcohol consumption and blood-pressure level among 18–39-year-old males. The "Elevated blood pressure" column means either SBP ≥ 140 mm Hg or DBP ≥ 90 mm Hg (or both).
 
 ```{r}
 #| echo: false
@@ -637,6 +666,11 @@ df %>%
 If we assume that the distributions of SBP are normal, then what proportion of nondrinkers have SBP ≥ 140 mm Hg?
 
 ## Solutions
+Let $X$ be a randomly sampled non-drinker. then $X$ is normal with mean 120.2 and standard deviation 10.7. We want $P(X \geq 140)$
+```{r}
+1 - pnorm(q = 140, mean = 120.2, sd = 10.7)
+```
+
 :::
 
 ::: {.panel-tabset} 
@@ -644,20 +678,43 @@ If we assume that the distributions of SBP are normal, then what proportion of n
 What proportion of heavy drinkers have SBP ≥ 140 mm Hg?
 
 ## Solutions
+Let $Y$ be a randomly selected heavy drinker. Then $X$ is normal with mean 123.5 and standard deviation 12.8. We want $P(Y \geq 140)$.
+```{r}
+1 - pnorm(q = 140, mean = 123.5, sd = 12.8)
+```
+
 :::
 
 ::: {.panel-tabset} 
 ## 5.44
 What proportion of heavy drinkers have “isolated systolic hypertension”; i.e., SBP ≥ 140 mm Hg but DBP < 90 mm Hg?
 
+## Hint
+$$
+P(A\cap \bar{B}) = P(A \cup B) - P(B)
+$$
+Draw it out to convince yourself.
+
 ## Solutions
+Let $A$ be SBP > 140 and $B$ be DBP > 90. We want $P(A \cap \bar{B})$. We are given that $P(A \cup B) = 0.177$. We can calculate $P(B)$ from a normal with mean 78.5 and standard deviation 9.2 as
+```{r}
+1 - pnorm(q = 90, mean = 78.5, sd = 9.2)
+```
+Using the hint, we have
+$$
+P(A\cap \bar{B}) = P(A \cup B) - P(B) = 0.177 - 0.1056 = 0.0714
+$$
 :::
 
 ::: {.panel-tabset} 
 ## 5.45 
-What proportion of heavy drinkers have “isolated diastolic hypertension”; i.e., DBP ≥ 90 mm Hg but SBP < 140 mm Hg?
+What proportion of heavy drinkers have "isolated diastolic hypertension"; i.e., DBP ≥ 90 mm Hg but SBP < 140 mm Hg?
 
 ## Solutions
+Using the same notation as 5.44, we want $P(\bar{A} \cap B)$. $P(A) = 0.09869$ from 5.43. We are also given  $P(A \cup B) = 0.177$. Using the same strategy as 5.44, we have
+$$
+P(\bar{A} \cap B) = P(A \cup B) - P(A) = 0.177 - 0.09869 = 0.07831
+$$
 :::
 
 ## Hypertension 4
@@ -669,6 +726,11 @@ The Pediatric Task Force Report on Blood Pressure Control in Children reports bl
 Suppose the 90th percentile of the distribution is the cutoff for elevated BP. If we assume that the distribution of blood pressure for 17-year-old boys is normally distributed, then what is the cutoff in mm Hg?
 
 ## Solutions
+This is the 0.9 quantile of a normal distribution with mean 63.7 and standard deviation 11.4.
+```{r}
+qnorm(p = 0.9, mean = 63.7, sd = 11.4)
+```
+
 :::
 
 ::: {.panel-tabset} 
@@ -676,6 +738,11 @@ Suppose the 90th percentile of the distribution is the cutoff for elevated BP. I
 Another approach for defining elevated BP is to use 90 mm Hg as the cutoff (the standard for elevated adult DBP). What percentage of 17-year-old boys would have elevated BP using this approach?
 
 ## Solutions
+We want the $P(X \geq 90)$ where $X$ is normal with mean 63.7 and standard deviation 11.4.
+```{r}
+1 - pnorm(q = 90, mean = 63.7, sd = 11.4)
+```
+Only about 1% of 17-year-old boys.
 :::
 
 ::: {.panel-tabset} 
@@ -683,6 +750,12 @@ Another approach for defining elevated BP is to use 90 mm Hg as the cutoff (the 
 Suppose there are 200 17-year-old boys in the 11th grade of whom 25 have elevated BP using the criteria in Problem 5.46. Are there an unusually large number of boys with elevated BP? Why or why not?
 
 ## Solutions
+Let $X$ be the number of boys with elevated blood pressure out of 200. Then we would expect $X \sim \mathrm{Binom}(200, 0.1)$ (only 10% have high blood pressure on average). We want $P(X \geq 25)$.
+```{r}
+1 - pbinom(q = 24, size = 200, prob = 0.1)
+```
+Not that unusual.
+
 :::
 
 ## Environmental Health
@@ -692,6 +765,16 @@ Suppose there are 200 17-year-old boys in the 11th grade of whom 25 have elevate
 A study was conducted relating particulate air pollution and daily mortality in Steubenville, Ohio. On average over the last 10 years, there have been 3 deaths per day. Suppose that on 90 high-pollution days (where the total suspended particulates are in the highest quartile among all days) the death rate is 3.2 deaths per day or 288 deaths observed over the 90 high-pollution days. Are there an unusual number of deaths on high-pollution days?
 
 ## Solutions
+Let $X$ be the number of deaths in 90 days. Then we expect $X \sim \mathrm{Pois}(90 \times 3) = \mathrm{Pois}(270)$. We want $P(X \geq 288)$.
+```{r}
+1 - ppois(q = 287, lambda = 270)
+```
+Not that unusual.
+
+We can also use a normal approximate with mean 270 and variance 270. Using a continuity correction, we calculate $P(X \geq 287.5)$
+```{r}
+1 - pnorm(q = 287.5, mean = 270, sd = sqrt(270))
+```
 :::
 
 
@@ -704,18 +787,8 @@ In ophthalmology, it is customary to obtain measurements on both the right eye (
 If the OD and OS values are assumed to be independent, then what is the variance of the IOP OU value for individual persons?
 
 ## Solutions
-:::
-
-::: {.panel-tabset} 
-## 5.54
-The correlation between OD and OS IOP values is typically about .8. What is the covariance between IOP OD values and IOP OS values for individual persons?
-
-## Solutions
-:::
-
-::: {.panel-tabset} 
-## 5.55
-What is the variance of the IOP OU values for individual persons under the assumptions in Problem 5.54?
-
-## Solutions
+Let $X$ be OD value with $\mathrm{var}(X) = 4^2 = 16$ and $Y$ be the OS value wiht $\mathrm{var}(Y) = 4^2 = 16$. We have the OU value as $Z = (X + Y)/2)$. We want
+$$
+\mathrm{Z} = \frac{1}{4}\mathrm{var}(X) + \frac{1}{4}\mathrm{var}(Y) = 16/4 + 16/4 = 8.
+$$
 :::
