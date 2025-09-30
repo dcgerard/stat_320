@@ -18,17 +18,47 @@ library(gt)
 
 In a study of the natural history of retinitis pigmentosa (RP), 94 RP patients were followed for 3 years. Among 90 patients with complete follow-up, the mean ±1 se of log (visual-field loss) over 1, 2, and 3 years was $0.02 \pm 0.04$, $0.08 \pm 0.05$, and $0.14 \pm 0.07$, respectively.
 
-8.1 What test procedure can be used to test for changes in log (visual field) over any given time period?
+::: {.panel-tabset}
+## 8.1 
+What test procedure can be used to test for changes in log (visual field) over any given time period?
 
-8.2 Implement the procedure in Problem 8.1 to test for significant changes in visual field over 1 year. Report a p-value.
+## Solution
+:::
 
-8.3 Answer Problem 8.2 for changes over 2 years.
+::: {.panel-tabset}
+## 8.2 
+mplement the procedure in Problem 8.1 to test for significant changes in visual field over 1 year. Report a p-value.
 
-8.4 Answer Problem 8.2 for changes over 3 years.
+## Solution
+:::
 
-8.5 Find the upper 5th percentile of an F distribution with 24 and 30 df.
+::: {.panel-tabset}
+## 8.3
+Answer Problem 8.2 for changes over 2 years.
 
-8.6 Suppose we have two normally distributed samples of sizes 9 and 15 with sample standard deviations of 13.7 and 7.2, respectively. Test if the variances are significantly different in the two samples.
+## Solution
+:::
+
+::: {.panel-tabset}
+## 8.4 
+Answer Problem 8.2 for changes over 3 years.
+
+## Solution
+:::
+
+::: {.panel-tabset}
+## 8.5 
+Find the upper 5th percentile of an F distribution with 24 and 30 df.
+
+## Solution
+:::
+
+::: {.panel-tabset}
+## 8.6 
+Suppose we have two normally distributed samples of sizes 9 and 15 with sample standard deviations of 13.7 and 7.2, respectively. Test if the variances are significantly different in the two samples.
+
+## Solution
+:::
 
 
 ## Pathology
@@ -46,9 +76,19 @@ glimpse(heart)
 ```
 
 
-8.7 Test for a significant difference in mean total heart weight between the diseased and normal groups.
+::: {.panel-tabset}
+## 8.7
+Test for a significant difference in mean total heart weight between the diseased and normal groups.
 
-8.8 Test for a significant difference in mean body weight between the diseased and normal groups.
+## Solution
+:::
+
+::: {.panel-tabset}
+## 8.8 
+Test for a significant difference in mean body weight between the diseased and normal groups.
+
+## Solution
+:::
 
 ## Psychiatry, Renal Disease
 
@@ -99,9 +139,19 @@ gt_table
 ```
 
 
-8.9 Perform a statistical test to compare the experimental and control groups’ pretest scores.
+::: {.panel-tabset}
+## 8.9 
+Perform a statistical test to compare the experimental and control groups’ pretest scores.
 
-8.10 Perform a statistical test to compare the experimental and control groups’ posttest scores.
+## Solution
+:::
+
+::: {.panel-tabset}
+## 8.10 
+Perform a statistical test to compare the experimental and control groups’ posttest scores.
+
+## Solution
+:::
 
 ## Hypertension
 
@@ -116,9 +166,19 @@ armbp <- tibble(
 armbp
 ```
 
-8.11 Assuming that the two observers are comparable, test whether or not the two arms give comparable readings.
+::: {.panel-tabset}
+## 8.11
+Assuming that the two observers are comparable, test whether or not the two arms give comparable readings.
 
-8.12 Suppose we do not assume that the two observers are comparable. Can the experiment, as it is defined, detect differences between the two arms? If not, can you suggest an alternative experimental design so as to achieve this aim?
+## Solution
+:::
+
+::: {.panel-tabset}
+## 8.12
+Suppose we do not assume that the two observers are comparable. Can the experiment, as it is defined, detect differences between the two arms? If not, can you suggest an alternative experimental design so as to achieve this aim?
+
+## Solution
+:::
 
 ## Ophthalmology
 
@@ -136,9 +196,19 @@ refract <- tibble(
 refract
 ```
 
-8.13 Is a one-sample or two- sample test needed here?
+::: {.panel-tabset}
+## 8.13 
+Is a one-sample or two- sample test needed here?
 
-8.14 Is a one-sided or two-sided test needed here?
+## Solution
+:::
+
+::: {.panel-tabset}
+## 8.14 
+Is a one-sided or two-sided test needed here?
+
+## Solution
+:::
 
 ::: {.panel-tabset}
 ## 8.15 
@@ -152,21 +222,51 @@ d. One-sample t test
 ## Solution
 :::
 
-8.16 Carry out the hypothesis test(s) in Problem 8.15 and report a p-value.
+::: {.panel-tabset}
+## 8.16
+Carry out the hypothesis test(s) in Problem 8.15 and report a p-value.
 
-8.17 Estimate a 90% CI for the mean difference in spherical refraction between the two eyes.
+## Solution
+:::
+
+::: {.panel-tabset}
+## 8.17
+Estimate a 90% CI for the mean difference in spherical refraction between the two eyes.
+
+## Solution
+:::
 
 ## Cardiovascular Disease
 
 A study was performed in 1976 to relate the use of oral contraceptives to the levels of various lipid fractions in a group of 163 nonpregnant, premenopausal women ages 21–39. The mean serum cholesterol among 66 current users of oral contraceptives was 201 ± 37 (mg/dL) (mean ± sd), whereas for 97 nonusers it was 193 ± 37 (mg/dL).
 
-8.18 Test for significant differences in mean cholesterol levels between the two groups.
+::: {.panel-tabset}
+## 8.18
+Test for significant differences in mean cholesterol levels between the two groups.
 
-8.19 Report a p-value based on your hypothesis test in Problem 8.18.
+## Solution
+:::
 
-8.20 Derive a 95% CI for the true mean difference in cholesterol levels between the groups.
+::: {.panel-tabset}
+## 8.19
+Report a p-value based on your hypothesis test in Problem 8.18.
 
-8.21 Suppose the two-tailed p-value in Problem 8.19 = .03 and the two-sided 95% CI in Problem 8.20 = (−0.6, 7.3). Do these two results contradict each other? Why or why not? (Note: These values are not necessarily the actual results in Problems 8.19 and 8.20.)
+## Solution
+:::
+
+::: {.panel-tabset}
+## 8.20
+Derive a 95% CI for the true mean difference in cholesterol levels between the groups.
+
+## Solution
+:::
+
+::: {.panel-tabset}
+## 8.21
+Suppose the two-tailed p-value in Problem 8.19 = .03 and the two-sided 95% CI in Problem 8.20 = (−0.6, 7.3). Do these two results contradict each other? Why or why not? (Note: These values are not necessarily the actual results in Problems 8.19 and 8.20.)
+
+## Solution
+:::
 
 ## Hypertension
 
@@ -209,21 +309,61 @@ gt_table <- gt(data) |>
 gt_table
 ```
 
-8.22 Should a one-sample or two-sample test be used here?
+::: {.panel-tabset}
+## 8.22 
+Should a one-sample or two-sample test be used here?
 
-8.23 Should a one-sided or two-sided test be used here?
+## Solution
+:::
 
-8.24 Which test procedure(s) should be used to test the preceding hypotheses?
+::: {.panel-tabset}
+## 8.23
+Should a one-sided or two-sided test be used here?
 
-8.25 Carry out the test in Problem 8.24 and report a p-value.
+## Solution
+:::
 
-8.26 Compute a 95% CI for the mean difference in blood pressure between the two groups.
+::: {.panel-tabset}
+## 8.24
+Which test procedure(s) should be used to test the preceding hypotheses?
 
-8.27 Answer Problem 8.24 for a comparison of groups A and C.
+## Solution
+:::
 
-8.28 Answer Problem 8.25 for a comparison of groups A and C.
+::: {.panel-tabset}
+## 8.25
+Carry out the test in Problem 8.24 and report a p-value.
 
-8.29 Answer Problem 8.26 for a comparison of groups A and C.
+## Solution
+:::
+
+::: {.panel-tabset}
+## 8.26
+Compute a 95% CI for the mean difference in blood pressure between the two groups.
+
+## Solution
+:::
+
+::: {.panel-tabset}
+## 8.27
+Answer Problem 8.24 for a comparison of groups A and C.
+
+## Solution
+:::
+
+::: {.panel-tabset}
+## 8.28
+Answer Problem 8.25 for a comparison of groups A and C.
+
+## Solution
+:::
+
+::: {.panel-tabset}
+## 8.29
+Answer Problem 8.26 for a comparison of groups A and C.
+
+## Solution
+:::
 
 
 ## Pulmonary Disease
@@ -250,11 +390,26 @@ pulm |>
   gt()
 ```
 
-8.30 What are the appropriate null and alternative hypotheses in this case to test if mean pulmonary function has decreased over 2 years?
+::: {.panel-tabset}
+## 8.30
+What are the appropriate null and alternative hypotheses in this case to test if mean pulmonary function has decreased over 2 years?
 
-8.31 In words, what is the meaning of a type I and a type II error here?
+## Solution
+:::
 
-8.32 Carry out the test in Problem 8.30. What are your conclusions?
+::: {.panel-tabset}
+## 8.31
+In words, what is the meaning of a type I and a type II error here?
+
+## Solution
+:::
+
+::: {.panel-tabset}
+## 8.32 
+Carry out the test in Problem 8.30. What are your conclusions?
+
+## Solution
+:::
 
 
 Another aspect of the preceding study involves looking at the effect of smoking on baseline pulmonary function and on change in pulmonary function over time. We must be careful, since FEV depends on many factors, particularly age and height. Suppose we have a comparable group of 15 men in the same age and height group as in Table 8.5 who are smokers, and we measure their FEV at year 0 and year 2. The data are given in the following data frame.
@@ -281,11 +436,26 @@ pulm2 |>
 ```
 
 
-8.33 What are the appropriate null and alternative hypotheses to compare the FEV of smokers and nonsmokers at baseline?
+::: {.panel-tabset}
+## 8.33 
+What are the appropriate null and alternative hypotheses to compare the FEV of smokers and nonsmokers at baseline?
 
-8.34 Carry out the procedure(s) necessary to conduct the test in Problem 8.33.
+## Solution
+:::
 
-8.35 Suggest a procedure for testing whether or not the change in pulmonary function over 2 years is the same in the two groups.
+::: {.panel-tabset}
+## 8.34 
+Carry out the procedure(s) necessary to conduct the test in Problem 8.33.
+
+## Solution
+:::
+
+::: {.panel-tabset}
+## 8.35 
+Suggest a procedure for testing whether or not the change in pulmonary function over 2 years is the same in the two groups.
+
+## Solution
+:::
 
 ## Hypertension
 
@@ -317,17 +487,47 @@ gt(data) |>
 ```
 
 
-8.36 If the means and standard deviations in Table 8.7 are considered to be true population parameters, then, using a one-sided test with significance level = .05 , how many infants are needed in each group to have an 80% chance of detecting a significant difference?
+::: {.panel-tabset}
+## 8.36 
+If the means and standard deviations in Table 8.7 are considered to be true population parameters, then, using a one-sided test with significance level = .05 , how many infants are needed in each group to have an 80% chance of detecting a significant difference?
 
-8.37 Suppose it is easier to recruit high-salt-diet infants and the investigators decide to enroll twice as many high- salt-diet infants as low-salt-diet infants. How many infants are needed in each group to have a 80% chance of detecting a significant difference using a one-sided test with an α level of .05?
+## Solution
+:::
 
-8.38 Suppose the budget will only allow for recruiting 50 high-salt-diet and 50 low-salt-diet infants into the study. How much power would such a study have of detecting a significant difference using a one-sided test with significance level = .05 if the true difference between the groups is 5 mm Hg?
+::: {.panel-tabset}
+## 8.37
+Suppose it is easier to recruit high-salt-diet infants and the investigators decide to enroll twice as many high- salt-diet infants as low-salt-diet infants. How many infants are needed in each group to have a 80% chance of detecting a significant difference using a one-sided test with an α level of .05?
 
-8.39 Answer Problem 8.38 for a true difference of 2 mm Hg.
+## Solution
+:::
 
-8.40 Answer Problem 8.38 if a two-sided test is used and the true difference is 5 mm Hg.
+::: {.panel-tabset}
+## 8.38 
+Suppose the budget will only allow for recruiting 50 high-salt-diet and 50 low-salt-diet infants into the study. How much power would such a study have of detecting a significant difference using a one-sided test with significance level = .05 if the true difference between the groups is 5 mm Hg?
 
-8.41 Answer Problem 8.40 if the true difference is 2 mm Hg.
+## Solution
+:::
+
+::: {.panel-tabset}
+## 8.39 
+Answer Problem 8.38 for a true difference of 2 mm Hg.
+
+## Solution
+:::
+
+::: {.panel-tabset}
+## 8.40
+Answer Problem 8.38 if a two-sided test is used and the true difference is 5 mm Hg.
+
+## Solution
+:::
+
+::: {.panel-tabset}
+## 8.41
+Answer Problem 8.40 if the true difference is 2 mm Hg.
+
+## Solution
+:::
 
 ## Hypertension
 
@@ -387,23 +587,58 @@ gt_table <- gt(data) |>
 gt_table
 ```
 
-8.42 What is the appropriate procedure to test for whether sodium restriction has had an impact on mean DBP?
+::: {.panel-tabset}
+## 8.42
+What is the appropriate procedure to test for whether sodium restriction has had an impact on mean DBP?
 
-8.43 Implement the procedure in Problem 8.42 for people age < 40 using the critical-value method.
+## Solution
+:::
+
+::: {.panel-tabset}
+## 8.43
+Implement the procedure in Problem 8.42 for people age < 40 using the critical-value method.
+
+## Solution
+:::
 
 One of the interesting findings is the difference in response to dietary therapy between people in the two age groups.
 
-8.44 Test the hypothesis that the response to sodium restriction is different in the two groups and report a p- value.
+::: {.panel-tabset}
+## 8.44 
+Test the hypothesis that the response to sodium restriction is different in the two groups and report a p- value.
 
-8.45 Obtain a 95% CI for the response to dietary therapy in each age group separately.
+## Solution
+:::
 
-8.46 Obtain a 95% CI for the difference in response between the 2 age groups.
+::: {.panel-tabset}
+## 8.45
+Obtain a 95% CI for the response to dietary therapy in each age group separately.
+
+## Solution
+:::
+
+::: {.panel-tabset}
+## 8.46
+Obtain a 95% CI for the difference in response between the 2 age groups.
+
+## Solution
+:::
 
 Suppose the results of this study are to be used to plan a larger study on the effects of sodium restriction on DBP.
 
-8.47 How many subjects need to be enrolled in the larger study to test if sodium restriction results in lower DBP if the mean and sd of decline in DBP over the total group of 83 subjects are used for planning purposes and a 90% chance of detecting a significant difference using a two-sided test with a 5% level of significance is desired?
+::: {.panel-tabset}
+## 8.47 
+How many subjects need to be enrolled in the larger study to test if sodium restriction results in lower DBP if the mean and sd of decline in DBP over the total group of 83 subjects are used for planning purposes and a 90% chance of detecting a significant difference using a two-sided test with a 5% level of significance is desired?
 
-8.48 Suppose 200 patients are enrolled in the larger study. How much power would the larger study have if a two- sided test with significance level = .05 is used?
+## Solution
+:::
+
+::: {.panel-tabset}
+## 8.48
+Suppose 200 patients are enrolled in the larger study. How much power would the larger study have if a two- sided test with significance level = .05 is used?
+
+## Solution
+:::
 
 
 ## Environmental Health
@@ -446,11 +681,26 @@ gt_table <- gt(data) |>
 gt_table
 ```
 
-8.49 What test procedure can be used to test if there are differences between the observed blood-lead levels at 24 months between the low and high groups (as defined at baseline)?
+::: {.panel-tabset}
+## 8.49
+What test procedure can be used to test if there are differences between the observed blood-lead levels at 24 months between the low and high groups (as defined at baseline)?
 
-8.50 Implement the test procedure in Problem 8.49 and report a p-value.
+## Solution
+:::
 
-8.51 Provide a 95% CI for the difference in mean blood lead levels between the low and high groups at 24 months.
+::: {.panel-tabset}
+## 8.50 
+Implement the test procedure in Problem 8.49 and report a p-value.
+
+## Solution
+:::
+
+::: {.panel-tabset}
+## 8.51
+Provide a 95% CI for the difference in mean blood lead levels between the low and high groups at 24 months.
+
+## Solution
+:::
 
 ## Ophthalmology
 
@@ -487,11 +737,26 @@ gt_table
 ```
 
 
-8.52 What is an appropriate procedure to test if the mean level of 22:6w3 differs between dominant affected individuals and normal controls? State the hypotheses being tested. Is a one-sided or a two-sided test appropriate here?
+::: {.panel-tabset}
+## 8.52 
+What is an appropriate procedure to test if the mean level of 22:6w3 differs between dominant affected individuals and normal controls? State the hypotheses being tested. Is a one-sided or a two-sided test appropriate here?
 
-8.53 Perform the hypothesis test in Problem 8.52 and report a p-value.
+## Solution
+:::
 
-8.54 Provide a 95% CI for the difference in means between the two groups. What does it mean in words?
+::: {.panel-tabset}
+## 8.53 
+Perform the hypothesis test in Problem 8.52 and report a p-value.
+
+## Solution
+:::
+
+::: {.panel-tabset}
+## 8.54
+Provide a 95% CI for the difference in means between the two groups. What does it mean in words?
+
+## Solution
+:::
 
 ## Neurology
 
@@ -537,15 +802,40 @@ gt(data) |>
 ```
 
 
-8.55 What test procedure should be used to test if there are differences in physical health between the two groups?
+::: {.panel-tabset}
+## 8.55 
+What test procedure should be used to test if there are differences in physical health between the two groups?
 
-8.56 Perform the test in Problem 8.55 with the critical-value method using a two-sided test with an a level of .05.
+## Solution
+:::
 
-8.57 What test procedure should be used to test if there are differences in mental health between the two groups?
+::: {.panel-tabset}
+## 8.56 
+Perform the test in Problem 8.55 with the critical-value method using a two-sided test with an a level of .05.
 
-8.58 Perform the test in Problem 8.57 with the critical-value method using an α level of .05.
+## Solution
+:::
 
-8.59 What is the most accurate p-value corresponding to your answer to Problem 8.58?
+::: {.panel-tabset}
+## 8.57 
+What test procedure should be used to test if there are differences in mental health between the two groups?
+
+## Solution
+:::
+
+::: {.panel-tabset}
+## 8.58 
+Perform the test in Problem 8.57 with the critical-value method using an α level of .05.
+
+## Solution
+:::
+
+::: {.panel-tabset}
+## 8.59 
+What is the most accurate p-value corresponding to your answer to Problem 8.58?
+
+## Solution
+:::
 
 
 ## Hypertension
@@ -581,7 +871,12 @@ gt_table
 ```
 
 
-8.60 Assuming that the variances are equal in the two groups, test whether there was a significant difference in mean DBP change between the weight-loss versus the control group.
+::: {.panel-tabset}
+## 8.60 
+Assuming that the variances are equal in the two groups, test whether there was a significant difference in mean DBP change between the weight-loss versus the control group.
+
+## Solution
+:::
 
 Researchers were also interested in the amount of weight loss attributable to the intervention. Mean weight change for each group is given in Table 8.13.
 
@@ -618,9 +913,19 @@ gt_table
 ```
 
 
-8.61 Test whether the variances are the same in the weight- loss and control groups.
+::: {.panel-tabset}
+## 8.61 
+Test whether the variances are the same in the weight- loss and control groups.
 
-8.62 Test whether the intervention was effective in reducing weight in the weight-loss versus the control group.
+## Solution
+:::
+
+::: {.panel-tabset}
+## 8.62 
+Test whether the intervention was effective in reducing weight in the weight-loss versus the control group.
+
+## Solution
+:::
 
 ## Cardiology
 
@@ -648,11 +953,26 @@ tibble(
 
 Suppose we wish to test the hypothesis that there has been significant change over 3 years in the placebo group.
 
-8.63 What test should be used to test this hypothesis?
+::: {.panel-tabset}
+## 8.63
+What test should be used to test this hypothesis?
 
-8.64 Implement the test in Problem 8.63 and report a p-value.
+## Solution
+:::
 
-8.65 Suppose it is assumed that the mean change over 3 years would be 0 for an active drug group and –0.049 for a placebo group. We intend to randomize subjects to placebo and active drug and compare the mean change in the two groups, How much power would the proposed study have if 500 subjects in each of the drug and placebo groups are available to participate in the study, a two-sided test is used with α = .05 and the variances in each group are assumed to be the same?
+::: {.panel-tabset}
+## 8.64 
+Implement the test in Problem 8.63 and report a p-value.
+
+## Solution
+:::
+
+::: {.panel-tabset}
+## 8.65 
+Suppose it is assumed that the mean change over 3 years would be 0 for an active drug group and –0.049 for a placebo group. We intend to randomize subjects to placebo and active drug and compare the mean change in the two groups, How much power would the proposed study have if 500 subjects in each of the drug and placebo groups are available to participate in the study, a two-sided test is used with α = .05 and the variances in each group are assumed to be the same?
+
+## Solution
+:::
 
 ## Cardiovascular Disease, Pediatrics
 
@@ -676,13 +996,33 @@ tibble(
   )
 ```
 
-8.66 What test procedure can be used to test if there has been a change in mean HDL-cholesterol levels among teenage children who undergo such a program?
+::: {.panel-tabset}
+## 8.66
+What test procedure can be used to test if there has been a change in mean HDL-cholesterol levels among teenage children who undergo such a program?
 
-8.67 Implement the test procedure mentioned in Prob- lem 8.66 and report a p-value (two-sided) as precisely as possible using the appropriate tables.
+## Solution
+:::
 
-8.68 Provide a 95% CI for the true mean change over 6 months among teenage children exposed to the program.
+::: {.panel-tabset}
+## 8.67 
+Implement the test procedure mentioned in Prob- lem 8.66 and report a p-value (two-sided) as precisely as possible using the appropriate tables.
 
-8.69 Suppose the results in Problem 8.67 are statistically significant (they may or may not be). Does this necessarily mean that the education program per se is the reason why the HDL-cholesterol levels have changed? If not, is there some way to change the design to allow us to be more confident about the specific effects of the education program?
+## Solution
+:::
+
+::: {.panel-tabset}
+## 8.68 
+Provide a 95% CI for the true mean change over 6 months among teenage children exposed to the program.
+
+## Solution
+:::
+
+::: {.panel-tabset}
+## 8.69
+Suppose the results in Problem 8.67 are statistically significant (they may or may not be). Does this necessarily mean that the education program per se is the reason why the HDL-cholesterol levels have changed? If not, is there some way to change the design to allow us to be more confident about the specific effects of the education program?
+
+## Solution
+:::
 
 ## Endocrinology
 
@@ -705,16 +1045,41 @@ tibble(
   )
 ```
 
-8.70 What method can be used to compare mean bone-formation rate between blacks and whites?
+::: {.panel-tabset}
+## 8.70
+What method can be used to compare mean bone-formation rate between blacks and whites?
 
-8.71 Implement the method in Problem 8.70 and report a p-value.
+## Solution
+:::
 
-8.72 Obtain a 95% CI for the mean difference in bone-formation rate between the two groups.
+::: {.panel-tabset}
+## 8.71 
+Implement the method in Problem 8.70 and report a p-value.
+
+## Solution
+:::
+
+::: {.panel-tabset}
+## 8.72 
+Obtain a 95% CI for the mean difference in bone-formation rate between the two groups.
+
+## Solution
+:::
 
 ## Health Promotion
 
 One goal of an exercise training program is to improve the physical fitness of individuals as measured by their resting heart rate. Suppose it is known that the mean resting heart rate of a group of sedentary individuals is 85 beats/min with a sd of 10 beats/min. A clinical trial is proposed where half the subjects will be randomized to a low intensity exercise program (group A), while the other half will get no exercise training (group B). It is expected that after 6 months, the mean resting heart rate of group A will decline by 3 beats/min while group B will show no mean change in resting heart rate. Assume that the correlation coefficient between resting heart rate measured 6 months apart in the same individual is .8.
 
-8.73 How many subjects are needed in each group to achieve an 80% power if a two-sided test is used with significance level of .05?
+::: {.panel-tabset}
+## 8.73 
+How many subjects are needed in each group to achieve an 80% power if a two-sided test is used with significance level of .05?
 
-8.74 Suppose that 50 subjects are randomized to each group. How much power will the study have if a 2-sided test is used with a significance level of .05?
+## Solution
+:::
+
+::: {.panel-tabset}
+## 8.74 
+Suppose that 50 subjects are randomized to each group. How much power will the study have if a 2-sided test is used with a significance level of .05?
+
+## Solution
+:::
