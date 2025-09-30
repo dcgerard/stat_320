@@ -38,7 +38,7 @@ qchisq(p = 1 - 0.01, df = 3)
 
 ## Cancer 1
 
-A case-control study of the effectiveness of the Pap smear in preventing cervical cancer (by identifying precancerous lesions) was performed [1]. It was found that 28.1% of 153 cervical-cancer cases and 7.2% of 153 age-matched (within 5 years) controls had never had a Pap smear prior to the time of the case’s diagnosis.
+A case-control study of the effectiveness of the Pap smear in preventing cervical cancer (by identifying precancerous lesions) was performed. It was found that 28.1% of 153 cervical-cancer cases and 7.2% of 153 age-matched (within 5 years) controls had never had a Pap smear prior to the time of the case’s diagnosis.
 
 ::: {.panel-tabset}
 ## 6.5 
