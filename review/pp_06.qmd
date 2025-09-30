@@ -16,18 +16,44 @@ library(gt)
 
 ## Quantiles
 
-6.1 What is the upper 10th percentile of a chi-square distribution with 5 df?
+::: {.panel-tabset}
+## 6.1 
+What is the upper 10th percentile of a chi-square distribution with 5 df?
 
-6.2 What is the upper 1st percentile of a chi-square distribution with 3 df?
+## Solution
+:::
 
-## Cancer
+::: {.panel-tabset}
+## 6.2 
+What is the upper 1st percentile of a chi-square distribution with 3 df?
+
+## Solution
+:::
+
+## Cancer 1
+
 A case-control study of the effectiveness of the Pap smear in preventing cervical cancer (by identifying precancerous lesions) was performed [1]. It was found that 28.1% of 153 cervical-cancer cases and 7.2% of 153 age-matched (within 5 years) controls had never had a Pap smear prior to the time of the case’s diagnosis.
 
-6.5 Provide a 95% CI for the percentage of cervical-cancer cases who never had a Pap test.
+::: {.panel-tabset}
+## 6.5 
+Provide a 95% CI for the percentage of cervical-cancer cases who never had a Pap test.
 
-6.6 Provide a 95% CI for the percentage of controls who never had a Pap test.
+## Solution
+:::
 
-6.7 Do you think the Pap test is helpful in preventing cervical cancer?
+::: {.panel-tabset}
+## 6.6 
+Provide a 95% CI for the percentage of controls who never had a Pap test.
+
+## Solution
+:::
+
+::: {.panel-tabset}
+## 6.7 
+Do you think the Pap test is helpful in preventing cervical cancer?
+
+## Solution
+:::
 
 ## Hypertension
 
@@ -54,38 +80,89 @@ To test the effectiveness of the drug, we want to measure
 the difference (D) between initial and follow-up blood pres-
 sures for each person.
 
-6.8 What is the mean and sd of D?
+::: {.panel-tabset}
+## 6.8 
+What is the mean and sd of D?
 
-6.9 What is the standard error of the mean?
+## Solution
+:::
 
-6.10 Assume that D is normally distributed. Construct a 95% CI for µ.
+::: {.panel-tabset}
+## 6.9 
+What is the standard error of the mean?
 
-6.11 Do you have any opinion on the effectiveness of methyl dopa from the results of these 10 patients?
+## Solution
+:::
 
-## Cancer
+::: {.panel-tabset}
+## 6.10 
+Assume that D is normally distributed. Construct a 95% CI for µ.
+
+## Solution
+:::
+
+::: {.panel-tabset}
+## 6.11 
+Do you have any opinion on the effectiveness of methyl dopa from the results of these 10 patients?
+
+## Solution
+:::
+
+## Cancer 2
+
 Data from U.S. cancer-tumor registries suggest that of all people with the type of lung cancer where surgery is the recommended therapy, 40% survive for 3 years from the time of diagnosis and 33% survive for 5 years.
 
-6.12 Suppose that a group of patients who would have received standard surgery are assigned to a new type of surgery. Of 100 such patients, 55 survive for 3 years and 45 survive for 5 years. Can we say that the new form of surgery is better in any sense than the standard form of surgery?
+::: {.panel-tabset}
+## 6.12 
+Suppose that a group of patients who would have received standard surgery are assigned to a new type of surgery. Of 100 such patients, 55 survive for 3 years and 45 survive for 5 years. Can we say that the new form of surgery is better in any sense than the standard form of surgery?
 
-## Cardiovascular Disease
+## Solution
+:::
+
+## Cardiovascular Disease 1
 
 A recent hypothesis states that vigorous exercise is an effective preventive measure for subsequent cardiovascular death. To test this hypothesis, a sample of 750 men aged 50–75 who report that they jog at least 10 miles per week is ascertained. After 6 years, 64 have died of cardiovascular disease.
 
-6.13 Compute a 95% CI for the incidence of cardiovascular death in this group.
+::: {.panel-tabset}
+## 6.13 
+Compute a 95% CI for the incidence of cardiovascular death in this group.
 
-6.14 If the expected death rate from cardiovascular disease over 6 years in 50–75-year-old men based on large samples is 10%, then can a conclusion be drawn concerning this hypothesis from these data?
+## Solution
+:::
 
-## Cardiovascular Disease
+::: {.panel-tabset}
+## 6.14 
+If the expected death rate from cardiovascular disease over 6 years in 50–75-year-old men based on large samples is 10%, then can a conclusion be drawn concerning this hypothesis from these data?
+
+## Solution
+:::
+
+## Cardiovascular Disease 2
 
 A group of 60 men under the age of 55 with a prior history of myocardial infarction are put on a strict vegetarian diet as part of an experimental program. After 5 years, 3 men from the group have died.
 
-6.15 What is the best point estimate of the 5-year mortality rate in this group of men?
+::: {.panel-tabset}
+## 6.15 
+What is the best point estimate of the 5-year mortality rate in this group of men?
 
-6.16 Derive a 95% confidence interval for the 5-yearamortality rate.
+## Solution
+:::
 
-6.17 Suppose that from a large sample of men under age 55 with a prior history of myocardial infarction, we know that the 5-year mortality rate is 18%. How does the observed mortality rate obtained in Problem 6.15 compare with the large sample rate of 18%?
+::: {.panel-tabset}
+## 6.16
+Derive a 95% confidence interval for the 5-yearamortality rate.
 
-## Pulmonary Disease
+## Solution
+:::
+
+::: {.panel-tabset}
+## 6.17 
+Suppose that from a large sample of men under age 55 with a prior history of myocardial infarction, we know that the 5-year mortality rate is 18%. How does the observed mortality rate obtained in Problem 6.15 compare with the large sample rate of 18%?
+
+## Solution
+:::
+
+## Pulmonary Disease 1
 
 A spirometric tracing is a standard technique used to measure pulmonary function. These tracings represent plots of the volume of air expelled over a 6-second period and tend to look like Figure 6.1. One quantity of interest is the slope at various points along the curve. The slopes are referred to as **flow rates**. A problem that arises is that the flow rates cannot be accurately measured, and some observer error is always introduced. To quantify the observer error, an observer measures the flow at 50% of forced vital capacity (volume as measured at 6 seconds) twice on tracings from 10 different people. A machine called a *digitizer* can trace the curves automatically and can estimate the flow mechanically. Suppose the digitizer is also used to measure the flow twice on these 10 tracings. The data are given in the data frame below.
 
@@ -117,10 +194,19 @@ flow_rates <- tibble(
 ```
 
 
-6.18 Find a 95% CI for the standard deviation of the difference between the first and second replicates using the manual method.
+::: {.panel-tabset}
+## 6.18 
+Find a 95% CI for the standard deviation of the difference between the first and second replicates using the manual method.
 
-6.19 Answer Problem 6.18 for the difference between the first and second replicates using the digitizer method. 
+## Solution
+:::
 
+::: {.panel-tabset}
+## 6.19 
+Answer Problem 6.18 for the difference between the first and second replicates using the digitizer method.
+
+## Solution
+:::
 
 Suppose we want to compare the variability of the two methods within the same person. Let $x_{i1}$ , $x_{i2}$ represent the 2 replicates for the $i$th person using the manual method, and let $y_{i1}, y_{i2}$ represent the 2 replicates for the $i$th person using the digitizer method. Let
 $$
@@ -130,9 +216,19 @@ Then, $d_i$ is a measure of the difference in variability
 using the two methods. Assume that $d_i$ is normally
 distributed with mean $\mu_d$ and variance $\sigma_d^2$
 
-6.20 Find a 95% CI for $\mu_d$
+::: {.panel-tabset}
+## 6.20 
+Find a 95% CI for $\mu_d$
 
-6.21 What is your opinion as to the relative variability of the two methods?
+## Solution
+:::
+
+::: {.panel-tabset}
+## 6.21 
+What is your opinion as to the relative variability of the two methods?
+
+## Solution
+:::
 
 ## Bacteriology
 
@@ -145,15 +241,35 @@ mouse_survival <- tibble(
 )
 ```
 
-6.27 Assume that the underlying distribution of survival times is normal. Estimate the probability $p$ that a mouse will survive for 20 or more days.
+::: {.panel-tabset}
+## 6.27
+Assume that the underlying distribution of survival times is normal. Estimate the probability $p$ that a mouse will survive for 20 or more days.
 
-6.28 Suppose we are not willing to assume that the underlying distribution is normal. Estimate the probability $p$ that a mouse will survive for 20 or more days.
+## Solution
+:::
 
-6.29 Compute 95% confidence limits for the parameter estimated in Problem 6.28.
+::: {.panel-tabset}
+## 6.28 
+Suppose we are not willing to assume that the underlying distribution is normal. Estimate the probability $p$ that a mouse will survive for 20 or more days.
 
-6.30 Compute 99% confidence limits for the parameter estimated in Problem 6.28.
+## Solution
+:::
 
-## Cardiovascular Disease
+::: {.panel-tabset}
+## 6.29 
+Compute 95% confidence limits for the parameter estimated in Problem 6.28.
+
+## Solution
+:::
+
+::: {.panel-tabset}
+## 6.30 
+Compute 99% confidence limits for the parameter estimated in Problem 6.28.
+
+## Solution
+:::
+
+## Cardiovascular Disease 3
 
 In Table 2.1 below, data on serum-cholesterol levels of 24 hospital employees before and after they adopted a vegetarian diet are provided.
 
@@ -204,32 +320,92 @@ gt_table
 ```
 
 
-6.31 What is your best estimate of the effect of adopting a vegetarian diet on change in serum-cholesterol levels?
+::: {.panel-tabset}
+## 6.31 
+What is your best estimate of the effect of adopting a vegetarian diet on change in serum-cholesterol levels?
 
-6.32 What is the standard error of the estimate given in Problem 6.31?
+## Solution
+:::
 
-6.33 Provide a 95% CI for the effect of adopting the diet.
+::: {.panel-tabset}
+## 6.32
+What is the standard error of the estimate given in Problem 6.31?
 
-6.34 What can you conclude from your results in Problem 6.33?
+## Solution
+:::
+
+::: {.panel-tabset}
+## 6.33
+Provide a 95% CI for the effect of adopting the diet.
+
+## Solution
+:::
+
+::: {.panel-tabset}
+## 6.34
+What can you conclude from your results in Problem 6.33?
+
+## Solution
+:::
 
 Some physicians consider only changes of at least 10 mg/dL (the same units as in Table 2.1) to be clinically significant.
 
-6.35 Among people with a clinically significant change in either direction, what is the best estimate of the proportion of subjects with a clinically significant decline in cholesterol?
+::: {.panel-tabset}
+## 6.35
+Among people with a clinically significant change in either direction, what is the best estimate of the proportion of subjects with a clinically significant decline in cholesterol?
 
-6.36 Provide a 95% CI associated with the estimate in Problem 6.35.
+## Solution
+:::
 
-6.37 What can you conclude from your results in Problem 6.36?
+::: {.panel-tabset}
+## 6.36
+Provide a 95% CI associated with the estimate in Problem 6.35.
 
-## Pulmonary Disease
+## Solution
+:::
+
+::: {.panel-tabset}
+## 6.37
+What can you conclude from your results in Problem 6.36?
+
+## Solution
+:::
+
+## Pulmonary Disease 2
 
 Wheezing is a common respiratory symptom reported by both children and adults. A study is conducted to assess whether either personal smoking or maternal smoking are associated with wheezing in children ages 6–19. 
 
-6.38 Suppose that 400 children in this age group whose mothers smoke are assessed in 1985, and it is found that 60 report symptoms of wheezing. Provide a point estimate and a 95% CI for the underlying rate of wheezing in the population of children whose mothers smoke.
+::: {.panel-tabset}
+## 6.38 
+Suppose that 400 children in this age group whose mothers smoke are assessed in 1985, and it is found that 60 report symptoms of wheezing. Provide a point estimate and a 95% CI for the underlying rate of wheezing in the population of children whose mothers smoke.
 
-6.39 Suppose the rate of wheezing among children ages 6–19 in the general population is 10%. What can you conclude from the results in Problem 6.38?
+## Solution
+:::
 
-6.40 Suppose we have a subgroup of 30 children where both the mother and the child are smokers. Six of these 30 children have wheezing symptoms. Provide a 95% CI for the true rate of wheezing in this population.
+::: {.panel-tabset}
+## 6.39 
+Suppose the rate of wheezing among children ages 6–19 in the general population is 10%. What can you conclude from the results in Problem 6.38?
 
-6.41 How do you assess the results in Problem 6.40?
+## Solution
+:::
 
-6.42 Suppose 6 events are realized over a 1-year period for a random variable that is thought to be Poisson-distributed. Provide a 95% CI for the true expected number of events over 1 year.
+::: {.panel-tabset}
+## 6.40 
+Suppose we have a subgroup of 30 children where both the mother and the child are smokers. Six of these 30 children have wheezing symptoms. Provide a 95% CI for the true rate of wheezing in this population.
+
+## Solution
+:::
+
+::: {.panel-tabset}
+## 6.41
+How do you assess the results in Problem 6.40?
+
+## Solution
+:::
+
+::: {.panel-tabset}
+## 6.42
+Suppose 6 events are realized over a 1-year period for a random variable that is thought to be Poisson-distributed. Provide a 95% CI for the true expected number of events over 1 year.
+
+## Solution
+:::
