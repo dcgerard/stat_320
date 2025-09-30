@@ -1,0 +1,235 @@
+---
+title: "Chapter 6 Practice Problems"
+author: "David Gerard"
+date: today
+---
+
+These practice problems mostly come from Rosner's publicly available study sheet at the books [companion website](https://www.cengage.com/cgi-wadsworth/course_products_wp.pl?fid=M20b&product_isbn_issn=9781305268920). The solutions are my own, since we differ slightly on what we are looking for in the solutions.
+
+```{r}
+#| echo: false
+#| eval: true
+#| message: false
+library(tidyverse)
+library(gt)
+```
+
+## Quantiles
+
+6.1 What is the upper 10th percentile of a chi-square distribution with 5 df?
+
+6.2 What is the upper 1st percentile of a chi-square distribution with 3 df?
+
+## Cancer
+A case-control study of the effectiveness of the Pap smear in preventing cervical cancer (by identifying precancerous lesions) was performed [1]. It was found that 28.1% of 153 cervical-cancer cases and 7.2% of 153 age-matched (within 5 years) controls had never had a Pap smear prior to the time of the case’s diagnosis.
+
+6.5 Provide a 95% CI for the percentage of cervical-cancer cases who never had a Pap test.
+
+6.6 Provide a 95% CI for the percentage of controls who never had a Pap test.
+
+6.7 Do you think the Pap test is helpful in preventing cervical cancer?
+
+## Hypertension
+
+Hypertensive patients are screened at a neighborhood health
+clinic and are given methyl dopa, a strong antihypertensive
+medication for their condition. They are asked to come back 1
+week later and have their blood pressures measured again.
+Suppose the initial and follow-up systolic blood pressures of
+the patients are given in the following data frame.
+
+```{r}
+sbp_data <- tibble(
+  patient_number = 1:10,
+  initial_sbp = c(200.0, 194.0, 236.0, 163.0, 240.0, 
+                  225.0, 203.0, 180.0, 177.0, 240.0),
+  followup_sbp = c(188.0, 212.0, 186.0, 150.0, 200.0, 
+                   222.0, 190.0, 154.0, 180.0, 225.0)
+)
+sbp_data
+```
+
+
+To test the effectiveness of the drug, we want to measure
+the difference (D) between initial and follow-up blood pres-
+sures for each person.
+
+6.8 What is the mean and sd of D?
+
+6.9 What is the standard error of the mean?
+
+6.10 Assume that D is normally distributed. Construct a 95% CI for µ.
+
+6.11 Do you have any opinion on the effectiveness of methyl dopa from the results of these 10 patients?
+
+## Cancer
+Data from U.S. cancer-tumor registries suggest that of all people with the type of lung cancer where surgery is the recommended therapy, 40% survive for 3 years from the time of diagnosis and 33% survive for 5 years.
+
+6.12 Suppose that a group of patients who would have received standard surgery are assigned to a new type of surgery. Of 100 such patients, 55 survive for 3 years and 45 survive for 5 years. Can we say that the new form of surgery is better in any sense than the standard form of surgery?
+
+## Cardiovascular Disease
+
+A recent hypothesis states that vigorous exercise is an effective preventive measure for subsequent cardiovascular death. To test this hypothesis, a sample of 750 men aged 50–75 who report that they jog at least 10 miles per week is ascertained. After 6 years, 64 have died of cardiovascular disease.
+
+6.13 Compute a 95% CI for the incidence of cardiovascular death in this group.
+
+6.14 If the expected death rate from cardiovascular disease over 6 years in 50–75-year-old men based on large samples is 10%, then can a conclusion be drawn concerning this hypothesis from these data?
+
+## Cardiovascular Disease
+
+A group of 60 men under the age of 55 with a prior history of myocardial infarction are put on a strict vegetarian diet as part of an experimental program. After 5 years, 3 men from the group have died.
+
+6.15 What is the best point estimate of the 5-year mortality rate in this group of men?
+
+6.16 Derive a 95% confidence interval for the 5-yearamortality rate.
+
+6.17 Suppose that from a large sample of men under age 55 with a prior history of myocardial infarction, we know that the 5-year mortality rate is 18%. How does the observed mortality rate obtained in Problem 6.15 compare with the large sample rate of 18%?
+
+## Pulmonary Disease
+
+A spirometric tracing is a standard technique used to measure pulmonary function. These tracings represent plots of the volume of air expelled over a 6-second period and tend to look like Figure 6.1. One quantity of interest is the slope at various points along the curve. The slopes are referred to as **flow rates**. A problem that arises is that the flow rates cannot be accurately measured, and some observer error is always introduced. To quantify the observer error, an observer measures the flow at 50% of forced vital capacity (volume as measured at 6 seconds) twice on tracings from 10 different people. A machine called a *digitizer* can trace the curves automatically and can estimate the flow mechanically. Suppose the digitizer is also used to measure the flow twice on these 10 tracings. The data are given in the data frame below.
+
+```{r}
+#| echo: false
+#| fig-width: 3
+#| fig-height: 3
+ggplot() + 
+  geom_function(fun = log) +
+  xlim(1, 5) +
+  theme_classic() +
+  theme(
+    axis.text = element_blank(),
+    axis.ticks = element_blank()) +
+  xlab("Time (sec)") +
+  ylab("Volume (l)") +
+  ggtitle("Figure 6.1: A typical\nspirometric tracing")
+```
+
+
+```{r}
+flow_rates <- tibble(
+  Person = 1:10,
+  Manual_replicate1   = c(1.80, 2.01, 1.63, 1.54, 2.21, 4.16, 3.02, 2.75, 3.03, 2.68),
+  Manual_replicate2   = c(1.84, 2.09, 1.52, 1.49, 2.36, 4.08, 3.07, 2.80, 3.04, 2.71),
+  Digitizer_replicate1 = c(1.82, 2.05, 1.62, 1.49, 2.32, 4.21, 3.08, 2.78, 3.06, 2.70),
+  Digitizer_replicate2 = c(1.83, 2.04, 1.60, 1.45, 2.36, 4.27, 3.09, 2.79, 3.05, 2.70)
+)
+```
+
+
+6.18 Find a 95% CI for the standard deviation of the difference between the first and second replicates using the manual method.
+
+6.19 Answer Problem 6.18 for the difference between the first and second replicates using the digitizer method. 
+
+
+Suppose we want to compare the variability of the two methods within the same person. Let $x_{i1}$ , $x_{i2}$ represent the 2 replicates for the $i$th person using the manual method, and let $y_{i1}, y_{i2}$ represent the 2 replicates for the $i$th person using the digitizer method. Let
+$$
+d_i = |x_{i1} - x_{i2}| - |y_{i1} - y_{i2}|
+$$
+Then, $d_i$ is a measure of the difference in variability
+using the two methods. Assume that $d_i$ is normally
+distributed with mean $\mu_d$ and variance $\sigma_d^2$
+
+6.20 Find a 95% CI for $\mu_d$
+
+6.21 What is your opinion as to the relative variability of the two methods?
+
+## Bacteriology
+
+Suppose a group of mice are inoculated with a uniform dose of a specific type of bacteria and all die within 24 days, with the distribution of survival times given in the following data frame.
+
+```{r}
+mouse_survival <- tibble(
+  survival_time_days = 10:24,
+  number_of_mice     = c(5, 11, 29, 30, 40, 51, 71, 65, 48, 36, 21, 12, 7, 2, 1)
+)
+```
+
+6.27 Assume that the underlying distribution of survival times is normal. Estimate the probability $p$ that a mouse will survive for 20 or more days.
+
+6.28 Suppose we are not willing to assume that the underlying distribution is normal. Estimate the probability $p$ that a mouse will survive for 20 or more days.
+
+6.29 Compute 95% confidence limits for the parameter estimated in Problem 6.28.
+
+6.30 Compute 99% confidence limits for the parameter estimated in Problem 6.28.
+
+## Cardiovascular Disease
+
+In Table 2.1 below, data on serum-cholesterol levels of 24 hospital employees before and after they adopted a vegetarian diet are provided.
+
+```{r}
+#| echo: false
+#| eval: true
+#| message: false
+
+# Create the data frame
+cholesterol_data <- tibble::tibble(
+  Subject = as.character(1:24),
+  Before = c(195, 145, 205, 159, 244, 166, 250, 236, 192, 224, 238, 197, 169, 158, 151, 197, 180, 222, 168, 168, 167, 161, 178, 137),
+  After = c(146, 155, 178, 146, 208, 147, 202, 215, 184, 208, 206, 169, 182, 127, 149, 178, 161, 187, 176, 145, 154, 153, 137, 125),
+  `Before - After` = Before - After
+)
+
+# Add summary statistics
+summary_stats <- tibble::tibble(
+  Subject = c("Mean", "SD", "n"),
+  Before = c(mean(cholesterol_data$Before), sd(cholesterol_data$Before), nrow(cholesterol_data)),
+  After = c(mean(cholesterol_data$After), sd(cholesterol_data$After), nrow(cholesterol_data)),
+  `Before - After` = c(mean(cholesterol_data$`Before - After`), sd(cholesterol_data$`Before - After`), nrow(cholesterol_data))
+)
+
+# Combine data and summary
+full_table <- bind_rows(cholesterol_data, summary_stats)
+
+# Create gt table
+gt_table <- full_table %>%
+  gt() %>%
+  tab_header(
+    title = "Table 2.1 Serum-Cholesterol levels before and after adopting a vegetarian diet (mg/dL)"
+  ) |>
+  tab_style(
+    style = cell_borders(
+      sides = "top",
+      color = "black",
+      weight = px(2)
+    ),
+    locations = cells_body(
+      rows = Subject == "Mean"
+    )
+  )
+
+
+# Print the table
+gt_table
+```
+
+
+6.31 What is your best estimate of the effect of adopting a vegetarian diet on change in serum-cholesterol levels?
+
+6.32 What is the standard error of the estimate given in Problem 6.31?
+
+6.33 Provide a 95% CI for the effect of adopting the diet.
+
+6.34 What can you conclude from your results in Problem 6.33?
+
+Some physicians consider only changes of at least 10 mg/dL (the same units as in Table 2.1) to be clinically significant.
+
+6.35 Among people with a clinically significant change in either direction, what is the best estimate of the proportion of subjects with a clinically significant decline in cholesterol?
+
+6.36 Provide a 95% CI associated with the estimate in Problem 6.35.
+
+6.37 What can you conclude from your results in Problem 6.36?
+
+## Pulmonary Disease
+
+Wheezing is a common respiratory symptom reported by both children and adults. A study is conducted to assess whether either personal smoking or maternal smoking are associated with wheezing in children ages 6–19. 
+
+6.38 Suppose that 400 children in this age group whose mothers smoke are assessed in 1985, and it is found that 60 report symptoms of wheezing. Provide a point estimate and a 95% CI for the underlying rate of wheezing in the population of children whose mothers smoke.
+
+6.39 Suppose the rate of wheezing among children ages 6–19 in the general population is 10%. What can you conclude from the results in Problem 6.38?
+
+6.40 Suppose we have a subgroup of 30 children where both the mother and the child are smokers. Six of these 30 children have wheezing symptoms. Provide a 95% CI for the true rate of wheezing in this population.
+
+6.41 How do you assess the results in Problem 6.40?
+
+6.42 Suppose 6 events are realized over a 1-year period for a random variable that is thought to be Poisson-distributed. Provide a 95% CI for the true expected number of events over 1 year.
