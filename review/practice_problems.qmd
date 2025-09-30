@@ -13,7 +13,7 @@ I have only kept the problems most relevant for this course.
 - [Chapter 4](./pp_04.qmd)
 - [Chapter 5](./pp_05.qmd)
 - [Chapter 6](./pp_06.qmd)
-- Chapter 7
+- [Chapter 7](./pp_07.qmd)
 - Chapter 8
 - Chapter 9
 - Chapter 10
