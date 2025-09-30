@@ -407,7 +407,12 @@ window.Quarto = {
 <p>What is the upper 10th percentile of a chi-square distribution with 5 df?</p>
 </div>
 <div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
-
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">qchisq</span>(<span class="at">p =</span> <span class="dv">1</span> <span class="sc">-</span> <span class="fl">0.1</span>, <span class="at">df =</span> <span class="dv">5</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 9.236</code></pre>
+</div>
+</div>
 </div>
 </div>
 </div>
@@ -418,7 +423,12 @@ window.Quarto = {
 <p>What is the upper 1st percentile of a chi-square distribution with 3 df?</p>
 </div>
 <div id="tabset-2-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-2-tab">
-
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">qchisq</span>(<span class="at">p =</span> <span class="dv">1</span> <span class="sc">-</span> <span class="fl">0.01</span>, <span class="at">df =</span> <span class="dv">3</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 11.34</code></pre>
+</div>
+</div>
 </div>
 </div>
 </div>
@@ -464,14 +474,14 @@ window.Quarto = {
 <h2 class="anchored" data-anchor-id="hypertension">Hypertension</h2>
 <p>Hypertensive patients are screened at a neighborhood health clinic and are given methyl dopa, a strong antihypertensive medication for their condition. They are asked to come back 1 week later and have their blood pressures measured again. Suppose the initial and follow-up systolic blood pressures of the patients are given in the following data frame.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>sbp_data <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">patient_number =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>,</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">initial_sbp =</span> <span class="fu">c</span>(<span class="fl">200.0</span>, <span class="fl">194.0</span>, <span class="fl">236.0</span>, <span class="fl">163.0</span>, <span class="fl">240.0</span>, </span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>                  <span class="fl">225.0</span>, <span class="fl">203.0</span>, <span class="fl">180.0</span>, <span class="fl">177.0</span>, <span class="fl">240.0</span>),</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">followup_sbp =</span> <span class="fu">c</span>(<span class="fl">188.0</span>, <span class="fl">212.0</span>, <span class="fl">186.0</span>, <span class="fl">150.0</span>, <span class="fl">200.0</span>, </span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>                   <span class="fl">222.0</span>, <span class="fl">190.0</span>, <span class="fl">154.0</span>, <span class="fl">180.0</span>, <span class="fl">225.0</span>)</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>sbp_data</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>sbp_data <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">patient_number =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>,</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">initial_sbp =</span> <span class="fu">c</span>(<span class="fl">200.0</span>, <span class="fl">194.0</span>, <span class="fl">236.0</span>, <span class="fl">163.0</span>, <span class="fl">240.0</span>, </span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>                  <span class="fl">225.0</span>, <span class="fl">203.0</span>, <span class="fl">180.0</span>, <span class="fl">177.0</span>, <span class="fl">240.0</span>),</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">followup_sbp =</span> <span class="fu">c</span>(<span class="fl">188.0</span>, <span class="fl">212.0</span>, <span class="fl">186.0</span>, <span class="fl">150.0</span>, <span class="fl">200.0</span>, </span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>                   <span class="fl">222.0</span>, <span class="fl">190.0</span>, <span class="fl">154.0</span>, <span class="fl">180.0</span>, <span class="fl">225.0</span>)</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>sbp_data</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 10 × 3
    patient_number initial_sbp followup_sbp
@@ -619,19 +629,19 @@ window.Quarto = {
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="pp_06_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" width="288"></p>
+<p><img src="pp_06_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" width="288"></p>
 </figure>
 </div>
 </div>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>flow_rates <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">Person =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>,</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">Manual_replicate1   =</span> <span class="fu">c</span>(<span class="fl">1.80</span>, <span class="fl">2.01</span>, <span class="fl">1.63</span>, <span class="fl">1.54</span>, <span class="fl">2.21</span>, <span class="fl">4.16</span>, <span class="fl">3.02</span>, <span class="fl">2.75</span>, <span class="fl">3.03</span>, <span class="fl">2.68</span>),</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">Manual_replicate2   =</span> <span class="fu">c</span>(<span class="fl">1.84</span>, <span class="fl">2.09</span>, <span class="fl">1.52</span>, <span class="fl">1.49</span>, <span class="fl">2.36</span>, <span class="fl">4.08</span>, <span class="fl">3.07</span>, <span class="fl">2.80</span>, <span class="fl">3.04</span>, <span class="fl">2.71</span>),</span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">Digitizer_replicate1 =</span> <span class="fu">c</span>(<span class="fl">1.82</span>, <span class="fl">2.05</span>, <span class="fl">1.62</span>, <span class="fl">1.49</span>, <span class="fl">2.32</span>, <span class="fl">4.21</span>, <span class="fl">3.08</span>, <span class="fl">2.78</span>, <span class="fl">3.06</span>, <span class="fl">2.70</span>),</span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">Digitizer_replicate2 =</span> <span class="fu">c</span>(<span class="fl">1.83</span>, <span class="fl">2.04</span>, <span class="fl">1.60</span>, <span class="fl">1.45</span>, <span class="fl">2.36</span>, <span class="fl">4.27</span>, <span class="fl">3.09</span>, <span class="fl">2.79</span>, <span class="fl">3.05</span>, <span class="fl">2.70</span>)</span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>flow_rates <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">Person =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>,</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">Manual_replicate1   =</span> <span class="fu">c</span>(<span class="fl">1.80</span>, <span class="fl">2.01</span>, <span class="fl">1.63</span>, <span class="fl">1.54</span>, <span class="fl">2.21</span>, <span class="fl">4.16</span>, <span class="fl">3.02</span>, <span class="fl">2.75</span>, <span class="fl">3.03</span>, <span class="fl">2.68</span>),</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">Manual_replicate2   =</span> <span class="fu">c</span>(<span class="fl">1.84</span>, <span class="fl">2.09</span>, <span class="fl">1.52</span>, <span class="fl">1.49</span>, <span class="fl">2.36</span>, <span class="fl">4.08</span>, <span class="fl">3.07</span>, <span class="fl">2.80</span>, <span class="fl">3.04</span>, <span class="fl">2.71</span>),</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">Digitizer_replicate1 =</span> <span class="fu">c</span>(<span class="fl">1.82</span>, <span class="fl">2.05</span>, <span class="fl">1.62</span>, <span class="fl">1.49</span>, <span class="fl">2.32</span>, <span class="fl">4.21</span>, <span class="fl">3.08</span>, <span class="fl">2.78</span>, <span class="fl">3.06</span>, <span class="fl">2.70</span>),</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">Digitizer_replicate2 =</span> <span class="fu">c</span>(<span class="fl">1.83</span>, <span class="fl">2.04</span>, <span class="fl">1.60</span>, <span class="fl">1.45</span>, <span class="fl">2.36</span>, <span class="fl">4.27</span>, <span class="fl">3.09</span>, <span class="fl">2.79</span>, <span class="fl">3.05</span>, <span class="fl">2.70</span>)</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-16-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-16-1" role="tab" aria-controls="tabset-16-1" aria-selected="true" href="">6.18</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-16-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-16-2" role="tab" aria-controls="tabset-16-2" aria-selected="false" href="">Solution</a></li></ul>
@@ -685,10 +695,10 @@ d_i = |x_{i1} - x_{i2}| - |y_{i1} - y_{i2}|
 <h2 class="anchored" data-anchor-id="bacteriology">Bacteriology</h2>
 <p>Suppose a group of mice are inoculated with a uniform dose of a specific type of bacteria and all die within 24 days, with the distribution of survival times given in the following data frame.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>mouse_survival <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">survival_time_days =</span> <span class="dv">10</span><span class="sc">:</span><span class="dv">24</span>,</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">number_of_mice     =</span> <span class="fu">c</span>(<span class="dv">5</span>, <span class="dv">11</span>, <span class="dv">29</span>, <span class="dv">30</span>, <span class="dv">40</span>, <span class="dv">51</span>, <span class="dv">71</span>, <span class="dv">65</span>, <span class="dv">48</span>, <span class="dv">36</span>, <span class="dv">21</span>, <span class="dv">12</span>, <span class="dv">7</span>, <span class="dv">2</span>, <span class="dv">1</span>)</span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>mouse_survival <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">survival_time_days =</span> <span class="dv">10</span><span class="sc">:</span><span class="dv">24</span>,</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">number_of_mice     =</span> <span class="fu">c</span>(<span class="dv">5</span>, <span class="dv">11</span>, <span class="dv">29</span>, <span class="dv">30</span>, <span class="dv">40</span>, <span class="dv">51</span>, <span class="dv">71</span>, <span class="dv">65</span>, <span class="dv">48</span>, <span class="dv">36</span>, <span class="dv">21</span>, <span class="dv">12</span>, <span class="dv">7</span>, <span class="dv">2</span>, <span class="dv">1</span>)</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-20-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-20-1" role="tab" aria-controls="tabset-20-1" aria-selected="true" href="">6.27</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-20-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-20-2" role="tab" aria-controls="tabset-20-2" aria-selected="false" href="">Solution</a></li></ul>
@@ -740,23 +750,23 @@ d_i = |x_{i1} - x_{i2}| - |y_{i1} - y_{i2}|
 <p>In Table 2.1 below, data on serum-cholesterol levels of 24 hospital employees before and after they adopted a vegetarian diet are provided.</p>
 <div class="cell">
 <div class="cell-output-display">
-<div id="cdwjnhpuyo" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#cdwjnhpuyo table {
+<div id="bxxogpmvul" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#bxxogpmvul table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#cdwjnhpuyo thead, #cdwjnhpuyo tbody, #cdwjnhpuyo tfoot, #cdwjnhpuyo tr, #cdwjnhpuyo td, #cdwjnhpuyo th {
+#bxxogpmvul thead, #bxxogpmvul tbody, #bxxogpmvul tfoot, #bxxogpmvul tr, #bxxogpmvul td, #bxxogpmvul th {
   border-style: none;
 }
 
-#cdwjnhpuyo p {
+#bxxogpmvul p {
   margin: 0;
   padding: 0;
 }
 
-#cdwjnhpuyo .gt_table {
+#bxxogpmvul .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -782,12 +792,12 @@ d_i = |x_{i1} - x_{i2}| - |y_{i1} - y_{i2}|
   border-left-color: #D3D3D3;
 }
 
-#cdwjnhpuyo .gt_caption {
+#bxxogpmvul .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#cdwjnhpuyo .gt_title {
+#bxxogpmvul .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -799,7 +809,7 @@ d_i = |x_{i1} - x_{i2}| - |y_{i1} - y_{i2}|
   border-bottom-width: 0;
 }
 
-#cdwjnhpuyo .gt_subtitle {
+#bxxogpmvul .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -811,7 +821,7 @@ d_i = |x_{i1} - x_{i2}| - |y_{i1} - y_{i2}|
   border-top-width: 0;
 }
 
-#cdwjnhpuyo .gt_heading {
+#bxxogpmvul .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -823,13 +833,13 @@ d_i = |x_{i1} - x_{i2}| - |y_{i1} - y_{i2}|
   border-right-color: #D3D3D3;
 }
 
-#cdwjnhpuyo .gt_bottom_border {
+#bxxogpmvul .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#cdwjnhpuyo .gt_col_headings {
+#bxxogpmvul .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -844,7 +854,7 @@ d_i = |x_{i1} - x_{i2}| - |y_{i1} - y_{i2}|
   border-right-color: #D3D3D3;
 }
 
-#cdwjnhpuyo .gt_col_heading {
+#bxxogpmvul .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -864,7 +874,7 @@ d_i = |x_{i1} - x_{i2}| - |y_{i1} - y_{i2}|
   overflow-x: hidden;
 }
 
-#cdwjnhpuyo .gt_column_spanner_outer {
+#bxxogpmvul .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -876,15 +886,15 @@ d_i = |x_{i1} - x_{i2}| - |y_{i1} - y_{i2}|
   padding-right: 4px;
 }
 
-#cdwjnhpuyo .gt_column_spanner_outer:first-child {
+#bxxogpmvul .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#cdwjnhpuyo .gt_column_spanner_outer:last-child {
+#bxxogpmvul .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#cdwjnhpuyo .gt_column_spanner {
+#bxxogpmvul .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -896,11 +906,11 @@ d_i = |x_{i1} - x_{i2}| - |y_{i1} - y_{i2}|
   width: 100%;
 }
 
-#cdwjnhpuyo .gt_spanner_row {
+#bxxogpmvul .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#cdwjnhpuyo .gt_group_heading {
+#bxxogpmvul .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -926,7 +936,7 @@ d_i = |x_{i1} - x_{i2}| - |y_{i1} - y_{i2}|
   text-align: left;
 }
 
-#cdwjnhpuyo .gt_empty_group_heading {
+#bxxogpmvul .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -941,15 +951,15 @@ d_i = |x_{i1} - x_{i2}| - |y_{i1} - y_{i2}|
   vertical-align: middle;
 }
 
-#cdwjnhpuyo .gt_from_md > :first-child {
+#bxxogpmvul .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#cdwjnhpuyo .gt_from_md > :last-child {
+#bxxogpmvul .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#cdwjnhpuyo .gt_row {
+#bxxogpmvul .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -968,7 +978,7 @@ d_i = |x_{i1} - x_{i2}| - |y_{i1} - y_{i2}|
   overflow-x: hidden;
 }
 
-#cdwjnhpuyo .gt_stub {
+#bxxogpmvul .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -981,7 +991,7 @@ d_i = |x_{i1} - x_{i2}| - |y_{i1} - y_{i2}|
   padding-right: 5px;
 }
 
-#cdwjnhpuyo .gt_stub_row_group {
+#bxxogpmvul .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -995,15 +1005,15 @@ d_i = |x_{i1} - x_{i2}| - |y_{i1} - y_{i2}|
   vertical-align: top;
 }
 
-#cdwjnhpuyo .gt_row_group_first td {
+#bxxogpmvul .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#cdwjnhpuyo .gt_row_group_first th {
+#bxxogpmvul .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#cdwjnhpuyo .gt_summary_row {
+#bxxogpmvul .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1013,16 +1023,16 @@ d_i = |x_{i1} - x_{i2}| - |y_{i1} - y_{i2}|
   padding-right: 5px;
 }
 
-#cdwjnhpuyo .gt_first_summary_row {
+#bxxogpmvul .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#cdwjnhpuyo .gt_first_summary_row.thick {
+#bxxogpmvul .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#cdwjnhpuyo .gt_last_summary_row {
+#bxxogpmvul .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1032,7 +1042,7 @@ d_i = |x_{i1} - x_{i2}| - |y_{i1} - y_{i2}|
   border-bottom-color: #D3D3D3;
 }
 
-#cdwjnhpuyo .gt_grand_summary_row {
+#bxxogpmvul .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1042,7 +1052,7 @@ d_i = |x_{i1} - x_{i2}| - |y_{i1} - y_{i2}|
   padding-right: 5px;
 }
 
-#cdwjnhpuyo .gt_first_grand_summary_row {
+#bxxogpmvul .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1052,7 +1062,7 @@ d_i = |x_{i1} - x_{i2}| - |y_{i1} - y_{i2}|
   border-top-color: #D3D3D3;
 }
 
-#cdwjnhpuyo .gt_last_grand_summary_row_top {
+#bxxogpmvul .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1062,11 +1072,11 @@ d_i = |x_{i1} - x_{i2}| - |y_{i1} - y_{i2}|
   border-bottom-color: #D3D3D3;
 }
 
-#cdwjnhpuyo .gt_striped {
+#bxxogpmvul .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#cdwjnhpuyo .gt_table_body {
+#bxxogpmvul .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1075,7 +1085,7 @@ d_i = |x_{i1} - x_{i2}| - |y_{i1} - y_{i2}|
   border-bottom-color: #D3D3D3;
 }
 
-#cdwjnhpuyo .gt_footnotes {
+#bxxogpmvul .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1089,7 +1099,7 @@ d_i = |x_{i1} - x_{i2}| - |y_{i1} - y_{i2}|
   border-right-color: #D3D3D3;
 }
 
-#cdwjnhpuyo .gt_footnote {
+#bxxogpmvul .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -1098,7 +1108,7 @@ d_i = |x_{i1} - x_{i2}| - |y_{i1} - y_{i2}|
   padding-right: 5px;
 }
 
-#cdwjnhpuyo .gt_sourcenotes {
+#bxxogpmvul .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1112,7 +1122,7 @@ d_i = |x_{i1} - x_{i2}| - |y_{i1} - y_{i2}|
   border-right-color: #D3D3D3;
 }
 
-#cdwjnhpuyo .gt_sourcenote {
+#bxxogpmvul .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -1120,72 +1130,72 @@ d_i = |x_{i1} - x_{i2}| - |y_{i1} - y_{i2}|
   padding-right: 5px;
 }
 
-#cdwjnhpuyo .gt_left {
+#bxxogpmvul .gt_left {
   text-align: left;
 }
 
-#cdwjnhpuyo .gt_center {
+#bxxogpmvul .gt_center {
   text-align: center;
 }
 
-#cdwjnhpuyo .gt_right {
+#bxxogpmvul .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#cdwjnhpuyo .gt_font_normal {
+#bxxogpmvul .gt_font_normal {
   font-weight: normal;
 }
 
-#cdwjnhpuyo .gt_font_bold {
+#bxxogpmvul .gt_font_bold {
   font-weight: bold;
 }
 
-#cdwjnhpuyo .gt_font_italic {
+#bxxogpmvul .gt_font_italic {
   font-style: italic;
 }
 
-#cdwjnhpuyo .gt_super {
+#bxxogpmvul .gt_super {
   font-size: 65%;
 }
 
-#cdwjnhpuyo .gt_footnote_marks {
+#bxxogpmvul .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#cdwjnhpuyo .gt_asterisk {
+#bxxogpmvul .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#cdwjnhpuyo .gt_indent_1 {
+#bxxogpmvul .gt_indent_1 {
   text-indent: 5px;
 }
 
-#cdwjnhpuyo .gt_indent_2 {
+#bxxogpmvul .gt_indent_2 {
   text-indent: 10px;
 }
 
-#cdwjnhpuyo .gt_indent_3 {
+#bxxogpmvul .gt_indent_3 {
   text-indent: 15px;
 }
 
-#cdwjnhpuyo .gt_indent_4 {
+#bxxogpmvul .gt_indent_4 {
   text-indent: 20px;
 }
 
-#cdwjnhpuyo .gt_indent_5 {
+#bxxogpmvul .gt_indent_5 {
   text-indent: 25px;
 }
 
-#cdwjnhpuyo .katex-display {
+#bxxogpmvul .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#cdwjnhpuyo div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#bxxogpmvul div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>

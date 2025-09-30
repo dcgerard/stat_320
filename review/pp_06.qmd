@@ -21,6 +21,9 @@ library(gt)
 What is the upper 10th percentile of a chi-square distribution with 5 df?
 
 ## Solution
+```{r}
+qchisq(p = 1 - 0.1, df = 5)
+```
 :::
 
 ::: {.panel-tabset}
@@ -28,6 +31,9 @@ What is the upper 10th percentile of a chi-square distribution with 5 df?
 What is the upper 1st percentile of a chi-square distribution with 3 df?
 
 ## Solution
+```{r}
+qchisq(p = 1 - 0.01, df = 3)
+```
 :::
 
 ## Cancer 1

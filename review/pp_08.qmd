@@ -14,7 +14,7 @@ library(tidyverse)
 library(gt)
 ```
 
-## Ophthalmology
+## Ophthalmology 1
 
 In a study of the natural history of retinitis pigmentosa (RP), 94 RP patients were followed for 3 years. Among 90 patients with complete follow-up, the mean ±1 se of log (visual-field loss) over 1, 2, and 3 years was $0.02 \pm 0.04$, $0.08 \pm 0.05$, and $0.14 \pm 0.07$, respectively.
 
@@ -153,7 +153,7 @@ Perform a statistical test to compare the experimental and control groups’ pos
 ## Solution
 :::
 
-## Hypertension
+## Hypertension 1
 
 Blood-pressure measurements taken on the left and right arms of a person are assumed to be comparable. To test this assump- tion, 10 volunteers are obtained and systolic blood-pressure readings are taken simultaneously on both arms by two different observers, Ms. Jones for the left arm and Mr. Smith for the right arm. The data are given in the following data frame.
 
@@ -180,7 +180,7 @@ Suppose we do not assume that the two observers are comparable. Can the experime
 ## Solution
 :::
 
-## Ophthalmology
+## Ophthalmology 2
 
 A topic of current interest in ophthalmology is whether or not spherical refraction is different between the left and right eyes. For this purpose refraction is measured in both eyes of 17 people. The data are given in the following data frame.
 
@@ -268,7 +268,7 @@ Suppose the two-tailed p-value in Problem 8.19 = .03 and the two-sided 95% CI in
 ## Solution
 :::
 
-## Hypertension
+## Hypertension 2
 
 A 1982 study by the Lipid Research CIinics looked at the relationship between alcohol consumption and level of systolic blood pressure in women not using oral contraceptives. Alcohol consumption was categorized as follows: no alcohol use; ≤ 10 oz/week alcohol consumption; > 10 oz/week alcohol consumption. The results for women 30–39 years of age are given in Table 8.4.
 
@@ -457,7 +457,7 @@ Suggest a procedure for testing whether or not the change in pulmonary function 
 ## Solution
 :::
 
-## Hypertension
+## Hypertension 3
 
 A study of the relationship between salt intake and blood pressure of infants is in the planning stages. A pilot study is done, comparing five 1-year-old infants on a high-salt diet with five 1-year-old infants on a low-salt diet. The results are given in Table 8.7.
 
@@ -529,7 +529,7 @@ Answer Problem 8.40 if the true difference is 2 mm Hg.
 ## Solution
 :::
 
-## Hypertension
+## Hypertension 4
 
 The effect of sodium restriction on blood pressure remains a controversial subject. To test this hypothesis a group of 83 individuals participated in a study of restricted sodium intake ( ≤ 75 mEq/24 hrs) for a period of 12 weeks. The effect on diastolic blood pressure (DBP) is reported in Table 8.8.
 
@@ -702,7 +702,7 @@ Provide a 95% CI for the difference in mean blood lead levels between the low an
 ## Solution
 :::
 
-## Ophthalmology
+## Ophthalmology 3
 
 Retinitis pigmentosa (RP) is the name given to a family of inherited retinal degenerative diseases that may be transmitted through various modes of inheritance. The most common features include a history of night blindness, loss of visual field, and pigment clumping in the retina. Several reports of lipid abnormalities have been reported in RP patients. However, a consistent trend as regards either excesses or deficiencies in lipid levels has not been apparent. In one study, fatty-acid levels were measured in a group of RP patients and normal controls. The data in Table 8.10 were reported on one particular fatty acid (docosahexaenoic acid) (labeled 22:6w3) in individuals with dominant disease and normal controls.
 
@@ -838,7 +838,7 @@ What is the most accurate p-value corresponding to your answer to Problem 8.58?
 :::
 
 
-## Hypertension
+## Hypertension 5
 
 As one component of a study of blood pressure (BP) response to nonpharmacologic interventions, subjects with high normal BP (DBP of 80-89) who were moderately overweight were randomized to either an active weight-loss intervention or a control group. Blood-pressure measurements were taken both at baseline and after 18 months of intervention and follow-up. Using change in blood pressure over this period as the outcome, the data in Table 8.12 were obtained for diastolic blood pressure (DBP).
 
