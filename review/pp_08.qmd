@@ -1,0 +1,720 @@
+---
+title: "Chapter 8 Practice Problems"
+author: "David Gerard"
+date: today
+---
+
+These practice problems mostly come from Rosner's publicly available study sheet at the books [companion website](https://www.cengage.com/cgi-wadsworth/course_products_wp.pl?fid=M20b&product_isbn_issn=9781305268920). The solutions are my own, since we differ slightly on what we are looking for in the solutions.
+
+```{r}
+#| echo: false
+#| eval: true
+#| message: false
+library(tidyverse)
+library(gt)
+```
+
+## Ophthalmology
+
+In a study of the natural history of retinitis pigmentosa (RP), 94 RP patients were followed for 3 years. Among 90 patients with complete follow-up, the mean ±1 se of log (visual-field loss) over 1, 2, and 3 years was $0.02 \pm 0.04$, $0.08 \pm 0.05$, and $0.14 \pm 0.07$, respectively.
+
+8.1 What test procedure can be used to test for changes in log (visual field) over any given time period?
+
+8.2 Implement the procedure in Problem 8.1 to test for significant changes in visual field over 1 year. Report a p-value.
+
+8.3 Answer Problem 8.2 for changes over 2 years.
+
+8.4 Answer Problem 8.2 for changes over 3 years.
+
+8.5 Find the upper 5th percentile of an F distribution with 24 and 30 df.
+
+8.6 Suppose we have two normally distributed samples of sizes 9 and 15 with sample standard deviations of 13.7 and 7.2, respectively. Test if the variances are significantly different in the two samples.
+
+
+## Pathology
+The data in the following data frame are measurements from a group of 10 normal males and 11 males with left-heart disease taken at autopsy at a particular hospital. Measurements were made on several variables at that time, and the table presents the measurements on total heart weight (THW) and total body weight (BW). Assume that the diagnosis of left-heart disease is made independently of these variables.
+```{r}
+heart <- tibble(
+  disease_status = c(rep("disease", 11), rep("normal", 10)),
+  observation_number = c(1:11, 1:10),
+  thw = c(450, 760, 325, 495, 285, 450, 460, 375, 310, 615, 425,
+          245, 350, 340, 300, 310, 270, 300, 360, 405, 290),
+  bw = c(54.6, 73.5, 50.3, 44.6, 58.1, 61.3, 75.3, 41.1, 51.5, 41.7, 59.7,
+         40.8, 67.4, 53.3, 62.2, 65.5, 47.5, 51.2, 74.9, 59.0, 40.5)
+)
+glimpse(heart)
+```
+
+
+8.7 Test for a significant difference in mean total heart weight between the diseased and normal groups.
+
+8.8 Test for a significant difference in mean body weight between the diseased and normal groups.
+
+## Psychiatry, Renal Disease
+
+Severe anxiety often occurs in patients who must undergo chronic hemodialysis. A set of progressive relaxation exercises was shown on videotape to a group of 38 experimental subjects, while a set of neutral videotapes was shown to a control group of 23 patients who were also on chronic hemodialysis. The results of a psychiatric questionnaire (the State-Trait Anxiety Inventory) are presented in Table 8.1.
+
+```{r}
+#| echo: false
+#| eval: true
+#| message: false
+
+# Create the data frame
+data <- data.frame(
+  Group = c("Experimental", "Control"),
+  Pretest_Mean = c(37.51, 36.42),
+  Pretest_sd = c(10.66, 8.59),
+  Pretest_n = c(38, 23),
+  Posttest_Mean = c(33.42, 39.71),
+  Posttest_sd = c(10.18, 9.16),
+  Posttest_n = c(38, 23)
+)
+
+# Generate the gt table
+gt_table <- gt(data) |>
+  tab_header(
+    subtitle = md("**Pretest and Posttest State-Trait Anxiety means and standard deviations for the experimental and control groups of hemodialysis patients**"),
+    title = "Table 8.1"
+  ) |>
+  cols_label(
+    Group = "Group",
+    Pretest_Mean = "Mean",
+    Pretest_sd = "sd",
+    Pretest_n = "n",
+    Posttest_Mean = "Mean",
+    Posttest_sd = "sd",
+    Posttest_n = "n"
+  ) |>
+  tab_spanner(
+    label = "Pretest",
+    columns = c("Pretest_Mean", "Pretest_sd", "Pretest_n")
+  ) |>
+  tab_spanner(
+    label = "Post-test",
+    columns = c("Posttest_Mean", "Posttest_sd", "Posttest_n")
+  )
+
+# Display the table
+gt_table
+```
+
+
+8.9 Perform a statistical test to compare the experimental and control groups’ pretest scores.
+
+8.10 Perform a statistical test to compare the experimental and control groups’ posttest scores.
+
+## Hypertension
+
+Blood-pressure measurements taken on the left and right arms of a person are assumed to be comparable. To test this assump- tion, 10 volunteers are obtained and systolic blood-pressure readings are taken simultaneously on both arms by two different observers, Ms. Jones for the left arm and Mr. Smith for the right arm. The data are given in the following data frame.
+
+```{r}
+armbp <- tibble(
+  Patient = 1:10,
+  Left_arm = c(130, 120, 135, 100, 98, 110, 123, 136, 140, 155),
+  Right_arm = c(126, 124, 127, 95, 102, 109, 124, 132, 137, 156)
+)
+armbp
+```
+
+8.11 Assuming that the two observers are comparable, test whether or not the two arms give comparable readings.
+
+8.12 Suppose we do not assume that the two observers are comparable. Can the experiment, as it is defined, detect differences between the two arms? If not, can you suggest an alternative experimental design so as to achieve this aim?
+
+## Ophthalmology
+
+A topic of current interest in ophthalmology is whether or not spherical refraction is different between the left and right eyes. For this purpose refraction is measured in both eyes of 17 people. The data are given in the following data frame.
+
+```{r}
+refract <- tibble(
+  id = 1:17,
+  od = c(1.75, -4, -1.25, 1, -1, -0.75, -2.25, 0.25, 0, 
+         -1, 0.5, -8.5, 0.5, -5.25, -2.25, -6.5, 1.75),
+  os = c(2, -4, -1, 1, -1, 0.25, -2.25, 0.25, 0.5, -1.25, 
+         -1.75, -5, 0.5, -4.75, -2.5, -6.25, 1.75)
+) |>
+  mutate(diff = od - os)
+refract
+```
+
+8.13 Is a one-sample or two- sample test needed here?
+
+8.14 Is a one-sided or two-sided test needed here?
+
+::: {.panel-tabset}
+## 8.15 
+Which of the following test procedures is appropriate to use on these data? (More than one may be necessary.)
+
+a. Paired t test
+b. Two-sample t test for independent samples with equal variances
+c. Two-sample t test for independent samples with unequal variances
+d. One-sample t test
+
+## Solution
+:::
+
+8.16 Carry out the hypothesis test(s) in Problem 8.15 and report a p-value.
+
+8.17 Estimate a 90% CI for the mean difference in spherical refraction between the two eyes.
+
+## Cardiovascular Disease
+
+A study was performed in 1976 to relate the use of oral contraceptives to the levels of various lipid fractions in a group of 163 nonpregnant, premenopausal women ages 21–39. The mean serum cholesterol among 66 current users of oral contraceptives was 201 ± 37 (mg/dL) (mean ± sd), whereas for 97 nonusers it was 193 ± 37 (mg/dL).
+
+8.18 Test for significant differences in mean cholesterol levels between the two groups.
+
+8.19 Report a p-value based on your hypothesis test in Problem 8.18.
+
+8.20 Derive a 95% CI for the true mean difference in cholesterol levels between the groups.
+
+8.21 Suppose the two-tailed p-value in Problem 8.19 = .03 and the two-sided 95% CI in Problem 8.20 = (−0.6, 7.3). Do these two results contradict each other? Why or why not? (Note: These values are not necessarily the actual results in Problems 8.19 and 8.20.)
+
+## Hypertension
+
+A 1982 study by the Lipid Research CIinics looked at the relationship between alcohol consumption and level of systolic blood pressure in women not using oral contraceptives. Alcohol consumption was categorized as follows: no alcohol use; ≤ 10 oz/week alcohol consumption; > 10 oz/week alcohol consumption. The results for women 30–39 years of age are given in Table 8.4.
+
+Suppose we wish to compare the levels of systolic blood pressure of groups A and B and we have no prior information regarding which group has higher blood pressure.
+
+
+```{r}
+#| eval: true
+#| echo: false
+#| message: false
+
+# Create a data frame
+data <- data.frame(
+  Alcohol_Consumption = c("No alcohol use", "≤10 oz per week", ">10 oz per week"),
+  Mean = c(110.5, 109.1, 114.5),
+  SD = c(13.3, 13.4, 14.9),
+  N = c(357, 440, 23)
+)
+
+# Generate the table using gt
+gt_table <- gt(data) |>
+  tab_header(
+    subtitle = "Relationship between systolic blood pressure and alcohol consumption in 30–39-year-old women not using oral contraceptives",
+    title = "Table 8.4"
+  ) |>
+  cols_label(
+    Alcohol_Consumption = "Alcohol Consumption",
+    Mean = "Mean",
+    SD = "SD",
+    N = "N"
+  ) |>
+  tab_spanner(
+    label = "Systolic blood pressure (mm Hg)",
+    columns = c("Mean", "SD", "N")
+  )
+
+# Print the table
+gt_table
+```
+
+8.22 Should a one-sample or two-sample test be used here?
+
+8.23 Should a one-sided or two-sided test be used here?
+
+8.24 Which test procedure(s) should be used to test the preceding hypotheses?
+
+8.25 Carry out the test in Problem 8.24 and report a p-value.
+
+8.26 Compute a 95% CI for the mean difference in blood pressure between the two groups.
+
+8.27 Answer Problem 8.24 for a comparison of groups A and C.
+
+8.28 Answer Problem 8.25 for a comparison of groups A and C.
+
+8.29 Answer Problem 8.26 for a comparison of groups A and C.
+
+
+## Pulmonary Disease
+
+Forced expiratory volume (FEV) is a standard measure of pul- monary function representing the volume of air expelled in 1 second. Suppose we enroll 10 nonsmoking males age 35–39, heights 68–72 inches in a longitudinal study and measure their FEV (L) initially (year 0) and 2 years later (year 2). The data in in the following data frame are obtained.
+
+
+```{r}
+pulm <- tibble(
+  person = 1:10,
+  fev0 = c(3.22, 4.06, 3.85, 3.50, 2.80, 3.25, 4.20, 3.05, 2.86, 3.50),
+  fev2 = c(2.95, 3.75, 4.00, 3.42, 2.77, 3.20, 3.90, 2.76, 2.75, 3.32)
+)
+pulm
+```
+With these summary statistics
+```{r}
+#| echo: false
+#| eval: true
+pulm |>
+  pivot_longer(cols = c("fev0", "fev2"), names_to = "variable") |>
+  group_by(variable) |>
+  summarize(mean = mean(value), sd = sd(value)) |>
+  gt()
+```
+
+8.30 What are the appropriate null and alternative hypotheses in this case to test if mean pulmonary function has decreased over 2 years?
+
+8.31 In words, what is the meaning of a type I and a type II error here?
+
+8.32 Carry out the test in Problem 8.30. What are your conclusions?
+
+
+Another aspect of the preceding study involves looking at the effect of smoking on baseline pulmonary function and on change in pulmonary function over time. We must be careful, since FEV depends on many factors, particularly age and height. Suppose we have a comparable group of 15 men in the same age and height group as in Table 8.5 who are smokers, and we measure their FEV at year 0 and year 2. The data are given in the following data frame.
+
+```{r}
+pulm2 <- tibble(
+  person = 1:15,
+  fev0 = c(2.85, 3.32, 3.01, 2.95, 2.78, 2.86, 2.78, 2.90,
+           2.76, 3.00, 3.26, 2.84, 2.50, 3.59, 3.30),
+  fev2 = c(2.88, 3.40, 3.02, 2.84, 2.75, 3.20, 2.96, 2.74,
+           3.02, 3.08, 3.00, 3.40, 2.59, 3.29, 3.32)
+)
+pulm2
+```
+With these summary statistics:
+```{r}
+#| echo: false
+#| eval: true
+pulm2 |>
+  pivot_longer(cols = c("fev0", "fev2"), names_to = "variable") |>
+  group_by(variable) |>
+  summarize(mean = mean(value), sd = sd(value)) |>
+  gt()
+```
+
+
+8.33 What are the appropriate null and alternative hypotheses to compare the FEV of smokers and nonsmokers at baseline?
+
+8.34 Carry out the procedure(s) necessary to conduct the test in Problem 8.33.
+
+8.35 Suggest a procedure for testing whether or not the change in pulmonary function over 2 years is the same in the two groups.
+
+## Hypertension
+
+A study of the relationship between salt intake and blood pressure of infants is in the planning stages. A pilot study is done, comparing five 1-year-old infants on a high-salt diet with five 1-year-old infants on a low-salt diet. The results are given in Table 8.7.
+
+```{r}
+#| echo: false
+#| eval: true
+#| message: false
+
+data <- data.frame(
+  Diet = c("High-salt diet", "Low-salt diet"),
+  Mean_SBP = c(90.8, 87.2),
+  sd_SBP = c(10.3, 9.2),
+  n = c(5, 5)
+)
+
+gt(data) |>
+  tab_header(
+    subtitle = "Relationship between salt intake and level of systolic blood pressure (SBP)",
+    title = "Table 8.7"
+  ) |>
+  cols_label(
+    Diet = "",
+    Mean_SBP = "Mean SBP",
+    sd_SBP = "sd SBP",
+    n = "n"
+  )
+```
+
+
+8.36 If the means and standard deviations in Table 8.7 are considered to be true population parameters, then, using a one-sided test with significance level = .05 , how many infants are needed in each group to have an 80% chance of detecting a significant difference?
+
+8.37 Suppose it is easier to recruit high-salt-diet infants and the investigators decide to enroll twice as many high- salt-diet infants as low-salt-diet infants. How many infants are needed in each group to have a 80% chance of detecting a significant difference using a one-sided test with an α level of .05?
+
+8.38 Suppose the budget will only allow for recruiting 50 high-salt-diet and 50 low-salt-diet infants into the study. How much power would such a study have of detecting a significant difference using a one-sided test with significance level = .05 if the true difference between the groups is 5 mm Hg?
+
+8.39 Answer Problem 8.38 for a true difference of 2 mm Hg.
+
+8.40 Answer Problem 8.38 if a two-sided test is used and the true difference is 5 mm Hg.
+
+8.41 Answer Problem 8.40 if the true difference is 2 mm Hg.
+
+## Hypertension
+
+The effect of sodium restriction on blood pressure remains a controversial subject. To test this hypothesis a group of 83 individuals participated in a study of restricted sodium intake ( ≤ 75 mEq/24 hrs) for a period of 12 weeks. The effect on diastolic blood pressure (DBP) is reported in Table 8.8.
+
+```{r}
+#| echo: false
+#| eval: true
+#| message: false
+
+# Create the data frame
+data <- data.frame(
+  Age = c("Age < 40", "Age ≥ 40", "Total"),
+  Baseline_Mean = c(69.7, 77.0, ""),
+  Baseline_sd = c(8.5, 8.0, ""),
+  Baseline_n = c(61, 22, ""),
+  Diet_Mean = c(69.1, 71.9, ""),
+  Diet_sd = c(8.5, 7.5, ""),
+  Diet_n = c(61, 22, ""),
+  Change_Mean = c(-0.7, -5.0, -1.8),
+  Change_sd = c(6.2, 4.7, 6.1),
+  Change_n = c(61, 22, 83)
+)
+
+# Create the gt table
+gt_table <- gt(data) |>
+  tab_header(
+    title = "Table 8.8",
+    subtitle = "Effect of sodium restriction on diastolic blood pressure"
+  ) |>
+  cols_label(
+    Age = "",
+    Baseline_Mean = "Mean",
+    Baseline_sd = "sd",
+    Baseline_n = "n",
+    Diet_Mean = "Mean",
+    Diet_sd = "sd",
+    Diet_n = "n",
+    Change_Mean = "Mean",
+    Change_sd = "sd",
+    Change_n = "n"
+  ) |>
+  tab_spanner(
+    label = "Baseline period",
+    columns = c("Baseline_Mean", "Baseline_sd", "Baseline_n")
+  ) |>
+  tab_spanner(
+    label = "Diet period",
+    columns = c("Diet_Mean", "Diet_sd", "Diet_n")
+  ) |>
+  tab_spanner(
+    label = "Change from control (diet-baseline)",
+    columns = c("Change_Mean", "Change_sd", "Change_n")
+  )
+
+# Print the table
+gt_table
+```
+
+8.42 What is the appropriate procedure to test for whether sodium restriction has had an impact on mean DBP?
+
+8.43 Implement the procedure in Problem 8.42 for people age < 40 using the critical-value method.
+
+One of the interesting findings is the difference in response to dietary therapy between people in the two age groups.
+
+8.44 Test the hypothesis that the response to sodium restriction is different in the two groups and report a p- value.
+
+8.45 Obtain a 95% CI for the response to dietary therapy in each age group separately.
+
+8.46 Obtain a 95% CI for the difference in response between the 2 age groups.
+
+Suppose the results of this study are to be used to plan a larger study on the effects of sodium restriction on DBP.
+
+8.47 How many subjects need to be enrolled in the larger study to test if sodium restriction results in lower DBP if the mean and sd of decline in DBP over the total group of 83 subjects are used for planning purposes and a 90% chance of detecting a significant difference using a two-sided test with a 5% level of significance is desired?
+
+8.48 Suppose 200 patients are enrolled in the larger study. How much power would the larger study have if a two- sided test with significance level = .05 is used?
+
+
+## Environmental Health
+
+A study was conducted relating lead level in umbilical cord blood and cognitive development. Three groups were identified at birth (high/medium/low) cord blood lead. One issue is the consistency of the differences in blood-lead levels over time between these three groups. The data in Table 8.9 were presented.
+
+```{r}
+#| echo: false
+#| eval: true
+#| message: false
+
+# Create the data frame
+data <- tibble(
+  Group = c("Low", "", "Medium", "", "High", ""),
+  Measure = c("Mean ± sd", "n", "Mean ± sd", "n", "Mean ± sd", "n"),
+  Birth = c("1.8 ± 0.6", "85", "6.5 ± 0.3", "88", "14.76 ± 3.0", "76"),
+  `6 months` = c("4.6 ± 3.9", "70", "7.0 ± 7.8", "70", "7.0 ± 8.7", "61"),
+  `12 months` = c("5.8 ± 5.1", "69", "8.5 ± 7.6", "70", "8.8 ± 6.4", "60"),
+  `18 months` = c("6.7 ± 5.5", "65", "8.3 ± 5.8", "65", "7.6 ± 5.8", "57"),
+  `24 months` = c("5.4 ± 4.8", "61", "7.2 ± 5.0", "63", "7.7 ± 8.5", "58")
+)
+
+# Create the gt table
+gt_table <- gt(data) |>
+  tab_header(
+    title = "Table 8.9",
+    subtitle = "Change in blood-lead level in the first two years of life by cord blood-lead group"
+  ) |>
+  cols_label(
+    Group = "Cord blood-lead group",
+    Measure = "",
+    Birth = "Birth",
+    `6 months` = "6 months",
+    `12 months` = "12 months",
+    `18 months` = "18 months",
+    `24 months` = "24 months"
+  )
+
+# Print the table
+gt_table
+```
+
+8.49 What test procedure can be used to test if there are differences between the observed blood-lead levels at 24 months between the low and high groups (as defined at baseline)?
+
+8.50 Implement the test procedure in Problem 8.49 and report a p-value.
+
+8.51 Provide a 95% CI for the difference in mean blood lead levels between the low and high groups at 24 months.
+
+## Ophthalmology
+
+Retinitis pigmentosa (RP) is the name given to a family of inherited retinal degenerative diseases that may be transmitted through various modes of inheritance. The most common features include a history of night blindness, loss of visual field, and pigment clumping in the retina. Several reports of lipid abnormalities have been reported in RP patients. However, a consistent trend as regards either excesses or deficiencies in lipid levels has not been apparent. In one study, fatty-acid levels were measured in a group of RP patients and normal controls. The data in Table 8.10 were reported on one particular fatty acid (docosahexaenoic acid) (labeled 22:6w3) in individuals with dominant disease and normal controls.
+
+```{r}
+#| echo: false
+#| eval: true
+#| message: false
+
+# Create the data frame
+data <- data.frame(
+  Group = c("Dominant affected individuals", "Normal controls"),
+  Mean = c(34.8, 47.8),
+  SD = c(20.8, 30.3),
+  N = c(36, 68)
+)
+
+# Generate the gt table
+gt_table <- gt(data) |>
+  tab_header(
+    title = "Table 8.10",
+    subtitle = "Mean levels of plasma 22:6w3 (adjusted for age) (Units are nmol/mL plasma)"
+  ) |>
+  cols_label(
+    Group = "",
+    Mean = "Mean",
+    SD = "sd",
+    N = "n"
+  )
+
+# Print the table
+gt_table
+```
+
+
+8.52 What is an appropriate procedure to test if the mean level of 22:6w3 differs between dominant affected individuals and normal controls? State the hypotheses being tested. Is a one-sided or a two-sided test appropriate here?
+
+8.53 Perform the hypothesis test in Problem 8.52 and report a p-value.
+
+8.54 Provide a 95% CI for the difference in means between the two groups. What does it mean in words?
+
+## Neurology
+
+An article published in 1986 describes physical, social, and psychological problems in patients with multiple sclerosis. Patients were classified as to mild, moderate, and severe disease and were graded on physical health using the McMaster physical health index, and mental health using the Rand mental health index scale. The data are shown in Table 8.11.
+
+```{r}
+#| message: false
+#| echo: false
+#| eval: true
+
+data <- data.frame(
+  Index = c("McMaster physical health index", "Rand mental health index"),
+  Mild_Mean = c(0.76, 157.3),
+  Mild_sd = c(0.24, 26.2),
+  Mild_n = c(65, 65),
+  Severe_Mean = c(0.23, 149.1),
+  Severe_sd = c(0.12, 34.4),
+  Severe_n = c(82, 82)
+)
+
+gt(data) |>
+  tab_header(
+    title = "Table 8.11",
+    subtitle = "Physical and mental health indices for patients with multiple sclerosis"
+  ) |>
+  cols_label(
+    Index = "",
+    Mild_Mean = "Mean",
+    Mild_sd = "sd",
+    Mild_n = "n",
+    Severe_Mean = "Mean",
+    Severe_sd = "sd",
+    Severe_n = "n"
+  ) |>
+  tab_spanner(
+    label = "Mild",
+    columns = c("Mild_Mean", "Mild_sd", "Mild_n")
+  ) |>
+  tab_spanner(
+    label = "Severe",
+    columns = c("Severe_Mean", "Severe_sd", "Severe_n")
+  )
+```
+
+
+8.55 What test procedure should be used to test if there are differences in physical health between the two groups?
+
+8.56 Perform the test in Problem 8.55 with the critical-value method using a two-sided test with an a level of .05.
+
+8.57 What test procedure should be used to test if there are differences in mental health between the two groups?
+
+8.58 Perform the test in Problem 8.57 with the critical-value method using an α level of .05.
+
+8.59 What is the most accurate p-value corresponding to your answer to Problem 8.58?
+
+
+## Hypertension
+
+As one component of a study of blood pressure (BP) response to nonpharmacologic interventions, subjects with high normal BP (DBP of 80-89) who were moderately overweight were randomized to either an active weight-loss intervention or a control group. Blood-pressure measurements were taken both at baseline and after 18 months of intervention and follow-up. Using change in blood pressure over this period as the outcome, the data in Table 8.12 were obtained for diastolic blood pressure (DBP).
+
+```{r}
+#| echo: false
+#| eval: true
+#| message: false
+
+# Create the data frame
+data <- tibble(
+  `Treatment Group` = c("Weight loss", "Control"),
+  n = c(308, 246),
+  Mean = c(-6.16, -3.91),
+  sd = c(5.88, 6.12)
+)
+
+# Create the gt table
+gt_table <- gt(data) |>
+  tab_header(
+    title = "Table 8.12",
+    subtitle = "Comparison of change in DBP between the weight loss versus the control group"
+  ) |>
+  tab_spanner(
+    label = "Change in DBP (mm Hg)",
+    columns = c("n", "Mean", "sd")
+  )
+
+# Print the table
+gt_table
+```
+
+
+8.60 Assuming that the variances are equal in the two groups, test whether there was a significant difference in mean DBP change between the weight-loss versus the control group.
+
+Researchers were also interested in the amount of weight loss attributable to the intervention. Mean weight change for each group is given in Table 8.13.
+
+```{r}
+#| echo: false
+#| eval: true
+#| message: false
+
+# Create the data frame
+data <- tibble(
+  `Treatment Group` = c("Weight loss", "Control"),
+  n = c(293, 235),
+  Mean = c(-3.83, 0.07),
+  sd = c(6.12, 4.01)
+)
+
+# Create the gt table
+gt_table <- gt(data) |>
+  tab_header(
+    title = "Table 8.13",
+    subtitle = "Comparison of change in weight between the weight-loss group versus the control group"
+  ) |>
+  tab_spanner(
+    label = "Change in weight* (kg)",
+    columns = c("n", "Mean", "sd")
+  ) |>
+  tab_source_note(
+    source_note = "*18 month weight-baseline weight"
+  )
+
+
+# Print the table
+gt_table
+```
+
+
+8.61 Test whether the variances are the same in the weight- loss and control groups.
+
+8.62 Test whether the intervention was effective in reducing weight in the weight-loss versus the control group.
+
+## Cardiology
+
+A study is planned of the effect of drug therapy with cholesterol-lowering drugs on the coronary arteries of patients with severe angina. A pilot study was performed whereby each patient received the placebo treatment and had an angiogram at baseline and again three years later at follow-up. The average diameter of three coronary arteries was measured at baseline and follow-up. The results are given in Table 8.14.
+
+```{r}
+#| echo: false
+#| eval: true
+#| message: false
+tibble(
+  `Mean change*` = -0.049,
+  sd = 0.237,
+  n = 8
+) |>
+  gt() |>
+  tab_header(
+    title = "Table 8.14",
+    subtitle = "Change in diameter of coronary arteries in patients with severe angina"
+  ) |>
+  tab_source_note(
+    source_note = "*Follow-up - baseline"
+  )
+```
+
+
+Suppose we wish to test the hypothesis that there has been significant change over 3 years in the placebo group.
+
+8.63 What test should be used to test this hypothesis?
+
+8.64 Implement the test in Problem 8.63 and report a p-value.
+
+8.65 Suppose it is assumed that the mean change over 3 years would be 0 for an active drug group and –0.049 for a placebo group. We intend to randomize subjects to placebo and active drug and compare the mean change in the two groups, How much power would the proposed study have if 500 subjects in each of the drug and placebo groups are available to participate in the study, a two-sided test is used with α = .05 and the variances in each group are assumed to be the same?
+
+## Cardiovascular Disease, Pediatrics
+
+A family-based behavior-change program was used to modify cardiovascular risk factors among teenage children of patients with ischemic heart disease. The mean baseline level and change in HDL-cholesterol level after a 6-month period in the program is given in Table 8.15.
+
+```{r}
+#| echo: false
+#| eval: true
+#| message: false
+tibble(
+  Variable = c("Baseline", "6-months", "Difference (6-months - Baseline)"),
+  Mean = c(1.20, 1.12, -0.08),
+  sd = c(0.32, 0.35, 0.23),
+  n = c(44, 44, 44)
+) |>
+  gt() |>
+  cols_label(Variable = "") |>
+  tab_header(
+    title = "Table 8.15",
+    subtitle = "Mean baseline level and change in HDL-cholesterol level (mmol/L) among teenage children over a 6-month period"
+  )
+```
+
+8.66 What test procedure can be used to test if there has been a change in mean HDL-cholesterol levels among teenage children who undergo such a program?
+
+8.67 Implement the test procedure mentioned in Prob- lem 8.66 and report a p-value (two-sided) as precisely as possible using the appropriate tables.
+
+8.68 Provide a 95% CI for the true mean change over 6 months among teenage children exposed to the program.
+
+8.69 Suppose the results in Problem 8.67 are statistically significant (they may or may not be). Does this necessarily mean that the education program per se is the reason why the HDL-cholesterol levels have changed? If not, is there some way to change the design to allow us to be more confident about the specific effects of the education program?
+
+## Endocrinology
+
+A study was performed comparing the rate of bone formation between black and white adults. The data in Table 8.16 were presented.
+
+```{r}
+#| echo: false
+#| eval: true
+#| message: false
+tibble(
+  variable = "Bone-formation rate",
+  `Blacks (n = 12) Mean ± se` = "0.033 ± 0.007",
+  `Whites (n = 13) Mean ± se` = "0.095 ± 0.012"
+) |>
+  gt() |>
+  cols_label(variable = "") |>
+  tab_header(
+    title = "Table 8.16",
+    subtitle = "Comparison of bone-formation rate between black versus white adults"
+  )
+```
+
+8.70 What method can be used to compare mean bone-formation rate between blacks and whites?
+
+8.71 Implement the method in Problem 8.70 and report a p-value.
+
+8.72 Obtain a 95% CI for the mean difference in bone-formation rate between the two groups.
+
+## Health Promotion
+
+One goal of an exercise training program is to improve the physical fitness of individuals as measured by their resting heart rate. Suppose it is known that the mean resting heart rate of a group of sedentary individuals is 85 beats/min with a sd of 10 beats/min. A clinical trial is proposed where half the subjects will be randomized to a low intensity exercise program (group A), while the other half will get no exercise training (group B). It is expected that after 6 months, the mean resting heart rate of group A will decline by 3 beats/min while group B will show no mean change in resting heart rate. Assume that the correlation coefficient between resting heart rate measured 6 months apart in the same individual is .8.
+
+8.73 How many subjects are needed in each group to achieve an 80% power if a two-sided test is used with significance level of .05?
+
+8.74 Suppose that 50 subjects are randomized to each group. How much power will the study have if a 2-sided test is used with a significance level of .05?
