@@ -1454,5 +1454,131 @@
     "title": "Chapter 6 Practice Problems",
     "section": "Pulmonary Disease 2",
     "text": "Pulmonary Disease 2\nWheezing is a common respiratory symptom reported by both children and adults. A study is conducted to assess whether either personal smoking or maternal smoking are associated with wheezing in children ages 6–19.\n\n6.38Solution\n\n\nSuppose that 400 children in this age group whose mothers smoke are assessed in 1985, and it is found that 60 report symptoms of wheezing. Provide a point estimate and a 95% CI for the underlying rate of wheezing in the population of children whose mothers smoke.\n\n\n\n\n\n\n\n6.39Solution\n\n\nSuppose the rate of wheezing among children ages 6–19 in the general population is 10%. What can you conclude from the results in Problem 6.38?\n\n\n\n\n\n\n\n6.40Solution\n\n\nSuppose we have a subgroup of 30 children where both the mother and the child are smokers. Six of these 30 children have wheezing symptoms. Provide a 95% CI for the true rate of wheezing in this population.\n\n\n\n\n\n\n\n6.41Solution\n\n\nHow do you assess the results in Problem 6.40?\n\n\n\n\n\n\n\n6.42Solution\n\n\nSuppose 6 events are realized over a 1-year period for a random variable that is thought to be Poisson-distributed. Provide a 95% CI for the true expected number of events over 1 year."
+  },
+  {
+    "objectID": "review/pp_07.html",
+    "href": "review/pp_07.html",
+    "title": "Chapter 7 Practice Problems",
+    "section": "",
+    "text": "These practice problems mostly come from Rosner’s publicly available study sheet at the books companion website. The solutions are my own, since we differ slightly on what we are looking for in the solutions."
+  },
+  {
+    "objectID": "review/pp_07.html#nutrition",
+    "href": "review/pp_07.html#nutrition",
+    "title": "Chapter 7 Practice Problems",
+    "section": "Nutrition",
+    "text": "Nutrition\nAs part of a dietary-instruction program, ten 25–34-year-old males adopted a vegetarian diet for 1 month. While on the diet, the average daily intake of linoleic acid was 13 g with standard deviation = 4 g.\n7.1 If the average daily intake among 25–34-year-old males in the general population is 15 g, then, using a significance level of .05, test the hypothesis that the intake of linoleic acid in this group is lower than that in the general population.\n7.2 Compute a p-value for the hypothesis test in Problem 7.1.\nAs part of the same program, eight 25–34-year-old females report an average daily intake of saturated fat of 11 g with standard deviation = 11 g while on a vegetarian diet.\n7.3 If the average daily intake of saturated fat among 25–34-year-old females in the general population is 24 g, then, using a significance level of .01, test the hypothesis that the intake of saturated fat in this group is lower than that in the general population.\n7.4 Compute a p-value for the hypothesis test in Problem 7.3.\n7.5 What is the relationship between your answers to Problems 7.3 and 7.4?\nSuppose we are uncertain what effect a vegetarian diet will have on the level of linoleic-acid intake in Problem 7.1.\n7.6 What are the null and alternative hypotheses in this case?\n7.7 Compare the mean level of linoleic acid in the vegetarian population with that of the general population under the hypotheses in Problem 7.6. Report a p-value.\n7.8 Suppose \\(s\\) = 5 based on a sample of 20 subjects. Test the null hypothesis \\(H_0\\) : \\(\\sigma^2 = 16\\) versus \\(H_1\\) : \\(\\sigma^2 \\neq 16\\) using the critical-value method based on a significance level of .05.\n7.9 Answer Problem 7.8 using the p-value method.\n7.10 Suppose we are uncertain what effect a vegetarian diet will have on saturated fat intake. Compute a two-sided p-value for the hypothesis testing situation mentioned in Problem 7.3.\n7.11 Compute a lower one-sided 95% CI for the true mean intake of linoleic acid in the vegetarian population depicted in Problem 7.1.\n7.12 How does your answer to Problem 7.11 relate to your answer to Problem 7.1?"
+  },
+  {
+    "objectID": "review/pp_07.html#nutrition-1",
+    "href": "review/pp_07.html#nutrition-1",
+    "title": "Chapter 7 Practice Problems",
+    "section": "Nutrition",
+    "text": "Nutrition\nA food-frequency questionnaire was mailed to 20 subjects to assess the intake of various food groups. The sample standard deviation of vitamin-C intake over the 20 subjects was 15 (exclusive of vitamin-C supplements). Suppose we know from using an in-person diet-interview method in a large previous study that the standard deviation is 20.\n7.13 What hypotheses can be used to test if there are any differences between the standard deviations of the two methods?\n7.14 Perform the test described in Problem 7.13 and report a p-value.\nThe sample standard deviation for log (vitamin-A intake) exclusive of supplements based on the 20 subjects using the food-frequency questionnaire was 0.016. Suppose the standard deviation from the diet-interview method is known to be 0.020 based on a large previous study.\n7.15 Test the hypothesis that the variances using the two methods are the same. Use the critical-value method with a \\(\\alpha\\) = .05\n7.16 Report a p-value corresponding to the test in Problem 7.15."
+  },
+  {
+    "objectID": "review/pp_07.html#occupational-health",
+    "href": "review/pp_07.html#occupational-health",
+    "title": "Chapter 7 Practice Problems",
+    "section": "Occupational Health",
+    "text": "Occupational Health\nSuppose that 28 cancer deaths are noted among workers ex- posed to asbestos in a building-materials plant from 1981–1985. Only 20.5 cancer deaths are expected from statewide cancer-mortality rates.\n7.17 What is the estimated SMR for total cancer mortality?\n7.18 Is there a significant excess or deficit of total cancer deaths among these workers?\nIn the same group of workers, 7 deaths due to leukemia are noted. Only 4.5 are expected from statewide rates.\n7.19 What is the estimated SMR for leukemia?\n7.20 Is there a significant excess or deficit of leukemia deaths among these workers?"
+  },
+  {
+    "objectID": "review/pp_07.html#infectious-disease",
+    "href": "review/pp_07.html#infectious-disease",
+    "title": "Chapter 7 Practice Problems",
+    "section": "Infectious Disease",
+    "text": "Infectious Disease\nSuppose the annual incidence of diarrhea (defined as 1+ episodes per year) in a Third-World country is 5% in children under the age of 2.\n7.21 If 10 children out of 108 under the age of 2 in a poor rural community in the country have 1+ episodes of diarrhea in a year, then test if this represents a significant departure from the overall rate for the country using the critical-value method.\n7.22 Report a p-value corresponding to your answer to Problem 7.21"
+  },
+  {
+    "objectID": "review/pp_07.html#ophthalmology",
+    "href": "review/pp_07.html#ophthalmology",
+    "title": "Chapter 7 Practice Problems",
+    "section": "Ophthalmology",
+    "text": "Ophthalmology\nSuppose the distribution of systolic blood pressure in the general population is normal with a mean of 130 mm Hg and a standard deviation of 20 mm Hg. In a special subgroup of 85 people with glaucoma, we find that the mean systolic blood pressure is 135 mm Hg with a standard deviation of 22 mm Hg.\n7.23 Assuming that the standard deviation of the glaucoma patients is the same as that of the general population, test for an association between glaucoma and high blood pressure.\n7.24 Answer Problem 7.23 without making the assumption concerning the standard deviation."
+  },
+  {
+    "objectID": "review/pp_07.html#occupational-health-1",
+    "href": "review/pp_07.html#occupational-health-1",
+    "title": "Chapter 7 Practice Problems",
+    "section": "Occupational Health",
+    "text": "Occupational Health\n7.25 Suppose it is known that the average life expectancy of a 50-year-old man in 1945 was 18.5 years. Twenty men aged 50 who have been working for at least 20 years in a potentially hazardous industry were ascertained in 1945. On follow-up in 1985 all the men have died, with an average lifetime of 16.2 years and a standard deviation of 7.3 years since 1945. Assuming that life expectancy of 50-year-old men is approximately normally distributed, test if the underlying life expectancy for workers in this industry is shorter than for comparably aged men in the general population."
+  },
+  {
+    "objectID": "review/pp_07.html#cancer",
+    "href": "review/pp_07.html#cancer",
+    "title": "Chapter 7 Practice Problems",
+    "section": "Cancer",
+    "text": "Cancer\n7.26 An area of current interest in cancer epidemiology is the possible role of oral contraceptives (OC’s) in the development of breast cancer. Suppose that in a group of 1000 premenopausal women ages 40–49 who are current users of OC’s, 15 subsequently develop breast cancer over the next 5 years. If the expected 5-year incidence rate of breast cancer in this group is 1.2% based on national incidence rates, then test the hypothesis that there is an association between current OC use and the subsequent development of breast cancer."
+  },
+  {
+    "objectID": "review/pp_07.html#cancer-1",
+    "href": "review/pp_07.html#cancer-1",
+    "title": "Chapter 7 Practice Problems",
+    "section": "Cancer",
+    "text": "Cancer\nA group of investigators wishes to explore the relationship between the use of hair dyes and the development of breast cancer in females. A group of 1000 beauticians 30–39 years of age is identified and followed for 5 years. After 5 years, 20 new cases of breast cancer have occurred. Assume that breast-cancer incidence over this time period for an average woman in this age group is 7/1000. We wish to test the hypothesis that using hair dyes increases the risk of breast cancer.\n7.27 Is a one-sided or two-sided test appropriate here?\n7.28 Test the hypothesis."
+  },
+  {
+    "objectID": "review/pp_07.html#renal-disease",
+    "href": "review/pp_07.html#renal-disease",
+    "title": "Chapter 7 Practice Problems",
+    "section": "Renal Disease",
+    "text": "Renal Disease\nThe level of serum creatinine in the blood is considered a good indicator of the presence or absence of kidney disease. Normal people generally have low concentrations of serum creatinine, whereas diseased people have high concentrations. Suppose we want to look at the relation between analgesic abuse and kidney disorder. In particular, suppose we look at 15 people working in a factory who are known to be “analgesic abusers” (i.e., they take more than 10 pills per day) and we measure their creatinine levels. The creatinine levels are\n\ncret &lt;- tibble(\n  creatine = c(0.9, 1.1, 1.6, 2.0, 0.8,\n               0.7, 1.4, 1.2, 1.5, 0.8,\n               1.0, 1.1, 1.4, 2.2, 1.4)\n)\ncret\n\n# A tibble: 15 × 1\n   creatine\n      &lt;dbl&gt;\n 1      0.9\n 2      1.1\n 3      1.6\n 4      2  \n 5      0.8\n 6      0.7\n 7      1.4\n 8      1.2\n 9      1.5\n10      0.8\n11      1  \n12      1.1\n13      1.4\n14      2.2\n15      1.4\n\n\n7.29 If we assume that creatinine levels for normal people are normally distributed with mean 1.0, then can we make any comment about the levels for analgesic abusers via some statistical test?\n7.30 Suppose the standard deviation of serum creatinine in the general population = 0.40. Can we compare the variance of serum creatinine among analgesic abusers versus the variance of serum creatinine in the general population?"
+  },
+  {
+    "objectID": "review/pp_07.html#otolaryngology",
+    "href": "review/pp_07.html#otolaryngology",
+    "title": "Chapter 7 Practice Problems",
+    "section": "Otolaryngology",
+    "text": "Otolaryngology\nOtitis media is an extremely common disease of the middle ear in children under 2 years of age. It can cause prolonged hearing loss during this period and may result in subsequent defects in speech and language. Suppose we wish to design a study to test the latter hypothesis, and we set up a study group consisting of children with 3 or more episodes of otitis media in the first 2 years of life. We have no idea what the size of the effect will be. Thus, we set up a pilot study with 20 cases, and find that 5 of the cases have speech and language defects at age 3.\n7.31 If we regard this experience as representative of what would occur in a large study and if we know that 15%of all normal children have speech and language defects by age 3, then how large of a study group is needed to have an 80% chance of detecting a significant difference using a one-sided test at the 5% level?\n7.32 Suppose only 50 cases can be recruited for the study group. How likely are we to find a significant difference if the true proportion of affected children with speech and language defects at age 3 is the same as that in the pilot study?"
+  },
+  {
+    "objectID": "review/pp_07.html#epidemiology",
+    "href": "review/pp_07.html#epidemiology",
+    "title": "Chapter 7 Practice Problems",
+    "section": "Epidemiology",
+    "text": "Epidemiology\nHeight and weight are often used in epidemiological studies as possible predictors of disease outcomes. If the people in the study are assessed in a clinic, then heights and weights are usually measured directly. However, if the people are interviewed at home or by mail, then a person’s self-reported height and weight are often used instead. Suppose we conduct a study on 10 people to test the comparability of these two methods. The data for weight are given in the following data frame.\n\nwt &lt;- tibble(\n  Subject_number = 1:10,\n  Self_reported_weight = c(120, 120, 135, 118, 120, 190, 124, 175, 133, 125),\n  Measured_weight = c(125, 118, 139, 120, 125, 198, 128, 176, 131, 125),\n  Difference = c(-5, 2, -4, -2, -5, -8, -4, -1, 2, 0)\n)\nwt\n\n# A tibble: 10 × 4\n   Subject_number Self_reported_weight Measured_weight Difference\n            &lt;int&gt;                &lt;dbl&gt;           &lt;dbl&gt;      &lt;dbl&gt;\n 1              1                  120             125         -5\n 2              2                  120             118          2\n 3              3                  135             139         -4\n 4              4                  118             120         -2\n 5              5                  120             125         -5\n 6              6                  190             198         -8\n 7              7                  124             128         -4\n 8              8                  175             176         -1\n 9              9                  133             131          2\n10             10                  125             125          0\n\n\n7.33 Should a one-sided or two-sided test be used here?\n7.34 Which test procedure should be used to test the preceding hypothesis?\n7.35 Conduct the test in Problem 7.34 using the critical-value method with α = .05.\n7.36 Compute the p-value for the test in Problem 7.34.\n7.37 Is there evidence of digit preference among the self- reported weights? Specifically, compare the observed proportion of self-reported weights whose last digit is 0 or 5 with the expected proportion based on chance and report a p-value."
+  },
+  {
+    "objectID": "review/pp_07.html#hypertension",
+    "href": "review/pp_07.html#hypertension",
+    "title": "Chapter 7 Practice Problems",
+    "section": "Hypertension",
+    "text": "Hypertension\nSeveral studies have been performed relating urinary potassium excretion to blood-pressure level. These studies have tended to show an inverse relationship between these two variables, with the higher the level of potassium excretion, the lower the BP level. Therefore, a treatment trial is planned to look at the effect of potassium intake in the form of supplement capsules on changes in DBP level. Suppose that in a pilot study, 20 people are given potassium supplements for 1 month. The data are as follows:\n\n\n\n\n\n\n\n\nMetric\nValue\n\n\n\n\nMean change (1 month-baseline)\n-3.2\n\n\nsd change\n8.5\n\n\nn\n20.0\n\n\n\n\n\n\n\n7.38 What test should be used to assess if potassium supplements have any effect on DBP level?\n7.39 Perform the test in Problem 7.38 using a two-sided test and report the p-value.\n7.40 Derive a 95% CI for the true mean change based on the preceding data. What is the relationship of your results here and in Problem 7.39?\n7.41 How many subjects need to be studied to have an 80% chance of detecting a significant treatment effect using a two-sided test with an α level of .05 if the mean and sd of the pilot study are assumed to be the population mean and sd?"
+  },
+  {
+    "objectID": "review/pp_07.html#hospital-epidemiology",
+    "href": "review/pp_07.html#hospital-epidemiology",
+    "title": "Chapter 7 Practice Problems",
+    "section": "Hospital Epidemiology",
+    "text": "Hospital Epidemiology\nA study was conducted to identify characteristics that would predict 1-year survival for patients admitted to the medical service at New York Hospital [1]. One factor that was considered was the physician’s estimate of the patients’ severity of illness at the time of admission. Suppose that it is expected, based on previous studies in this hospital, that 2/3 of admitted patients will survive for at least 1 year.\n7.42 If 47% of 136 patients deemed severely ill survive at least 1 year, then what test can be used to test the hypothesis that the severity-of-illness rating is predictive of 1-year mortality?\n7.43 Perform the test in Problem 7.42 using the critical-value method based on an α level pf .05.\n7.44 Provide a 95% CI for the 1-year survival rate among severely ill patients.\nSuppose that it is expected, based on previous studies, that among all patients who survive hospitalization, 75% will survive for 1 year. Furthermore, of the 136 severely ill patients, 33 die during hospitalization, and an additional 39 die during the 1st year, but after hospitalization.\n7.45 Test the hypothesis that severity of illness is predictive of 1-year mortality among patients who are discharged from the hospital. Report a p-value."
+  },
+  {
+    "objectID": "review/pp_07.html#cancer-2",
+    "href": "review/pp_07.html#cancer-2",
+    "title": "Chapter 7 Practice Problems",
+    "section": "Cancer",
+    "text": "Cancer\nRadiotherapy is a common treatment for breast cancer, with about 25% of women receiving this form of treatment. Assume that the figure 25% is based on a very large sample and is known without error. One hypothesis is that radiotherapy applied to the contralateral breast may be a risk factor for development of breast cancer in the opposite breast 5 or more years after the initial cancer. Suppose that 655 women are identified who developed breast cancer in the opposite breast 5 or more years after the initial cancer [2].\n7.46 If 206 of the women received radiotherapy after their initial diagnosis, then test the hypothesis that radiotherapy is associated with the development of breast cancer in the opposite breast. Please report a p-value.\n7.47 Provide a 95% CI for the true proportion of women with contralateral breast cancer who received radiotherapy treatment.\n7.48 Suppose that our p-value in Problem 7.46 = .03 (this is not necessarily the actual p-value in Problem 7.46). If we conduct a test using the critical-value method with α = .05, then would we accept or reject \\(H_0\\) and why? (Do not actually conduct the test.)\n7.49 Suppose we wanted a 99% CI instead of a 95% CI in Problem 7.47. Would the length of the 99% CI be narrower, wider, or the same as the CI in Problem 7.47? (Do not actually construct the interval.)"
+  },
+  {
+    "objectID": "review/pp_07.html#renal-disease-1",
+    "href": "review/pp_07.html#renal-disease-1",
+    "title": "Chapter 7 Practice Problems",
+    "section": "Renal Disease",
+    "text": "Renal Disease\nTo compare two methods for the determination of uric acid, 23 blood samples from 23 individuals were divided and analyzed both by the colorimetric method and the uricase method. Suppose the sample means of the colorimetric and uricase assessments were 6.26 and 6.20 mg/dL, respectively, the sample standard deviation of the paired difference between repeated assessments is 0.50 mg/dL, and it is reasonable to assume that this paired difference has a normal distribution.\n7.50 What is the best estimate for the mean difference between approaches?\n7.51 Construct a 95% CI for the mean difference.\n7.52 What can be concluded about the difference between assessments by the two methods?"
+  },
+  {
+    "objectID": "review/pp_07.html#cardiovascular-disease",
+    "href": "review/pp_07.html#cardiovascular-disease",
+    "title": "Chapter 7 Practice Problems",
+    "section": "Cardiovascular Disease",
+    "text": "Cardiovascular Disease\nThe relationship between serum cholesterol and coronary-heart-disease mortality has been a subject of much debate over the past 30 years. Some data relevant to this question were presented in the Whitehall study. It was shown there that among 3615 men 40–64 years of age who were in the top quintile of serum cholesterol at baseline, 194 died from coronary heart disease over the next 10 years. Suppose the incidence rate of coronary-heart-disease mortality over 10 years among men in this age group in Great Britain is 4%.\n7.53 What test can be performed to compare the incidence rate of coronary-heart-disease mortality among men in the top cholesterol quintile vs general-population incidence rates?\n7.54 Implement the test in Problem 7.53 and report a p-value.\n7.55 Construct a 95% CI for the true incidence rate in the group of 40–64-year-old men in the top quintile of serum cholesterol."
+  },
+  {
+    "objectID": "review/pp_07.html#cancer-3",
+    "href": "review/pp_07.html#cancer-3",
+    "title": "Chapter 7 Practice Problems",
+    "section": "Cancer",
+    "text": "Cancer\nIt is well established that exposure to ionizing radiation at or after puberty increases a woman’s risk of breast cancer. However, it is uncertain whether such exposure early in life is also carcinogenic. A study was performed in a cohort of 1201 women who received x-ray treatment in infancy for an enlarged thymus gland and were followed prospectively for 36 years. It was found that 22 breast cancers occurred over a 36-year period among the 1201 women.\n7.56 If the expected incidence rate of breast cancer in this age group over this time period is 1 event per 200 women based on New York State cancer-incidence rates, then test the hypothesis that irradiation has an effect on breast-cancer incidence. Please report a p-value and construct a 95% CI for the incidence rate among the exposed group.\nIt was also found that 6 breast cancers occurred over a 36-year period among a subgroup of 138 women who were exposed to a high radioactive dose (0.50–1.99 gray, where a gray is a unit of radiation absorbed by the breast tissue).\n7.57 Test the hypothesis that the high-risk subgroup is at excess risk for breast cancer, and report a p-value."
   }
 ]
