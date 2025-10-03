@@ -744,6 +744,7 @@ gt_table
 What is your best estimate of the effect of adopting a vegetarian diet on change in serum-cholesterol levels?
 
 ## Solution
+$\bar{X}$: An average difference of 19.54 mg/dL
 :::
 
 ::: {.panel-tabset}
@@ -751,6 +752,13 @@ What is your best estimate of the effect of adopting a vegetarian diet on change
 What is the standard error of the estimate given in Problem 6.31?
 
 ## Solution
+$$
+s / \sqrt{n} = 16.81 / \sqrt{24}
+$$
+```{r}
+16.81 / sqrt(24)
+```
+
 :::
 
 ::: {.panel-tabset}
@@ -758,6 +766,24 @@ What is the standard error of the estimate given in Problem 6.31?
 Provide a 95% CI for the effect of adopting the diet.
 
 ## Solution
+The interval is of the form
+$$
+\bar{x} \pm t_{n-1, 1-\alpha/2}\frac{s}{\sqrt{n}}
+$$
+We just need $t_{24 - 1, 1 - 0.05 / 2}$
+```{r}
+qt(p = 1 - 0.05 / 2, df = 24 - 1)
+```
+Plugging in numbers
+$$
+19.54 \pm 2.069 \times 3.431
+$$
+Numerically
+```{r}
+19.54 - 2.069 * 3.431
+19.54 + 2.069 * 3.431
+```
+
 :::
 
 ::: {.panel-tabset}
@@ -765,6 +791,7 @@ Provide a 95% CI for the effect of adopting the diet.
 What can you conclude from your results in Problem 6.33?
 
 ## Solution
+We have evidence that cholesterol levels are lower after starting the diet since the 95% CI is above 0.
 :::
 
 Some physicians consider only changes of at least 10 mg/dL (the same units as in Table 2.1) to be clinically significant.
@@ -774,6 +801,11 @@ Some physicians consider only changes of at least 10 mg/dL (the same units as in
 Among people with a clinically significant change in either direction, what is the best estimate of the proportion of subjects with a clinically significant decline in cholesterol?
 
 ## Solution
+You count the number of folks who are less than -10 and the number of folks who are greater than 10. You can do this manually. You end up with 18 greater than 10 and 2 less than -10. Positive numbers mean a decline, so 18 out of 20 clinically significant changes have been a decline, or
+$$
+\hat{p} = 18/20 = 0.9
+$$
+
 :::
 
 ::: {.panel-tabset}
@@ -781,6 +813,33 @@ Among people with a clinically significant change in either direction, what is t
 Provide a 95% CI associated with the estimate in Problem 6.35.
 
 ## Solution
+We need to use an exact method since:
+```{r}
+20 * 0.9 * (1 - 0.9)
+```
+The exact CI is
+```{r}
+binom.test(x = 18, n = 20) |>
+  tidy() |>
+  select(conf.low, conf.high)
+```
+This is because if $X \sim \mathrm{Binom}(20, 0.683)$ then $P(X \geq 18)$ is $\alpha/2 = 0.05/2 = 0.025$:
+```{r}
+1 - pbinom(q = 17, size = 20, prob = 0.683)
+```
+```{r}
+#| echo: false
+plt_binom(size = 20, prob = 0.683, lb = 18, rng = c(0, 20))
+```
+
+and if $X \sim \mathrm{Binom}(20, 0.9877)$ then $P(X \leq 18)$ is 0.025
+```{r}
+pbinom(q = 18, size = 20, prob = 0.9877)
+```
+```{r}
+#| echo: false
+plt_binom(size = 20, prob = 0.9877, ub = 18, rng = c(0, 20))
+```
 :::
 
 ::: {.panel-tabset}
@@ -788,6 +847,7 @@ Provide a 95% CI associated with the estimate in Problem 6.35.
 What can you conclude from your results in Problem 6.36?
 
 ## Solution
+Since the CI is well above 0.5, we can conclude it is more likely that a significant change will result in lower cholestoral than high cholesterol
 :::
 
 ## Pulmonary Disease 2
@@ -799,6 +859,34 @@ Wheezing is a common respiratory symptom reported by both children and adults. A
 Suppose that 400 children in this age group whose mothers smoke are assessed in 1985, and it is found that 60 report symptoms of wheezing. Provide a point estimate and a 95% CI for the underlying rate of wheezing in the population of children whose mothers smoke.
 
 ## Solution
+Let $X$ be the number wheezing out of 400. Then $X \sim \mathrm{Binom}(400, p)$. We estimate $p$ with
+$$
+\hat{p} = 60 / 400 = 0.15
+$$
+We obtain a 95% CI of this form:
+$$
+\hat{p} \pm z_{1 - \alpha/2} \cdot \sqrt{ \frac{ \hat{p}(1 - \hat{p}) }{n} }
+$$
+We get $z_{1 - \alpha/2}$ with
+```{r}
+qnorm(1 - 0.05 / 2)
+```
+
+Plugging in numbers we get
+$$
+0.15 \pm 1.96 \sqrt{ \frac{ 0.15(1 - 0.15) }{400} }
+$$
+Numerically, this is
+```{r}
+0.15 - 1.96 * sqrt(0.15 * (1 - 0.15) / 400)
+0.15 + 1.96 * sqrt(0.15 * (1 - 0.15) / 400)
+```
+The real way in R is
+```{r}
+prop.test(x = 60, n = 400) |>
+  tidy() |>
+  select(conf.low, conf.high)
+```
 :::
 
 ::: {.panel-tabset}
@@ -806,6 +894,7 @@ Suppose that 400 children in this age group whose mothers smoke are assessed in 
 Suppose the rate of wheezing among children ages 6–19 in the general population is 10%. What can you conclude from the results in Problem 6.38?
 
 ## Solution
+We have evidence that the rate is higher in children with smoking mothers. This is since the CI from part 6.38 is above 0.1.
 :::
 
 ::: {.panel-tabset}
@@ -813,6 +902,38 @@ Suppose the rate of wheezing among children ages 6–19 in the general populatio
 Suppose we have a subgroup of 30 children where both the mother and the child are smokers. Six of these 30 children have wheezing symptoms. Provide a 95% CI for the true rate of wheezing in this population.
 
 ## Solution
+In this case
+$$
+\hat{p} = 6 / 30 = 0.2
+$$
+We need to use an exact method since $n\hat{p}(1 - \hat{p}) < 5$
+```{r}
+30 * 0.2 * (1 - 0.2)
+```
+The exact approach results in a 95% CI of
+```{r}
+binom.test(x = 6, n = 30) |>
+  tidy() |>
+  select(conf.low, conf.high)
+```
+This is because if $X \sim \mathrm{Binom}(30, 0.07714)$ then $P(X \geq 6)$ is $\alpha/2 = 0.05/2 = 0.025$:
+```{r}
+1 - pbinom(q = 5, size = 30, prob = 0.07714	)
+```
+```{r}
+#| echo: false
+plt_binom(size = 30, prob = 0.07714	, lb = 6)
+```
+
+and if $X \sim \mathrm{Binom}(30, 0.3857)$ then $P(X \leq 6)$ is 0.025
+```{r}
+pbinom(q = 6, size = 30, prob = 0.3857)
+```
+```{r}
+#| echo: false
+plt_binom(size = 30, prob = 0.3857, ub = 6)
+```
+
 :::
 
 ::: {.panel-tabset}
@@ -820,6 +941,7 @@ Suppose we have a subgroup of 30 children where both the mother and the child ar
 How do you assess the results in Problem 6.40?
 
 ## Solution
+We do not have evidence that they have a different wheezing rate than the general population between the CI includes 0.1.
 :::
 
 ::: {.panel-tabset}
@@ -827,4 +949,9 @@ How do you assess the results in Problem 6.40?
 Suppose 6 events are realized over a 1-year period for a random variable that is thought to be Poisson-distributed. Provide a 95% CI for the true expected number of events over 1 year.
 
 ## Solution
+```{r}
+poisson.test(x = 6) |>
+  tidy() |>
+  select(conf.low, conf.high)
+```
 :::
