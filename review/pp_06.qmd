@@ -6,12 +6,80 @@ date: today
 
 These practice problems mostly come from Rosner's publicly available study sheet at the books [companion website](https://www.cengage.com/cgi-wadsworth/course_products_wp.pl?fid=M20b&product_isbn_issn=9781305268920). The solutions are my own, since we differ slightly on what we are looking for in the solutions.
 
-```{r}
+```{r setup}
 #| echo: false
 #| eval: true
 #| message: false
 library(tidyverse)
 library(gt)
+library(broom)
+plt_t <- function(
+    mu = 0, 
+    sig = 1, 
+    lb = -Inf,
+    ub = Inf,
+    df = Inf, 
+    rng = c(-3, 3), 
+    two_sided = FALSE,
+    col = "#E69F00",
+    lwd = 1) {
+  tibble(x = seq(mu + rng[[1]] * sig, mu + rng[[2]] * sig, length.out = 500)) |>
+    mutate(y = dt(x = (x - mu) / sig, df = df)) ->
+    df1
+  df1 |>
+    filter(x > lb, x < ub) ->
+    df2
+  ggplot() +
+    geom_line(data = df1, mapping = aes(x = x, y = y), linewidth = lwd) +
+    geom_area(data = df2, mapping = aes(x = x, y = y), fill = col) +
+    geom_line(data = df2, mapping = aes(x = x, y = y), color = col, linewidth = lwd) +
+    theme_classic() +
+    theme(axis.title = element_blank()) ->
+    pl
+  
+  if (two_sided) {
+    df1 |>
+      filter(x > -ub, x < -lb) ->
+      df3
+    pl <- pl + 
+      geom_area(data = df3, mapping = aes(x = x, y = y), fill = col) +
+      geom_line(data = df3, mapping = aes(x = x, y = y), color = col, linewidth = lwd)
+  }
+  pl
+}
+plt_binom <- function(
+    size, 
+    prob = 0.5, 
+    lb = -Inf,
+    ub = Inf, 
+    rng = c(0, size),
+    col = "#E69F00",
+    valmax = NULL,
+    lwd = 1) {
+  
+  tibble(x = seq(rng[[1]], rng[[2]], by = 1)) |>
+    mutate(
+      pmf = stats::dbinom(x = x, size = size, prob = prob)
+      ) ->
+    df
+  
+  if (is.null(valmax)) {
+    df |>
+      mutate(col = (x >= lb & x <= ub)) ->
+      df
+  } else {
+    df |>
+      mutate(col = y <= stats::dbinom(x = valmax, size = size, prob = prob)) ->
+      pmax
+  }
+  df |>
+    ggplot(aes(x = x, xend = x, yend = pmf, color = col)) +
+    geom_segment(y = 0, lwd = lwd) +
+    theme_classic() +
+    theme(axis.title = element_blank()) +
+    scale_color_manual(values = c("black", col), guide = "none") +
+    scale_x_continuous(breaks = seq(rng[[1]], rng[[2]]))
+}
 ```
 
 ## Quantiles
@@ -45,6 +113,23 @@ A case-control study of the effectiveness of the Pap smear in preventing cervica
 Provide a 95% CI for the percentage of cervical-cancer cases who never had a Pap test.
 
 ## Solution
+ Let $X$ be the number of cervical-cancer cases who had never had a Pap-smear. Then $X \sim \mathrm{Binom}(n, p)$. We want a 95% confidence interval for $p$. We are given that $\hat{p} = 0.281$ and $n = 153$. We calculate
+$$
+\hat{p} \pm z_{1 - \alpha/2} \cdot \sqrt{ \frac{ \hat{p}(1 - \hat{p}) }{n} }
+$$
+We can get $z_{1-\alpha/2}$ where $\alpha = 0.05$ via
+```{r}
+qnorm(1 - 0.05/2)
+```
+Plugging in, we get
+$$
+0.281 \pm 1.96 \cdot \sqrt{ \frac{ 0.281(1 - 0.281) }{153} }
+$$
+Numerically, this is
+```{r}
+0.281 - 1.96 * sqrt(0.281 * (1 - 0.281) / 153)
+0.281 + 1.96 * sqrt(0.281 * (1 - 0.281) / 153)
+```
 :::
 
 ::: {.panel-tabset}
@@ -52,6 +137,15 @@ Provide a 95% CI for the percentage of cervical-cancer cases who never had a Pap
 Provide a 95% CI for the percentage of controls who never had a Pap test.
 
 ## Solution
+This is the exact same thing as 6.5, but with $\hat{p} = 0.072$ and $n = 153$. We get
+$$
+0.072 \pm 1.96 \cdot \sqrt{ \frac{ 0.072(1 - 0.072) }{153} }
+$$
+Numerically
+```{r}
+0.072 - 1.96 * sqrt(0.072 * (1 - 0.072) / 153)
+0.072 + 1.96 * sqrt(0.072 * (1 - 0.072) / 153)
+```
 :::
 
 ::: {.panel-tabset}
@@ -59,6 +153,7 @@ Provide a 95% CI for the percentage of controls who never had a Pap test.
 Do you think the Pap test is helpful in preventing cervical cancer?
 
 ## Solution
+Yes. Let $p_1$ is the proportion of cases who did not have a pap-smear and $p_2$ be the proportion of controls who did not have a pap-smear. The confidence interval for $p_2$ is entirely below that of $p_1$. So it is very likely that controls are less likely to not have had a pap-smear than controls. In Chapter 7, we will make this more formal.
 :::
 
 ## Hypertension
@@ -82,15 +177,24 @@ sbp_data
 ```
 
 
-To test the effectiveness of the drug, we want to measure
-the difference (D) between initial and follow-up blood pres-
-sures for each person.
+To test the effectiveness of the drug, we want to measure the difference ($D$) between initial and follow-up blood pressures for each person.
 
 ::: {.panel-tabset}
 ## 6.8 
-What is the mean and sd of D?
+What is the mean and sd of $D$?
 
 ## Solution
+We calculate $D$ with
+```{r}
+sbp_data |>
+  mutate(diff = initial_sbp - followup_sbp) ->
+  sbp_data
+```
+We can now calculate the mean and sd
+```{r}
+sbp_data |>
+  summarize(mean = mean(diff), sd = sd(diff))
+```
 :::
 
 ::: {.panel-tabset}
@@ -98,13 +202,41 @@ What is the mean and sd of D?
 What is the standard error of the mean?
 
 ## Solution
+Rosner means the estimated estimated standard error. This is $s / \sqrt{n}$ where $s$ = 19.85 from 6.8 and $n$ = 10.
+```{r}
+19.85 / sqrt(10)
+```
 :::
 
 ::: {.panel-tabset}
 ## 6.10 
-Assume that D is normally distributed. Construct a 95% CI for µ.
+Assume that $D$ is normally distributed. Construct a 95% CI for $\mu$.
 
 ## Solution
+This is
+$$
+\bar{x} \pm t_{n-1, 1-\alpha/2}\frac{s}{\sqrt{n}}
+$$
+Where $t_{n-1, 1-\alpha/2}$ with $\alpha = 0.05$ and $n = 10$ is
+```{r}
+qt(1 - 0.05 / 2, df = 9)
+```
+Plugging in values
+$$
+15.1 \pm 2.262 \times 6.277
+$$
+Numerically
+```{r}
+15.1 - 2.262 * 6.277
+15.1 + 2.262 * 6.277
+```
+
+In real-life, we would use `t.test()`.
+```{r}
+t.test(diff ~ 1, data = sbp_data) |>
+  tidy() |>
+  select(conf.low, conf.high)
+```
 :::
 
 ::: {.panel-tabset}
@@ -112,6 +244,7 @@ Assume that D is normally distributed. Construct a 95% CI for µ.
 Do you have any opinion on the effectiveness of methyl dopa from the results of these 10 patients?
 
 ## Solution
+Since 0 is not included in the confidence interval, it is not a likely value. So we have evidence that the mean decrease is positive. But to make claims on efficacy, we would need a control group to see if their mean decrease is also positive by the same amount.
 :::
 
 ## Cancer 2
@@ -123,6 +256,31 @@ Data from U.S. cancer-tumor registries suggest that of all people with the type 
 Suppose that a group of patients who would have received standard surgery are assigned to a new type of surgery. Of 100 such patients, 55 survive for 3 years and 45 survive for 5 years. Can we say that the new form of surgery is better in any sense than the standard form of surgery?
 
 ## Solution
+We calculate two lower bounds on proportions (upper confidence intervals). One for the proportion that survive for 3 years ($p_1$) and one for the proportion that survive for 5 years ($p_2$). We will see if the lower bound for $p_1$ is above 0.4 (the national proportion) and the lower bound for $p_2$ is above 0.33 (the national proportion). We are told that $\hat{p}_1 = 55/100 = 0.55$ and $\hat{p}_2 = 45 / 100 = 0.45$. Also, $n = 100$. Both intervals are of the form
+$$
+\hat{p} - z_{1 - \alpha} \cdot \sqrt{ \frac{ \hat{p}(1 - \hat{p}) }{n} }
+$$
+Let's use 95% for the level (the standard). Then $z_{1 - 0.05}$ is
+```{r}
+qnorm(p = 1 - 0.05)
+```
+The first lower bound is
+$$
+0.55 - 1.645 \sqrt{ \frac{ 0.55(1 - 0.55) }{100} }
+$$
+Numerically
+```{r}
+0.55 - 1.645 * sqrt(0.55 * (1 - 0.55) / 100)
+```
+The second lower bound is
+$$
+0.45 - 1.645 \sqrt{ \frac{ 0.45(1 - 0.45) }{100} }
+$$
+Numerically
+```{r}
+0.45 - 1.645 * sqrt(0.45 * (1 - 0.45) / 100)
+```
+Both lower bounds are above their national proportions. So it seems the new surgery is better.
 :::
 
 ## Cardiovascular Disease 1
@@ -134,6 +292,38 @@ A recent hypothesis states that vigorous exercise is an effective preventive mea
 Compute a 95% CI for the incidence of cardiovascular death in this group.
 
 ## Solution
+Let $X$ be the number that died. Then $X \sim \mathrm{Binom}(n, p)$. We are told that $n = 750$ and $x = 64$. So $\hat{p} = 64 / 750$. Or
+```{r}
+64 / 750
+```
+We want a 95% confidence interval for $p$. The normal approximation should be fine since $np(1-p)\geq 5$.
+```{r}
+750 * 0.08533 * (1 - 0.08533)
+```
+The form of the CI is
+$$
+\hat{p} \pm z_{1 - \alpha/2} \cdot \sqrt{ \frac{ \hat{p}(1 - \hat{p}) }{n} }
+$$
+We calculate $z_{1 - \alpha/2}$ with $\alpha = 0.05$ to get
+```{r}
+qnorm(p = 1 - 0.05 / 2)
+```
+Plugging in values, we get
+$$
+0.08533 \pm 1.96 \cdot \sqrt{ \frac{ 0.08533(1 - 0.08533) }{750} }
+$$
+Numerically
+```{r}
+0.08533 - 1.96 * sqrt(0.08533 * (1 - 0.08533) / 750)
+0.08533 + 1.96 * sqrt(0.08533 * (1 - 0.08533) / 750)
+```
+The real way in R would be
+```{r}
+prop.test(x = 64, n = 750) |>
+  tidy() |>
+  select(conf.low, conf.high)
+```
+This differs slightly than ours because R uses Wilson intervals, while the way in class we learned are Wald intervals.
 :::
 
 ::: {.panel-tabset}
@@ -141,6 +331,11 @@ Compute a 95% CI for the incidence of cardiovascular death in this group.
 If the expected death rate from cardiovascular disease over 6 years in 50–75-year-old men based on large samples is 10%, then can a conclusion be drawn concerning this hypothesis from these data?
 
 ## Solution
+10% is consistent with these data. So we cannot conclude that exercise is associated with lower death using these data. This holds even if we calculate an upper bound:
+```{r}
+0.08533 + qnorm(1 - 0.05) * sqrt(0.08533 * (1 - 0.08533) / 750)
+```
+
 :::
 
 ## Cardiovascular Disease 2
@@ -152,6 +347,10 @@ A group of 60 men under the age of 55 with a prior history of myocardial infarct
 What is the best point estimate of the 5-year mortality rate in this group of men?
 
 ## Solution
+If $X$ the number who died out of 60, then $X \sim \mathrm{Binom}(60, p)$. We observe $x = 3$. So,
+$$
+\hat{p} = 3 / 60 = 0.05
+$$
 :::
 
 ::: {.panel-tabset}
@@ -159,6 +358,34 @@ What is the best point estimate of the 5-year mortality rate in this group of me
 Derive a 95% confidence interval for the 5-yearamortality rate.
 
 ## Solution
+We cannot use the normal approximation since $n\hat{p}(1 - \hat{p}) < 5$
+```{r}
+60 * 0.05 * (1 - 0.05)
+```
+The exact method is
+```{r}
+binom.test(x = 3, n = 60) |>
+  tidy() |>
+  select(conf.low, conf.high)
+```
+
+This is because if $X \sim \mathrm{Binom}(60, 0.01043)$ then $P(X \geq 3)$ is $\alpha/2 = 0.05/2 = 0.025$:
+```{r}
+1 - pbinom(q = 2, size = 60, prob = 0.01043)
+```
+```{r}
+#| echo: false
+plt_binom(size = 60, prob = 0.01043, lb = 3, rng = c(0, 7))
+```
+
+and if $X \sim \mathrm{Binom}(60, 0.1392)$ then $P(X \leq 3)$ is 0.025
+```{r}
+pbinom(q = 3, size = 60, prob = 0.1392)
+```
+```{r}
+#| echo: false
+plt_binom(size = 60, prob = 0.1392, ub = 3, rng = c(0, 20))
+```
 :::
 
 ::: {.panel-tabset}
@@ -166,6 +393,7 @@ Derive a 95% confidence interval for the 5-yearamortality rate.
 Suppose that from a large sample of men under age 55 with a prior history of myocardial infarction, we know that the 5-year mortality rate is 18%. How does the observed mortality rate obtained in Problem 6.15 compare with the large sample rate of 18%?
 
 ## Solution
+The upper bound of the 95% CI is below 0.18. So we have evidence that those on the vegetarian diet have a lower mortality rate.
 :::
 
 ## Pulmonary Disease 1
@@ -205,6 +433,58 @@ flow_rates <- tibble(
 Find a 95% CI for the standard deviation of the difference between the first and second replicates using the manual method.
 
 ## Solution
+We first calculate the differences
+```{r}
+flow_rates |>
+  mutate(
+    Manual_diff = Manual_replicate1 - Manual_replicate2,
+    Digitizer_diff = Digitizer_replicate1 - Digitizer_replicate2) ->
+  flow_rates
+```
+We have to assume normality to use the standard variance CI. The following QQ plot seems to say this is an OK assumption:
+```{r}
+#| fig-width: 3
+#| fig-height: 3
+ggplot(data = flow_rates, mapping = aes(sample = Manual_diff)) +
+  geom_qq() +
+  geom_qq_line() +
+  theme_bw()
+```
+The variance CI is of the form
+$$
+\frac{(n - 1)s^2}{\chi^2_{n-1, 1 - \alpha/2}} \leq \sigma^2 \leq \frac{(n - 1)s^2}{\chi^2_{n-1, \alpha/2}}
+$$
+$s^2$ is the sample variance
+```{r}
+summarize(flow_rates, var = var(Manual_diff))
+```
+$n$ is 10. $\chi^2_{n-1, 1-\alpha/2}$ and $\chi^2_{n-1,\alpha/2}$ are the $1 - \alpha/2$ and $\alpha/2$ quantiels of the chi-squared distribution with $n-1$ degrees of freedom.
+```{r}
+qchisq(p = c(0.05/2, 1 - 0.05/2), df = 10 - 1)
+```
+Plugging in values we get
+$$
+\frac{(10 - 1)0.006068}{19.02} \leq \sigma^2 \leq \frac{(10 - 1)0.006068}{2.70}
+$$
+Numerically, a 95% CI for the variance
+```{r}
+9 * 0.006068 / 19.02
+9 * 0.006068 / 2.70
+```
+We take the square root of these to get a 95% CI for the standard deviation
+```{r}
+sqrt(9 * 0.006068 / 19.02)
+sqrt(9 * 0.006068 / 2.70)
+```
+
+In real-life, folks would use a bootstrap because of the sensitivity of this CI to the normality assumption
+```{r}
+set.seed(787)
+sdout <- replicate(n = 10000, expr = {
+  sd(sample(flow_rates$Manual_diff, replace = TRUE))
+})
+quantile(sdout, probs = c(0.025, 0.975))
+```
 :::
 
 ::: {.panel-tabset}
@@ -212,6 +492,25 @@ Find a 95% CI for the standard deviation of the difference between the first and
 Answer Problem 6.18 for the difference between the first and second replicates using the digitizer method.
 
 ## Solution
+The sample variance is
+```{r}
+summarize(flow_rates, var = var(Digitizer_diff))
+```
+We can just plug in the value using the same equation from 6.18
+```{r}
+sqrt(9 * 0.0008278 / 19.02)
+sqrt(9 * 0.0008278 / 2.70)
+```
+
+The bootstrap CI is
+```{r}
+set.seed(787)
+sdout <- replicate(n = 10000, expr = {
+  sd(sample(flow_rates$Digitizer_diff, replace = TRUE))
+})
+quantile(sdout, probs = c(0.025, 0.975))
+```
+
 :::
 
 Suppose we want to compare the variability of the two methods within the same person. Let $x_{i1}$ , $x_{i2}$ represent the 2 replicates for the $i$th person using the manual method, and let $y_{i1}, y_{i2}$ represent the 2 replicates for the $i$th person using the digitizer method. Let
@@ -227,6 +526,43 @@ distributed with mean $\mu_d$ and variance $\sigma_d^2$
 Find a 95% CI for $\mu_d$
 
 ## Solution
+We need to calculate $d_i$
+```{r}
+flow_rates |>
+  mutate(
+    d = abs(Manual_replicate1 - Manual_replicate2) - 
+      abs(Digitizer_replicate1 - Digitizer_replicate2)
+    ) ->
+  flow_rates
+```
+A 95% CI is of the form
+$$
+\bar{x} \pm t_{n-1, 1-\alpha/2}\frac{s}{\sqrt{n}}
+$$
+We can get all of these terms:
+```{r}
+flow_rates |>
+  summarize(
+    mean = mean(d), 
+    sd = sd(d), 
+    n = n(),
+    t = qt(p = 1 - 0.05/2, df = n() - 1))
+```
+Plugging in values we get
+$$
+0.044	 \pm 2.262\frac{0.03534}{\sqrt{10}}
+$$
+Numerically
+```{r}
+0.044 - 2.262 * 0.03534 / sqrt(10)
+0.044 + 2.262 * 0.03534 / sqrt(10)
+```
+The real way in R
+```{r}
+t.test(d ~ 1, data = flow_rates) |>
+  tidy() |>
+  select(conf.low, conf.high)
+```
 :::
 
 ::: {.panel-tabset}
@@ -234,6 +570,7 @@ Find a 95% CI for $\mu_d$
 What is your opinion as to the relative variability of the two methods?
 
 ## Solution
+The confidence interval in part 20 does not include 0. So the average diffrence between replicates is non-zero. In fact, since it is above 0 we have evidence that the Manual way has larger absolute differences on average than the digitizer method.
 :::
 
 ## Bacteriology
@@ -247,11 +584,34 @@ mouse_survival <- tibble(
 )
 ```
 
+Note that the mean and standard deviation of survival time is
+```{r}
+#| echo: false
+x <- map2(mouse_survival$survival_time_days, 
+          mouse_survival$number_of_mice, 
+          \(x, y) rep(x = x, each = y)) |>
+  unlist()
+tibble(
+  Mean = mean(x),
+  Var = var(x)
+  ) |>
+  gt()
+```
+
+
 ::: {.panel-tabset}
 ## 6.27
 Assume that the underlying distribution of survival times is normal. Estimate the probability $p$ that a mouse will survive for 20 or more days.
 
 ## Solution
+Let $X$ be the number of day and that $X \sim N(\mu, \sigma^2)$. We want $P(X \geq 20)$. We don't know $\mu$ and $\sigma^2$, but we can use their estimates $\bar{X}$ and $s^2$:
+```{r}
+1 - pnorm(q = 20, mean = 16.13, sd = sqrt(7.065))
+```
+Since there is discretezation in the days, it is technically more accurate to use a continuity correction. But don't worry if you forgot this
+```{r}
+1 - pnorm(q = 19.5, mean = 16.13, sd = sqrt(7.065))
+```
 :::
 
 ::: {.panel-tabset}
@@ -259,6 +619,21 @@ Assume that the underlying distribution of survival times is normal. Estimate th
 Suppose we are not willing to assume that the underlying distribution is normal. Estimate the probability $p$ that a mouse will survive for 20 or more days.
 
 ## Solution
+This is just the proportion of mice that survived for 20 or more days.
+
+The total number of mice is
+```{r}
+mouse_survival |>
+  summarize(total = sum(number_of_mice))
+```
+The number who survived for at least 20 days is
+```{r}
+mouse_survival |>
+  filter(survival_time_days >= 20) |>
+  summarize(x = sum(number_of_mice))
+```
+So $\hat{p} = 43 / 429$ = 0.1002.
+
 :::
 
 ::: {.panel-tabset}
@@ -266,6 +641,29 @@ Suppose we are not willing to assume that the underlying distribution is normal.
 Compute 95% confidence limits for the parameter estimated in Problem 6.28.
 
 ## Solution
+The interval is of the form
+$$
+\hat{p} \pm z_{1 - \alpha/2} \cdot \sqrt{ \frac{ \hat{p}(1 - \hat{p}) }{n} }
+$$
+Where $z_{1 - 0.05/2}$ is
+```{r}
+qnorm(p = 1 - 0.05 / 2)
+```
+Plugging in values we get
+$$
+0.1002 \pm 1.96 \cdot \sqrt{ \frac{ 0.1002(1 - 0.1002) }{429} }
+$$
+Numerically, this is
+```{r}
+0.1002 - 1.96 * sqrt(0.1002 * (1 - 0.1002) / 429)
+0.1002 + 1.96 * sqrt(0.1002 * (1  - 0.1002) / 429)
+```
+The real way in R would be
+```{r}
+prop.test(x = 43, n = 429) |>
+  tidy() |>
+  select(conf.low, conf.high)
+```
 :::
 
 ::: {.panel-tabset}
@@ -273,6 +671,21 @@ Compute 95% confidence limits for the parameter estimated in Problem 6.28.
 Compute 99% confidence limits for the parameter estimated in Problem 6.28.
 
 ## Solution
+Now $\alpha = 0.01$, so we need $z_{1 - 0.01 / 2}$
+```{r}
+qnorm(1 - 0.01 / 2)
+```
+```{r}
+0.1002 - 2.576 * sqrt(0.1002 * (1 - 0.1002) / 429)
+0.1002 + 2.576 * sqrt(0.1002 * (1  - 0.1002) / 429)
+```
+Or, using R
+```{r}
+prop.test(x = 43, n = 429, conf.level = 0.99) |>
+  tidy() |>
+  select(conf.low, conf.high)
+```
+
 :::
 
 ## Cardiovascular Disease 3
