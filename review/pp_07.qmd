@@ -415,7 +415,7 @@ Let $X$ be the number with 1+ episodes in a year. Then $X \sim \mathrm{Binom}(10
 ```
 We calculate the $z$-statistic
 $$
-z = \frac{\hat{p} - p}{\sqrt{p(1-p)/n}} = \frac{0.09259 - 0.05}{\sqrt{0.05(1-0.05)/108}}
+z = \frac{\hat{p} - p_0}{\sqrt{p_0(1-p_0)/n}} = \frac{0.09259 - 0.05}{\sqrt{0.05(1-0.05)/108}}
 $$
 Numerically, the $z$-value is
 ```{r}
@@ -543,6 +543,36 @@ The $p$-value is pretty large, so we have at best weak evidence that the average
 An area of current interest in cancer epidemiology is the possible role of oral contraceptives (OC’s) in the development of breast cancer. Suppose that in a group of 1000 premenopausal women ages 40–49 who are current users of OC’s, 15 subsequently develop breast cancer over the next 5 years. If the expected 5-year incidence rate of breast cancer in this group is 1.2% based on national incidence rates, then test the hypothesis that there is an association between current OC use and the subsequent development of breast cancer.
 
 ## Solution
+Let $X$ be the number with breast cancer after 5 years. Then $X \sim \mathrm{Binom}(1000, p)$. We want to test $H_0: p = 0.012$ versus $H_A: p \neq 0.012$. We are told that $x = 15$ was observed, so $\hat{p} = 15/1000 = 0.015$. We can use a normal approximation since $np_0(1-p_0) > 5$
+```{r}
+1000 * 0.012 * (1 - 0.012)
+```
+We calculate a $z$-statistic
+$$
+z = \frac{\hat{p} - p_0}{\sqrt{p_0(1-p_0)/n}} = \frac{0.015 - 0.012}{0.012(1-0.012)/1000}
+$$
+Numerically
+```{r}
+(0.015 - 0.012) / sqrt(0.012 * (1 - 0.012) / 1000)
+```
+We compare this to a $N(0,1)$ distribution
+```{r}
+#| echo: false
+plt_t(lb = 0.8713, two_sided = TRUE) +
+  geom_vline(xintercept = 0.8713, lty = 2)
+```
+```{r}
+2 * pnorm(-0.8713)
+```
+Since the $p$-value is so large, we have no evidence that these women have a different breast cancer rate than the general population.
+
+In R, we would use `prop.test()`
+```{r}
+prop.test(x = 15, n = 1000, p = 0.012) |>
+  tidy() |>
+  select(p.value)
+```
+Again, the $p$-value differs because R uses a different (better) method.
 :::
 
 ## Cancer 2
@@ -554,6 +584,9 @@ A group of investigators wishes to explore the relationship between the use of h
 Is a one-sided or two-sided test appropriate here?
 
 ## Solution
+One-sided. We are interested in one direction (hair dies increase the risk).
+
+Let $X$ be the number of breast cancer cases. Then $X \sim \mathrm{Binom}(1000, p)$. We are testing $H_0: p = 7/1000$ versus $H_A: p > 7/1000$.
 :::
 
 ::: {.panel-tabset}
@@ -561,12 +594,42 @@ Is a one-sided or two-sided test appropriate here?
 Test the hypothesis.
 
 ## Solution
+Since $np_0(1-p_0) \geq 5$, we can use the normal approximation.
+```{r}
+1000 * 0.007 * (1 - 0.007)
+```
+With $\hat{p} = 20 / 1000$, we calculate a $z$-statistic
+$$
+z = \frac{\hat{p} - p_0}{\sqrt{p_0(1-p_0)/n}} = \frac{0.02 - 0.007}{0.007(1-0.007)/1000}
+$$
+Numerically
+```{r}
+(0.02 - 0.007) / sqrt(0.007 * (1 - 0.007) / 1000)
+```
+We compare this to a $N(0,1)$ distribution
+```{r}
+#| echo: false
+plt_t(lb = 4.931, rng = c(-6, 6)) +
+  geom_vline(xintercept = 4.931, lty = 2)
+```
+```{r}
+1 - pnorm(4.931)
+```
+Since the $p$-value is so small, we have strong evidence that these women have a higher breast cancer rate than the general population.
+
+In R, we would use `prop.test()`
+```{r}
+prop.test(x = 20, n = 1000, p = 0.007, alternative = "greater") |>
+  tidy() |>
+  select(p.value)
+```
+Again, the $p$-value differs because R uses a different (better) method.
 :::
 
 
 ## Renal Disease 1
 
-The level of serum creatinine in the blood is considered a good indicator of the presence or absence of kidney disease. Normal people generally have low concentrations of serum creatinine, whereas diseased people have high concentrations. Suppose we want to look at the relation between analgesic abuse and kidney disorder. In particular, suppose we look at 15 people working in a factory who are known to be “analgesic abusers” (i.e., they take more than 10 pills per day) and we measure their creatinine levels. The creatinine levels are
+The level of serum creatinine in the blood is considered a good indicator of the presence or absence of kidney disease. Normal people generally have low concentrations of serum creatinine, whereas diseased people have high concentrations. Suppose we want to look at the relation between analgesic abuse and kidney disorder. In particular, suppose we look at 15 people working in a factory who are known to be "analgesic abusers" (i.e., they take more than 10 pills per day) and we measure their creatinine levels. The creatinine levels are
 ```{r}
 cret <- tibble(
   creatine = c(0.9, 1.1, 1.6, 2.0, 0.8,
@@ -581,34 +644,52 @@ cret
 If we assume that creatinine levels for normal people are normally distributed with mean 1.0, then can we make any comment about the levels for analgesic abusers via some statistical test?
 
 ## Solution
+Let $X_i$ be the creatine level for analgesic abuser $i$. Then we assume that $X_i \sim N(\mu, \sigma^2)$. We want to test $H_0: \mu = 1$ versus $H_A: \mu \neq 1$. We calculate summary statistics
+```{r}
+cret |>
+  summarize(
+    mean = mean(creatine),
+    sd = sd(creatine),
+    n = n())
+```
+We calculate a $t$-statistic
+$$
+t = \frac{\bar{x} - \mu_0}{s/\sqrt{n}} = \frac{1.273 - 1}{0.435 / \sqrt{15}}
+$$
+Numerically
+```{r}
+(1.273 - 1) / (0.435 / sqrt(15))
+```
+We compare this to a $t_{14}$ distribution
+```{r}
+plt_t(lb = 2.431, two_sided = TRUE, df = 14) +
+  geom_vline(xintercept = 2.431, lty = 2)
+```
+```{r}
+2 * pt(-2.431, df = 14)
+```
+Since the $p$-value is so small, we have evidence that the mean creatine levels of the analgesic abusers is different than normal folks.
+
+The real-way in R uses `t.test()`
+```{r}
+t.test(creatine ~ 1, data = cret, mu = 1) |>
+  tidy() |>
+  select(p.value)
+```
+The difference is caused by rounding error when calculating the $t$-statistic.
+```{r}
+#| echo: false
+#| eval: false
+cret |>
+  summarize(
+    mean = mean(creatine),
+    sd = sd(creatine),
+    n = n()) |>
+  mutate(t = (mean - 1) / (sd / sqrt(n))) ->
+  temp
+2 * pt(-temp$t, df = 14)
+```
 :::
-
-::: {.panel-tabset}
-## 7.30 
-Suppose the standard deviation of serum creatinine in the general population = 0.40. Can we compare the variance of serum creatinine among analgesic abusers versus the variance of serum creatinine in the general population?
-
-## Solution
-:::
-
-
-## Otolaryngology
-
-Otitis media is an extremely common disease of the middle ear in children under 2 years of age. It can cause prolonged hearing loss during this period and may result in subsequent defects in speech and language. Suppose we wish to design a study to test the latter hypothesis, and we set up a study group consisting of children with 3 or more episodes of otitis media in the first 2 years of life. We have no idea what the size of the effect will be. Thus, we set up a pilot study with 20 cases, and find that 5 of the cases have speech and language defects at age 3.
-
-::: {.panel-tabset}
-## 7.31 
-If we regard this experience as representative of what would occur in a large study and if we know that 15%of all normal children have speech and language defects by age 3, then how large of a study group is needed to have an 80% chance of detecting a significant difference using a one-sided test at the 5% level?
-
-## Solution
-:::
-
-::: {.panel-tabset}
-## 7.32 
-Suppose only 50 cases can be recruited for the study group. How likely are we to find a significant difference if the true proportion of affected children with speech and language defects at age 3 is the same as that in the pilot study?
-
-## Solution
-:::
-
 
 ## Epidemiology
 
