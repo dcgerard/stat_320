@@ -424,6 +424,7 @@ Let
 - $C$ be Diabetes.
 
 We are given
+
 - $P(A) = 0.48$ and $P(\bar{A}) = 0.52$
 - $P(B_1|A) = 0.4$, $P(B_2|A) = 0.32$, and $P(B_3|A) = 0.28$
 - $P(B_1|\bar{A}) = 0.44$, $P(B_2|\bar{A}) = 0.37$, and $P(B_3|\bar{A}) = 0.19$
@@ -446,6 +447,7 @@ Let
 - $C$ be Diabetes.
 
 We are given
+
 - $P(A) = 0.48$ and $P(\bar{A}) = 0.52$
 - $P(B_1|A) = 0.4$, $P(B_2|A) = 0.32$, and $P(B_3|A) = 0.28$
 - $P(B_1|\bar{A}) = 0.44$, $P(B_2|\bar{A}) = 0.37$, and $P(B_3|\bar{A}) = 0.19$
