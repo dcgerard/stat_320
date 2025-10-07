@@ -6,12 +6,112 @@ date: today
 
 These practice problems mostly come from Rosner's publicly available study sheet at the books [companion website](https://www.cengage.com/cgi-wadsworth/course_products_wp.pl?fid=M20b&product_isbn_issn=9781305268920). The solutions are my own, since we differ slightly on what we are looking for in the solutions.
 
-```{r}
+```{r setup}
 #| echo: false
 #| eval: true
 #| message: false
 library(tidyverse)
 library(gt)
+library(broom)
+plt_t <- function(
+    mu = 0, 
+    sig = 1, 
+    lb = -Inf,
+    ub = Inf,
+    df = Inf, 
+    rng = c(-3, 3), 
+    two_sided = FALSE,
+    col = "#E69F00",
+    lwd = 1) {
+  tibble(x = seq(mu + rng[[1]] * sig, mu + rng[[2]] * sig, length.out = 500)) |>
+    mutate(y = dt(x = (x - mu) / sig, df = df)) ->
+    df1
+  df1 |>
+    filter(x > lb, x < ub) ->
+    df2
+  ggplot() +
+    geom_line(data = df1, mapping = aes(x = x, y = y), linewidth = lwd) +
+    geom_area(data = df2, mapping = aes(x = x, y = y), fill = col) +
+    geom_line(data = df2, mapping = aes(x = x, y = y), color = col, linewidth = lwd) +
+    theme_classic() +
+    theme(axis.title = element_blank()) ->
+    pl
+  
+  if (two_sided) {
+    df1 |>
+      filter(x > -ub, x < -lb) ->
+      df3
+    pl <- pl + 
+      geom_area(data = df3, mapping = aes(x = x, y = y), fill = col) +
+      geom_line(data = df3, mapping = aes(x = x, y = y), color = col, linewidth = lwd)
+  }
+  pl
+}
+plt_binom <- function(
+    size, 
+    prob = 0.5, 
+    lb = -Inf,
+    ub = Inf, 
+    rng = c(0, size),
+    col = "#E69F00",
+    valmax = NULL,
+    lwd = 1) {
+  
+  tibble(x = seq(rng[[1]], rng[[2]], by = 1)) |>
+    mutate(
+      pmf = stats::dbinom(x = x, size = size, prob = prob)
+      ) ->
+    df
+  
+  if (is.null(valmax)) {
+    df |>
+      mutate(col = (x >= lb & x <= ub)) ->
+      df
+  } else {
+    df |>
+      mutate(col = pmf <= stats::dbinom(x = valmax, size = size, prob = prob)) ->
+      df
+  }
+  df |>
+    ggplot(aes(x = x, xend = x, yend = pmf, color = col)) +
+    geom_segment(y = 0, lwd = lwd) +
+    theme_classic() +
+    theme(axis.title = element_blank()) +
+    scale_color_manual(values = c("black", col), guide = "none") +
+    scale_x_continuous(breaks = seq(rng[[1]], rng[[2]]))
+}
+plt_pois <- function(
+    mu, 
+    lb = -Inf,
+    ub = Inf, 
+    rng = c(0, 2 * mu),
+    col = "#E69F00",
+    valmax = NULL,
+    lwd = 1) {
+  
+  tibble(x = seq(rng[[1]], rng[[2]], by = 1)) |>
+    mutate(
+      pmf = stats::dpois(x = x, lambda = mu)
+      ) ->
+    df
+  
+  if (is.null(valmax)) {
+    df |>
+      mutate(col = (x >= lb & x <= ub)) ->
+      df
+  } else {
+    df |>
+      mutate(col = pmf <= stats::dpois(x = valmax, lambda = mu)) ->
+      df
+  }
+  df |>
+    ggplot(aes(x = x, xend = x, yend = pmf, color = col)) +
+    geom_segment(y = 0, lwd = lwd) +
+    theme_classic() +
+    theme(axis.title = element_blank()) +
+    scale_color_manual(values = c("black", col), guide = "none") +
+    scale_x_continuous(breaks = seq(rng[[1]], rng[[2]]))
+}
 ```
 
 ## Nutrition 1
@@ -23,6 +123,19 @@ As part of a dietary-instruction program, ten 25–34-year-old males adopted a v
 If the average daily intake among 25–34-year-old males in the general population is 15 g, then, using a significance level of .05, test the hypothesis that the intake of linoleic acid in this group is lower than that in the general population.
 
 ## Solution
+Let $X_i$ be the average daily intake of linoleic acid of individual $i$. We assume that $X_i \sim N(\mu, \sigma^2)$. We are testing $H_0: \mu = 15$ versus $H_A: \mu < 15$. We are told that $\bar{x} = 13$, $s = 4$, and $n = 10$. We first calculate the $t$-statistic
+$$
+t = \frac{\bar{x} - \mu_0}{s/\sqrt{n}} = \frac{13 - 15}{4 / \sqrt{10}}
+$$
+Numerically
+```{r}
+(13 - 15) / (4 / sqrt(10))
+```
+For the critical value method, we compare this to $t_{n-1, \alpha}$ where $\alpha = 0.05$
+```{r}
+qt(p = 0.05, df = 10 - 1)
+```
+Recall that since we are testing if the mean is lower than some value, evidence against the null is for very negative $t$-statistics. Since $t > t_{n-1, \alpha}$ (-1.581 > -1.833), we fail to reject $H_0$, and conclude that we do not have evidence that the average linoleic acid is lower than the general population.
 :::
 
 ::: {.panel-tabset}
@@ -30,6 +143,17 @@ If the average daily intake among 25–34-year-old males in the general populati
 Compute a p-value for the hypothesis test in Problem 7.1.
 
 ## Solution
+We could also calculate the $p$-value, $P(T < -1.581)$ where $T \sim t_{n-1}$
+```{r}
+#| echo: false
+plt_t(ub = -1.581, df = 9) +
+  geom_vline(xintercept = -1.581, lty = 2)
+```
+Numerically
+```{r}
+pt(q = -1.581, df = 9)
+```
+Since the $p$-value is greater than 0.05, we again fail to reject at level 0.05 and conclude that we do not have evidence that the average linoleic acid is lower than the general population.
 :::
 
 As part of the same program, eight 25–34-year-old females report an average daily intake of saturated fat of 11 g with standard deviation = 11 g while on a vegetarian diet.
@@ -39,6 +163,19 @@ As part of the same program, eight 25–34-year-old females report an average da
 If the average daily intake of saturated fat among 25–34-year-old females in the general population is 24 g, then, using a significance level of .01, test the hypothesis that the intake of saturated fat in this group is lower than that in the general population.
 
 ## Solution
+Let $X_i$ be the average daily intake of saturated fat of individual $i$. We assume that $X_i \sim N(\mu, \sigma^2)$. We are testing $H_0: \mu = 24$ versus $H_A: \mu < 24$. We are told that $\bar{x} = 11$, $s = 11$, and $n = 8$. We first calculate the $t$-statistic
+$$
+t = \frac{\bar{x} - \mu_0}{s/\sqrt{n}} = \frac{11 - 24}{11 / \sqrt{8}}
+$$
+Numerically
+```{r}
+(11 - 24) / (11 / sqrt(8))
+```
+For the critical value method, we compare this to $t_{n-1, \alpha}$ where $\alpha = 0.01$
+```{r}
+qt(p = 0.01, df = 8 - 1)
+```
+Recall that since we are testing if the mean is lower than some value, evidence against the null is for very negative $t$-statistics. Since $t < t_{n-1, \alpha}$ (-3.343 < -2.998), we reject $H_0$, and conclude that we have evidence that the average saturated fat intake is lower in this group.
 :::
 
 ::: {.panel-tabset}
@@ -46,6 +183,17 @@ If the average daily intake of saturated fat among 25–34-year-old females in t
 Compute a p-value for the hypothesis test in Problem 7.3.
 
 ## Solution
+We could also calculate the $p$-value, $P(T < -3.343)$ where $T \sim t_{n-1}$
+```{r}
+#| echo: false
+plt_t(ub = -3.343, rng = c(-4, 4), df = 7) +
+  geom_vline(xintercept = -3.343, lty = 2)
+```
+Numerically
+```{r}
+pt(q = -3.343, df = 7)
+```
+Since the $p$-value is less than 0.01, we reject the null and conclude that the average saturated fat intake for this group is lower than the general population.
 :::
 
 ::: {.panel-tabset}
@@ -53,6 +201,11 @@ Compute a p-value for the hypothesis test in Problem 7.3.
 What is the relationship between your answers to Problems 7.3 and 7.4?
 
 ## Solution
+- Let $t$ be our observed $t$-statistic. 
+- Let $t_{n-1, \alpha}$ be the $\alpha$ quantile of a $t$-distribution with $n-1$ degrees of freedom.
+- Let $T$ be a random variable that follows a $t$-distribution with $n-1$ degrees of freedom. That is, $T \sim t_{n-1}$.
+
+Then $t$ is less than $t_{n-1, \alpha}$ (critical value method) if and only if $P(T < t) < \alpha$ ($p$-value method).
 :::
 
 Suppose we are uncertain what effect a vegetarian diet will have on the level of linoleic-acid intake in Problem 7.1.
@@ -62,27 +215,36 @@ Suppose we are uncertain what effect a vegetarian diet will have on the level of
 What are the null and alternative hypotheses in this case?
 
 ## Solution
+Using the same notation as in 7.1, we are testing
+
+- $H_0: \mu = 15$
+- $H_A: \mu \neq 15$
 :::
 
 ::: {.panel-tabset}
 ## 7.7
-Compare the mean level of linoleic acid in the vegetarian population with that of the general population under the hypotheses in Problem 7.6. Report a p-value.
+Compare the mean level of linoleic acid in the vegetarian population with that of the general population under the hypotheses in Problem 7.6. Report a $p$-value.
 
 ## Solution
-:::
-
-::: {.panel-tabset}
-## 7.8
-Suppose $s$ = 5 based on a sample of 20 subjects. Test the null hypothesis $H_0$ : $\sigma^2 = 16$ versus $H_1$ : $\sigma^2 \neq 16$ using the critical-value method based on a significance level of .05.
-
-## Solution
-:::
-
-::: {.panel-tabset}
-## 7.9
-Answer Problem 7.8 using the p-value method.
-
-## Solution
+We use the same $t$-statistic as before
+$$
+t = \frac{\bar{x} - \mu_0}{s/\sqrt{n}} = \frac{13 - 15}{4 / \sqrt{10}} = -1.581
+$$
+But now "more extreme" means just further away from 0. For the critical value method, we compare our observed $t$-statistic to $t_{n-1, 1 - \alpha/2}$
+```{r}
+qt(p = 1 - 0.05 / 2, df = 10 - 1)
+```
+Since $|t| < t_{n-1,1 - \alpha/2}$ (1.581 < 2.262), we again fail to reject $H_0$ at significance level 0.05. More commonly, we would calculate a $p$-value as $P(|T| > 1.581)$
+```{r}
+#| echo: false
+plt_t(ub = -1.581, df = 9, two_sided = TRUE) +
+  geom_vline(xintercept = -1.581, lty = 2)
+```
+In R
+```{r}
+2 * pt(q = -1.581, df = 10 - 1)
+```
+Since the $p$-value is 0.1483, we fail to reject $H_0$ at significance level 0.05 and conclude that we do not have evidence that mean linoleic acid is different in this group than in the general population.
 :::
 
 ::: {.panel-tabset}
@@ -90,6 +252,25 @@ Answer Problem 7.8 using the p-value method.
 Suppose we are uncertain what effect a vegetarian diet will have on saturated fat intake. Compute a two-sided p-value for the hypothesis testing situation mentioned in Problem 7.3.
 
 ## Solution
+We use the same $t$-statistic as before
+$$
+t = \frac{\bar{x} - \mu_0}{s/\sqrt{n}} = \frac{11 - 24}{11 / \sqrt{8}} = -3.343
+$$
+But now "more extreme" means just further away from 0. For the critical value method, we compare our observed $t$-statistic to $t_{n-1, 1 - \alpha/2}$
+```{r}
+qt(p = 1 - 0.01 / 2, df = 8 - 1)
+```
+Since $|t| < t_{n-1,1 - \alpha/2}$ (3.343 < 3.499), this time we fail to reject $H_0$ at significance level 0.01. More commonly, we would calculate a $p$-value as $P(|T| > 3.343)$
+```{r}
+#| echo: false
+plt_t(ub = -3.343, df = 7, two_sided = TRUE, rng = c(-4, 4)) +
+  geom_vline(xintercept = -3.343, lty = 2)
+```
+In R
+```{r}
+2 * pt(q = -3.343, df = 8 - 1)
+```
+Since the $p$-value is 0.01237 (larger than 0.01), we fail to reject $H_0$ at significance level 0.01 and conclude that we do not have evidence that mean saturated fat is different in this group than in the general population.
 :::
 
 ::: {.panel-tabset}
@@ -97,6 +278,26 @@ Suppose we are uncertain what effect a vegetarian diet will have on saturated fa
 Compute a lower one-sided 95% CI for the true mean intake of linoleic acid in the vegetarian population depicted in Problem 7.1.
 
 ## Solution
+We need an upper bound of the form
+$$
+\bar{x} + t_{n-1, 1-\alpha}\frac{s}{\sqrt{n}}
+$$
+We were given all terms except $t_{n-1,1-\alpha}$, where $\alpha = 0.05$
+```{r}
+qt(p = 1 - 0.05, df = 10 - 1)
+```
+Plugging in values, we get
+$$
+13 + 1.833 \times 4 / \sqrt{10}
+$$
+Numerically
+```{r}
+13 + 1.833 * 4 / sqrt(10)
+```
+So the one-sided 95% CI is
+$$
+\mu \leq 15.32
+$$
 :::
 
 ::: {.panel-tabset}
@@ -104,51 +305,26 @@ Compute a lower one-sided 95% CI for the true mean intake of linoleic acid in th
 How does your answer to Problem 7.11 relate to your answer to Problem 7.1?
 
 ## Solution
-:::
-
-## Nutrition 2
-
-A food-frequency questionnaire was mailed to 20 subjects to assess the intake of various food groups. The sample standard deviation of vitamin-C intake over the 20 subjects was 15 (exclusive of vitamin-C supplements). Suppose we know from using an in-person diet-interview method in a large previous study that the standard deviation is 20.
-
-::: {.panel-tabset}
-## 7.13 
-What hypotheses can be used to test if there are any differences between the standard deviations of the two methods?
-
-## Solution
-:::
-
-::: {.panel-tabset}
-## 7.14 
-Perform the test described in Problem 7.13 and report a p-value.
-
-## Solution
-:::
-
-The sample standard deviation for log (vitamin-A intake) exclusive of supplements based on the 20 subjects using the food-frequency questionnaire was 0.016. Suppose the standard deviation from the diet-interview method is known to be 0.020 based on a large previous study.
-
-::: {.panel-tabset}
-## 7.15 
-Test the hypothesis that the variances using the two methods are the same. Use the critical-value method with a $\alpha$ = .05
-
-## Solution
-:::
-
-::: {.panel-tabset}
-## 7.16 
-Report a p-value corresponding to the test in Problem 7.15.
-
-## Solution
+Since the 95% CI include 15 (from 7.11), we would fail to reject at level 0.05 for $H_0: \mu = 15$ versus $H_A: \mu < 15$ (from 7.1).
 :::
 
 ## Occupational Health 1
 
-Suppose that 28 cancer deaths are noted among workers ex- posed to asbestos in a building-materials plant from 1981–1985. Only 20.5 cancer deaths are expected from statewide cancer-mortality rates.
+Suppose that 28 cancer deaths are noted among workers exposed to asbestos in a building-materials plant from 1981–1985. Only 20.5 cancer deaths are expected from statewide cancer-mortality rates.
 
 ::: {.panel-tabset}
 ## 7.17
 What is the estimated SMR for total cancer mortality?
 
 ## Solution
+SMR is
+$$
+\frac{\text{observed}}{\text{expected}}\times 100\% = \frac{28}{20.5}\times 100\%
+$$
+```{r}
+28 / 20.5 * 100
+```
+So 136.6%.
 :::
 
 ::: {.panel-tabset}
@@ -156,6 +332,21 @@ What is the estimated SMR for total cancer mortality?
 Is there a significant excess or deficit of total cancer deaths among these workers?
 
 ## Solution
+We use the poisson test. Let $X$ be the number of cancer deaths. Then we assume $X \sim \mathrm{Pois}(\mu)$. We are testing $H_0: \mu = 20.5$ versus $H_A: \mu > 20.5$. The $p$-value of the exact test is just $P(X \geq 28)$ assuming $X \sim \mathrm{Pois}(20.5)$, since that would be the probability of seeing values as or more extreme than what we saw:
+```{r}
+#| echo: false
+plt_pois(mu = 20.5, lb = 28)
+```
+```{r}
+1 - ppois(q = 27, lambda = 20.5)
+```
+You can also get this with `poisson.test()`
+```{r}
+poisson.test(x = 28, alternative = "greater", r = 20.5) |>
+  tidy() |>
+  select(p.value)
+```
+The $p$-value is somewhat small. So we perhaps have some weak evidence of larger cancer rates. But the evidence is very weak.
 :::
 
 In the same group of workers, 7 deaths due to leukemia are noted. Only 4.5 are expected from statewide rates.
@@ -165,6 +356,14 @@ In the same group of workers, 7 deaths due to leukemia are noted. Only 4.5 are e
 What is the estimated SMR for leukemia?
 
 ## Solution
+SMR is
+$$
+\frac{\text{observed}}{\text{expected}}\times 100\% = \frac{7}{4.5}\times 100\%
+$$
+```{r}
+7 / 4.5 * 100
+```
+So 155.6%.
 :::
 
 ::: {.panel-tabset}
@@ -172,6 +371,33 @@ What is the estimated SMR for leukemia?
 Is there a significant excess or deficit of leukemia deaths among these workers?
 
 ## Solution
+Let $Y$ be the number of leukemia deaths. Then we assume $Y \sim \mathrm{Pois}(\mu)$. We are testing $H_0: \mu = 4.5$ versus $H_A: \mu \neq 4.5$. We do an exact Poisson test here, summing over all probabilities less (or as) likely than the observed value of 7.
+```{r}
+#| echo: false
+plt_pois(mu = 4.5, valmax = 7, rng = c(0, 12)) +
+  geom_hline(yintercept = dpois(x = 7, lambda = 4.5), lty = 2)
+```
+This is done via `poisson.test()`
+```{r}
+poisson.test(x = 7, r = 4.5) |>
+  tidy() |>
+  select(p.value)
+```
+Since the $p$-value is pretty large, we do not have evidence that the leukemia rates differ in this group.
+
+:::{.callout-tip}
+## Note
+Not for the exam, but for your own edification. The below shows that R's default way is what we discussed:
+```{r}
+x <- dpois(x = 0:20, lambda = 4.5)
+sum(x[x <= x[[8]]])
+```
+Rosner does 2 times the larger one-tailed $p$-value:
+```{r}
+2 * (1 - ppois(q = 6, lambda = 4.5))
+```
+So if you read his solution, the $p$-value will differ.
+:::
 :::
 
 ## Infectious Disease
@@ -183,6 +409,23 @@ Suppose the annual incidence of diarrhea (defined as 1+ episodes per year) in a 
 If 10 children out of 108 under the age of 2 in a poor rural community in the country have 1+ episodes of diarrhea in a year, then test if this represents a significant departure from the overall rate for the country using the critical-value method.
 
 ## Solution
+Let $X$ be the number with 1+ episodes in a year. Then $X \sim \mathrm{Binom}(108, p)$. We are told that $\hat{p} = 10 / 108 = 0.09259$. We are testing $H_0: p = 0.05$ versus $H_A: p \neq 0.05$. We can use the normal method since $np(1-p)\geq 5$
+```{r}
+108 * 0.05 * (1 - 0.05)
+```
+We calculate the $z$-statistic
+$$
+z = \frac{\hat{p} - p}{\sqrt{p(1-p)/n}} = \frac{0.09259 - 0.05}{\sqrt{0.05(1-0.05)/108}}
+$$
+Numerically, the $z$-value is
+```{r}
+(0.09259 - 0.05) / sqrt(0.05 * (1 - 0.05) / 108)
+```
+For the critical-value method, we compare this $z$-statistic to $z_{1 - \alpha/2}$. Let $\alpha = 0.05$
+```{r}
+qnorm(1 - 0.05 / 2)
+```
+Since $|z| > z_{1-\alpha}$ (2.031 > 1.96), we reject $H_0$ and conclude that diarrhea rate differs from the country as a whole.
 :::
 
 ::: {.panel-tabset}
@@ -190,6 +433,25 @@ If 10 children out of 108 under the age of 2 in a poor rural community in the co
 Report a p-value corresponding to your answer to Problem 7.21
 
 ## Solution
+We could alternatively calculate $P(Z > |z|)$ given $Z \sim N(0,1)$.
+```{r}
+#| echo: false
+plt_t(lb = 2.031, two_sided = TRUE) +
+  geom_vline(xintercept = 2.031, lty = 2)
+```
+Numerically, the $p$-value is
+```{r}
+2 * pnorm(q = -2.031)
+```
+Since this is less than 0.05, we again reject at significance level 0.05 and conclude that the diarrhea rate differs than the country as a whole.
+
+You can also use `prop.test()` to do this
+```{r}
+prop.test(x = 10, n = 108, p = 0.05) |>
+  tidy() |>
+  select(p.value)
+```
+Recall that `prop.test()` uses a slightly different method, which is why the $p$-value differs. If you were a 0.05 absolutist, you would be very worried now. But we "flexitarians" are more chill. There is practically no difference between 0.04 and 0.07. Both are pretty weak evidence.
 :::
 
 ## Ophthalmology
@@ -201,6 +463,24 @@ Suppose the distribution of systolic blood pressure in the general population is
 Assuming that the standard deviation of the glaucoma patients is the same as that of the general population, test for an association between glaucoma and high blood pressure.
 
 ## Solution
+Let $X_i$ be the systolic blood pressure for glaucoma patient $i$. Then we assume $X \sim N(\mu, \sigma^2)$. We want to test $H_0:\mu = 130$ versus $H_A: \mu \neq 130$. We are told that $\bar{x} = 135$ and $n = 85$. We are further told to assume that we know $\sigma = 20$. We calculate a $z$-statistic
+$$
+z = \frac{\bar{x} - \mu_0}{\sigma/\sqrt{n}} = \frac{135 - 130}{20 / \sqrt{85}}
+$$
+Numerically
+```{r}
+(135 - 130) / (20 / sqrt(85))
+```
+We compare this to a $N(0,1)$ distribution
+```{r}
+#| echo: false
+plt_t(lb = 2.305, two_sided = TRUE) +
+  geom_vline(xintercept = 2.305, lty = 2)
+```
+```{r}
+2 * pnorm(-2.305)
+```
+So we have some evidence that the systolic blood pressure differs in the glaucoma group than the general population.
 :::
 
 ::: {.panel-tabset}
@@ -208,6 +488,24 @@ Assuming that the standard deviation of the glaucoma patients is the same as tha
 Answer Problem 7.23 without making the assumption concerning the standard deviation.
 
 ## Solution
+We are in the same set up as in 7.23, except we are told that $s = 22$ and we cannot assume that we know $\sigma$. We calculate a $t$-statistic
+$$
+t = \frac{\bar{x} - \mu_0}{s/\sqrt{n}} = \frac{135 - 130}{22 / \sqrt{85}}
+$$
+Numerically
+```{r}
+(135 - 130) / (22 / sqrt(85))
+```
+We compare this to a $t_{84}$ distribution
+```{r}
+#| echo: false
+plt_t(lb = 2.095, two_sided = TRUE, df = 84) +
+  geom_vline(xintercept = 2.095, lty = 2)
+```
+```{r}
+2 * pt(q = -2.095, df = 84)
+```
+Again, we have evidence that the glaucoma group has a different SBP than the population as a whole.
 :::
 
 ## Occupational Health 2
@@ -217,6 +515,24 @@ Answer Problem 7.23 without making the assumption concerning the standard deviat
 Suppose it is known that the average life expectancy of a 50-year-old man in 1945 was 18.5 years. Twenty men aged 50 who have been working for at least 20 years in a potentially hazardous industry were ascertained in 1945. On follow-up in 1985 all the men have died, with an average lifetime of 16.2 years and a standard deviation of 7.3 years since 1945. Assuming that life expectancy of 50-year-old men is approximately normally distributed, test if the underlying life expectancy for workers in this industry is shorter than for comparably aged men in the general population.
 
 ## Solution
+Let $X_i$ be the lifetime of worker $i$. Then we assume that $X_i \sim N(\mu, \sigma^2)$. We are testing $H_0: \mu = 18.5$ versus $H_A: \mu < 18.5$. We are told that $\bar{x} = 16.2$, $s = 7.3$, and $n = 20$. We calculate a $t$-statistic
+$$
+t = \frac{\bar{x} - \mu_0}{s/\sqrt{n}} = \frac{16.2 - 18.5}{7.3 / \sqrt{20}}
+$$
+Numerically
+```{r}
+(16.2 - 18.5) / (7.3 / sqrt(20))
+```
+We compare this to a $t_{19}$ distribution
+```{r}
+#| echo: false
+plt_t(ub = -1.409, df = 19) +
+  geom_vline(xintercept = -1.409, lty = 2)
+```
+```{r}
+pt(q = -1.409, df = 19)
+```
+The $p$-value is pretty large, so we have at best weak evidence that the average lifetime is less than the general population.
 :::
 
 
