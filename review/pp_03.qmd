@@ -534,7 +534,7 @@ What is the probability that a 55-year-old, disease-free male will develop colon
 ## Solution
 This is one minus the probability that he does not develop cancer over the next five years, which is
 $$
-(1 - 60.3 / 100000)^5
+1 - (1 - 60.3 / 100000)^5
 $$
 :::
 
