@@ -956,6 +956,7 @@ Suppose that it is expected, based on previous studies, that among all patients 
 Test the hypothesis that severity of illness is predictive of 1-year mortality among patients who are discharged from the hospital. Report a p-value.
 
 ## Solution
+Let $X$ be the number of severely ill patients that survived hospitalization that also survived during the first year. Then $X \sim \mathrm{Binom}(136 - 33, p) = \mathrm{Binom}(103, p)$. We want to test $H_0: p = 0.75$ versus $H_A: p \neq 0.75$. We are told that $x = 103 - 39 = 64$, so $\hat{p} = 64 / 103 = 0.6214$. We can use a normal approximation since $np_0(1-p_0) > 5$
 :::
 
 ## Cancer 3
