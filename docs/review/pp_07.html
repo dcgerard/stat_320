@@ -2,12 +2,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.8.25">
+<meta name="generator" content="quarto-1.7.32">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="David Gerard">
-<meta name="dcterms.date" content="2025-10-07">
+<meta name="dcterms.date" content="2025-10-09">
 
 <title>Chapter 7 Practice Problems – Stat 320: Biostatistics</title>
 <style>
@@ -69,19 +69,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <meta name="quarto:offset" content="../">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-707d8167ce6003fca903bfe2be84ab7f.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-2fef5ea3f8957b3e4ecc936fc74692ca.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-f93c2b1f3f0577f377aefa4848a86a36.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../site_libs/bootstrap/bootstrap-dark-0d4a9d19931feb4fee1ddab4b2489000.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="../site_libs/bootstrap/bootstrap-f93c2b1f3f0577f377aefa4848a86a36.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-cc63fce9873912f1bbbccf05079cc9ea.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark-08799928d293638fe9563d5c5a2794e5.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../site_libs/bootstrap/bootstrap-cc63fce9873912f1bbbccf05079cc9ea.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -124,7 +123,7 @@ const typesetMath = (el) => {
     var macros = [];
     for (var i = 0; i < mathElements.length; i++) {
       var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+      if (mathElements[i].tagName == "SPAN") {
         window.katex.render(texText.data, mathElements[i], {
           displayMode: mathElements[i].classList.contains('display'),
           throwOnError: false,
@@ -312,8 +311,6 @@ window.Quarto = {
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a href="../index.html" class="navbar-brand navbar-brand-logo">
-    </a>
     <a class="navbar-brand" href="../index.html">
     <span class="navbar-title">Stat 320: Biostatistics</span>
     </a>
@@ -390,7 +387,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">October 7, 2025</p>
+      <p class="date">October 9, 2025</p>
     </div>
   </div>
   
@@ -407,7 +404,7 @@ window.Quarto = {
 <h2 class="anchored" data-anchor-id="nutrition-1">Nutrition 1</h2>
 <p>As part of a dietary-instruction program, ten 25–34-year-old males adopted a vegetarian diet for 1 month. While on the diet, the average daily intake of linoleic acid was 13 g with standard deviation = 4 g.</p>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" href="">7.1</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false" href="">Solution</a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true">7.1</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false">Solution</a></li></ul>
 <div class="tab-content">
 <div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
 <p>If the average daily intake among 25–34-year-old males in the general population is 15 g, then, using a significance level of .05, test the hypothesis that the intake of linoleic acid in this group is lower than that in the general population.</p>
@@ -417,14 +414,14 @@ window.Quarto = {
 t = \frac{\bar{x} - \mu_0}{s/\sqrt{n}} = \frac{13 - 15}{4 / \sqrt{10}}
 \]</span> Numerically</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>(<span class="dv">13</span> <span class="sc">-</span> <span class="dv">15</span>) <span class="sc">/</span> (<span class="dv">4</span> <span class="sc">/</span> <span class="fu">sqrt</span>(<span class="dv">10</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>(<span class="dv">13</span> <span class="sc">-</span> <span class="dv">15</span>) <span class="sc">/</span> (<span class="dv">4</span> <span class="sc">/</span> <span class="fu">sqrt</span>(<span class="dv">10</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] -1.581</code></pre>
 </div>
 </div>
 <p>For the critical value method, we compare this to <span class="math inline">\(t_{n-1, \alpha}\)</span> where <span class="math inline">\(\alpha = 0.05\)</span></p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">qt</span>(<span class="at">p =</span> <span class="fl">0.05</span>, <span class="at">df =</span> <span class="dv">10</span> <span class="sc">-</span> <span class="dv">1</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">qt</span>(<span class="at">p =</span> <span class="fl">0.05</span>, <span class="at">df =</span> <span class="dv">10</span> <span class="sc">-</span> <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] -1.833</code></pre>
 </div>
@@ -434,7 +431,7 @@ t = \frac{\bar{x} - \mu_0}{s/\sqrt{n}} = \frac{13 - 15}{4 / \sqrt{10}}
 </div>
 </div>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-2-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-1" role="tab" aria-controls="tabset-2-1" aria-selected="true" href="">7.2</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-2" role="tab" aria-controls="tabset-2-2" aria-selected="false" href="">Solution</a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-2-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-1" role="tab" aria-controls="tabset-2-1" aria-selected="true">7.2</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-2" role="tab" aria-controls="tabset-2-2" aria-selected="false">Solution</a></li></ul>
 <div class="tab-content">
 <div id="tabset-2-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-2-1-tab">
 <p>Compute a p-value for the hypothesis test in Problem 7.1.</p>
@@ -452,7 +449,7 @@ t = \frac{\bar{x} - \mu_0}{s/\sqrt{n}} = \frac{13 - 15}{4 / \sqrt{10}}
 </div>
 <p>Numerically</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pt</span>(<span class="at">q =</span> <span class="sc">-</span><span class="fl">1.581</span>, <span class="at">df =</span> <span class="dv">9</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pt</span>(<span class="at">q =</span> <span class="sc">-</span><span class="fl">1.581</span>, <span class="at">df =</span> <span class="dv">9</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.07417</code></pre>
 </div>
@@ -463,7 +460,7 @@ t = \frac{\bar{x} - \mu_0}{s/\sqrt{n}} = \frac{13 - 15}{4 / \sqrt{10}}
 </div>
 <p>As part of the same program, eight 25–34-year-old females report an average daily intake of saturated fat of 11 g with standard deviation = 11 g while on a vegetarian diet.</p>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-3-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-1" role="tab" aria-controls="tabset-3-1" aria-selected="true" href="">7.3</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-3-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-2" role="tab" aria-controls="tabset-3-2" aria-selected="false" href="">Solution</a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-3-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-1" role="tab" aria-controls="tabset-3-1" aria-selected="true">7.3</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-3-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-2" role="tab" aria-controls="tabset-3-2" aria-selected="false">Solution</a></li></ul>
 <div class="tab-content">
 <div id="tabset-3-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-3-1-tab">
 <p>If the average daily intake of saturated fat among 25–34-year-old females in the general population is 24 g, then, using a significance level of .01, test the hypothesis that the intake of saturated fat in this group is lower than that in the general population.</p>
@@ -473,14 +470,14 @@ t = \frac{\bar{x} - \mu_0}{s/\sqrt{n}} = \frac{13 - 15}{4 / \sqrt{10}}
 t = \frac{\bar{x} - \mu_0}{s/\sqrt{n}} = \frac{11 - 24}{11 / \sqrt{8}}
 \]</span> Numerically</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>(<span class="dv">11</span> <span class="sc">-</span> <span class="dv">24</span>) <span class="sc">/</span> (<span class="dv">11</span> <span class="sc">/</span> <span class="fu">sqrt</span>(<span class="dv">8</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>(<span class="dv">11</span> <span class="sc">-</span> <span class="dv">24</span>) <span class="sc">/</span> (<span class="dv">11</span> <span class="sc">/</span> <span class="fu">sqrt</span>(<span class="dv">8</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] -3.343</code></pre>
 </div>
 </div>
 <p>For the critical value method, we compare this to <span class="math inline">\(t_{n-1, \alpha}\)</span> where <span class="math inline">\(\alpha = 0.01\)</span></p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">qt</span>(<span class="at">p =</span> <span class="fl">0.01</span>, <span class="at">df =</span> <span class="dv">8</span> <span class="sc">-</span> <span class="dv">1</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">qt</span>(<span class="at">p =</span> <span class="fl">0.01</span>, <span class="at">df =</span> <span class="dv">8</span> <span class="sc">-</span> <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] -2.998</code></pre>
 </div>
@@ -490,7 +487,7 @@ t = \frac{\bar{x} - \mu_0}{s/\sqrt{n}} = \frac{11 - 24}{11 / \sqrt{8}}
 </div>
 </div>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-4-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-1" role="tab" aria-controls="tabset-4-1" aria-selected="true" href="">7.4</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-4-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-2" role="tab" aria-controls="tabset-4-2" aria-selected="false" href="">Solution</a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-4-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-1" role="tab" aria-controls="tabset-4-1" aria-selected="true">7.4</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-4-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-2" role="tab" aria-controls="tabset-4-2" aria-selected="false">Solution</a></li></ul>
 <div class="tab-content">
 <div id="tabset-4-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-4-1-tab">
 <p>Compute a p-value for the hypothesis test in Problem 7.3.</p>
@@ -508,7 +505,7 @@ t = \frac{\bar{x} - \mu_0}{s/\sqrt{n}} = \frac{11 - 24}{11 / \sqrt{8}}
 </div>
 <p>Numerically</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pt</span>(<span class="at">q =</span> <span class="sc">-</span><span class="fl">3.343</span>, <span class="at">df =</span> <span class="dv">7</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pt</span>(<span class="at">q =</span> <span class="sc">-</span><span class="fl">3.343</span>, <span class="at">df =</span> <span class="dv">7</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.006184</code></pre>
 </div>
@@ -518,7 +515,7 @@ t = \frac{\bar{x} - \mu_0}{s/\sqrt{n}} = \frac{11 - 24}{11 / \sqrt{8}}
 </div>
 </div>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-5-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-5-1" role="tab" aria-controls="tabset-5-1" aria-selected="true" href="">7.5</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-5-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-5-2" role="tab" aria-controls="tabset-5-2" aria-selected="false" href="">Solution</a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-5-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-5-1" role="tab" aria-controls="tabset-5-1" aria-selected="true">7.5</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-5-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-5-2" role="tab" aria-controls="tabset-5-2" aria-selected="false">Solution</a></li></ul>
 <div class="tab-content">
 <div id="tabset-5-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-5-1-tab">
 <p>What is the relationship between your answers to Problems 7.3 and 7.4?</p>
@@ -535,7 +532,7 @@ t = \frac{\bar{x} - \mu_0}{s/\sqrt{n}} = \frac{11 - 24}{11 / \sqrt{8}}
 </div>
 <p>Suppose we are uncertain what effect a vegetarian diet will have on the level of linoleic-acid intake in Problem 7.1.</p>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-6-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-6-1" role="tab" aria-controls="tabset-6-1" aria-selected="true" href="">7.6</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-6-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-6-2" role="tab" aria-controls="tabset-6-2" aria-selected="false" href="">Solution</a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-6-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-6-1" role="tab" aria-controls="tabset-6-1" aria-selected="true">7.6</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-6-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-6-2" role="tab" aria-controls="tabset-6-2" aria-selected="false">Solution</a></li></ul>
 <div class="tab-content">
 <div id="tabset-6-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-6-1-tab">
 <p>What are the null and alternative hypotheses in this case?</p>
@@ -550,7 +547,7 @@ t = \frac{\bar{x} - \mu_0}{s/\sqrt{n}} = \frac{11 - 24}{11 / \sqrt{8}}
 </div>
 </div>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-7-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-7-1" role="tab" aria-controls="tabset-7-1" aria-selected="true" href="">7.7</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-7-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-7-2" role="tab" aria-controls="tabset-7-2" aria-selected="false" href="">Solution</a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-7-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-7-1" role="tab" aria-controls="tabset-7-1" aria-selected="true">7.7</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-7-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-7-2" role="tab" aria-controls="tabset-7-2" aria-selected="false">Solution</a></li></ul>
 <div class="tab-content">
 <div id="tabset-7-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-7-1-tab">
 <p>Compare the mean level of linoleic acid in the vegetarian population with that of the general population under the hypotheses in Problem 7.6. Report a <span class="math inline">\(p\)</span>-value.</p>
@@ -560,7 +557,7 @@ t = \frac{\bar{x} - \mu_0}{s/\sqrt{n}} = \frac{11 - 24}{11 / \sqrt{8}}
 t = \frac{\bar{x} - \mu_0}{s/\sqrt{n}} = \frac{13 - 15}{4 / \sqrt{10}} = -1.581
 \]</span> But now “more extreme” means just further away from 0. For the critical value method, we compare our observed <span class="math inline">\(t\)</span>-statistic to <span class="math inline">\(t_{n-1, 1 - \alpha/2}\)</span></p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">qt</span>(<span class="at">p =</span> <span class="dv">1</span> <span class="sc">-</span> <span class="fl">0.05</span> <span class="sc">/</span> <span class="dv">2</span>, <span class="at">df =</span> <span class="dv">10</span> <span class="sc">-</span> <span class="dv">1</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">qt</span>(<span class="at">p =</span> <span class="dv">1</span> <span class="sc">-</span> <span class="fl">0.05</span> <span class="sc">/</span> <span class="dv">2</span>, <span class="at">df =</span> <span class="dv">10</span> <span class="sc">-</span> <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 2.262</code></pre>
 </div>
@@ -577,7 +574,7 @@ t = \frac{\bar{x} - \mu_0}{s/\sqrt{n}} = \frac{13 - 15}{4 / \sqrt{10}} = -1.581
 </div>
 <p>In R</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span> <span class="sc">*</span> <span class="fu">pt</span>(<span class="at">q =</span> <span class="sc">-</span><span class="fl">1.581</span>, <span class="at">df =</span> <span class="dv">10</span> <span class="sc">-</span> <span class="dv">1</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span> <span class="sc">*</span> <span class="fu">pt</span>(<span class="at">q =</span> <span class="sc">-</span><span class="fl">1.581</span>, <span class="at">df =</span> <span class="dv">10</span> <span class="sc">-</span> <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.1483</code></pre>
 </div>
@@ -587,7 +584,7 @@ t = \frac{\bar{x} - \mu_0}{s/\sqrt{n}} = \frac{13 - 15}{4 / \sqrt{10}} = -1.581
 </div>
 </div>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-8-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-8-1" role="tab" aria-controls="tabset-8-1" aria-selected="true" href="">7.10</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-8-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-8-2" role="tab" aria-controls="tabset-8-2" aria-selected="false" href="">Solution</a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-8-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-8-1" role="tab" aria-controls="tabset-8-1" aria-selected="true">7.10</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-8-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-8-2" role="tab" aria-controls="tabset-8-2" aria-selected="false">Solution</a></li></ul>
 <div class="tab-content">
 <div id="tabset-8-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-8-1-tab">
 <p>Suppose we are uncertain what effect a vegetarian diet will have on saturated fat intake. Compute a two-sided p-value for the hypothesis testing situation mentioned in Problem 7.3.</p>
@@ -597,7 +594,7 @@ t = \frac{\bar{x} - \mu_0}{s/\sqrt{n}} = \frac{13 - 15}{4 / \sqrt{10}} = -1.581
 t = \frac{\bar{x} - \mu_0}{s/\sqrt{n}} = \frac{11 - 24}{11 / \sqrt{8}} = -3.343
 \]</span> But now “more extreme” means just further away from 0. For the critical value method, we compare our observed <span class="math inline">\(t\)</span>-statistic to <span class="math inline">\(t_{n-1, 1 - \alpha/2}\)</span></p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">qt</span>(<span class="at">p =</span> <span class="dv">1</span> <span class="sc">-</span> <span class="fl">0.01</span> <span class="sc">/</span> <span class="dv">2</span>, <span class="at">df =</span> <span class="dv">8</span> <span class="sc">-</span> <span class="dv">1</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">qt</span>(<span class="at">p =</span> <span class="dv">1</span> <span class="sc">-</span> <span class="fl">0.01</span> <span class="sc">/</span> <span class="dv">2</span>, <span class="at">df =</span> <span class="dv">8</span> <span class="sc">-</span> <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 3.499</code></pre>
 </div>
@@ -614,7 +611,7 @@ t = \frac{\bar{x} - \mu_0}{s/\sqrt{n}} = \frac{11 - 24}{11 / \sqrt{8}} = -3.343
 </div>
 <p>In R</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span> <span class="sc">*</span> <span class="fu">pt</span>(<span class="at">q =</span> <span class="sc">-</span><span class="fl">3.343</span>, <span class="at">df =</span> <span class="dv">8</span> <span class="sc">-</span> <span class="dv">1</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span> <span class="sc">*</span> <span class="fu">pt</span>(<span class="at">q =</span> <span class="sc">-</span><span class="fl">3.343</span>, <span class="at">df =</span> <span class="dv">8</span> <span class="sc">-</span> <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.01237</code></pre>
 </div>
@@ -624,7 +621,7 @@ t = \frac{\bar{x} - \mu_0}{s/\sqrt{n}} = \frac{11 - 24}{11 / \sqrt{8}} = -3.343
 </div>
 </div>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-9-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-9-1" role="tab" aria-controls="tabset-9-1" aria-selected="true" href="">7.11</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-9-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-9-2" role="tab" aria-controls="tabset-9-2" aria-selected="false" href="">Solution</a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-9-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-9-1" role="tab" aria-controls="tabset-9-1" aria-selected="true">7.11</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-9-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-9-2" role="tab" aria-controls="tabset-9-2" aria-selected="false">Solution</a></li></ul>
 <div class="tab-content">
 <div id="tabset-9-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-9-1-tab">
 <p>Compute a lower one-sided 95% CI for the true mean intake of linoleic acid in the vegetarian population depicted in Problem 7.1.</p>
@@ -634,7 +631,7 @@ t = \frac{\bar{x} - \mu_0}{s/\sqrt{n}} = \frac{11 - 24}{11 / \sqrt{8}} = -3.343
 \bar{x} + t_{n-1, 1-\alpha}\frac{s}{\sqrt{n}}
 \]</span> We were given all terms except <span class="math inline">\(t_{n-1,1-\alpha}\)</span>, where <span class="math inline">\(\alpha = 0.05\)</span></p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">qt</span>(<span class="at">p =</span> <span class="dv">1</span> <span class="sc">-</span> <span class="fl">0.05</span>, <span class="at">df =</span> <span class="dv">10</span> <span class="sc">-</span> <span class="dv">1</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">qt</span>(<span class="at">p =</span> <span class="dv">1</span> <span class="sc">-</span> <span class="fl">0.05</span>, <span class="at">df =</span> <span class="dv">10</span> <span class="sc">-</span> <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 1.833</code></pre>
 </div>
@@ -643,7 +640,7 @@ t = \frac{\bar{x} - \mu_0}{s/\sqrt{n}} = \frac{11 - 24}{11 / \sqrt{8}} = -3.343
 13 + 1.833 \times 4 / \sqrt{10}
 \]</span> Numerically</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="dv">13</span> <span class="sc">+</span> <span class="fl">1.833</span> <span class="sc">*</span> <span class="dv">4</span> <span class="sc">/</span> <span class="fu">sqrt</span>(<span class="dv">10</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="dv">13</span> <span class="sc">+</span> <span class="fl">1.833</span> <span class="sc">*</span> <span class="dv">4</span> <span class="sc">/</span> <span class="fu">sqrt</span>(<span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 15.32</code></pre>
 </div>
@@ -655,7 +652,7 @@ t = \frac{\bar{x} - \mu_0}{s/\sqrt{n}} = \frac{11 - 24}{11 / \sqrt{8}} = -3.343
 </div>
 </div>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-10-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-10-1" role="tab" aria-controls="tabset-10-1" aria-selected="true" href="">7.12</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-10-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-10-2" role="tab" aria-controls="tabset-10-2" aria-selected="false" href="">Solution</a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-10-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-10-1" role="tab" aria-controls="tabset-10-1" aria-selected="true">7.12</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-10-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-10-2" role="tab" aria-controls="tabset-10-2" aria-selected="false">Solution</a></li></ul>
 <div class="tab-content">
 <div id="tabset-10-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-10-1-tab">
 <p>How does your answer to Problem 7.11 relate to your answer to Problem 7.1?</p>
@@ -670,7 +667,7 @@ t = \frac{\bar{x} - \mu_0}{s/\sqrt{n}} = \frac{11 - 24}{11 / \sqrt{8}} = -3.343
 <h2 class="anchored" data-anchor-id="occupational-health-1">Occupational Health 1</h2>
 <p>Suppose that 28 cancer deaths are noted among workers exposed to asbestos in a building-materials plant from 1981–1985. Only 20.5 cancer deaths are expected from statewide cancer-mortality rates.</p>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-11-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-11-1" role="tab" aria-controls="tabset-11-1" aria-selected="true" href="">7.17</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-11-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-11-2" role="tab" aria-controls="tabset-11-2" aria-selected="false" href="">Solution</a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-11-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-11-1" role="tab" aria-controls="tabset-11-1" aria-selected="true">7.17</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-11-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-11-2" role="tab" aria-controls="tabset-11-2" aria-selected="false">Solution</a></li></ul>
 <div class="tab-content">
 <div id="tabset-11-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-11-1-tab">
 <p>What is the estimated SMR for total cancer mortality?</p>
@@ -680,7 +677,7 @@ t = \frac{\bar{x} - \mu_0}{s/\sqrt{n}} = \frac{11 - 24}{11 / \sqrt{8}} = -3.343
 \frac{\text{observed}}{\text{expected}}\times 100\% = \frac{28}{20.5}\times 100\%
 \]</span></p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="dv">28</span> <span class="sc">/</span> <span class="fl">20.5</span> <span class="sc">*</span> <span class="dv">100</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="dv">28</span> <span class="sc">/</span> <span class="fl">20.5</span> <span class="sc">*</span> <span class="dv">100</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 136.6</code></pre>
 </div>
@@ -690,7 +687,7 @@ t = \frac{\bar{x} - \mu_0}{s/\sqrt{n}} = \frac{11 - 24}{11 / \sqrt{8}} = -3.343
 </div>
 </div>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-12-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-12-1" role="tab" aria-controls="tabset-12-1" aria-selected="true" href="">7.18</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-12-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-12-2" role="tab" aria-controls="tabset-12-2" aria-selected="false" href="">Solution</a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-12-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-12-1" role="tab" aria-controls="tabset-12-1" aria-selected="true">7.18</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-12-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-12-2" role="tab" aria-controls="tabset-12-2" aria-selected="false">Solution</a></li></ul>
 <div class="tab-content">
 <div id="tabset-12-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-12-1-tab">
 <p>Is there a significant excess or deficit of total cancer deaths among these workers?</p>
@@ -707,16 +704,16 @@ t = \frac{\bar{x} - \mu_0}{s/\sqrt{n}} = \frac{11 - 24}{11 / \sqrt{8}} = -3.343
 </div>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">-</span> <span class="fu">ppois</span>(<span class="at">q =</span> <span class="dv">27</span>, <span class="at">lambda =</span> <span class="fl">20.5</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">-</span> <span class="fu">ppois</span>(<span class="at">q =</span> <span class="dv">27</span>, <span class="at">lambda =</span> <span class="fl">20.5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.06632</code></pre>
 </div>
 </div>
 <p>You can also get this with <code>poisson.test()</code></p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">poisson.test</span>(<span class="at">x =</span> <span class="dv">28</span>, <span class="at">alternative =</span> <span class="st">"greater"</span>, <span class="at">r =</span> <span class="fl">20.5</span>) <span class="sc">|&gt;</span></span>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">poisson.test</span>(<span class="at">x =</span> <span class="dv">28</span>, <span class="at">alternative =</span> <span class="st">"greater"</span>, <span class="at">r =</span> <span class="fl">20.5</span>) <span class="sc">|&gt;</span></span>
 <span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tidy</span>() <span class="sc">|&gt;</span></span>
-<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(p.value)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(p.value)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1 × 1
   p.value
@@ -730,7 +727,7 @@ t = \frac{\bar{x} - \mu_0}{s/\sqrt{n}} = \frac{11 - 24}{11 / \sqrt{8}} = -3.343
 </div>
 <p>In the same group of workers, 7 deaths due to leukemia are noted. Only 4.5 are expected from statewide rates.</p>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-13-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-13-1" role="tab" aria-controls="tabset-13-1" aria-selected="true" href="">7.19</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-13-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-13-2" role="tab" aria-controls="tabset-13-2" aria-selected="false" href="">Solution</a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-13-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-13-1" role="tab" aria-controls="tabset-13-1" aria-selected="true">7.19</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-13-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-13-2" role="tab" aria-controls="tabset-13-2" aria-selected="false">Solution</a></li></ul>
 <div class="tab-content">
 <div id="tabset-13-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-13-1-tab">
 <p>What is the estimated SMR for leukemia?</p>
@@ -740,7 +737,7 @@ t = \frac{\bar{x} - \mu_0}{s/\sqrt{n}} = \frac{11 - 24}{11 / \sqrt{8}} = -3.343
 \frac{\text{observed}}{\text{expected}}\times 100\% = \frac{7}{4.5}\times 100\%
 \]</span></p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="dv">7</span> <span class="sc">/</span> <span class="fl">4.5</span> <span class="sc">*</span> <span class="dv">100</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="dv">7</span> <span class="sc">/</span> <span class="fl">4.5</span> <span class="sc">*</span> <span class="dv">100</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 155.6</code></pre>
 </div>
@@ -750,7 +747,7 @@ t = \frac{\bar{x} - \mu_0}{s/\sqrt{n}} = \frac{11 - 24}{11 / \sqrt{8}} = -3.343
 </div>
 </div>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-14-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-14-1" role="tab" aria-controls="tabset-14-1" aria-selected="true" href="">7.20</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-14-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-14-2" role="tab" aria-controls="tabset-14-2" aria-selected="false" href="">Solution</a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-14-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-14-1" role="tab" aria-controls="tabset-14-1" aria-selected="true">7.20</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-14-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-14-2" role="tab" aria-controls="tabset-14-2" aria-selected="false">Solution</a></li></ul>
 <div class="tab-content">
 <div id="tabset-14-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-14-1-tab">
 <p>Is there a significant excess or deficit of leukemia deaths among these workers?</p>
@@ -768,9 +765,9 @@ t = \frac{\bar{x} - \mu_0}{s/\sqrt{n}} = \frac{11 - 24}{11 / \sqrt{8}} = -3.343
 </div>
 <p>This is done via <code>poisson.test()</code></p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">poisson.test</span>(<span class="at">x =</span> <span class="dv">7</span>, <span class="at">r =</span> <span class="fl">4.5</span>) <span class="sc">|&gt;</span></span>
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">poisson.test</span>(<span class="at">x =</span> <span class="dv">7</span>, <span class="at">r =</span> <span class="fl">4.5</span>) <span class="sc">|&gt;</span></span>
 <span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tidy</span>() <span class="sc">|&gt;</span></span>
-<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(p.value)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(p.value)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1 × 1
   p.value
@@ -785,21 +782,21 @@ t = \frac{\bar{x} - \mu_0}{s/\sqrt{n}} = \frac{11 - 24}{11 / \sqrt{8}} = -3.343
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Tip</span>Note
+Note
 </div>
 </div>
 <div class="callout-body-container callout-body">
 <p>Not for the exam, but for your own edification. The below shows that R’s default way is what we discussed:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">dpois</span>(<span class="at">x =</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">20</span>, <span class="at">lambda =</span> <span class="fl">4.5</span>)</span>
-<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(x[x <span class="sc">&lt;=</span> x[[<span class="dv">8</span>]]])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">dpois</span>(<span class="at">x =</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">20</span>, <span class="at">lambda =</span> <span class="fl">4.5</span>)</span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(x[x <span class="sc">&lt;=</span> x[[<span class="dv">8</span>]]])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.23</code></pre>
 </div>
 </div>
 <p>Rosner does 2 times the larger one-tailed <span class="math inline">\(p\)</span>-value:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span> <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> <span class="fu">ppois</span>(<span class="at">q =</span> <span class="dv">6</span>, <span class="at">lambda =</span> <span class="fl">4.5</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span> <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> <span class="fu">ppois</span>(<span class="at">q =</span> <span class="dv">6</span>, <span class="at">lambda =</span> <span class="fl">4.5</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.3379</code></pre>
 </div>
@@ -815,7 +812,7 @@ t = \frac{\bar{x} - \mu_0}{s/\sqrt{n}} = \frac{11 - 24}{11 / \sqrt{8}} = -3.343
 <h2 class="anchored" data-anchor-id="infectious-disease">Infectious Disease</h2>
 <p>Suppose the annual incidence of diarrhea (defined as 1+ episodes per year) in a Third-World country is 5% in children under the age of 2.</p>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-15-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-15-1" role="tab" aria-controls="tabset-15-1" aria-selected="true" href="">7.21</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-15-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-15-2" role="tab" aria-controls="tabset-15-2" aria-selected="false" href="">Solution</a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-15-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-15-1" role="tab" aria-controls="tabset-15-1" aria-selected="true">7.21</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-15-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-15-2" role="tab" aria-controls="tabset-15-2" aria-selected="false">Solution</a></li></ul>
 <div class="tab-content">
 <div id="tabset-15-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-15-1-tab">
 <p>If 10 children out of 108 under the age of 2 in a poor rural community in the country have 1+ episodes of diarrhea in a year, then test if this represents a significant departure from the overall rate for the country using the critical-value method.</p>
@@ -823,7 +820,7 @@ t = \frac{\bar{x} - \mu_0}{s/\sqrt{n}} = \frac{11 - 24}{11 / \sqrt{8}} = -3.343
 <div id="tabset-15-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-15-2-tab">
 <p>Let <span class="math inline">\(X\)</span> be the number with 1+ episodes in a year. Then <span class="math inline">\(X \sim \mathrm{Binom}(108, p)\)</span>. We are told that <span class="math inline">\(\hat{p} = 10 / 108 = 0.09259\)</span>. We are testing <span class="math inline">\(H_0: p = 0.05\)</span> versus <span class="math inline">\(H_A: p \neq 0.05\)</span>. We can use the normal method since <span class="math inline">\(np(1-p)\geq 5\)</span></p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="dv">108</span> <span class="sc">*</span> <span class="fl">0.05</span> <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> <span class="fl">0.05</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="dv">108</span> <span class="sc">*</span> <span class="fl">0.05</span> <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> <span class="fl">0.05</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 5.13</code></pre>
 </div>
@@ -832,14 +829,14 @@ t = \frac{\bar{x} - \mu_0}{s/\sqrt{n}} = \frac{11 - 24}{11 / \sqrt{8}} = -3.343
 z = \frac{\hat{p} - p_0}{\sqrt{p_0(1-p_0)/n}} = \frac{0.09259 - 0.05}{\sqrt{0.05(1-0.05)/108}}
 \]</span> Numerically, the <span class="math inline">\(z\)</span>-value is</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>(<span class="fl">0.09259</span> <span class="sc">-</span> <span class="fl">0.05</span>) <span class="sc">/</span> <span class="fu">sqrt</span>(<span class="fl">0.05</span> <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> <span class="fl">0.05</span>) <span class="sc">/</span> <span class="dv">108</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>(<span class="fl">0.09259</span> <span class="sc">-</span> <span class="fl">0.05</span>) <span class="sc">/</span> <span class="fu">sqrt</span>(<span class="fl">0.05</span> <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> <span class="fl">0.05</span>) <span class="sc">/</span> <span class="dv">108</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 2.031</code></pre>
 </div>
 </div>
 <p>For the critical-value method, we compare this <span class="math inline">\(z\)</span>-statistic to <span class="math inline">\(z_{1 - \alpha/2}\)</span>. Let <span class="math inline">\(\alpha = 0.05\)</span></p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="fu">qnorm</span>(<span class="dv">1</span> <span class="sc">-</span> <span class="fl">0.05</span> <span class="sc">/</span> <span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="fu">qnorm</span>(<span class="dv">1</span> <span class="sc">-</span> <span class="fl">0.05</span> <span class="sc">/</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 1.96</code></pre>
 </div>
@@ -849,7 +846,7 @@ z = \frac{\hat{p} - p_0}{\sqrt{p_0(1-p_0)/n}} = \frac{0.09259 - 0.05}{\sqrt{0.05
 </div>
 </div>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-16-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-16-1" role="tab" aria-controls="tabset-16-1" aria-selected="true" href="">7.22</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-16-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-16-2" role="tab" aria-controls="tabset-16-2" aria-selected="false" href="">Solution</a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-16-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-16-1" role="tab" aria-controls="tabset-16-1" aria-selected="true">7.22</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-16-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-16-2" role="tab" aria-controls="tabset-16-2" aria-selected="false">Solution</a></li></ul>
 <div class="tab-content">
 <div id="tabset-16-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-16-1-tab">
 <p>Report a p-value corresponding to your answer to Problem 7.21</p>
@@ -867,7 +864,7 @@ z = \frac{\hat{p} - p_0}{\sqrt{p_0(1-p_0)/n}} = \frac{0.09259 - 0.05}{\sqrt{0.05
 </div>
 <p>Numerically, the <span class="math inline">\(p\)</span>-value is</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span> <span class="sc">*</span> <span class="fu">pnorm</span>(<span class="at">q =</span> <span class="sc">-</span><span class="fl">2.031</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span> <span class="sc">*</span> <span class="fu">pnorm</span>(<span class="at">q =</span> <span class="sc">-</span><span class="fl">2.031</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.04225</code></pre>
 </div>
@@ -875,9 +872,9 @@ z = \frac{\hat{p} - p_0}{\sqrt{p_0(1-p_0)/n}} = \frac{0.09259 - 0.05}{\sqrt{0.05
 <p>Since this is less than 0.05, we again reject at significance level 0.05 and conclude that the diarrhea rate differs than the country as a whole.</p>
 <p>You can also use <code>prop.test()</code> to do this</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="fu">prop.test</span>(<span class="at">x =</span> <span class="dv">10</span>, <span class="at">n =</span> <span class="dv">108</span>, <span class="at">p =</span> <span class="fl">0.05</span>) <span class="sc">|&gt;</span></span>
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="fu">prop.test</span>(<span class="at">x =</span> <span class="dv">10</span>, <span class="at">n =</span> <span class="dv">108</span>, <span class="at">p =</span> <span class="fl">0.05</span>) <span class="sc">|&gt;</span></span>
 <span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tidy</span>() <span class="sc">|&gt;</span></span>
-<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(p.value)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(p.value)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1 × 1
   p.value
@@ -894,7 +891,7 @@ z = \frac{\hat{p} - p_0}{\sqrt{p_0(1-p_0)/n}} = \frac{0.09259 - 0.05}{\sqrt{0.05
 <h2 class="anchored" data-anchor-id="ophthalmology">Ophthalmology</h2>
 <p>Suppose the distribution of systolic blood pressure in the general population is normal with a mean of 130 mm Hg and a standard deviation of 20 mm Hg. In a special subgroup of 85 people with glaucoma, we find that the mean systolic blood pressure is 135 mm Hg with a standard deviation of 22 mm Hg.</p>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-17-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-17-1" role="tab" aria-controls="tabset-17-1" aria-selected="true" href="">7.23</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-17-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-17-2" role="tab" aria-controls="tabset-17-2" aria-selected="false" href="">Solution</a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-17-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-17-1" role="tab" aria-controls="tabset-17-1" aria-selected="true">7.23</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-17-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-17-2" role="tab" aria-controls="tabset-17-2" aria-selected="false">Solution</a></li></ul>
 <div class="tab-content">
 <div id="tabset-17-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-17-1-tab">
 <p>Assuming that the standard deviation of the glaucoma patients is the same as that of the general population, test for an association between glaucoma and high blood pressure.</p>
@@ -904,7 +901,7 @@ z = \frac{\hat{p} - p_0}{\sqrt{p_0(1-p_0)/n}} = \frac{0.09259 - 0.05}{\sqrt{0.05
 z = \frac{\bar{x} - \mu_0}{\sigma/\sqrt{n}} = \frac{135 - 130}{20 / \sqrt{85}}
 \]</span> Numerically</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a>(<span class="dv">135</span> <span class="sc">-</span> <span class="dv">130</span>) <span class="sc">/</span> (<span class="dv">20</span> <span class="sc">/</span> <span class="fu">sqrt</span>(<span class="dv">85</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a>(<span class="dv">135</span> <span class="sc">-</span> <span class="dv">130</span>) <span class="sc">/</span> (<span class="dv">20</span> <span class="sc">/</span> <span class="fu">sqrt</span>(<span class="dv">85</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 2.305</code></pre>
 </div>
@@ -920,7 +917,7 @@ z = \frac{\bar{x} - \mu_0}{\sigma/\sqrt{n}} = \frac{135 - 130}{20 / \sqrt{85}}
 </div>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span> <span class="sc">*</span> <span class="fu">pnorm</span>(<span class="sc">-</span><span class="fl">2.305</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span> <span class="sc">*</span> <span class="fu">pnorm</span>(<span class="sc">-</span><span class="fl">2.305</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.02117</code></pre>
 </div>
@@ -930,7 +927,7 @@ z = \frac{\bar{x} - \mu_0}{\sigma/\sqrt{n}} = \frac{135 - 130}{20 / \sqrt{85}}
 </div>
 </div>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-18-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-18-1" role="tab" aria-controls="tabset-18-1" aria-selected="true" href="">7.24</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-18-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-18-2" role="tab" aria-controls="tabset-18-2" aria-selected="false" href="">Solution</a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-18-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-18-1" role="tab" aria-controls="tabset-18-1" aria-selected="true">7.24</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-18-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-18-2" role="tab" aria-controls="tabset-18-2" aria-selected="false">Solution</a></li></ul>
 <div class="tab-content">
 <div id="tabset-18-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-18-1-tab">
 <p>Answer Problem 7.23 without making the assumption concerning the standard deviation.</p>
@@ -940,7 +937,7 @@ z = \frac{\bar{x} - \mu_0}{\sigma/\sqrt{n}} = \frac{135 - 130}{20 / \sqrt{85}}
 t = \frac{\bar{x} - \mu_0}{s/\sqrt{n}} = \frac{135 - 130}{22 / \sqrt{85}}
 \]</span> Numerically</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a>(<span class="dv">135</span> <span class="sc">-</span> <span class="dv">130</span>) <span class="sc">/</span> (<span class="dv">22</span> <span class="sc">/</span> <span class="fu">sqrt</span>(<span class="dv">85</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a>(<span class="dv">135</span> <span class="sc">-</span> <span class="dv">130</span>) <span class="sc">/</span> (<span class="dv">22</span> <span class="sc">/</span> <span class="fu">sqrt</span>(<span class="dv">85</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 2.095</code></pre>
 </div>
@@ -956,7 +953,7 @@ t = \frac{\bar{x} - \mu_0}{s/\sqrt{n}} = \frac{135 - 130}{22 / \sqrt{85}}
 </div>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span> <span class="sc">*</span> <span class="fu">pt</span>(<span class="at">q =</span> <span class="sc">-</span><span class="fl">2.095</span>, <span class="at">df =</span> <span class="dv">84</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span> <span class="sc">*</span> <span class="fu">pt</span>(<span class="at">q =</span> <span class="sc">-</span><span class="fl">2.095</span>, <span class="at">df =</span> <span class="dv">84</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.03918</code></pre>
 </div>
@@ -969,7 +966,7 @@ t = \frac{\bar{x} - \mu_0}{s/\sqrt{n}} = \frac{135 - 130}{22 / \sqrt{85}}
 <section id="occupational-health-2" class="level2">
 <h2 class="anchored" data-anchor-id="occupational-health-2">Occupational Health 2</h2>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-19-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-19-1" role="tab" aria-controls="tabset-19-1" aria-selected="true" href="">7.25</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-19-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-19-2" role="tab" aria-controls="tabset-19-2" aria-selected="false" href="">Solution</a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-19-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-19-1" role="tab" aria-controls="tabset-19-1" aria-selected="true">7.25</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-19-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-19-2" role="tab" aria-controls="tabset-19-2" aria-selected="false">Solution</a></li></ul>
 <div class="tab-content">
 <div id="tabset-19-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-19-1-tab">
 <p>Suppose it is known that the average life expectancy of a 50-year-old man in 1945 was 18.5 years. Twenty men aged 50 who have been working for at least 20 years in a potentially hazardous industry were ascertained in 1945. On follow-up in 1985 all the men have died, with an average lifetime of 16.2 years and a standard deviation of 7.3 years since 1945. Assuming that life expectancy of 50-year-old men is approximately normally distributed, test if the underlying life expectancy for workers in this industry is shorter than for comparably aged men in the general population.</p>
@@ -979,7 +976,7 @@ t = \frac{\bar{x} - \mu_0}{s/\sqrt{n}} = \frac{135 - 130}{22 / \sqrt{85}}
 t = \frac{\bar{x} - \mu_0}{s/\sqrt{n}} = \frac{16.2 - 18.5}{7.3 / \sqrt{20}}
 \]</span> Numerically</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a>(<span class="fl">16.2</span> <span class="sc">-</span> <span class="fl">18.5</span>) <span class="sc">/</span> (<span class="fl">7.3</span> <span class="sc">/</span> <span class="fu">sqrt</span>(<span class="dv">20</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a>(<span class="fl">16.2</span> <span class="sc">-</span> <span class="fl">18.5</span>) <span class="sc">/</span> (<span class="fl">7.3</span> <span class="sc">/</span> <span class="fu">sqrt</span>(<span class="dv">20</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] -1.409</code></pre>
 </div>
@@ -995,7 +992,7 @@ t = \frac{\bar{x} - \mu_0}{s/\sqrt{n}} = \frac{16.2 - 18.5}{7.3 / \sqrt{20}}
 </div>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb59"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pt</span>(<span class="at">q =</span> <span class="sc">-</span><span class="fl">1.409</span>, <span class="at">df =</span> <span class="dv">19</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="sourceCode cell-code" id="cb59"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pt</span>(<span class="at">q =</span> <span class="sc">-</span><span class="fl">1.409</span>, <span class="at">df =</span> <span class="dv">19</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.0875</code></pre>
 </div>
@@ -1008,7 +1005,7 @@ t = \frac{\bar{x} - \mu_0}{s/\sqrt{n}} = \frac{16.2 - 18.5}{7.3 / \sqrt{20}}
 <section id="cancer-1" class="level2">
 <h2 class="anchored" data-anchor-id="cancer-1">Cancer 1</h2>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-20-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-20-1" role="tab" aria-controls="tabset-20-1" aria-selected="true" href="">7.26</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-20-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-20-2" role="tab" aria-controls="tabset-20-2" aria-selected="false" href="">Solution</a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-20-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-20-1" role="tab" aria-controls="tabset-20-1" aria-selected="true">7.26</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-20-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-20-2" role="tab" aria-controls="tabset-20-2" aria-selected="false">Solution</a></li></ul>
 <div class="tab-content">
 <div id="tabset-20-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-20-1-tab">
 <p>An area of current interest in cancer epidemiology is the possible role of oral contraceptives (OC’s) in the development of breast cancer. Suppose that in a group of 1000 premenopausal women ages 40–49 who are current users of OC’s, 15 subsequently develop breast cancer over the next 5 years. If the expected 5-year incidence rate of breast cancer in this group is 1.2% based on national incidence rates, then test the hypothesis that there is an association between current OC use and the subsequent development of breast cancer.</p>
@@ -1016,16 +1013,16 @@ t = \frac{\bar{x} - \mu_0}{s/\sqrt{n}} = \frac{16.2 - 18.5}{7.3 / \sqrt{20}}
 <div id="tabset-20-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-20-2-tab">
 <p>Let <span class="math inline">\(X\)</span> be the number with breast cancer after 5 years. Then <span class="math inline">\(X \sim \mathrm{Binom}(1000, p)\)</span>. We want to test <span class="math inline">\(H_0: p = 0.012\)</span> versus <span class="math inline">\(H_A: p \neq 0.012\)</span>. We are told that <span class="math inline">\(x = 15\)</span> was observed, so <span class="math inline">\(\hat{p} = 15/1000 = 0.015\)</span>. We can use a normal approximation since <span class="math inline">\(np_0(1-p_0) &gt; 5\)</span></p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb61"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1000</span> <span class="sc">*</span> <span class="fl">0.012</span> <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> <span class="fl">0.012</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="sourceCode cell-code" id="cb61"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1000</span> <span class="sc">*</span> <span class="fl">0.012</span> <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> <span class="fl">0.012</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 11.86</code></pre>
 </div>
 </div>
 <p>We calculate a <span class="math inline">\(z\)</span>-statistic <span class="math display">\[
-z = \frac{\hat{p} - p_0}{\sqrt{p_0(1-p_0)/n}} = \frac{0.015 - 0.012}{0.012(1-0.012)/1000}
+z = \frac{\hat{p} - p_0}{\sqrt{p_0(1-p_0)/n}} = \frac{0.015 - 0.012}{\sqrt{0.012(1-0.012)/1000}}
 \]</span> Numerically</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb63"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a>(<span class="fl">0.015</span> <span class="sc">-</span> <span class="fl">0.012</span>) <span class="sc">/</span> <span class="fu">sqrt</span>(<span class="fl">0.012</span> <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> <span class="fl">0.012</span>) <span class="sc">/</span> <span class="dv">1000</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="sourceCode cell-code" id="cb63"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a>(<span class="fl">0.015</span> <span class="sc">-</span> <span class="fl">0.012</span>) <span class="sc">/</span> <span class="fu">sqrt</span>(<span class="fl">0.012</span> <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> <span class="fl">0.012</span>) <span class="sc">/</span> <span class="dv">1000</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.8713</code></pre>
 </div>
@@ -1041,7 +1038,7 @@ z = \frac{\hat{p} - p_0}{\sqrt{p_0(1-p_0)/n}} = \frac{0.015 - 0.012}{0.012(1-0.0
 </div>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb65"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span> <span class="sc">*</span> <span class="fu">pnorm</span>(<span class="sc">-</span><span class="fl">0.8713</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="sourceCode cell-code" id="cb65"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span> <span class="sc">*</span> <span class="fu">pnorm</span>(<span class="sc">-</span><span class="fl">0.8713</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.3836</code></pre>
 </div>
@@ -1049,9 +1046,9 @@ z = \frac{\hat{p} - p_0}{\sqrt{p_0(1-p_0)/n}} = \frac{0.015 - 0.012}{0.012(1-0.0
 <p>Since the <span class="math inline">\(p\)</span>-value is so large, we have no evidence that these women have a different breast cancer rate than the general population.</p>
 <p>In R, we would use <code>prop.test()</code></p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb67"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb67-1"><a href="#cb67-1" aria-hidden="true" tabindex="-1"></a><span class="fu">prop.test</span>(<span class="at">x =</span> <span class="dv">15</span>, <span class="at">n =</span> <span class="dv">1000</span>, <span class="at">p =</span> <span class="fl">0.012</span>) <span class="sc">|&gt;</span></span>
+<div class="sourceCode cell-code" id="cb67"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb67-1"><a href="#cb67-1" aria-hidden="true" tabindex="-1"></a><span class="fu">prop.test</span>(<span class="at">x =</span> <span class="dv">15</span>, <span class="at">n =</span> <span class="dv">1000</span>, <span class="at">p =</span> <span class="fl">0.012</span>) <span class="sc">|&gt;</span></span>
 <span id="cb67-2"><a href="#cb67-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tidy</span>() <span class="sc">|&gt;</span></span>
-<span id="cb67-3"><a href="#cb67-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(p.value)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb67-3"><a href="#cb67-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(p.value)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1 × 1
   p.value
@@ -1068,7 +1065,7 @@ z = \frac{\hat{p} - p_0}{\sqrt{p_0(1-p_0)/n}} = \frac{0.015 - 0.012}{0.012(1-0.0
 <h2 class="anchored" data-anchor-id="cancer-2">Cancer 2</h2>
 <p>A group of investigators wishes to explore the relationship between the use of hair dyes and the development of breast cancer in females. A group of 1000 beauticians 30–39 years of age is identified and followed for 5 years. After 5 years, 20 new cases of breast cancer have occurred. Assume that breast-cancer incidence over this time period for an average woman in this age group is 7/1000. We wish to test the hypothesis that using hair dyes increases the risk of breast cancer.</p>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-21-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-21-1" role="tab" aria-controls="tabset-21-1" aria-selected="true" href="">7.27</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-21-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-21-2" role="tab" aria-controls="tabset-21-2" aria-selected="false" href="">Solution</a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-21-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-21-1" role="tab" aria-controls="tabset-21-1" aria-selected="true">7.27</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-21-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-21-2" role="tab" aria-controls="tabset-21-2" aria-selected="false">Solution</a></li></ul>
 <div class="tab-content">
 <div id="tabset-21-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-21-1-tab">
 <p>Is a one-sided or two-sided test appropriate here?</p>
@@ -1080,7 +1077,7 @@ z = \frac{\hat{p} - p_0}{\sqrt{p_0(1-p_0)/n}} = \frac{0.015 - 0.012}{0.012(1-0.0
 </div>
 </div>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-22-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-22-1" role="tab" aria-controls="tabset-22-1" aria-selected="true" href="">7.28</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-22-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-22-2" role="tab" aria-controls="tabset-22-2" aria-selected="false" href="">Solution</a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-22-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-22-1" role="tab" aria-controls="tabset-22-1" aria-selected="true">7.28</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-22-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-22-2" role="tab" aria-controls="tabset-22-2" aria-selected="false">Solution</a></li></ul>
 <div class="tab-content">
 <div id="tabset-22-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-22-1-tab">
 <p>Test the hypothesis.</p>
@@ -1088,16 +1085,16 @@ z = \frac{\hat{p} - p_0}{\sqrt{p_0(1-p_0)/n}} = \frac{0.015 - 0.012}{0.012(1-0.0
 <div id="tabset-22-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-22-2-tab">
 <p>Since <span class="math inline">\(np_0(1-p_0) \geq 5\)</span>, we can use the normal approximation.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb69"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb69-1"><a href="#cb69-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1000</span> <span class="sc">*</span> <span class="fl">0.007</span> <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> <span class="fl">0.007</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="sourceCode cell-code" id="cb69"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb69-1"><a href="#cb69-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1000</span> <span class="sc">*</span> <span class="fl">0.007</span> <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> <span class="fl">0.007</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 6.951</code></pre>
 </div>
 </div>
 <p>With <span class="math inline">\(\hat{p} = 20 / 1000\)</span>, we calculate a <span class="math inline">\(z\)</span>-statistic <span class="math display">\[
-z = \frac{\hat{p} - p_0}{\sqrt{p_0(1-p_0)/n}} = \frac{0.02 - 0.007}{0.007(1-0.007)/1000}
+z = \frac{\hat{p} - p_0}{\sqrt{p_0(1-p_0)/n}} = \frac{0.02 - 0.007}{\sqrt{0.007(1-0.007)/1000}}
 \]</span> Numerically</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb71"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb71-1"><a href="#cb71-1" aria-hidden="true" tabindex="-1"></a>(<span class="fl">0.02</span> <span class="sc">-</span> <span class="fl">0.007</span>) <span class="sc">/</span> <span class="fu">sqrt</span>(<span class="fl">0.007</span> <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> <span class="fl">0.007</span>) <span class="sc">/</span> <span class="dv">1000</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="sourceCode cell-code" id="cb71"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb71-1"><a href="#cb71-1" aria-hidden="true" tabindex="-1"></a>(<span class="fl">0.02</span> <span class="sc">-</span> <span class="fl">0.007</span>) <span class="sc">/</span> <span class="fu">sqrt</span>(<span class="fl">0.007</span> <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> <span class="fl">0.007</span>) <span class="sc">/</span> <span class="dv">1000</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 4.931</code></pre>
 </div>
@@ -1113,7 +1110,7 @@ z = \frac{\hat{p} - p_0}{\sqrt{p_0(1-p_0)/n}} = \frac{0.02 - 0.007}{0.007(1-0.00
 </div>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb73"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb73-1"><a href="#cb73-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">-</span> <span class="fu">pnorm</span>(<span class="fl">4.931</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="sourceCode cell-code" id="cb73"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb73-1"><a href="#cb73-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">-</span> <span class="fu">pnorm</span>(<span class="fl">4.931</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 4.09e-07</code></pre>
 </div>
@@ -1121,9 +1118,9 @@ z = \frac{\hat{p} - p_0}{\sqrt{p_0(1-p_0)/n}} = \frac{0.02 - 0.007}{0.007(1-0.00
 <p>Since the <span class="math inline">\(p\)</span>-value is so small, we have strong evidence that these women have a higher breast cancer rate than the general population.</p>
 <p>In R, we would use <code>prop.test()</code></p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb75"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb75-1"><a href="#cb75-1" aria-hidden="true" tabindex="-1"></a><span class="fu">prop.test</span>(<span class="at">x =</span> <span class="dv">20</span>, <span class="at">n =</span> <span class="dv">1000</span>, <span class="at">p =</span> <span class="fl">0.007</span>, <span class="at">alternative =</span> <span class="st">"greater"</span>) <span class="sc">|&gt;</span></span>
+<div class="sourceCode cell-code" id="cb75"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb75-1"><a href="#cb75-1" aria-hidden="true" tabindex="-1"></a><span class="fu">prop.test</span>(<span class="at">x =</span> <span class="dv">20</span>, <span class="at">n =</span> <span class="dv">1000</span>, <span class="at">p =</span> <span class="fl">0.007</span>, <span class="at">alternative =</span> <span class="st">"greater"</span>) <span class="sc">|&gt;</span></span>
 <span id="cb75-2"><a href="#cb75-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tidy</span>() <span class="sc">|&gt;</span></span>
-<span id="cb75-3"><a href="#cb75-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(p.value)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb75-3"><a href="#cb75-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(p.value)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1 × 1
      p.value
@@ -1140,12 +1137,12 @@ z = \frac{\hat{p} - p_0}{\sqrt{p_0(1-p_0)/n}} = \frac{0.02 - 0.007}{0.007(1-0.00
 <h2 class="anchored" data-anchor-id="renal-disease-1">Renal Disease 1</h2>
 <p>The level of serum creatinine in the blood is considered a good indicator of the presence or absence of kidney disease. Normal people generally have low concentrations of serum creatinine, whereas diseased people have high concentrations. Suppose we want to look at the relation between analgesic abuse and kidney disorder. In particular, suppose we look at 15 people working in a factory who are known to be “analgesic abusers” (i.e., they take more than 10 pills per day) and we measure their creatinine levels. The creatinine levels are</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb77"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb77-1"><a href="#cb77-1" aria-hidden="true" tabindex="-1"></a>cret <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<div class="sourceCode cell-code" id="cb77"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb77-1"><a href="#cb77-1" aria-hidden="true" tabindex="-1"></a>cret <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
 <span id="cb77-2"><a href="#cb77-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">creatine =</span> <span class="fu">c</span>(<span class="fl">0.9</span>, <span class="fl">1.1</span>, <span class="fl">1.6</span>, <span class="fl">2.0</span>, <span class="fl">0.8</span>,</span>
 <span id="cb77-3"><a href="#cb77-3" aria-hidden="true" tabindex="-1"></a>               <span class="fl">0.7</span>, <span class="fl">1.4</span>, <span class="fl">1.2</span>, <span class="fl">1.5</span>, <span class="fl">0.8</span>,</span>
 <span id="cb77-4"><a href="#cb77-4" aria-hidden="true" tabindex="-1"></a>               <span class="fl">1.0</span>, <span class="fl">1.1</span>, <span class="fl">1.4</span>, <span class="fl">2.2</span>, <span class="fl">1.4</span>)</span>
 <span id="cb77-5"><a href="#cb77-5" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb77-6"><a href="#cb77-6" aria-hidden="true" tabindex="-1"></a>cret</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb77-6"><a href="#cb77-6" aria-hidden="true" tabindex="-1"></a>cret</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 15 × 1
    creatine
@@ -1168,7 +1165,7 @@ z = \frac{\hat{p} - p_0}{\sqrt{p_0(1-p_0)/n}} = \frac{0.02 - 0.007}{0.007(1-0.00
 </div>
 </div>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-23-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-23-1" role="tab" aria-controls="tabset-23-1" aria-selected="true" href="">7.29</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-23-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-23-2" role="tab" aria-controls="tabset-23-2" aria-selected="false" href="">Solution</a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-23-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-23-1" role="tab" aria-controls="tabset-23-1" aria-selected="true">7.29</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-23-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-23-2" role="tab" aria-controls="tabset-23-2" aria-selected="false">Solution</a></li></ul>
 <div class="tab-content">
 <div id="tabset-23-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-23-1-tab">
 <p>If we assume that creatinine levels for normal people are normally distributed with mean 1.0, then can we make any comment about the levels for analgesic abusers via some statistical test?</p>
@@ -1176,11 +1173,11 @@ z = \frac{\hat{p} - p_0}{\sqrt{p_0(1-p_0)/n}} = \frac{0.02 - 0.007}{0.007(1-0.00
 <div id="tabset-23-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-23-2-tab">
 <p>Let <span class="math inline">\(X_i\)</span> be the creatine level for analgesic abuser <span class="math inline">\(i\)</span>. Then we assume that <span class="math inline">\(X_i \sim N(\mu, \sigma^2)\)</span>. We want to test <span class="math inline">\(H_0: \mu = 1\)</span> versus <span class="math inline">\(H_A: \mu \neq 1\)</span>. We calculate summary statistics</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb79"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb79-1"><a href="#cb79-1" aria-hidden="true" tabindex="-1"></a>cret <span class="sc">|&gt;</span></span>
+<div class="sourceCode cell-code" id="cb79"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb79-1"><a href="#cb79-1" aria-hidden="true" tabindex="-1"></a>cret <span class="sc">|&gt;</span></span>
 <span id="cb79-2"><a href="#cb79-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(</span>
 <span id="cb79-3"><a href="#cb79-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">mean =</span> <span class="fu">mean</span>(creatine),</span>
 <span id="cb79-4"><a href="#cb79-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">sd =</span> <span class="fu">sd</span>(creatine),</span>
-<span id="cb79-5"><a href="#cb79-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">n =</span> <span class="fu">n</span>())</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb79-5"><a href="#cb79-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">n =</span> <span class="fu">n</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1 × 3
    mean    sd     n
@@ -1192,15 +1189,15 @@ z = \frac{\hat{p} - p_0}{\sqrt{p_0(1-p_0)/n}} = \frac{0.02 - 0.007}{0.007(1-0.00
 t = \frac{\bar{x} - \mu_0}{s/\sqrt{n}} = \frac{1.273 - 1}{0.435 / \sqrt{15}}
 \]</span> Numerically</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb81"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb81-1"><a href="#cb81-1" aria-hidden="true" tabindex="-1"></a>(<span class="fl">1.273</span> <span class="sc">-</span> <span class="dv">1</span>) <span class="sc">/</span> (<span class="fl">0.435</span> <span class="sc">/</span> <span class="fu">sqrt</span>(<span class="dv">15</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="sourceCode cell-code" id="cb81"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb81-1"><a href="#cb81-1" aria-hidden="true" tabindex="-1"></a>(<span class="fl">1.273</span> <span class="sc">-</span> <span class="dv">1</span>) <span class="sc">/</span> (<span class="fl">0.435</span> <span class="sc">/</span> <span class="fu">sqrt</span>(<span class="dv">15</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 2.431</code></pre>
 </div>
 </div>
 <p>We compare this to a <span class="math inline">\(t_{14}\)</span> distribution</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb83"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb83-1"><a href="#cb83-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plt_t</span>(<span class="at">lb =</span> <span class="fl">2.431</span>, <span class="at">two_sided =</span> <span class="cn">TRUE</span>, <span class="at">df =</span> <span class="dv">14</span>) <span class="sc">+</span></span>
-<span id="cb83-2"><a href="#cb83-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="fl">2.431</span>, <span class="at">lty =</span> <span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="sourceCode cell-code" id="cb83"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb83-1"><a href="#cb83-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plt_t</span>(<span class="at">lb =</span> <span class="fl">2.431</span>, <span class="at">two_sided =</span> <span class="cn">TRUE</span>, <span class="at">df =</span> <span class="dv">14</span>) <span class="sc">+</span></span>
+<span id="cb83-2"><a href="#cb83-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="fl">2.431</span>, <span class="at">lty =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -1210,7 +1207,7 @@ t = \frac{\bar{x} - \mu_0}{s/\sqrt{n}} = \frac{1.273 - 1}{0.435 / \sqrt{15}}
 </div>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb84"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb84-1"><a href="#cb84-1" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span> <span class="sc">*</span> <span class="fu">pt</span>(<span class="sc">-</span><span class="fl">2.431</span>, <span class="at">df =</span> <span class="dv">14</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="sourceCode cell-code" id="cb84"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb84-1"><a href="#cb84-1" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span> <span class="sc">*</span> <span class="fu">pt</span>(<span class="sc">-</span><span class="fl">2.431</span>, <span class="at">df =</span> <span class="dv">14</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.02909</code></pre>
 </div>
@@ -1218,9 +1215,9 @@ t = \frac{\bar{x} - \mu_0}{s/\sqrt{n}} = \frac{1.273 - 1}{0.435 / \sqrt{15}}
 <p>Since the <span class="math inline">\(p\)</span>-value is so small, we have evidence that the mean creatine levels of the analgesic abusers is different than normal folks.</p>
 <p>The real-way in R uses <code>t.test()</code></p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb86"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb86-1"><a href="#cb86-1" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(creatine <span class="sc">~</span> <span class="dv">1</span>, <span class="at">data =</span> cret, <span class="at">mu =</span> <span class="dv">1</span>) <span class="sc">|&gt;</span></span>
+<div class="sourceCode cell-code" id="cb86"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb86-1"><a href="#cb86-1" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(creatine <span class="sc">~</span> <span class="dv">1</span>, <span class="at">data =</span> cret, <span class="at">mu =</span> <span class="dv">1</span>) <span class="sc">|&gt;</span></span>
 <span id="cb86-2"><a href="#cb86-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tidy</span>() <span class="sc">|&gt;</span></span>
-<span id="cb86-3"><a href="#cb86-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(p.value)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb86-3"><a href="#cb86-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(p.value)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1 × 1
   p.value
@@ -1237,13 +1234,13 @@ t = \frac{\bar{x} - \mu_0}{s/\sqrt{n}} = \frac{1.273 - 1}{0.435 / \sqrt{15}}
 <h2 class="anchored" data-anchor-id="epidemiology">Epidemiology</h2>
 <p>Height and weight are often used in epidemiological studies as possible predictors of disease outcomes. If the people in the study are assessed in a clinic, then heights and weights are usually measured directly. However, if the people are interviewed at home or by mail, then a person’s self-reported height and weight are often used instead. Suppose we conduct a study on 10 people to test the comparability of these two methods. The data for weight are given in the following data frame.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb88"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb88-1"><a href="#cb88-1" aria-hidden="true" tabindex="-1"></a>wt <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<div class="sourceCode cell-code" id="cb88"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb88-1"><a href="#cb88-1" aria-hidden="true" tabindex="-1"></a>wt <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
 <span id="cb88-2"><a href="#cb88-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">Subject_number =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>,</span>
 <span id="cb88-3"><a href="#cb88-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">Self_reported_weight =</span> <span class="fu">c</span>(<span class="dv">120</span>, <span class="dv">120</span>, <span class="dv">135</span>, <span class="dv">118</span>, <span class="dv">120</span>, <span class="dv">190</span>, <span class="dv">124</span>, <span class="dv">175</span>, <span class="dv">133</span>, <span class="dv">125</span>),</span>
 <span id="cb88-4"><a href="#cb88-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">Measured_weight =</span> <span class="fu">c</span>(<span class="dv">125</span>, <span class="dv">118</span>, <span class="dv">139</span>, <span class="dv">120</span>, <span class="dv">125</span>, <span class="dv">198</span>, <span class="dv">128</span>, <span class="dv">176</span>, <span class="dv">131</span>, <span class="dv">125</span>),</span>
 <span id="cb88-5"><a href="#cb88-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">Difference =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">5</span>, <span class="dv">2</span>, <span class="sc">-</span><span class="dv">4</span>, <span class="sc">-</span><span class="dv">2</span>, <span class="sc">-</span><span class="dv">5</span>, <span class="sc">-</span><span class="dv">8</span>, <span class="sc">-</span><span class="dv">4</span>, <span class="sc">-</span><span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">0</span>)</span>
 <span id="cb88-6"><a href="#cb88-6" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb88-7"><a href="#cb88-7" aria-hidden="true" tabindex="-1"></a>wt</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb88-7"><a href="#cb88-7" aria-hidden="true" tabindex="-1"></a>wt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 10 × 4
    Subject_number Self_reported_weight Measured_weight Difference
@@ -1261,57 +1258,140 @@ t = \frac{\bar{x} - \mu_0}{s/\sqrt{n}} = \frac{1.273 - 1}{0.435 / \sqrt{15}}
 </div>
 </div>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-24-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-24-1" role="tab" aria-controls="tabset-24-1" aria-selected="true" href="">7.33</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-24-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-24-2" role="tab" aria-controls="tabset-24-2" aria-selected="false" href="">Solution</a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-24-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-24-1" role="tab" aria-controls="tabset-24-1" aria-selected="true">7.33</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-24-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-24-2" role="tab" aria-controls="tabset-24-2" aria-selected="false">Solution</a></li></ul>
 <div class="tab-content">
 <div id="tabset-24-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-24-1-tab">
 <p>Should a one-sided or two-sided test be used here?</p>
 </div>
 <div id="tabset-24-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-24-2-tab">
-
+<p>Two-sided. We are just interested in if self-reported is comparable to measured.</p>
 </div>
 </div>
 </div>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-25-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-25-1" role="tab" aria-controls="tabset-25-1" aria-selected="true" href="">7.34</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-25-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-25-2" role="tab" aria-controls="tabset-25-2" aria-selected="false" href="">Solution</a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-25-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-25-1" role="tab" aria-controls="tabset-25-1" aria-selected="true">7.34</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-25-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-25-2" role="tab" aria-controls="tabset-25-2" aria-selected="false">Solution</a></li></ul>
 <div class="tab-content">
 <div id="tabset-25-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-25-1-tab">
 <p>Which test procedure should be used to test the preceding hypothesis?</p>
 </div>
 <div id="tabset-25-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-25-2-tab">
-
+<p>A one-sample two-sided <span class="math inline">\(t\)</span>-test on the differences.</p>
+<p>Let <span class="math inline">\(X_i\)</span> be the difference in self-reported and measured weight on subject <span class="math inline">\(i\)</span>. Then we assume <span class="math inline">\(X_i \sim N(\mu,\sigma^2)\)</span>. We want to test <span class="math inline">\(H_0: \mu = 0\)</span> versus <span class="math inline">\(H_A: \mu \neq 0\)</span>.</p>
 </div>
 </div>
 </div>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-26-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-26-1" role="tab" aria-controls="tabset-26-1" aria-selected="true" href="">7.35</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-26-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-26-2" role="tab" aria-controls="tabset-26-2" aria-selected="false" href="">Solution</a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-26-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-26-1" role="tab" aria-controls="tabset-26-1" aria-selected="true">7.35</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-26-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-26-2" role="tab" aria-controls="tabset-26-2" aria-selected="false">Solution</a></li></ul>
 <div class="tab-content">
 <div id="tabset-26-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-26-1-tab">
 <p>Conduct the test in Problem 7.34 using the critical-value method with α = .05.</p>
 </div>
 <div id="tabset-26-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-26-2-tab">
-
+<p>We calculate summary statistics</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb90"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb90-1"><a href="#cb90-1" aria-hidden="true" tabindex="-1"></a>wt <span class="sc">|&gt;</span></span>
+<span id="cb90-2"><a href="#cb90-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">mean =</span> <span class="fu">mean</span>(Difference), <span class="at">sd =</span> <span class="fu">sd</span>(Difference), <span class="at">n =</span> <span class="fu">n</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 3
+   mean    sd     n
+  &lt;dbl&gt; &lt;dbl&gt; &lt;int&gt;
+1  -2.5  3.27    10</code></pre>
+</div>
+</div>
+<p>We calculate a <span class="math inline">\(t\)</span>-statistic <span class="math display">\[
+t = \frac{\bar{x} - \mu_0}{s/\sqrt{n}} = \frac{-2.5 - 0}{3.274 / \sqrt{10}}
+\]</span> Numerically</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb92"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb92-1"><a href="#cb92-1" aria-hidden="true" tabindex="-1"></a><span class="sc">-</span><span class="fl">2.5</span> <span class="sc">/</span> (<span class="fl">3.274</span> <span class="sc">/</span> <span class="fu">sqrt</span>(<span class="dv">10</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] -2.415</code></pre>
+</div>
+</div>
+<p>We compare this to <span class="math inline">\(t_{n-1,1 - \alpha/2}\)</span> with <span class="math inline">\(\alpha = 0.05\)</span></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb94"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb94-1"><a href="#cb94-1" aria-hidden="true" tabindex="-1"></a><span class="fu">qt</span>(<span class="at">p =</span> <span class="dv">1</span> <span class="sc">-</span> <span class="fl">0.05</span> <span class="sc">/</span> <span class="dv">2</span>, <span class="at">df =</span> <span class="dv">10</span> <span class="sc">-</span> <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 2.262</code></pre>
+</div>
+</div>
+<p>Since <span class="math inline">\(|t| &gt; t_{n-1,1-\alpha/2}\)</span> (2.415 &gt; 2.262), reject the null at significance level 0.05 and conclude that we have evidence that the mean self-reported weights differ from the mean measured weights.</p>
 </div>
 </div>
 </div>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-27-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-27-1" role="tab" aria-controls="tabset-27-1" aria-selected="true" href="">7.36</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-27-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-27-2" role="tab" aria-controls="tabset-27-2" aria-selected="false" href="">Solution</a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-27-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-27-1" role="tab" aria-controls="tabset-27-1" aria-selected="true">7.36</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-27-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-27-2" role="tab" aria-controls="tabset-27-2" aria-selected="false">Solution</a></li></ul>
 <div class="tab-content">
 <div id="tabset-27-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-27-1-tab">
 <p>Compute the p-value for the test in Problem 7.34.</p>
 </div>
 <div id="tabset-27-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-27-2-tab">
-
+<p>We compare this <span class="math inline">\(t\)</span>-statistic to a <span class="math inline">\(t_{9}\)</span> distribution</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb96"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb96-1"><a href="#cb96-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plt_t</span>(<span class="at">ub =</span> <span class="sc">-</span><span class="fl">2.415</span>, <span class="at">two_sided =</span> <span class="cn">TRUE</span>, <span class="at">df =</span> <span class="dv">9</span>) <span class="sc">+</span></span>
+<span id="cb96-2"><a href="#cb96-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="sc">-</span><span class="fl">2.415</span>, <span class="at">lty =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="pp_07_files/figure-html/unnamed-chunk-62-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb97"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb97-1"><a href="#cb97-1" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span> <span class="sc">*</span> <span class="fu">pt</span>(<span class="sc">-</span><span class="fl">2.415</span>, <span class="at">df =</span> <span class="dv">14</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.02999</code></pre>
+</div>
+</div>
+<p>Since the <span class="math inline">\(p\)</span>-value is less than 0.05, we reject at significance level 0.05 and conclude that we have evidence that the mean self-reported weights differ from the mean measured weights.</p>
 </div>
 </div>
 </div>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-28-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-28-1" role="tab" aria-controls="tabset-28-1" aria-selected="true" href="">7.37</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-28-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-28-2" role="tab" aria-controls="tabset-28-2" aria-selected="false" href="">Solution</a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-28-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-28-1" role="tab" aria-controls="tabset-28-1" aria-selected="true">7.37</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-28-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-28-2" role="tab" aria-controls="tabset-28-2" aria-selected="false">Solution</a></li></ul>
 <div class="tab-content">
 <div id="tabset-28-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-28-1-tab">
-<p>Is there evidence of digit preference among the self- reported weights? Specifically, compare the observed proportion of self-reported weights whose last digit is 0 or 5 with the expected proportion based on chance and report a p-value.</p>
+<p>Is there evidence of digit preference among the self-reported weights? Specifically, compare the observed proportion of self-reported weights whose last digit is 0 or 5 with the expected proportion based on chance and report a p-value.</p>
 </div>
 <div id="tabset-28-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-28-2-tab">
-
+<p>The expected proportion based on chance is 2/10 = 0.2 (each digit is equally likely). Let <span class="math inline">\(X\)</span> be the number of individuals with a last digit of either 2 or 0. Then <span class="math inline">\(X \sim \mathrm{Binom}(10, p)\)</span>. We want to test <span class="math inline">\(H_0: p = 0.2\)</span> versus <span class="math inline">\(H_0: p &gt; 0.2\)</span>. I am using a one-sided test since we suspect 0’s and 5’s are more likely. We observe <span class="math inline">\(x = 7\)</span> individuals with either a 0 or a 5 as a last digit. We cannot use the normal approximation because <span class="math inline">\(np_0(1-p_0) &lt; 5\)</span></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb99"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb99-1"><a href="#cb99-1" aria-hidden="true" tabindex="-1"></a><span class="dv">10</span> <span class="sc">*</span> <span class="fl">0.2</span> <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> <span class="fl">0.2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1.6</code></pre>
+</div>
+</div>
+<p>The exact <span class="math inline">\(p\)</span>-value is the <span class="math inline">\(P(X \geq 7)\)</span> given <span class="math inline">\(X \sim \mathrm{Binom}(10, 0.2)\)</span>. You cannot even see the mass on the PMF below, so the <span class="math inline">\(p\)</span>-value is going to be tiny:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb101"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb101-1"><a href="#cb101-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plt_binom</span>(<span class="at">size =</span> <span class="dv">10</span>, <span class="at">prob =</span> <span class="fl">0.2</span>, <span class="at">lb =</span> <span class="dv">7</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="pp_07_files/figure-html/unnamed-chunk-65-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>We can calculate this by</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb102"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb102-1"><a href="#cb102-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">-</span> <span class="fu">pbinom</span>(<span class="at">q =</span> <span class="dv">6</span>, <span class="at">size =</span> <span class="dv">10</span>, <span class="at">prob =</span> <span class="fl">0.2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.0008644</code></pre>
+</div>
+</div>
+<p>Alternative, we can use <code>binom.test()</code></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb104"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb104-1"><a href="#cb104-1" aria-hidden="true" tabindex="-1"></a><span class="fu">binom.test</span>(<span class="at">x =</span> <span class="dv">7</span>, <span class="at">n =</span> <span class="dv">10</span>, <span class="at">p =</span> <span class="fl">0.2</span>, <span class="at">alternative =</span> <span class="st">"greater"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb104-2"><a href="#cb104-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tidy</span>() <span class="sc">|&gt;</span></span>
+<span id="cb104-3"><a href="#cb104-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(p.value)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 1
+   p.value
+     &lt;dbl&gt;
+1 0.000864</code></pre>
+</div>
+</div>
+<p>We thus have very strong evidence that there are more 0’s and 5’s as last digits than would happen by chance.</p>
 </div>
 </div>
 </div>
@@ -1321,23 +1401,23 @@ t = \frac{\bar{x} - \mu_0}{s/\sqrt{n}} = \frac{1.273 - 1}{0.435 / \sqrt{15}}
 <p>Several studies have been performed relating urinary potassium excretion to blood-pressure level. These studies have tended to show an inverse relationship between these two variables, with the higher the level of potassium excretion, the lower the BP level. Therefore, a treatment trial is planned to look at the effect of potassium intake in the form of supplement capsules on changes in DBP level. Suppose that in a pilot study, 20 people are given potassium supplements for 1 month. The data are as follows:</p>
 <div class="cell">
 <div class="cell-output-display">
-<div id="khsqklwiss" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#khsqklwiss table {
+<div id="dmkpjsyzpa" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#dmkpjsyzpa table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#khsqklwiss thead, #khsqklwiss tbody, #khsqklwiss tfoot, #khsqklwiss tr, #khsqklwiss td, #khsqklwiss th {
+#dmkpjsyzpa thead, #dmkpjsyzpa tbody, #dmkpjsyzpa tfoot, #dmkpjsyzpa tr, #dmkpjsyzpa td, #dmkpjsyzpa th {
   border-style: none;
 }
 
-#khsqklwiss p {
+#dmkpjsyzpa p {
   margin: 0;
   padding: 0;
 }
 
-#khsqklwiss .gt_table {
+#dmkpjsyzpa .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -1363,12 +1443,12 @@ t = \frac{\bar{x} - \mu_0}{s/\sqrt{n}} = \frac{1.273 - 1}{0.435 / \sqrt{15}}
   border-left-color: #D3D3D3;
 }
 
-#khsqklwiss .gt_caption {
+#dmkpjsyzpa .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#khsqklwiss .gt_title {
+#dmkpjsyzpa .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -1380,7 +1460,7 @@ t = \frac{\bar{x} - \mu_0}{s/\sqrt{n}} = \frac{1.273 - 1}{0.435 / \sqrt{15}}
   border-bottom-width: 0;
 }
 
-#khsqklwiss .gt_subtitle {
+#dmkpjsyzpa .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -1392,7 +1472,7 @@ t = \frac{\bar{x} - \mu_0}{s/\sqrt{n}} = \frac{1.273 - 1}{0.435 / \sqrt{15}}
   border-top-width: 0;
 }
 
-#khsqklwiss .gt_heading {
+#dmkpjsyzpa .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -1404,13 +1484,13 @@ t = \frac{\bar{x} - \mu_0}{s/\sqrt{n}} = \frac{1.273 - 1}{0.435 / \sqrt{15}}
   border-right-color: #D3D3D3;
 }
 
-#khsqklwiss .gt_bottom_border {
+#dmkpjsyzpa .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#khsqklwiss .gt_col_headings {
+#dmkpjsyzpa .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1425,7 +1505,7 @@ t = \frac{\bar{x} - \mu_0}{s/\sqrt{n}} = \frac{1.273 - 1}{0.435 / \sqrt{15}}
   border-right-color: #D3D3D3;
 }
 
-#khsqklwiss .gt_col_heading {
+#dmkpjsyzpa .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1445,7 +1525,7 @@ t = \frac{\bar{x} - \mu_0}{s/\sqrt{n}} = \frac{1.273 - 1}{0.435 / \sqrt{15}}
   overflow-x: hidden;
 }
 
-#khsqklwiss .gt_column_spanner_outer {
+#dmkpjsyzpa .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1457,15 +1537,15 @@ t = \frac{\bar{x} - \mu_0}{s/\sqrt{n}} = \frac{1.273 - 1}{0.435 / \sqrt{15}}
   padding-right: 4px;
 }
 
-#khsqklwiss .gt_column_spanner_outer:first-child {
+#dmkpjsyzpa .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#khsqklwiss .gt_column_spanner_outer:last-child {
+#dmkpjsyzpa .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#khsqklwiss .gt_column_spanner {
+#dmkpjsyzpa .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -1477,11 +1557,11 @@ t = \frac{\bar{x} - \mu_0}{s/\sqrt{n}} = \frac{1.273 - 1}{0.435 / \sqrt{15}}
   width: 100%;
 }
 
-#khsqklwiss .gt_spanner_row {
+#dmkpjsyzpa .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#khsqklwiss .gt_group_heading {
+#dmkpjsyzpa .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1507,7 +1587,7 @@ t = \frac{\bar{x} - \mu_0}{s/\sqrt{n}} = \frac{1.273 - 1}{0.435 / \sqrt{15}}
   text-align: left;
 }
 
-#khsqklwiss .gt_empty_group_heading {
+#dmkpjsyzpa .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -1522,15 +1602,15 @@ t = \frac{\bar{x} - \mu_0}{s/\sqrt{n}} = \frac{1.273 - 1}{0.435 / \sqrt{15}}
   vertical-align: middle;
 }
 
-#khsqklwiss .gt_from_md > :first-child {
+#dmkpjsyzpa .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#khsqklwiss .gt_from_md > :last-child {
+#dmkpjsyzpa .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#khsqklwiss .gt_row {
+#dmkpjsyzpa .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1549,7 +1629,7 @@ t = \frac{\bar{x} - \mu_0}{s/\sqrt{n}} = \frac{1.273 - 1}{0.435 / \sqrt{15}}
   overflow-x: hidden;
 }
 
-#khsqklwiss .gt_stub {
+#dmkpjsyzpa .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1562,7 +1642,7 @@ t = \frac{\bar{x} - \mu_0}{s/\sqrt{n}} = \frac{1.273 - 1}{0.435 / \sqrt{15}}
   padding-right: 5px;
 }
 
-#khsqklwiss .gt_stub_row_group {
+#dmkpjsyzpa .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1576,15 +1656,15 @@ t = \frac{\bar{x} - \mu_0}{s/\sqrt{n}} = \frac{1.273 - 1}{0.435 / \sqrt{15}}
   vertical-align: top;
 }
 
-#khsqklwiss .gt_row_group_first td {
+#dmkpjsyzpa .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#khsqklwiss .gt_row_group_first th {
+#dmkpjsyzpa .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#khsqklwiss .gt_summary_row {
+#dmkpjsyzpa .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1594,16 +1674,16 @@ t = \frac{\bar{x} - \mu_0}{s/\sqrt{n}} = \frac{1.273 - 1}{0.435 / \sqrt{15}}
   padding-right: 5px;
 }
 
-#khsqklwiss .gt_first_summary_row {
+#dmkpjsyzpa .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#khsqklwiss .gt_first_summary_row.thick {
+#dmkpjsyzpa .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#khsqklwiss .gt_last_summary_row {
+#dmkpjsyzpa .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1613,7 +1693,7 @@ t = \frac{\bar{x} - \mu_0}{s/\sqrt{n}} = \frac{1.273 - 1}{0.435 / \sqrt{15}}
   border-bottom-color: #D3D3D3;
 }
 
-#khsqklwiss .gt_grand_summary_row {
+#dmkpjsyzpa .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1623,7 +1703,7 @@ t = \frac{\bar{x} - \mu_0}{s/\sqrt{n}} = \frac{1.273 - 1}{0.435 / \sqrt{15}}
   padding-right: 5px;
 }
 
-#khsqklwiss .gt_first_grand_summary_row {
+#dmkpjsyzpa .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1633,7 +1713,7 @@ t = \frac{\bar{x} - \mu_0}{s/\sqrt{n}} = \frac{1.273 - 1}{0.435 / \sqrt{15}}
   border-top-color: #D3D3D3;
 }
 
-#khsqklwiss .gt_last_grand_summary_row_top {
+#dmkpjsyzpa .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1643,11 +1723,11 @@ t = \frac{\bar{x} - \mu_0}{s/\sqrt{n}} = \frac{1.273 - 1}{0.435 / \sqrt{15}}
   border-bottom-color: #D3D3D3;
 }
 
-#khsqklwiss .gt_striped {
+#dmkpjsyzpa .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#khsqklwiss .gt_table_body {
+#dmkpjsyzpa .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1656,7 +1736,7 @@ t = \frac{\bar{x} - \mu_0}{s/\sqrt{n}} = \frac{1.273 - 1}{0.435 / \sqrt{15}}
   border-bottom-color: #D3D3D3;
 }
 
-#khsqklwiss .gt_footnotes {
+#dmkpjsyzpa .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1670,7 +1750,7 @@ t = \frac{\bar{x} - \mu_0}{s/\sqrt{n}} = \frac{1.273 - 1}{0.435 / \sqrt{15}}
   border-right-color: #D3D3D3;
 }
 
-#khsqklwiss .gt_footnote {
+#dmkpjsyzpa .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -1679,7 +1759,7 @@ t = \frac{\bar{x} - \mu_0}{s/\sqrt{n}} = \frac{1.273 - 1}{0.435 / \sqrt{15}}
   padding-right: 5px;
 }
 
-#khsqklwiss .gt_sourcenotes {
+#dmkpjsyzpa .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1693,7 +1773,7 @@ t = \frac{\bar{x} - \mu_0}{s/\sqrt{n}} = \frac{1.273 - 1}{0.435 / \sqrt{15}}
   border-right-color: #D3D3D3;
 }
 
-#khsqklwiss .gt_sourcenote {
+#dmkpjsyzpa .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -1701,77 +1781,77 @@ t = \frac{\bar{x} - \mu_0}{s/\sqrt{n}} = \frac{1.273 - 1}{0.435 / \sqrt{15}}
   padding-right: 5px;
 }
 
-#khsqklwiss .gt_left {
+#dmkpjsyzpa .gt_left {
   text-align: left;
 }
 
-#khsqklwiss .gt_center {
+#dmkpjsyzpa .gt_center {
   text-align: center;
 }
 
-#khsqklwiss .gt_right {
+#dmkpjsyzpa .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#khsqklwiss .gt_font_normal {
+#dmkpjsyzpa .gt_font_normal {
   font-weight: normal;
 }
 
-#khsqklwiss .gt_font_bold {
+#dmkpjsyzpa .gt_font_bold {
   font-weight: bold;
 }
 
-#khsqklwiss .gt_font_italic {
+#dmkpjsyzpa .gt_font_italic {
   font-style: italic;
 }
 
-#khsqklwiss .gt_super {
+#dmkpjsyzpa .gt_super {
   font-size: 65%;
 }
 
-#khsqklwiss .gt_footnote_marks {
+#dmkpjsyzpa .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#khsqklwiss .gt_asterisk {
+#dmkpjsyzpa .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#khsqklwiss .gt_indent_1 {
+#dmkpjsyzpa .gt_indent_1 {
   text-indent: 5px;
 }
 
-#khsqklwiss .gt_indent_2 {
+#dmkpjsyzpa .gt_indent_2 {
   text-indent: 10px;
 }
 
-#khsqklwiss .gt_indent_3 {
+#dmkpjsyzpa .gt_indent_3 {
   text-indent: 15px;
 }
 
-#khsqklwiss .gt_indent_4 {
+#dmkpjsyzpa .gt_indent_4 {
   text-indent: 20px;
 }
 
-#khsqklwiss .gt_indent_5 {
+#dmkpjsyzpa .gt_indent_5 {
   text-indent: 25px;
 }
 
-#khsqklwiss .katex-display {
+#dmkpjsyzpa .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#khsqklwiss div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#dmkpjsyzpa div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
 
-<table class="gt_table caption-top table table-sm table-striped small" data-quarto-bootstrap="false">
+<table class="gt_table caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
 <thead>
 <tr class="gt_col_headings header">
 <th id="Metric" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">Metric</th>
@@ -1798,89 +1878,199 @@ t = \frac{\bar{x} - \mu_0}{s/\sqrt{n}} = \frac{1.273 - 1}{0.435 / \sqrt{15}}
 </div>
 </div>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-29-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-29-1" role="tab" aria-controls="tabset-29-1" aria-selected="true" href="">7.38</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-29-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-29-2" role="tab" aria-controls="tabset-29-2" aria-selected="false" href="">Solution</a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-29-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-29-1" role="tab" aria-controls="tabset-29-1" aria-selected="true">7.38</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-29-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-29-2" role="tab" aria-controls="tabset-29-2" aria-selected="false">Solution</a></li></ul>
 <div class="tab-content">
 <div id="tabset-29-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-29-1-tab">
 <p>What test should be used to assess if potassium supplements have any effect on DBP level?</p>
 </div>
 <div id="tabset-29-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-29-2-tab">
-
+<p>A one-sample <span class="math inline">\(t\)</span>-test. Let <span class="math inline">\(X_i\)</span> be the change in DBP level for individual <span class="math inline">\(i\)</span>. Then we assume that <span class="math inline">\(X_i \sim N(\mu, \sigma^2)\)</span>. We want to test <span class="math inline">\(H_0: \mu = 0\)</span> versus <span class="math inline">\(H_A: \mu \neq 0\)</span>. Note that if <span class="math inline">\(\mu &gt; 0\)</span> then the DBP is higher after 1 month, and if <span class="math inline">\(\mu &lt; 0\)</span> then the DBP is lower after 1 month.</p>
 </div>
 </div>
 </div>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-30-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-30-1" role="tab" aria-controls="tabset-30-1" aria-selected="true" href="">7.39</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-30-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-30-2" role="tab" aria-controls="tabset-30-2" aria-selected="false" href="">Solution</a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-30-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-30-1" role="tab" aria-controls="tabset-30-1" aria-selected="true">7.39</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-30-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-30-2" role="tab" aria-controls="tabset-30-2" aria-selected="false">Solution</a></li></ul>
 <div class="tab-content">
 <div id="tabset-30-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-30-1-tab">
 <p>Perform the test in Problem 7.38 using a two-sided test and report the p-value.</p>
 </div>
 <div id="tabset-30-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-30-2-tab">
-
+<p>We are told that <span class="math inline">\(\bar{x} = -3.2\)</span>, <span class="math inline">\(s = 8.5\)</span>, and <span class="math inline">\(n = 20\)</span>. We calculate a <span class="math inline">\(t\)</span>-statistic <span class="math display">\[
+t = \frac{\bar{x} - \mu_0}{s/\sqrt{n}} = \frac{-3.2 - 0}{8.5 / \sqrt{20}}
+\]</span> Numerically</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb106"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb106-1"><a href="#cb106-1" aria-hidden="true" tabindex="-1"></a><span class="sc">-</span><span class="fl">3.2</span> <span class="sc">/</span> (<span class="fl">8.5</span> <span class="sc">/</span> <span class="fu">sqrt</span>(<span class="dv">20</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] -1.684</code></pre>
+</div>
+</div>
+<p>We compare this to a <span class="math inline">\(t_{19}\)</span> distribution</p>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="pp_07_files/figure-html/unnamed-chunk-70-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb108"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb108-1"><a href="#cb108-1" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span> <span class="sc">*</span> <span class="fu">pt</span>(<span class="at">q =</span> <span class="sc">-</span><span class="fl">1.684</span>, <span class="at">df =</span> <span class="dv">19</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.1085</code></pre>
+</div>
+</div>
+<p>The <span class="math inline">\(p\)</span>-value is pretty large, so we do not have evidence that the mean difference is different from 0 after one month.</p>
 </div>
 </div>
 </div>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-31-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-31-1" role="tab" aria-controls="tabset-31-1" aria-selected="true" href="">7.40</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-31-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-31-2" role="tab" aria-controls="tabset-31-2" aria-selected="false" href="">Solution</a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-31-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-31-1" role="tab" aria-controls="tabset-31-1" aria-selected="true">7.40</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-31-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-31-2" role="tab" aria-controls="tabset-31-2" aria-selected="false">Solution</a></li></ul>
 <div class="tab-content">
 <div id="tabset-31-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-31-1-tab">
 <p>Derive a 95% CI for the true mean change based on the preceding data. What is the relationship of your results here and in Problem 7.39?</p>
 </div>
 <div id="tabset-31-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-31-2-tab">
-
+<p>This is <span class="math display">\[
+\bar{x} \pm t_{n-1, 1-\alpha/2}\frac{s}{\sqrt{n}}
+\]</span> Where <span class="math inline">\(t_{n-1, 1-\alpha/2}\)</span> with <span class="math inline">\(\alpha = 0.05\)</span> and <span class="math inline">\(n = 20\)</span> is</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb110"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb110-1"><a href="#cb110-1" aria-hidden="true" tabindex="-1"></a><span class="fu">qt</span>(<span class="dv">1</span> <span class="sc">-</span> <span class="fl">0.05</span> <span class="sc">/</span> <span class="dv">2</span>, <span class="at">df =</span> <span class="dv">19</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 2.093</code></pre>
+</div>
+</div>
+<p>Plugging in values <span class="math display">\[
+-3.2 \pm 2.093 \times \frac{8.5}{\sqrt{20}}
+\]</span> Numerically</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb112"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb112-1"><a href="#cb112-1" aria-hidden="true" tabindex="-1"></a><span class="sc">-</span><span class="fl">3.2</span> <span class="sc">-</span> <span class="fl">2.093</span> <span class="sc">*</span> <span class="fl">8.5</span> <span class="sc">/</span> <span class="fu">sqrt</span>(<span class="dv">20</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] -7.178</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb114"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb114-1"><a href="#cb114-1" aria-hidden="true" tabindex="-1"></a><span class="sc">-</span><span class="fl">3.2</span> <span class="sc">+</span> <span class="fl">2.093</span> <span class="sc">*</span> <span class="fl">8.5</span> <span class="sc">/</span> <span class="fu">sqrt</span>(<span class="dv">20</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.7781</code></pre>
+</div>
+</div>
+<p>In 7.39, the <span class="math inline">\(p\)</span>-value (against the null of <span class="math inline">\(H_0: \mu = 0\)</span>) was greater than 0.05. This shows up here because 0 is within the 95% confidence interval</p>
 </div>
 </div>
 </div>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-32-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-32-1" role="tab" aria-controls="tabset-32-1" aria-selected="true" href="">7.41</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-32-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-32-2" role="tab" aria-controls="tabset-32-2" aria-selected="false" href="">Solution</a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-32-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-32-1" role="tab" aria-controls="tabset-32-1" aria-selected="true">7.41</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-32-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-32-2" role="tab" aria-controls="tabset-32-2" aria-selected="false">Solution</a></li></ul>
 <div class="tab-content">
 <div id="tabset-32-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-32-1-tab">
 <p>How many subjects need to be studied to have an 80% chance of detecting a significant treatment effect using a two-sided test with an α level of .05 if the mean and sd of the pilot study are assumed to be the population mean and sd?</p>
 </div>
 <div id="tabset-32-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-32-2-tab">
+<p>We need a sample size of 58 individuals.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb116"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb116-1"><a href="#cb116-1" aria-hidden="true" tabindex="-1"></a><span class="fu">power.t.test</span>(</span>
+<span id="cb116-2"><a href="#cb116-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">delta =</span> <span class="fl">3.2</span>, </span>
+<span id="cb116-3"><a href="#cb116-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">sd =</span> <span class="fl">8.5</span>, </span>
+<span id="cb116-4"><a href="#cb116-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">sig.level =</span> <span class="fl">0.05</span>, </span>
+<span id="cb116-5"><a href="#cb116-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">power =</span> <span class="fl">0.8</span>, </span>
+<span id="cb116-6"><a href="#cb116-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">type =</span> <span class="st">"one.sample"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+     One-sample t test power calculation 
 
+              n = 57.33
+          delta = 3.2
+             sd = 8.5
+      sig.level = 0.05
+          power = 0.8
+    alternative = two.sided</code></pre>
+</div>
+</div>
 </div>
 </div>
 </div>
 </section>
 <section id="hospital-epidemiology" class="level2">
 <h2 class="anchored" data-anchor-id="hospital-epidemiology">Hospital Epidemiology</h2>
-<p>A study was conducted to identify characteristics that would predict 1-year survival for patients admitted to the medical service at New York Hospital [1]. One factor that was considered was the physician’s estimate of the patients’ severity of illness at the time of admission. Suppose that it is expected, based on previous studies in this hospital, that 2/3 of admitted patients will survive for at least 1 year.</p>
+<p>A study was conducted to identify characteristics that would predict 1-year survival for patients admitted to the medical service at New York Hospital. One factor that was considered was the physician’s estimate of the patients’ severity of illness at the time of admission. Suppose that it is expected, based on previous studies in this hospital, that 2/3 of admitted patients will survive for at least 1 year.</p>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-33-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-33-1" role="tab" aria-controls="tabset-33-1" aria-selected="true" href="">7.42</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-33-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-33-2" role="tab" aria-controls="tabset-33-2" aria-selected="false" href="">Solution</a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-33-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-33-1" role="tab" aria-controls="tabset-33-1" aria-selected="true">7.42</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-33-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-33-2" role="tab" aria-controls="tabset-33-2" aria-selected="false">Solution</a></li></ul>
 <div class="tab-content">
 <div id="tabset-33-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-33-1-tab">
 <p>If 47% of 136 patients deemed severely ill survive at least 1 year, then what test can be used to test the hypothesis that the severity-of-illness rating is predictive of 1-year mortality?</p>
 </div>
 <div id="tabset-33-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-33-2-tab">
-
+<p>Let <span class="math inline">\(X\)</span> be the number of severely ill patients that die. Then <span class="math inline">\(X \sim \mathrm{Binom}(n, p)\)</span>. We want to test <span class="math inline">\(H_0: p = 2/3\)</span> versus <span class="math inline">\(H_A: p \neq 2/3\)</span>. This is a one-samnple binomial test.</p>
 </div>
 </div>
 </div>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-34-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-34-1" role="tab" aria-controls="tabset-34-1" aria-selected="true" href="">7.43</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-34-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-34-2" role="tab" aria-controls="tabset-34-2" aria-selected="false" href="">Solution</a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-34-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-34-1" role="tab" aria-controls="tabset-34-1" aria-selected="true">7.43</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-34-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-34-2" role="tab" aria-controls="tabset-34-2" aria-selected="false">Solution</a></li></ul>
 <div class="tab-content">
 <div id="tabset-34-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-34-1-tab">
-<p>Perform the test in Problem 7.42 using the critical-value method based on an α level pf .05.</p>
+<p>Perform the test in Problem 7.42 using the critical-value method based on an α level of .05.</p>
 </div>
 <div id="tabset-34-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-34-2-tab">
-
+<p>We can use a normal approximation since <span class="math inline">\(np_0(1-p_0) \geq 5\)</span></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb118"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb118-1"><a href="#cb118-1" aria-hidden="true" tabindex="-1"></a><span class="dv">136</span> <span class="sc">*</span> <span class="dv">2</span><span class="sc">/</span><span class="dv">3</span> <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> <span class="dv">2</span><span class="sc">/</span><span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 30.22</code></pre>
+</div>
+</div>
+<p>With <span class="math inline">\(\hat{p} = 0.47\)</span>, we calculate a <span class="math inline">\(z\)</span>-statistic <span class="math display">\[
+z = \frac{\hat{p} - p_0}{\sqrt{p_0(1-p_0)/n}} = \frac{0.47 - \frac{2}{3}}{\sqrt{\frac{2}{3}(1-\frac{2}{3})/136}}
+\]</span> Numerically</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb120"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb120-1"><a href="#cb120-1" aria-hidden="true" tabindex="-1"></a>(<span class="fl">0.47</span> <span class="sc">-</span> <span class="dv">2</span><span class="sc">/</span><span class="dv">3</span>) <span class="sc">/</span> <span class="fu">sqrt</span>(<span class="dv">2</span><span class="sc">/</span><span class="dv">3</span> <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> <span class="dv">2</span><span class="sc">/</span><span class="dv">3</span>) <span class="sc">/</span> <span class="dv">136</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] -4.865</code></pre>
+</div>
+</div>
+<p>We compare this to a <span class="math inline">\(N(0,1)\)</span> distribution. The critical value method would compare this <span class="math inline">\(z\)</span>-statistic to <span class="math inline">\(z_{1-\alpha/2}\)</span></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb122"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb122-1"><a href="#cb122-1" aria-hidden="true" tabindex="-1"></a><span class="fu">qnorm</span>(<span class="dv">1</span> <span class="sc">-</span> <span class="fl">0.05</span> <span class="sc">/</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1.96</code></pre>
+</div>
+</div>
+<p>Since <span class="math inline">\(|z|&gt;z_{1-\alpha/2}\)</span> (4.865 &gt; 1.96), we have evidence at the 0.05 significance level that patients deemed “severely ill” have a different survival probability than the general hospital population.</p>
 </div>
 </div>
 </div>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-35-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-35-1" role="tab" aria-controls="tabset-35-1" aria-selected="true" href="">7.44</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-35-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-35-2" role="tab" aria-controls="tabset-35-2" aria-selected="false" href="">Solution</a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-35-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-35-1" role="tab" aria-controls="tabset-35-1" aria-selected="true">7.44</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-35-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-35-2" role="tab" aria-controls="tabset-35-2" aria-selected="false">Solution</a></li></ul>
 <div class="tab-content">
 <div id="tabset-35-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-35-1-tab">
 <p>Provide a 95% CI for the 1-year survival rate among severely ill patients.</p>
 </div>
 <div id="tabset-35-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-35-2-tab">
-
+<p>We calculate <span class="math display">\[
+\hat{p} \pm z_{1 - \alpha/2} \cdot \sqrt{ \frac{ \hat{p}(1 - \hat{p}) }{n} }
+\]</span> We can get <span class="math inline">\(z_{1-\alpha/2}\)</span> where <span class="math inline">\(\alpha = 0.05\)</span> via</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb124"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb124-1"><a href="#cb124-1" aria-hidden="true" tabindex="-1"></a><span class="fu">qnorm</span>(<span class="dv">1</span> <span class="sc">-</span> <span class="fl">0.05</span><span class="sc">/</span><span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1.96</code></pre>
+</div>
+</div>
+<p>Plugging in, we get <span class="math display">\[
+0.47 \pm 1.96 \cdot \sqrt{ \frac{ 0.47(1 - 0.47) }{136} }
+\]</span> Numerically, this is</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb126"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb126-1"><a href="#cb126-1" aria-hidden="true" tabindex="-1"></a><span class="fl">0.47</span> <span class="sc">-</span> <span class="fl">1.96</span> <span class="sc">*</span> <span class="fu">sqrt</span>(<span class="fl">0.47</span> <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> <span class="fl">0.47</span>) <span class="sc">/</span> <span class="dv">136</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.3861</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb128"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb128-1"><a href="#cb128-1" aria-hidden="true" tabindex="-1"></a><span class="fl">0.47</span> <span class="sc">+</span> <span class="fl">1.96</span> <span class="sc">*</span> <span class="fu">sqrt</span>(<span class="fl">0.47</span> <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> <span class="fl">0.47</span>) <span class="sc">/</span> <span class="dv">136</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.5539</code></pre>
+</div>
+</div>
 </div>
 </div>
 </div>
 <p>Suppose that it is expected, based on previous studies, that among all patients who survive hospitalization, 75% will survive for 1 year. Furthermore, of the 136 severely ill patients, 33 die during hospitalization, and an additional 39 die during the 1st year, but after hospitalization.</p>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-36-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-36-1" role="tab" aria-controls="tabset-36-1" aria-selected="true" href="">7.45</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-36-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-36-2" role="tab" aria-controls="tabset-36-2" aria-selected="false" href="">Solution</a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-36-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-36-1" role="tab" aria-controls="tabset-36-1" aria-selected="true">7.45</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-36-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-36-2" role="tab" aria-controls="tabset-36-2" aria-selected="false">Solution</a></li></ul>
 <div class="tab-content">
 <div id="tabset-36-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-36-1-tab">
 <p>Test the hypothesis that severity of illness is predictive of 1-year mortality among patients who are discharged from the hospital. Report a p-value.</p>
@@ -1895,7 +2085,7 @@ t = \frac{\bar{x} - \mu_0}{s/\sqrt{n}} = \frac{1.273 - 1}{0.435 / \sqrt{15}}
 <h2 class="anchored" data-anchor-id="cancer-3">Cancer 3</h2>
 <p>Radiotherapy is a common treatment for breast cancer, with about 25% of women receiving this form of treatment. Assume that the figure 25% is based on a very large sample and is known without error. One hypothesis is that radiotherapy applied to the contralateral breast may be a risk factor for development of breast cancer in the opposite breast 5 or more years after the initial cancer. Suppose that 655 women are identified who developed breast cancer in the opposite breast 5 or more years after the initial cancer [2].</p>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-37-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-37-1" role="tab" aria-controls="tabset-37-1" aria-selected="true" href="">7.46</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-37-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-37-2" role="tab" aria-controls="tabset-37-2" aria-selected="false" href="">Solution</a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-37-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-37-1" role="tab" aria-controls="tabset-37-1" aria-selected="true">7.46</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-37-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-37-2" role="tab" aria-controls="tabset-37-2" aria-selected="false">Solution</a></li></ul>
 <div class="tab-content">
 <div id="tabset-37-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-37-1-tab">
 <p>If 206 of the women received radiotherapy after their initial diagnosis, then test the hypothesis that radiotherapy is associated with the development of breast cancer in the opposite breast. Please report a p-value.</p>
@@ -1906,7 +2096,7 @@ t = \frac{\bar{x} - \mu_0}{s/\sqrt{n}} = \frac{1.273 - 1}{0.435 / \sqrt{15}}
 </div>
 </div>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-38-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-38-1" role="tab" aria-controls="tabset-38-1" aria-selected="true" href="">7.47</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-38-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-38-2" role="tab" aria-controls="tabset-38-2" aria-selected="false" href="">Solution</a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-38-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-38-1" role="tab" aria-controls="tabset-38-1" aria-selected="true">7.47</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-38-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-38-2" role="tab" aria-controls="tabset-38-2" aria-selected="false">Solution</a></li></ul>
 <div class="tab-content">
 <div id="tabset-38-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-38-1-tab">
 <p>Provide a 95% CI for the true proportion of women with contralateral breast cancer who received radiotherapy treatment.</p>
@@ -1917,7 +2107,7 @@ t = \frac{\bar{x} - \mu_0}{s/\sqrt{n}} = \frac{1.273 - 1}{0.435 / \sqrt{15}}
 </div>
 </div>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-39-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-39-1" role="tab" aria-controls="tabset-39-1" aria-selected="true" href="">7.48</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-39-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-39-2" role="tab" aria-controls="tabset-39-2" aria-selected="false" href="">Solution</a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-39-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-39-1" role="tab" aria-controls="tabset-39-1" aria-selected="true">7.48</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-39-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-39-2" role="tab" aria-controls="tabset-39-2" aria-selected="false">Solution</a></li></ul>
 <div class="tab-content">
 <div id="tabset-39-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-39-1-tab">
 <p>Suppose that our p-value in Problem 7.46 = .03 (this is not necessarily the actual p-value in Problem 7.46). If we conduct a test using the critical-value method with α = .05, then would we accept or reject <span class="math inline">\(H_0\)</span> and why? (Do not actually conduct the test.)</p>
@@ -1928,7 +2118,7 @@ t = \frac{\bar{x} - \mu_0}{s/\sqrt{n}} = \frac{1.273 - 1}{0.435 / \sqrt{15}}
 </div>
 </div>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-40-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-40-1" role="tab" aria-controls="tabset-40-1" aria-selected="true" href="">7.49</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-40-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-40-2" role="tab" aria-controls="tabset-40-2" aria-selected="false" href="">Solution</a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-40-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-40-1" role="tab" aria-controls="tabset-40-1" aria-selected="true">7.49</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-40-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-40-2" role="tab" aria-controls="tabset-40-2" aria-selected="false">Solution</a></li></ul>
 <div class="tab-content">
 <div id="tabset-40-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-40-1-tab">
 <p>Suppose we wanted a 99% CI instead of a 95% CI in Problem 7.47. Would the length of the 99% CI be narrower, wider, or the same as the CI in Problem 7.47? (Do not actually construct the interval.)</p>
@@ -1943,7 +2133,7 @@ t = \frac{\bar{x} - \mu_0}{s/\sqrt{n}} = \frac{1.273 - 1}{0.435 / \sqrt{15}}
 <h2 class="anchored" data-anchor-id="renal-disease-2">Renal Disease 2</h2>
 <p>To compare two methods for the determination of uric acid, 23 blood samples from 23 individuals were divided and analyzed both by the colorimetric method and the uricase method. Suppose the sample means of the colorimetric and uricase assessments were 6.26 and 6.20 mg/dL, respectively, the sample standard deviation of the paired difference between repeated assessments is 0.50 mg/dL, and it is reasonable to assume that this paired difference has a normal distribution.</p>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-41-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-41-1" role="tab" aria-controls="tabset-41-1" aria-selected="true" href="">7.50</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-41-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-41-2" role="tab" aria-controls="tabset-41-2" aria-selected="false" href="">Solution</a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-41-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-41-1" role="tab" aria-controls="tabset-41-1" aria-selected="true">7.50</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-41-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-41-2" role="tab" aria-controls="tabset-41-2" aria-selected="false">Solution</a></li></ul>
 <div class="tab-content">
 <div id="tabset-41-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-41-1-tab">
 <p>What is the best estimate for the mean difference between approaches?</p>
@@ -1954,7 +2144,7 @@ t = \frac{\bar{x} - \mu_0}{s/\sqrt{n}} = \frac{1.273 - 1}{0.435 / \sqrt{15}}
 </div>
 </div>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-42-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-42-1" role="tab" aria-controls="tabset-42-1" aria-selected="true" href="">7.51</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-42-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-42-2" role="tab" aria-controls="tabset-42-2" aria-selected="false" href="">Solution</a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-42-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-42-1" role="tab" aria-controls="tabset-42-1" aria-selected="true">7.51</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-42-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-42-2" role="tab" aria-controls="tabset-42-2" aria-selected="false">Solution</a></li></ul>
 <div class="tab-content">
 <div id="tabset-42-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-42-1-tab">
 <p>Construct a 95% CI for the mean difference.</p>
@@ -1965,7 +2155,7 @@ t = \frac{\bar{x} - \mu_0}{s/\sqrt{n}} = \frac{1.273 - 1}{0.435 / \sqrt{15}}
 </div>
 </div>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-43-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-43-1" role="tab" aria-controls="tabset-43-1" aria-selected="true" href="">7.52</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-43-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-43-2" role="tab" aria-controls="tabset-43-2" aria-selected="false" href="">Solution</a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-43-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-43-1" role="tab" aria-controls="tabset-43-1" aria-selected="true">7.52</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-43-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-43-2" role="tab" aria-controls="tabset-43-2" aria-selected="false">Solution</a></li></ul>
 <div class="tab-content">
 <div id="tabset-43-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-43-1-tab">
 <p>What can be concluded about the difference between assessments by the two methods?</p>
@@ -1980,7 +2170,7 @@ t = \frac{\bar{x} - \mu_0}{s/\sqrt{n}} = \frac{1.273 - 1}{0.435 / \sqrt{15}}
 <h2 class="anchored" data-anchor-id="cardiovascular-disease">Cardiovascular Disease</h2>
 <p>The relationship between serum cholesterol and coronary-heart-disease mortality has been a subject of much debate over the past 30 years. Some data relevant to this question were presented in the Whitehall study. It was shown there that among 3615 men 40–64 years of age who were in the top quintile of serum cholesterol at baseline, 194 died from coronary heart disease over the next 10 years. Suppose the incidence rate of coronary-heart-disease mortality over 10 years among men in this age group in Great Britain is 4%.</p>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-44-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-44-1" role="tab" aria-controls="tabset-44-1" aria-selected="true" href="">7.53</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-44-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-44-2" role="tab" aria-controls="tabset-44-2" aria-selected="false" href="">Solution</a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-44-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-44-1" role="tab" aria-controls="tabset-44-1" aria-selected="true">7.53</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-44-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-44-2" role="tab" aria-controls="tabset-44-2" aria-selected="false">Solution</a></li></ul>
 <div class="tab-content">
 <div id="tabset-44-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-44-1-tab">
 <p>What test can be performed to compare the incidence rate of coronary-heart-disease mortality among men in the top cholesterol quintile vs general-population incidence rates?</p>
@@ -1991,7 +2181,7 @@ t = \frac{\bar{x} - \mu_0}{s/\sqrt{n}} = \frac{1.273 - 1}{0.435 / \sqrt{15}}
 </div>
 </div>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-45-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-45-1" role="tab" aria-controls="tabset-45-1" aria-selected="true" href="">7.54</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-45-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-45-2" role="tab" aria-controls="tabset-45-2" aria-selected="false" href="">Solution</a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-45-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-45-1" role="tab" aria-controls="tabset-45-1" aria-selected="true">7.54</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-45-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-45-2" role="tab" aria-controls="tabset-45-2" aria-selected="false">Solution</a></li></ul>
 <div class="tab-content">
 <div id="tabset-45-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-45-1-tab">
 <p>Implement the test in Problem 7.53 and report a p-value.</p>
@@ -2002,7 +2192,7 @@ t = \frac{\bar{x} - \mu_0}{s/\sqrt{n}} = \frac{1.273 - 1}{0.435 / \sqrt{15}}
 </div>
 </div>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-46-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-46-1" role="tab" aria-controls="tabset-46-1" aria-selected="true" href="">7.55</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-46-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-46-2" role="tab" aria-controls="tabset-46-2" aria-selected="false" href="">Solution</a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-46-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-46-1" role="tab" aria-controls="tabset-46-1" aria-selected="true">7.55</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-46-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-46-2" role="tab" aria-controls="tabset-46-2" aria-selected="false">Solution</a></li></ul>
 <div class="tab-content">
 <div id="tabset-46-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-46-1-tab">
 <p>Construct a 95% CI for the true incidence rate in the group of 40–64-year-old men in the top quintile of serum cholesterol.</p>
@@ -2017,7 +2207,7 @@ t = \frac{\bar{x} - \mu_0}{s/\sqrt{n}} = \frac{1.273 - 1}{0.435 / \sqrt{15}}
 <h2 class="anchored" data-anchor-id="cancer-4">Cancer 4</h2>
 <p>It is well established that exposure to ionizing radiation at or after puberty increases a woman’s risk of breast cancer. However, it is uncertain whether such exposure early in life is also carcinogenic. A study was performed in a cohort of 1201 women who received x-ray treatment in infancy for an enlarged thymus gland and were followed prospectively for 36 years. It was found that 22 breast cancers occurred over a 36-year period among the 1201 women.</p>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-47-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-47-1" role="tab" aria-controls="tabset-47-1" aria-selected="true" href="">7.56</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-47-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-47-2" role="tab" aria-controls="tabset-47-2" aria-selected="false" href="">Solution</a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-47-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-47-1" role="tab" aria-controls="tabset-47-1" aria-selected="true">7.56</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-47-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-47-2" role="tab" aria-controls="tabset-47-2" aria-selected="false">Solution</a></li></ul>
 <div class="tab-content">
 <div id="tabset-47-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-47-1-tab">
 <p>If the expected incidence rate of breast cancer in this age group over this time period is 1 event per 200 women based on New York State cancer-incidence rates, then test the hypothesis that irradiation has an effect on breast-cancer incidence. Please report a p-value and construct a 95% CI for the incidence rate among the exposed group.</p>
@@ -2029,7 +2219,7 @@ t = \frac{\bar{x} - \mu_0}{s/\sqrt{n}} = \frac{1.273 - 1}{0.435 / \sqrt{15}}
 </div>
 <p>It was also found that 6 breast cancers occurred over a 36-year period among a subgroup of 138 women who were exposed to a high radioactive dose (0.50–1.99 gray, where a gray is a unit of radiation absorbed by the breast tissue).</p>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-48-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-48-1" role="tab" aria-controls="tabset-48-1" aria-selected="true" href="">7.57</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-48-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-48-2" role="tab" aria-controls="tabset-48-2" aria-selected="false" href="">Solution</a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-48-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-48-1" role="tab" aria-controls="tabset-48-1" aria-selected="true">7.57</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-48-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-48-2" role="tab" aria-controls="tabset-48-2" aria-selected="false">Solution</a></li></ul>
 <div class="tab-content">
 <div id="tabset-48-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-48-1-tab">
 <p>Test the hypothesis that the high-risk subgroup is at excess risk for breast cancer, and report a p-value.</p>
@@ -2108,14 +2298,13 @@ t = \frac{\bar{x} - \mu_0}{s/\sqrt{n}} = \frac{1.273 - 1}{0.435 / \sqrt{15}}
       e.clearSelection();
     }
     const getTextToCopy = function(trigger) {
-      const outerScaffold = trigger.parentElement.cloneNode(true);
-      const codeEl = outerScaffold.querySelector('code');
-      for (const childEl of codeEl.children) {
-        if (isCodeAnnotation(childEl)) {
-          childEl.remove();
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
         }
-      }
-      return codeEl.innerText;
+        return codeEl.innerText;
     }
     const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
       text: getTextToCopy

@@ -549,7 +549,7 @@ Let $X$ be the number with breast cancer after 5 years. Then $X \sim \mathrm{Bin
 ```
 We calculate a $z$-statistic
 $$
-z = \frac{\hat{p} - p_0}{\sqrt{p_0(1-p_0)/n}} = \frac{0.015 - 0.012}{0.012(1-0.012)/1000}
+z = \frac{\hat{p} - p_0}{\sqrt{p_0(1-p_0)/n}} = \frac{0.015 - 0.012}{\sqrt{0.012(1-0.012)/1000}}
 $$
 Numerically
 ```{r}
@@ -600,7 +600,7 @@ Since $np_0(1-p_0) \geq 5$, we can use the normal approximation.
 ```
 With $\hat{p} = 20 / 1000$, we calculate a $z$-statistic
 $$
-z = \frac{\hat{p} - p_0}{\sqrt{p_0(1-p_0)/n}} = \frac{0.02 - 0.007}{0.007(1-0.007)/1000}
+z = \frac{\hat{p} - p_0}{\sqrt{p_0(1-p_0)/n}} = \frac{0.02 - 0.007}{\sqrt{0.007(1-0.007)/1000}}
 $$
 Numerically
 ```{r}
@@ -711,6 +711,7 @@ wt
 Should a one-sided or two-sided test be used here?
 
 ## Solution
+Two-sided. We are just interested in if self-reported is comparable to measured.
 :::
 
 ::: {.panel-tabset}
@@ -718,6 +719,9 @@ Should a one-sided or two-sided test be used here?
 Which test procedure should be used to test the preceding hypothesis?
 
 ## Solution
+A one-sample two-sided $t$-test on the differences.
+
+Let $X_i$ be the difference in self-reported and measured weight on subject $i$. Then we assume $X_i \sim N(\mu,\sigma^2)$. We want to test $H_0: \mu = 0$ versus $H_A: \mu \neq 0$.
 :::
 
 ::: {.panel-tabset}
@@ -725,6 +729,26 @@ Which test procedure should be used to test the preceding hypothesis?
 Conduct the test in Problem 7.34 using the critical-value method with α = .05.
 
 ## Solution
+We calculate summary statistics
+```{r}
+wt |>
+  summarize(mean = mean(Difference), sd = sd(Difference), n = n())
+```
+
+We calculate a $t$-statistic
+$$
+t = \frac{\bar{x} - \mu_0}{s/\sqrt{n}} = \frac{-2.5 - 0}{3.274 / \sqrt{10}}
+$$
+Numerically
+```{r}
+-2.5 / (3.274 / sqrt(10))
+```
+We compare this to $t_{n-1,1 - \alpha/2}$ with $\alpha = 0.05$
+```{r}
+qt(p = 1 - 0.05 / 2, df = 10 - 1)
+```
+Since $|t| > t_{n-1,1-\alpha/2}$ (2.415 > 2.262), reject the null at significance level 0.05 and conclude that we have evidence that the mean self-reported weights differ from the mean measured weights.
+
 :::
 
 ::: {.panel-tabset}
@@ -732,13 +756,42 @@ Conduct the test in Problem 7.34 using the critical-value method with α = .05.
 Compute the p-value for the test in Problem 7.34.
 
 ## Solution
+We compare this $t$-statistic to a $t_{9}$ distribution
+```{r}
+plt_t(ub = -2.415, two_sided = TRUE, df = 9) +
+  geom_vline(xintercept = -2.415, lty = 2)
+```
+```{r}
+2 * pt(-2.415, df = 14)
+```
+Since the $p$-value is less than 0.05, we reject at significance level 0.05 and conclude that we have evidence that the mean self-reported weights differ from the mean measured weights.
 :::
 
 ::: {.panel-tabset}
 ## 7.37
-Is there evidence of digit preference among the self- reported weights? Specifically, compare the observed proportion of self-reported weights whose last digit is 0 or 5 with the expected proportion based on chance and report a p-value.
+Is there evidence of digit preference among the self-reported weights? Specifically, compare the observed proportion of self-reported weights whose last digit is 0 or 5 with the expected proportion based on chance and report a p-value.
 
 ## Solution
+The expected proportion based on chance is 2/10 = 0.2 (each digit is equally likely). Let $X$ be the number of individuals with a last digit of either 2 or 0. Then $X \sim \mathrm{Binom}(10, p)$. We want to test $H_0: p = 0.2$ versus $H_0: p > 0.2$. I am using a one-sided test since we suspect 0's and 5's are more likely. We observe $x = 7$ individuals with either a 0 or a 5 as a last digit. We cannot use the normal approximation because $np_0(1-p_0) < 5$
+```{r}
+10 * 0.2 * (1 - 0.2)
+```
+The exact $p$-value is the $P(X \geq 7)$ given $X \sim \mathrm{Binom}(10, 0.2)$. You cannot even see the mass on the PMF below, so the $p$-value is going to be tiny:
+```{r}
+plt_binom(size = 10, prob = 0.2, lb = 7)
+```
+
+We can calculate this by
+```{r}
+1 - pbinom(q = 6, size = 10, prob = 0.2)
+```
+Alternative, we can use `binom.test()`
+```{r}
+binom.test(x = 7, n = 10, p = 0.2, alternative = "greater") |>
+  tidy() |>
+  select(p.value)
+```
+We thus have very strong evidence that there are more 0's and 5's as last digits than would happen by chance.
 :::
 
 ## Hypertension
@@ -764,6 +817,7 @@ gt(data)
 What test should be used to assess if potassium supplements have any effect on DBP level?
 
 ## Solution
+A one-sample $t$-test. Let $X_i$ be the change in DBP level for individual $i$. Then we assume that $X_i \sim N(\mu, \sigma^2)$. We want to test $H_0: \mu = 0$ versus $H_A: \mu \neq 0$. Note that if $\mu > 0$ then the DBP is higher after 1 month, and if $\mu < 0$ then the DBP is lower after 1 month.
 :::
 
 ::: {.panel-tabset}
@@ -771,6 +825,24 @@ What test should be used to assess if potassium supplements have any effect on D
 Perform the test in Problem 7.38 using a two-sided test and report the p-value.
 
 ## Solution
+We are told that $\bar{x} = -3.2$, $s = 8.5$, and $n = 20$. We calculate a $t$-statistic
+$$
+t = \frac{\bar{x} - \mu_0}{s/\sqrt{n}} = \frac{-3.2 - 0}{8.5 / \sqrt{20}}
+$$
+Numerically
+```{r}
+-3.2 / (8.5 / sqrt(20))
+```
+We compare this to a $t_{19}$ distribution
+```{r}
+#| echo: false
+plt_t(ub = -1.684, df = 19, two_sided = TRUE) +
+  geom_vline(xintercept = -1.684, lty = 2)
+```
+```{r}
+2 * pt(q = -1.684, df = 19)
+```
+The $p$-value is pretty large, so we do not have evidence that the mean difference is different from 0 after one month.
 :::
 
 ::: {.panel-tabset}
@@ -778,6 +850,25 @@ Perform the test in Problem 7.38 using a two-sided test and report the p-value.
 Derive a 95% CI for the true mean change based on the preceding data. What is the relationship of your results here and in Problem 7.39?
 
 ## Solution
+This is
+$$
+\bar{x} \pm t_{n-1, 1-\alpha/2}\frac{s}{\sqrt{n}}
+$$
+Where $t_{n-1, 1-\alpha/2}$ with $\alpha = 0.05$ and $n = 20$ is
+```{r}
+qt(1 - 0.05 / 2, df = 19)
+```
+Plugging in values
+$$
+-3.2 \pm 2.093 \times \frac{8.5}{\sqrt{20}}
+$$
+Numerically
+```{r}
+-3.2 - 2.093 * 8.5 / sqrt(20)
+-3.2 + 2.093 * 8.5 / sqrt(20)
+```
+
+In 7.39, the $p$-value (against the null of $H_0: \mu = 0$) was greater than 0.05. This shows up here because 0 is within the 95% confidence interval
 :::
 
 ::: {.panel-tabset}
@@ -785,24 +876,52 @@ Derive a 95% CI for the true mean change based on the preceding data. What is th
 How many subjects need to be studied to have an 80% chance of detecting a significant treatment effect using a two-sided test with an α level of .05 if the mean and sd of the pilot study are assumed to be the population mean and sd?
 
 ## Solution
+We need a sample size of 58 individuals.
+```{r}
+power.t.test(
+  delta = 3.2, 
+  sd = 8.5, 
+  sig.level = 0.05, 
+  power = 0.8, 
+  type = "one.sample")
+```
+
 :::
 
 ## Hospital Epidemiology
 
-A study was conducted to identify characteristics that would predict 1-year survival for patients admitted to the medical service at New York Hospital [1]. One factor that was considered was the physician’s estimate of the patients’ severity of illness at the time of admission. Suppose that it is expected, based on previous studies in this hospital, that 2/3 of admitted patients will survive for at least 1 year.
+A study was conducted to identify characteristics that would predict 1-year survival for patients admitted to the medical service at New York Hospital. One factor that was considered was the physician’s estimate of the patients’ severity of illness at the time of admission. Suppose that it is expected, based on previous studies in this hospital, that 2/3 of admitted patients will survive for at least 1 year.
 
 ::: {.panel-tabset}
 ## 7.42 
 If 47% of 136 patients deemed severely ill survive at least 1 year, then what test can be used to test the hypothesis that the severity-of-illness rating is predictive of 1-year mortality?
 
 ## Solution
+Let $X$ be the number of severely ill patients that die. Then $X \sim \mathrm{Binom}(n, p)$. We want to test $H_0: p = 2/3$ versus $H_A: p \neq 2/3$. This is a one-samnple binomial test.
 :::
 
 ::: {.panel-tabset}
 ## 7.43 
-Perform the test in Problem 7.42 using the critical-value method based on an α level pf .05.
+Perform the test in Problem 7.42 using the critical-value method based on an α level of .05.
 
 ## Solution
+We can use a normal approximation since $np_0(1-p_0) \geq 5$
+```{r}
+136 * 2/3 * (1 - 2/3)
+```
+With $\hat{p} = 0.47$, we calculate a $z$-statistic
+$$
+z = \frac{\hat{p} - p_0}{\sqrt{p_0(1-p_0)/n}} = \frac{0.47 - \frac{2}{3}}{\sqrt{\frac{2}{3}(1-\frac{2}{3})/136}}
+$$
+Numerically
+```{r}
+(0.47 - 2/3) / sqrt(2/3 * (1 - 2/3) / 136)
+```
+We compare this to a $N(0,1)$ distribution. The critical value method would compare this $z$-statistic to $z_{1-\alpha/2}$
+```{r}
+qnorm(1 - 0.05 / 2)
+```
+Since $|z|>z_{1-\alpha/2}$ (4.865 > 1.96), we have evidence at the 0.05 significance level that patients deemed "severely ill" have a different survival probability than the general hospital population.
 :::
 
 ::: {.panel-tabset}
@@ -810,6 +929,24 @@ Perform the test in Problem 7.42 using the critical-value method based on an α 
 Provide a 95% CI for the 1-year survival rate among severely ill patients.
 
 ## Solution
+We calculate
+$$
+\hat{p} \pm z_{1 - \alpha/2} \cdot \sqrt{ \frac{ \hat{p}(1 - \hat{p}) }{n} }
+$$
+We can get $z_{1-\alpha/2}$ where $\alpha = 0.05$ via
+```{r}
+qnorm(1 - 0.05/2)
+```
+Plugging in, we get
+$$
+0.47 \pm 1.96 \cdot \sqrt{ \frac{ 0.47(1 - 0.47) }{136} }
+$$
+Numerically, this is
+```{r}
+0.47 - 1.96 * sqrt(0.47 * (1 - 0.47) / 136)
+0.47 + 1.96 * sqrt(0.47 * (1 - 0.47) / 136)
+```
+
 :::
 
 Suppose that it is expected, based on previous studies, that among all patients who survive hospitalization, 75% will survive for 1 year. Furthermore, of the 136 severely ill patients, 33 die during hospitalization, and an additional 39 die during the 1st year, but after hospitalization.
