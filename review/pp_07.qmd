@@ -957,17 +957,76 @@ Test the hypothesis that severity of illness is predictive of 1-year mortality a
 
 ## Solution
 Let $X$ be the number of severely ill patients that survived hospitalization that also survived during the first year. Then $X \sim \mathrm{Binom}(136 - 33, p) = \mathrm{Binom}(103, p)$. We want to test $H_0: p = 0.75$ versus $H_A: p \neq 0.75$. We are told that $x = 103 - 39 = 64$, so $\hat{p} = 64 / 103 = 0.6214$. We can use a normal approximation since $np_0(1-p_0) > 5$
+```{r}
+103 * 0.75 * (1 - 0.75)
+```
+We calculate a $z$-statistic
+$$
+z = \frac{\hat{p} - p_0}{\sqrt{p_0(1-p_0)/n}} = \frac{0.6214 - 0.75}{\sqrt{0.75(1-0.75)/103}}
+$$
+Numerically
+```{r}
+(0.6214 - 0.75) / sqrt(0.75 * (1 - 0.75) / 103)
+```
+We compare this to a $N(0,1)$ distribution
+```{r}
+#| echo: false
+plt_t(ub = -3.014, rng = c(-5, 5), two_sided = TRUE) +
+  geom_vline(xintercept = -3.014, lty = 2)
+```
+```{r}
+2 * pnorm(-3.014)
+```
+Since the $p$-value is so small, we have strong evidence that severly ill patients have a different 1-year survival rate post-hospital.
+
+In R, we would use `prop.test()`
+```{r}
+prop.test(x = 64, n = 103, p = 0.75) |>
+  tidy() |>
+  select(p.value)
+```
+Again, the $p$-value differs because R uses a different (better) method.
 :::
 
 ## Cancer 3
 
-Radiotherapy is a common treatment for breast cancer, with about 25% of women receiving this form of treatment. Assume that the figure 25% is based on a very large sample and is known without error. One hypothesis is that radiotherapy applied to the contralateral breast may be a risk factor for development of breast cancer in the opposite breast 5 or more years after the initial cancer. Suppose that 655 women are identified who developed breast cancer in the opposite breast 5 or more years after the initial cancer [2].
+Radiotherapy is a common treatment for breast cancer, with about 25% of women receiving this form of treatment. Assume that the figure 25% is based on a very large sample and is known without error. One hypothesis is that radiotherapy applied to the contralateral breast may be a risk factor for development of breast cancer in the opposite breast 5 or more years after the initial cancer. Suppose that 655 women are identified who developed breast cancer in the opposite breast 5 or more years after the initial cancer.
 
 ::: {.panel-tabset}
 ## 7.46
 If 206 of the women received radiotherapy after their initial diagnosis, then test the hypothesis that radiotherapy is associated with the development of breast cancer in the opposite breast. Please report a p-value.
 
 ## Solution
+Let $X$ be the number who received radiotherapy after their initial diagnosis among the 655 women. Then $X \sim \mathrm{Binom}(655, p)$. Since 25% of breast cancer patients get radio therapy, we would expect about a quarter of these 655 women to have done so. If we see more than a quarter, this might indicate that radiotherapy women are overrepresented in cases. We want to test if $H_0: p = 0.25$ versus $H_A: p \neq 0.25$. We are told that $x = 206$, or $\hat{p} = 206 / 655 = 0.3145$. We can use a normal approximation since $np_0(1-p_0) > 5$
+```{r}
+655 * 0.25 * (1 - 0.25)
+```
+We calculate a $z$-statistic
+$$
+z = \frac{\hat{p} - p_0}{\sqrt{p_0(1-p_0)/n}} = \frac{0.3145 - 0.25}{\sqrt{0.25(1-0.25)/655}}
+$$
+Numerically
+```{r}
+(0.3145 - 0.25) / sqrt(0.25 * (1 - 0.25) / 655)
+```
+We compare this to a $N(0,1)$ distribution
+```{r}
+#| echo: false
+plt_t(lb = 3.812, rng = c(-5, 5), two_sided = TRUE) +
+  geom_vline(xintercept = 3.812, lty = 2)
+```
+```{r}
+2 * pnorm(-3.812)
+```
+Since the $p$-value is so small, we have strong evidence that radiotherapy is associated with breast cancer in the opposite breast.
+
+In R, we would use `prop.test()`
+```{r}
+prop.test(x = 206, n = 655, p = 0.25) |>
+  tidy() |>
+  select(p.value)
+```
+Again, the $p$-value differs because R uses a different (better) method.
 :::
 
 ::: {.panel-tabset}
@@ -975,6 +1034,31 @@ If 206 of the women received radiotherapy after their initial diagnosis, then te
 Provide a 95% CI for the true proportion of women with contralateral breast cancer who received radiotherapy treatment.
 
 ## Solution
+We calculate
+$$
+\hat{p} \pm z_{1 - \alpha/2} \cdot \sqrt{ \frac{ \hat{p}(1 - \hat{p}) }{n} }
+$$
+We can get $z_{1-\alpha/2}$ where $\alpha = 0.05$ via
+```{r}
+qnorm(1 - 0.05/2)
+```
+Plugging in, we get
+$$
+0.3145 \pm 1.96 \cdot \sqrt{ \frac{ 0.3145(1 - 0.3145) }{655} }
+$$
+Numerically, this is
+```{r}
+0.3145 - 1.96 * sqrt(0.3145 * (1 - 0.3145) / 655)
+0.3145 + 1.96 * sqrt(0.3145 * (1 - 0.3145) / 655)
+```
+
+In R, we would use `prop.test()`
+```{r}
+prop.test(x = 206, n = 655, p = 0.25) |>
+  tidy() |>
+  select(conf.low, conf.high)
+```
+Again, the CI's differs because R uses a different (better) method.
 :::
 
 ::: {.panel-tabset}
@@ -982,6 +1066,7 @@ Provide a 95% CI for the true proportion of women with contralateral breast canc
 Suppose that our p-value in Problem 7.46 = .03 (this is not necessarily the actual p-value in Problem 7.46). If we conduct a test using the critical-value method with α = .05, then would we accept or reject $H_0$ and why? (Do not actually conduct the test.)
 
 ## Solution
+Reject. The $p$-value is less than $\alpha$.
 :::
 
 ::: {.panel-tabset}
@@ -989,6 +1074,7 @@ Suppose that our p-value in Problem 7.46 = .03 (this is not necessarily the actu
 Suppose we wanted a 99% CI instead of a 95% CI in Problem 7.47. Would the length of the 99% CI be narrower, wider, or the same as the CI in Problem 7.47? (Do not actually construct the interval.)
 
 ## Solution
+Wider. Higher confidence requires larger intervals.
 :::
 
 
