@@ -1087,6 +1087,11 @@ To compare two methods for the determination of uric acid, 23 blood samples from
 What is the best estimate for the mean difference between approaches?
 
 ## Solution
+This is the difference in means, or 6.26 - 6.20
+```{r}
+6.26 - 6.20
+```
+So, 0.06 mg/dL
 :::
 
 ::: {.panel-tabset}
@@ -1094,6 +1099,25 @@ What is the best estimate for the mean difference between approaches?
 Construct a 95% CI for the mean difference.
 
 ## Solution
+Let $X_i$ be the difference in uric acid measures, then $X_i \sim N(\mu, \sigma^2)$. We want to obtain a 95% CI for $\mu$. We are told that $\bar(x) = 0.06$, $s = 0.50$, and $n = 23$. The interval is of the form
+$$
+\bar{x} \pm t_{n-1, 1 - \alpha/2}\frac{s}{\sqrt{n}}
+$$
+The $t$-quantile can be calculated, for $\alpha = 0.05$, as
+```{r}
+qt(p = 1 - 0.05/2, df = 23 - 1)
+```
+Plugging in, we get
+$$
+0.06 \pm 2.074 \times \frac{0.5}{\sqrt{23}}
+$$
+Numerically,
+```{r}
+0.06 - 2.074 * 0.5 / sqrt(23)
+0.06 + 2.074 * 0.5 / sqrt(23)
+```
+So we are 95% confident the mean difference lies between -0.1562 mg/dL and 0.2762 mg/dL.
+
 :::
 
 ::: {.panel-tabset}
@@ -1101,6 +1125,7 @@ Construct a 95% CI for the mean difference.
 What can be concluded about the difference between assessments by the two methods?
 
 ## Solution
+We do not have evidence that the two measures differ on average since the 95% CI includes 0.
 :::
 
 
@@ -1113,6 +1138,14 @@ The relationship between serum cholesterol and coronary-heart-disease mortality 
 What test can be performed to compare the incidence rate of coronary-heart-disease mortality among men in the top cholesterol quintile vs general-population incidence rates?
 
 ## Solution
+Let $X$ be the the number that died. Then $X \sim \mathrm{Binom}(3615, p)$. We want to test $H_0: p = 0.04$ versus $H_A: p \neq 0.04$. We are told that $x = 194$, so $\hat{p} = 194 / 3615$. 
+```{r}
+194 / 3615
+```
+We would run a one-sample binomial test. We can use a normal approximation since $np_0(1-p_0) \geq 5$
+```{r}
+3615 * 0.04 * (1 - 0.04)
+```
 :::
 
 ::: {.panel-tabset}
@@ -1120,6 +1153,32 @@ What test can be performed to compare the incidence rate of coronary-heart-disea
 Implement the test in Problem 7.53 and report a p-value.
 
 ## Solution
+We calculate a $z$-statistic
+$$
+z = \frac{\hat{p} - p_0}{\sqrt{p_0(1-p_0)/n}} = \frac{0.05367 - 0.04}{\sqrt{0.04(1-0.04)/3615}}
+$$
+Numerically
+```{r}
+(0.05367 - 0.04) / sqrt(0.04 * (1 - 0.04) / 3615)
+```
+We compare this to a $N(0,1)$ distribution
+```{r}
+#| echo: false
+plt_t(lb = 4.194, rng = c(-5, 5), two_sided = TRUE) +
+  geom_vline(xintercept = 4.194, lty = 2)
+```
+```{r}
+2 * pnorm(-4.194)
+```
+Since the $p$-value is so small, we have strong evidence that coronary heart disease mortality rate for this group differs than that of the general population.
+
+In R, we would use `prop.test()`
+```{r}
+prop.test(x = 194, n = 3615, p = 0.04) |>
+  tidy() |>
+  select(p.value)
+```
+Again, the $p$-value differs because R uses a different (better) method.
 :::
 
 ::: {.panel-tabset}
@@ -1127,6 +1186,31 @@ Implement the test in Problem 7.53 and report a p-value.
 Construct a 95% CI for the true incidence rate in the group of 40–64-year-old men in the top quintile of serum cholesterol.
 
 ## Solution
+We calculate
+$$
+\hat{p} \pm z_{1 - \alpha/2} \cdot \sqrt{ \frac{ \hat{p}(1 - \hat{p}) }{n} }
+$$
+We can get $z_{1-\alpha/2}$ where $\alpha = 0.05$ via
+```{r}
+qnorm(1 - 0.05/2)
+```
+Plugging in, we get
+$$
+0.05367 \pm 1.96 \cdot \sqrt{ \frac{0.05367(1 - 0.05367)}{3615} }
+$$
+Numerically, this is
+```{r}
+0.05367 - 1.96 * sqrt(0.05367 * (1 - 0.05367) / 3615)
+0.05367 + 1.96 * sqrt(0.05367 * (1 - 0.05367) / 3615)
+```
+
+In R, we would use `prop.test()`
+```{r}
+prop.test(x = 194, n = 3615, p = 0.04) |>
+  tidy() |>
+  select(conf.low, conf.high)
+```
+Again, the CI's differs because R uses a different (better) method.
 :::
 
 ## Cancer 4
@@ -1138,6 +1222,61 @@ It is well established that exposure to ionizing radiation at or after puberty i
 If the expected incidence rate of breast cancer in this age group over this time period is 1 event per 200 women based on New York State cancer-incidence rates, then test the hypothesis that irradiation has an effect on breast-cancer incidence. Please report a p-value and construct a 95% CI for the incidence rate among the exposed group.
 
 ## Solution
+Let $X$ be the number of breast cancer cases. Then $X \sim \mathrm{Binom}(1201, p)$. We want to test $H_0: p = 1/200$ versus $H_A: p \neq 1/200$. We are told that $x = 22$, so $\hat{p} = 22/1201$
+```{r}
+22/1201
+```
+We can use a normal approximation since $np_0(1-p_0) \geq 5$
+```{r}
+1201 * 1/200 * (1 - 1/200)
+```
+We calculate a $z$-statistic
+$$
+z = \frac{\hat{p} - p_0}{\sqrt{p_0(1-p_0)/n}} = \frac{0.01832 - 0.005}{\sqrt{0.005(1-0.005)/1201}}
+$$
+Numerically
+```{r}
+(0.01832 - 0.005) / sqrt(0.005 * (1 - 0.005) / 1201)
+```
+We compare this to a $N(0,1)$ distribution
+```{r}
+#| echo: false
+plt_t(lb = 6.545, rng = c(-7, 7), two_sided = TRUE) +
+  geom_vline(xintercept = 6.545, lty = 2)
+```
+```{r}
+2 * pnorm(-6.545)
+```
+Since the $p$-value is so small, we have very strong evidence the there is excess risk among the irradiated group.
+
+For a 95% confidence interval, we calculate
+$$
+\hat{p} \pm z_{1 - \alpha/2} \cdot \sqrt{ \frac{ \hat{p}(1 - \hat{p}) }{n} }
+$$
+We can get $z_{1-\alpha/2}$ where $\alpha = 0.05$ via
+```{r}
+qnorm(1 - 0.05/2)
+```
+Plugging in, we get
+$$
+0.01832 \pm 1.96 \cdot \sqrt{ \frac{0.01832(1 - 0.01832)}{1201} }
+$$
+Numerically, this is
+```{r}
+0.01832 - 1.96 * sqrt(0.01832 * (1 - 0.01832) / 1201)
+0.01832 + 1.96 * sqrt(0.01832 * (1 - 0.01832) / 1201)
+```
+
+In R, we would use `prop.test()` for all of this
+```{r}
+prop.test(x = 22, n = 1201, p = 0.005) |>
+  tidy() |>
+  select(p.value, conf.low, conf.high)
+```
+
+A final summary might be something like this:
+
+> We have strong evidence that women who receive x-ray treatment in infancy for an enlarged thymus gland have a different breast-cancer rate later in life ($p < 0.001$). We estimate that this rate is about 1.8% (95% CI of 1.2% to 2.8%), which is higher than the national average (0.5%).
 :::
 
 It was also found that 6 breast cancers occurred over a 36-year period among a subgroup of 138 women who were exposed to a high radioactive dose (0.50–1.99 gray, where a gray is a unit of radiation absorbed by the breast tissue).
@@ -1147,4 +1286,24 @@ It was also found that 6 breast cancers occurred over a 36-year period among a s
 Test the hypothesis that the high-risk subgroup is at excess risk for breast cancer, and report a p-value.
 
 ## Solution
+Let $X$ be the number with breast cancer, then $X \sim \mathrm{Binom}(138, p)$. We want to test $H_0: p = 0.005$ versus $H_A: p \neq 0.005$. We are told that $x = 6$, so $\hat{p} = 6 / 138$
+```{r}
+6 / 138
+```
+We cannot use the normal approximation since $np_0(1-p_0) < 5$
+```{r}
+138 * 0.005 * (1 - 0.005)
+```
+This sums the probabilities less than or equal to what we saw if $X \sim \mathrm{Binom}(138, 0.005)$, zooming in to the picture:
+```{r}
+plt_binom(size = 138, prob = 0.005, rng = c(5, 10), valmax = 6)
+```
+
+In R, the 
+```{r}
+binom.test(x = 6, n = 138, p = 0.005) |>
+  tidy() |>
+  select(p.value)
+```
+So we again have very strong evidence that this group has a different breast cancer rate than the general population. 
 :::
