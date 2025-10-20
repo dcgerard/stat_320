@@ -456,7 +456,7 @@ The $p$-value is pretty small. So we have some evidence in a mean difference in 
 
 ## Hypertension 1
 
-Blood-pressure measurements taken on the left and right arms of a person are assumed to be comparable. To test this assump- tion, 10 volunteers are obtained and systolic blood-pressure readings are taken simultaneously on both arms by two different observers, Ms. Jones for the left arm and Mr. Smith for the right arm. The data are given in the following data frame.
+Blood-pressure measurements taken on the left and right arms of a person are assumed to be comparable. To test this assumption, 10 volunteers are obtained and systolic blood-pressure readings are taken simultaneously on both arms by two different observers, Ms. Jones for the left arm and Mr. Smith for the right arm. The data are given in the following data frame.
 
 ```{r}
 armbp <- tibble(
