@@ -157,6 +157,22 @@ Since the $p$-value is so large, we do not have evidence that there is on averag
 Answer Problem 8.2 for changes over 2 years.
 
 ## Solution
+The same task as Problem 8.1, but with
+$$
+t = 0.08 / 0.05 = 1.6
+$$
+We compare this to a $t_{n-1} = t_{93}$ distribution
+```{r}
+#| echo: false
+plt_t(lb = 1.6, df = 93, two_sided = TRUE) +
+  geom_vline(xintercept = 1.6, lty = 2)
+```
+```{r}
+2 * pt(q = -1.6, df = 93)
+```
+
+Since the $p$-value is large, we do not have evidence that there is on average visual loss after one year.
+
 :::
 
 ::: {.panel-tabset}
@@ -164,22 +180,22 @@ Answer Problem 8.2 for changes over 2 years.
 Answer Problem 8.2 for changes over 3 years.
 
 ## Solution
+The same task as Problem 8.1, but with
+$$
+t = 0.14 / 0.07 = 2
+$$
+We compare this to a $t_{n-1} = t_{93}$ distribution
+```{r}
+#| echo: false
+plt_t(lb = 2, df = 93, two_sided = TRUE) +
+  geom_vline(xintercept = 2, lty = 2)
+```
+```{r}
+2 * pt(q = -2, df = 93)
+```
+
+The $p$-value is somewhat small. So we have weak evidence of a mean visual loss that is different from 0.
 :::
-
-::: {.panel-tabset}
-## 8.5 
-Find the upper 5th percentile of an F distribution with 24 and 30 df.
-
-## Solution
-:::
-
-::: {.panel-tabset}
-## 8.6 
-Suppose we have two normally distributed samples of sizes 9 and 15 with sample standard deviations of 13.7 and 7.2, respectively. Test if the variances are significantly different in the two samples.
-
-## Solution
-:::
-
 
 ## Pathology
 The data in the following data frame are measurements from a group of 10 normal males and 11 males with left-heart disease taken at autopsy at a particular hospital. Measurements were made on several variables at that time, and the table presents the measurements on total heart weight (THW) and total body weight (BW). Assume that the diagnosis of left-heart disease is made independently of these variables.
@@ -198,16 +214,115 @@ glimpse(heart)
 
 ::: {.panel-tabset}
 ## 8.7
-Test for a significant difference in mean total heart weight between the diseased and normal groups.
+Test for a significant difference in mean total heart weight between the diseased and normal groups. Assume unequal variances. Note that the estimated degrees of freedom turns out to be $\nu = 12.45$.
 
 ## Solution
+Let $X_i$ be the total heart weight for normal male $i$. Let $Y_j$ be the total heart weight for diseased male $j$. Then we assume
+\begin{align*}
+X_i &\sim N(\mu_1, \sigma_1^2)\\
+Y_j &\sim N(\mu_2, \sigma_2^2)
+\end{align*}
+We want to test $H_0: \mu_1 = \mu_2$ versus $H_A: \mu_1 \neq \mu_2$. We have the following summary statistics:
+```{r}
+heart |>
+  group_by(disease_status) |>
+  summarize(
+    xbar = mean(thw),
+    s_squared = var(thw),
+    n = n()
+  )
+```
+We calculate the following $t$-statistic
+$$
+t = \frac{\bar{x} - \bar{y}}{\sqrt{\frac{1}{n_1}s_1^2 + \frac{1}{n_2}s_2^2}} = \frac{450 - 317}{\sqrt{\frac{1}{11}19415 + \frac{1}{10}2218}}
+$$
+Numerically,
+```{r}
+(450 - 317) / sqrt(19415 / 11 + 2218 / 10)
+```
+From the question, we are told to compare this to a $t$ distribution with 12.45 degrees of freedom.
+```{r}
+#| echo: false
+plt_t(lb = 2.984, rng = c(-4, 4), two_sided = TRUE, df = 12.45) +
+  geom_vline(xintercept = 2.984, lty = 2)
+```
+Numerically,
+```{r}
+2 * pt(-2.984, df = 12.45)
+```
+The $p$-value is pretty small, so we have evidence that mean total heart weight differs between diseased and normal individuals.
+
+In R, the real-way would be:
+```{r}
+t.test(thw ~ disease_status, data = heart) |>
+  tidy() |>
+  select(p.value, estimate, conf.low, conf.high)
+```
+We might say something like:
+
+> We have strong evidence that mean total heart weight differs between diseased and normal males (p = 0.011). The diseased group is estimated to have a heart size that is 133 larger (95% CI 36.27 to 229.7 larger).
+
 :::
 
 ::: {.panel-tabset}
 ## 8.8 
-Test for a significant difference in mean body weight between the diseased and normal groups.
+Test for a significant difference in mean body weight between the diseased and normal groups. Assume equal variances.
 
 ## Solution
+Let $X_i$ be the body weight for normal male $i$. Let $Y_j$ be the body weight for diseased male $j$. Then we assume
+\begin{align*}
+X_i &\sim N(\mu_1, \sigma^2)\\
+Y_j &\sim N(\mu_2, \sigma^2)
+\end{align*}
+We want to test $H_0: \mu_1 = \mu_2$ versus $H_A: \mu_1 \neq \mu_2$. We have the following summary statistics:
+```{r}
+heart |>
+  group_by(disease_status) |>
+  summarize(
+    xbar = mean(bw),
+    s_squared = var(bw),
+    n = n()
+  )
+```
+We need the pooled sample variance
+$$
+s^2 = \frac{(n_1 - 1)s_1^2 + (n_2 - 1)s_2^2}{n_1 + n_2 - 2} = \frac{(11 - 1)133.4 + (10 - 1)133.1}{11 + 10 - 2}
+$$
+Numerically
+```{r}
+((11 - 1) * 133.4 + (10 - 1) * 133.1) / (11 + 10 - 2)
+```
+
+We calculate the following $t$-statistic
+$$
+t = \frac{\bar{x} - \bar{y}}{s\sqrt{\frac{1}{n_1} + \frac{1}{n_2}}} = \frac{55.61 - 56.23}{\sqrt{133.3}\sqrt{\frac{1}{11} + \frac{1}{10}}}
+$$
+Numerically,
+```{r}
+(55.61 - 56.23) / (sqrt(133.3) * sqrt(1 / 11 + 1 / 10))
+```
+We compare this to a $t$ distribution with $n_1 + n_2 - 2 = 11 + 10 - 2 = 19$ degrees of freedom:
+```{r}
+#| echo: false
+plt_t(ub = -0.1129, rng = c(-4, 4), two_sided = TRUE, df = 19) +
+  geom_vline(xintercept = -0.1129, lty = 2)
+```
+Numerically,
+```{r}
+2 * pt(-0.1229, df = 19)
+```
+The $p$-value is very large. So we have no evidence in a mean difference in body weight.
+
+In R, the real-way would be:
+```{r}
+t.test(bw ~ disease_status, data = heart, var.equal = TRUE) |>
+  tidy() |>
+  select(p.value, estimate, conf.low, conf.high)
+```
+We might say something like:
+
+> We have no evidence in a difference in mean body weight between the diseased and normal groups (p = 0.9). We estimate that the normal group weigs 0.12 more (95% CI 11.19 more to 9.94 less).
+
 :::
 
 ## Psychiatry, Renal Disease
@@ -261,16 +376,82 @@ gt_table
 
 ::: {.panel-tabset}
 ## 8.9 
-Perform a statistical test to compare the experimental and control groups’ pretest scores.
+Perform a statistical test to compare the experimental and control groups’ pretest scores. Assume equal variances.
 
 ## Solution
+Let $X_i$ be the pretest questionnaire value for experimental individual $i$. Let $Y_j$ be the pretest questionnaire value for control individual $j$. Then we assume
+\begin{align*}
+X_i &\sim N(\mu_1, \sigma^2)\\
+Y_j &\sim N(\mu_2, \sigma^2)
+\end{align*}
+We want to test $H_0: \mu_1 = \mu_2$ versus $H_A: \mu_1 \neq \mu_2$. We need the pooled sample variance
+$$
+s^2 = \frac{(n_1 - 1)s_1^2 + (n_2 - 1)s_2^2}{n_1 + n_2 - 2} = \frac{(38 - 1)10.66^2 + (23 - 1)8.59^2}{38 + 23 - 2}
+$$
+Numerically
+```{r}
+((38 - 1) * 10.66^2 + (23 - 1) * 8.59^2) / (38 + 23 - 2)
+```
+
+We calculate the following $t$-statistic
+$$
+t = \frac{\bar{x} - \bar{y}}{s\sqrt{\frac{1}{n_1} + \frac{1}{n_2}}} = \frac{37.51 - 36.42}{\sqrt{98.78}\sqrt{\frac{1}{38} + \frac{1}{23}}}
+$$
+Numerically,
+```{r}
+(37.51 - 36.42) / (sqrt(98.78) * sqrt(1 / 38 + 1 / 23))
+```
+We compare this to a $t$ distribution with $n_1 + n_2 - 2 = 38 + 23 - 2 = 59$ degrees of freedom:
+```{r}
+#| echo: false
+plt_t(lb = 0.4151, two_sided = TRUE, df = 59) +
+  geom_vline(xintercept = 0.4151, lty = 2)
+```
+Numerically,
+```{r}
+2 * pt(-0.4151, df = 59)
+```
+The $p$-value is very large. So we have no evidence in a mean difference in pre-test values.
 :::
 
 ::: {.panel-tabset}
 ## 8.10 
-Perform a statistical test to compare the experimental and control groups’ posttest scores.
+Perform a statistical test to compare the experimental and control groups’ posttest scores. Assume equal variances.
 
 ## Solution
+Let $X_i$ be the posttest questionnaire value for experimental individual $i$. Let $Y_j$ be the posttest questionnaire value for control individual $j$. Then we assume
+\begin{align*}
+X_i &\sim N(\mu_1, \sigma^2)\\
+Y_j &\sim N(\mu_2, \sigma^2)
+\end{align*}
+We want to test $H_0: \mu_1 = \mu_2$ versus $H_A: \mu_1 \neq \mu_2$. We need the pooled sample variance
+$$
+s^2 = \frac{(n_1 - 1)s_1^2 + (n_2 - 1)s_2^2}{n_1 + n_2 - 2} = \frac{(38 - 1)10.18^2 + (23 - 1)9.16^2}{38 + 23 - 2}
+$$
+Numerically
+```{r}
+((38 - 1) * 10.18^2 + (23 - 1) * 9.16^2) / (38 + 23 - 2)
+```
+
+We calculate the following $t$-statistic
+$$
+t = \frac{\bar{x} - \bar{y}}{s\sqrt{\frac{1}{n_1} + \frac{1}{n_2}}} = \frac{33.42 - 39.71}{\sqrt{96.28}\sqrt{\frac{1}{38} + \frac{1}{23}}}
+$$
+Numerically,
+```{r}
+(33.42 - 39.71) / (sqrt(96.28) * sqrt(1 / 38 + 1 / 23))
+```
+We compare this to a $t$ distribution with $n_1 + n_2 - 2 = 38 + 23 - 2 = 59$ degrees of freedom:
+```{r}
+#| echo: false
+plt_t(ub = -2.426, two_sided = TRUE, df = 59) +
+  geom_vline(xintercept = -2.426, lty = 2)
+```
+Numerically,
+```{r}
+2 * pt(-2.426, df = 59)
+```
+The $p$-value is pretty small. So we have some evidence in a mean difference in posttest values.
 :::
 
 ## Hypertension 1
