@@ -25,6 +25,7 @@ If 20 patients improved, 7 declined, and 3 remained the same, then assess whethe
 
 ## Solutions
 
+
 :::
 
 Suppose that the patients are divided into two groups according to initial visual acuity (VA). Of the 14 patients with VA 20-40 or better, 8 improved, 5 declined, and 1 stayed the same. Of the 16 patients with VA worse than 20–40, 12 improved, 2 declined, and 2 stayed the same.
