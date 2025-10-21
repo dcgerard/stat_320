@@ -472,6 +472,40 @@ armbp
 Assuming that the two observers are comparable, test whether or not the two arms give comparable readings.
 
 ## Solution
+We will do a paired $t$-test. Let $D_i$ be the left arm's blood pressure minus the right arm's blood pressure for patient $i$. We assume $D_i \sim N(\mu, \sigma^2)$. We want to test $H_0: \mu = 0$ versus $H_A: \mu \neq 0$. We calculate summary statistics
+```{r}
+armbp |>
+  mutate(diff = Left_arm - Right_arm) |>
+  summarize(
+    mean = mean(diff),
+    sd = sd(diff),
+    n = n())
+```
+We calculate a $t$-statistic
+$$
+t = \frac{\bar{x} - \mu_0}{s/\sqrt{n}} = \frac{1.5 - 0}{3.979 / \sqrt{10}}
+$$
+Numerically
+```{r}
+(1.5 - 0) / (3.979 / sqrt(10))
+```
+We compare this to a $t_{9}$ distribution
+```{r}
+plt_t(lb = 1.192, two_sided = TRUE, df = 9) +
+  geom_vline(xintercept = 1.192, lty = 2)
+```
+```{r}
+2 * pt(-1.192, df = 9)
+```
+Since the $p$-value is so large, we do not have evidence that the mean difference in blood pressures is different from 0.
+
+The real-way in R uses `t.test()`
+```{r}
+armbp <- mutate(armbp, diff = Left_arm - Right_arm)
+t.test(diff ~ 1, data = armbp, mu = 0) |>
+  tidy() |>
+  select(p.value)
+```
 :::
 
 ::: {.panel-tabset}
@@ -479,6 +513,9 @@ Assuming that the two observers are comparable, test whether or not the two arms
 Suppose we do not assume that the two observers are comparable. Can the experiment, as it is defined, detect differences between the two arms? If not, can you suggest an alternative experimental design so as to achieve this aim?
 
 ## Solution
+No. Observer is completely confounded with arm (are any observed differences because of the arm used or because of the observer used?)
+
+We could have Ms. Jones measure each arm on each patient, and have Mr. Smith also measure each arm on each patient. 
 :::
 
 ## Ophthalmology 2
@@ -498,17 +535,11 @@ refract
 ```
 
 ::: {.panel-tabset}
-## 8.13 
-Is a one-sample or two- sample test needed here?
-
-## Solution
-:::
-
-::: {.panel-tabset}
 ## 8.14 
 Is a one-sided or two-sided test needed here?
 
 ## Solution
+A two-sided test, since we are interested in just if there is a difference.
 :::
 
 ::: {.panel-tabset}
@@ -521,6 +552,7 @@ c. Two-sample t test for independent samples with unequal variances
 d. One-sample t test
 
 ## Solution
+Just a paired $t$-test, since each observational unit is an individual.
 :::
 
 ::: {.panel-tabset}
@@ -528,6 +560,44 @@ d. One-sample t test
 Carry out the hypothesis test(s) in Problem 8.15 and report a p-value.
 
 ## Solution
+Let $D_i$ be the left eye's refraction minus the right eye's refraction for individual $i$. We assume $D_i \sim N(\mu, \sigma^2)$. We want to test $H_0: \mu = 0$ versus $H_A: \mu \neq 0$. We calculate summary statistics
+```{r}
+refract |>
+  summarize(
+    mean = mean(diff),
+    sd = sd(diff),
+    n = n())
+```
+We calculate a $t$-statistic
+$$
+t = \frac{\bar{x} - \mu_0}{s/\sqrt{n}} = \frac{-0.2059 - 0}{1.073 / \sqrt{17}}
+$$
+Numerically
+```{r}
+(-0.2059 - 0) / (1.073 / sqrt(17))
+```
+We compare this to a $t_{16}$ distribution. If we use $\alpha = 0.05$, the critical value is
+```{r}
+qt(1 - 0.05 / 2, df = 16)
+```
+Since 0.7912 < 2.12 ($|t| < t_{n-1, 1-\alpha/2}$), we would fail to reject the null at significance level 0.05. 
+
+We can also calculate a $p$-value:
+```{r}
+plt_t(ub = -0.7912, two_sided = TRUE, df = 16) +
+  geom_vline(xintercept = -0.7912, lty = 2)
+```
+```{r}
+2 * pt(-0.7912, df = 9)
+```
+Since the $p$-value is so large, we do not have evidence that the mean difference in rafraction is different from 0.
+
+The real-way in R uses `t.test()`
+```{r}
+t.test(diff ~ 1, data = refract, mu = 0) |>
+  tidy() |>
+  select(p.value)
+```
 :::
 
 ::: {.panel-tabset}
@@ -535,6 +605,32 @@ Carry out the hypothesis test(s) in Problem 8.15 and report a p-value.
 Estimate a 90% CI for the mean difference in spherical refraction between the two eyes.
 
 ## Solution
+This is
+$$
+\bar{d} \pm t_{n-1, 1-\alpha/2}\frac{s}{\sqrt{n}}
+$$
+The appropriate quantile is
+```{r}
+qt(p = 1 - 0.1 / 2, df = 16)
+```
+Plugging in numbers, we get
+$$
+-0.2059 \pm 1.746 \times \frac{1.073}{\sqrt{17}}
+$$
+Numerically,
+```{r}
+-0.2059 - 1.746 * 1.073 / sqrt(17)
+-0.2059 + 1.746 * 1.073 / sqrt(17)
+```
+The real way in R is
+```{r}
+t.test(diff ~ 1, data = refract, conf.level = 0.9) |>
+  tidy() |>
+  select(conf.low, conf.high)
+```
+
+
+
 :::
 
 ## Cardiovascular Disease
@@ -543,9 +639,43 @@ A study was performed in 1976 to relate the use of oral contraceptives to the le
 
 ::: {.panel-tabset}
 ## 8.18
-Test for significant differences in mean cholesterol levels between the two groups.
+Test for significant differences in mean cholesterol levels between the two groups. Assume equal variances.
 
 ## Solution
+Let $X_i$ be the serum cholesterol for oral contraceptive user $i$. Let $Y_j$ be the serum cholesterol for nonuser $j$. Then we assume
+\begin{align*}
+X_i &\sim N(\mu_1, \sigma^2)\\
+Y_j &\sim N(\mu_2, \sigma^2)
+\end{align*}
+We want to test $H_0: \mu_1 = \mu_2$ versus $H_A: \mu_1 \neq \mu_2$. We have the following summary statistics. We are told we have the following statistics:
+
+- $\bar{x} = 201$, $s_1 = 37$, $n_1 = 66$
+- $\bar{y} = 193$, $s_2 = 37$, $n_2 = 97$
+
+We need the pooled sample variance. Since the sample variance is $37^2$ in both groups, it should be $37^2$. But we can verify:
+$$
+s^2 = \frac{(n_1 - 1)s_1^2 + (n_2 - 1)s_2^2}{n_1 + n_2 - 2} = \frac{(66 - 1)37^2 + (97 - 1)37^2}{66 + 97 - 2}
+$$
+Numerically
+```{r}
+((66 - 1) * 37^2 + (97 - 1) * 37^2) / (66 + 97 - 2)
+37^2
+```
+
+We calculate the following $t$-statistic
+$$
+t = \frac{\bar{x} - \bar{y}}{s\sqrt{\frac{1}{n_1} + \frac{1}{n_2}}} = \frac{201 - 193}{37\sqrt{\frac{1}{66} + \frac{1}{97}}}
+$$
+Numerically,
+```{r}
+(201 - 193) / (37 * sqrt(1 / 66 + 1 / 97))
+```
+We compare this to a $t$ distribution with $n_1 + n_2 - 2 = 66 + 97 - 2 = 161$ degrees of freedom. At $\alpha = 0.05$, the critical value would be
+```{r}
+qt(p = 1 - 0.05 / 2, df = 161)
+```
+
+Since 1.355< 1.975 ($|t| < t_{n-1, 1-\alpha/2}$), we would fail to reject the null at significance level 0.05. 
 :::
 
 ::: {.panel-tabset}
@@ -553,6 +683,16 @@ Test for significant differences in mean cholesterol levels between the two grou
 Report a p-value based on your hypothesis test in Problem 8.18.
 
 ## Solution
+We can also calculate a $p$-value:
+```{r}
+plt_t(lb = 1.355, two_sided = TRUE, df = 161) +
+  geom_vline(xintercept = 1.355, lty = 2)
+```
+Numerically, we have
+```{r}
+2 * pt(-1.355, df = 161)
+```
+The $p$-value is large, so we do not have evidence that there is a difference in mean serum cholesterol between OC and non-OC users.
 :::
 
 ::: {.panel-tabset}
@@ -560,6 +700,24 @@ Report a p-value based on your hypothesis test in Problem 8.18.
 Derive a 95% CI for the true mean difference in cholesterol levels between the groups.
 
 ## Solution
+The equation is of the form
+$$
+(\bar{X} - \bar{Y}) \pm t_{n_1 + n_2 - 2,\ 1 - \alpha/2} \times s \sqrt{\frac{1}{n_1} + \frac{1}{n_2}}
+$$
+The appropriate quantile is
+```{r}
+qt(p = 1 - 0.05/2, df = 161)
+```
+Plutting in, we get
+$$
+(201 - 193) \pm 1.975 \times 37 \sqrt{\frac{1}{66} + \frac{1}{97}}
+$$
+Numerically
+```{r}
+(201 - 193) - 1.975 * 37 * sqrt(1/66 + 1/97)
+(201 - 193) + 1.975 * 37 * sqrt(1/66 + 1/97)
+```
+
 :::
 
 ::: {.panel-tabset}
@@ -567,6 +725,7 @@ Derive a 95% CI for the true mean difference in cholesterol levels between the g
 Suppose the two-tailed p-value in Problem 8.19 = .03 and the two-sided 95% CI in Problem 8.20 = (−0.6, 7.3). Do these two results contradict each other? Why or why not? (Note: These values are not necessarily the actual results in Problems 8.19 and 8.20.)
 
 ## Solution
+Yes. The $p$-value is less than 0.03, which is less than 0.05, so the 95% CI should include 0. But we are told it does not.
 :::
 
 ## Hypertension 2
