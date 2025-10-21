@@ -732,7 +732,7 @@ Yes. The $p$-value is less than 0.03, which is less than 0.05, so the 95% CI sho
 
 A 1982 study by the Lipid Research CIinics looked at the relationship between alcohol consumption and level of systolic blood pressure in women not using oral contraceptives. Alcohol consumption was categorized as follows: no alcohol use; ≤ 10 oz/week alcohol consumption; > 10 oz/week alcohol consumption. The results for women 30–39 years of age are given in Table 8.4.
 
-Suppose we wish to compare the levels of systolic blood pressure of groups A and B and we have no prior information regarding which group has higher blood pressure.
+Suppose we wish to compare the levels of systolic blood pressure of groups "no alcohol use" and "≤ 10 oz/week alcohol consumption" and we have no prior information regarding which group has higher blood pressure.
 
 
 ```{r}
@@ -774,6 +774,7 @@ gt_table
 Should a one-sample or two-sample test be used here?
 
 ## Solution
+Two-sample. We have two different groups.
 :::
 
 ::: {.panel-tabset}
@@ -781,6 +782,7 @@ Should a one-sample or two-sample test be used here?
 Should a one-sided or two-sided test be used here?
 
 ## Solution
+Two-sided. We are not *a priori* interested in one direction or the other.
 :::
 
 ::: {.panel-tabset}
@@ -788,13 +790,58 @@ Should a one-sided or two-sided test be used here?
 Which test procedure(s) should be used to test the preceding hypotheses?
 
 ## Solution
+A two-sample $t$-test.
 :::
 
 ::: {.panel-tabset}
 ## 8.25
-Carry out the test in Problem 8.24 and report a p-value.
+Carry out the test in Problem 8.24 and report a p-value. Assume equal variances.
 
 ## Solution
+Let $X_i$ be the systolic blood pressure individual $i$ in the no alcohol use group. Let $Y_j$ be the systolc blood pressure for individual $j$ in the low alcohol use group. Then we assume
+\begin{align*}
+X_i &\sim N(\mu_1, \sigma^2)\\
+Y_j &\sim N(\mu_2, \sigma^2)
+\end{align*}
+We want to test $H_0: \mu_1 = \mu_2$ versus $H_A: \mu_1 \neq \mu_2$.  We are told we have the following statistics:
+
+- $\bar{x} = 110.5$, $s_1 = 13.3$, $n_1 = 357$
+- $\bar{y} = 109.1$, $s_2 = 13.4$, $n_2 = 440$
+
+We need the pooled sample variance.
+$$
+s^2 = \frac{(n_1 - 1)s_1^2 + (n_2 - 1)s_2^2}{n_1 + n_2 - 2} = \frac{(357 - 1)13.3^2 + (440 - 1)13.4^2}{357 + 440 - 2}
+$$
+Numerically
+```{r}
+((357 - 1) * 13.3^2 + (440 - 1) * 13.4^2) / (357 + 440 - 2)
+```
+
+We calculate the following $t$-statistic
+$$
+t = \frac{\bar{x} - \bar{y}}{s\sqrt{\frac{1}{n_1} + \frac{1}{n_2}}} = \frac{110.5 - 109.1}{\sqrt{178.4}\sqrt{\frac{1}{357} + \frac{1}{440}}}
+$$
+Numerically,
+```{r}
+(110.5 - 109.1) / (sqrt(178.4) * sqrt(1 / 357 + 1 / 440))
+```
+We compare this to a $t$ distribution with $n_1 + n_2 - 2 = 357 + 440 - 2 = 795$ degrees of freedom. At $\alpha = 0.05$, the critical value would be
+```{r}
+qt(p = 1 - 0.05 / 2, df = 795)
+```
+
+Since 1.472 < 1.963 ($|t| < t_{n-1, 1-\alpha/2}$), we would fail to reject the null at significance level 0.05. 
+
+We can also calculate a $p$-value:
+```{r}
+plt_t(lb = 1.472, two_sided = TRUE, df = 795) +
+  geom_vline(xintercept = 1.472, lty = 2)
+```
+Numerically, we have
+```{r}
+2 * pt(-1.472, df = 795)
+```
+The $p$-value is large, so we do not have evidence that there is a difference in mean systolic blood pressure between the two groups.
 :::
 
 ::: {.panel-tabset}
@@ -802,33 +849,29 @@ Carry out the test in Problem 8.24 and report a p-value.
 Compute a 95% CI for the mean difference in blood pressure between the two groups.
 
 ## Solution
-:::
-
-::: {.panel-tabset}
-## 8.27
-Answer Problem 8.24 for a comparison of groups A and C.
-
-## Solution
-:::
-
-::: {.panel-tabset}
-## 8.28
-Answer Problem 8.25 for a comparison of groups A and C.
-
-## Solution
-:::
-
-::: {.panel-tabset}
-## 8.29
-Answer Problem 8.26 for a comparison of groups A and C.
-
-## Solution
+The equation is of the form
+$$
+(\bar{X} - \bar{Y}) \pm t_{n_1 + n_2 - 2,\ 1 - \alpha/2} \times s \sqrt{\frac{1}{n_1} + \frac{1}{n_2}}
+$$
+The appropriate quantile is
+```{r}
+qt(p = 1 - 0.05/2, df = 795)
+```
+Plutting in, we get
+$$
+(110.5 - 109.1) \pm 1.963 \times \sqrt{178.4} \sqrt{\frac{1}{357} + \frac{1}{440}}
+$$
+Numerically
+```{r}
+(110.5 - 109.1) - 1.963 * sqrt(178.4) * sqrt(1/357 + 1/440)
+(110.5 - 109.1) + 1.963 * sqrt(178.4) * sqrt(1/357 + 1/440)
+```
 :::
 
 
 ## Pulmonary Disease
 
-Forced expiratory volume (FEV) is a standard measure of pul- monary function representing the volume of air expelled in 1 second. Suppose we enroll 10 nonsmoking males age 35–39, heights 68–72 inches in a longitudinal study and measure their FEV (L) initially (year 0) and 2 years later (year 2). The data in in the following data frame are obtained.
+Forced expiratory volume (FEV) is a standard measure of pulmonary function representing the volume of air expelled in 1 second. Suppose we enroll 10 nonsmoking males age 35–39, heights 68–72 inches in a longitudinal study and measure their FEV (L) initially (year 0) and 2 years later (year 2). The data in in the following data frame are obtained.
 
 
 ```{r}
@@ -855,6 +898,7 @@ pulm |>
 What are the appropriate null and alternative hypotheses in this case to test if mean pulmonary function has decreased over 2 years?
 
 ## Solution
+Let $\mu$ be the mean decrease in pulminory function (`fev0 - fev2`). Then $H_0: \mu = 0$ versus $H_A: \mu > 0$.
 :::
 
 ::: {.panel-tabset}
@@ -862,6 +906,8 @@ What are the appropriate null and alternative hypotheses in this case to test if
 In words, what is the meaning of a type I and a type II error here?
 
 ## Solution
+- Type I Error: We say mean FEV has declined but it hasn't.
+- Type I Error: We say we don't have evidence that mean FEV has declined when it has.
 :::
 
 ::: {.panel-tabset}
@@ -869,6 +915,40 @@ In words, what is the meaning of a type I and a type II error here?
 Carry out the test in Problem 8.30. What are your conclusions?
 
 ## Solution
+We will do a paired $t$-test. Let $D_i$ be the FEV at year 0 minus the FEV at year 2 in individual $i$. We assume $D_i \sim N(\mu, \sigma^2)$. We want to test $H_0: \mu = 0$ versus $H_A: \mu > 0$. We calculate summary statistics
+```{r}
+pulm |>
+  mutate(diff = fev0 - fev2) |>
+  summarize(
+    mean = mean(diff),
+    sd = sd(diff),
+    n = n())
+```
+We calculate a $t$-statistic
+$$
+t = \frac{\bar{x} - \mu_0}{s/\sqrt{n}} = \frac{0.147 - 0}{0.1505 / \sqrt{10}}
+$$
+Numerically
+```{r}
+(0.147 - 0) / (0.1505 / sqrt(10))
+```
+We compare this to a $t_{9}$ distribution
+```{r}
+plt_t(lb = 3.089, two_sided = FALSE, df = 9, rng = c(-4, 4)) +
+  geom_vline(xintercept = 3.089, lty = 2)
+```
+```{r}
+1 - pt(3.089, df = 9)
+```
+The $p$-value is 0.006475, so we have evidence that FEV is lower after two years on average.
+
+The real-way in R uses `t.test()`
+```{r}
+pulm <- mutate(pulm, diff = fev0 - fev2)
+t.test(diff ~ 1, data = pulm, alternative = "greater") |>
+  tidy() |>
+  select(p.value)
+```
 :::
 
 
@@ -901,13 +981,59 @@ pulm2 |>
 What are the appropriate null and alternative hypotheses to compare the FEV of smokers and nonsmokers at baseline?
 
 ## Solution
+Let $\mu_1$ be the mean FEV at baseline in the smoking group. Let $\mu_2$ be the mean FEV at baseline in the non-smoking group. Then we are testing $H_0: \mu_1  = \mu_2$ versus $H_A: \mu_1 \neq \mu_2$.
+
 :::
 
 ::: {.panel-tabset}
 ## 8.34 
-Carry out the procedure(s) necessary to conduct the test in Problem 8.33.
+Carry out the procedure(s) necessary to conduct the test in Problem 8.33. Assume equal variances.
 
 ## Solution
+Let $X_i$ be the FEV at baseline for individual $i$ in the smoking. Let $Y_j$ be the FEV at baseline for individual $j$ in the non-smoking group. Then we assume
+\begin{align*}
+X_i &\sim N(\mu_1, \sigma^2)\\
+Y_j &\sim N(\mu_2, \sigma^2)
+\end{align*}
+We want to test $H_0: \mu_1 = \mu_2$ versus $H_A: \mu_1 \neq \mu_2$. We are told we have the following statistics:
+
+- $\bar{x} = 2.980$, $s_1 = 0.2786$, $n_1 = 15$
+- $\bar{y} = 3.429$, $s_2 = 0.4852$, $n_2 = 10$
+
+We need the pooled sample variance.
+$$
+s^2 = \frac{(n_1 - 1)s_1^2 + (n_2 - 1)s_2^2}{n_1 + n_2 - 2} = \frac{(15 - 1)0.2786^2 + (10 - 1)0.4852^2}{15 + 10 - 2}
+$$
+Numerically
+```{r}
+((15 - 1) * 0.2786^2 + (10 - 1) * 0.4852^2) / (15 + 10 - 2)
+```
+
+We calculate the following $t$-statistic
+$$
+t = \frac{\bar{x} - \bar{y}}{s\sqrt{\frac{1}{n_1} + \frac{1}{n_2}}} = \frac{2.980 - 3.429}{\sqrt{0.1394}\sqrt{\frac{1}{15} + \frac{1}{10}}}
+$$
+Numerically,
+```{r}
+(2.980 - 3.429) / (sqrt(0.1394) * sqrt(1 / 15 + 1 / 10))
+```
+We compare this to a $t$ distribution with $n_1 + n_2 - 2 = 15 + 10 - 2 = 23$ degrees of freedom. At $\alpha = 0.05$, the critical value would be
+```{r}
+qt(p = 1 - 0.05 / 2, df = 23)
+```
+
+Since 2.946 > 2.069 ($|t| > t_{n-1, 1-\alpha/2}$), we would reject the null at significance level 0.05. 
+
+We can also calculate a $p$-value:
+```{r}
+plt_t(ub = -2.946, two_sided = TRUE, df = 23, rng = c(-4, 4)) +
+  geom_vline(xintercept = -2.946, lty = 2)
+```
+Numerically, we have
+```{r}
+2 * pt(-2.946, df = 795)
+```
+The $p$-value is pretty small, so we evidence that the FEV's between the two groups differ at baseline on average.
 :::
 
 ::: {.panel-tabset}
@@ -915,6 +1041,7 @@ Carry out the procedure(s) necessary to conduct the test in Problem 8.33.
 Suggest a procedure for testing whether or not the change in pulmonary function over 2 years is the same in the two groups.
 
 ## Solution
+Do a two-sample $t$-test on the differences in the two groups.
 :::
 
 ## Hypertension 3
@@ -952,13 +1079,25 @@ gt(data) |>
 If the means and standard deviations in Table 8.7 are considered to be true population parameters, then, using a one-sided test with significance level = .05 , how many infants are needed in each group to have an 80% chance of detecting a significant difference?
 
 ## Solution
-:::
+Let's calculate the pooled estimate of the variance:
+$$
+s^2 = \frac{(n_1 - 1)s_1^2 + (n_2 - 1)s_2^2}{n_1 + n_2 - 2} = \frac{(5 - 1)10.3^2 + (5 - 1)9.2^2}{5 + 5 - 2}
+$$
+```{r}
+((5 - 1) * 10.3^2 + (5 - 1) * 9.2^2) / (5 + 5 - 2)
+```
 
-::: {.panel-tabset}
-## 8.37
-Suppose it is easier to recruit high-salt-diet infants and the investigators decide to enroll twice as many high- salt-diet infants as low-salt-diet infants. How many infants are needed in each group to have a 80% chance of detecting a significant difference using a one-sided test with an α level of .05?
 
-## Solution
+```{r}
+power.t.test(
+  delta = 90.8 - 87.2, 
+  sd = sqrt(95.37), 
+  sig.level = 0.05, 
+  power = 0.8, 
+  type = "two.sample",
+  alternative = "one.sided")
+```
+So we would need about 92 individuals **in each group**.
 :::
 
 ::: {.panel-tabset}
@@ -966,6 +1105,16 @@ Suppose it is easier to recruit high-salt-diet infants and the investigators dec
 Suppose the budget will only allow for recruiting 50 high-salt-diet and 50 low-salt-diet infants into the study. How much power would such a study have of detecting a significant difference using a one-sided test with significance level = .05 if the true difference between the groups is 5 mm Hg?
 
 ## Solution
+```{r}
+power.t.test(
+  n = 50,
+  delta = 5,
+  sd = sqrt(95.37),
+  sig.level = 0.05, 
+  type = "two.sample",
+  alternative = "one.sided")
+```
+The power is 0.8152.
 :::
 
 ::: {.panel-tabset}
@@ -973,6 +1122,16 @@ Suppose the budget will only allow for recruiting 50 high-salt-diet and 50 low-s
 Answer Problem 8.38 for a true difference of 2 mm Hg.
 
 ## Solution
+```{r}
+power.t.test(
+  n = 50,
+  delta = 2,
+  sd = sqrt(95.37),
+  sig.level = 0.05, 
+  type = "two.sample",
+  alternative = "one.sided")
+```
+The power is 0.265.
 :::
 
 ::: {.panel-tabset}
@@ -980,6 +1139,16 @@ Answer Problem 8.38 for a true difference of 2 mm Hg.
 Answer Problem 8.38 if a two-sided test is used and the true difference is 5 mm Hg.
 
 ## Solution
+```{r}
+power.t.test(
+  n = 50,
+  delta = 5,
+  sd = sqrt(95.37),
+  sig.level = 0.05, 
+  type = "two.sample",
+  alternative = "two.sided")
+```
+The power is 0.7173.
 :::
 
 ::: {.panel-tabset}
@@ -987,7 +1156,151 @@ Answer Problem 8.38 if a two-sided test is used and the true difference is 5 mm 
 Answer Problem 8.40 if the true difference is 2 mm Hg.
 
 ## Solution
+```{r}
+power.t.test(
+  n = 50,
+  delta = 2,
+  sd = sqrt(95.37),
+  sig.level = 0.05, 
+  type = "two.sample",
+  alternative = "two.sided")
+```
+The power is 0.1721.
 :::
+
+# Solutions for the remainder
+The rest of these are **very** similar to the above. I just didn't have time to finish them in detail. But they are all just deciding to use either a paired or two-sample $t$-test, implementing the test using the critical value or the $p$-value method, and stating the conclusion. Sometimes they ask you for a confidence interval, or to calculate the power or sample size. All of these have been done above in my solutions. Below are the numerical soltuions, not the details. Keep in mind:
+
+- Never first test if the variances are equal
+- Prefer calculating the $p$-value, and understanding what tail area we are calculating.
+- Never use "accept" when we fail to reject the null.
+- Use R functions, not look-up tables, to calculate the $p$-values.
+
+
+```{r}
+#| echo: false
+
+#' @param type two-sample or paired t-test
+#' @param xbar The mean of the difference, or the mean of group 1
+#' @param ybar The mean of group 2
+#' @param sx The standard deviation of group 1, or the standard deviation of the difference
+#' @param sy The standard deviation of group 2
+#' @param nx The sample size of group 1, or of the total sample
+#' @param ny The sample size of group 2
+#' @param equal_var Assume equal variances?
+#' @param alternative Two-sided test or one-sided (greater/less)
+#' @param df The degrees of freedom if equal_var = FALSE
+#' @param level The confidence level
+#' @param alpha The significance level of the test.
+t_results <- function(
+    type = c("two_sample", "paired"), 
+    xbar = NULL, 
+    ybar = NULL, 
+    sx = NULL, 
+    sy = NULL, 
+    nx = NULL, 
+    ny = NULL,
+    equal_var = TRUE,
+    alternative = c("two_sided", "greater", "less"),
+    df = NULL,
+    level = 0.95,
+    alpha = 0.05
+    ) {
+  type <- match.arg(type)
+  alternative <- match.arg(alternative)
+  stopifnot(!is.null(xbar), !is.null(sx), !is.null(nx))
+  if (type == "two.sample") {
+    stopifnot(!is.null(ybar), !is.null(sy), !is.null(ny))
+  }
+  if (!equal_var & type == "two_sample") {
+    stopifnot(!is.null(df))
+  }
+  
+  if (type == "two_sample" && equal_var) {
+    s_pooled <- sqrt(((nx - 1) * sx^2 + (ny - 1) * sy^2) / (nx + ny - 2))
+    cat("Pooled Standard Deviation:", s_pooled, "\n")
+  }
+  
+  if (type == "paired") {
+    se <- sx / sqrt(nx)
+    effect <- xbar
+    df <- nx - 1
+    tstat <- effect / se
+  } else if (!equal_var) {
+    se <- sqrt(sx^2 / nx + sy^2 / ny)
+    effect <- xbar - ybar
+    df <- df
+    tstat <- effect / se
+  } else {
+    se <- s_pooled * sqrt(1 / nx + 1 / ny)
+    effect <- xbar - ybar
+    df <- nx + ny - 2
+    tstat <- effect / se
+  }
+
+  ## plot and p-value and critical value --
+  mval <- max(ceiling(abs(tstat)), 3)
+  if (alternative == "greater") {
+    pl <- plt_t(lb = tstat, rng = c(-mval, mval), df = df, two_sided = FALSE) +
+      geom_vline(xintercept = tstat, linetype = 2)
+    pval <- 1 - pt(q = tstat, df = df)
+    crit <- qt(p = 1 - alpha, df = df)
+    
+    if (tstat > crit) {
+      result <- "Reject since t > critical value"
+    } else {
+      result <- "Fail to reject since t < critical value"
+    }
+  } else if (alternative == "less") {
+    pl <- plt_t(ub = tstat, rng = c(-mval, mval), df = df, two_sided = FALSE) +
+      geom_vline(xintercept = tstat, linetype = 2)
+    pval <- pt(q = tstat, df = df)
+    crit <- pt(q = alpha, df = df)
+    
+    if (tstat < crit) {
+      result <- "Reject since t < critical value"
+    } else {
+      result <- "Fail to reject since t > critical value"
+    }
+  } else if (tstat > 0) {
+    pl <- plt_t(lb = tstat, rng = c(-mval, mval), df = df, two_sided = TRUE) +
+      geom_vline(xintercept = tstat, linetype = 2)
+    pval <- 2 * pt(-abs(tstat), df = df)
+    crit <- qt(1 - alpha / 2, df = df)
+    
+    if (abs(tstat) > crit) {
+      result <- "Reject since |t| > critical value"
+    } else {
+      result <- "Fail to reject since |t| < critical value"
+    }
+  } else if (tstat <= 0) {
+    pl <- plt_t(ub = tstat, rng = c(-mval, mval), df = df, two_sided = TRUE) +
+      geom_vline(xintercept = tstat, linetype = 2)
+    pval <- 2 * pt(-abs(tstat), df = df)
+    crit <- qt(1 - alpha / 2, df = df)
+    
+    if (abs(tstat) > crit) {
+      result <- "Reject since |t| > critical value"
+    } else {
+      result <- "Fail to reject since |t| < critical value"
+    }
+  }
+  
+  ## CI--
+  mult <- qt(p = 1 - (1 - level)/2, df = df)
+  ci <- c(effect - mult * se, effect + mult * se)
+  
+  ## Print everything --
+  cat("T-statistic:", tstat, "\n")
+  cat("Compare to t-distribution with", df, "degrees of freedom\n")
+  cat("Critical Value:", crit, "\n")
+  cat("At significance level", alpha, ",", result, "\n")
+  print(pl)
+  cat("P-value:", pval, "\n")
+  cat(round(level * 100), "% CI: (", ci[[1]], ",", ci[[2]], ")\n")
+}
+```
+
 
 ## Hypertension 4
 
@@ -1052,6 +1365,7 @@ gt_table
 What is the appropriate procedure to test for whether sodium restriction has had an impact on mean DBP?
 
 ## Solution
+Paired $t$-test.
 :::
 
 ::: {.panel-tabset}
@@ -1059,15 +1373,33 @@ What is the appropriate procedure to test for whether sodium restriction has had
 Implement the procedure in Problem 8.42 for people age < 40 using the critical-value method.
 
 ## Solution
+```{r}
+#| echo: false
+t_results(type = "paired", xbar = -0.7, sx = 6.2, nx = 61)
+```
+
 :::
 
 One of the interesting findings is the difference in response to dietary therapy between people in the two age groups.
 
 ::: {.panel-tabset}
 ## 8.44 
-Test the hypothesis that the response to sodium restriction is different in the two groups and report a p- value.
+Test the hypothesis that the response to sodium restriction is different in the two groups and report a p-value. Assume equal variances
 
 ## Solution
+```{r}
+#| echo: false
+t_results(
+  type = "two_sample", 
+  xbar = -0.7, 
+  ybar = -5, 
+  sx = 6.2, 
+  sy = 4.7,
+  nx = 61, 
+  ny = 22, 
+  equal_var = TRUE)
+```
+
 :::
 
 ::: {.panel-tabset}
@@ -1075,6 +1407,15 @@ Test the hypothesis that the response to sodium restriction is different in the 
 Obtain a 95% CI for the response to dietary therapy in each age group separately.
 
 ## Solution
+```{r}
+-0.7 - qt(1 - 0.05 / 2, df = 61 - 1) * 6.2 / sqrt(61)
+-0.7 + qt(1 - 0.05 / 2, df = 61 - 1) * 6.2 / sqrt(61)
+```
+
+```{r}
+-5 - qt(1 - 0.05 / 2, df = 22 - 1) * 4.7 / sqrt(22)
+-5 + qt(1 - 0.05 / 2, df = 22 - 1) * 4.7 / sqrt(22)
+```
 :::
 
 ::: {.panel-tabset}
@@ -1082,6 +1423,7 @@ Obtain a 95% CI for the response to dietary therapy in each age group separately
 Obtain a 95% CI for the difference in response between the 2 age groups.
 
 ## Solution
+I did this in 8.44.
 :::
 
 Suppose the results of this study are to be used to plan a larger study on the effects of sodium restriction on DBP.
@@ -1091,13 +1433,33 @@ Suppose the results of this study are to be used to plan a larger study on the e
 How many subjects need to be enrolled in the larger study to test if sodium restriction results in lower DBP if the mean and sd of decline in DBP over the total group of 83 subjects are used for planning purposes and a 90% chance of detecting a significant difference using a two-sided test with a 5% level of significance is desired?
 
 ## Solution
+```{r}
+power.t.test(
+  delta = 1.8,
+  sd = 6.1,
+  sig.level = 0.05,
+  power = 0.9,
+  type = "one.sample",
+  alternative = "two.sided")
+```
+123 individuals.
 :::
 
 ::: {.panel-tabset}
 ## 8.48
-Suppose 200 patients are enrolled in the larger study. How much power would the larger study have if a two- sided test with significance level = .05 is used?
+Suppose 200 patients are enrolled in the larger study. How much power would the larger study have if a two-sided test with significance level = .05 is used?
 
 ## Solution
+```{r}
+power.t.test(
+  n = 200,
+  delta = 1.8,
+  sd = 6.1,
+  sig.level = 0.05,
+  type = "one.sample",
+  alternative = "two.sided")
+```
+A power of 0.9858.
 :::
 
 
@@ -1146,13 +1508,29 @@ gt_table
 What test procedure can be used to test if there are differences between the observed blood-lead levels at 24 months between the low and high groups (as defined at baseline)?
 
 ## Solution
+Two-sample t-test.
 :::
 
 ::: {.panel-tabset}
 ## 8.50 
-Implement the test procedure in Problem 8.49 and report a p-value.
+Implement the test procedure in Problem 8.49 and report a p-value. Do **not** assume equal variances. The degrees of freedom ended up being 89.
 
 ## Solution
+```{r}
+#| echo: false
+t_results(
+  type = "two_sample",
+  xbar = 5.4,
+  ybar = 7.7,
+  sx = 4.8, 
+  sy = 8.5,
+  nx = 61,
+  ny = 58,
+  equal_var = FALSE,
+  alternative = "two_sided",
+  df = 89)
+```
+
 :::
 
 ::: {.panel-tabset}
@@ -1160,6 +1538,7 @@ Implement the test procedure in Problem 8.49 and report a p-value.
 Provide a 95% CI for the difference in mean blood lead levels between the low and high groups at 24 months.
 
 ## Solution
+This was done in 8.50.
 :::
 
 ## Ophthalmology 3
@@ -1202,13 +1581,29 @@ gt_table
 What is an appropriate procedure to test if the mean level of 22:6w3 differs between dominant affected individuals and normal controls? State the hypotheses being tested. Is a one-sided or a two-sided test appropriate here?
 
 ## Solution
+Two-sample $t$-test with two-sided alternative.
 :::
 
 ::: {.panel-tabset}
 ## 8.53 
-Perform the hypothesis test in Problem 8.52 and report a p-value.
+Perform the hypothesis test in Problem 8.52 and report a p-value. Do **not** assume equal variances. The degrees of freedom is estimated to be 95.1.
 
 ## Solution
+```{r}
+#| echo: false
+t_results(
+  type = "two_sample",
+  xbar = 34.8,
+  ybar = 47.8,
+  sx = 20.8, 
+  sy = 30.3, 
+  nx = 36, 
+  ny = 68, 
+  equal_var = FALSE,
+  alternative = "two_sided",
+  df = 95.1)
+```
+
 :::
 
 ::: {.panel-tabset}
@@ -1216,6 +1611,7 @@ Perform the hypothesis test in Problem 8.52 and report a p-value.
 Provide a 95% CI for the difference in means between the two groups. What does it mean in words?
 
 ## Solution
+This was done in 8.53.
 :::
 
 ## Neurology
@@ -1267,13 +1663,28 @@ gt(data) |>
 What test procedure should be used to test if there are differences in physical health between the two groups?
 
 ## Solution
+Two-sample $t$-test with two-sided alternative.
 :::
 
 ::: {.panel-tabset}
 ## 8.56 
-Perform the test in Problem 8.55 with the critical-value method using a two-sided test with an a level of .05.
+Perform the test in Problem 8.55 with the critical-value method using a two-sided test with an a level of .05. Assume equal variances.
 
 ## Solution
+```{r}
+#| echo: false
+t_results(
+  type = "two_sample",
+  xbar = 0.76,
+  ybar = 0.23,
+  sx = 0.24, 
+  sy = 0.12, 
+  nx = 65, 
+  ny = 82, 
+  equal_var = TRUE, 
+  alternative = "two_sided")
+```
+
 :::
 
 ::: {.panel-tabset}
@@ -1281,6 +1692,7 @@ Perform the test in Problem 8.55 with the critical-value method using a two-side
 What test procedure should be used to test if there are differences in mental health between the two groups?
 
 ## Solution
+Another two-sample $t$-test with two-sided alternative.
 :::
 
 ::: {.panel-tabset}
@@ -1288,13 +1700,19 @@ What test procedure should be used to test if there are differences in mental he
 Perform the test in Problem 8.57 with the critical-value method using an α level of .05.
 
 ## Solution
-:::
-
-::: {.panel-tabset}
-## 8.59 
-What is the most accurate p-value corresponding to your answer to Problem 8.58?
-
-## Solution
+```{r}
+#| echo: false
+t_results(
+  type = "two_sample",
+  xbar = 157.3,
+  ybar = 149.1,
+  sx = 26.2, 
+  sy = 34.40, 
+  nx = 65, 
+  ny = 82, 
+  equal_var = TRUE, 
+  alternative = "two_sided")
+```
 :::
 
 
@@ -1336,6 +1754,20 @@ gt_table
 Assuming that the variances are equal in the two groups, test whether there was a significant difference in mean DBP change between the weight-loss versus the control group.
 
 ## Solution
+```{r}
+#| echo: false
+t_results(
+  type = "two_sample",
+  xbar = -6.16, 
+  ybar = -3.91, 
+  sx = 5.88, 
+  sy = 6.12,
+  nx = 308, 
+  ny = 246,
+  equal_var = TRUE,
+  alternative = "two_sided")
+```
+
 :::
 
 Researchers were also interested in the amount of weight loss attributable to the intervention. Mean weight change for each group is given in Table 8.13.
@@ -1374,17 +1806,24 @@ gt_table
 
 
 ::: {.panel-tabset}
-## 8.61 
-Test whether the variances are the same in the weight- loss and control groups.
-
-## Solution
-:::
-
-::: {.panel-tabset}
 ## 8.62 
-Test whether the intervention was effective in reducing weight in the weight-loss versus the control group.
+Test whether the intervention was effective in reducing weight in the weight-loss versus the control group. Assume equal variances.
 
 ## Solution
+```{r}
+#| echo: false
+t_results(
+  type = "two_sample", 
+  xbar = -3.83,
+  ybar = 0.07, 
+  sx = 6.12, 
+  sy = 4.01, 
+  nx = 293, 
+  ny = 235, 
+  equal_var = TRUE, 
+  alternative = "two_sided")
+```
+
 :::
 
 ## Cardiology
@@ -1418,6 +1857,7 @@ Suppose we wish to test the hypothesis that there has been significant change ov
 What test should be used to test this hypothesis?
 
 ## Solution
+This is a paired $t$-test. Two-sided alternative.
 :::
 
 ::: {.panel-tabset}
@@ -1425,6 +1865,11 @@ What test should be used to test this hypothesis?
 Implement the test in Problem 8.63 and report a p-value.
 
 ## Solution
+```{r}
+#| echo: false
+t_results(type = "paired", xbar = -0.049, sx = 0.237, nx = 8)
+```
+
 :::
 
 ::: {.panel-tabset}
@@ -1432,6 +1877,17 @@ Implement the test in Problem 8.63 and report a p-value.
 Suppose it is assumed that the mean change over 3 years would be 0 for an active drug group and –0.049 for a placebo group. We intend to randomize subjects to placebo and active drug and compare the mean change in the two groups, How much power would the proposed study have if 500 subjects in each of the drug and placebo groups are available to participate in the study, a two-sided test is used with α = .05 and the variances in each group are assumed to be the same?
 
 ## Solution
+```{r}
+power.t.test(
+  n = 500, 
+  delta = 0.049, 
+  sd = 0.237,
+  sig.level = 0.05,
+  type = "two.sample",
+  alternative = "two.sided")
+```
+The power would be 0.9042.
+
 :::
 
 ## Cardiovascular Disease, Pediatrics
@@ -1461,13 +1917,19 @@ tibble(
 What test procedure can be used to test if there has been a change in mean HDL-cholesterol levels among teenage children who undergo such a program?
 
 ## Solution
+A paired $t$-test with two-sided alternative.
 :::
 
 ::: {.panel-tabset}
 ## 8.67 
-Implement the test procedure mentioned in Prob- lem 8.66 and report a p-value (two-sided) as precisely as possible using the appropriate tables.
+Implement the test procedure mentioned in Problem 8.66 and report a p-value (two-sided) as precisely as possible using the appropriate tables.
 
 ## Solution
+```{r}
+#| echo: false
+t_results(type = "paired", xbar = -0.08, sx = 0.23, nx = 44, alternative = "two_sided")
+```
+
 :::
 
 ::: {.panel-tabset}
@@ -1475,6 +1937,7 @@ Implement the test procedure mentioned in Prob- lem 8.66 and report a p-value (t
 Provide a 95% CI for the true mean change over 6 months among teenage children exposed to the program.
 
 ## Solution
+This was done in 8.67.
 :::
 
 ::: {.panel-tabset}
@@ -1482,6 +1945,7 @@ Provide a 95% CI for the true mean change over 6 months among teenage children e
 Suppose the results in Problem 8.67 are statistically significant (they may or may not be). Does this necessarily mean that the education program per se is the reason why the HDL-cholesterol levels have changed? If not, is there some way to change the design to allow us to be more confident about the specific effects of the education program?
 
 ## Solution
+No. We need a control group to compare against.
 :::
 
 ## Endocrinology
@@ -1510,13 +1974,29 @@ tibble(
 What method can be used to compare mean bone-formation rate between blacks and whites?
 
 ## Solution
+A two-sample $t$-test with a two-sided alternative.
 :::
 
 ::: {.panel-tabset}
 ## 8.71 
-Implement the method in Problem 8.70 and report a p-value.
+Implement the method in Problem 8.70 and report a p-value. Assume equal variances.
 
 ## Solution
+Note that they gave use standard errors, not standard deviations.
+```{r}
+#| echo: false
+t_results(
+  type = "two_sample",
+  xbar = 0.033, 
+  ybar = 0.095, 
+  sx = 0.007 * sqrt(12), 
+  sy = 0.012 * sqrt(13),
+  nx = 12,
+  ny = 13, 
+  equal_var = TRUE, 
+  alternative = "two_sided")
+```
+
 :::
 
 ::: {.panel-tabset}
@@ -1524,22 +2004,6 @@ Implement the method in Problem 8.70 and report a p-value.
 Obtain a 95% CI for the mean difference in bone-formation rate between the two groups.
 
 ## Solution
+This was donein 8.71.
 :::
 
-## Health Promotion
-
-One goal of an exercise training program is to improve the physical fitness of individuals as measured by their resting heart rate. Suppose it is known that the mean resting heart rate of a group of sedentary individuals is 85 beats/min with a sd of 10 beats/min. A clinical trial is proposed where half the subjects will be randomized to a low intensity exercise program (group A), while the other half will get no exercise training (group B). It is expected that after 6 months, the mean resting heart rate of group A will decline by 3 beats/min while group B will show no mean change in resting heart rate. Assume that the correlation coefficient between resting heart rate measured 6 months apart in the same individual is .8.
-
-::: {.panel-tabset}
-## 8.73 
-How many subjects are needed in each group to achieve an 80% power if a two-sided test is used with significance level of .05?
-
-## Solution
-:::
-
-::: {.panel-tabset}
-## 8.74 
-Suppose that 50 subjects are randomized to each group. How much power will the study have if a 2-sided test is used with a significance level of .05?
-
-## Solution
-:::
