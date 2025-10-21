@@ -1,0 +1,262 @@
+---
+title: "Chapter 9 Practice Problems"
+author: "David Gerard"
+date: today
+---
+
+These practice problems mostly come from Rosner's publicly available study sheet at the books [companion website](https://www.cengage.com/cgi-wadsworth/course_products_wp.pl?fid=M20b&product_isbn_issn=9781305268920). The solutions are my own, since we differ slightly on what we are looking for in the solutions.
+
+```{r}
+#| echo: false
+#| eval: true
+#| message: false
+library(tidyverse)
+library(gt)
+library(broom)
+```
+
+## Ophthalmology
+
+Suppose an ophthalmologist reviews fundus photographs of 30 patients with macular degeneration both before and 3 months after receiving a laser treatment. To assess the efficacy of treatment, each patient is rated as improved, remained the same, or declined.
+
+::: {.panel-tabset}
+## 9.1 
+If 20 patients improved, 7 declined, and 3 remained the same, then assess whether or not patients undergoing this treatment are showing significant change from baseline to 3 months afterward. Report a p-value. 
+
+## Solutions
+
+:::
+
+Suppose that the patients are divided into two groups according to initial visual acuity (VA). Of the 14 patients with VA 20-40 or better, 8 improved, 5 declined, and 1 stayed the same. Of the 16 patients with VA worse than 20–40, 12 improved, 2 declined, and 2 stayed the same.
+
+::: {.panel-tabset}
+## 9.2 
+Assess the results in the subgroup of patients with VA of 20–40 or better.
+
+## Solutions
+
+:::
+
+::: {.panel-tabset}
+## 9.3 
+Assess the results in the subgroup of patients with VA worse than 20–40.
+
+## Solutions
+
+:::
+
+## Diabetes
+
+An experiment was conducted to study responses to different methods of taking insulin in patients with type I diabetes. The percentages of glycosolated hemoglobin initially and 3 months after taking insulin by nasal spray are given in the following data frame.
+
+```{r}
+data <- tibble(
+  id = 1:8,
+  before = c(11.0, 7.7, 5.9, 9.5, 8.7, 8.6, 11.0, 6.9),
+  after3 = c(10.2, 7.9, 6.5, 10.4, 8.8, 9.0, 9.5, 7.6)
+)
+data
+```
+
+::: {.panel-tabset}
+## 9.4
+Perform a t test to compare the percentages of glycosolated hemoglobin before and 3 months after treatment.
+
+## Solutions
+
+:::
+
+::: {.panel-tabset}
+## 9.5 
+Suppose normality is not assumed. Perform a nonpara- metric test corresponding to the t test in Problem 9.4.
+
+## Solutions
+
+:::
+
+::: {.panel-tabset}
+## 9.6 
+Compare your results in Problems 9.4 and 9.5.
+
+## Solutions
+
+:::
+
+## Pathology
+
+The data in the following data frame are measurements from a group of 10 normal males and 11 males with left-heart disease taken at autopsy at a particular hospital. Measurements were made on several variables at that time, and the table presents the measurements on total heart weight (THW) and total body weight (BW). Assume that the diagnosis of left-heart disease is made independently of these variables.
+
+```{r}
+heart <- tibble(
+  status = c(rep("disease", 11), rep("normal", 10)),
+  thw = c(450, 760, 325, 495, 285, 450, 460, 375, 310, 615, 425,
+          245, 350, 340, 300, 310, 270, 300, 360, 405, 290),
+  bw = c(54.6, 73.5, 50.3, 44.6, 58.1, 61.3, 75.3, 41.1, 51.5, 41.7, 59.7,
+         40.8, 67.4, 53.3, 62.2, 65.5, 47.5, 51.2, 74.9, 59.0, 40.5)
+)
+```
+
+
+::: {.panel-tabset}
+## 9.7 
+Suppose normality is not assumed. What nonparametric test can be used to compare total heart weight of males with left-heart disease with that of normal males?
+
+## Solutions
+
+:::
+
+::: {.panel-tabset}
+## 9.8 
+Implement the test in Problem 9.7 and report a p-value.
+
+## Solutions
+
+:::
+
+## Cardiology
+
+Propranolol is a standard drug given to ease the pain of patients with episodes of unstable angina. A new drug for the treatment of this disease is tested on 30 pairs of patients who are matched on a one-to-one basis according to age, sex, and clinical condition and are assessed as to the severity of their pain. Suppose that in 15 pairs of patients, the patient with the new drug has less pain; in 10 pairs of patients, the patient with propranolol has less pain; and in 5 pairs of patients, the pain is about the same with the two drugs.
+
+::: {.panel-tabset}
+## 9.9 
+What is the appropriate test to use here?
+
+## Solutions
+
+:::
+
+::: {.panel-tabset}
+## 9.10 
+Perform the test in Problem 9.9 and report a p-value.
+
+## Solutions
+
+:::
+
+## Ophthalmology
+
+Table 8.15 (in Chapter 8, text) presents data giving the median gray levels in the lens of the human eye for 6 cataractous and 6 normal people.
+
+::: {.panel-tabset}
+## 9.11 
+What nonparametric test could be used to compare the median gray levels of normal and cataractous eyes?
+
+## Solutions
+
+:::
+
+::: {.panel-tabset}
+## 9.12 
+Carry out the test in Problem 9.11 and report a p-value.
+
+## Solutions
+
+:::
+
+## Psychiatry
+
+Suppose we are conducting a study of the effectiveness of lithium therapy for manic-depressive patients. The study is carried out at two different centers, and we want to determine if the patient populations are comparable at baseline. A self-rating questionnaire about their general psychological well-being is administered to the prospective patients at the two different centers. The outcome measure on the questionnaire is a four-category scale: (1) = feel good; (2) = usually feel good, once in a while feel nervous; (3) = feel nervous half the time; (4) = usually feel nervous. Suppose the data at the two different centers are as follows:
+
+```{r}
+center1 = c(3, 4, 1, 1, 3, 2, 3, 4, 4, 3, 2, 4, 4, 4)
+center2 = c(1, 2, 1, 3, 2, 4, 1, 2, 1, 3, 1, 2, 2, 2, 1, 3)
+```
+
+::: {.panel-tabset}
+## 9.13 
+What type of data does this type of scale represent?
+
+## Solutions
+
+:::
+
+::: {.panel-tabset}
+## 9.14 
+Why might a parametric test not be useful with this type of data?
+
+## Solutions
+
+:::
+
+::: {.panel-tabset}
+## 9.15 
+Assess if there is any significant difference in the responses of the two patient populations using a non-parametric test.
+
+## Solutions
+
+:::
+
+## Psychiatry
+
+Much attention has been given in recent years to the role of transcendental meditation in improving health, particularly in lowering blood pressure. One hypothesis that emerges from this work is that transcendental meditation might also be useful in treating psychiatric patients with symptoms of anxiety. Suppose that a protocol of meditational therapy is administered once a day to 20 patients with anxiety. The patients are given a psychiatric exam at baseline and at a follow-up exam 2 months later. The degree of improvement is rated on a 10-point scale, with 1 indicating the most improvement and 10 the least improvement. Similarly, 26 comparably affected patients with anxiety are given standard psychotherapy and are asked to come back 2 months later for a follow-up exam. The results are given in Table 9.2.
+
+```{r}
+#| echo: false
+
+# Create the tibble
+tbl <- tibble(
+  `Meditation_d` = 1:10,
+  `Meditation_f` = c(3, 4, 7, 3, 2, 1, 0, 0, 0, 0),
+  `Psychotherapy_d` = 1:10,
+  `Psychotherapy_f` = c(0, 2, 5, 3, 8, 4, 2, 1, 1, 0)
+)
+
+# Create the gt table
+tbl |>
+  gt() |>
+  tab_header(
+    title = md("**Table 9.2**"),
+    subtitle = md("Degree of improvement in patients with anxiety who are treated with transcendental meditation or psychotherapy")
+  ) |>
+  cols_label(
+    Meditation_d = "Degree of Improvement",
+    Meditation_f = "Frequency",
+    Psychotherapy_d = "Decree of Improvement",
+    Psychotherapy_f = "Frequency"
+  ) |>
+  tab_spanner(
+    label = "Meditation",
+    columns = c(Meditation_d, Meditation_f)
+  ) |>
+  tab_spanner(
+    label = "Psychotherapy",
+    columns = c(Psychotherapy_d, Psychotherapy_f)
+  ) |>
+  cols_align(
+    align = "center",
+    columns = everything()
+  )
+```
+
+
+::: {.panel-tabset}
+## 9.16 
+Why might a parametric test not be useful here?
+
+## Solutions
+
+:::
+
+::: {.panel-tabset}
+## 9.17 
+What nonparametric test should be used to analyze these data?
+
+## Solutions
+
+:::
+
+::: {.panel-tabset}
+## 9.18 
+Compare the degree of improvement between the two groups using the test in Problem 9.17.
+
+## Solutions
+
+:::
+
+
+
+
+
+
+
+
