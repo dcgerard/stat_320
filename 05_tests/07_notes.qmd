@@ -196,7 +196,7 @@ There is a new pain relief drug for osteoarthritis (OA).
       xlab("t") +
       scale_x_continuous(breaks = crit, labels = "a") +
       geom_vline(xintercept = crit, linetype = "dashed") +
-      annotate(geom = "text", x = crit - 0.4, y = 0.02, label = expression(alpha), size = 7) +
+      annotate(geom = "text", x = crit - 0.4, y = 0.02, label = alpha, size = 7, parse = TRUE) +
       ggtitle(expression(t[n-1]-Distribution)) +
       theme(axis.text.x = element_text(size = 17))
     ```
@@ -280,6 +280,8 @@ A **critical value** is the value beyond which we reject $H_0$.
     ```{r}
     #| echo: false
     #| message: false
+    #| warning: false
+    #| fig-width: 5
     alpha <- 0.01
     df <- 99
     t_obs <- -2.08
@@ -314,6 +316,7 @@ Equivalently, the probability we would see data as extreme or more extreme than 
 
     ```{r}
     #| echo: false
+    #| fig-width: 5
     alpha <- 0.01
     df <- 99
     t_obs <- -2.08
@@ -861,7 +864,7 @@ Try to reason both by using the power equations and by using common sense.
     #| fig-alt: "Normal curve with right tail shaded"
     plt_t(mu = 0, lb = 1.5) +
       scale_x_continuous(breaks = 1.5, labels = "z") +
-      geom_vline(xintercept = 1.5, linetype = "dashed", color = "blue", size = 1) +
+      geom_vline(xintercept = 1.5, linetype = "dashed", color = "blue", linewidth = 1) +
       theme(axis.text.x = element_text(size = 15),
             axis.text.y = element_blank(),
             axis.ticks.y = element_blank())
@@ -879,7 +882,7 @@ Try to reason both by using the power equations and by using common sense.
     #| fig-alt: "Normal curve with shaded tails, showing two-sided test"
     plt_t(lb = 1.5, two_sided = TRUE) +
       scale_x_continuous(breaks = c(-1.5, 1.5), labels = c("-z", "z")) +
-      geom_vline(xintercept = c(-1.5, 1.5), linetype = "dashed", color = "blue", size = 1) +
+      geom_vline(xintercept = c(-1.5, 1.5), linetype = "dashed", color = "blue", linewidth = 1) +
       theme(axis.text.x = element_text(size = 15))
     ```
 
@@ -913,8 +916,8 @@ $X \sim \mathrm{Binom}(n,p)$, $\hat{p} = X/n$, $H_0: p = p_0$
     #| fig-alt: "Normal curve with left tail shaded"
     plt_t(mu = 0, ub = -1.5) +
       scale_x_continuous(breaks = c(-1.5, -2), labels = c("z", expression(z[alpha]))) +
-      geom_vline(xintercept = -1.5, linetype = "dashed", color = "red", size = 1) +
-      geom_vline(xintercept = -2, linetype = "dashed", color = "blue", size = 1) +
+      geom_vline(xintercept = -1.5, linetype = "dashed", color = "red", linewidth = 1) +
+      geom_vline(xintercept = -2, linetype = "dashed", color = "blue", linewidth = 1) +
       theme(axis.text.x = element_text(size = 15, angle = 90, hjust = 1, vjust = 0.5),
             axis.text.y = element_blank(),
             axis.ticks.y = element_blank())
@@ -941,8 +944,8 @@ $X \sim \mathrm{Binom}(n,p)$, $\hat{p} = X/n$, $H_0: p = p_0$
     #| fig-alt: "Normal curve with right tail shaded"
     plt_t(mu = 0, lb = 1.5) +
       scale_x_continuous(breaks = c(1.5, 2), labels = c("z", expression(z[1-alpha]))) +
-      geom_vline(xintercept = 1.5, linetype = "dashed", color = "red", size = 1) +
-      geom_vline(xintercept = 2, linetype = "dashed", color = "blue", size = 1) +
+      geom_vline(xintercept = 1.5, linetype = "dashed", color = "red", linewidth = 1) +
+      geom_vline(xintercept = 2, linetype = "dashed", color = "blue", linewidth = 1) +
       theme(axis.text.x = element_text(size = 15, angle = 90, hjust = 1, vjust = 0.5),
             axis.text.y = element_blank(),
             axis.ticks.y = element_blank())
@@ -969,8 +972,8 @@ $X \sim \mathrm{Binom}(n,p)$, $\hat{p} = X/n$, $H_0: p = p_0$
     #| fig-alt: "Normal curve with shaded tails, showing two-sided test"
     plt_t(lb = 1.5, two_sided = TRUE) +
       scale_x_continuous(breaks = c(-1.5, 1.5, 2), labels = c("-z", "z", expression(z[1-alpha/2]))) +
-      geom_vline(xintercept = c(-1.5, 1.5), linetype = "dashed", color = "red", size = 1) +
-      geom_vline(xintercept = 2, linetype = "dashed", color = "blue", size = 1) +
+      geom_vline(xintercept = c(-1.5, 1.5), linetype = "dashed", color = "red", linewidth = 1) +
+      geom_vline(xintercept = 2, linetype = "dashed", color = "blue", linewidth = 1) +
       theme(axis.text.x = element_text(size = 15, angle = 90, hjust = 1, vjust = 0.5),
             axis.text.y = element_blank(),
             axis.ticks.y = element_blank())

@@ -421,11 +421,20 @@ Numerically, the $z$-value is
 ```{r}
 (0.09259 - 0.05) / sqrt(0.05 * (1 - 0.05) / 108)
 ```
+Though, it is better to use a continuity correction
+$$
+z = \frac{|\hat{p} - p_0| - 1/(2n)}{\sqrt{p_0(1-p_0)/n}} = \frac{|0.09259 - 0.05| - 1/216}{\sqrt{0.05(1-0.05)/108}}
+$$
+Numerically,
+```{r}
+(abs(0.09259 - 0.05) - 1/216) / sqrt(0.05 * (1 - 0.05) / 108)
+```
+
 For the critical-value method, we compare this $z$-statistic to $z_{1 - \alpha/2}$. Let $\alpha = 0.05$
 ```{r}
 qnorm(1 - 0.05 / 2)
 ```
-Since $|z| > z_{1-\alpha}$ (2.031 > 1.96), we reject $H_0$ and conclude that diarrhea rate differs from the country as a whole.
+Since $|z| < z_{1-\alpha}$ (1.81 < 1.96), we fail to reject $H_0$ and conclude that we do not have evidence that diarrhea rate differs from the country as a whole.
 :::
 
 ::: {.panel-tabset}
@@ -441,9 +450,9 @@ plt_t(lb = 2.031, two_sided = TRUE) +
 ```
 Numerically, the $p$-value is
 ```{r}
-2 * pnorm(q = -2.031)
+2 * pnorm(q = -1.81)
 ```
-Since this is less than 0.05, we again reject at significance level 0.05 and conclude that the diarrhea rate differs than the country as a whole.
+Since this is greater than 0.05, we again fail to reject at significance level 0.05 and conclude that we do not have evidence that the diarrhea rate differs than the country as a whole.
 
 You can also use `prop.test()` to do this
 ```{r}
@@ -451,7 +460,8 @@ prop.test(x = 10, n = 108, p = 0.05) |>
   tidy() |>
   select(p.value)
 ```
-Recall that `prop.test()` uses a slightly different method, which is why the $p$-value differs. If you were a 0.05 absolutist, you would be very worried now. But we "flexitarians" are more chill. There is practically no difference between 0.04 and 0.07. Both are pretty weak evidence.
+
+Note that the $p$-value is still somewhat small. So we might say we have weak evidence.
 :::
 
 ## Ophthalmology
@@ -555,14 +565,23 @@ Numerically
 ```{r}
 (0.015 - 0.012) / sqrt(0.012 * (1 - 0.012) / 1000)
 ```
+Though, it is better to use a continuity correction
+$$
+z = \frac{|\hat{p} - p_0| - 1/(2n)}{\sqrt{p_0(1-p_0)/n}} = \frac{|0.015 - 0.012| - 1/2000}{\sqrt{0.012(1-0.012)/1000}}
+$$
+Numerically,
+```{r}
+(abs(0.015 - 0.012) - 1/2000) / sqrt(0.012 * (1 - 0.012) / 1000)
+```
+
 We compare this to a $N(0,1)$ distribution
 ```{r}
 #| echo: false
-plt_t(lb = 0.8713, two_sided = TRUE) +
-  geom_vline(xintercept = 0.8713, lty = 2)
+plt_t(lb = 0.7261, two_sided = TRUE) +
+  geom_vline(xintercept = 0.7261, lty = 2)
 ```
 ```{r}
-2 * pnorm(-0.8713)
+2 * pnorm(-0.7261)
 ```
 Since the $p$-value is so large, we have no evidence that these women have a different breast cancer rate than the general population.
 
@@ -572,7 +591,6 @@ prop.test(x = 15, n = 1000, p = 0.012) |>
   tidy() |>
   select(p.value)
 ```
-Again, the $p$-value differs because R uses a different (better) method.
 :::
 
 ## Cancer 2
@@ -606,14 +624,23 @@ Numerically
 ```{r}
 (0.02 - 0.007) / sqrt(0.007 * (1 - 0.007) / 1000)
 ```
+Though, it is better to use a continuity correction
+$$
+z = \frac{\hat{p} - p_0 - 1/(2n)}{\sqrt{p_0(1-p_0)/n}} = \frac{0.02 - 0.007 - 1/2000}{\sqrt{0.007(1-0.007)/1000}}
+$$
+Numerically
+```{r}
+(0.02 - 0.007 - 1/2000) / sqrt(0.007 * (1 - 0.007) / 1000)
+```
+
 We compare this to a $N(0,1)$ distribution
 ```{r}
 #| echo: false
-plt_t(lb = 4.931, rng = c(-6, 6)) +
-  geom_vline(xintercept = 4.931, lty = 2)
+plt_t(lb = 4.741, rng = c(-6, 6)) +
+  geom_vline(xintercept = 4.741, lty = 2)
 ```
 ```{r}
-1 - pnorm(4.931)
+1 - pnorm(4.741)
 ```
 Since the $p$-value is so small, we have strong evidence that these women have a higher breast cancer rate than the general population.
 
@@ -623,7 +650,6 @@ prop.test(x = 20, n = 1000, p = 0.007, alternative = "greater") |>
   tidy() |>
   select(p.value)
 ```
-Again, the $p$-value differs because R uses a different (better) method.
 :::
 
 
@@ -968,14 +994,23 @@ Numerically
 ```{r}
 (0.6214 - 0.75) / sqrt(0.75 * (1 - 0.75) / 103)
 ```
+Though, it is better to use a continuity correction
+$$
+z = \frac{|\hat{p} - p_0| - 1/(2n)}{\sqrt{p_0(1-p_0)/n}} = \frac{|0.6214 - 0.75| - 1/206}{\sqrt{0.75(1-0.75)/103}}
+$$
+Numerically
+```{r}
+(abs(0.6214 - 0.75) - 1/206) / sqrt(0.75 * (1 - 0.75) / 103)
+```
+
 We compare this to a $N(0,1)$ distribution
 ```{r}
 #| echo: false
-plt_t(ub = -3.014, rng = c(-5, 5), two_sided = TRUE) +
-  geom_vline(xintercept = -3.014, lty = 2)
+plt_t(lb = 2.9, rng = c(-5, 5), two_sided = TRUE) +
+  geom_vline(xintercept = 2.9, lty = 2)
 ```
 ```{r}
-2 * pnorm(-3.014)
+2 * pnorm(-2.9)
 ```
 Since the $p$-value is so small, we have strong evidence that severly ill patients have a different 1-year survival rate post-hospital.
 
@@ -985,7 +1020,6 @@ prop.test(x = 64, n = 103, p = 0.75) |>
   tidy() |>
   select(p.value)
 ```
-Again, the $p$-value differs because R uses a different (better) method.
 :::
 
 ## Cancer 3
@@ -1009,14 +1043,23 @@ Numerically
 ```{r}
 (0.3145 - 0.25) / sqrt(0.25 * (1 - 0.25) / 655)
 ```
+Though, it is better to use a continuity correction
+$$
+z = \frac{|\hat{p} - p_0| - 1/(2n)}{\sqrt{p_0(1-p_0)/n}} = \frac{|0.3145 - 0.25| - 1/1310}{\sqrt{0.25(1-0.25)/655}}
+$$
+Numerically,
+```{r}
+(abs(0.3145 - 0.25) - 1/1310) / sqrt(0.25 * (1 - 0.25) / 655)
+```
+
 We compare this to a $N(0,1)$ distribution
 ```{r}
 #| echo: false
-plt_t(lb = 3.812, rng = c(-5, 5), two_sided = TRUE) +
-  geom_vline(xintercept = 3.812, lty = 2)
+plt_t(lb = 3.767, rng = c(-5, 5), two_sided = TRUE) +
+  geom_vline(xintercept = 3.767, lty = 2)
 ```
 ```{r}
-2 * pnorm(-3.812)
+2 * pnorm(-3.767)
 ```
 Since the $p$-value is so small, we have strong evidence that radiotherapy is associated with breast cancer in the opposite breast.
 
@@ -1026,7 +1069,6 @@ prop.test(x = 206, n = 655, p = 0.25) |>
   tidy() |>
   select(p.value)
 ```
-Again, the $p$-value differs because R uses a different (better) method.
 :::
 
 ::: {.panel-tabset}
@@ -1058,7 +1100,7 @@ prop.test(x = 206, n = 655, p = 0.25) |>
   tidy() |>
   select(conf.low, conf.high)
 ```
-Again, the CI's differs because R uses a different (better) method.
+The CI's differs because R uses a different (better) method.
 :::
 
 ::: {.panel-tabset}
@@ -1161,14 +1203,23 @@ Numerically
 ```{r}
 (0.05367 - 0.04) / sqrt(0.04 * (1 - 0.04) / 3615)
 ```
+Though, it is better to use a continuity correction
+$$
+z = \frac{|\hat{p} - p_0| - 1/(2n)}{\sqrt{p_0(1-p_0)/n}} = \frac{|0.05367 - 0.04| - 1 / 7230}{\sqrt{0.04(1-0.04)/3615}}
+$$
+Numerically,
+```{r}
+(abs(0.05367 - 0.04) - 1/7230) / sqrt(0.04 * (1 - 0.04) / 3615)
+```
+
 We compare this to a $N(0,1)$ distribution
 ```{r}
 #| echo: false
-plt_t(lb = 4.194, rng = c(-5, 5), two_sided = TRUE) +
-  geom_vline(xintercept = 4.194, lty = 2)
+plt_t(lb = 4.152, rng = c(-5, 5), two_sided = TRUE) +
+  geom_vline(xintercept = 4.152, lty = 2)
 ```
 ```{r}
-2 * pnorm(-4.194)
+2 * pnorm(-4.152)
 ```
 Since the $p$-value is so small, we have strong evidence that coronary heart disease mortality rate for this group differs than that of the general population.
 
@@ -1178,7 +1229,6 @@ prop.test(x = 194, n = 3615, p = 0.04) |>
   tidy() |>
   select(p.value)
 ```
-Again, the $p$-value differs because R uses a different (better) method.
 :::
 
 ::: {.panel-tabset}
@@ -1238,14 +1288,23 @@ Numerically
 ```{r}
 (0.01832 - 0.005) / sqrt(0.005 * (1 - 0.005) / 1201)
 ```
+Though, it is better to use a continuity correction
+$$
+z = \frac{|\hat{p} - p_0| - 1/(2n)}{\sqrt{p_0(1-p_0)/n}} = \frac{|0.01832 - 0.005| - 1/2402}{\sqrt{0.005(1-0.005)/1201}}
+$$
+Numerically,
+```{r}
+(abs(0.01832 - 0.005) - 1/2402) / sqrt(0.005 * (1 - 0.005) / 1201)
+```
+
 We compare this to a $N(0,1)$ distribution
 ```{r}
 #| echo: false
-plt_t(lb = 6.545, rng = c(-7, 7), two_sided = TRUE) +
-  geom_vline(xintercept = 6.545, lty = 2)
+plt_t(lb = 6.34, rng = c(-7, 7), two_sided = TRUE) +
+  geom_vline(xintercept = 6.34, lty = 2)
 ```
 ```{r}
-2 * pnorm(-6.545)
+2 * pnorm(-6.34)
 ```
 Since the $p$-value is so small, we have very strong evidence the there is excess risk among the irradiated group.
 
