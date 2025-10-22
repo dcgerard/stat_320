@@ -13,6 +13,73 @@ These practice problems mostly come from Rosner's publicly available study sheet
 library(tidyverse)
 library(gt)
 library(broom)
+plt_t <- function(
+    mu = 0, 
+    sig = 1, 
+    lb = -Inf,
+    ub = Inf,
+    df = Inf, 
+    rng = c(-3, 3), 
+    two_sided = FALSE,
+    col = "#E69F00",
+    lwd = 1) {
+  tibble(x = seq(mu + rng[[1]] * sig, mu + rng[[2]] * sig, length.out = 500)) |>
+    mutate(y = dt(x = (x - mu) / sig, df = df)) ->
+    df1
+  df1 |>
+    filter(x > lb, x < ub) ->
+    df2
+  ggplot() +
+    geom_line(data = df1, mapping = aes(x = x, y = y), linewidth = lwd) +
+    geom_area(data = df2, mapping = aes(x = x, y = y), fill = col) +
+    geom_line(data = df2, mapping = aes(x = x, y = y), color = col, linewidth = lwd) +
+    theme_classic() +
+    theme(axis.title = element_blank()) ->
+    pl
+  
+  if (two_sided) {
+    df1 |>
+      filter(x > -ub, x < -lb) ->
+      df3
+    pl <- pl + 
+      geom_area(data = df3, mapping = aes(x = x, y = y), fill = col) +
+      geom_line(data = df3, mapping = aes(x = x, y = y), color = col, linewidth = lwd)
+  }
+  pl
+}
+plt_binom <- function(
+    size, 
+    prob = 0.5, 
+    lb = -Inf,
+    ub = Inf, 
+    rng = c(0, size),
+    col = "#E69F00",
+    valmax = NULL,
+    lwd = 1) {
+  
+  tibble(x = seq(rng[[1]], rng[[2]], by = 1)) |>
+    mutate(
+      pmf = stats::dbinom(x = x, size = size, prob = prob)
+      ) ->
+    df
+  
+  if (is.null(valmax)) {
+    df |>
+      mutate(col = (x >= lb & x <= ub)) ->
+      df
+  } else {
+    df |>
+      mutate(col = pmf <= stats::dbinom(x = valmax, size = size, prob = prob)) ->
+      df
+  }
+  df |>
+    ggplot(aes(x = x, xend = x, yend = pmf, color = col)) +
+    geom_segment(y = 0, lwd = lwd) +
+    theme_classic() +
+    theme(axis.title = element_blank()) +
+    scale_color_manual(values = c("black", col), guide = "none") +
+    scale_x_continuous(breaks = seq(rng[[1]], rng[[2]]))
+}
 ```
 
 ## Ophthalmology
@@ -24,8 +91,46 @@ Suppose an ophthalmologist reviews fundus photographs of 30 patients with macula
 If 20 patients improved, 7 declined, and 3 remained the same, then assess whether or not patients undergoing this treatment are showing significant change from baseline to 3 months afterward. Report a p-value. 
 
 ## Solutions
+This is a sign test. Let $X$ be the number of patients that improved, and let $n$ be the number of patients that showed a change. Then $X \sim \mathrm{Binom}(n, p)$. We want to test $H_0: p = 1/2$ versus $H_A: p \neq 1/2$. We are told that $x = 20$ and $n = 27$. We can use the normal approximation to the binomial since $np_0(1-p_0) \geq 5$
+```{r}
+25 * 0.5 * (1 - 0.5)
+```
+We calculate the $z$ statistic
+$$
+z = \frac{|\hat{p} - p_0| - 1/(2n)}{\sqrt{p_0(1-p_0)/n}} = \frac{|20/27 - 0.5| - 1/54}{\sqrt{0.5(1-0.5)/27}}
+$$
+```{r}
+(abs(20/27 - 0.5) - 1/54) / sqrt(0.5 * (1 - 0.5) / 27)
+```
+We compare this to standard normal distribution
+```{r}
+#| echo: false
+plt_t(lb = 2.309, two_sided = TRUE) +
+  geom_vline(xintercept = 2.309, lty = 2)
+```
+```{r}
+2 * pnorm(-2.309)
+```
+So we have evidence that there is a different from baseline.
 
+The real way in R is
+```{r}
+prop.test(x = 20, n = 27, p = 0.5) |>
+  tidy() |>
+  select(p.value)
+```
 
+The exact binomial approach, which is always valid, calculates the sum of the probabilities that are at least as probabable as $x = 20$ given $X \sim \mathrm{Binom}(27, 0.5)$
+```{r}
+#| echo: false
+plt_binom(size = 27, prob = 0.5, valmax = 20) +
+  geom_hline(yintercept = dbinom(x = 20, size = 27, prob = 0.5), lty = 2)
+```
+```{r}
+binom.test(x = 20, n = 27, p = 0.5) |>
+  tidy() |>
+  select(p.value)
+```
 :::
 
 Suppose that the patients are divided into two groups according to initial visual acuity (VA). Of the 14 patients with VA 20-40 or better, 8 improved, 5 declined, and 1 stayed the same. Of the 16 patients with VA worse than 20–40, 12 improved, 2 declined, and 2 stayed the same.

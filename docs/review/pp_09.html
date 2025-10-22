@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="David Gerard">
-<meta name="dcterms.date" content="2025-10-21">
+<meta name="dcterms.date" content="2025-10-22">
 
 <title>Chapter 9 Practice Problems – Stat 320: Biostatistics</title>
 <style>
@@ -110,6 +110,35 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   }
 }</script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <link rel="stylesheet" href="../styles.css">
 </head>
@@ -353,7 +382,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">October 21, 2025</p>
+      <p class="date">October 22, 2025</p>
     </div>
   </div>
   
@@ -376,7 +405,72 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>If 20 patients improved, 7 declined, and 3 remained the same, then assess whether or not patients undergoing this treatment are showing significant change from baseline to 3 months afterward. Report a p-value.</p>
 </div>
 <div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
-
+<p>This is a sign test. Let <span class="math inline">\(X\)</span> be the number of patients that improved, and let <span class="math inline">\(n\)</span> be the number of patients that showed a change. Then <span class="math inline">\(X \sim \mathrm{Binom}(n, p)\)</span>. We want to test <span class="math inline">\(H_0: p = 1/2\)</span> versus <span class="math inline">\(H_A: p \neq 1/2\)</span>. We are told that <span class="math inline">\(x = 20\)</span> and <span class="math inline">\(n = 27\)</span>. We can use the normal approximation to the binomial since <span class="math inline">\(np_0(1-p_0) \geq 5\)</span></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="dv">25</span> <span class="sc">*</span> <span class="fl">0.5</span> <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> <span class="fl">0.5</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 6.25</code></pre>
+</div>
+</div>
+<p>We calculate the <span class="math inline">\(z\)</span> statistic <span class="math display">\[
+z = \frac{|\hat{p} - p_0| - 1/(2n)}{\sqrt{p_0(1-p_0)/n}} = \frac{|20/27 - 0.5| - 1/54}{\sqrt{0.5(1-0.5)/27}}
+\]</span></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>(<span class="fu">abs</span>(<span class="dv">20</span><span class="sc">/</span><span class="dv">27</span> <span class="sc">-</span> <span class="fl">0.5</span>) <span class="sc">-</span> <span class="dv">1</span><span class="sc">/</span><span class="dv">54</span>) <span class="sc">/</span> <span class="fu">sqrt</span>(<span class="fl">0.5</span> <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> <span class="fl">0.5</span>) <span class="sc">/</span> <span class="dv">27</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 2.309</code></pre>
+</div>
+</div>
+<p>We compare this to standard normal distribution</p>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="pp_09_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span> <span class="sc">*</span> <span class="fu">pnorm</span>(<span class="sc">-</span><span class="fl">2.309</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.02094</code></pre>
+</div>
+</div>
+<p>So we have evidence that there is a different from baseline.</p>
+<p>The real way in R is</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">prop.test</span>(<span class="at">x =</span> <span class="dv">20</span>, <span class="at">n =</span> <span class="dv">27</span>, <span class="at">p =</span> <span class="fl">0.5</span>) <span class="sc">|&gt;</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tidy</span>() <span class="sc">|&gt;</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(p.value)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 1
+  p.value
+    &lt;dbl&gt;
+1  0.0209</code></pre>
+</div>
+</div>
+<p>The exact binomial approach, which is always valid, calculates the sum of the probabilities that are at least as probabable as <span class="math inline">\(x = 20\)</span> given <span class="math inline">\(X \sim \mathrm{Binom}(27, 0.5)\)</span></p>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="pp_09_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">binom.test</span>(<span class="at">x =</span> <span class="dv">20</span>, <span class="at">n =</span> <span class="dv">27</span>, <span class="at">p =</span> <span class="fl">0.5</span>) <span class="sc">|&gt;</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tidy</span>() <span class="sc">|&gt;</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(p.value)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 1
+  p.value
+    &lt;dbl&gt;
+1  0.0192</code></pre>
+</div>
+</div>
 </div>
 </div>
 </div>
@@ -408,12 +502,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="diabetes">Diabetes</h2>
 <p>An experiment was conducted to study responses to different methods of taking insulin in patients with type I diabetes. The percentages of glycosolated hemoglobin initially and 3 months after taking insulin by nasal spray are given in the following data frame.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">id =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">8</span>,</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">before =</span> <span class="fu">c</span>(<span class="fl">11.0</span>, <span class="fl">7.7</span>, <span class="fl">5.9</span>, <span class="fl">9.5</span>, <span class="fl">8.7</span>, <span class="fl">8.6</span>, <span class="fl">11.0</span>, <span class="fl">6.9</span>),</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">after3 =</span> <span class="fu">c</span>(<span class="fl">10.2</span>, <span class="fl">7.9</span>, <span class="fl">6.5</span>, <span class="fl">10.4</span>, <span class="fl">8.8</span>, <span class="fl">9.0</span>, <span class="fl">9.5</span>, <span class="fl">7.6</span>)</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>data</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">id =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">8</span>,</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">before =</span> <span class="fu">c</span>(<span class="fl">11.0</span>, <span class="fl">7.7</span>, <span class="fl">5.9</span>, <span class="fl">9.5</span>, <span class="fl">8.7</span>, <span class="fl">8.6</span>, <span class="fl">11.0</span>, <span class="fl">6.9</span>),</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">after3 =</span> <span class="fu">c</span>(<span class="fl">10.2</span>, <span class="fl">7.9</span>, <span class="fl">6.5</span>, <span class="fl">10.4</span>, <span class="fl">8.8</span>, <span class="fl">9.0</span>, <span class="fl">9.5</span>, <span class="fl">7.6</span>)</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>data</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 8 × 3
      id before after3
@@ -466,13 +560,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="pathology">Pathology</h2>
 <p>The data in the following data frame are measurements from a group of 10 normal males and 11 males with left-heart disease taken at autopsy at a particular hospital. Measurements were made on several variables at that time, and the table presents the measurements on total heart weight (THW) and total body weight (BW). Assume that the diagnosis of left-heart disease is made independently of these variables.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>heart <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">status =</span> <span class="fu">c</span>(<span class="fu">rep</span>(<span class="st">"disease"</span>, <span class="dv">11</span>), <span class="fu">rep</span>(<span class="st">"normal"</span>, <span class="dv">10</span>)),</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">thw =</span> <span class="fu">c</span>(<span class="dv">450</span>, <span class="dv">760</span>, <span class="dv">325</span>, <span class="dv">495</span>, <span class="dv">285</span>, <span class="dv">450</span>, <span class="dv">460</span>, <span class="dv">375</span>, <span class="dv">310</span>, <span class="dv">615</span>, <span class="dv">425</span>,</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>          <span class="dv">245</span>, <span class="dv">350</span>, <span class="dv">340</span>, <span class="dv">300</span>, <span class="dv">310</span>, <span class="dv">270</span>, <span class="dv">300</span>, <span class="dv">360</span>, <span class="dv">405</span>, <span class="dv">290</span>),</span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">bw =</span> <span class="fu">c</span>(<span class="fl">54.6</span>, <span class="fl">73.5</span>, <span class="fl">50.3</span>, <span class="fl">44.6</span>, <span class="fl">58.1</span>, <span class="fl">61.3</span>, <span class="fl">75.3</span>, <span class="fl">41.1</span>, <span class="fl">51.5</span>, <span class="fl">41.7</span>, <span class="fl">59.7</span>,</span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>         <span class="fl">40.8</span>, <span class="fl">67.4</span>, <span class="fl">53.3</span>, <span class="fl">62.2</span>, <span class="fl">65.5</span>, <span class="fl">47.5</span>, <span class="fl">51.2</span>, <span class="fl">74.9</span>, <span class="fl">59.0</span>, <span class="fl">40.5</span>)</span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>heart <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">status =</span> <span class="fu">c</span>(<span class="fu">rep</span>(<span class="st">"disease"</span>, <span class="dv">11</span>), <span class="fu">rep</span>(<span class="st">"normal"</span>, <span class="dv">10</span>)),</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">thw =</span> <span class="fu">c</span>(<span class="dv">450</span>, <span class="dv">760</span>, <span class="dv">325</span>, <span class="dv">495</span>, <span class="dv">285</span>, <span class="dv">450</span>, <span class="dv">460</span>, <span class="dv">375</span>, <span class="dv">310</span>, <span class="dv">615</span>, <span class="dv">425</span>,</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>          <span class="dv">245</span>, <span class="dv">350</span>, <span class="dv">340</span>, <span class="dv">300</span>, <span class="dv">310</span>, <span class="dv">270</span>, <span class="dv">300</span>, <span class="dv">360</span>, <span class="dv">405</span>, <span class="dv">290</span>),</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">bw =</span> <span class="fu">c</span>(<span class="fl">54.6</span>, <span class="fl">73.5</span>, <span class="fl">50.3</span>, <span class="fl">44.6</span>, <span class="fl">58.1</span>, <span class="fl">61.3</span>, <span class="fl">75.3</span>, <span class="fl">41.1</span>, <span class="fl">51.5</span>, <span class="fl">41.7</span>, <span class="fl">59.7</span>,</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>         <span class="fl">40.8</span>, <span class="fl">67.4</span>, <span class="fl">53.3</span>, <span class="fl">62.2</span>, <span class="fl">65.5</span>, <span class="fl">47.5</span>, <span class="fl">51.2</span>, <span class="fl">74.9</span>, <span class="fl">59.0</span>, <span class="fl">40.5</span>)</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-7-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-7-1" role="tab" aria-controls="tabset-7-1" aria-selected="true" href="">9.7</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-7-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-7-2" role="tab" aria-controls="tabset-7-2" aria-selected="false" href="">Solutions</a></li></ul>
@@ -553,8 +647,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="psychiatry">Psychiatry</h2>
 <p>Suppose we are conducting a study of the effectiveness of lithium therapy for manic-depressive patients. The study is carried out at two different centers, and we want to determine if the patient populations are comparable at baseline. A self-rating questionnaire about their general psychological well-being is administered to the prospective patients at the two different centers. The outcome measure on the questionnaire is a four-category scale: (1) = feel good; (2) = usually feel good, once in a while feel nervous; (3) = feel nervous half the time; (4) = usually feel nervous. Suppose the data at the two different centers are as follows:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>center1 <span class="ot">=</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">4</span>, <span class="dv">3</span>, <span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">4</span>, <span class="dv">4</span>)</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>center2 <span class="ot">=</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">3</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>center1 <span class="ot">=</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">4</span>, <span class="dv">3</span>, <span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">4</span>, <span class="dv">4</span>)</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>center2 <span class="ot">=</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">3</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-13-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-13-1" role="tab" aria-controls="tabset-13-1" aria-selected="true" href="">9.13</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-13-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-13-2" role="tab" aria-controls="tabset-13-2" aria-selected="false" href="">Solutions</a></li></ul>
@@ -595,23 +689,23 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Much attention has been given in recent years to the role of transcendental meditation in improving health, particularly in lowering blood pressure. One hypothesis that emerges from this work is that transcendental meditation might also be useful in treating psychiatric patients with symptoms of anxiety. Suppose that a protocol of meditational therapy is administered once a day to 20 patients with anxiety. The patients are given a psychiatric exam at baseline and at a follow-up exam 2 months later. The degree of improvement is rated on a 10-point scale, with 1 indicating the most improvement and 10 the least improvement. Similarly, 26 comparably affected patients with anxiety are given standard psychotherapy and are asked to come back 2 months later for a follow-up exam. The results are given in Table 9.2.</p>
 <div class="cell">
 <div class="cell-output-display">
-<div id="jbjsetcula" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#jbjsetcula table {
+<div id="nbtoxpdcbv" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#nbtoxpdcbv table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#jbjsetcula thead, #jbjsetcula tbody, #jbjsetcula tfoot, #jbjsetcula tr, #jbjsetcula td, #jbjsetcula th {
+#nbtoxpdcbv thead, #nbtoxpdcbv tbody, #nbtoxpdcbv tfoot, #nbtoxpdcbv tr, #nbtoxpdcbv td, #nbtoxpdcbv th {
   border-style: none;
 }
 
-#jbjsetcula p {
+#nbtoxpdcbv p {
   margin: 0;
   padding: 0;
 }
 
-#jbjsetcula .gt_table {
+#nbtoxpdcbv .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -637,12 +731,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-left-color: #D3D3D3;
 }
 
-#jbjsetcula .gt_caption {
+#nbtoxpdcbv .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#jbjsetcula .gt_title {
+#nbtoxpdcbv .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -654,7 +748,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-bottom-width: 0;
 }
 
-#jbjsetcula .gt_subtitle {
+#nbtoxpdcbv .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -666,7 +760,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-top-width: 0;
 }
 
-#jbjsetcula .gt_heading {
+#nbtoxpdcbv .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -678,13 +772,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-right-color: #D3D3D3;
 }
 
-#jbjsetcula .gt_bottom_border {
+#nbtoxpdcbv .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#jbjsetcula .gt_col_headings {
+#nbtoxpdcbv .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -699,7 +793,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-right-color: #D3D3D3;
 }
 
-#jbjsetcula .gt_col_heading {
+#nbtoxpdcbv .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -719,7 +813,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   overflow-x: hidden;
 }
 
-#jbjsetcula .gt_column_spanner_outer {
+#nbtoxpdcbv .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -731,15 +825,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   padding-right: 4px;
 }
 
-#jbjsetcula .gt_column_spanner_outer:first-child {
+#nbtoxpdcbv .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#jbjsetcula .gt_column_spanner_outer:last-child {
+#nbtoxpdcbv .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#jbjsetcula .gt_column_spanner {
+#nbtoxpdcbv .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -751,11 +845,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   width: 100%;
 }
 
-#jbjsetcula .gt_spanner_row {
+#nbtoxpdcbv .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#jbjsetcula .gt_group_heading {
+#nbtoxpdcbv .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -781,7 +875,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   text-align: left;
 }
 
-#jbjsetcula .gt_empty_group_heading {
+#nbtoxpdcbv .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -796,15 +890,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   vertical-align: middle;
 }
 
-#jbjsetcula .gt_from_md > :first-child {
+#nbtoxpdcbv .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#jbjsetcula .gt_from_md > :last-child {
+#nbtoxpdcbv .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#jbjsetcula .gt_row {
+#nbtoxpdcbv .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -823,7 +917,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   overflow-x: hidden;
 }
 
-#jbjsetcula .gt_stub {
+#nbtoxpdcbv .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -836,7 +930,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   padding-right: 5px;
 }
 
-#jbjsetcula .gt_stub_row_group {
+#nbtoxpdcbv .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -850,15 +944,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   vertical-align: top;
 }
 
-#jbjsetcula .gt_row_group_first td {
+#nbtoxpdcbv .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#jbjsetcula .gt_row_group_first th {
+#nbtoxpdcbv .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#jbjsetcula .gt_summary_row {
+#nbtoxpdcbv .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -868,16 +962,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   padding-right: 5px;
 }
 
-#jbjsetcula .gt_first_summary_row {
+#nbtoxpdcbv .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#jbjsetcula .gt_first_summary_row.thick {
+#nbtoxpdcbv .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#jbjsetcula .gt_last_summary_row {
+#nbtoxpdcbv .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -887,7 +981,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-bottom-color: #D3D3D3;
 }
 
-#jbjsetcula .gt_grand_summary_row {
+#nbtoxpdcbv .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -897,7 +991,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   padding-right: 5px;
 }
 
-#jbjsetcula .gt_first_grand_summary_row {
+#nbtoxpdcbv .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -907,7 +1001,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-top-color: #D3D3D3;
 }
 
-#jbjsetcula .gt_last_grand_summary_row_top {
+#nbtoxpdcbv .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -917,11 +1011,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-bottom-color: #D3D3D3;
 }
 
-#jbjsetcula .gt_striped {
+#nbtoxpdcbv .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#jbjsetcula .gt_table_body {
+#nbtoxpdcbv .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -930,7 +1024,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-bottom-color: #D3D3D3;
 }
 
-#jbjsetcula .gt_footnotes {
+#nbtoxpdcbv .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -944,7 +1038,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-right-color: #D3D3D3;
 }
 
-#jbjsetcula .gt_footnote {
+#nbtoxpdcbv .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -953,7 +1047,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   padding-right: 5px;
 }
 
-#jbjsetcula .gt_sourcenotes {
+#nbtoxpdcbv .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -967,7 +1061,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-right-color: #D3D3D3;
 }
 
-#jbjsetcula .gt_sourcenote {
+#nbtoxpdcbv .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -975,72 +1069,72 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   padding-right: 5px;
 }
 
-#jbjsetcula .gt_left {
+#nbtoxpdcbv .gt_left {
   text-align: left;
 }
 
-#jbjsetcula .gt_center {
+#nbtoxpdcbv .gt_center {
   text-align: center;
 }
 
-#jbjsetcula .gt_right {
+#nbtoxpdcbv .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#jbjsetcula .gt_font_normal {
+#nbtoxpdcbv .gt_font_normal {
   font-weight: normal;
 }
 
-#jbjsetcula .gt_font_bold {
+#nbtoxpdcbv .gt_font_bold {
   font-weight: bold;
 }
 
-#jbjsetcula .gt_font_italic {
+#nbtoxpdcbv .gt_font_italic {
   font-style: italic;
 }
 
-#jbjsetcula .gt_super {
+#nbtoxpdcbv .gt_super {
   font-size: 65%;
 }
 
-#jbjsetcula .gt_footnote_marks {
+#nbtoxpdcbv .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#jbjsetcula .gt_asterisk {
+#nbtoxpdcbv .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#jbjsetcula .gt_indent_1 {
+#nbtoxpdcbv .gt_indent_1 {
   text-indent: 5px;
 }
 
-#jbjsetcula .gt_indent_2 {
+#nbtoxpdcbv .gt_indent_2 {
   text-indent: 10px;
 }
 
-#jbjsetcula .gt_indent_3 {
+#nbtoxpdcbv .gt_indent_3 {
   text-indent: 15px;
 }
 
-#jbjsetcula .gt_indent_4 {
+#nbtoxpdcbv .gt_indent_4 {
   text-indent: 20px;
 }
 
-#jbjsetcula .gt_indent_5 {
+#nbtoxpdcbv .gt_indent_5 {
   text-indent: 25px;
 }
 
-#jbjsetcula .katex-display {
+#nbtoxpdcbv .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#jbjsetcula div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#nbtoxpdcbv div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
