@@ -1525,7 +1525,7 @@ n p_0(1 - p_0) \ge 5
 </div>
 </div>
 </div></li>
-<li><p><span class="math inline">\(H_1: p &gt; p_0\)</span>: Calculate <span class="math inline">\(\Pr(X \leq x \mid p = p_0)\)</span> with <code>1 - pbinom(q = x - 1, size = n, prob = p0)</code></p></li>
+<li><p><span class="math inline">\(H_1: p &gt; p_0\)</span>: Calculate <span class="math inline">\(\Pr(X \geq x \mid p = p_0)\)</span> with <code>1 - pbinom(q = x - 1, size = n, prob = p0)</code></p></li>
 <li><p>E.g., <span class="math inline">\(X = 3\)</span>, <span class="math inline">\(H_0: p_0 = 0.5\)</span>, <span class="math inline">\(H_1: p_1 &gt; 0.5\)</span>. This the the PMF of <span class="math inline">\(X\)</span> under <span class="math inline">\(H_0\)</span> and the sum of the orange bars is the <span class="math inline">\(p\)</span>-value.</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
@@ -1712,16 +1712,10 @@ H_1 &amp;: \mu \ne 3.3
 </div>
 </div>
 <p>The p-value is 0.5783, so we fail to reject the null and conclude that we do not have enough evidence that rubber workers have different Hodgkins disease rates from the general public.</p>
-<ul>
-<li>Note:
-<ul>
-<li>Binomial test is not appropriate here because each individual has a different <span class="math inline">\(p_i\)</span>.
-<ul>
-<li>The binomial test requires each individual to have the same <span class="math inline">\(p_i\)</span>.</li>
-</ul></li>
-<li>The <span class="math inline">\(\mu_0\)</span> was calculated from the expected <span class="math inline">\(p_i\)</span> for each individual.</li>
-</ul></li>
-</ul></li>
+<!-- - Note: -->
+<!--   - Binomial test is not appropriate here because each individual has a different $p_i$. -->
+<!--     - The binomial test requires each individual to have the same $p_i$. -->
+<!--   - The $\mu_0$ was calculated from the expected $p_i$ for each individual. --></li>
 <li><p>Standardized Mortality Ratio (SMR) <span class="math display">\[
 \text{SMR} = \frac{\text{Observed}}{\text{Expected}} \times 100\%
 \]</span></p>
