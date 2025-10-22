@@ -407,9 +407,9 @@ window.Quarto = {
 <div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
 <p>This is a sign test. Let <span class="math inline">\(X\)</span> be the number of patients that improved, and let <span class="math inline">\(n\)</span> be the number of patients that showed a change. Then <span class="math inline">\(X \sim \mathrm{Binom}(n, p)\)</span>. We want to test <span class="math inline">\(H_0: p = 1/2\)</span> versus <span class="math inline">\(H_A: p \neq 1/2\)</span>. We are told that <span class="math inline">\(x = 20\)</span> and <span class="math inline">\(n = 27\)</span>. We can use the normal approximation to the binomial since <span class="math inline">\(np_0(1-p_0) \geq 5\)</span></p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="dv">25</span> <span class="sc">*</span> <span class="fl">0.5</span> <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> <span class="fl">0.5</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="dv">27</span> <span class="sc">*</span> <span class="fl">0.5</span> <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> <span class="fl">0.5</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 6.25</code></pre>
+<pre><code>[1] 6.75</code></pre>
 </div>
 </div>
 <p>We calculate the <span class="math inline">\(z\)</span> statistic <span class="math display">\[
@@ -482,7 +482,34 @@ z = \frac{|\hat{p} - p_0| - 1/(2n)}{\sqrt{p_0(1-p_0)/n}} = \frac{|20/27 - 0.5| -
 <p>Assess the results in the subgroup of patients with VA of 20–40 or better.</p>
 </div>
 <div id="tabset-2-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-2-tab">
-
+<p>This is also a sign test with observed <span class="math inline">\(x = 8\)</span> and <span class="math inline">\(n = 13\)</span>. We need to use an exact test since <span class="math inline">\(np_0(1-p_0) &lt; 5\)</span></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="dv">13</span> <span class="sc">*</span> <span class="fl">0.5</span> <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> <span class="fl">0.5</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 3.25</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="pp_09_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">binom.test</span>(<span class="at">x =</span> <span class="dv">8</span>, <span class="at">n =</span> <span class="dv">13</span>, <span class="at">p =</span> <span class="fl">0.5</span>) <span class="sc">|&gt;</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tidy</span>() <span class="sc">|&gt;</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(p.value)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 1
+  p.value
+    &lt;dbl&gt;
+1   0.581</code></pre>
+</div>
+</div>
+<p>So we do not have evidence of a difference.</p>
 </div>
 </div>
 </div>
@@ -493,7 +520,34 @@ z = \frac{|\hat{p} - p_0| - 1/(2n)}{\sqrt{p_0(1-p_0)/n}} = \frac{|20/27 - 0.5| -
 <p>Assess the results in the subgroup of patients with VA worse than 20–40.</p>
 </div>
 <div id="tabset-3-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-3-2-tab">
-
+<p>This is also a sign test with observed <span class="math inline">\(x = 12\)</span> and <span class="math inline">\(n = 14\)</span>. We need to use an exact test since <span class="math inline">\(np_0(1-p_0) &lt; 5\)</span></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="dv">14</span> <span class="sc">*</span> <span class="fl">0.5</span> <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> <span class="fl">0.5</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 3.5</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="pp_09_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">binom.test</span>(<span class="at">x =</span> <span class="dv">12</span>, <span class="at">n =</span> <span class="dv">14</span>, <span class="at">p =</span> <span class="fl">0.5</span>) <span class="sc">|&gt;</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tidy</span>() <span class="sc">|&gt;</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(p.value)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 1
+  p.value
+    &lt;dbl&gt;
+1  0.0129</code></pre>
+</div>
+</div>
+<p>So we do have evidence of a difference.</p>
 </div>
 </div>
 </div>
@@ -502,12 +556,12 @@ z = \frac{|\hat{p} - p_0| - 1/(2n)}{\sqrt{p_0(1-p_0)/n}} = \frac{|20/27 - 0.5| -
 <h2 class="anchored" data-anchor-id="diabetes">Diabetes</h2>
 <p>An experiment was conducted to study responses to different methods of taking insulin in patients with type I diabetes. The percentages of glycosolated hemoglobin initially and 3 months after taking insulin by nasal spray are given in the following data frame.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">id =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">8</span>,</span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">before =</span> <span class="fu">c</span>(<span class="fl">11.0</span>, <span class="fl">7.7</span>, <span class="fl">5.9</span>, <span class="fl">9.5</span>, <span class="fl">8.7</span>, <span class="fl">8.6</span>, <span class="fl">11.0</span>, <span class="fl">6.9</span>),</span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">after3 =</span> <span class="fu">c</span>(<span class="fl">10.2</span>, <span class="fl">7.9</span>, <span class="fl">6.5</span>, <span class="fl">10.4</span>, <span class="fl">8.8</span>, <span class="fl">9.0</span>, <span class="fl">9.5</span>, <span class="fl">7.6</span>)</span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>data</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>hemo <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">id =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">8</span>,</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">before =</span> <span class="fu">c</span>(<span class="fl">11.0</span>, <span class="fl">7.7</span>, <span class="fl">5.9</span>, <span class="fl">9.5</span>, <span class="fl">8.7</span>, <span class="fl">8.6</span>, <span class="fl">11.0</span>, <span class="fl">6.9</span>),</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">after3 =</span> <span class="fu">c</span>(<span class="fl">10.2</span>, <span class="fl">7.9</span>, <span class="fl">6.5</span>, <span class="fl">10.4</span>, <span class="fl">8.8</span>, <span class="fl">9.0</span>, <span class="fl">9.5</span>, <span class="fl">7.6</span>)</span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>hemo</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 8 × 3
      id before after3
@@ -529,183 +583,103 @@ z = \frac{|\hat{p} - p_0| - 1/(2n)}{\sqrt{p_0(1-p_0)/n}} = \frac{|20/27 - 0.5| -
 <p>Perform a t test to compare the percentages of glycosolated hemoglobin before and 3 months after treatment.</p>
 </div>
 <div id="tabset-4-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-4-2-tab">
-
+<p>We will do a paired <span class="math inline">\(t\)</span>-test. Let <span class="math inline">\(D_i\)</span> be the difference in percentages of glycosolated hemoglobin (<code>before - after3</code>) for individual <span class="math inline">\(i\)</span>. We assume <span class="math inline">\(D_i \sim N(\mu, \sigma^2)\)</span>. We want to test <span class="math inline">\(H_0: \mu = 0\)</span> versus <span class="math inline">\(H_A: \mu \neq 0\)</span>. We calculate summary statistics</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>hemo <span class="sc">|&gt;</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">diff =</span> before <span class="sc">-</span> after3) <span class="sc">|&gt;</span></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">mean =</span> <span class="fu">mean</span>(diff),</span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">sd =</span> <span class="fu">sd</span>(diff),</span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">n =</span> <span class="fu">n</span>())</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 3
+     mean    sd     n
+    &lt;dbl&gt; &lt;dbl&gt; &lt;int&gt;
+1 -0.0750 0.821     8</code></pre>
+</div>
+</div>
+<p>We calculate a <span class="math inline">\(t\)</span>-statistic <span class="math display">\[
+t = \frac{\bar{x} - \mu_0}{s/\sqrt{n}} = \frac{-0.075 - 0}{0.8207 / \sqrt{8}}
+\]</span> Numerically</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>(<span class="sc">-</span><span class="fl">0.075</span> <span class="sc">-</span> <span class="dv">0</span>) <span class="sc">/</span> (<span class="fl">0.8207</span> <span class="sc">/</span> <span class="fu">sqrt</span>(<span class="dv">8</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] -0.2585</code></pre>
+</div>
+</div>
+<p>We compare this to a <span class="math inline">\(t_{7}\)</span> distribution</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plt_t</span>(<span class="at">ub =</span> <span class="sc">-</span><span class="fl">0.2585</span>, <span class="at">two_sided =</span> <span class="cn">TRUE</span>, <span class="at">df =</span> <span class="dv">7</span>) <span class="sc">+</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="sc">-</span><span class="fl">0.2585</span>, <span class="at">lty =</span> <span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="pp_09_files/figure-html/unnamed-chunk-18-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span> <span class="sc">*</span> <span class="fu">pt</span>(<span class="sc">-</span><span class="fl">0.2585</span>, <span class="at">df =</span> <span class="dv">9</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.8018</code></pre>
+</div>
+</div>
+<p>Since the <span class="math inline">\(p\)</span>-value is so large, we do not have evidence that the mean difference in percentage of glycosolated hemoglobin is different from 0.</p>
+<p>The real-way in R uses <code>t.test()</code></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>hemo <span class="ot">&lt;-</span> <span class="fu">mutate</span>(hemo, <span class="at">diff =</span> before <span class="sc">-</span> after3)</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(diff <span class="sc">~</span> <span class="dv">1</span>, <span class="at">data =</span> hemo, <span class="at">mu =</span> <span class="dv">0</span>) <span class="sc">|&gt;</span></span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tidy</span>() <span class="sc">|&gt;</span></span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(p.value)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 1
+  p.value
+    &lt;dbl&gt;
+1   0.803</code></pre>
+</div>
+</div>
 </div>
 </div>
 </div>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-5-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-5-1" role="tab" aria-controls="tabset-5-1" aria-selected="true" href="">9.5</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-5-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-5-2" role="tab" aria-controls="tabset-5-2" aria-selected="false" href="">Solutions</a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-5-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-5-1" role="tab" aria-controls="tabset-5-1" aria-selected="true" href="">9.5a</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-5-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-5-2" role="tab" aria-controls="tabset-5-2" aria-selected="false" href="">Solutions</a></li></ul>
 <div class="tab-content">
 <div id="tabset-5-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-5-1-tab">
-<p>Suppose normality is not assumed. Perform a nonpara- metric test corresponding to the t test in Problem 9.4.</p>
+<p>Suppose normality is not assumed. What nonparameteric test would you use?</p>
 </div>
 <div id="tabset-5-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-5-2-tab">
-
+<p>The Wicoxin Signed-rank test.</p>
 </div>
 </div>
 </div>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-6-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-6-1" role="tab" aria-controls="tabset-6-1" aria-selected="true" href="">9.6</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-6-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-6-2" role="tab" aria-controls="tabset-6-2" aria-selected="false" href="">Solutions</a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-6-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-6-1" role="tab" aria-controls="tabset-6-1" aria-selected="true" href="">9.5b</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-6-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-6-2" role="tab" aria-controls="tabset-6-2" aria-selected="false" href="">Solutions</a></li></ul>
 <div class="tab-content">
 <div id="tabset-6-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-6-1-tab">
-<p>Compare your results in Problems 9.4 and 9.5.</p>
+<p>Calculate the test-statistic for the tetst in 9.5a.</p>
 </div>
 <div id="tabset-6-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-6-2-tab">
-
-</div>
-</div>
-</div>
-</section>
-<section id="pathology" class="level2">
-<h2 class="anchored" data-anchor-id="pathology">Pathology</h2>
-<p>The data in the following data frame are measurements from a group of 10 normal males and 11 males with left-heart disease taken at autopsy at a particular hospital. Measurements were made on several variables at that time, and the table presents the measurements on total heart weight (THW) and total body weight (BW). Assume that the diagnosis of left-heart disease is made independently of these variables.</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>heart <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">status =</span> <span class="fu">c</span>(<span class="fu">rep</span>(<span class="st">"disease"</span>, <span class="dv">11</span>), <span class="fu">rep</span>(<span class="st">"normal"</span>, <span class="dv">10</span>)),</span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">thw =</span> <span class="fu">c</span>(<span class="dv">450</span>, <span class="dv">760</span>, <span class="dv">325</span>, <span class="dv">495</span>, <span class="dv">285</span>, <span class="dv">450</span>, <span class="dv">460</span>, <span class="dv">375</span>, <span class="dv">310</span>, <span class="dv">615</span>, <span class="dv">425</span>,</span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>          <span class="dv">245</span>, <span class="dv">350</span>, <span class="dv">340</span>, <span class="dv">300</span>, <span class="dv">310</span>, <span class="dv">270</span>, <span class="dv">300</span>, <span class="dv">360</span>, <span class="dv">405</span>, <span class="dv">290</span>),</span>
-<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">bw =</span> <span class="fu">c</span>(<span class="fl">54.6</span>, <span class="fl">73.5</span>, <span class="fl">50.3</span>, <span class="fl">44.6</span>, <span class="fl">58.1</span>, <span class="fl">61.3</span>, <span class="fl">75.3</span>, <span class="fl">41.1</span>, <span class="fl">51.5</span>, <span class="fl">41.7</span>, <span class="fl">59.7</span>,</span>
-<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>         <span class="fl">40.8</span>, <span class="fl">67.4</span>, <span class="fl">53.3</span>, <span class="fl">62.2</span>, <span class="fl">65.5</span>, <span class="fl">47.5</span>, <span class="fl">51.2</span>, <span class="fl">74.9</span>, <span class="fl">59.0</span>, <span class="fl">40.5</span>)</span>
-<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-<div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-7-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-7-1" role="tab" aria-controls="tabset-7-1" aria-selected="true" href="">9.7</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-7-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-7-2" role="tab" aria-controls="tabset-7-2" aria-selected="false" href="">Solutions</a></li></ul>
-<div class="tab-content">
-<div id="tabset-7-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-7-1-tab">
-<p>Suppose normality is not assumed. What nonparametric test can be used to compare total heart weight of males with left-heart disease with that of normal males?</p>
-</div>
-<div id="tabset-7-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-7-2-tab">
-
-</div>
-</div>
-</div>
-<div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-8-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-8-1" role="tab" aria-controls="tabset-8-1" aria-selected="true" href="">9.8</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-8-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-8-2" role="tab" aria-controls="tabset-8-2" aria-selected="false" href="">Solutions</a></li></ul>
-<div class="tab-content">
-<div id="tabset-8-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-8-1-tab">
-<p>Implement the test in Problem 9.7 and report a p-value.</p>
-</div>
-<div id="tabset-8-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-8-2-tab">
-
-</div>
-</div>
-</div>
-</section>
-<section id="cardiology" class="level2">
-<h2 class="anchored" data-anchor-id="cardiology">Cardiology</h2>
-<p>Propranolol is a standard drug given to ease the pain of patients with episodes of unstable angina. A new drug for the treatment of this disease is tested on 30 pairs of patients who are matched on a one-to-one basis according to age, sex, and clinical condition and are assessed as to the severity of their pain. Suppose that in 15 pairs of patients, the patient with the new drug has less pain; in 10 pairs of patients, the patient with propranolol has less pain; and in 5 pairs of patients, the pain is about the same with the two drugs.</p>
-<div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-9-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-9-1" role="tab" aria-controls="tabset-9-1" aria-selected="true" href="">9.9</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-9-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-9-2" role="tab" aria-controls="tabset-9-2" aria-selected="false" href="">Solutions</a></li></ul>
-<div class="tab-content">
-<div id="tabset-9-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-9-1-tab">
-<p>What is the appropriate test to use here?</p>
-</div>
-<div id="tabset-9-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-9-2-tab">
-
-</div>
-</div>
-</div>
-<div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-10-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-10-1" role="tab" aria-controls="tabset-10-1" aria-selected="true" href="">9.10</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-10-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-10-2" role="tab" aria-controls="tabset-10-2" aria-selected="false" href="">Solutions</a></li></ul>
-<div class="tab-content">
-<div id="tabset-10-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-10-1-tab">
-<p>Perform the test in Problem 9.9 and report a p-value.</p>
-</div>
-<div id="tabset-10-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-10-2-tab">
-
-</div>
-</div>
-</div>
-</section>
-<section id="ophthalmology-1" class="level2">
-<h2 class="anchored" data-anchor-id="ophthalmology-1">Ophthalmology</h2>
-<p>Table 8.15 (in Chapter 8, text) presents data giving the median gray levels in the lens of the human eye for 6 cataractous and 6 normal people.</p>
-<div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-11-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-11-1" role="tab" aria-controls="tabset-11-1" aria-selected="true" href="">9.11</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-11-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-11-2" role="tab" aria-controls="tabset-11-2" aria-selected="false" href="">Solutions</a></li></ul>
-<div class="tab-content">
-<div id="tabset-11-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-11-1-tab">
-<p>What nonparametric test could be used to compare the median gray levels of normal and cataractous eyes?</p>
-</div>
-<div id="tabset-11-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-11-2-tab">
-
-</div>
-</div>
-</div>
-<div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-12-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-12-1" role="tab" aria-controls="tabset-12-1" aria-selected="true" href="">9.12</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-12-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-12-2" role="tab" aria-controls="tabset-12-2" aria-selected="false" href="">Solutions</a></li></ul>
-<div class="tab-content">
-<div id="tabset-12-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-12-1-tab">
-<p>Carry out the test in Problem 9.11 and report a p-value.</p>
-</div>
-<div id="tabset-12-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-12-2-tab">
-
-</div>
-</div>
-</div>
-</section>
-<section id="psychiatry" class="level2">
-<h2 class="anchored" data-anchor-id="psychiatry">Psychiatry</h2>
-<p>Suppose we are conducting a study of the effectiveness of lithium therapy for manic-depressive patients. The study is carried out at two different centers, and we want to determine if the patient populations are comparable at baseline. A self-rating questionnaire about their general psychological well-being is administered to the prospective patients at the two different centers. The outcome measure on the questionnaire is a four-category scale: (1) = feel good; (2) = usually feel good, once in a while feel nervous; (3) = feel nervous half the time; (4) = usually feel nervous. Suppose the data at the two different centers are as follows:</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>center1 <span class="ot">=</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">4</span>, <span class="dv">3</span>, <span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">4</span>, <span class="dv">4</span>)</span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>center2 <span class="ot">=</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">3</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-<div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-13-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-13-1" role="tab" aria-controls="tabset-13-1" aria-selected="true" href="">9.13</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-13-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-13-2" role="tab" aria-controls="tabset-13-2" aria-selected="false" href="">Solutions</a></li></ul>
-<div class="tab-content">
-<div id="tabset-13-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-13-1-tab">
-<p>What type of data does this type of scale represent?</p>
-</div>
-<div id="tabset-13-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-13-2-tab">
-
-</div>
-</div>
-</div>
-<div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-14-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-14-1" role="tab" aria-controls="tabset-14-1" aria-selected="true" href="">9.14</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-14-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-14-2" role="tab" aria-controls="tabset-14-2" aria-selected="false" href="">Solutions</a></li></ul>
-<div class="tab-content">
-<div id="tabset-14-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-14-1-tab">
-<p>Why might a parametric test not be useful with this type of data?</p>
-</div>
-<div id="tabset-14-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-14-2-tab">
-
-</div>
-</div>
-</div>
-<div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-15-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-15-1" role="tab" aria-controls="tabset-15-1" aria-selected="true" href="">9.15</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-15-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-15-2" role="tab" aria-controls="tabset-15-2" aria-selected="false" href="">Solutions</a></li></ul>
-<div class="tab-content">
-<div id="tabset-15-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-15-1-tab">
-<p>Assess if there is any significant difference in the responses of the two patient populations using a non-parametric test.</p>
-</div>
-<div id="tabset-15-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-15-2-tab">
-
-</div>
-</div>
-</div>
-</section>
-<section id="psychiatry-1" class="level2">
-<h2 class="anchored" data-anchor-id="psychiatry-1">Psychiatry</h2>
-<p>Much attention has been given in recent years to the role of transcendental meditation in improving health, particularly in lowering blood pressure. One hypothesis that emerges from this work is that transcendental meditation might also be useful in treating psychiatric patients with symptoms of anxiety. Suppose that a protocol of meditational therapy is administered once a day to 20 patients with anxiety. The patients are given a psychiatric exam at baseline and at a follow-up exam 2 months later. The degree of improvement is rated on a 10-point scale, with 1 indicating the most improvement and 10 the least improvement. Similarly, 26 comparably affected patients with anxiety are given standard psychotherapy and are asked to come back 2 months later for a follow-up exam. The results are given in Table 9.2.</p>
+<p>We first rank by the absolute values</p>
 <div class="cell">
 <div class="cell-output-display">
-<div id="nbtoxpdcbv" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#nbtoxpdcbv table {
+<div id="skzytjpdez" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#skzytjpdez table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#nbtoxpdcbv thead, #nbtoxpdcbv tbody, #nbtoxpdcbv tfoot, #nbtoxpdcbv tr, #nbtoxpdcbv td, #nbtoxpdcbv th {
+#skzytjpdez thead, #skzytjpdez tbody, #skzytjpdez tfoot, #skzytjpdez tr, #skzytjpdez td, #skzytjpdez th {
   border-style: none;
 }
 
-#nbtoxpdcbv p {
+#skzytjpdez p {
   margin: 0;
   padding: 0;
 }
 
-#nbtoxpdcbv .gt_table {
+#skzytjpdez .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -731,12 +705,12 @@ z = \frac{|\hat{p} - p_0| - 1/(2n)}{\sqrt{p_0(1-p_0)/n}} = \frac{|20/27 - 0.5| -
   border-left-color: #D3D3D3;
 }
 
-#nbtoxpdcbv .gt_caption {
+#skzytjpdez .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#nbtoxpdcbv .gt_title {
+#skzytjpdez .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -748,7 +722,7 @@ z = \frac{|\hat{p} - p_0| - 1/(2n)}{\sqrt{p_0(1-p_0)/n}} = \frac{|20/27 - 0.5| -
   border-bottom-width: 0;
 }
 
-#nbtoxpdcbv .gt_subtitle {
+#skzytjpdez .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -760,7 +734,7 @@ z = \frac{|\hat{p} - p_0| - 1/(2n)}{\sqrt{p_0(1-p_0)/n}} = \frac{|20/27 - 0.5| -
   border-top-width: 0;
 }
 
-#nbtoxpdcbv .gt_heading {
+#skzytjpdez .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -772,13 +746,13 @@ z = \frac{|\hat{p} - p_0| - 1/(2n)}{\sqrt{p_0(1-p_0)/n}} = \frac{|20/27 - 0.5| -
   border-right-color: #D3D3D3;
 }
 
-#nbtoxpdcbv .gt_bottom_border {
+#skzytjpdez .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#nbtoxpdcbv .gt_col_headings {
+#skzytjpdez .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -793,7 +767,7 @@ z = \frac{|\hat{p} - p_0| - 1/(2n)}{\sqrt{p_0(1-p_0)/n}} = \frac{|20/27 - 0.5| -
   border-right-color: #D3D3D3;
 }
 
-#nbtoxpdcbv .gt_col_heading {
+#skzytjpdez .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -813,7 +787,7 @@ z = \frac{|\hat{p} - p_0| - 1/(2n)}{\sqrt{p_0(1-p_0)/n}} = \frac{|20/27 - 0.5| -
   overflow-x: hidden;
 }
 
-#nbtoxpdcbv .gt_column_spanner_outer {
+#skzytjpdez .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -825,15 +799,15 @@ z = \frac{|\hat{p} - p_0| - 1/(2n)}{\sqrt{p_0(1-p_0)/n}} = \frac{|20/27 - 0.5| -
   padding-right: 4px;
 }
 
-#nbtoxpdcbv .gt_column_spanner_outer:first-child {
+#skzytjpdez .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#nbtoxpdcbv .gt_column_spanner_outer:last-child {
+#skzytjpdez .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#nbtoxpdcbv .gt_column_spanner {
+#skzytjpdez .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -845,11 +819,11 @@ z = \frac{|\hat{p} - p_0| - 1/(2n)}{\sqrt{p_0(1-p_0)/n}} = \frac{|20/27 - 0.5| -
   width: 100%;
 }
 
-#nbtoxpdcbv .gt_spanner_row {
+#skzytjpdez .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#nbtoxpdcbv .gt_group_heading {
+#skzytjpdez .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -875,7 +849,7 @@ z = \frac{|\hat{p} - p_0| - 1/(2n)}{\sqrt{p_0(1-p_0)/n}} = \frac{|20/27 - 0.5| -
   text-align: left;
 }
 
-#nbtoxpdcbv .gt_empty_group_heading {
+#skzytjpdez .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -890,15 +864,15 @@ z = \frac{|\hat{p} - p_0| - 1/(2n)}{\sqrt{p_0(1-p_0)/n}} = \frac{|20/27 - 0.5| -
   vertical-align: middle;
 }
 
-#nbtoxpdcbv .gt_from_md > :first-child {
+#skzytjpdez .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#nbtoxpdcbv .gt_from_md > :last-child {
+#skzytjpdez .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#nbtoxpdcbv .gt_row {
+#skzytjpdez .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -917,7 +891,7 @@ z = \frac{|\hat{p} - p_0| - 1/(2n)}{\sqrt{p_0(1-p_0)/n}} = \frac{|20/27 - 0.5| -
   overflow-x: hidden;
 }
 
-#nbtoxpdcbv .gt_stub {
+#skzytjpdez .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -930,7 +904,7 @@ z = \frac{|\hat{p} - p_0| - 1/(2n)}{\sqrt{p_0(1-p_0)/n}} = \frac{|20/27 - 0.5| -
   padding-right: 5px;
 }
 
-#nbtoxpdcbv .gt_stub_row_group {
+#skzytjpdez .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -944,15 +918,15 @@ z = \frac{|\hat{p} - p_0| - 1/(2n)}{\sqrt{p_0(1-p_0)/n}} = \frac{|20/27 - 0.5| -
   vertical-align: top;
 }
 
-#nbtoxpdcbv .gt_row_group_first td {
+#skzytjpdez .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#nbtoxpdcbv .gt_row_group_first th {
+#skzytjpdez .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#nbtoxpdcbv .gt_summary_row {
+#skzytjpdez .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -962,16 +936,16 @@ z = \frac{|\hat{p} - p_0| - 1/(2n)}{\sqrt{p_0(1-p_0)/n}} = \frac{|20/27 - 0.5| -
   padding-right: 5px;
 }
 
-#nbtoxpdcbv .gt_first_summary_row {
+#skzytjpdez .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#nbtoxpdcbv .gt_first_summary_row.thick {
+#skzytjpdez .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#nbtoxpdcbv .gt_last_summary_row {
+#skzytjpdez .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -981,7 +955,7 @@ z = \frac{|\hat{p} - p_0| - 1/(2n)}{\sqrt{p_0(1-p_0)/n}} = \frac{|20/27 - 0.5| -
   border-bottom-color: #D3D3D3;
 }
 
-#nbtoxpdcbv .gt_grand_summary_row {
+#skzytjpdez .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -991,7 +965,7 @@ z = \frac{|\hat{p} - p_0| - 1/(2n)}{\sqrt{p_0(1-p_0)/n}} = \frac{|20/27 - 0.5| -
   padding-right: 5px;
 }
 
-#nbtoxpdcbv .gt_first_grand_summary_row {
+#skzytjpdez .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1001,7 +975,7 @@ z = \frac{|\hat{p} - p_0| - 1/(2n)}{\sqrt{p_0(1-p_0)/n}} = \frac{|20/27 - 0.5| -
   border-top-color: #D3D3D3;
 }
 
-#nbtoxpdcbv .gt_last_grand_summary_row_top {
+#skzytjpdez .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1011,11 +985,11 @@ z = \frac{|\hat{p} - p_0| - 1/(2n)}{\sqrt{p_0(1-p_0)/n}} = \frac{|20/27 - 0.5| -
   border-bottom-color: #D3D3D3;
 }
 
-#nbtoxpdcbv .gt_striped {
+#skzytjpdez .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#nbtoxpdcbv .gt_table_body {
+#skzytjpdez .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1024,7 +998,7 @@ z = \frac{|\hat{p} - p_0| - 1/(2n)}{\sqrt{p_0(1-p_0)/n}} = \frac{|20/27 - 0.5| -
   border-bottom-color: #D3D3D3;
 }
 
-#nbtoxpdcbv .gt_footnotes {
+#skzytjpdez .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1038,7 +1012,7 @@ z = \frac{|\hat{p} - p_0| - 1/(2n)}{\sqrt{p_0(1-p_0)/n}} = \frac{|20/27 - 0.5| -
   border-right-color: #D3D3D3;
 }
 
-#nbtoxpdcbv .gt_footnote {
+#skzytjpdez .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -1047,7 +1021,7 @@ z = \frac{|\hat{p} - p_0| - 1/(2n)}{\sqrt{p_0(1-p_0)/n}} = \frac{|20/27 - 0.5| -
   padding-right: 5px;
 }
 
-#nbtoxpdcbv .gt_sourcenotes {
+#skzytjpdez .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1061,7 +1035,7 @@ z = \frac{|\hat{p} - p_0| - 1/(2n)}{\sqrt{p_0(1-p_0)/n}} = \frac{|20/27 - 0.5| -
   border-right-color: #D3D3D3;
 }
 
-#nbtoxpdcbv .gt_sourcenote {
+#skzytjpdez .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -1069,72 +1043,2027 @@ z = \frac{|\hat{p} - p_0| - 1/(2n)}{\sqrt{p_0(1-p_0)/n}} = \frac{|20/27 - 0.5| -
   padding-right: 5px;
 }
 
-#nbtoxpdcbv .gt_left {
+#skzytjpdez .gt_left {
   text-align: left;
 }
 
-#nbtoxpdcbv .gt_center {
+#skzytjpdez .gt_center {
   text-align: center;
 }
 
-#nbtoxpdcbv .gt_right {
+#skzytjpdez .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#nbtoxpdcbv .gt_font_normal {
+#skzytjpdez .gt_font_normal {
   font-weight: normal;
 }
 
-#nbtoxpdcbv .gt_font_bold {
+#skzytjpdez .gt_font_bold {
   font-weight: bold;
 }
 
-#nbtoxpdcbv .gt_font_italic {
+#skzytjpdez .gt_font_italic {
   font-style: italic;
 }
 
-#nbtoxpdcbv .gt_super {
+#skzytjpdez .gt_super {
   font-size: 65%;
 }
 
-#nbtoxpdcbv .gt_footnote_marks {
+#skzytjpdez .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#nbtoxpdcbv .gt_asterisk {
+#skzytjpdez .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#nbtoxpdcbv .gt_indent_1 {
+#skzytjpdez .gt_indent_1 {
   text-indent: 5px;
 }
 
-#nbtoxpdcbv .gt_indent_2 {
+#skzytjpdez .gt_indent_2 {
   text-indent: 10px;
 }
 
-#nbtoxpdcbv .gt_indent_3 {
+#skzytjpdez .gt_indent_3 {
   text-indent: 15px;
 }
 
-#nbtoxpdcbv .gt_indent_4 {
+#skzytjpdez .gt_indent_4 {
   text-indent: 20px;
 }
 
-#nbtoxpdcbv .gt_indent_5 {
+#skzytjpdez .gt_indent_5 {
   text-indent: 25px;
 }
 
-#nbtoxpdcbv .katex-display {
+#skzytjpdez .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#nbtoxpdcbv div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#skzytjpdez div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+  height: 0px !important;
+}
+</style>
+
+<table class="gt_table caption-top table table-sm table-striped small" data-quarto-bootstrap="false">
+<thead>
+<tr class="gt_col_headings header">
+<th id="Difference" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">Difference</th>
+<th id="a|Difference|" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">|Difference|</th>
+<th id="Rank" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">Rank</th>
+</tr>
+</thead>
+<tbody class="gt_table_body">
+<tr class="odd">
+<td class="gt_row gt_right" headers="Difference">-0.1</td>
+<td class="gt_row gt_right" headers="|Difference|">0.1</td>
+<td class="gt_row gt_right" headers="Rank">1</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_right" headers="Difference">-0.2</td>
+<td class="gt_row gt_right" headers="|Difference|">0.2</td>
+<td class="gt_row gt_right" headers="Rank">2</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_right" headers="Difference">-0.4</td>
+<td class="gt_row gt_right" headers="|Difference|">0.4</td>
+<td class="gt_row gt_right" headers="Rank">3</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_right" headers="Difference">-0.6</td>
+<td class="gt_row gt_right" headers="|Difference|">0.6</td>
+<td class="gt_row gt_right" headers="Rank">4</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_right" headers="Difference">-0.7</td>
+<td class="gt_row gt_right" headers="|Difference|">0.7</td>
+<td class="gt_row gt_right" headers="Rank">5</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_right" headers="Difference">0.8</td>
+<td class="gt_row gt_right" headers="|Difference|">0.8</td>
+<td class="gt_row gt_right" headers="Rank">6</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_right" headers="Difference">-0.9</td>
+<td class="gt_row gt_right" headers="|Difference|">0.9</td>
+<td class="gt_row gt_right" headers="Rank">7</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_right" headers="Difference">1.5</td>
+<td class="gt_row gt_right" headers="|Difference|">1.5</td>
+<td class="gt_row gt_right" headers="Rank">8</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<p>We then sum the ranks of either all of the negative numbers, or all of the positive numbers (doesn’t matter which one).</p>
+<p>If you sum the ranks of the positives, you get</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="dv">6</span> <span class="sc">+</span> <span class="dv">8</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 14</code></pre>
+</div>
+</div>
+<p>If you sum the ranks of the negatives, you get</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">+</span> <span class="dv">2</span> <span class="sc">+</span> <span class="dv">3</span> <span class="sc">+</span> <span class="dv">4</span> <span class="sc">+</span> <span class="dv">5</span> <span class="sc">+</span> <span class="dv">7</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 22</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-7-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-7-1" role="tab" aria-controls="tabset-7-1" aria-selected="true" href="">9.5c</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-7-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-7-2" role="tab" aria-controls="tabset-7-2" aria-selected="false" href="">Solutions</a></li></ul>
+<div class="tab-content">
+<div id="tabset-7-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-7-1-tab">
+<p>Use R to run the test from 9.5 aa and report the p-value.</p>
+</div>
+<div id="tabset-7-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-7-2-tab">
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">wilcox.test</span>(diff <span class="sc">~</span> <span class="dv">1</span>, <span class="at">data =</span> hemo) <span class="sc">|&gt;</span></span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tidy</span>() <span class="sc">|&gt;</span></span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(statistic, p.value)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 2
+  statistic p.value
+      &lt;dbl&gt;   &lt;dbl&gt;
+1        14   0.641</code></pre>
+</div>
+</div>
+<p>We would again fail to reject <span class="math inline">\(H_0\)</span>.</p>
+</div>
+</div>
+</div>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-8-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-8-1" role="tab" aria-controls="tabset-8-1" aria-selected="true" href="">9.6</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-8-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-8-2" role="tab" aria-controls="tabset-8-2" aria-selected="false" href="">Solutions</a></li></ul>
+<div class="tab-content">
+<div id="tabset-8-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-8-1-tab">
+<p>Compare your results in Problems 9.4 and 9.5.</p>
+</div>
+<div id="tabset-8-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-8-2-tab">
+<p>Both indicate no evidence of a difference.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="pathology" class="level2">
+<h2 class="anchored" data-anchor-id="pathology">Pathology</h2>
+<p>The data in the following data frame are measurements from a group of 10 normal males and 11 males with left-heart disease taken at autopsy at a particular hospital. Measurements were made on several variables at that time, and the table presents the measurements on total heart weight (THW) and total body weight (BW). Assume that the diagnosis of left-heart disease is made independently of these variables.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>heart <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">status =</span> <span class="fu">c</span>(<span class="fu">rep</span>(<span class="st">"disease"</span>, <span class="dv">11</span>), <span class="fu">rep</span>(<span class="st">"normal"</span>, <span class="dv">10</span>)),</span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">thw =</span> <span class="fu">c</span>(<span class="dv">450</span>, <span class="dv">760</span>, <span class="dv">325</span>, <span class="dv">495</span>, <span class="dv">285</span>, <span class="dv">450</span>, <span class="dv">460</span>, <span class="dv">375</span>, <span class="dv">310</span>, <span class="dv">615</span>, <span class="dv">425</span>,</span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a>          <span class="dv">245</span>, <span class="dv">350</span>, <span class="dv">340</span>, <span class="dv">300</span>, <span class="dv">310</span>, <span class="dv">270</span>, <span class="dv">300</span>, <span class="dv">360</span>, <span class="dv">405</span>, <span class="dv">290</span>),</span>
+<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">bw =</span> <span class="fu">c</span>(<span class="fl">54.6</span>, <span class="fl">73.5</span>, <span class="fl">50.3</span>, <span class="fl">44.6</span>, <span class="fl">58.1</span>, <span class="fl">61.3</span>, <span class="fl">75.3</span>, <span class="fl">41.1</span>, <span class="fl">51.5</span>, <span class="fl">41.7</span>, <span class="fl">59.7</span>,</span>
+<span id="cb36-6"><a href="#cb36-6" aria-hidden="true" tabindex="-1"></a>         <span class="fl">40.8</span>, <span class="fl">67.4</span>, <span class="fl">53.3</span>, <span class="fl">62.2</span>, <span class="fl">65.5</span>, <span class="fl">47.5</span>, <span class="fl">51.2</span>, <span class="fl">74.9</span>, <span class="fl">59.0</span>, <span class="fl">40.5</span>)</span>
+<span id="cb36-7"><a href="#cb36-7" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-9-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-9-1" role="tab" aria-controls="tabset-9-1" aria-selected="true" href="">9.7</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-9-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-9-2" role="tab" aria-controls="tabset-9-2" aria-selected="false" href="">Solutions</a></li></ul>
+<div class="tab-content">
+<div id="tabset-9-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-9-1-tab">
+<p>Suppose normality is not assumed. What nonparametric test can be used to compare total heart weight of males with left-heart disease with that of normal males?</p>
+</div>
+<div id="tabset-9-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-9-2-tab">
+<p>A Wilcoxin rank-sum test. This is a two-sample problem.</p>
+</div>
+</div>
+</div>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-10-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-10-1" role="tab" aria-controls="tabset-10-1" aria-selected="true" href="">9.8a</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-10-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-10-2" role="tab" aria-controls="tabset-10-2" aria-selected="false" href="">Solutions</a></li></ul>
+<div class="tab-content">
+<div id="tabset-10-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-10-1-tab">
+<p>Calculate a test-statistic for the test in 9.7.</p>
+</div>
+<div id="tabset-10-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-10-2-tab">
+<p>We first rank all of the <code>thw</code> values</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="ftjvvacwxf" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#ftjvvacwxf table {
+  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#ftjvvacwxf thead, #ftjvvacwxf tbody, #ftjvvacwxf tfoot, #ftjvvacwxf tr, #ftjvvacwxf td, #ftjvvacwxf th {
+  border-style: none;
+}
+
+#ftjvvacwxf p {
+  margin: 0;
+  padding: 0;
+}
+
+#ftjvvacwxf .gt_table {
+  display: table;
+  border-collapse: collapse;
+  line-height: normal;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#ftjvvacwxf .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#ftjvvacwxf .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#ftjvvacwxf .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 3px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#ftjvvacwxf .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#ftjvvacwxf .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#ftjvvacwxf .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#ftjvvacwxf .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#ftjvvacwxf .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#ftjvvacwxf .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#ftjvvacwxf .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#ftjvvacwxf .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#ftjvvacwxf .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
+#ftjvvacwxf .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+#ftjvvacwxf .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#ftjvvacwxf .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#ftjvvacwxf .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#ftjvvacwxf .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#ftjvvacwxf .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#ftjvvacwxf .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#ftjvvacwxf .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#ftjvvacwxf .gt_row_group_first th {
+  border-top-width: 2px;
+}
+
+#ftjvvacwxf .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#ftjvvacwxf .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#ftjvvacwxf .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#ftjvvacwxf .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#ftjvvacwxf .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#ftjvvacwxf .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#ftjvvacwxf .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
+#ftjvvacwxf .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#ftjvvacwxf .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#ftjvvacwxf .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#ftjvvacwxf .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#ftjvvacwxf .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#ftjvvacwxf .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#ftjvvacwxf .gt_left {
+  text-align: left;
+}
+
+#ftjvvacwxf .gt_center {
+  text-align: center;
+}
+
+#ftjvvacwxf .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#ftjvvacwxf .gt_font_normal {
+  font-weight: normal;
+}
+
+#ftjvvacwxf .gt_font_bold {
+  font-weight: bold;
+}
+
+#ftjvvacwxf .gt_font_italic {
+  font-style: italic;
+}
+
+#ftjvvacwxf .gt_super {
+  font-size: 65%;
+}
+
+#ftjvvacwxf .gt_footnote_marks {
+  font-size: 75%;
+  vertical-align: 0.4em;
+  position: initial;
+}
+
+#ftjvvacwxf .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#ftjvvacwxf .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#ftjvvacwxf .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#ftjvvacwxf .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#ftjvvacwxf .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#ftjvvacwxf .gt_indent_5 {
+  text-indent: 25px;
+}
+
+#ftjvvacwxf .katex-display {
+  display: inline-flex !important;
+  margin-bottom: 0.75em !important;
+}
+
+#ftjvvacwxf div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+  height: 0px !important;
+}
+</style>
+
+<table class="gt_table caption-top table table-sm table-striped small" data-quarto-bootstrap="false">
+<thead>
+<tr class="gt_col_headings header">
+<th id="status" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">status</th>
+<th id="thw" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">thw</th>
+<th id="rank" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">rank</th>
+</tr>
+</thead>
+<tbody class="gt_table_body">
+<tr class="odd">
+<td class="gt_row gt_left" headers="status">normal</td>
+<td class="gt_row gt_right" headers="thw">245</td>
+<td class="gt_row gt_right" headers="rank">1.0</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="status">normal</td>
+<td class="gt_row gt_right" headers="thw">270</td>
+<td class="gt_row gt_right" headers="rank">2.0</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="status">disease</td>
+<td class="gt_row gt_right" headers="thw">285</td>
+<td class="gt_row gt_right" headers="rank">3.0</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="status">normal</td>
+<td class="gt_row gt_right" headers="thw">290</td>
+<td class="gt_row gt_right" headers="rank">4.0</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="status">normal</td>
+<td class="gt_row gt_right" headers="thw">300</td>
+<td class="gt_row gt_right" headers="rank">5.5</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="status">normal</td>
+<td class="gt_row gt_right" headers="thw">300</td>
+<td class="gt_row gt_right" headers="rank">5.5</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="status">disease</td>
+<td class="gt_row gt_right" headers="thw">310</td>
+<td class="gt_row gt_right" headers="rank">7.5</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="status">normal</td>
+<td class="gt_row gt_right" headers="thw">310</td>
+<td class="gt_row gt_right" headers="rank">7.5</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="status">disease</td>
+<td class="gt_row gt_right" headers="thw">325</td>
+<td class="gt_row gt_right" headers="rank">9.0</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="status">normal</td>
+<td class="gt_row gt_right" headers="thw">340</td>
+<td class="gt_row gt_right" headers="rank">10.0</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="status">normal</td>
+<td class="gt_row gt_right" headers="thw">350</td>
+<td class="gt_row gt_right" headers="rank">11.0</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="status">normal</td>
+<td class="gt_row gt_right" headers="thw">360</td>
+<td class="gt_row gt_right" headers="rank">12.0</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="status">disease</td>
+<td class="gt_row gt_right" headers="thw">375</td>
+<td class="gt_row gt_right" headers="rank">13.0</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="status">normal</td>
+<td class="gt_row gt_right" headers="thw">405</td>
+<td class="gt_row gt_right" headers="rank">14.0</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="status">disease</td>
+<td class="gt_row gt_right" headers="thw">425</td>
+<td class="gt_row gt_right" headers="rank">15.0</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="status">disease</td>
+<td class="gt_row gt_right" headers="thw">450</td>
+<td class="gt_row gt_right" headers="rank">16.5</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="status">disease</td>
+<td class="gt_row gt_right" headers="thw">450</td>
+<td class="gt_row gt_right" headers="rank">16.5</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="status">disease</td>
+<td class="gt_row gt_right" headers="thw">460</td>
+<td class="gt_row gt_right" headers="rank">18.0</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="status">disease</td>
+<td class="gt_row gt_right" headers="thw">495</td>
+<td class="gt_row gt_right" headers="rank">19.0</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="status">disease</td>
+<td class="gt_row gt_right" headers="thw">615</td>
+<td class="gt_row gt_right" headers="rank">20.0</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="status">disease</td>
+<td class="gt_row gt_right" headers="thw">760</td>
+<td class="gt_row gt_right" headers="rank">21.0</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<p>Notice that there are two ties. We handle this by giving them the average rank (e.g., the average of ranks 16 and 17, resulting in both having rank 16.5).</p>
+<p>We now sum either all of the ranks of the disease group, or all of the ranks of the normal group (doesn’t matter which).</p>
+<p>For the normal group, we get</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">+</span> <span class="dv">2</span> <span class="sc">+</span> <span class="dv">4</span> <span class="sc">+</span> <span class="fl">5.5</span> <span class="sc">+</span> <span class="fl">5.5</span> <span class="sc">+</span> <span class="fl">7.5</span> <span class="sc">+</span> <span class="dv">10</span> <span class="sc">+</span> <span class="dv">11</span> <span class="sc">+</span> <span class="dv">12</span> <span class="sc">+</span> <span class="dv">14</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 72.5</code></pre>
+</div>
+</div>
+<p>For the disease group, we get</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span> <span class="sc">+</span> <span class="fl">7.5</span> <span class="sc">+</span> <span class="dv">9</span> <span class="sc">+</span> <span class="dv">13</span> <span class="sc">+</span> <span class="dv">15</span> <span class="sc">+</span> <span class="fl">16.5</span> <span class="sc">+</span> <span class="fl">16.5</span> <span class="sc">+</span> <span class="dv">18</span> <span class="sc">+</span> <span class="dv">19</span> <span class="sc">+</span> <span class="dv">20</span> <span class="sc">+</span> <span class="dv">21</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 158.5</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-11-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-11-1" role="tab" aria-controls="tabset-11-1" aria-selected="true" href="">9.8a</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-11-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-11-2" role="tab" aria-controls="tabset-11-2" aria-selected="false" href="">Solutions</a></li></ul>
+<div class="tab-content">
+<div id="tabset-11-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-11-1-tab">
+<p>Run the test from 9.7 in R and report a p-value.</p>
+</div>
+<div id="tabset-11-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-11-2-tab">
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="fu">wilcox.test</span>(thw <span class="sc">~</span> status, <span class="at">data =</span> heart, <span class="at">exact =</span> <span class="cn">FALSE</span>) <span class="sc">|&gt;</span></span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tidy</span>() <span class="sc">|&gt;</span></span>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(statistic, p.value)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 2
+  statistic p.value
+      &lt;dbl&gt;   &lt;dbl&gt;
+1      92.5 0.00911</code></pre>
+</div>
+</div>
+<p>Note (but not important for you) that R’s statistic subtract <span class="math inline">\(m(m+1)/2\)</span> from the statistic, where <span class="math inline">\(m\)</span> is the sample size of the group. So</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="fl">158.5</span> <span class="sc">-</span> <span class="dv">11</span> <span class="sc">*</span> (<span class="dv">11</span> <span class="sc">+</span> <span class="dv">1</span>) <span class="sc">/</span> <span class="dv">2</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 92.5</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="cardiology" class="level2">
+<h2 class="anchored" data-anchor-id="cardiology">Cardiology</h2>
+<p>Propranolol is a standard drug given to ease the pain of patients with episodes of unstable angina. A new drug for the treatment of this disease is tested on 30 pairs of patients who are matched on a one-to-one basis according to age, sex, and clinical condition and are assessed as to the severity of their pain. Suppose that in 15 pairs of patients, the patient with the new drug has less pain; in 10 pairs of patients, the patient with propranolol has less pain; and in 5 pairs of patients, the pain is about the same with the two drugs.</p>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-12-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-12-1" role="tab" aria-controls="tabset-12-1" aria-selected="true" href="">9.9</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-12-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-12-2" role="tab" aria-controls="tabset-12-2" aria-selected="false" href="">Solutions</a></li></ul>
+<div class="tab-content">
+<div id="tabset-12-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-12-1-tab">
+<p>What is the appropriate test to use here?</p>
+</div>
+<div id="tabset-12-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-12-2-tab">
+<p>Use the sign test. Let <span class="math inline">\(X\)</span> be the number of patients with less pain. Let <span class="math inline">\(n\)</span> be the number of patients reporting a difference. Then <span class="math inline">\(X \sim \mathrm{Binom}(n, p)\)</span>. We want to test <span class="math inline">\(H_0: p = 1/2\)</span> versus <span class="math inline">\(H_A: p \neq 1/2\)</span>.</p>
+</div>
+</div>
+</div>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-13-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-13-1" role="tab" aria-controls="tabset-13-1" aria-selected="true" href="">9.10</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-13-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-13-2" role="tab" aria-controls="tabset-13-2" aria-selected="false" href="">Solutions</a></li></ul>
+<div class="tab-content">
+<div id="tabset-13-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-13-1-tab">
+<p>Perform the test in Problem 9.9 and report a p-value.</p>
+</div>
+<div id="tabset-13-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-13-2-tab">
+<p>We are told that we observe <span class="math inline">\(x = 10\)</span> and <span class="math inline">\(n = 25\)</span>. We can use the normal approximation to the binomial since <span class="math inline">\(np_0(1-p_0) \geq 5\)</span></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="dv">25</span> <span class="sc">*</span> <span class="fl">0.5</span> <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> <span class="fl">0.5</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 6.25</code></pre>
+</div>
+</div>
+<p>We calculate the <span class="math inline">\(z\)</span> statistic <span class="math display">\[
+z = \frac{|\hat{p} - p_0| - 1/(2n)}{\sqrt{p_0(1-p_0)/n}} = \frac{|10/25 - 0.5| - 1/50}{\sqrt{0.5(1-0.5)/25}}
+\]</span></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>(<span class="fu">abs</span>(<span class="dv">10</span><span class="sc">/</span><span class="dv">25</span> <span class="sc">-</span> <span class="fl">0.5</span>) <span class="sc">-</span> <span class="dv">1</span><span class="sc">/</span><span class="dv">50</span>) <span class="sc">/</span> <span class="fu">sqrt</span>(<span class="fl">0.5</span> <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> <span class="fl">0.5</span>) <span class="sc">/</span> <span class="dv">25</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.8</code></pre>
+</div>
+</div>
+<p>We compare this to standard normal distribution</p>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="pp_09_files/figure-html/unnamed-chunk-33-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span> <span class="sc">*</span> <span class="fu">pnorm</span>(<span class="sc">-</span><span class="fl">0.8</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.4237</code></pre>
+</div>
+</div>
+<p>So we do not have evidence of a difference in pain level. The real way in R is</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="fu">prop.test</span>(<span class="at">x =</span> <span class="dv">10</span>, <span class="at">n =</span> <span class="dv">25</span>, <span class="at">p =</span> <span class="fl">0.5</span>) <span class="sc">|&gt;</span></span>
+<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tidy</span>() <span class="sc">|&gt;</span></span>
+<span id="cb51-3"><a href="#cb51-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(p.value)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 1
+  p.value
+    &lt;dbl&gt;
+1   0.424</code></pre>
+</div>
+</div>
+<p>The exact binomial approach, which is always valid, calculates the sum of the probabilities that are at least as probabable as <span class="math inline">\(x = 10\)</span> given <span class="math inline">\(X \sim \mathrm{Binom}(25, 0.5)\)</span></p>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="pp_09_files/figure-html/unnamed-chunk-36-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="fu">binom.test</span>(<span class="at">x =</span> <span class="dv">10</span>, <span class="at">n =</span> <span class="dv">25</span>, <span class="at">p =</span> <span class="fl">0.5</span>) <span class="sc">|&gt;</span></span>
+<span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tidy</span>() <span class="sc">|&gt;</span></span>
+<span id="cb53-3"><a href="#cb53-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(p.value)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 1
+  p.value
+    &lt;dbl&gt;
+1   0.424</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="ophthalmology-1" class="level2">
+<h2 class="anchored" data-anchor-id="ophthalmology-1">Ophthalmology</h2>
+<p>A camera has been developed to detect the presence of cataract more accurately. Using this camera, the gray level of each point (or pixel) in the lens of a human eye can be characterized into 256 gradations, where a gray level of 1 represents black and a gray level of 256 represents white. To test the camera, photographs were taken of 6 randomly selected normal eyes and 6 randomly selected cataractous eyes (the two groups consist of different people). The median gray level of each eye was computed over the 10,000+ pixels in the lens. The data are given in the data frame below.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a>cateract <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">status =</span> <span class="fu">c</span>(<span class="fu">rep</span>(<span class="st">"cateractous"</span>, <span class="dv">6</span>), <span class="fu">rep</span>(<span class="st">"normal"</span>, <span class="dv">6</span>)),</span>
+<span id="cb55-3"><a href="#cb55-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">gray_level =</span> <span class="fu">c</span>(<span class="dv">161</span>, <span class="dv">140</span>, <span class="dv">136</span>, <span class="dv">171</span>, <span class="dv">106</span>, <span class="dv">149</span>, <span class="dv">158</span>, <span class="dv">182</span>, <span class="dv">185</span>, <span class="dv">145</span>, <span class="dv">167</span>, <span class="dv">177</span>)</span>
+<span id="cb55-4"><a href="#cb55-4" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-14-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-14-1" role="tab" aria-controls="tabset-14-1" aria-selected="true" href="">9.11</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-14-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-14-2" role="tab" aria-controls="tabset-14-2" aria-selected="false" href="">Solutions</a></li></ul>
+<div class="tab-content">
+<div id="tabset-14-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-14-1-tab">
+<p>What nonparametric test could be used to compare the median gray levels of normal and cataractous eyes?</p>
+</div>
+<div id="tabset-14-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-14-2-tab">
+<p>A Wilcoxin rank-sum test.</p>
+</div>
+</div>
+</div>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-15-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-15-1" role="tab" aria-controls="tabset-15-1" aria-selected="true" href="">9.12a</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-15-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-15-2" role="tab" aria-controls="tabset-15-2" aria-selected="false" href="">Solutions</a></li></ul>
+<div class="tab-content">
+<div id="tabset-15-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-15-1-tab">
+<p>Calculate the test-statistic from the test in 9.11.</p>
+</div>
+<div id="tabset-15-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-15-2-tab">
+<p>We first rank all of the <code>gray_level</code> values</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="wzlymphfkg" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#wzlymphfkg table {
+  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#wzlymphfkg thead, #wzlymphfkg tbody, #wzlymphfkg tfoot, #wzlymphfkg tr, #wzlymphfkg td, #wzlymphfkg th {
+  border-style: none;
+}
+
+#wzlymphfkg p {
+  margin: 0;
+  padding: 0;
+}
+
+#wzlymphfkg .gt_table {
+  display: table;
+  border-collapse: collapse;
+  line-height: normal;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#wzlymphfkg .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#wzlymphfkg .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#wzlymphfkg .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 3px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#wzlymphfkg .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#wzlymphfkg .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#wzlymphfkg .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#wzlymphfkg .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#wzlymphfkg .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#wzlymphfkg .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#wzlymphfkg .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#wzlymphfkg .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#wzlymphfkg .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
+#wzlymphfkg .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+#wzlymphfkg .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#wzlymphfkg .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#wzlymphfkg .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#wzlymphfkg .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#wzlymphfkg .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#wzlymphfkg .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#wzlymphfkg .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#wzlymphfkg .gt_row_group_first th {
+  border-top-width: 2px;
+}
+
+#wzlymphfkg .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#wzlymphfkg .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#wzlymphfkg .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#wzlymphfkg .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#wzlymphfkg .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#wzlymphfkg .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#wzlymphfkg .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
+#wzlymphfkg .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#wzlymphfkg .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#wzlymphfkg .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#wzlymphfkg .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#wzlymphfkg .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#wzlymphfkg .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#wzlymphfkg .gt_left {
+  text-align: left;
+}
+
+#wzlymphfkg .gt_center {
+  text-align: center;
+}
+
+#wzlymphfkg .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#wzlymphfkg .gt_font_normal {
+  font-weight: normal;
+}
+
+#wzlymphfkg .gt_font_bold {
+  font-weight: bold;
+}
+
+#wzlymphfkg .gt_font_italic {
+  font-style: italic;
+}
+
+#wzlymphfkg .gt_super {
+  font-size: 65%;
+}
+
+#wzlymphfkg .gt_footnote_marks {
+  font-size: 75%;
+  vertical-align: 0.4em;
+  position: initial;
+}
+
+#wzlymphfkg .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#wzlymphfkg .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#wzlymphfkg .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#wzlymphfkg .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#wzlymphfkg .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#wzlymphfkg .gt_indent_5 {
+  text-indent: 25px;
+}
+
+#wzlymphfkg .katex-display {
+  display: inline-flex !important;
+  margin-bottom: 0.75em !important;
+}
+
+#wzlymphfkg div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+  height: 0px !important;
+}
+</style>
+
+<table class="gt_table caption-top table table-sm table-striped small" data-quarto-bootstrap="false">
+<thead>
+<tr class="gt_col_headings header">
+<th id="status" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">status</th>
+<th id="gray_level" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">gray_level</th>
+<th id="rank" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">rank</th>
+</tr>
+</thead>
+<tbody class="gt_table_body">
+<tr class="odd">
+<td class="gt_row gt_left" headers="status">cateractous</td>
+<td class="gt_row gt_right" headers="gray_level">106</td>
+<td class="gt_row gt_right" headers="rank">1</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="status">cateractous</td>
+<td class="gt_row gt_right" headers="gray_level">136</td>
+<td class="gt_row gt_right" headers="rank">2</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="status">cateractous</td>
+<td class="gt_row gt_right" headers="gray_level">140</td>
+<td class="gt_row gt_right" headers="rank">3</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="status">normal</td>
+<td class="gt_row gt_right" headers="gray_level">145</td>
+<td class="gt_row gt_right" headers="rank">4</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="status">cateractous</td>
+<td class="gt_row gt_right" headers="gray_level">149</td>
+<td class="gt_row gt_right" headers="rank">5</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="status">normal</td>
+<td class="gt_row gt_right" headers="gray_level">158</td>
+<td class="gt_row gt_right" headers="rank">6</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="status">cateractous</td>
+<td class="gt_row gt_right" headers="gray_level">161</td>
+<td class="gt_row gt_right" headers="rank">7</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="status">normal</td>
+<td class="gt_row gt_right" headers="gray_level">167</td>
+<td class="gt_row gt_right" headers="rank">8</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="status">cateractous</td>
+<td class="gt_row gt_right" headers="gray_level">171</td>
+<td class="gt_row gt_right" headers="rank">9</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="status">normal</td>
+<td class="gt_row gt_right" headers="gray_level">177</td>
+<td class="gt_row gt_right" headers="rank">10</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="status">normal</td>
+<td class="gt_row gt_right" headers="gray_level">182</td>
+<td class="gt_row gt_right" headers="rank">11</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="status">normal</td>
+<td class="gt_row gt_right" headers="gray_level">185</td>
+<td class="gt_row gt_right" headers="rank">12</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<p>We then sum either all of the normal ranks or all of the cateractous ranks (doesn’t matter which one).</p>
+<p>For the normal ranks:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="dv">4</span> <span class="sc">+</span> <span class="dv">6</span> <span class="sc">+</span> <span class="dv">8</span> <span class="sc">+</span> <span class="dv">10</span> <span class="sc">+</span> <span class="dv">11</span> <span class="sc">+</span> <span class="dv">12</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 51</code></pre>
+</div>
+</div>
+<p>For the cateractous ranks</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">+</span> <span class="dv">2</span> <span class="sc">+</span> <span class="dv">3</span> <span class="sc">+</span> <span class="dv">5</span> <span class="sc">+</span> <span class="dv">7</span> <span class="sc">+</span> <span class="dv">9</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 27</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-16-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-16-1" role="tab" aria-controls="tabset-16-1" aria-selected="true" href="">9.12b</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-16-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-16-2" role="tab" aria-controls="tabset-16-2" aria-selected="false" href="">Solutions</a></li></ul>
+<div class="tab-content">
+<div id="tabset-16-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-16-1-tab">
+<p>Use R to carry out the test from 9.11.</p>
+</div>
+<div id="tabset-16-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-16-2-tab">
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb60"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="fu">wilcox.test</span>(gray_level <span class="sc">~</span> status, <span class="at">data =</span> cateract) <span class="sc">|&gt;</span></span>
+<span id="cb60-2"><a href="#cb60-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tidy</span>() <span class="sc">|&gt;</span></span>
+<span id="cb60-3"><a href="#cb60-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(p.value)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 1
+  p.value
+    &lt;dbl&gt;
+1  0.0649</code></pre>
+</div>
+</div>
+<p>So we have some weak evidence of a difference in gray pixels between the two groups.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="psychiatry" class="level2">
+<h2 class="anchored" data-anchor-id="psychiatry">Psychiatry</h2>
+<p>Suppose we are conducting a study of the effectiveness of lithium therapy for manic-depressive patients. The study is carried out at two different centers, and we want to determine if the patient populations are comparable at baseline. A self-rating questionnaire about their general psychological well-being is administered to the prospective patients at the two different centers. The outcome measure on the questionnaire is a four-category scale: (1) = feel good; (2) = usually feel good, once in a while feel nervous; (3) = feel nervous half the time; (4) = usually feel nervous. Suppose the data at the two different centers are as follows:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb62"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a>quest <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb62-2"><a href="#cb62-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">feeling =</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">4</span>, <span class="dv">3</span>, <span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">4</span>, <span class="dv">4</span>,</span>
+<span id="cb62-3"><a href="#cb62-3" aria-hidden="true" tabindex="-1"></a>              <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">3</span>),</span>
+<span id="cb62-4"><a href="#cb62-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">center =</span> <span class="fu">c</span>(<span class="fu">rep</span>(<span class="st">"1"</span>, <span class="dv">14</span>), <span class="fu">rep</span>(<span class="st">"2"</span>, <span class="dv">16</span>))</span>
+<span id="cb62-5"><a href="#cb62-5" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-17-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-17-1" role="tab" aria-controls="tabset-17-1" aria-selected="true" href="">9.13</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-17-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-17-2" role="tab" aria-controls="tabset-17-2" aria-selected="false" href="">Solutions</a></li></ul>
+<div class="tab-content">
+<div id="tabset-17-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-17-1-tab">
+<p>What type of data does this type of scale represent?</p>
+</div>
+<div id="tabset-17-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-17-2-tab">
+<p>Ordinal.</p>
+</div>
+</div>
+</div>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-18-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-18-1" role="tab" aria-controls="tabset-18-1" aria-selected="true" href="">9.14</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-18-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-18-2" role="tab" aria-controls="tabset-18-2" aria-selected="false" href="">Solutions</a></li></ul>
+<div class="tab-content">
+<div id="tabset-18-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-18-1-tab">
+<p>Why might a parametric test not be useful with this type of data?</p>
+</div>
+<div id="tabset-18-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-18-2-tab">
+<p>The parametric test you know is the <span class="math inline">\(t\)</span>-test, and this assumes cardinal values. E.g., it assumes the mean and standard deviations are meaningful, but they are not appropriate here since we have ordinal values.</p>
+</div>
+</div>
+</div>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-19-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-19-1" role="tab" aria-controls="tabset-19-1" aria-selected="true" href="">9.15</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-19-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-19-2" role="tab" aria-controls="tabset-19-2" aria-selected="false" href="">Solutions</a></li></ul>
+<div class="tab-content">
+<div id="tabset-19-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-19-1-tab">
+<p>Assess if there is any significant difference in the responses of the two patient populations using a non-parametric test. Just do this in R. No need to calculate the test statistic.</p>
+</div>
+<div id="tabset-19-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-19-2-tab">
+<p>We should use a Wilcox rank-sum test.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb63"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a><span class="fu">wilcox.test</span>(feeling <span class="sc">~</span> center, <span class="at">data =</span> quest, <span class="at">exact =</span> <span class="cn">FALSE</span>) <span class="sc">|&gt;</span></span>
+<span id="cb63-2"><a href="#cb63-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tidy</span>() <span class="sc">|&gt;</span></span>
+<span id="cb63-3"><a href="#cb63-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(p.value)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 1
+  p.value
+    &lt;dbl&gt;
+1  0.0120</code></pre>
+</div>
+</div>
+<p>We have some evidence that there is a difference in centers.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="psychiatry-1" class="level2">
+<h2 class="anchored" data-anchor-id="psychiatry-1">Psychiatry</h2>
+<p>Much attention has been given in recent years to the role of transcendental meditation in improving health, particularly in lowering blood pressure. One hypothesis that emerges from this work is that transcendental meditation might also be useful in treating psychiatric patients with symptoms of anxiety. Suppose that a protocol of meditational therapy is administered once a day to 20 patients with anxiety. The patients are given a psychiatric exam at baseline and at a follow-up exam 2 months later. The degree of improvement is rated on a 10-point scale, with 1 indicating the most improvement and 10 the least improvement. Similarly, 26 comparably affected patients with anxiety are given standard psychotherapy and are asked to come back 2 months later for a follow-up exam. The results are given in Table 9.2.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="wxecyshhrh" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#wxecyshhrh table {
+  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#wxecyshhrh thead, #wxecyshhrh tbody, #wxecyshhrh tfoot, #wxecyshhrh tr, #wxecyshhrh td, #wxecyshhrh th {
+  border-style: none;
+}
+
+#wxecyshhrh p {
+  margin: 0;
+  padding: 0;
+}
+
+#wxecyshhrh .gt_table {
+  display: table;
+  border-collapse: collapse;
+  line-height: normal;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#wxecyshhrh .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#wxecyshhrh .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#wxecyshhrh .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 3px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#wxecyshhrh .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#wxecyshhrh .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#wxecyshhrh .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#wxecyshhrh .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#wxecyshhrh .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#wxecyshhrh .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#wxecyshhrh .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#wxecyshhrh .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#wxecyshhrh .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
+#wxecyshhrh .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+#wxecyshhrh .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#wxecyshhrh .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#wxecyshhrh .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#wxecyshhrh .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#wxecyshhrh .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#wxecyshhrh .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#wxecyshhrh .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#wxecyshhrh .gt_row_group_first th {
+  border-top-width: 2px;
+}
+
+#wxecyshhrh .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#wxecyshhrh .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#wxecyshhrh .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#wxecyshhrh .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#wxecyshhrh .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#wxecyshhrh .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#wxecyshhrh .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
+#wxecyshhrh .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#wxecyshhrh .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#wxecyshhrh .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#wxecyshhrh .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#wxecyshhrh .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#wxecyshhrh .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#wxecyshhrh .gt_left {
+  text-align: left;
+}
+
+#wxecyshhrh .gt_center {
+  text-align: center;
+}
+
+#wxecyshhrh .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#wxecyshhrh .gt_font_normal {
+  font-weight: normal;
+}
+
+#wxecyshhrh .gt_font_bold {
+  font-weight: bold;
+}
+
+#wxecyshhrh .gt_font_italic {
+  font-style: italic;
+}
+
+#wxecyshhrh .gt_super {
+  font-size: 65%;
+}
+
+#wxecyshhrh .gt_footnote_marks {
+  font-size: 75%;
+  vertical-align: 0.4em;
+  position: initial;
+}
+
+#wxecyshhrh .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#wxecyshhrh .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#wxecyshhrh .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#wxecyshhrh .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#wxecyshhrh .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#wxecyshhrh .gt_indent_5 {
+  text-indent: 25px;
+}
+
+#wxecyshhrh .katex-display {
+  display: inline-flex !important;
+  margin-bottom: 0.75em !important;
+}
+
+#wxecyshhrh div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
@@ -1236,35 +3165,24 @@ Psychotherapy
 </div>
 </div>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-16-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-16-1" role="tab" aria-controls="tabset-16-1" aria-selected="true" href="">9.16</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-16-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-16-2" role="tab" aria-controls="tabset-16-2" aria-selected="false" href="">Solutions</a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-20-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-20-1" role="tab" aria-controls="tabset-20-1" aria-selected="true" href="">9.16</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-20-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-20-2" role="tab" aria-controls="tabset-20-2" aria-selected="false" href="">Solutions</a></li></ul>
 <div class="tab-content">
-<div id="tabset-16-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-16-1-tab">
+<div id="tabset-20-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-20-1-tab">
 <p>Why might a parametric test not be useful here?</p>
 </div>
-<div id="tabset-16-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-16-2-tab">
-
+<div id="tabset-20-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-20-2-tab">
+<p>The parametric test you know is the <span class="math inline">\(t\)</span>-test, and this assumes cardinal values. E.g., it assumes the mean and standard deviations are meaningful, but they are not appropriate here since we have ordinal values.</p>
 </div>
 </div>
 </div>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-17-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-17-1" role="tab" aria-controls="tabset-17-1" aria-selected="true" href="">9.17</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-17-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-17-2" role="tab" aria-controls="tabset-17-2" aria-selected="false" href="">Solutions</a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-21-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-21-1" role="tab" aria-controls="tabset-21-1" aria-selected="true" href="">9.17</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-21-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-21-2" role="tab" aria-controls="tabset-21-2" aria-selected="false" href="">Solutions</a></li></ul>
 <div class="tab-content">
-<div id="tabset-17-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-17-1-tab">
+<div id="tabset-21-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-21-1-tab">
 <p>What nonparametric test should be used to analyze these data?</p>
 </div>
-<div id="tabset-17-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-17-2-tab">
-
-</div>
-</div>
-</div>
-<div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-18-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-18-1" role="tab" aria-controls="tabset-18-1" aria-selected="true" href="">9.18</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-18-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-18-2" role="tab" aria-controls="tabset-18-2" aria-selected="false" href="">Solutions</a></li></ul>
-<div class="tab-content">
-<div id="tabset-18-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-18-1-tab">
-<p>Compare the degree of improvement between the two groups using the test in Problem 9.17.</p>
-</div>
-<div id="tabset-18-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-18-2-tab">
-
+<div id="tabset-21-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-21-2-tab">
+<p>A Wilcox rank-sum test.</p>
 </div>
 </div>
 </div>
