@@ -226,7 +226,7 @@ Input: $X_1,X_2,\ldots,X_n$ and $Y_1,Y_2,\ldots,Y_n$ where $X_i$ and $Y_i$ are m
 - If $\sigma^2$ were known, then could base our test on the distribution of the mean divided by the standard deviation:
 
   $$
-  \frac{\bar{X} - \bar{Y}}{\sqrt{\frac{1}{n_1} + \frac{1}{n_2}}} \sim N(0, 1)
+  \frac{\bar{X} - \bar{Y}}{\sigma\sqrt{\frac{1}{n_1} + \frac{1}{n_2}}} \sim N(0, 1)
   $$
 
 - We could then compare this statistic to a $N(0,1)$ distribution to get p-value.
