@@ -280,6 +280,15 @@ Obesity is common in American society and a risk factor for breast cancer in pos
   - `BMI`: Body Mass Index
   - `WHR`: waist-hip ratio
 
+# estriol
+
+These data come from @greene1963urinary, where they measured the association between the level of estriol in pregnant women and their offspring's birthweight. Estriol is a female sex hormone which is elevated during pregnancy.
+
+- [estriol.csv](./data/estriol.csv)
+  - `id`: Patient ID
+  - `estriol`: Estriol level in mg / 24 hr
+  - `birthweight`: Birthweight in g / 100
+
 # estrogen
 
 Three distinct two-period crossover studies were conducted with different subject groups, measuring systolic and diastolic blood pressure. In Study 1, 0.625 mg of estrogen was compared with a placebo. Study 2 compared 1.25 mg of estrogen with a placebo. Study 3 compared 1.25 mg of estrogen with 0.625 mg of estrogen. Each active treatment period lasted for four weeks, with a two-week washout period between them.

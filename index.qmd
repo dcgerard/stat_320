@@ -50,6 +50,9 @@ format: html
     - [McNemar's Test in R](./07_cat/07_mcnemar.qmd)
     - [Larger Contingency Tables in R](./07_cat/07_larger.qmd)
     - [Cohen's Kappa in R](./07_cat/07_kappa.qmd)
+- 08 Regression and Correlation
+  - [**Chapter 11 Notes 1** (Regression)](./08_reg/11_notes_1.qmd)
+  - [**Chapter 11 Notes 2** (Correlation)](./08_reg/11_notes_2.qmd)
 - Next stop: 
   - [Regression](https://dcgerard.github.io/stat_415_615/)
   

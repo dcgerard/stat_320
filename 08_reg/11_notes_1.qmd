@@ -1,0 +1,1102 @@
+---
+title: "Chapter 11: Regression"
+author: "David Gerard"
+date: today
+bibliography: "../bib.bib"
+---
+
+```{r}
+#| message: false
+#| echo: false
+library(tidyverse)
+library(broom)
+library(patchwork)
+knitr::opts_chunk$set(echo = TRUE, 
+            fig.width = 4, 
+            fig.height = 3, 
+            fig.align = "center")
+ggplot2::theme_set(ggplot2::theme_bw() + ggplot2::theme(strip.background = ggplot2::element_rect(fill = "white")))
+```
+
+# Learning Objectives
+
+- Simple Linear Regression
+- Chapter 11.1--11.6, 11.9, 11.10 of Rosner
+
+# Motivation
+- The simple linear model is not sexy.
+- But the most commonly used methods in Statistics are either
+    [specific applications of it](https://lindeloev.github.io/tests-as-linear/)
+    or are generalizations of it.
+- Understanding it well will help you better understand methods
+  taught in other classes.
+- We teach Linear Regression in STAT 415/615 (the most important course we teach). 
+  So these notes are just meant to give you a couple tools that you can 
+  build on in that course.
+
+# Broom
+
+```{r}
+library(broom)
+```
+
+- For the most popular model output (t-tests, linear models, generalized
+  linear models), the `broom` package provides three
+  functions that aid in data analysis.
+  1. `tidy()`: Provides summary information of the model (such as parameter
+     estimates and $p$-values) in a tidy format. We used this last class.
+  2. `augment()`: Creates data derived from the model and adds it to the
+     original data, such as residuals
+     and fits. It formats this augmented data in a tidy format.
+  3. `glance()`: Prints a single row summary of the model fit.
+    
+- These three functions are *very* useful and incorporate well with the 
+  tidyverse.
+  
+- You've seen me use `tidy()` many times in this class. Below, we will see examples of using `augment()` and `glance()`.
+
+# Estradiol vs Birthweight
+
+-   For this lesson, we will use the study from @greene1963urinary exploring the association between the estradiol level in pregnant women and birthweight.
+
+    ```{r}
+    #| message: false
+    library(tidyverse)
+    estriol <- read_csv("../data/estriol.csv")
+    glimpse(estriol)
+    ```
+- `estriol` is measured in milligrams per 24 hours. `birthweight` is in units of 100 grams.
+  
+-   To begin, we'll look at the association between these variables
+  
+    ```{r}
+    ggplot(estriol, aes(x = estriol, birthweight)) +
+      geom_point() +
+      xlab("Estriol (mg/24hr)") +
+      ylab("Birthweight (g/100)")
+    ```
+    
+- It seems that estriol is positively associated with birthweight.    
+    
+- It seems that the data approximately fall on a line.
+
+# Line Review
+- Every line may be represented by a formula of the form
+  $$
+  Y = \beta_0 + \beta_1 X
+  $$
+- $Y$ = response variable on $y$-axis
+- $X$ = explanatory variable on the $x$-axis
+- $\beta_1$ = slope (rise over run)
+  - How much larger is $Y$ when $X$ is 1 unit larger.
+  - If $\beta_1 < 0$ then the line slopes downward. 
+  - If $\beta_1 > 0$ then the line slopes upward. 
+  - If $\beta_1 = 0$ then the line is horizontal.
+- $\beta_0$ = $y$-intercept (the value of the line at $X = 0$)
+
+- You can represent any line in terms of its slope and its $y$-intercept:
+
+```{r}
+#| echo: false
+#| fig-width: 8
+#| fig-height: 2.5
+beta0 <- 1
+beta1 <- 2
+x1 <- -1
+x2 <- 2
+y1 <- beta0 + x1 * beta1
+y2 <- beta0 + x2 * beta1
+
+ggplot() +
+  geom_abline(slope = beta1, intercept = beta0, linewidth = 2) +
+  annotate(geom = "segment", x = -Inf, xend = 0, y = beta0, yend = beta0, lty = 2, color = "grey") +
+  annotate(geom = "segment", x = -Inf, xend = 1, y = beta0 + beta1, yend = beta0 + beta1, lty = 2, color = "grey") +
+  annotate(geom = "segment", x = 0, xend = 0, y = -Inf, yend = beta0 + beta1, lty = 2, color = "grey") +
+  annotate(geom = "segment", x = 1, xend = 1, y = -Inf, yend = beta0 + beta1, lty = 2, color = "grey") +
+  scale_x_continuous(breaks = c(0, 1), limits = c(x1, x2)) +
+  scale_y_continuous(limits = c(y1, y2), breaks = c(beta0, beta0 + beta1), labels = c(expression(beta[0]), expression(beta[0]+beta[1]))) +
+  theme_classic() +
+  theme(axis.text = element_text(size = 15)) +
+  ggtitle(expression(beta[1]>0)) ->
+  pl1
+
+
+beta1 <- -2
+y1 <- beta0 + x1 * beta1
+y2 <- beta0 + x2 * beta1
+ggplot() +
+  geom_abline(slope = beta1, intercept = beta0, linewidth = 2) +
+  annotate(geom = "segment", x = -Inf, xend = 0, y = beta0, yend = beta0, lty = 2, color = "grey") +
+  annotate(geom = "segment", x = -Inf, xend = 1, y = beta0 + beta1, yend = beta0 + beta1, lty = 2, color = "grey") +
+  annotate(geom = "segment", x = 0, xend = 0, y = -Inf, yend = beta0, lty = 2, color = "grey") +
+  annotate(geom = "segment", x = 1, xend = 1, y = -Inf, yend = beta0 + beta1, lty = 2, color = "grey") +
+  scale_x_continuous(breaks = c(0, 1), limits = c(x1, x2)) +
+  scale_y_continuous(limits = c(y1, y2), breaks = c(beta0, beta0 + beta1), labels = c(expression(beta[0]), expression(beta[0]+beta[1]))) +
+  theme_classic() +
+  theme(axis.text = element_text(size = 15)) +
+  ggtitle(expression(beta[1]<0)) ->
+  pl2
+
+beta1 <- 0
+y1 <- beta0 + x1 * beta1
+y2 <- beta0 + x2 * beta1
+ggplot() +
+  geom_abline(slope = beta1, intercept = beta0, linewidth = 2) +
+  annotate(geom = "segment", x = 0, xend = 0, y = -Inf, yend = beta0, lty = 2, color = "grey") +
+  annotate(geom = "segment", x = 1, xend = 1, y = -Inf, yend = beta0 + beta1, lty = 2, color = "grey") +
+  scale_x_continuous(breaks = c(0, 1), limits = c(x1, x2)) +
+  scale_y_continuous(limits = c(y1, y2), breaks = c(beta0), labels = c(expression(beta[0]==beta[0]+beta[1]))) +
+  theme_classic() +
+  theme(axis.text = element_text(size = 15)) +
+  ggtitle(expression(beta[1]==0)) ->
+  pl3
+
+pl1 + pl3 + pl2
+```
+
+
+
+  
+    
+- **Exercise**: Suppose we consider the line defined by the following equation:
+  $$
+  Y = 2 + 4X
+  $$
+  - What is the value of $Y$ at $X = 3$?
+  - What is the value of $Y$ at $X = 4$?
+  - What is the difference in $Y$ values at $X = 3$ versus $X = 4$?
+  - What is the value of $Y$ at $X = 0$?
+
+# Simple Linear Regression Model
+
+- A line does not *exactly* fit the estriol dataset. But a line does
+  *approximate* the estriol data.
+  
+- Model: Response variable = line + noise.
+  $$
+  Y_i = \beta_0 + \beta_1 X_i + \epsilon_i
+  $$
+
+- We typically assume that the noise ($\epsilon_i$'s) for each individual has 
+  mean 0 and some variance $\sigma^2$. We estimate $\sigma^2$.
+
+::: {.callout-important}
+## Linear Model in a Nutshell
+*Given* $X_i$, mean of $Y_i$ is $\beta_0 + \beta_1 X_i$. Points vary about this mean.
+:::
+ 
+ 
+```{r}
+#| echo: false
+#| eval: true
+set.seed(1)
+beta0 <- 1
+beta1 <- 2
+x1 <- -1
+x2 <- 2
+y1 <- beta0 + x1 * beta1
+y2 <- beta0 + x2 * beta1
+sigma <- 1
+xmax <- 4
+
+tibble(x = rep(1:xmax, each = 10)) |>
+  mutate(y = beta0 + beta1 * x + rnorm(n())) ->
+  df
+
+xlim <- range(df$x) + c(-0.5, 0.5)
+ylim <- range(df$y)
+
+dfnorm <- tibble(y = seq(-3 * sigma, 3 * sigma, length.out = 100), z = stats::dnorm(y, mean = 0, sd = sigma), x1 = 1, x2 = 2, x3 = 3, x4 = 4) |>
+  mutate(y1 = y + beta0 + 1 * beta1,
+         y2 = y + beta0 + 2 * beta1,
+         y3 = y + beta0 + 3 * beta1,
+         y4 = y + beta0 + 4 * beta1)
+
+xlim <- c(0.5, 4.5)
+ylim <- c(min(c(df$y, dfnorm$y1)), max(c(df$y, dfnorm$y4)))
+
+ggplot() +
+  geom_abline(intercept = beta0, slope = beta1) +
+  xlim(xlim) +
+  ylim(ylim) +
+  xlab("X") +
+  ylab("Y") +
+  scale_color_viridis_c(name = "Density\nof Y|X") +
+  theme_bw() ->
+  pl0
+
+
+pl0 +
+  geom_line(data = dfnorm, mapping = aes(x = x1, y = y1, color = z), lwd = 10) +
+  geom_line(data = dfnorm, mapping = aes(x = x2, y = y2, color = z), lwd = 10) +
+  geom_line(data = dfnorm, mapping = aes(x = x3, y = y3, color = z), lwd = 10) +
+  geom_line(data = dfnorm, mapping = aes(x = x4, y = y4, color = z), lwd = 10) ->
+  pl1
+
+pl1 +
+  geom_point(data = df, mapping = aes(x = x, y = y)) ->
+  pl2
+
+ggplot() +
+  xlim(xlim) +
+  ylim(ylim) +
+  xlab("X") +
+  ylab("Y") +
+  geom_point(data = df, mapping = aes(x = x, y = y)) +
+  theme_bw() ->
+  pl3
+```
+
+-   There exists a regression line describing the relationship between $X$ and $E[Y|X]$:
+
+    ```{r}
+    #| echo: false
+    pl0
+    ```
+    
+-   The distribution of $Y$ is conditional on the value of $X$
+    ```{r}
+    #| echo: false
+    pl1
+    ```
+
+-   Our $Y$ values are sampled from this distribution
+    ```{r}
+    #| echo: false
+    pl2
+    ```
+    
+-   But in real-life, we only see the points
+    ```{r}
+    #| echo: false
+    pl3
+    ```
+
+    
+- Some intuition:
+  - The distribution of $Y$ is *conditional* on the value of $X$.
+  - The distribution of $Y$ is assumed to have the **same variance**, 
+    $\sigma^2$ for **all possible values of $X$**.
+  - This last one is a considerable assumption.
+  
+- Interpretation:
+  - Randomized Experiment: A 1 unit increase in $x$ results in a $\beta_1$ unit
+    increase in $y$.
+  - Observational Study: Individuals that differ only in 1 unit of $x$ are
+    expected to differ by $\beta_1$ units of $y$.
+
+- **Exercise**: What is the interpretation of $\beta_0$? 
+  
+# Estimating Coefficients
+- How do we estimate $\beta_0$ and $\beta_1$?
+  - $\beta_0$ and $\beta_1$ are **parameters**
+  - We want to estimate them from our **sample**\pause
+  - Idea: Draw a line through the cloud of points and calculate the slope 
+    and intercept of that line?
+  - Problem: Subjective\pause
+  - Another idea: Minimize residuals (sum of squared residuals).
+
+- Ordinary Least Squares
+  - Residuals: $\hat{\epsilon}_i = Y_{i} - (\hat{\beta}_0 + \hat{\beta}_1X_i)$
+  - Sum of squared residuals: $\hat{\epsilon}_1^2 + \hat{\epsilon}_2^2 + \cdots + \hat{\epsilon}_n^2$
+  - Find $\hat{\beta}_0$ and $\hat{\beta}_1$ that have small sum of squared residuals.
+  - The obtained estimates, $\hat{\beta}_0$ and $\hat{\beta}_1$, are called
+    the **ordinary least squares** (OLS) estimates.
+    
+-   Bad Fit:
+    ```{r, echo=FALSE}
+    beta0 <- 20
+    beta1 <- 1
+    estriol$fitted <- beta0 + estriol$estriol * beta1
+    ss <- sum((estriol$fitted - estriol$birthweight)^2)
+    estriol %>%
+      ggplot(mapping = aes(x = estriol, y = birthweight)) +
+      geom_point() +
+      geom_abline(slope = beta1, intercept = beta0, color = "blue", alpha = 1/2) +
+      xlab("Estriol (mg/24hr)") +
+      ylab("Birthweight (g/100)") +
+      geom_segment(mapping = aes(x = estriol, xend = estriol, y = birthweight, yend = fitted), alpha = 1/2) +
+      ggtitle(paste0("Sum of Squares: ", round(ss, digits = 2)))
+    ```
+    
+-   Better Fit:
+    ```{r, echo=FALSE}
+    beta0 <- 21
+    beta1 <- 0.8
+    estriol$fitted <- beta0 + estriol$estriol * beta1
+    ss <- sum((estriol$fitted - estriol$birthweight)^2)
+    estriol %>%
+      ggplot(mapping = aes(x = estriol, y = birthweight)) +
+      geom_point() +
+      geom_abline(slope = beta1, intercept = beta0, color = "blue", alpha = 1/2) +
+      xlab("Estriol (mg/24hr)") +
+      ylab("Birthweight (g/100)") +
+      geom_segment(mapping = aes(x = estriol, xend = estriol, y = birthweight, yend = fitted), alpha = 1/2) +
+      ggtitle(paste0("Sum of Squares: ", round(ss, digits = 2)))
+    ```
+    
+-   Best Fit (OLS Fit):
+    ```{r, echo=FALSE}
+    lmout <- lm(birthweight ~ estriol, data = estriol)
+    beta0 <- coef(lmout)[1]
+    beta1 <- coef(lmout)[2]
+    estriol$fitted <- beta0 + estriol$estriol * beta1
+    ss <- sum((estriol$fitted - estriol$birthweight)^2)
+    estriol %>%
+      ggplot(mapping = aes(x = estriol, y = birthweight)) +
+      geom_point() +
+      geom_abline(slope = beta1, intercept = beta0, color = "blue", alpha = 1/2) +
+      xlab("Estriol (mg/24hr)") +
+      ylab("Birthweight (g/100)") +
+      geom_segment(mapping = aes(x = estriol, xend = estriol, y = birthweight, yend = fitted), alpha = 1/2) +
+      ggtitle(paste0("Sum of Squares: ", round(ss, digits = 2)))
+    ```
+
+- How to find OLS fits in R:
+  1. Make sure you have the explanatory variables in the format you want (e.g., after variable transformation)
+      
+  2. Use `lm()`
+  
+     ```{r}
+     lmout <- lm(birthweight ~ estriol, data = estriol)
+     lmtide <- tidy(lmout)
+     select(lmtide, term, estimate)
+     ```
+
+-   The first argument in `lm()` is a **formula**, where the response variable
+  is to the left of the tilde and the explanatory variable is to the right of
+  the tilde. 
+  
+    ``` r
+    response ~ explanatory
+    ```
+    
+    This formula says that `lm()` should find the OLS estimates of the 
+    following model: 
+    
+    response = $\beta_0$ + $\beta_1$explanatory + noise
+  
+- The `data` argument tells `lm()` where to find the response and 
+  explanatory variables.
+
+- We often put a "hat" over the coefficient names to denote that they are estimates:
+  - $\hat{\beta}_0$ = `r round(lmtide$estimate[1], digits = 1)`.
+  - $\hat{\beta}_1$ = `r round(lmtide$estimate[2], digits = 1)`.
+  
+- Thus, the estimated line is:
+  - $E[Y_i]$ = `r round(lmtide$estimate[1], digits = 1)` + 
+    `r round(lmtide$estimate[2], digits = 1)`$X_i$.
+    
+:::{.panel-tabset}
+## Exercise
+Forced expiratory volume (FEV) is commonly used to assess lung function. To determine whether an individual’s pulmonary function is abnormal, reference values for FEV in healthy individuals must first be established. A challenge in this process is that FEV varies with both age and height. For this analysis, we focus on boys aged 10 to 15 and propose a regression model:
+FEV = α + β (height) + e. Data were collected on FEV and height for 655 boys in this age range living in Tecumseh, Michigan. The data frame below gives the average FEV (in liters) for twelve height categories, each spanning 4 cm. Obtain estimates of this linear model. What is the fitted regression line? Interpret the coefficients.
+
+```{r}
+fev <- tribble(
+  ~height, ~fev,
+  134, 1.7,
+  138, 1.9,
+  142, 2.0,
+  146, 2.1,
+  150, 2.2,
+  154, 2.5,
+  158, 2.7,
+  162, 3.0,
+  166, 3.1,
+  170, 3.4,
+  174, 3.8,
+  178, 3.9
+)
+```
+## Solutions
+```{r}
+lmout_fev <- lm(fev ~ height, data = fev)
+tidy(lmout_fev)
+```
+We have $\hat{\beta}_0 = -5.31288$ and $\hat{\beta}_1 = 0.05131$. The fitted regression line is
+$$
+y = -5.31288 + 0.05131x
+$$
+We only interpret $\hat{\beta}_1$ since 0 is not in the range of the data. Folks who are 1 cm taller have an FEV 0.05 liters larger on average. You would get no points on an exam if you used the words "increase" or "change".
+:::
+
+# Estimating Variance
+
+- We assume that the variance of $Y_i$ is the same for each $X_i$. 
+- Call this variance $\sigma^2$.
+-   We estimate it by the variability in the residuals.
+    
+    ```{r}
+    #| echo: false
+    estriol |>
+      mutate(resid = birthweight - fitted,
+             resid2 = resid^2) ->
+      estriol
+    estriol %>%
+      ggplot(mapping = aes(x = estriol, y = birthweight)) +
+      geom_point() +
+      geom_abline(slope = beta1, intercept = beta0, color = "blue", alpha = 1/2) +
+      xlab("Estriol (mg/24hr)") +
+      ylab("Birthweight (g/100)") +
+      geom_segment(mapping = aes(x = estriol, xend = estriol, y = birthweight, yend = fitted), alpha = 1/2)
+    
+    estriol |>
+      ggplot(mapping = aes(x = estriol, y = resid)) +
+      geom_point() +
+      xlab("Estriol (mg/24hr)") +
+      ylab("Residual") +
+      geom_segment(mapping = aes(x = estriol, xend = estriol, y = 0, yend = resid), alpha = 1/2) +
+      geom_hline(yintercept = 0, col = "blue", alpha = 1/2)
+    
+    estriol |>
+      summarize(meansquared = mean(resid2),
+                meanestriol = mean(estriol)) ->
+      sumestriol
+    
+    estriol %>%
+      ggplot(aes(x = resid)) +
+      geom_histogram(bins = 7, fill = "white", color = "black") +
+      xlab("Residuals")
+    ```
+- The variance of residuals is the estimated variance in the data. This is
+  a general technique.
+  - Technical note: people adjust for the number of parameters in a model when calculating the variance, so they no-longer divide by "n - 1".
+
+-   In R, use the broom function `glance()` function to get the estimated standard deviation. It's the value in the `sigma` column.
+    ```{r}
+    glance(lmout) %>%
+      select(sigma)
+    ```
+    
+-   Estimating the variance/standard deviation is important because it is a component in the 
+  standard error of $\hat{\beta}_1$ and $\hat{\beta}_0$. These standard
+  errors are output by `tidy()`.
+    ```{r}
+    tidy(lmout) %>%
+      select(term, std.error)
+    ```
+    
+- The variance is also used when calculating prediction intervals.
+
+# Hypothesis Testing
+
+- The sign of $\beta_1$ denotes different types of relationships between
+  the two quantitative variables:
+  - $\beta_1 = 0$: The two quantitative variables are not linearly associated.
+  - $\beta_1 > 0$: The two quantitative variables are positively associated.
+  - $\beta_1 < 0$: The two quantitative variables are negatively associated.
+    
+- Hypothesis Testing:
+  - We are often interested in testing if a relationship exists:
+  - Two possibilities: 
+    1. Alternative Hypothesis: $\beta_1 \neq 0$.
+    2. Null Hypothesis: $\beta_1 = 0$.
+  - Strategy: We calculate the probability of the data assuming possibility 2 
+    (called a $p$-value). If this probability is low, we conclude possibility 1. 
+    If the this probability is high, we don’t conclude anything.
+
+- Graphic: 
+  ![](cartoons/linear_p.png) \ 
+  
+```{r}
+#| echo: false
+#| eval: false
+# set.seed(1)
+# ybar <- mean(estriol$birthweight)
+# ysd  <- sd(estriol$birthweight)
+# miny <- min(estriol$birthweight) - 3.7
+# maxy <- max(estriol$birthweight) + 0.7
+# 
+# ggplot(estriol, aes(x = estriol, birthweight)) +
+#   geom_point(size = 0.5) +
+#   theme_minimal() +
+#   theme(axis.text = element_blank(),
+#         axis.title = element_blank()) +
+#   geom_smooth(method = "lm", se = FALSE) +
+#   geom_rug(sides = "b") +
+#   ylim(miny, maxy) ->
+#   pl
+# 
+# ggsave(filename = "./cartoons/true_dat.pdf", plot = pl, height = 0.7, width = 1.1)
+# 
+# for (index in 1:5) {
+#     estriol$sim <- rnorm(n = nrow(estriol), mean = ybar, sd = ysd)
+#     lmtemp <- lm(sim ~ estriol, data = estriol)
+#     cat(coef(lmtemp)[2], "\n")
+#     ggplot(estriol, aes(x = estriol, sim)) +
+#       geom_point(size = 0.5) +
+#       theme_minimal() +
+#       theme(axis.text = element_blank(),
+#             axis.title = element_blank()) +
+#       geom_smooth(method = "lm", se = FALSE) +
+#       geom_rug(sides = "b") +
+#       ylim(miny, maxy) ->
+#       pl
+#   ggsave(filename = paste0("./cartoons/simdat_dat", index, ".pdf"), plot = pl, height = 0.7, width = 1.1)
+# }
+```
+
+- The sampling distribution of $\hat{\beta}_1$ comes from statistical theory. The  $t$-statistic is $\hat{\beta}_1 / SE(\hat{\beta}_1)$. It has a $t$-distribution with $n-2$ degrees of freedom.
+
+  - $SE(\hat{\beta}_1)$: Estimated standard deviation of the sampling distribution of $\hat{\beta}_1$.
+
+::: {.panel-tabset}    
+## Exercise (8.18 in OpenIntro 4th Edition)
+
+Which is higher? Determine if (i) or (ii) is higher or if they are equal. Explain your reasoning. For a regression line, the uncertainty associated with the slope estimate, $\hat{\beta}_1$ , is higher when
+
+i. there is a lot of scatter around the regression line or
+ii. there is very little scatter around the regression line
+
+## Solution
+
+(i). If there is a lot of scatter, then it is hard to pin-point the mean relationship. This can be formalized by looking at the contribution of the sample size in the standard error formula for $\hat{\beta}_1$.
+:::
+
+::: {.panel-tabset}
+## Exercise
+The `bac` dataset from @graham2003electronic examines sixteen student volunteers at Ohio State University who each drank a randomly assigned number of cans of beer. They then measured their blood alchol content. You can load these data into R via
+
+```{r}
+bac <- tribble(
+  ~beers, ~bac,
+  5, 0.1,
+  2, 0.03, 
+  9, 0.19, 
+  8, 0.12, 
+  3, 0.04, 
+  7, 0.095,
+  3, 0.07, 
+  5, 0.06, 
+  3, 0.02,
+  5, 0.05, 
+  4, 0.07, 
+  6, 0.1,  
+  5, 0.085,
+  7, 0.09, 
+  1, 0.01, 
+  4, 0.05) 
+```
+
+1.  Create an appropriate plot to visualize the association between the number of beers and the BAC.
+
+2.  Does the relationship appear positive or negative?
+
+3.  Write out equation of the OLS line.
+
+4.  Do we have evidence that the number of beers is associated with BAC? Formally justify.
+
+5.  Interpret the coefficient estimates.
+
+6.  What happens to the standard errors of the estimates when we force the intercept to be 0? Why? You can force the intercept to be 0 by subtracting `1` on the right-hand-side of the formula in `lm()`.
+
+## Solutions
+
+1.  This is how you make the plot:
+    ```{r}
+    ggplot(bac, aes(x = beers, y = bac)) +
+     geom_point()
+    ```
+
+2.  Positive. It points up.
+
+3.  You fit the linear model like this:
+
+    ```{r}
+    lmout_bac <- lm(bac ~ beers, data = bac)
+    tdat <- tidy(lmout_bac, conf.int = TRUE)
+    beta0hat <- tdat$estimate[1]
+    beta1hat <- tdat$estimate[2]
+    ```
+    The estimated regression line is this:
+    $$
+    y = -0.0127 + 0.01796 x
+    $$
+
+4.  Yes, the $p$-value is 2.969e-06, which provides strong evidence against the null that the two variables are not linearly associated.
+    
+5.  Every beer a person drinks is expected to increase their blood alcohol content by 0.018. I use causal language here because this was a randomized experiment.
+
+6.  We fit the linear model by forcing the intercept to be 0 via this code:
+    ```{r}
+    lmout_bac2 <- lm(bac ~ beers - 1, data = bac)
+    tdat2 <- tidy(lmout_bac2, conf.int = TRUE)
+    tdat$std.error[2]
+    tdat2$std.error
+    ```
+   
+   The standard error shrinks. That's because we are having to estimate one less parameter and so we have degrees of freedom.
+:::
+
+# ANOVA approach to Testing
+
+In Progress
+
+# Intervals
+
+In Progress
+
+Confidence Intervals
+
+Prediction Intervals
+
+-   The confidence intervals for $\beta_0$ and $\beta_1$ are easy to obtain from the output of `tidy()` if you set `conf.int = TRUE`.
+  
+    ```{r}
+    lmtide <- tidy(lmout, conf.int = TRUE)
+    select(lmtide, conf.low, conf.high)
+    ```
+
+
+# Prediction (Interpolation)
+
+- Definitions
+  - **Interpolation**: Making estimates/predictions within the range of the data.
+  - **Extrapolation**: Making estimates/predictions outside the range of the data.
+  - Interpolation is good. Extrapolation is bad.
+
+-   Interpolation
+    ```{r}
+    #| echo: false
+    ggplot(data = estriol, mapping = aes(x = estriol, y = birthweight)) +
+      geom_point() +
+      geom_abline(slope = coef(lmout)[2], intercept = coef(lmout)[1], lwd = 1, col = "blue", alpha = 1/2) +
+      annotate(geom = "point", x = 20, y = coef(lmout)[1] + 20 * coef(lmout)[2], color = "red", size = 3) +
+      xlab("Estriol (mg/24hr)") +
+      ylab("Residual")
+    ```
+
+-   Extrapolation
+    ```{r}
+    #| echo: false
+    ggplot(data = estriol, mapping = aes(x = estriol, y = birthweight)) +
+      geom_point() +
+      geom_abline(slope = coef(lmout)[2], intercept = coef(lmout)[1], lwd = 1, col = "blue", alpha = 1/2) +
+      annotate(geom = "point", x = 35, y = coef(lmout)[1] + 35 * coef(lmout)[2], color = "red", size = 3) +
+      xlab("Estriol (mg/24hr)") +
+      ylab("Residual")
+    ```
+
+- Why is extrapolation bad?
+  1. Not sure if the linear relationship is the same outside the range of
+     the data (because we don't have data there to see the relationship).
+  2. Not sure if the variability is the same outside the range of the 
+     data (because we don't have data there to see the variability).
+
+- To make a prediction:
+  1. You need a data frame with the exact same
+     variable name as the explanatory variable. 
+     ```{r}
+     newdf <- tribble(~estriol,
+                      20, 
+                      25)
+     ```
+  2. Then you use the `predict()` function to obtain predictions.
+     ```{r}
+     newdf %>%
+       mutate(predictions = predict(object = lmout, newdata = newdf)) ->
+       newdf
+     newdf
+     ```
+
+::: {.panel-tabset}
+## Exercise
+Derive the predictions above by hand (not using `predict()`).
+
+## Solution
+```{r}
+21.523 + 0.608 * 20
+21.523 + 0.608 * 25
+```
+
+:::
+
+::: {.panel-tabset}  
+## Exercise
+From the BAC dataset, suppose someone had 5 beers. Use `predict()` to predict their BAC.
+  
+## Solution
+```{r}
+lmbeer <- lm(bac ~ beers, data = bac)
+newdata <- tribble(~beers,
+                   5)
+predict(object = lmbeer, newdata = newdata)
+```
+:::
+  
+# Assumptions
+
+## Assumptions and Violations
+
+- The linear model has many assumptions.
+
+- **You should always check these assumptions**.
+
+- Assumptions in *decreasing* order of importance
+  1. **Linearity** - The relationship looks like a straight line.
+  2. **Independence** - The knowledge of the value of one observation does not 
+     give you any information on the value of another.
+  3. **Equal Variance** - The spread is the same for every value of $x$
+  4. **Normality** - The distribution of the errors isn't too skewed and there aren't 
+     any *too* extreme points. (Only an issue if you have outliers and a 
+     small number of observations because of the 
+     [central limit theorem](https://en.wikipedia.org/wiki/Central_limit_theorem)).
+     
+- Problems when violated
+  1. **Linearity** violated - Linear regression line does not pick up actual 
+     relationship. Results aren't meaningful.
+  2. **Independence** violated - Linear regression line is unbiased, but standard 
+     errors are off. Your $p$-values are too small.
+  3. **Equal Variance** violated - Linear regression line is unbiased, but standard 
+     errors are off. Your $p$-values may be too small, or too large.
+  4. **Normality** violated - Unstable results if outliers are present and sample size 
+     is small. Not usually a big deal.
+
+::: {.panel-tabset}  
+## Exercise 
+What assumptions are made about the distribution of the explanatory variable (the $x_i$'s)?
+
+## Solution
+None. Inference is conditional on the $x_i$'s.
+:::
+  
+## Evaluating Independence
+
+- Think about the problem.
+  - Were different responses measured on the same observational/experimental unit?
+  - Were data collected in groups?
+
+- Example of non-independence: The temperature today and the temperature tomorrow. If it is warm today, it is probably warm tomorrow.
+
+- Example of non-independence: You are collecting a survey. To obtain individuals, you select a house at random and then ask all participants in this house to answer the survey. The participants' responses inside each house are probably not independent because they probably share similar beliefs/backgrounds/situations/genetics.
+  
+- Example of independence: You are collecting a survey. To obtain individuals, you randomly dial phone numbers until an individual picks up the phone.
+
+## Evaluating other assumptions
+
+- **Evaluate issues by plotting the residuals.**
+
+- The **residuals** are the observed values minus the predicted values.
+  $$
+  r_i = y_i - \hat{y}_i
+  $$
+
+- In the linear model, $\hat{y}_i = \hat{\beta}_0 + \hat{\beta}_1x_i$.
+
+-   Obtain the residuals by using `augment()` from broom. They will be the `.resid` variable.
+    ```{r}
+    aout <- augment(lmout)
+    glimpse(aout)
+    ```
+
+- You should always make the following scatterplots. The residuals always go on the $y$-axis.
+  - Fits $\hat{y}_i$ vs residuals $r_i$.
+  - Response $y_i$ vs residuals $r_i$.
+  - Explanatory variable $x_i$ vs residuals $r_i$.
+    
+- In the simple linear model, you can probably evaluate these issues by plotting the data ($x_i$ vs $y_i$). But residual plots generalize to *much* more complicated models, whereas just plotting the data does not.
+  
+```{block, eval = FALSE, echo = FALSE}  
+- Solutions:
+  1. Linearity Violated: Try a transformation. If the relationship looks 
+     curved and monotone (i.e. either always increasing or always decreasing) then 
+     try a log transformation.
+  2. Independence Violated: You'll need more sophisticated statistical 
+     techniques. Hire a statistician.
+  3. Equal Variance Violated: If the relationship is also curved and monotone, 
+     try a log transformation on the response variable. Or figure out how 
+     to perform sandwich estimation.
+  4. Normality Violated: Do nothing. But don't use prediction intervals 
+     (confidence intervals are fine). Just report the violations from 
+     normality. 
+```
+     
+### Example 1: A perfect residual plot
+
+```{r, echo = FALSE, message = FALSE}
+set.seed(1)
+x <- rnorm(100, sd = 1); y <- x + rnorm(100);
+lmout <- lm(y ~ x)
+res_vec <- resid(lmout)
+fit_vec <- fitted(lmout)
+qplot(x, y, xlab = "X", ylab = "Y", main = "Raw Data") + geom_smooth(se = FALSE, method = "lm")
+qplot(fit_vec, res_vec, xlab = "Fitted Values", ylab = "Residuals", main = "Residual Plot") + geom_hline(yintercept = 0)
+```
+
+- Means are straight lines
+- Residuals seem to be centered at 0 for all $x$
+- Variance looks equal for all $x$
+- Everything looks perfect
+
+### Example 2: Curved Monotone Relationship, Equal Variances
+
+-   Generate fake data:
+    ```{r}
+    set.seed(1)
+    x <- rexp(100)
+    x <- x - min(x) + 0.5
+    y <- log(x) * 20 + rnorm(100, sd = 4)
+    df_fake <- tibble(x, y)
+    ```
+
+```{r, echo = FALSE}
+lmout <- lm(y ~ x)
+res_vec <- resid(lmout)
+fit_vec <- fitted(lmout)
+qplot(x, y, xlab = "X", ylab = "Y", main = "Raw Data")+ geom_smooth(se = FALSE, method = "lm")
+qplot(fit_vec, res_vec, xlab = "Fitted Values", ylab = "Residuals", main = "Residual Plot") + geom_hline(yintercept = 0)
+```
+
+- Curved (but always increasing) relationship between $x$ and $y$.
+- Variance looks equal for all $x$
+- Residual plot has a parabolic shape.
+-   **Solution**: These indicate a $\log$ transformation of $x$ could help.
+    ```{r}
+    df_fake %>%
+      mutate(logx = log(x)) ->
+      df_fake
+    lm_fake <- lm(y ~ logx, data = df_fake)
+    ```
+
+### Example 3: Curved Non-monotone Relationship, Equal Variances
+
+-   Generate fake data:
+    ```{r}
+    set.seed(1)
+    x <- rnorm(100)
+    y <- -x^2 + rnorm(100)
+    df_fake <- tibble(x, y)
+    ```
+
+```{r, echo = FALSE}
+lmout <- lm(y ~ x)
+res_vec <- resid(lmout)
+fit_vec <- fitted(lmout)
+qplot(x, y, xlab = "X", ylab = "Y", main = "Raw Data")+ geom_smooth(se = FALSE, method = "lm")
+qplot(fit_vec, res_vec, xlab = "Fitted Values", ylab = "Residuals", main = "Residual Plot") + geom_hline(yintercept = 0)
+```
+
+- Curved relationship between $x$ and $y$
+- Sometimes the relationship is increasing, sometimes it is decreasing.
+- Variance looks equal for all $x$
+- Residual plot has a parabolic form.
+-   **Solution**: Include a squared term in the model (or hire a statistician).
+    ```{r}
+    lmout <- lm(y ~ x^2, data = df_fake)
+    ```
+
+### Example 4: Curved Relationship, Variance Increases with $Y$
+
+-   Generate fake data:
+    ```{r}
+    set.seed(1)
+    x <- rnorm(100)
+    y <- exp(x + rnorm(100, sd = 1/2))
+    df_fake <- tibble(x, y)
+    ```
+
+```{r, echo = FALSE}
+lmout <- lm(y ~ x)
+res_vec <- resid(lmout)
+fit_vec <- fitted(lmout)
+qplot(x, y, xlab = "X", ylab = "Y", main = "Raw Data")+ geom_smooth(se = FALSE, method = "lm")
+qplot(fit_vec, res_vec, xlab = "Fitted Values", ylab = "Residuals", main = "Residual Plot") + geom_hline(yintercept = 0)
+```
+
+- Curved relationship between $x$ and $y$
+- Variance looks like it increases as $y$ increases
+- Residual plot has a parabolic form.
+- Residual plot variance looks larger to the right and smaller to the left.
+-   **Solution**: Take a log-transformation of $y$.
+    ```{r}
+    df_fake %>%
+      mutate(logy = log(y)) ->
+      df_fake
+    lm_fake <- lm(logy ~ x, data = df_fake)
+    ```
+
+
+### Example 5: Linear Relationship, Equal Variances, Skewed Distribution
+
+```{r, echo = FALSE}
+set.seed(1)
+x <- runif(200)
+y <- 15 * x + rexp(200, 0.2)
+lmout <- lm(y ~ x)
+res_vec <- resid(lmout)
+fit_vec <- fitted(lmout)
+qplot(x, y, xlab = "X", ylab = "Y", main = "Raw Data")+ geom_smooth(se = FALSE, method = "lm")
+qplot(fit_vec, res_vec, xlab = "Fitted Values", ylab = "Residuals", main = "Residual Plot") + geom_hline(yintercept = 0)
+```
+
+- Straight line relationship between $x$ and $y$.
+- Variances about equal for all $x$
+- Skew for all $x$
+- Residual plots show skew.
+- **Solution**: Do nothing, but report skew (usually OK to do)
+
+### Example 6: Linear Relationship, Unequal Variances
+
+-   Generate fake data:
+    ```{r}
+    set.seed(1)
+    x <- runif(100) * 10
+    y <- 0.85 * x + rnorm(100, sd = (x - 5) ^ 2)
+    df_fake <- tibble(x, y)
+    ```
+
+
+```{r, echo = FALSE}
+lmout <- lm(y ~ x)
+res_vec <- resid(lmout)
+fit_vec <- fitted(lmout)
+qplot(x, y, xlab = "X", ylab = "Y", main = "Raw Data")+ geom_smooth(se = FALSE, method = "lm")
+qplot(fit_vec, res_vec, xlab = "Fitted Values", ylab = "Residuals", main = "Residual Plot") + geom_hline(yintercept = 0)
+```
+
+- Linear relationship between $x$ and $y$.
+- Variance is different for different values of $x$.
+- Residual plots really good at showing this.
+-   **Solution**: The modern solution is to use sandwich estimates of the standard errors
+  (hire a statistician).
+    ```{r}
+    library(sandwich)
+    lm_fake <- lm(y ~ x, data = df_fake)
+    semat <- sandwich(lm_fake)
+    tidy(lm_fake) %>%
+      mutate(sandwich_se = sqrt(diag(semat)),
+             sandwich_t  = estimate / sandwich_se,
+             sandwich_p  = 2 * pt(-abs(sandwich_t), df = df.residual(lm_fake)))
+    ```
+  
+  
+# Some Exercises
+
+::: {.panel-tabset}
+## Exercise
+
+From the `mtcars` data frame, run a regression of MPG on displacement. Evaluate the regression fit and fix any issues. Interpret the coefficient estimates.
+
+## Solution
+Based on this residual plot, I'm going to try a log transformation:
+```{r}
+lm_mtcars <- lm(mpg ~ disp, data = mtcars)
+lmmt_aug <- augment(lm_mtcars)
+ggplot(lmmt_aug, aes(x = .fitted, y = .resid)) +
+  geom_point() +
+  geom_hline(yintercept = 0, lty = 2)
+```
+
+```{r}
+lm_mtcars <- lm(mpg ~ log(disp), data = mtcars)
+lmmt_aug <- augment(lm_mtcars)
+ggplot(lmmt_aug, aes(x = .fitted, y = .resid)) +
+  geom_point() +
+  geom_hline(yintercept = 0, lty = 2)
+```
+Looks better but still a little curvey
+:::
+  
+::: {.panel-tabset}
+## Exercise
+The following data frame, from @wilson1999diversity, contains the numbers of reptile and amphibian species and the island areas for seven islands in the West Indies.
+```{r}
+species <- tribble(
+  ~Area, ~Species,
+  44218, 100,
+  29371, 108,
+  4244, 45,
+  3435, 53,
+  32, 16,
+  5, 11,
+  1, 7)
+```
+Find an appropriate linear regression model for relating the effect of island area on species number. Find the regression estimates. Interpret them.
+
+## Solution
+Plotting the data, it looks like we need to take logs:
+```{r, echo = FALSE, eval = FALSE}
+ggplot(species, aes(x = Area, y = Species)) +
+  geom_point() +
+  scale_x_log10() +
+  scale_y_log10()
+```
+Fit the linear model:
+```{r}
+species %>%
+  mutate(log_area = log2(Area),
+         log_species = log2(Species)) ->
+  species
+
+lm_sp <- lm(log_species ~ log_area, data = species)
+tidy(lm_sp)
+```
+Islands with twice the area have 2^0.25 times as many species on average.
+:::
+
+# Interpreting Coefficients when you use logs
+
+- Generally, when you use logs, you interpret associations on a 
+  *multiplicative* scale instead of an *additive* scale.
+
+- No log:
+  - Model: $E[y_i] = \beta_0 + \beta_1 x_i$
+  - Observations that differ by 1 unit in $x$ tend to differ by $\beta_1$ units in $y$.
+
+- Log $x$:
+  - Model: $E[y_i] = \beta_0 + \beta_1 \log_2(x_i)$
+  - Observations that are twice as large in $x$ tend to differ by $\beta_1$ units in $y$.
+
+- Log $y$:
+  - Model: $E[\log_2(y_i)] = \beta_0 + \beta_1 x_i$
+  - Observations that differ by 1 unit in $x$ tend to be $2^{\beta_1}$ times larger in $y$. 
+
+- Log both:
+  - Model: $E[\log_2(y_i)] = \beta_0 + \beta_1 \log_2(x_i)$
+  - Observations that are twice as large in $x$ tend to be $2^{\beta_1}$ times larger in $y$. 
+
+::: {.panel-tabset}  
+## Exercise
+Re-interpret the regression coefficients estimates you calculated using the `species` dataset.
+
+## Solution
+2^0.25 = 1.19, so:
+    
+Islands that are twice as large tend to have 19% more species on average.
+:::
+
+::: {.panel-tabset}
+## Exercise
+Re-interpret the regression coefficient estimates you calculated in the `mtcars` data frame when you were exploring the effect of displacement on mpg.
+
+## Solution:
+```{r, eval = FALSE, echo = FALSE}
+lmout <- lm(mpg ~ log(disp), data = mtcars)
+tidy(lmout)
+```
+    
+Cars that have twice as large a displacement have mpg's 10 less, on average.
+:::
+
+# Multiple Linear Regression
+
+In Progress
+
+# Summary of R commands
+
+- `augment()`:
+  - Residuals $r_i = y_i - \hat{y}_i$: `$.resid`
+  - Fitted Values $\hat{y}_i$: `$.fitted`
+- `tidy()`:
+  - Name of variables: `$term`
+  - Coefficient Estimates: `$estimate`
+  - Standard Error (standard deviation of sampling distribution of coefficient estimates): `$std.error`
+  - t-statistic: `$statistic`
+  - p-value: `$p.value`
+- `glance()`: 
+  - R-squared value (proportion of variance explained by regression line, higher is better): `$r.squared`
+  - AIC (lower is better): `$AIC`
+  - BIC (lower is better): `$BIC`
+
+# References
