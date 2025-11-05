@@ -156,16 +156,24 @@ pl1 + pl3 + pl2
 
 
 
-  
-    
-- **Exercise**: Suppose we consider the line defined by the following equation:
-  $$
-  Y = 2 + 4X
-  $$
-  - What is the value of $Y$ at $X = 3$?
-  - What is the value of $Y$ at $X = 4$?
-  - What is the difference in $Y$ values at $X = 3$ versus $X = 4$?
-  - What is the value of $Y$ at $X = 0$?
+::: {.panel-tabset}
+## Exercise
+Suppose we consider the line defined by the following equation:
+$$
+Y = 2 + 4X
+$$
+
+1. What is the value of $Y$ at $X = 3$?
+2. What is the value of $Y$ at $X = 4$?
+3. What is the difference in $Y$ values at $X = 3$ versus $X = 4$?
+4. What is the value of $Y$ at $X = 0$?
+
+## Solution
+1. 2 + 4 * 3 = 14
+2. 2 + 4 * 4 = 18
+3. 4. You don't need to compare (1) and (2). Just look at the slope.
+4. 2. This is the y-intercept.
+:::
 
 # Simple Linear Regression Model
 
@@ -285,7 +293,13 @@ ggplot() +
   - Observational Study: Individuals that differ only in 1 unit of $x$ are
     expected to differ by $\beta_1$ units of $y$.
 
-- **Exercise**: What is the interpretation of $\beta_0$? 
+::: {.panel-tabset}
+## Exercise
+What is the interpretation of $\beta_0$? 
+
+## Solution
+If 0 is in the range of the data, then it can be interpreted as the expected value of $Y$ at $X = 0$. But, typically, it has no interpretation except the $y$-intercept of the regression line.
+:::
   
 # Estimating Coefficients
 - How do we estimate $\beta_0$ and $\beta_1$?
@@ -303,6 +317,80 @@ ggplot() +
   - The obtained estimates, $\hat{\beta}_0$ and $\hat{\beta}_1$, are called
     the **ordinary least squares** (OLS) estimates.
     
+-   Large sum of squares of three points
+
+    ```{r}
+    #| echo: false
+    df <- tribble(
+      ~x, ~y,
+      0, 0,
+      3, 3,
+      1, 2)
+    beta0 <- 0.7
+    beta1 <- 0.5
+    df |>
+      mutate(
+        id = 1:n(),
+        fit = beta0 + x * beta1,
+        res = y - fit,
+        y1 = y,
+        x1 = x,
+        x2 = x - res,
+        y2 = y,
+        x3 = x - res,
+        y3 = fit,
+        x4 = x,
+        y4 = fit) |>
+      select(-fit, -res, -y, -x) |>
+      pivot_longer(cols = -id, names_pattern = "([xy])(\\d+)", names_to = c(".value", "pair")) |>
+      mutate(id = factor(id)) ->
+      dfpoly
+    
+    ggplot() +
+      geom_point(data = df, mapping = aes(x = x, y = y))  +
+      geom_abline(intercept = beta0, slope = beta1) +
+      geom_polygon(data = dfpoly, mapping = aes(x = x, y = y, fill = id), alpha = 1/2) +
+      theme_bw() +
+      xlim(0, 4) +
+      ylim(0, 4) +
+      scale_fill_discrete(palette = "Okabe-Ito")
+    ```
+
+
+-   Small sum of squares of three points
+
+    ```{r}
+    #| echo: false
+    beta0 <- 0.429
+    beta1 <- 0.929
+    df |>
+      mutate(
+        id = 1:n(),
+        fit = beta0 + x * beta1,
+        res = y - fit,
+        y1 = y,
+        x1 = x,
+        x2 = x - res,
+        y2 = y,
+        x3 = x - res,
+        y3 = fit,
+        x4 = x,
+        y4 = fit) |>
+      select(-fit, -res, -y, -x) |>
+      pivot_longer(cols = -id, names_pattern = "([xy])(\\d+)", names_to = c(".value", "pair")) |>
+      mutate(id = factor(id)) ->
+      dfpoly
+    
+    ggplot() +
+      geom_point(data = df, mapping = aes(x = x, y = y))  +
+      geom_abline(intercept = beta0, slope = beta1) +
+      geom_polygon(data = dfpoly, mapping = aes(x = x, y = y, fill = id), alpha = 1/2) +
+      theme_bw() +
+      xlim(0, 4) +
+      ylim(0, 4) +
+      scale_fill_discrete(palette = "Okabe-Ito")
+    ```
+
 -   Bad Fit:
     ```{r, echo=FALSE}
     beta0 <- 20
@@ -631,7 +719,30 @@ bac <- tribble(
 
 # ANOVA approach to Testing
 
-In Progress
+- There is an alternative way to conduct hypothesis testing in the linear model, through **ANOVA** (analysis of variances).
+
+- In simple linear regression, this ANOVA approach will be equivalent to the t-based approach above. But it generalizes to more complicated scenarios for multiple linear regression.
+
+::: {.callout-tip}
+Analysis of variance has nothing to do with sample variances. It is about testing means. The "variance" should be thought of as variation attributible to different models.
+:::
+
+
+```{r}
+#| echo: false
+beta0 <- 0
+beta1 <- 1
+x <- 1
+y <- 2
+ggplot() +
+  geom_abline(intercept = beta0, slope = beta1) +
+  theme_void() +
+  annotate(geom = "point", x = x, y = y) +
+  xlim(-0.5, 2.5) +
+  ylim(-0.5, 2.5)
+```
+
+
 
 # Intervals
 
@@ -709,7 +820,6 @@ Derive the predictions above by hand (not using `predict()`).
 21.523 + 0.608 * 20
 21.523 + 0.608 * 25
 ```
-
 :::
 
 ::: {.panel-tabset}  
