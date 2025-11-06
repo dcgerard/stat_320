@@ -52,6 +52,7 @@ format: html
     - [Cohen's Kappa in R](./07_cat/07_kappa.qmd)
 - 08 Regression
   - [**Chapter 11 Notes** (Regression)](./08_reg/11_notes.qmd)
+  - [**Chapter 12 Notes** (ANOVA)](./08_reg/12_notes.qmd)
 - Next stop: 
   - [Regression](https://dcgerard.github.io/stat_415_615/)
   

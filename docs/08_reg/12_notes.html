@@ -9,7 +9,7 @@
 <meta name="author" content="David Gerard">
 <meta name="dcterms.date" content="2025-11-06">
 
-<title>Stat 320: Biostatistics</title>
+<title>Chapter 12: ANOVA – Stat 320: Biostatistics</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -25,27 +25,27 @@ ul.task-list li input[type="checkbox"] {
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<script src="site_libs/quarto-html/quarto.js" type="module"></script>
-<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-2fef5ea3f8957b3e4ecc936fc74692ca.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-fe7d0423cdac4bc5c71520eda626c2a4.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="site_libs/bootstrap/bootstrap-dark-2c3770c401b36bb86bc0f39e202c8652.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="site_libs/bootstrap/bootstrap-fe7d0423cdac4bc5c71520eda626c2a4.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-2fef5ea3f8957b3e4ecc936fc74692ca.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-fe7d0423cdac4bc5c71520eda626c2a4.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark-2c3770c401b36bb86bc0f39e202c8652.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../site_libs/bootstrap/bootstrap-fe7d0423cdac4bc5c71520eda626c2a4.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -74,37 +74,8 @@ ul.task-list li input[type="checkbox"] {
   }
 }</script>
 
-  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
-<script type="text/javascript">
-const typesetMath = (el) => {
-  if (window.MathJax) {
-    // MathJax Typeset
-    window.MathJax.typeset([el]);
-  } else if (window.katex) {
-    // KaTeX Render
-    var mathElements = el.getElementsByClassName("math");
-    var macros = [];
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN") {
-        window.katex.render(texText.data, mathElements[i], {
-          displayMode: mathElements[i].classList.contains('display'),
-          throwOnError: false,
-          macros: macros,
-          fleqn: false
-        });
-      }
-    }
-  }
-}
-window.Quarto = {
-  typesetMath
-};
-</script>
-
-<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="../styles.css">
 </head>
 
 <body class="nav-fixed quarto-light"><script id="quarto-html-before-body" type="application/javascript">
@@ -276,7 +247,7 @@ window.Quarto = {
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a class="navbar-brand" href="./index.html">
+    <a class="navbar-brand" href="../index.html">
     <span class="navbar-title">Stat 320: Biostatistics</span>
     </a>
   </div>
@@ -287,11 +258,11 @@ window.Quarto = {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link active" href="./index.html" aria-current="page"> 
+    <a class="nav-link" href="../index.html"> 
 <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./data.html"> 
+    <a class="nav-link" href="../data.html"> 
 <span class="menu-text">Data</span></a>
   </li>  
 </ul>
@@ -306,8 +277,15 @@ window.Quarto = {
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#learning-objectives" id="toc-learning-objectives" class="nav-link active" data-scroll-target="#learning-objectives">Learning Objectives</a></li>
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -315,7 +293,7 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Stat 320: Biostatistics</h1>
+<h1 class="title">Chapter 12: ANOVA</h1>
 </div>
 
 
@@ -344,102 +322,18 @@ window.Quarto = {
 </header>
 
 
-<p><a href="./syllabus.html">Syllabus</a></p>
-<p><a href="./review/practice_problems.html">Practice Problems</a></p>
+<section id="learning-objectives" class="level1">
+<h1>Learning Objectives</h1>
 <ul>
-<li>00 R
-<ul>
-<li><a href="./01_r/01_r_intro.html">Introduction to R</a></li>
-<li><a href="./01_r/01_ggplot.html">Plotting in R</a></li>
-<li><a href="./01_r/01_quarto.html">Documents in R</a></li>
-</ul></li>
-<li>01 Overview
-<ul>
-<li><a href="./00_course_outline/00_math_prereqs.html">Math Prereqs</a></li>
-<li><a href="./00_course_outline/00_overview.html">Course Overview</a></li>
-</ul></li>
-<li>02 Descriptive Statistics
-<ul>
-<li><a href="./02_descriptive/02_notes.html"><strong>Chapter 2 Notes</strong> (Descriptive Statistics)</a></li>
-</ul></li>
-<li>03 Probability
-<ul>
-<li><a href="./03_prob/03_notes.html"><strong>Chapter 3 Notes</strong> (Probability)</a>
-<ul>
-<li><a href="./03_prob/03_confusion.html">Confusion Matrix</a></li>
-</ul></li>
-<li><a href="./03_prob/04_notes.html"><strong>Chapter 4 Notes</strong> (Discrete Probability Distributions)</a></li>
-<li><a href="./03_prob/05_notes.html"><strong>Chapter 5 Notes</strong> (Continuous Probability Distributions)</a></li>
-</ul></li>
-<li>04 Estimation
-<ul>
-<li><a href="./04_est/06_notes.html"><strong>Chapter 6 Notes</strong> (Estimation)</a>
-<ul>
-<li><a href="./04_est/04_sample.html">Random Selection/Assignment</a></li>
-<li><a href="./04_est/04_clt.html">Central Limit Theorem Illustration</a></li>
-<li><a href="./04_est/04_figs/ci_graphic.png">CI Interpretation</a></li>
-<li><a href="./04_est/04_t.html">t-distribution</a></li>
-<li><a href="./04_est/04_boneden.html">Bone Density Case Study</a></li>
-<li><a href="./04_est/04_chi2.html">chi-squared distribution</a></li>
-<li><a href="./04_est/04_binom.html">Estimating Binomial Proportion</a></li>
-</ul></li>
-</ul></li>
-<li>05 Testing
-<ul>
-<li><a href="./05_tests/07_notes.html"><strong>Chapter 7 Notes</strong> (One Sample Hypothesis Tests)</a>
-<ul>
-<li><a href="./05_tests/05_ttest.html">One Sample <span class="math inline">\(t\)</span>-Tests in R</a></li>
-<li><a href="./05_tests/05_power.html">Power Calculations in R</a></li>
-<li><a href="./05_tests/05_binom.html">One Sample Binomial Tests in R</a></li>
-<li><a href="./05_tests/05_binom_power.html">One Sample Binomial Power Calculations</a></li>
-</ul></li>
-<li><a href="./05_tests/08_notes.html"><strong>Chapter 8 Notes</strong> (Two Sample Hypothesis Tests)</a>
-<ul>
-<li><a href="./05_tests/05_two_sample_t.html">Two Sample <span class="math inline">\(t\)</span>-Tests in R</a></li>
-</ul></li>
-</ul></li>
-<li>06 Nonparametric Methods
-<ul>
-<li><a href="./06_nonparametric/09_notes.html"><strong>Chapter 9 Notes</strong> (Nonparametric Methods)</a>
-<ul>
-<li><a href="./06_nonparametric/06_wilcoxin_1.html">One Sample Inference in R</a></li>
-<li><a href="./06_nonparametric/06_wilcoxin_2.html">Two Sample Inference in R</a></li>
-</ul></li>
-</ul></li>
-<li>07 Categorical Tests
-<ul>
-<li><a href="./07_cat/10_notes.html"><strong>Chapter 10 Notes</strong> (Categorical Methods)</a>
-<ul>
-<li><a href="./07_cat/07_binom.html">2x2 Contingency Tables in R</a></li>
-<li><a href="./07_cat/07_mcnemar.html">McNemar’s Test in R</a></li>
-<li><a href="./07_cat/07_larger.html">Larger Contingency Tables in R</a></li>
-<li><a href="./07_cat/07_kappa.html">Cohen’s Kappa in R</a></li>
-</ul></li>
-</ul></li>
-<li>08 Regression
-<ul>
-<li><a href="./08_reg/11_notes.html"><strong>Chapter 11 Notes</strong> (Regression)</a></li>
-<li><a href="./08_reg/12_notes.html"><strong>Chapter 12 Notes</strong> (ANOVA)</a></li>
-</ul></li>
-<li>Next stop:
-<ul>
-<li><a href="https://dcgerard.github.io/stat_415_615/">Regression</a></li>
-</ul></li>
+<li>ANOVA</li>
+<li>Chapter 12 of Rosner</li>
 </ul>
-<p>Handwritten Notes:</p>
-<ul>
-<li><a href="./notes/chapter2_notes.pdf">Chapter 2 Notes (Descriptive Statistics)</a></li>
-<li><a href="./notes/chapter3_notes.pdf">Chapter 3 Notes (Probability)</a></li>
-<li><a href="./notes/chapter4_notes.pdf">Chapter 4 Notes (Discrete Probability Distributions)</a></li>
-<li><a href="./notes/chapter5_notes.pdf">Chapter 5 Notes (Continuous Probability Distributions)</a></li>
-<li><a href="./notes/chapter6_notes.pdf">Chapter 6 Notes (Estimation)</a></li>
-<li><a href="./notes/chapter7_notes.pdf">Chapter 7 Notes (One Sample Hypothesis Tests)</a></li>
-<li><a href="./notes/chapter8_notes.pdf">Chapter 8 Notes (Two Sample Hypothesis Tests)</a></li>
-<li><a href="./notes/chapter9_notes.pdf">Chapter 9 Notes (Nonparametric Methods)</a></li>
-<li><a href="./notes/chapter10_notes.pdf">Chapter 10 Notes (Categorical Methods)</a></li>
-</ul>
+</section>
+<section id="references" class="level1">
+<h1>References</h1>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">

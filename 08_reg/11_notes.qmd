@@ -1495,7 +1495,7 @@ Islands that are twice as large tend to have 19% more species on average.
 
 # Multiple Linear Regression
 
-In Progress
+- 
 
 # Summary of R commands
 
