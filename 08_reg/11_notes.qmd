@@ -20,8 +20,9 @@ ggplot2::theme_set(ggplot2::theme_bw() + ggplot2::theme(strip.background = ggplo
 
 # Learning Objectives
 
-- Simple Linear Regression
+- Simple/Multiple Linear Regression
 - Chapter 11.1--11.6, 11.9, 11.10 of Rosner
+- Skip every other section (the ones on correlation)
 
 # Motivation
 - The simple linear model is not sexy.
@@ -727,30 +728,255 @@ bac <- tribble(
 Analysis of variance has nothing to do with sample variances. It is about testing means. The "variance" should be thought of as variation attributible to different models.
 :::
 
+We need some definitions:
 
+::: {.callout-tip}
+## Fits
+The estimated value of $y_i$ at a given $x_i$, denoted $\hat{y}_i$. In the simple linear regression model, this is
+$$
+\hat{y}_i = \hat{\beta}_0 + \hat{\beta}_1x_i
+$$
+:::
+
+::: {.callout-tip}
+## Residuals
+The deviation of the observed value of $y_i$ from the fitted value $\hat{y}_i$.
+$$
+e_i = y_i - \hat{y}_i
+$$
+:::
+
+- ANOVA is about partitioning the variation of $y_i$ from $\bar{y}$ into components that are explained by the predictors and components that are not explained by the predictors.
+
+::: {.callout-tip}
+## Total Sum of Squares
+The total variation of the response variable $y$. This is the amount of variation not explained by $\bar{y}$
+$$
+\text{SSE(R)} = \sum_{i=1}^n (y_i - \bar{y})^2
+$$
+This looks like the variance of $Y$ without the $\frac{1}{n-1}$ in front.
 ```{r}
 #| echo: false
-beta0 <- 0
-beta1 <- 1
-x <- 1
-y <- 2
-ggplot() +
-  geom_abline(intercept = beta0, slope = beta1) +
-  theme_void() +
-  annotate(geom = "point", x = x, y = y) +
-  xlim(-0.5, 2.5) +
-  ylim(-0.5, 2.5)
+estriol |>
+  mutate(ybar = mean(birthweight),
+         resid_tot = birthweight - ybar) ->
+  estriol
+estriol |>
+  ggplot() +
+  geom_point(aes(x = estriol, y = birthweight)) +
+  geom_segment(aes(x = estriol, xend = estriol, y = birthweight, yend = ybar)) +
+  geom_hline(yintercept = mean(estriol$birthweight), col = "blue", linewidth = 1)
 ```
+:::
+
+::: {.callout-tip}
+## Residual Sum of Squares
+The variation about the regression line. This is the amount of variation not explained by the regression line
+$$
+\text{SSE(F)} = \sum_{i=1}^n(y_i - \hat{y}_i)^2 = \sum_{i=1}^ne_i^2
+$$
+```{r}
+#| echo: false
+estriol |>
+  ggplot() +
+  geom_point(aes(x = estriol, y = birthweight)) +
+  geom_segment(aes(x = estriol, xend = estriol, y = birthweight, yend = fitted)) +
+  geom_smooth(aes(x = estriol, y = birthweight), formula = y ~ x, method = "lm", se = FALSE)
+```
+:::
+
+::: {.callout-tip}
+## Regression Sum of Squares
+The variation between the regression line and $\bar{y}$. This is the amount of variation explained by the regression line that is not explained by $\bar{y}$.
+$$
+\text{SSR} = \sum_{i=1}^n (\hat{y}_i - \bar{y})^2
+$$
+```{r}
+#| echo: false
+estriol |>
+  ggplot() +
+  geom_point(aes(x = estriol, y = birthweight)) +
+  geom_segment(aes(x = estriol, xend = estriol, y = ybar, yend = fitted)) +
+  geom_smooth(aes(x = estriol, y = birthweight), formula = y ~ x, method = "lm", se = FALSE) +
+  geom_hline(yintercept = mean(estriol$birthweight), col = "blue", linewidth = 1)
+```
+:::
+
+- The total sum of squares can be decomposed into the regression and residual sums of squares.
+
+::: {.callout-tip}
+## ANOVA Decomposition
+- SSE(R) = SSR + SSE(F)
+- Total SS = Regression SS + Residual SS
+
+$$
+\sum_{i=1}^n (y_i - \bar{y})^2 = \sum_{i=1}^n (\hat{y}_i - \bar{y})^2 + \sum_{i=1}^n(y_i - \hat{y}_i)^2
+$$
+:::
+
+- If the regression sum of squares is much larger than the residual sum of squares, then a large proportion of the variation not explained by $\bar{y}$ **can** be explained by the regression line. 
+  - This would provide evidence that there is a linear relationship between $x$ and $y$.
+  - The is the basis of the $F$-test  
+
+- Each sum of squares is associated with a **degrees of freedom**
+
+::: {.callout-tip}
+## Degrees of Freedom
+Intuitively (not formally), how many independent pieces of information do we have?
+
+- For SSE(F)
+  - $\text{df}_F = n - 2$ = sample size - #parameters ($\beta_0$ and $\beta_1$)
+
+- For SSE(R)
+  - $\text{df}_R = n - 1$ = sample size - #parameters ($\beta_0$)
+  
+- For SSR
+  - $\text{df}_{\text{reg}} = \text{df}_R - \text{df}_F = 1$ = difference in number of parameters between the two models
+:::
+  
+::: {.callout-tip}
+## $F$-test for Simple Linear Regression
+- $H_0$: Reduced Model: $Y_i = \beta_0 + \epsilon_i$ where $\epsilon_i \sim N(0, \sigma^2)$
+- $H_1$: Full Model: $Y_i = \beta_0 + \beta_1X_i + \epsilon_i$ where $\epsilon_i \sim N(0, \sigma^2)$
+
+- Calculate the test-statistic:
+  $$
+  F^* = \frac{\text{SSR} / \text{df}_{\text{reg}}}{\text{SSE(F)} / \text{df}_F} = \frac{[\text{SSE(R)} - SSE(F)] / (\text{df}_{R} - \text{df}_F)}{\text{SSE(F)} / \text{df}_F}
+  $$
+
+- Larger values of $F^*$ mean that the regression line picks up more variation and provides evidence against $H_0$.
+
+- If $H_0$ is true, then $F^* \sim F_{\text{df}_R - \text{df}_F, \text{df}_F}$.
+  - For SLR $\text{df}_R - \text{df}_F = 1$ and $\text{df}_F = n-2$
+
+-   The $p$-value is the probability that $F > F^*$ given $F \sim F_{\text{df}_R - \text{df}_F, \text{df}_F}$.
+    ```r
+    1 - pf(q = fstar, df1 = 1, df2 = n - 2)
+    ```
+```{r}
+#| echo: false
+tibble(x = seq(0.01, 3, length.out = 500)) |>
+  mutate(y = df(x = x, df1 = 1, df2 = 10)) ->
+  df1
+df1 |>
+  filter(x > 0.8) ->
+  df2
+ggplot() +
+  geom_line(data = df1, mapping = aes(x = x, y= y)) +
+  geom_area(data = df2, mapping = aes(x = x, y = y), fill = "#E69F00", color = "#E69F00") +
+  xlab("F") +
+  ylab("PMF") +
+  ggtitle(expression(F[list(df[R]-df[F],df[F])])) +
+  geom_vline(xintercept = 0.8, lty = 2, col = 2)
+```
+:::
 
 
+-   In R, to run the F-test, take the output of `lm()` and feed it into `anova()`.
+    
+    ```{r}
+    lm(birthweight ~ estriol, data = estriol) |>
+      anova() |>
+      tidy()
+    ```
 
-# Intervals
+- What is returned above is called an **ANOVA table** with the following elements
 
-In Progress
+|            | df                          | ss              | ms                                  | statistic | $p$-value |
+|------------|-----------------------------|-----------------|-------------------------------------|-----------|-----------|
+| Regression | $\text{df}_R - \text{df}_F$ | SSE(R) - SSE(F) | [SSE(R) - SSE(F)]/(df$_R$ - df$_F$) | $F^*$     | $p$-value |
+| Error      | $\text{df}_F$               | SSE(F)          | SSE(F) / df$_F$                     |           |           |
+| Total      | $\text{df}_R$               | SSE(R)          | SSE(R) / df$_R$                     |           |           |
 
-Confidence Intervals
 
-Prediction Intervals
+- Because of the decomposition of sums of squares, folks often report the strength of the linear association via the coefficient of determination.
+
+::: {.callout-tip}
+## Coefficient of Determination
+$$
+R^2 = 1 - \frac{\text{SSE(R)}}{\text{SSE(F)}} = \frac{\text{Regression SS}}{\text{Total SS}}
+$$
+:::
+
+- $R^2$ is the proportion of variance in $Y$ that is explained by the regression, or 1 minus the proportion of variance in $Y$ not explained by the regression line.
+  - $R^2 = 1$: All points lie exactly on the regression line.
+  - $R^2 = 0$: Regression line is equal to $y = \bar{y}$ (a horizontal line).
+
+::: {.callout-important}
+$R^2$ tells you **NOTHING** about the appropriateness of the model. Given the model is true, it tells you how much variation in a response a predictor explains.
+:::
+  
+- E.g., the model might be wrong (because of a curvilinear relationship) but the $R^2$ can still be high.
+
+- E.g., the model might be correct (because a linear relationship is fine) but the $R^2$ can be 0 because the linear relationship is not strong.
+  
+::: {.panel-tabset}
+## Exercise
+From the FEV data, create an ANOVA table.
+
+## Solution
+```{r}
+lm(fev ~ height, data = fev) |>
+  anova() |>
+  tidy()
+```
+:::
+
+::: {.panel-tabset}
+## Exercise
+Using just the FEV ANOVA table, what is regression estimate of $\sigma^2$?
+
+## Solution
+This is the mean square of residuals Or, 0.01452. We can verify this by directly using the output of `lm()`.
+```{r}
+lm(fev ~ height, data =fev) |>
+  glance() |>
+  select(sigma) |>
+  mutate(sigma2 = sigma^2)
+```
+:::
+
+::: {.panel-tabset}
+## Exercise
+Using just the data from the FEV ANOVA table, what is the sample variance of FEV?
+
+## Solution
+This is the SSE(R)/df$_R$. We can get SSE(R) by summing the sums of squares in the ANOVA table
+```{r}
+6.0239 + 0.1452
+```
+and df$_R$ by summing the degrees of freedom in the ANOVA table
+```{r}
+10 + 1
+```
+So, the sampel variance is
+```{r}
+6.169 / 11
+```
+Let's verify by direct calculation
+```{r}
+fev |>
+  summarize(var = var(fev))
+```
+:::
+
+::: {.panel-tabset}
+## Exercise
+Calculate the $p$-value from the $F$-statistic and the degrees of freedom in the FEV ANOVA table.
+
+## Solution
+```{r}
+1 - pf(q = 414.8, df1 = 1, df2 = 10)
+```
+:::
+
+# Confidence Intervals
+
+-   The confidence intervals for $\beta_0$ and $\beta_1$ are of the form
+    \begin{align*}
+    \hat{\beta}_0 &\pm t_{n-2, 1-\alpha/2}\text{SE}(\hat{\beta}_0)\\
+    \hat{\beta}_1 &\pm t_{n-2, 1-\alpha/2}\text{SE}(\hat{\beta}_1)
+    \end{align*}
 
 -   The confidence intervals for $\beta_0$ and $\beta_1$ are easy to obtain from the output of `tidy()` if you set `conf.int = TRUE`.
   
@@ -758,6 +984,41 @@ Prediction Intervals
     lmtide <- tidy(lmout, conf.int = TRUE)
     select(lmtide, conf.low, conf.high)
     ```
+    
+::: {.panel-tabset}
+## Exercise
+Below is some output of `lm()` using the blood-alcohol data
+```{r}
+#| echo: false
+lm(bac ~ beers, data = bac) |>
+  tidy() |>
+  select(term, estimate, std.error)
+```
+Recall that the sample size is $n = 16$. From this output, construct a 95% CI for $\beta_0$ and $\beta_1$
+
+## Solution
+The appropriate $t$-quantile is
+```{r}
+qt(p = 1 - 0.05 / 2, df = 16 - 2)
+```
+For $\beta_0$, the CI is:
+```{r}
+-0.01270 - 2.145 * 0.012638
+-0.01270 + 2.145 * 0.012638
+```
+For $\beta_1$, the CI is
+```{r}
+0.01796 - 2.145 * 0.002402
+0.01796 + 2.145 * 0.002402
+```
+
+Let's confirm:
+```{r}
+lm(bac ~ beers, data = bac) |>
+  tidy(conf.int = TRUE) |>
+  select(term, conf.low, conf.high)
+```
+:::
 
 
 # Prediction (Interpolation)
@@ -834,6 +1095,8 @@ newdata <- tribble(~beers,
 predict(object = lmbeer, newdata = newdata)
 ```
 :::
+
+
   
 # Assumptions
 
@@ -1081,33 +1344,87 @@ qplot(fit_vec, res_vec, xlab = "Fitted Values", ylab = "Residuals", main = "Resi
     ```
   
   
-# Some Exercises
+## Some Exercises on Assumptions
 
 ::: {.panel-tabset}
 ## Exercise
-
-From the `mtcars` data frame, run a regression of MPG on displacement. Evaluate the regression fit and fix any issues. Interpret the coefficient estimates.
+Evaluate the assumptions of the linear fit of birthweight on estriol.
 
 ## Solution
-Based on this residual plot, I'm going to try a log transformation:
+Looks good. No curvilinear trends, equal variance looks fine.
 ```{r}
-lm_mtcars <- lm(mpg ~ disp, data = mtcars)
-lmmt_aug <- augment(lm_mtcars)
-ggplot(lmmt_aug, aes(x = .fitted, y = .resid)) +
+ggplot(estriol, aes(x = estriol, y = birthweight)) +
   geom_point() +
-  geom_hline(yintercept = 0, lty = 2)
+  geom_smooth(method = "lm", formula = y ~ x, se = FALSE)
+
+lm(birthweight ~ estriol, data = estriol) |>
+  augment() |>
+  ggplot(aes(x = .fitted, y = .resid)) +
+  geom_point() +
+  geom_hline(yintercept = 0, lty = 2) +
+  geom_smooth(formula = y ~ x, method = "loess")
+```
+:::
+
+::: {.panel-tabset}
+## Exercise
+Evaluate the assumptions of the linear fit of blood alcohol level on beers.
+
+## Solutions
+Looks good. No curvilinear trends, equal variance looks fine.
+```{r}
+ggplot(bac, aes(x = beers, y = bac)) +
+  geom_point() +
+  geom_smooth(method = "lm", formula = y ~ x, se = FALSE)
+
+lm(bac ~ beers, data = bac) |>
+  augment() |>
+  ggplot(aes(x = .fitted, y = .resid)) +
+  geom_point() +
+  geom_hline(yintercept = 0, lty = 2) +
+  geom_smooth(formula = y ~ x, method = "loess")
+```
+:::
+
+::: {.panel-tabset}
+## Exercise
+Evaluate the assumptions of the linear fit of fev level on height.
+
+## Solution
+It looks very curved, doesn't it? But the equal variance assumption looks fine.
+```{r}
+ggplot(fev, aes(x = height, y = fev)) +
+  geom_point() +
+  geom_smooth(method = "lm", formula = y ~ x, se = FALSE)
+
+lm(fev ~ height, data = fev) |>
+  augment() |>
+  ggplot(aes(x = .fitted, y = .resid)) +
+  geom_point() +
+  geom_hline(yintercept = 0, lty = 2) +
+  geom_smooth(formula = y ~ x, method = "loess")
 ```
 
+Logging height doesn't do anything, so we could add a quadratic trend
 ```{r}
-lm_mtcars <- lm(mpg ~ log(disp), data = mtcars)
-lmmt_aug <- augment(lm_mtcars)
-ggplot(lmmt_aug, aes(x = .fitted, y = .resid)) +
+ggplot(fev, aes(x = height, y = fev)) +
   geom_point() +
-  geom_hline(yintercept = 0, lty = 2)
+  geom_smooth(method = "lm", formula = y ~ x + I(x^2), se = FALSE)
+
+lm(fev ~ height + I(height^2), data = fev) |>
+  augment() |>
+  ggplot(aes(x = .fitted, y = .resid)) +
+  geom_point() +
+  geom_hline(yintercept = 0, lty = 2) +
+  geom_smooth(formula = y ~ x, method = "loess")
 ```
-Looks better but still a little curvey
+This looks way better. The squared-height term is significant:
+```{r}
+lm(fev ~ height + I(height^2), data = fev) |>
+  tidy()
+```
 :::
-  
+
 ::: {.panel-tabset}
 ## Exercise
 The following data frame, from @wilson1999diversity, contains the numbers of reptile and amphibian species and the island areas for seven islands in the West Indies.
@@ -1174,19 +1491,6 @@ Re-interpret the regression coefficients estimates you calculated using the `spe
 2^0.25 = 1.19, so:
     
 Islands that are twice as large tend to have 19% more species on average.
-:::
-
-::: {.panel-tabset}
-## Exercise
-Re-interpret the regression coefficient estimates you calculated in the `mtcars` data frame when you were exploring the effect of displacement on mpg.
-
-## Solution:
-```{r, eval = FALSE, echo = FALSE}
-lmout <- lm(mpg ~ log(disp), data = mtcars)
-tidy(lmout)
-```
-    
-Cars that have twice as large a displacement have mpg's 10 less, on average.
 :::
 
 # Multiple Linear Regression
