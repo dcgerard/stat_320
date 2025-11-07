@@ -1290,7 +1290,7 @@ qplot(fit_vec, res_vec, xlab = "Fitted Values", ylab = "Residuals", main = "Resi
 - Residual plot has a parabolic form.
 -   **Solution**: Include a squared term in the model (or hire a statistician).
     ```{r}
-    lmout <- lm(y ~ x^2, data = df_fake)
+    lmout <- lm(y ~ x + I(x^2), data = df_fake)
     ```
 
 ### Example 4: Curved Relationship, Variance Increases with $Y$
