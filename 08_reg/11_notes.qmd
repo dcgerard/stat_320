@@ -2236,7 +2236,148 @@ Some statisticians would be upset that I am being so simplistic. Don't tell them
       geom_hline(yintercept = 0, lty = 2, col = 2)
     ```
 
-# Exercises
+# FEV Exercise
 
+Refer to the FEV data described [here](https://dcgerard.github.io/stat_320/data.html#fev) and that can be downloaded from <https://dcgerard.github.io/stat_320/data/fev.csv>
+
+::: {.panel-tabset}
+## Exercise
+Is FEV associated with age? Write down the model you use, state the hypotheses, assess assumptions, and make a conclusion.
+
+## Solution
+Let
+
+- $Y_i$ be the FEV of individual $i$.
+- $X_{i}$ be the age of individual $i$.
+
+Then we assume
+
+$$
+Y_i = \beta_0 + \beta_1 X_i + \epsilon_i
+$$
+where $\epsilon_i \sim N(0, \sigma^2)$
+
+We fit the model
+```{r}
+#| message: false
+fev <- read_csv("https://dcgerard.github.io/stat_320/data/fev.csv")
+lmout <- lm(FEV ~ Age, data = fev)
+tidy(lmout, conf.int = TRUE)
+```
+
+Assessing assumptions, we have
+```{r}
+aout <- augment(lmout)
+ggplot(aout, aes(x = Age, y = FEV)) +
+  geom_point() +
+  geom_smooth(method = "lm", se = FALSE, formula = y~x)
+
+ggplot(aout, aes(x = .fitted, y = .std.resid)) +
+  geom_point() +
+  geom_smooth(method = "lm", se = FALSE, formula = y~x) +
+  geom_hline(yintercept = 0, lty = 2, col = 2)
+```
+
+Everything looks good except the equal variance assumption. This is clearly violated.
+
+We barely covered how to do this, so I didn't expect you to do it, but we need to do sandwich estimation.
+```{r}
+library(sandwich)
+library(lmtest)
+robust_se <- vcovHC(lmout, type = "HC1")
+coeftest(lmout, vcov = robust_se) |>
+  tidy(conf.int = TRUE)
+```
+Either way, we have strong evidence of an association between age and FEV (p < 0.001). Estiamte that individuals who are1 year older have an FEV 0.22 liters higher, on average (95% CI 0.20 to 0.24 liters higher).
+:::
+
+::: {.panel-tabset}
+## Exercise
+Is FEV associated with smoking status? Write down the model you use, state the hypotheses, assess assumptions, and make a conclusion.
+
+## Solution
+This is just a two-sample $t$-test. Let
+
+- $X_i$ be the FEV in smoking individual $i$
+- $Y_j$ be the FEV in non-smoking individual $j$.
+
+We assume $X_i \sim N(\mu_1, \sigma_1)^2$ and $Y_j \sim N(\mu_2, \sigma_2^2)$
+
+We are testing $H_0: \mu_1 = \mu_2$ versus $H_A: \mu_1 \neq \mu_2$
+
+```{r}
+t.test(FEV ~ Smoke, data = fev) |>
+  tidy() |>
+  select(p.value, estimate, conf.low, conf.high)
+```
+
+
+We assess assumptions with a boxplot
+```{r}
+ggplot(fev, aes(x = Smoke, y = FEV)) +
+  geom_boxplot()
+```
+
+We have strong evidence that current smokers have higher FEV than non-current smokers (p < 0.001). Current smokers have about 0.71 liters larger FEV on average (95% CI 0.51 liters to 0.91 liters).
+
+:::
+
+::: {.panel-tabset}
+## Exercise
+Can you explain your results from the previous exercise? Are they counterintuitive?
+
+## Solutions
+If you are older, you are more likely to smoke. If you are older, you are also more likely to have a larger FEV. Thus, smoking status is confounded with age and we need to adjust for age to actually get the effect of smoking status on FEV.
+:::
+
+::: {.panel-tabset}
+## Exercise
+Is FEV associated with smoking status, adjusted for age and sex? Write down the model you use, state the hypotheses, assess assumptions, and make a conclusion.
+
+## Solution
+Let
+
+- $Y_i$ be the FEV of individual $i$.
+- $X_{i1}$ be 1 if individual $i$ does not smoke and 0 otherwise.
+- $X_{i2}$ be the age of individual $i$.
+- $X_{i3}$ be 1 if individual $i$ is male and 0 otherwise.
+
+Then we assume
+
+$$
+Y_i = \beta_0 + \beta_1 X_{i1} + \beta_2 X_{i2} + \beta_3 X_{i3} + \epsilon_i
+$$
+
+```{r}
+lmout <- lm(FEV ~ Smoke + Age + Sex, data = fev)
+tidy(lmout, conf.int = TRUE)
+```
+
+Assessing assumptions, we have
+```{r}
+aout <- augment(lmout)
+ggplot(aout, aes(x = .fitted, y = .std.resid)) +
+  geom_point() +
+  geom_smooth(method = "lm", se = FALSE, formula = y~x) +
+  geom_hline(yintercept = 0, lty = 2, col = 2)
+```
+
+```{r}
+#| fig-width: 4
+#| fig-height: 4
+car::avPlot(lmout, variable = "Age")
+car::avPlot(lmout, variable = "Smokenon-current")
+car::avPlot(lmout, variable = "Sexmale")
+```
+
+Everything looks good except the equal variance assumption. Again, we definitely need sandwich.
+```{r}
+robust_se <- vcovHC(lmout, type = "HC1")
+coeftest(lmout, vcov = robust_se) |>
+  tidy(conf.int = TRUE)
+```
+ 
+ This actually changed the results of the model. We do not have evidence that smoking status is associated with FEV adjusting for age and sex (p = 0.14). The sign is at least correct. We estimate that non-smokers have on average an FEV that is 0.15 liters larger than smokers, adjusting for age and sex (95% CI 0.05 L lower to 0.36 L higher). We have more evidence that age and sex are associated with FEV (both p < 0.001). In particular, males who are expected to have an FEV that is 0.31 L larger than females (95% CI 0.23 L to 0.40 L), and each year folks get about 0.23 L larger FEV (95% CI 0.21 L to 0.24 L).
+:::
 
 # References
