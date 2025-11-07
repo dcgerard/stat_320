@@ -52,10 +52,10 @@ Data from a case-control study investigated various plasma risk factors for brea
 Data were collected from 20 healthy females, 25–34 years old, to study the relationship between body fat and three predictors [@neter1996applied].
 
 - [body.csv](./data/body.csv)
-  - `triceps`: Triceps skinfold thickness.
-  - `thigh`: Thigh circumference.
-  - `midarm`: Midarm circumference
-  - `fat`: Body fat.
+  - `triceps`: Triceps skinfold thickness (mm).
+  - `thigh`: Thigh circumference (cm).
+  - `midarm`: Midarm circumference (cm>
+  - `fat`: Body fat (percent).
 
 
 

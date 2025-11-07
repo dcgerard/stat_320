@@ -16,6 +16,40 @@ knitr::opts_chunk$set(echo = TRUE,
             fig.height = 3, 
             fig.align = "center")
 ggplot2::theme_set(ggplot2::theme_bw() + ggplot2::theme(strip.background = ggplot2::element_rect(fill = "white")))
+plt_t <- function(
+    mu = 0, 
+    sig = 1, 
+    lb = -Inf,
+    ub = Inf,
+    df = Inf, 
+    rng = c(-3, 3), 
+    two_sided = FALSE,
+    col = "#E69F00",
+    lwd = 1) {
+  tibble(x = seq(mu + rng[[1]] * sig, mu + rng[[2]] * sig, length.out = 500)) |>
+    mutate(y = dt(x = (x - mu) / sig, df = df)) ->
+    df1
+  df1 |>
+    filter(x > lb, x < ub) ->
+    df2
+  ggplot() +
+    geom_line(data = df1, mapping = aes(x = x, y = y), linewidth = lwd) +
+    geom_area(data = df2, mapping = aes(x = x, y = y), fill = col) +
+    geom_line(data = df2, mapping = aes(x = x, y = y), color = col, linewidth = lwd) +
+    theme_classic() +
+    theme(axis.title = element_blank()) ->
+    pl
+  
+  if (two_sided) {
+    df1 |>
+      filter(x > -ub, x < -lb) ->
+      df3
+    pl <- pl + 
+      geom_area(data = df3, mapping = aes(x = x, y = y), fill = col) +
+      geom_line(data = df3, mapping = aes(x = x, y = y), color = col, linewidth = lwd)
+  }
+  pl
+}
 ```
 
 # Learning Objectives
@@ -1494,6 +1528,8 @@ Islands that are twice as large have 19% more species on average.
 
 # Multiple Linear Regression
 
+## Model, Interpretation, and Estimation
+
 - Setting:
   - One response variable $Y$
   - Multiple explanatory variables $X_1, X_2, \ldots, X_k$
@@ -1629,20 +1665,578 @@ y_{new} &= \beta_0 + \beta_1(x_{i1} + 10) + \beta_2x_{i2}\\
 :::
 
 
-# Summary of R commands
+::: {.panel-tabset}
+## Exercise
+Data were collected from 20 healthy females, 25–34 years old, to study the relationship between body fat and three predictors. Variables include
 
-- `augment()`:
-  - Residuals $r_i = y_i - \hat{y}_i$: `$.resid`
-  - Fitted Values $\hat{y}_i$: `$.fitted`
-- `tidy()`:
-  - Name of variables: `$term`
-  - Coefficient Estimates: `$estimate`
-  - Standard Error (standard deviation of sampling distribution of coefficient estimates): `$std.error`
-  - t-statistic: `$statistic`
-  - p-value: `$p.value`
-- `glance()`: 
-  - R-squared value (proportion of variance explained by regression line, higher is better): `$r.squared`
-  - AIC (lower is better): `$AIC`
-  - BIC (lower is better): `$BIC`
+- `triceps`: Triceps skinfold thickness (mm).
+- `thigh`: Thigh circumference (cm).
+- `midarm`: Midarm circumference (cm)
+- `fat`: Body fat (percent).
+
+The data can be downloaded from <https://dcgerard.github.io/stat_320/data/body.csv>
+
+Download the data and fit a regression model of `fat` on `triceps` and `midarm`. State the model you fit, defining any paramters and variables. Interpret the regression coefficients.
+
+## Solutions
+- Let $Y_i$ be the body fat of female $i$
+- Let $X_{i1}$ be the triceps skinfold thickness of woman $i$.
+- Let $X_{i2}$ be the midarm circumference of woman $i$.
+
+Our model is
+$$
+Y_i = \beta_0 + \beta_1X_{i1} + \beta_2X_{i2} + \epsilon_i
+$$
+where $\epsilon_i \sim N(0, \sigma^2)$
+
+We fit this model by least squares:
+```{r}
+#| message: false
+body <- read_csv("https://dcgerard.github.io/stat_320/data/body.csv")
+lm(fat ~ triceps + midarm, data = body) |>
+  tidy()
+```
+Our estimated regression line is
+$$
+y = 6.79 + \beta_1 - 0.43 \beta_2
+$$
+
+Women with 1 mm thicker triceps skinfold thickness, but the same midarm circumference, have 1 percentage points higher body fat on average.
+
+Women with 1 cm larger midarm circumference, but the same triceps skinfold thickness, have 0.43 percentage points lower body fat on average.
+:::
+
+- When you were intrepreting the regression coefficients in the above exercise, you should say "percentage points", not "percent.
+  - Percentage points are additive differences. E.g. 20% is 10 percentage points higher than 10%
+  - Percent is for multiplicative differences. E.g. 20% is 100% higher than 10%.
+  
+- Did the results from the body fat example surprise? 
+
+::: {.callout-important}
+Simple linear regression coefficients might be **very very** different than multiple linear regression coefficients.
+:::
+
+```{r}
+lm(fat ~ midarm, data = body) |>
+  tidy() |>
+  select(term, estimate)
+
+lm(fat ~ triceps + midarm, data = body) |>
+  tidy() |>
+  select(term, estimate)
+```
+
+
+- The different signs for the coefficient of `midarm` occur because we **control** for tricepts.
+  - The SLR coefficient is the relationship between `fat` and `midarm`
+  - The MLR coefficient is the relationship between `fat` and `midarm` for fixed values of `triceps` (controlling for `triceps`).
+  
+-   Here is the relationship between `fat` and `midarm`
+    ```{r}
+    #| echo: false
+    ggplot(body, aes(x = midarm, y = fat)) +
+      geom_point() +
+      geom_smooth(method = lm, formula = y ~ x, se = FALSE) +
+      theme_bw() +
+      ggtitle("Fat vs Midarm")
+    ```
+
+-   Here is the relationship between `fat` and `midarm` controlling for triceps
+    ```{r}
+    #| echo: false
+    body |>
+      mutate(tricat = cut(triceps, 2)) ->
+      bodycut
+    
+    ggplot(bodycut, aes(x = midarm, y = fat, color = tricat)) +
+      geom_point() +
+      scale_color_discrete(palette = "Okabe-Ito", name = "Triceps Group") +
+      geom_smooth(method = "lm", formula = y~x, se = FALSE) +
+      theme_bw() +
+      ggtitle("Fat vs Midarm | Triceps")
+    ```
+
+## More than Two Explanatory Variables
+
+::: {.callout-tip}
+## Multiple linear regression model
+$$
+Y_i = \beta_0 + \sum_{j=1}^{p-1}\beta_jX_{ij} + \epsilon_i
+$$
+
+- $Y_i$: Response variable for individual $i$.
+- $X_{ij}$: The $j$th explanatory variable for individual $i$
+- $\epsilon_i \sim N(0, \sigma^2)$
+:::
+
+- We say there are $p-1$ predictors in the model so that we have $p$ variables, which make the math equations nicer.
+
+-   We estimate the $\beta_j$'s again by ordinary least squares, finding the values that minimize
+    $$
+    \sum_{i=1}^n\left[y_i - \left(\beta_0 + \sum_{j=1}^{p-1}\beta_jX_{ij}\right)\right]^2
+    $$
+    
+- The OLS estimates are $\hat{\beta}_0, \hat{\beta}_1, \ldots, \hat{\beta}_{p-1}$
+
+- You get the OLS estimates by `lm()`.
+
+-   Suppose we have a model for `fat` on `triceps`, `thigh`, and `midarm`. Let
+    - $Y_i$ be the body fat for woman $i$.
+    - $X_{i1}$ be the tricep skinfold thickness for woman $i$.
+    - $X_{i2}$ be the thigh circumference for woman $i$.
+    - $X_{i3}$ be the midarm circumference for woman $i$.
+    
+    Then we fit the model
+    $$
+    Y_i = \beta_0 + \beta_1X_{i1} + \beta_2 X_{i2} + \beta_3 X_{i3} + \epsilon_i
+    $$
+    where $\epsilon_i \sim N(0,\sigma^2)$.
+    
+    We fit this model by `lm()`
+    ```{r}
+    lm(fat ~ triceps + thigh + midarm, data = body) |>
+      tidy()
+    ```
+    
+    Our estimated regression equation is
+    $$
+    y = 117.09 + 4.33 x_1 - 2.86x_2 - 2.19x_3
+    $$
+    
+- We interpret the regression coefficients similarly
+  - $\beta_j$ is the average difference in $y$ values when $x_j$ differs by 1, but all other variables are the same.
+  
+- E.g., Woman with 1mm larger skinfold thickness, but the same thigh and midarm circumferences, have 4.334 percentage points larger body fat on average.
+
+- This is a huge mouthful, so in practice we say
+
+  > $\beta_j$ is the average difference in $y$ values when $x_j$ differs by 1, controlling for all other variables.
+  
+- That is, **controlling** is shorthand to say what the statistical relationship is given those variables are fixed.
+
+## Testing
+
+- We can test if a regression coefficent is 0, **adjusting for other variables** via a $t$-method.
+
+::: {.callout-tip}
+## Test For Individual Regression Coefficients
+- $H_0$: $\beta_j = 0$
+- $H_A$: $\beta_j \neq 0$
+
+-   If the null were **true**, then
+    $$
+    t = \frac{\hat{\beta}_j}{\text{SE}(\hat{\beta}_j)} \sim t_{n - p}
+    $$
+    
+-   We compare our observed $t$ statistic to this null distribution to get a $p$-value
+
+    ```{r}
+    #| echo: false
+    plt_t(lb = 2.2, df = 10, two_sided = TRUE, rng = c(-4, 4)) +
+      geom_vline(xintercept = 2.2, lty = 2, col = 2)
+    ```
+    
+-   Confidence intervals are of the form
+    $$
+    \hat{\beta}_j \pm t_{n-p,1-\alpha/2}\text{SE}(\hat{\beta}_j)
+    $$
+:::
+
+-   You can get the $p$-values of this test, and confidence intervals, via the output of `lm()`.
+
+    ```{r}
+    lm(fat ~ triceps + thigh + midarm, data = body) |>
+      tidy(conf.int = TRUE) |>
+      select(term, p.value, conf.low, conf.high)
+    ```
+
+
+-   This is only a test for $\beta_j = 0$ given all other variables are in the model. The results of this test will differ depending on what other variables are in the model, sometimes drastically.
+
+    ```{r}
+    lm(fat ~ triceps + midarm, data = body) |>
+      tidy() |>
+      select(term, p.value)
+    ```
+
+- In this case, the $p$-values are so different because of **collinearity**.
+
+::: {.callout-tip}
+## Collinearity
+The correlation between explanatory variables.
+:::
+
+- Intuitively, if two variables are highly collinear, then they are picking up the same information. So once you control for one of those variables, there is no longer an association between the response and the remaining variable.
+
+::: {.panel-tabset}
+## Exercise
+In the body fat example, we saw that the $p$-values were all very large in the linear model that included all three of triceps skinfold thickness, thigh circumference, and midarm circumference. Does this mean that none of the variables are associated with body fat?
+
+## Solution
+No! This means that we don't have evidence that each variable is associated with body fat **controlling for the other two**. If we don't control for the other two, we might see an association.
+:::
+
+- When you have variables that are highly collinear, you should remove some of them, since they are picking up the same information.
+
+- From this, it is far better to consider these tests as comparing two models, one of which is a submodel of the other.
+
+- E.g., in the two explanatory variable case, $H_0: \beta_2 = 0$ versus $H_A: \beta_j \neq 0$ is equivalent to:
+  - $H_0: Y_i = \beta_0 + \beta_1X_{i1} + \epsilon_i$
+  - $H_0: Y_i = \beta_0 + \beta_1X_{i1} + \beta_2X_{i2} + \epsilon_i$
+  
+- This intuitively leads us to the ANOVA approach to hypothesis testing.
+
+::: {.callout-tip}
+## ANOVA Approach to Hypothesis Testing
+- $H_0$: (Reduced Model) $Y_i = \beta_0 + \beta_1X_{i1} + \cdots + \beta_{q-1}X_{q-1} + \epsilon_i$
+- $H_0$: (Full Model) $Y_i = \beta_0 + \beta_1X_{i1} + \cdots + \beta_{q-1}X_{p-1} + \epsilon_i$, for $p > q$
+
+- I.e., we are testing whether we $X_q, X_{q+1},\ldots,X_{p-1}$ are associated with $Y$ controlling for $X_1,X_2,\ldots,X_{q-1}$.
+
+- Calculate the SSE(R) and SSE(F), $\text{df}_F = n-p$, $\text{df}_R = n-q$
+
+- Calculate the $F$ statistic
+  $$
+  F^* = \frac{[\text{SSE(R)} - SSE(F)] / (\text{df}_{R} - \text{df}_F)}{\text{SSE(F)} / \text{df}_F}
+  $$
+
+- If the null were **true**, then $F$ follows an $F$ distribution with numerator degrees of freedom $p-q$ and numerator degrees of freedom $n-p$. 
+
+-   Compare our observed $F$ statistic to this distribution to get a $p$-value
+
+    ```{r}
+    #| echo: false
+    tibble(x = seq(0, 7, length.out = 500)) |>
+      mutate(y = df(x = x, df1 = 3, df2 = 10)) ->
+      df1
+    df1 |>
+      filter(x > 2.1) ->
+      df2
+    ggplot() +
+      geom_line(data = df1, mapping = aes(x = x, y= y)) +
+      geom_area(data = df2, mapping = aes(x = x, y = y), fill = "#E69F00", color = "#E69F00") +
+      xlab("F") +
+      ylab("PMF") +
+      ggtitle(expression(F[list(df[R]-df[F],df[F])])) +
+      geom_vline(xintercept = 2.1, lty = 2, col = 2) +
+      theme_bw()
+    ```
+:::
+
+-   To run this test in R, separately fit reduced and full models, then use `anova()`.
+    ```{r}
+    reduced <- lm(fat ~ triceps, data = body)
+    full <- lm(fat ~ triceps + thigh + midarm, data = body)
+    anova(reduced, full) |>
+      tidy()
+    ```
+
+- This ANOVA table is of the form
+
+| term    | df.residual   | rss    | df                          | sumsq           | statistic | $p$-value |
+|---------|---------------|--------|-----------------------------|-----------------|-----------|-----------|
+| Reduced | $\text{df}_R$ | SSE(R) |                             |                 |           |           |
+| Full    | $\text{df}_F$ | SSE(F) | $\text{df}_R - \text{df}_F$ | SSE(R) - SSE(F) | $F^*$     | $p$-value |
+
+::: {.callout-important}
+If we reject the $F$-test, then we have evidence that at least one of $X_{q}, X_{q+1},\ldots,X_{p}$ is associated with $Y$, controlling for $X_1, X_2, \ldots, X_{q-1}$. **NOT** that all of them are associated. The $F$ test only tells you that at least one variable is associated.
+:::
+
+::: {.callout-tip}
+## Overall $F$-test
+It is so common to run the following hypothesis test
+
+- $H_0$: (Reduced) $Y_i = \beta_0 + \epsilon_i$
+- $H_0$: (Reduced) $Y_i = \beta_0 + \sum_{j=1}^{p-1}\beta_jX_{ij} + \epsilon_i$
+
+- This is called the **overall $F$-test**
+
+- This is output by `glance()` from `{broom}`.
+:::
+
+-   Here is the result of the overall $F$-test for SBP on age and birthweight
+    ```{r}
+    lm(sbp ~ age + birthweight, data = bp) |>
+      glance() |>
+      select(p.value)
+    ```
+    So we have very strong evidence that either age or birthweight are associated with SBP.
+
+
+::: {.panel-tabset}
+## Exercise
+From the below ANOVA output, calculate the $p$-value from the $F$-statistic directly.
+```{r}
+reduced <- lm(fat ~ triceps, data = body)
+full <- lm(fat ~ triceps + thigh + midarm, data = body)
+anova(reduced, full) |>
+  tidy()
+```
+
+## Solution
+```{r}
+1 - pf(3.635, df1 = 2, df2 = 16)
+```
+
+:::
+
+::: {.panel-tabset}
+## Exercise
+From the below output, calculate a 95% confidence interval for the coefficient estimates.
+```{r}
+lm(fat ~ triceps + thigh, data = body) |>
+  tidy()
+nrow(body)
+```
+
+
+## Solution
+The appropriate $t$-quantile is
+```{r}
+qt(p = 1 - 0.05 / 2, df = 20 - 3)
+```
+
+-   $\beta_0$:
+    ```{r}
+    -19.1742 - 2.11 * 8.3606	
+    -19.1742 + 2.11 * 8.3606	
+    ```
+
+-   $\beta_1$:
+    ```{r}
+    0.2224 - 2.11 * 0.3034
+    0.2224 + 2.11 * 0.3034
+    ```
+
+-   $\beta_2$
+    ```{r}
+    0.6594 - 2.11 * 0.2912
+    0.6594 + 2.11 * 0.2912
+    ```
+    
+Let's verify:
+
+```{r}
+lm(fat ~ triceps + thigh, data = body) |>
+  tidy(conf.int = TRUE) |>
+  select(term, conf.low, conf.high)
+```
+
+:::
+
+::: {.panel-tabset}
+## Exercise
+From the below output, calculate the $p$-values from the $t$-statistics
+```{r}
+lm(fat ~ triceps + thigh, data = body) |>
+  tidy()
+nrow(body)
+```
+
+## Solution
+-   $\beta_0$
+    ```{r}
+    2 * pt(-2.2934, df = 20 - 3)
+    ```
+
+-   $\beta_1$
+    ```{r}
+    2 * pt(-0.7328, df = 20 - 3)
+    ```
+    
+-   $\beta_2$
+    ```{r}
+    2 * pt(-2.2646, df = 20 - 3)
+    ```
+:::
+
+## Assessing Assumptions
+
+- Plot residuals vs fits. If there are any trends or unequal variances, then you have issues.
+
+-   Let's do this for the regression of sbp on age and birthweight.
+    ```{r}
+    lm(sbp ~ age + birthweight, data = bp) |>
+      augment() |>
+      ggplot(aes(x = .fitted, y = .resid)) +
+      geom_point() +
+      geom_hline(yintercept = 0, lty = 2, col = 2)
+    ```
+
+- It looks like there might be one outlier/influential point. In STAT-415, you learn about statistics to evaluate if points are outliers or influential.
+
+-   The variance of the residuals varies based on their $x$ values (closer to the mean has lower variance). So folks often prefer plotting the standardized residuals that adjustes fo this. They are standardized to all have variance 1.
+    ```{r}
+    lm(sbp ~ age + birthweight, data = bp) |>
+      augment() |>
+      ggplot(aes(x = .fitted, y = .std.resid)) +
+      geom_point() +
+      geom_hline(yintercept = 0, lty = 2, col = 2)
+    ```
+    
+::: {.callout-important}
+- In R, "standardized residuals" are Rosner's "internally studentized residuals"
+  - No leave-one-out calculation of standard error.
+  - `augment()` returns these.
+- In R, "studentized residuals" are Rosner's "externally studentized residuals"
+  - Leave-one-out calculation of standard error.
+  - More robust to outliers.
+  
+:::
+
+- Another common plot is a partial-residual plot. It plots the association between $X_j$ and $Y$ after removing the effects of all other variables.
+
+::: {.callout-tip}
+## Partial Residual Plot AKA Added Variable Plot AKA Adjusted Variable Plot
+1. Regress $Y$ (as the response) on every predictor except $X_j$. Obtain the residuals, and call these $e_i(Y)$
+2. Regress $X_j$ (as the response) on every other predictor. Obtain the residuals, and call these $e_i(X_k)$
+3. Make a scatterplot of $e_i(X_k)$ versus $e_i(Y)$.
+:::
+
+- Intuition: $e_i(Y)$ and $e_i(X_k)$ reflect the part of each variable that is not linearly associated with the other predictors. See if they are linear or not.
+
+-   Don't try to make one manually, just use `car::avPlot()`.
+
+    ```{r}
+    lm_bp <- lm(sbp ~ age + birthweight, data = bp)
+    car::avPlot(model = lm_bp, variable = "age")
+    car::avPlot(model = lm_bp, variable = "birthweight")
+    ```
+
+::: {.panel-tabset}
+## Exercise
+Evaluate the regression of body fat on tricep skinfold thickness, thigh circumference, and midarm circumference.
+
+## Solution
+It looks really good!
+```{r}
+lm_body <- lm(fat ~ triceps + thigh + midarm, data = body)
+lm_body |>
+  augment() |>
+  ggplot(aes(x = .fitted, y = .resid)) +
+  geom_point() +
+  geom_hline(yintercept = 0, lty = 2, col = 2)
+```
+Added variable plots look good too!
+```{r}
+#| fig-width: 6
+#| fig-height: 6
+car::avPlots(lm_body)
+```
+Though, note that there is huge multicollinearity in these data. In STAT-415, you'll learn about variance inflation factors, which evaluate multicollinearity. In this case, the VIF's are all huge (rule of thumb is they should be less than 10)
+```{r}
+lm_fat <- lm(fat ~ triceps + thigh + midarm, data = body)
+car::vif(lm_fat)
+```
+:::
+
+## Including Categorical Variables
+
+- Consider the [lead data](https://dcgerard.github.io/stat_320/data.html#lead) that you can download from <https://dcgerard.github.io/stat_320/data/lead.csv>.
+
+-   We will be interested in these variables:
+    - `maxfwt`: Finger-wrist tapping test in dominant hand (number of taps in one 10 second trial)
+    - `Group`: Either `control` (low lead) or `exposed` (high lead)
+    - `ageyrs`: Age in years
+    - `sex`: Sex. Either `male` or `female`
+  
+    ```{r}
+    #| message: false
+    lead <- read_csv("https://dcgerard.github.io/stat_320/data/lead.csv") |>
+      select(maxfwt, Group, ageyrs, sex)
+    glimpse(lead)
+    ```
+
+- The goal is to assess the association between `maxfwt` and `Group`, adjusting for `ageyrs` and `sex`. 
+
+- But group is a categorical variable. How do we include it?
+
+::: {.callout-tip}
+## Dummy Variables AKA Indicator Variables AKA One-hot Transformation
+For a explanatory variable $X$ with $k$ levels, create $k-1$ new variables, where variable $j$ is
+$$
+X_{ij} = 
+\begin{cases}
+1 & \text{ if } X \text{ is level } j\\
+0 & \text{ otherwise}
+\end{cases}
+$$
+:::
+
+- Just include the $k-1$ dummy variables in the model.
+
+- E.g., set $X_{i1} = 1$ if in the exposed group and $0$ otherwise.
+
+-   If our regression model is
+    $$
+    Y_i = \beta_0 + \beta_1X_{i1} + \beta_2 X_{i2} + \beta_3X_{i3} + \epsilon_i
+    $$
+    Then our model for the control group is
+    $$
+    Y_i = \beta_0 + \beta_2 X_{i2} + \beta_3X_{i3} + \epsilon_i
+    $$
+    And out model for the exposed group is
+    $$
+    Y_i = \beta_0 + \beta_1 + \beta_2 X_{i2} + \beta_3X_{i3} + \epsilon_i
+    $$
+    Thus, $\beta_1$ is the mean difference in `maxfwt` between exposed and control groups, adjusting for age and sex.
+    
+-   R will automatically do this dummy variable encoding for you if you pass it a character or factor variable.
+
+    ```{r}
+    lm(maxfwt ~ Group + ageyrs + sex, data = lead) |>
+      tidy()
+    ```
+
+- Since the result is `Groupexposed`, this says that the coefficient corresponding to the `exposed` level in the `Group` variable is estimated to be -4.889.
+
+::: {.panel-tabset}
+## Exercise
+Write out the entire model that was fit above. Note carefully that `sex` is also categorical. What is the model for males? What is the model for females?
+
+## Solution
+- Let $Y_i$ be the `maxfwt` for child $i$
+- Let $X_{i1}$ be 1 if child $i$ is exposed and 0 if control.
+- Let $X_{i2}$ be the age of child $i$.
+- Let $X_{i3}$ be 1 if the child is male and 0 if female.
+
+Then our model is
+$$
+Y_i = \beta_0 + \beta_1X_{i1} + \beta_2X_{i2} + \beta_3X_{i3} + \epsilon_i
+$$
+where $\epsilon_i \sim N(0, \sigma^2)$
+
+The model for males is
+$$
+Y_i = \beta_0 + \beta_1X_{i1} + \beta_2X_{i2} + \beta_3 + \epsilon_i
+$$
+And out model for females is
+$$
+Y_i = \beta_0 + \beta_1X_{i1} + \beta_2X_{i2} + \epsilon_i
+$$
+
+Thus, we estimate that Males have 1.641 more taps than females on average, adjusting for age and exposure status.
+:::
+
+::: {.callout-important}
+If you have nothing but categorical explanatory variables in a model, then folks call this an **ANOVA model**.
+
+If you have a mix of categorical and continuous explanatory variables (like here), then folks call this an **ANCOVA model** (analysis of covariance)
+
+Some statisticians would be upset that I am being so simplistic. Don't tell them. This is just between you and me.
+:::
+
+
+-   Let's evaluate the fit of the model. There are some large values, but it doesn't look too bad:
+    ```{r}
+    lm_lead <- lm(maxfwt ~ Group + ageyrs + sex, data = lead)
+    aout <- augment(lm_lead)
+    ggplot(aout, aes(x = .fitted, y = .std.resid)) +
+      geom_point() +
+      geom_hline(yintercept = 0, lty = 2, col = 2)
+    ```
+
+# Exercises
+
 
 # References

@@ -397,8 +397,15 @@ window.Quarto = {
   <li><a href="#some-exercises-on-assumptions" id="toc-some-exercises-on-assumptions" class="nav-link" data-scroll-target="#some-exercises-on-assumptions">Some Exercises on Assumptions</a></li>
   </ul></li>
   <li><a href="#interpreting-coefficients-when-you-use-logs" id="toc-interpreting-coefficients-when-you-use-logs" class="nav-link" data-scroll-target="#interpreting-coefficients-when-you-use-logs">Interpreting Coefficients when you use logs</a></li>
-  <li><a href="#multiple-linear-regression" id="toc-multiple-linear-regression" class="nav-link" data-scroll-target="#multiple-linear-regression">Multiple Linear Regression</a></li>
-  <li><a href="#summary-of-r-commands" id="toc-summary-of-r-commands" class="nav-link" data-scroll-target="#summary-of-r-commands">Summary of R commands</a></li>
+  <li><a href="#multiple-linear-regression" id="toc-multiple-linear-regression" class="nav-link" data-scroll-target="#multiple-linear-regression">Multiple Linear Regression</a>
+  <ul class="collapse">
+  <li><a href="#model-interpretation-and-estimation" id="toc-model-interpretation-and-estimation" class="nav-link" data-scroll-target="#model-interpretation-and-estimation">Model, Interpretation, and Estimation</a></li>
+  <li><a href="#more-than-two-explanatory-variables" id="toc-more-than-two-explanatory-variables" class="nav-link" data-scroll-target="#more-than-two-explanatory-variables">More than Two Explanatory Variables</a></li>
+  <li><a href="#testing" id="toc-testing" class="nav-link" data-scroll-target="#testing">Testing</a></li>
+  <li><a href="#assessing-assumptions" id="toc-assessing-assumptions" class="nav-link" data-scroll-target="#assessing-assumptions">Assessing Assumptions</a></li>
+  <li><a href="#including-categorical-variables" id="toc-including-categorical-variables" class="nav-link" data-scroll-target="#including-categorical-variables">Including Categorical Variables</a></li>
+  </ul></li>
+  <li><a href="#exercises" id="toc-exercises" class="nav-link" data-scroll-target="#exercises">Exercises</a></li>
   <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
   </ul>
 </nav>
@@ -2129,6 +2136,8 @@ $ .std.resid  &lt;dbl&gt; -0.22656, -0.56104, -0.56104, -0.49505, -0.81472, -1.1
 </section>
 <section id="multiple-linear-regression" class="level1">
 <h1>Multiple Linear Regression</h1>
+<section id="model-interpretation-and-estimation" class="level2">
+<h2 class="anchored" data-anchor-id="model-interpretation-and-estimation">Model, Interpretation, and Estimation</h2>
 <ul>
 <li><p>Setting:</p>
 <ul>
@@ -2282,30 +2291,879 @@ y_{new} &amp;= \beta_0 + \beta_1(x_{i1} + 10) + \beta_2x_{i2}\\
 </div>
 </div>
 </div>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-20-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-20-1" role="tab" aria-controls="tabset-20-1" aria-selected="true" href="">Exercise</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-20-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-20-2" role="tab" aria-controls="tabset-20-2" aria-selected="false" href="">Solutions</a></li></ul>
+<div class="tab-content">
+<div id="tabset-20-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-20-1-tab">
+<p>Data were collected from 20 healthy females, 25–34 years old, to study the relationship between body fat and three predictors. Variables include</p>
+<ul>
+<li><code>triceps</code>: Triceps skinfold thickness (mm).</li>
+<li><code>thigh</code>: Thigh circumference (cm).</li>
+<li><code>midarm</code>: Midarm circumference (cm)</li>
+<li><code>fat</code>: Body fat (percent).</li>
+</ul>
+<p>The data can be downloaded from <a href="https://dcgerard.github.io/stat_320/data/body.csv" class="uri">https://dcgerard.github.io/stat_320/data/body.csv</a></p>
+<p>Download the data and fit a regression model of <code>fat</code> on <code>triceps</code> and <code>midarm</code>. State the model you fit, defining any paramters and variables. Interpret the regression coefficients.</p>
+</div>
+<div id="tabset-20-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-20-2-tab">
+<ul>
+<li>Let <span class="math inline">\(Y_i\)</span> be the body fat of female <span class="math inline">\(i\)</span></li>
+<li>Let <span class="math inline">\(X_{i1}\)</span> be the triceps skinfold thickness of woman <span class="math inline">\(i\)</span>.</li>
+<li>Let <span class="math inline">\(X_{i2}\)</span> be the midarm circumference of woman <span class="math inline">\(i\)</span>.</li>
+</ul>
+<p>Our model is <span class="math display">\[
+Y_i = \beta_0 + \beta_1X_{i1} + \beta_2X_{i2} + \epsilon_i
+\]</span> where <span class="math inline">\(\epsilon_i \sim N(0, \sigma^2)\)</span></p>
+<p>We fit this model by least squares:</p>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb95"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb95-1"><a href="#cb95-1" aria-hidden="true" tabindex="-1"></a>body <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"https://dcgerard.github.io/stat_320/data/body.csv"</span>)</span>
+<span id="cb95-2"><a href="#cb95-2" aria-hidden="true" tabindex="-1"></a><span class="fu">lm</span>(fat <span class="sc">~</span> triceps <span class="sc">+</span> midarm, <span class="at">data =</span> body) <span class="sc">|&gt;</span></span>
+<span id="cb95-3"><a href="#cb95-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tidy</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3 × 5
+  term        estimate std.error statistic     p.value
+  &lt;chr&gt;          &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;       &lt;dbl&gt;
+1 (Intercept)    6.79      4.49       1.51 0.149      
+2 triceps        1.00      0.128      7.80 0.000000512
+3 midarm        -0.431     0.177     -2.44 0.0258     </code></pre>
+</div>
+</div>
+<p>Our estimated regression line is <span class="math display">\[
+y = 6.79 + \beta_1 - 0.43 \beta_2
+\]</span></p>
+<p>Women with 1 mm thicker triceps skinfold thickness, but the same midarm circumference, have 1 percentage points higher body fat on average.</p>
+<p>Women with 1 cm larger midarm circumference, but the same triceps skinfold thickness, have 0.43 percentage points lower body fat on average.</p>
+</div>
+</div>
+</div>
+<ul>
+<li>When you were intrepreting the regression coefficients in the above exercise, you should say “percentage points”, not “percent.
+<ul>
+<li>Percentage points are additive differences. E.g. 20% is 10 percentage points higher than 10%</li>
+<li>Percent is for multiplicative differences. E.g. 20% is 100% higher than 10%.</li>
+</ul></li>
+<li>Did the results from the body fat example surprise?</li>
+</ul>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Important
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Simple linear regression coefficients might be <strong>very very</strong> different than multiple linear regression coefficients.</p>
+</div>
+</div>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb97"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb97-1"><a href="#cb97-1" aria-hidden="true" tabindex="-1"></a><span class="fu">lm</span>(fat <span class="sc">~</span> midarm, <span class="at">data =</span> body) <span class="sc">|&gt;</span></span>
+<span id="cb97-2"><a href="#cb97-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tidy</span>() <span class="sc">|&gt;</span></span>
+<span id="cb97-3"><a href="#cb97-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(term, estimate)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 2
+  term        estimate
+  &lt;chr&gt;          &lt;dbl&gt;
+1 (Intercept)   14.7  
+2 midarm         0.199</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb99"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb99-1"><a href="#cb99-1" aria-hidden="true" tabindex="-1"></a><span class="fu">lm</span>(fat <span class="sc">~</span> triceps <span class="sc">+</span> midarm, <span class="at">data =</span> body) <span class="sc">|&gt;</span></span>
+<span id="cb99-2"><a href="#cb99-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tidy</span>() <span class="sc">|&gt;</span></span>
+<span id="cb99-3"><a href="#cb99-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(term, estimate)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3 × 2
+  term        estimate
+  &lt;chr&gt;          &lt;dbl&gt;
+1 (Intercept)    6.79 
+2 triceps        1.00 
+3 midarm        -0.431</code></pre>
+</div>
+</div>
+<ul>
+<li><p>The different signs for the coefficient of <code>midarm</code> occur because we <strong>control</strong> for tricepts.</p>
+<ul>
+<li>The SLR coefficient is the relationship between <code>fat</code> and <code>midarm</code></li>
+<li>The MLR coefficient is the relationship between <code>fat</code> and <code>midarm</code> for fixed values of <code>triceps</code> (controlling for <code>triceps</code>).</li>
+</ul></li>
+<li><p>Here is the relationship between <code>fat</code> and <code>midarm</code></p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="11_notes_files/figure-html/unnamed-chunk-79-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="384"></p>
+</figure>
+</div>
+</div>
+</div></li>
+<li><p>Here is the relationship between <code>fat</code> and <code>midarm</code> controlling for triceps</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="11_notes_files/figure-html/unnamed-chunk-80-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="384"></p>
+</figure>
+</div>
+</div>
+</div></li>
+</ul>
 </section>
-<section id="summary-of-r-commands" class="level1">
-<h1>Summary of R commands</h1>
+<section id="more-than-two-explanatory-variables" class="level2">
+<h2 class="anchored" data-anchor-id="more-than-two-explanatory-variables">More than Two Explanatory Variables</h2>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Multiple linear regression model
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><span class="math display">\[
+Y_i = \beta_0 + \sum_{j=1}^{p-1}\beta_jX_{ij} + \epsilon_i
+\]</span></p>
 <ul>
-<li><code>augment()</code>:
+<li><span class="math inline">\(Y_i\)</span>: Response variable for individual <span class="math inline">\(i\)</span>.</li>
+<li><span class="math inline">\(X_{ij}\)</span>: The <span class="math inline">\(j\)</span>th explanatory variable for individual <span class="math inline">\(i\)</span></li>
+<li><span class="math inline">\(\epsilon_i \sim N(0, \sigma^2)\)</span></li>
+</ul>
+</div>
+</div>
 <ul>
-<li>Residuals <span class="math inline">\(r_i = y_i - \hat{y}_i\)</span>: <code>$.resid</code></li>
-<li>Fitted Values <span class="math inline">\(\hat{y}_i\)</span>: <code>$.fitted</code></li>
+<li><p>We say there are <span class="math inline">\(p-1\)</span> predictors in the model so that we have <span class="math inline">\(p\)</span> variables, which make the math equations nicer.</p></li>
+<li><p>We estimate the <span class="math inline">\(\beta_j\)</span>’s again by ordinary least squares, finding the values that minimize <span class="math display">\[
+\sum_{i=1}^n\left[y_i - \left(\beta_0 + \sum_{j=1}^{p-1}\beta_jX_{ij}\right)\right]^2
+\]</span></p></li>
+<li><p>The OLS estimates are <span class="math inline">\(\hat{\beta}_0, \hat{\beta}_1, \ldots, \hat{\beta}_{p-1}\)</span></p></li>
+<li><p>You get the OLS estimates by <code>lm()</code>.</p></li>
+<li><p>Suppose we have a model for <code>fat</code> on <code>triceps</code>, <code>thigh</code>, and <code>midarm</code>. Let</p>
+<ul>
+<li><span class="math inline">\(Y_i\)</span> be the body fat for woman <span class="math inline">\(i\)</span>.</li>
+<li><span class="math inline">\(X_{i1}\)</span> be the tricep skinfold thickness for woman <span class="math inline">\(i\)</span>.</li>
+<li><span class="math inline">\(X_{i2}\)</span> be the thigh circumference for woman <span class="math inline">\(i\)</span>.</li>
+<li><span class="math inline">\(X_{i3}\)</span> be the midarm circumference for woman <span class="math inline">\(i\)</span>.</li>
+</ul>
+<p>Then we fit the model <span class="math display">\[
+Y_i = \beta_0 + \beta_1X_{i1} + \beta_2 X_{i2} + \beta_3 X_{i3} + \epsilon_i
+\]</span> where <span class="math inline">\(\epsilon_i \sim N(0,\sigma^2)\)</span>.</p>
+<p>We fit this model by <code>lm()</code></p>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb101"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb101-1"><a href="#cb101-1" aria-hidden="true" tabindex="-1"></a><span class="fu">lm</span>(fat <span class="sc">~</span> triceps <span class="sc">+</span> thigh <span class="sc">+</span> midarm, <span class="at">data =</span> body) <span class="sc">|&gt;</span></span>
+<span id="cb101-2"><a href="#cb101-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tidy</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 4 × 5
+  term        estimate std.error statistic p.value
+  &lt;chr&gt;          &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt;
+1 (Intercept)   117.       99.8       1.17   0.258
+2 triceps         4.33      3.02      1.44   0.170
+3 thigh          -2.86      2.58     -1.11   0.285
+4 midarm         -2.19      1.60     -1.37   0.190</code></pre>
+</div>
+</div>
+<p>Our estimated regression equation is <span class="math display">\[
+y = 117.09 + 4.33 x_1 - 2.86x_2 - 2.19x_3
+\]</span></p></li>
+<li><p>We interpret the regression coefficients similarly</p>
+<ul>
+<li><span class="math inline">\(\beta_j\)</span> is the average difference in <span class="math inline">\(y\)</span> values when <span class="math inline">\(x_j\)</span> differs by 1, but all other variables are the same.</li>
 </ul></li>
-<li><code>tidy()</code>:
+<li><p>E.g., Woman with 1mm larger skinfold thickness, but the same thigh and midarm circumferences, have 4.334 percentage points larger body fat on average.</p></li>
+<li><p>This is a huge mouthful, so in practice we say</p>
+<blockquote class="blockquote">
+<p><span class="math inline">\(\beta_j\)</span> is the average difference in <span class="math inline">\(y\)</span> values when <span class="math inline">\(x_j\)</span> differs by 1, controlling for all other variables.</p>
+</blockquote></li>
+<li><p>That is, <strong>controlling</strong> is shorthand to say what the statistical relationship is given those variables are fixed.</p></li>
+</ul>
+</section>
+<section id="testing" class="level2">
+<h2 class="anchored" data-anchor-id="testing">Testing</h2>
 <ul>
-<li>Name of variables: <code>$term</code></li>
-<li>Coefficient Estimates: <code>$estimate</code></li>
-<li>Standard Error (standard deviation of sampling distribution of coefficient estimates): <code>$std.error</code></li>
-<li>t-statistic: <code>$statistic</code></li>
-<li>p-value: <code>$p.value</code></li>
+<li>We can test if a regression coefficent is 0, <strong>adjusting for other variables</strong> via a <span class="math inline">\(t\)</span>-method.</li>
+</ul>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Test For Individual Regression Coefficients
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li><p><span class="math inline">\(H_0\)</span>: <span class="math inline">\(\beta_j = 0\)</span></p></li>
+<li><p><span class="math inline">\(H_A\)</span>: <span class="math inline">\(\beta_j \neq 0\)</span></p></li>
+<li><p>If the null were <strong>true</strong>, then <span class="math display">\[
+t = \frac{\hat{\beta}_j}{\text{SE}(\hat{\beta}_j)} \sim t_{n - p}
+\]</span></p></li>
+<li><p>We compare our observed <span class="math inline">\(t\)</span> statistic to this null distribution to get a <span class="math inline">\(p\)</span>-value</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="11_notes_files/figure-html/unnamed-chunk-82-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="384"></p>
+</figure>
+</div>
+</div>
+</div></li>
+<li><p>Confidence intervals are of the form <span class="math display">\[
+\hat{\beta}_j \pm t_{n-p,1-\alpha/2}\text{SE}(\hat{\beta}_j)
+\]</span></p></li>
+</ul>
+</div>
+</div>
+<ul>
+<li><p>You can get the <span class="math inline">\(p\)</span>-values of this test, and confidence intervals, via the output of <code>lm()</code>.</p>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb103"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb103-1"><a href="#cb103-1" aria-hidden="true" tabindex="-1"></a><span class="fu">lm</span>(fat <span class="sc">~</span> triceps <span class="sc">+</span> thigh <span class="sc">+</span> midarm, <span class="at">data =</span> body) <span class="sc">|&gt;</span></span>
+<span id="cb103-2"><a href="#cb103-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tidy</span>(<span class="at">conf.int =</span> <span class="cn">TRUE</span>) <span class="sc">|&gt;</span></span>
+<span id="cb103-3"><a href="#cb103-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(term, p.value, conf.low, conf.high)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 4 × 4
+  term        p.value conf.low conf.high
+  &lt;chr&gt;         &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;
+1 (Intercept)   0.258   -94.4     329.  
+2 triceps       0.170    -2.06     10.7 
+3 thigh         0.285    -8.33      2.62
+4 midarm        0.190    -5.57      1.20</code></pre>
+</div>
+</div></li>
+<li><p>This is only a test for <span class="math inline">\(\beta_j = 0\)</span> given all other variables are in the model. The results of this test will differ depending on what other variables are in the model, sometimes drastically.</p>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb105"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb105-1"><a href="#cb105-1" aria-hidden="true" tabindex="-1"></a><span class="fu">lm</span>(fat <span class="sc">~</span> triceps <span class="sc">+</span> midarm, <span class="at">data =</span> body) <span class="sc">|&gt;</span></span>
+<span id="cb105-2"><a href="#cb105-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tidy</span>() <span class="sc">|&gt;</span></span>
+<span id="cb105-3"><a href="#cb105-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(term, p.value)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3 × 2
+  term            p.value
+  &lt;chr&gt;             &lt;dbl&gt;
+1 (Intercept) 0.149      
+2 triceps     0.000000512
+3 midarm      0.0258     </code></pre>
+</div>
+</div></li>
+<li><p>In this case, the <span class="math inline">\(p\)</span>-values are so different because of <strong>collinearity</strong>.</p></li>
+</ul>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Collinearity
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The correlation between explanatory variables.</p>
+</div>
+</div>
+<ul>
+<li>Intuitively, if two variables are highly collinear, then they are picking up the same information. So once you control for one of those variables, there is no longer an association between the response and the remaining variable.</li>
+</ul>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-21-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-21-1" role="tab" aria-controls="tabset-21-1" aria-selected="true" href="">Exercise</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-21-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-21-2" role="tab" aria-controls="tabset-21-2" aria-selected="false" href="">Solution</a></li></ul>
+<div class="tab-content">
+<div id="tabset-21-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-21-1-tab">
+<p>In the body fat example, we saw that the <span class="math inline">\(p\)</span>-values were all very large in the linear model that included all three of triceps skinfold thickness, thigh circumference, and midarm circumference. Does this mean that none of the variables are associated with body fat?</p>
+</div>
+<div id="tabset-21-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-21-2-tab">
+<p>No! This means that we don’t have evidence that each variable is associated with body fat <strong>controlling for the other two</strong>. If we don’t control for the other two, we might see an association.</p>
+</div>
+</div>
+</div>
+<ul>
+<li><p>When you have variables that are highly collinear, you should remove some of them, since they are picking up the same information.</p></li>
+<li><p>From this, it is far better to consider these tests as comparing two models, one of which is a submodel of the other.</p></li>
+<li><p>E.g., in the two explanatory variable case, <span class="math inline">\(H_0: \beta_2 = 0\)</span> versus <span class="math inline">\(H_A: \beta_j \neq 0\)</span> is equivalent to:</p>
+<ul>
+<li><span class="math inline">\(H_0: Y_i = \beta_0 + \beta_1X_{i1} + \epsilon_i\)</span></li>
+<li><span class="math inline">\(H_0: Y_i = \beta_0 + \beta_1X_{i1} + \beta_2X_{i2} + \epsilon_i\)</span></li>
 </ul></li>
-<li><code>glance()</code>:
+<li><p>This intuitively leads us to the ANOVA approach to hypothesis testing.</p></li>
+</ul>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>ANOVA Approach to Hypothesis Testing
+</div>
+</div>
+<div class="callout-body-container callout-body">
 <ul>
-<li>R-squared value (proportion of variance explained by regression line, higher is better): <code>$r.squared</code></li>
-<li>AIC (lower is better): <code>$AIC</code></li>
-<li>BIC (lower is better): <code>$BIC</code></li>
+<li><p><span class="math inline">\(H_0\)</span>: (Reduced Model) <span class="math inline">\(Y_i = \beta_0 + \beta_1X_{i1} + \cdots + \beta_{q-1}X_{q-1} + \epsilon_i\)</span></p></li>
+<li><p><span class="math inline">\(H_0\)</span>: (Full Model) <span class="math inline">\(Y_i = \beta_0 + \beta_1X_{i1} + \cdots + \beta_{q-1}X_{p-1} + \epsilon_i\)</span>, for <span class="math inline">\(p &gt; q\)</span></p></li>
+<li><p>I.e., we are testing whether we <span class="math inline">\(X_q, X_{q+1},\ldots,X_{p-1}\)</span> are associated with <span class="math inline">\(Y\)</span> controlling for <span class="math inline">\(X_1,X_2,\ldots,X_{q-1}\)</span>.</p></li>
+<li><p>Calculate the SSE(R) and SSE(F), <span class="math inline">\(\text{df}_F = n-p\)</span>, <span class="math inline">\(\text{df}_R = n-q\)</span></p></li>
+<li><p>Calculate the <span class="math inline">\(F\)</span> statistic <span class="math display">\[
+F^* = \frac{[\text{SSE(R)} - SSE(F)] / (\text{df}_{R} - \text{df}_F)}{\text{SSE(F)} / \text{df}_F}
+\]</span></p></li>
+<li><p>If the null were <strong>true</strong>, then <span class="math inline">\(F\)</span> follows an <span class="math inline">\(F\)</span> distribution with numerator degrees of freedom <span class="math inline">\(p-q\)</span> and numerator degrees of freedom <span class="math inline">\(n-p\)</span>.</p></li>
+<li><p>Compare our observed <span class="math inline">\(F\)</span> statistic to this distribution to get a <span class="math inline">\(p\)</span>-value</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="11_notes_files/figure-html/unnamed-chunk-85-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="384"></p>
+</figure>
+</div>
+</div>
+</div></li>
+</ul>
+</div>
+</div>
+<ul>
+<li><p>To run this test in R, separately fit reduced and full models, then use <code>anova()</code>.</p>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb107"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb107-1"><a href="#cb107-1" aria-hidden="true" tabindex="-1"></a>reduced <span class="ot">&lt;-</span> <span class="fu">lm</span>(fat <span class="sc">~</span> triceps, <span class="at">data =</span> body)</span>
+<span id="cb107-2"><a href="#cb107-2" aria-hidden="true" tabindex="-1"></a>full <span class="ot">&lt;-</span> <span class="fu">lm</span>(fat <span class="sc">~</span> triceps <span class="sc">+</span> thigh <span class="sc">+</span> midarm, <span class="at">data =</span> body)</span>
+<span id="cb107-3"><a href="#cb107-3" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(reduced, full) <span class="sc">|&gt;</span></span>
+<span id="cb107-4"><a href="#cb107-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tidy</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 7
+  term                           df.residual   rss    df sumsq statistic p.value
+  &lt;chr&gt;                                &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt;
+1 fat ~ triceps                           18 143.     NA  NA       NA    NA     
+2 fat ~ triceps + thigh + midarm          16  98.4     2  44.7      3.64  0.0500</code></pre>
+</div>
+</div></li>
+<li><p>This ANOVA table is of the form</p></li>
+</ul>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 9%">
+<col style="width: 15%">
+<col style="width: 8%">
+<col style="width: 28%">
+<col style="width: 17%">
+<col style="width: 11%">
+<col style="width: 11%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>term</th>
+<th>df.residual</th>
+<th>rss</th>
+<th>df</th>
+<th>sumsq</th>
+<th>statistic</th>
+<th><span class="math inline">\(p\)</span>-value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Reduced</td>
+<td><span class="math inline">\(\text{df}_R\)</span></td>
+<td>SSE(R)</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td>Full</td>
+<td><span class="math inline">\(\text{df}_F\)</span></td>
+<td>SSE(F)</td>
+<td><span class="math inline">\(\text{df}_R - \text{df}_F\)</span></td>
+<td>SSE(R) - SSE(F)</td>
+<td><span class="math inline">\(F^*\)</span></td>
+<td><span class="math inline">\(p\)</span>-value</td>
+</tr>
+</tbody>
+</table>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Important
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>If we reject the <span class="math inline">\(F\)</span>-test, then we have evidence that at least one of <span class="math inline">\(X_{q}, X_{q+1},\ldots,X_{p}\)</span> is associated with <span class="math inline">\(Y\)</span>, controlling for <span class="math inline">\(X_1, X_2, \ldots, X_{q-1}\)</span>. <strong>NOT</strong> that all of them are associated. The <span class="math inline">\(F\)</span> test only tells you that at least one variable is associated.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Overall <span class="math inline">\(F\)</span>-test
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>It is so common to run the following hypothesis test</p>
+<ul>
+<li><p><span class="math inline">\(H_0\)</span>: (Reduced) <span class="math inline">\(Y_i = \beta_0 + \epsilon_i\)</span></p></li>
+<li><p><span class="math inline">\(H_0\)</span>: (Reduced) <span class="math inline">\(Y_i = \beta_0 + \sum_{j=1}^{p-1}\beta_jX_{ij} + \epsilon_i\)</span></p></li>
+<li><p>This is called the <strong>overall <span class="math inline">\(F\)</span>-test</strong></p></li>
+<li><p>This is output by <code>glance()</code> from <code>{broom}</code>.</p></li>
+</ul>
+</div>
+</div>
+<ul>
+<li><p>Here is the result of the overall <span class="math inline">\(F\)</span>-test for SBP on age and birthweight</p>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb109"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb109-1"><a href="#cb109-1" aria-hidden="true" tabindex="-1"></a><span class="fu">lm</span>(sbp <span class="sc">~</span> age <span class="sc">+</span> birthweight, <span class="at">data =</span> bp) <span class="sc">|&gt;</span></span>
+<span id="cb109-2"><a href="#cb109-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">glance</span>() <span class="sc">|&gt;</span></span>
+<span id="cb109-3"><a href="#cb109-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(p.value)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 1
+      p.value
+        &lt;dbl&gt;
+1 0.000000984</code></pre>
+</div>
+</div>
+<p>So we have very strong evidence that either age or birthweight are associated with SBP.</p></li>
+</ul>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-22-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-22-1" role="tab" aria-controls="tabset-22-1" aria-selected="true" href="">Exercise</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-22-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-22-2" role="tab" aria-controls="tabset-22-2" aria-selected="false" href="">Solution</a></li></ul>
+<div class="tab-content">
+<div id="tabset-22-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-22-1-tab">
+<p>From the below ANOVA output, calculate the <span class="math inline">\(p\)</span>-value from the <span class="math inline">\(F\)</span>-statistic directly.</p>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb111"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb111-1"><a href="#cb111-1" aria-hidden="true" tabindex="-1"></a>reduced <span class="ot">&lt;-</span> <span class="fu">lm</span>(fat <span class="sc">~</span> triceps, <span class="at">data =</span> body)</span>
+<span id="cb111-2"><a href="#cb111-2" aria-hidden="true" tabindex="-1"></a>full <span class="ot">&lt;-</span> <span class="fu">lm</span>(fat <span class="sc">~</span> triceps <span class="sc">+</span> thigh <span class="sc">+</span> midarm, <span class="at">data =</span> body)</span>
+<span id="cb111-3"><a href="#cb111-3" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(reduced, full) <span class="sc">|&gt;</span></span>
+<span id="cb111-4"><a href="#cb111-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tidy</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 7
+  term                           df.residual   rss    df sumsq statistic p.value
+  &lt;chr&gt;                                &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt;
+1 fat ~ triceps                           18 143.     NA  NA       NA    NA     
+2 fat ~ triceps + thigh + midarm          16  98.4     2  44.7      3.64  0.0500</code></pre>
+</div>
+</div>
+</div>
+<div id="tabset-22-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-22-2-tab">
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb113"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb113-1"><a href="#cb113-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">-</span> <span class="fu">pf</span>(<span class="fl">3.635</span>, <span class="at">df1 =</span> <span class="dv">2</span>, <span class="at">df2 =</span> <span class="dv">16</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.04996</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-23-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-23-1" role="tab" aria-controls="tabset-23-1" aria-selected="true" href="">Exercise</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-23-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-23-2" role="tab" aria-controls="tabset-23-2" aria-selected="false" href="">Solution</a></li></ul>
+<div class="tab-content">
+<div id="tabset-23-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-23-1-tab">
+<p>From the below output, calculate a 95% confidence interval for the coefficient estimates.</p>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb115"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb115-1"><a href="#cb115-1" aria-hidden="true" tabindex="-1"></a><span class="fu">lm</span>(fat <span class="sc">~</span> triceps <span class="sc">+</span> thigh, <span class="at">data =</span> body) <span class="sc">|&gt;</span></span>
+<span id="cb115-2"><a href="#cb115-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tidy</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3 × 5
+  term        estimate std.error statistic p.value
+  &lt;chr&gt;          &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt;
+1 (Intercept)  -19.2       8.36     -2.29   0.0348
+2 triceps        0.222     0.303     0.733  0.474 
+3 thigh          0.659     0.291     2.26   0.0369</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb117"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb117-1"><a href="#cb117-1" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(body)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 20</code></pre>
+</div>
+</div>
+</div>
+<div id="tabset-23-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-23-2-tab">
+<p>The appropriate <span class="math inline">\(t\)</span>-quantile is</p>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb119"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb119-1"><a href="#cb119-1" aria-hidden="true" tabindex="-1"></a><span class="fu">qt</span>(<span class="at">p =</span> <span class="dv">1</span> <span class="sc">-</span> <span class="fl">0.05</span> <span class="sc">/</span> <span class="dv">2</span>, <span class="at">df =</span> <span class="dv">20</span> <span class="sc">-</span> <span class="dv">3</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 2.11</code></pre>
+</div>
+</div>
+<ul>
+<li><p><span class="math inline">\(\beta_0\)</span>:</p>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb121"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb121-1"><a href="#cb121-1" aria-hidden="true" tabindex="-1"></a><span class="sc">-</span><span class="fl">19.1742</span> <span class="sc">-</span> <span class="fl">2.11</span> <span class="sc">*</span> <span class="fl">8.3606</span>    </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] -36.82</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb123"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb123-1"><a href="#cb123-1" aria-hidden="true" tabindex="-1"></a><span class="sc">-</span><span class="fl">19.1742</span> <span class="sc">+</span> <span class="fl">2.11</span> <span class="sc">*</span> <span class="fl">8.3606</span>    </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] -1.533</code></pre>
+</div>
+</div></li>
+<li><p><span class="math inline">\(\beta_1\)</span>:</p>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb125"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb125-1"><a href="#cb125-1" aria-hidden="true" tabindex="-1"></a><span class="fl">0.2224</span> <span class="sc">-</span> <span class="fl">2.11</span> <span class="sc">*</span> <span class="fl">0.3034</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] -0.4178</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb127"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb127-1"><a href="#cb127-1" aria-hidden="true" tabindex="-1"></a><span class="fl">0.2224</span> <span class="sc">+</span> <span class="fl">2.11</span> <span class="sc">*</span> <span class="fl">0.3034</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.8626</code></pre>
+</div>
+</div></li>
+<li><p><span class="math inline">\(\beta_2\)</span></p>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb129"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb129-1"><a href="#cb129-1" aria-hidden="true" tabindex="-1"></a><span class="fl">0.6594</span> <span class="sc">-</span> <span class="fl">2.11</span> <span class="sc">*</span> <span class="fl">0.2912</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.04497</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb131"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb131-1"><a href="#cb131-1" aria-hidden="true" tabindex="-1"></a><span class="fl">0.6594</span> <span class="sc">+</span> <span class="fl">2.11</span> <span class="sc">*</span> <span class="fl">0.2912</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1.274</code></pre>
+</div>
+</div></li>
+</ul>
+<p>Let’s verify:</p>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb133"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb133-1"><a href="#cb133-1" aria-hidden="true" tabindex="-1"></a><span class="fu">lm</span>(fat <span class="sc">~</span> triceps <span class="sc">+</span> thigh, <span class="at">data =</span> body) <span class="sc">|&gt;</span></span>
+<span id="cb133-2"><a href="#cb133-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tidy</span>(<span class="at">conf.int =</span> <span class="cn">TRUE</span>) <span class="sc">|&gt;</span></span>
+<span id="cb133-3"><a href="#cb133-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(term, conf.low, conf.high)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3 × 3
+  term        conf.low conf.high
+  &lt;chr&gt;          &lt;dbl&gt;     &lt;dbl&gt;
+1 (Intercept) -36.8       -1.53 
+2 triceps      -0.418      0.863
+3 thigh         0.0451     1.27 </code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-24-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-24-1" role="tab" aria-controls="tabset-24-1" aria-selected="true" href="">Exercise</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-24-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-24-2" role="tab" aria-controls="tabset-24-2" aria-selected="false" href="">Solution</a></li></ul>
+<div class="tab-content">
+<div id="tabset-24-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-24-1-tab">
+<p>From the below output, calculate the <span class="math inline">\(p\)</span>-values from the <span class="math inline">\(t\)</span>-statistics</p>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb135"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb135-1"><a href="#cb135-1" aria-hidden="true" tabindex="-1"></a><span class="fu">lm</span>(fat <span class="sc">~</span> triceps <span class="sc">+</span> thigh, <span class="at">data =</span> body) <span class="sc">|&gt;</span></span>
+<span id="cb135-2"><a href="#cb135-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tidy</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3 × 5
+  term        estimate std.error statistic p.value
+  &lt;chr&gt;          &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt;
+1 (Intercept)  -19.2       8.36     -2.29   0.0348
+2 triceps        0.222     0.303     0.733  0.474 
+3 thigh          0.659     0.291     2.26   0.0369</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb137"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb137-1"><a href="#cb137-1" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(body)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 20</code></pre>
+</div>
+</div>
+</div>
+<div id="tabset-24-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-24-2-tab">
+<ul>
+<li><p><span class="math inline">\(\beta_0\)</span></p>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb139"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb139-1"><a href="#cb139-1" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span> <span class="sc">*</span> <span class="fu">pt</span>(<span class="sc">-</span><span class="fl">2.2934</span>, <span class="at">df =</span> <span class="dv">20</span> <span class="sc">-</span> <span class="dv">3</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.03484</code></pre>
+</div>
+</div></li>
+<li><p><span class="math inline">\(\beta_1\)</span></p>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb141"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb141-1"><a href="#cb141-1" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span> <span class="sc">*</span> <span class="fu">pt</span>(<span class="sc">-</span><span class="fl">0.7328</span>, <span class="at">df =</span> <span class="dv">20</span> <span class="sc">-</span> <span class="dv">3</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.4737</code></pre>
+</div>
+</div></li>
+<li><p><span class="math inline">\(\beta_2\)</span></p>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb143"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb143-1"><a href="#cb143-1" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span> <span class="sc">*</span> <span class="fu">pt</span>(<span class="sc">-</span><span class="fl">2.2646</span>, <span class="at">df =</span> <span class="dv">20</span> <span class="sc">-</span> <span class="dv">3</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.0369</code></pre>
+</div>
+</div></li>
+</ul>
+</div>
+</div>
+</div>
+</section>
+<section id="assessing-assumptions" class="level2">
+<h2 class="anchored" data-anchor-id="assessing-assumptions">Assessing Assumptions</h2>
+<ul>
+<li><p>Plot residuals vs fits. If there are any trends or unequal variances, then you have issues.</p></li>
+<li><p>Let’s do this for the regression of sbp on age and birthweight.</p>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb145"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb145-1"><a href="#cb145-1" aria-hidden="true" tabindex="-1"></a><span class="fu">lm</span>(sbp <span class="sc">~</span> age <span class="sc">+</span> birthweight, <span class="at">data =</span> bp) <span class="sc">|&gt;</span></span>
+<span id="cb145-2"><a href="#cb145-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">augment</span>() <span class="sc">|&gt;</span></span>
+<span id="cb145-3"><a href="#cb145-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> .fitted, <span class="at">y =</span> .resid)) <span class="sc">+</span></span>
+<span id="cb145-4"><a href="#cb145-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb145-5"><a href="#cb145-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="dv">0</span>, <span class="at">lty =</span> <span class="dv">2</span>, <span class="at">col =</span> <span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="11_notes_files/figure-html/unnamed-chunk-100-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="384"></p>
+</figure>
+</div>
+</div>
+</div></li>
+<li><p>It looks like there might be one outlier/influential point. In STAT-415, you learn about statistics to evaluate if points are outliers or influential.</p></li>
+<li><p>The variance of the residuals varies based on their <span class="math inline">\(x\)</span> values (closer to the mean has lower variance). So folks often prefer plotting the standardized residuals that adjustes fo this. They are standardized to all have variance 1.</p>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb146"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb146-1"><a href="#cb146-1" aria-hidden="true" tabindex="-1"></a><span class="fu">lm</span>(sbp <span class="sc">~</span> age <span class="sc">+</span> birthweight, <span class="at">data =</span> bp) <span class="sc">|&gt;</span></span>
+<span id="cb146-2"><a href="#cb146-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">augment</span>() <span class="sc">|&gt;</span></span>
+<span id="cb146-3"><a href="#cb146-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> .fitted, <span class="at">y =</span> .std.resid)) <span class="sc">+</span></span>
+<span id="cb146-4"><a href="#cb146-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb146-5"><a href="#cb146-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="dv">0</span>, <span class="at">lty =</span> <span class="dv">2</span>, <span class="at">col =</span> <span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="11_notes_files/figure-html/unnamed-chunk-101-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="384"></p>
+</figure>
+</div>
+</div>
+</div></li>
+</ul>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Important
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li>In R, “standardized residuals” are Rosner’s “internally studentized residuals”
+<ul>
+<li>No leave-one-out calculation of standard error.</li>
+<li><code>augment()</code> returns these.</li>
+</ul></li>
+<li>In R, “studentized residuals” are Rosner’s “externally studentized residuals”
+<ul>
+<li>Leave-one-out calculation of standard error.</li>
+<li>More robust to outliers.</li>
 </ul></li>
 </ul>
+</div>
+</div>
+<ul>
+<li>Another common plot is a partial-residual plot. It plots the association between <span class="math inline">\(X_j\)</span> and <span class="math inline">\(Y\)</span> after removing the effects of all other variables.</li>
+</ul>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Partial Residual Plot AKA Added Variable Plot AKA Adjusted Variable Plot
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ol type="1">
+<li>Regress <span class="math inline">\(Y\)</span> (as the response) on every predictor except <span class="math inline">\(X_j\)</span>. Obtain the residuals, and call these <span class="math inline">\(e_i(Y)\)</span></li>
+<li>Regress <span class="math inline">\(X_j\)</span> (as the response) on every other predictor. Obtain the residuals, and call these <span class="math inline">\(e_i(X_k)\)</span></li>
+<li>Make a scatterplot of <span class="math inline">\(e_i(X_k)\)</span> versus <span class="math inline">\(e_i(Y)\)</span>.</li>
+</ol>
+</div>
+</div>
+<ul>
+<li><p>Intuition: <span class="math inline">\(e_i(Y)\)</span> and <span class="math inline">\(e_i(X_k)\)</span> reflect the part of each variable that is not linearly associated with the other predictors. See if they are linear or not.</p></li>
+<li><p>Don’t try to make one manually, just use <code>car::avPlot()</code>.</p>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb147"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb147-1"><a href="#cb147-1" aria-hidden="true" tabindex="-1"></a>lm_bp <span class="ot">&lt;-</span> <span class="fu">lm</span>(sbp <span class="sc">~</span> age <span class="sc">+</span> birthweight, <span class="at">data =</span> bp)</span>
+<span id="cb147-2"><a href="#cb147-2" aria-hidden="true" tabindex="-1"></a>car<span class="sc">::</span><span class="fu">avPlot</span>(<span class="at">model =</span> lm_bp, <span class="at">variable =</span> <span class="st">"age"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="11_notes_files/figure-html/unnamed-chunk-102-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="384"></p>
+</figure>
+</div>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb148"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb148-1"><a href="#cb148-1" aria-hidden="true" tabindex="-1"></a>car<span class="sc">::</span><span class="fu">avPlot</span>(<span class="at">model =</span> lm_bp, <span class="at">variable =</span> <span class="st">"birthweight"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="11_notes_files/figure-html/unnamed-chunk-102-2.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="384"></p>
+</figure>
+</div>
+</div>
+</div></li>
+</ul>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-25-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-25-1" role="tab" aria-controls="tabset-25-1" aria-selected="true" href="">Exercise</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-25-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-25-2" role="tab" aria-controls="tabset-25-2" aria-selected="false" href="">Solution</a></li></ul>
+<div class="tab-content">
+<div id="tabset-25-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-25-1-tab">
+<p>Evaluate the regression of body fat on tricep skinfold thickness, thigh circumference, and midarm circumference.</p>
+</div>
+<div id="tabset-25-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-25-2-tab">
+<p>It looks really good!</p>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb149"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb149-1"><a href="#cb149-1" aria-hidden="true" tabindex="-1"></a>lm_body <span class="ot">&lt;-</span> <span class="fu">lm</span>(fat <span class="sc">~</span> triceps <span class="sc">+</span> thigh <span class="sc">+</span> midarm, <span class="at">data =</span> body)</span>
+<span id="cb149-2"><a href="#cb149-2" aria-hidden="true" tabindex="-1"></a>lm_body <span class="sc">|&gt;</span></span>
+<span id="cb149-3"><a href="#cb149-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">augment</span>() <span class="sc">|&gt;</span></span>
+<span id="cb149-4"><a href="#cb149-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> .fitted, <span class="at">y =</span> .resid)) <span class="sc">+</span></span>
+<span id="cb149-5"><a href="#cb149-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb149-6"><a href="#cb149-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="dv">0</span>, <span class="at">lty =</span> <span class="dv">2</span>, <span class="at">col =</span> <span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="11_notes_files/figure-html/unnamed-chunk-103-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="384"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Added variable plots look good too!</p>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb150"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb150-1"><a href="#cb150-1" aria-hidden="true" tabindex="-1"></a>car<span class="sc">::</span><span class="fu">avPlots</span>(lm_body)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="11_notes_files/figure-html/unnamed-chunk-104-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="576"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Though, note that there is huge multicollinearity in these data. In STAT-415, you’ll learn about variance inflation factors, which evaluate multicollinearity. In this case, the VIF’s are all huge (rule of thumb is they should be less than 10)</p>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb151"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb151-1"><a href="#cb151-1" aria-hidden="true" tabindex="-1"></a>lm_fat <span class="ot">&lt;-</span> <span class="fu">lm</span>(fat <span class="sc">~</span> triceps <span class="sc">+</span> thigh <span class="sc">+</span> midarm, <span class="at">data =</span> body)</span>
+<span id="cb151-2"><a href="#cb151-2" aria-hidden="true" tabindex="-1"></a>car<span class="sc">::</span><span class="fu">vif</span>(lm_fat)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>triceps   thigh  midarm 
+  708.8   564.3   104.6 </code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="including-categorical-variables" class="level2">
+<h2 class="anchored" data-anchor-id="including-categorical-variables">Including Categorical Variables</h2>
+<ul>
+<li><p>Consider the <a href="https://dcgerard.github.io/stat_320/data.html#lead">lead data</a> that you can download from <a href="https://dcgerard.github.io/stat_320/data/lead.csv" class="uri">https://dcgerard.github.io/stat_320/data/lead.csv</a>.</p></li>
+<li><p>We will be interested in these variables:</p>
+<ul>
+<li><code>maxfwt</code>: Finger-wrist tapping test in dominant hand (number of taps in one 10 second trial)</li>
+<li><code>Group</code>: Either <code>control</code> (low lead) or <code>exposed</code> (high lead)</li>
+<li><code>ageyrs</code>: Age in years</li>
+<li><code>sex</code>: Sex. Either <code>male</code> or <code>female</code></li>
+</ul>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb153"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb153-1"><a href="#cb153-1" aria-hidden="true" tabindex="-1"></a>lead <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"https://dcgerard.github.io/stat_320/data/lead.csv"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb153-2"><a href="#cb153-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(maxfwt, Group, ageyrs, sex)</span>
+<span id="cb153-3"><a href="#cb153-3" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(lead)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 124
+Columns: 4
+$ maxfwt &lt;dbl&gt; 72, 61, 49, 48, 51, 49, 50, 58, 50, 51, 59, 65, 57, 53, 74, 50,…
+$ Group  &lt;chr&gt; "control", "control", "control", "control", "control", "control…
+$ ageyrs &lt;dbl&gt; 11.08, 9.42, 11.08, 6.92, 11.25, 6.50, 6.92, 15.00, 7.17, 7.25,…
+$ sex    &lt;chr&gt; "male", "male", "male", "male", "male", "male", "male", "female…</code></pre>
+</div>
+</div></li>
+<li><p>The goal is to assess the association between <code>maxfwt</code> and <code>Group</code>, adjusting for <code>ageyrs</code> and <code>sex</code>.</p></li>
+<li><p>But group is a categorical variable. How do we include it?</p></li>
+</ul>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Dummy Variables AKA Indicator Variables AKA One-hot Transformation
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>For a explanatory variable <span class="math inline">\(X\)</span> with <span class="math inline">\(k\)</span> levels, create <span class="math inline">\(k-1\)</span> new variables, where variable <span class="math inline">\(j\)</span> is <span class="math display">\[
+X_{ij} =
+\begin{cases}
+1 &amp; \text{ if } X \text{ is level } j\\
+0 &amp; \text{ otherwise}
+\end{cases}
+\]</span></p>
+</div>
+</div>
+<ul>
+<li><p>Just include the <span class="math inline">\(k-1\)</span> dummy variables in the model.</p></li>
+<li><p>E.g., set <span class="math inline">\(X_{i1} = 1\)</span> if in the exposed group and <span class="math inline">\(0\)</span> otherwise.</p></li>
+<li><p>If our regression model is <span class="math display">\[
+Y_i = \beta_0 + \beta_1X_{i1} + \beta_2 X_{i2} + \beta_3X_{i3} + \epsilon_i
+\]</span> Then our model for the control group is <span class="math display">\[
+Y_i = \beta_0 + \beta_2 X_{i2} + \beta_3X_{i3} + \epsilon_i
+\]</span> And out model for the exposed group is <span class="math display">\[
+Y_i = \beta_0 + \beta_1 + \beta_2 X_{i2} + \beta_3X_{i3} + \epsilon_i
+\]</span> Thus, <span class="math inline">\(\beta_1\)</span> is the mean difference in <code>maxfwt</code> between exposed and control groups, adjusting for age and sex.</p></li>
+<li><p>R will automatically do this dummy variable encoding for you if you pass it a character or factor variable.</p>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb155"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb155-1"><a href="#cb155-1" aria-hidden="true" tabindex="-1"></a><span class="fu">lm</span>(maxfwt <span class="sc">~</span> Group <span class="sc">+</span> ageyrs <span class="sc">+</span> sex, <span class="at">data =</span> lead) <span class="sc">|&gt;</span></span>
+<span id="cb155-2"><a href="#cb155-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tidy</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 4 × 5
+  term         estimate std.error statistic  p.value
+  &lt;chr&gt;           &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;
+1 (Intercept)     25.4      4.01      6.34  7.82e- 9
+2 Groupexposed    -4.89     2.04     -2.40  1.84e- 2
+3 ageyrs           2.71     0.331     8.20  1.14e-12
+4 sexmale          1.64     2.01      0.817 4.16e- 1</code></pre>
+</div>
+</div></li>
+<li><p>Since the result is <code>Groupexposed</code>, this says that the coefficient corresponding to the <code>exposed</code> level in the <code>Group</code> variable is estimated to be -4.889.</p></li>
+</ul>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-26-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-26-1" role="tab" aria-controls="tabset-26-1" aria-selected="true" href="">Exercise</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-26-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-26-2" role="tab" aria-controls="tabset-26-2" aria-selected="false" href="">Solution</a></li></ul>
+<div class="tab-content">
+<div id="tabset-26-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-26-1-tab">
+<p>Write out the entire model that was fit above. Note carefully that <code>sex</code> is also categorical. What is the model for males? What is the model for females?</p>
+</div>
+<div id="tabset-26-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-26-2-tab">
+<ul>
+<li>Let <span class="math inline">\(Y_i\)</span> be the <code>maxfwt</code> for child <span class="math inline">\(i\)</span></li>
+<li>Let <span class="math inline">\(X_{i1}\)</span> be 1 if child <span class="math inline">\(i\)</span> is exposed and 0 if control.</li>
+<li>Let <span class="math inline">\(X_{i2}\)</span> be the age of child <span class="math inline">\(i\)</span>.</li>
+<li>Let <span class="math inline">\(X_{i3}\)</span> be 1 if the child is male and 0 if female.</li>
+</ul>
+<p>Then our model is <span class="math display">\[
+Y_i = \beta_0 + \beta_1X_{i1} + \beta_2X_{i2} + \beta_3X_{i3} + \epsilon_i
+\]</span> where <span class="math inline">\(\epsilon_i \sim N(0, \sigma^2)\)</span></p>
+<p>The model for males is <span class="math display">\[
+Y_i = \beta_0 + \beta_1X_{i1} + \beta_2X_{i2} + \beta_3 + \epsilon_i
+\]</span> And out model for females is <span class="math display">\[
+Y_i = \beta_0 + \beta_1X_{i1} + \beta_2X_{i2} + \epsilon_i
+\]</span></p>
+<p>Thus, we estimate that Males have 1.641 more taps than females on average, adjusting for age and exposure status.</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Important
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>If you have nothing but categorical explanatory variables in a model, then folks call this an <strong>ANOVA model</strong>.</p>
+<p>If you have a mix of categorical and continuous explanatory variables (like here), then folks call this an <strong>ANCOVA model</strong> (analysis of covariance)</p>
+<p>Some statisticians would be upset that I am being so simplistic. Don’t tell them. This is just between you and me.</p>
+</div>
+</div>
+<ul>
+<li><p>Let’s evaluate the fit of the model. There are some large values, but it doesn’t look too bad:</p>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb157"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb157-1"><a href="#cb157-1" aria-hidden="true" tabindex="-1"></a>lm_lead <span class="ot">&lt;-</span> <span class="fu">lm</span>(maxfwt <span class="sc">~</span> Group <span class="sc">+</span> ageyrs <span class="sc">+</span> sex, <span class="at">data =</span> lead)</span>
+<span id="cb157-2"><a href="#cb157-2" aria-hidden="true" tabindex="-1"></a>aout <span class="ot">&lt;-</span> <span class="fu">augment</span>(lm_lead)</span>
+<span id="cb157-3"><a href="#cb157-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(aout, <span class="fu">aes</span>(<span class="at">x =</span> .fitted, <span class="at">y =</span> .std.resid)) <span class="sc">+</span></span>
+<span id="cb157-4"><a href="#cb157-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb157-5"><a href="#cb157-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="dv">0</span>, <span class="at">lty =</span> <span class="dv">2</span>, <span class="at">col =</span> <span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="11_notes_files/figure-html/unnamed-chunk-108-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="384"></p>
+</figure>
+</div>
+</div>
+</div></li>
+</ul>
+</section>
+</section>
+<section id="exercises" class="level1">
+<h1>Exercises</h1>
 </section>
 <section id="references" class="level1">
 
