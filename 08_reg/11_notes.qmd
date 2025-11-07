@@ -1459,7 +1459,6 @@ species %>%
 lm_sp <- lm(log_species ~ log_area, data = species)
 tidy(lm_sp)
 ```
-Islands with twice the area have 2^0.25 times as many species on average.
 :::
 
 # Interpreting Coefficients when you use logs
@@ -1490,12 +1489,145 @@ Re-interpret the regression coefficients estimates you calculated using the `spe
 ## Solution
 2^0.25 = 1.19, so:
     
-Islands that are twice as large tend to have 19% more species on average.
+Islands that are twice as large have 19% more species on average.
 :::
 
 # Multiple Linear Regression
 
-- 
+- Setting:
+  - One response variable $Y$
+  - Multiple explanatory variables $X_1, X_2, \ldots, X_k$
+
+-   Example: Systolic blood pressure (SBP) is typically measured in newborns. This is used for diagnostic purposes and for studies relating infant SBP to adult SBP. However, SBP is known to vary by birthweight and by the timing of when SBP was measured (in number of days after birth). It is thus important to be able to specifically characterize the relationship between age (days), birthweight (oz), and SBP (mm Hg). Data from a study including 16 newborns are below:
+    ```{r}
+    bp <- tribble(
+      ~age, ~birthweight, ~sbp,
+      3, 135, 89,
+      4, 120, 90,
+      3, 100, 83,
+      2, 105, 77,
+      4, 130, 92,
+      5, 125, 98,
+      2, 125, 82,
+      3, 105, 85,
+      5, 120, 96,
+      4, 90, 95,
+      2, 120, 80,
+      3, 95, 79,
+      3, 120, 86,
+      4, 150, 97,
+      3, 160, 92,
+      3, 125, 88,
+    )
+    ```
+
+::: {.callout-tip}
+## Multiple Linear Regression Model (two explanatory variables)
+$$
+Y_i = \beta_0 + \beta_1X_{i1} + \beta_2 X_{i2} + \epsilon_i
+$$
+
+- $Y_i$: Response variable for individual $i$.
+- $X_{i1}$: First explanatory variable for individual $i$
+- $X_{i2}$: Second explanatory variable for individual $i$.
+- $\epsilon_i \sim N(0, \sigma^2)$
+- $\beta_0$, $\beta_1$, and $\beta_2$ are called the **(partial) regression coefficients**.
+:::
+
+-   The model says that, for fixed values of $X_{i1}$ and $X_{i2}$, the expected value of $Y_i$ is
+    $$
+    E[Y_i|X_{i1}, X_{i2}] = \beta_0 + \beta_1X_{i1} + \beta_2X_{i2}
+    $$
+    
+- The actual value of $Y_i$ varies about this point according to a normal distribution.
+
+  ![](./cartoons/plane_me.png)\
+  
+- $\beta_0$, $\beta_1$, $\beta_2$ are parameters. We estimate them by ordinary least squares. That is, find the values of $\beta_0$, $\beta_1$, $\beta_2$ that minimize
+$$
+\sum_{i=1}^n[y_i - (\beta_0 + \beta_1x_{i1} + \beta_2x_{i2})]^2
+$$
+
+- Call the OLS estimates $\hat{\beta}_0$, $\hat{\beta}_1$, and $\hat{\beta}_2$.
+
+-   The fits are again the estimated values of $y$
+    $$
+    \hat{Y}_i = \hat{\beta}_0 + \hat{\beta}_1X_{i1} + \hat{\beta}_2X_{i2}
+    $$
+    
+-   The residuals are again the deviations from the fits
+    $$
+    e_i = Y_i - \hat{Y}_i = Y_i - (\hat{\beta}_0 + \hat{\beta}_1X_{i1} + \hat{\beta}_2X_{i2})
+    $$
+
+-   The estimate of $\sigma^2$ is again the variance of the residuals.
+    $$
+    \hat{\sigma}^2 = \frac{1}{n - 3}\sum_{i=1}^ne_i^2
+    $$
+    
+- The $n-3$ is because we have three parameters ($\beta_0$, $\beta_1$, and $\beta_2$)
+  - Recall: when we just have $Y_i \sim N(\mu, \sigma^2)$, we divide by $n-1$ because of the one parameter $\mu$.
+  - Recall: when we use simple linear regression $Y_i \sim N(\beta_0+\beta_1X_i, \sigma^2)$, we divide by $n-2$ because we have two parameters, $\beta_0$ and $\beta_1$
+  - Now, we have $Y_i \sim N(\beta_0+\beta_1X_{i1} + \beta_2X_{i2}, \sigma^2)$ and three parameters.
+
+- You use `lm()` to get the OLS estimates in R.
+  - Put the response variable to the left of the tilde `~`
+  - Put the explanatory variables to the right of the tilde `~`, separated by `+`
+    - Order does not matter.
+  
+-   Let's fit the multiple linear regression model for SBP on age and birthweight.
+    ```{r}
+    lm_bp <- lm(sbp ~ age + birthweight, data = bp)
+    tidy(lm_bp)
+    ```
+
+-   The estimated regression line is
+    $$
+    y = 53.45 + 5.89x_1 + 0.13x_2
+    $$
+
+
+::: {.callout-tip}
+## Interpret $\beta_j$
+- $\beta_0$: If $(X_1, X_2) = (0, 0)$ is in the range of the data, then $\beta_0$ is the expected value of $Y$ at $X_{1} = 0$ and $X_2 = 0$. Otherwise, it is just the $y$-intercept of the regression surface.
+- $\beta_1$: Individuals with one unit larger $X_1$ but the same value of $X_2$ have $\beta_1$ larger $Y$ values, on average.
+- $\beta_2$: Individuals with one unit larger $X_2$ but the same value of $X_1$ have $\beta_2$ larger $Y$ values, on average.
+:::
+
+- In the SBP example, we would interpret these as:
+  - Babies that are measured one day later but have the same birthweight have a blood pressure 5.89 mm Hg higher on average.
+  - Babies that weigh one ounce more but are measured at the same age have a blood pressure 0.13 mm Hg higher on average.
+  
+-   Where does that interpretation come from:
+
+    $$
+    y_{old} = \beta_0 + \beta_1x_{i1} + \beta_2x_{i2}
+    $$
+    \begin{align*}
+    y_{new} &= \beta_0 + \beta_1(x_{i1} + 1) + \beta_2x_{i2}\\
+    &= \beta_0 + \beta_1x_{i1} + \beta_2x_{i2} + \beta_1\\
+    &= y_{old} + \beta_1
+    \end{align*}
+    
+- The interpretation  of the relationship between SBP and weight isn't too useful because 1 ounce isn't a big difference in bith weight. But we can also say what the expected difference in SBP would be if we had babies that differed by, say, 10 oz.
+
+- Babies that weigh 10 ounces more but are measured at the same age have a blood pressure 1.4 mm Hg higher on average.
+
+::: {.panel-tabset}
+## Exercise
+Prove the interpretation of $\beta_2$ in the baby weight example that we just stated.
+
+## Solution
+$$
+y_{old} = \beta_0 + \beta_1x_{i1} + \beta_2x_{i2}
+$$
+\begin{align*}
+y_{new} &= \beta_0 + \beta_1(x_{i1} + 10) + \beta_2x_{i2}\\
+&= \beta_0 + \beta_1x_{i1} + \beta_2x_{i2} + 10\beta_1\\
+&= y_{old} + 10\beta_1
+\end{align*}
+:::
+
 
 # Summary of R commands
 

@@ -47,6 +47,18 @@ Data from a case-control study investigated various plasma risk factors for brea
   - `testost`: Testosterone
   - `prolactn`: Prolactin
 
+# body
+
+Data were collected from 20 healthy females, 25–34 years old, to study the relationship between body fat and three predictors [@neter1996applied].
+
+- [body.csv](./data/body.csv)
+  - `triceps`: Triceps skinfold thickness.
+  - `thigh`: Thigh circumference.
+  - `midarm`: Midarm circumference
+  - `fat`: Body fat.
+
+
+
 # boneden
 
 A study in Australia examined the relationship between bone density and cigarette smoking in middle-aged female twins with different smoking histories. Forty-one pairs of twins visited a hospital in Victoria, Australia, where their bone density was measured. Participants also completed questionnaires providing information on their tobacco use, alcohol, coffee, and tea consumption, calcium intake from dairy products, menopausal and reproductive history, fracture history, use of oral contraceptives or estrogen replacement therapy, and physical activity levels. Tobacco consumption was measured in pack-years, with one pack-year defined as smoking one pack of cigarettes per day for one year.
