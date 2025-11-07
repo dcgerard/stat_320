@@ -1291,6 +1291,7 @@ qplot(fit_vec, res_vec, xlab = "Fitted Values", ylab = "Residuals", main = "Resi
 -   **Solution**: Include a squared term in the model (or hire a statistician).
     ```{r}
     lmout <- lm(y ~ x + I(x^2), data = df_fake)
+    tidy(lmout)
     ```
 
 ### Example 4: Curved Relationship, Variance Increases with $Y$
@@ -1368,13 +1369,13 @@ qplot(fit_vec, res_vec, xlab = "Fitted Values", ylab = "Residuals", main = "Resi
 -   **Solution**: The modern solution is to use sandwich estimates of the standard errors
   (hire a statistician).
     ```{r}
+    #| message: false
+    library(lmtest)
     library(sandwich)
     lm_fake <- lm(y ~ x, data = df_fake)
-    semat <- sandwich(lm_fake)
-    tidy(lm_fake) %>%
-      mutate(sandwich_se = sqrt(diag(semat)),
-             sandwich_t  = estimate / sandwich_se,
-             sandwich_p  = 2 * pt(-abs(sandwich_t), df = df.residual(lm_fake)))
+    robust_se <- vcovHC(lm_fake, type = "HC1")
+    coeftest(lm_fake, vcov = robust_se) |>
+      tidy(conf.int = TRUE)
     ```
   
   
