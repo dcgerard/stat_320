@@ -23,5 +23,14 @@ ggplot2::theme_set(ggplot2::theme_bw() + ggplot2::theme(strip.background = ggplo
 - ANOVA
 - Chapter 12 of Rosner
 
+# Interpreting Models
+
+- ANOVA is just multiple linear regression with categorical explanatory variable(s).
+
+- ANCOVA is just multiple linear regression with a categorical explanatory variable of interest and a few other explanatory variables, at least one of which is continuous.
+
+- There are really only two differences:
+  1. The notation.
+  2. More emphasis on reporting sums of squares.
 
 # References

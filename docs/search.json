@@ -1901,7 +1901,7 @@
     "href": "08_reg/12_notes.html",
     "title": "Chapter 12: ANOVA",
     "section": "",
-    "text": "Learning Objectives\n\nANOVA\nChapter 12 of Rosner\n\n\n\nReferences"
+    "text": "Learning Objectives\n\nANOVA\nChapter 12 of Rosner\n\n\n\nInterpreting Models\n\nANOVA is just multiple linear regression with categorical explanatory variable(s).\nANCOVA is just multiple linear regression with a categorical explanatory variable of interest and a few other explanatory variables, at least one of which is continuous.\nThere are really only two differences:\n\nThe notation.\nMore emphasis on reporting sums of squares.\n\n\n\n\nReferences"
   },
   {
     "objectID": "08_reg/11_notes.html#model-interpretation-and-estimation",
