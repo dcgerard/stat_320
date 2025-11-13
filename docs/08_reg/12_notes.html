@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="David Gerard">
-<meta name="dcterms.date" content="2025-11-08">
+<meta name="dcterms.date" content="2025-11-13">
 
 <title>Chapter 12: ANOVA – Stat 320: Biostatistics</title>
 <style>
@@ -21,6 +21,41 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -44,9 +79,9 @@ ul.task-list li input[type="checkbox"] {
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-f93c2b1f3f0577f377aefa4848a86a36.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../site_libs/bootstrap/bootstrap-dark-0d4a9d19931feb4fee1ddab4b2489000.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="../site_libs/bootstrap/bootstrap-f93c2b1f3f0577f377aefa4848a86a36.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-ca70141243c5c5777ed57db2b7dad522.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark-4fd781f31ecf9689afcb162f86e92bef.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../site_libs/bootstrap/bootstrap-ca70141243c5c5777ed57db2b7dad522.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -287,6 +322,12 @@ ul.task-list li input[type="checkbox"] {
   <ul>
   <li><a href="#learning-objectives" id="toc-learning-objectives" class="nav-link active" data-scroll-target="#learning-objectives">Learning Objectives</a></li>
   <li><a href="#interpreting-models" id="toc-interpreting-models" class="nav-link" data-scroll-target="#interpreting-models">Interpreting Models</a></li>
+  <li><a href="#interpreting-one-way-anova-models" id="toc-interpreting-one-way-anova-models" class="nav-link" data-scroll-target="#interpreting-one-way-anova-models">Interpreting One-way ANOVA Models</a></li>
+  <li><a href="#sums-of-squares-for-one-way-anova-models" id="toc-sums-of-squares-for-one-way-anova-models" class="nav-link" data-scroll-target="#sums-of-squares-for-one-way-anova-models">Sums of Squares for One-way ANOVA Models</a></li>
+  <li><a href="#interpreting-two-way-anova-models" id="toc-interpreting-two-way-anova-models" class="nav-link" data-scroll-target="#interpreting-two-way-anova-models">Interpreting Two-way ANOVA Models</a></li>
+  <li><a href="#sums-of-squares-for-two-way-anova-models" id="toc-sums-of-squares-for-two-way-anova-models" class="nav-link" data-scroll-target="#sums-of-squares-for-two-way-anova-models">Sums of Squares for Two-way ANOVA models</a></li>
+  <li><a href="#interpreting-ancova-models" id="toc-interpreting-ancova-models" class="nav-link" data-scroll-target="#interpreting-ancova-models">Interpreting ANCOVA Models</a></li>
+  <li><a href="#sums-of-squares-for-ancova-models" id="toc-sums-of-squares-for-ancova-models" class="nav-link" data-scroll-target="#sums-of-squares-for-ancova-models">Sums of Squares for ANCOVA Models</a></li>
   <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
   </ul>
 </nav>
@@ -314,7 +355,7 @@ ul.task-list li input[type="checkbox"] {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">November 8, 2025</p>
+      <p class="date">November 13, 2025</p>
     </div>
   </div>
   
@@ -344,6 +385,31 @@ ul.task-list li input[type="checkbox"] {
 <li>More emphasis on reporting sums of squares.</li>
 </ol></li>
 </ul>
+</section>
+<section id="interpreting-one-way-anova-models" class="level1">
+<h1>Interpreting One-way ANOVA Models</h1>
+<ul>
+<li>The Swiss Analgesic Study aimed to evaluate the impact of phenacetin-containing analgesics on kidney function and health.</li>
+</ul>
+<p>It involved 624 women from Basel, Switzerland, who had high phenacetin intake and 626 women with low or no phenacetin intake (control group). The study used urine N-acetyl-P-aminophenyl (NAPAP) levels to measure recent phenacetin use, dividing the study group into high-NAPAP and low-NAPAP subgroups. Both subgroups had higher NAPAP levels than the control group. The women were examined in 1967-1968 and again in 1969, 1970, 1971, 1972, 1975, and 1978, with kidney function assessed through various laboratory tests, including serum-creatinine levels. You can read about the data <a href="https://dcgerard.github.io/stat_320/data.html#swiss">here</a>, and load it in via:</p>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>swiss <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"https://dcgerard.github.io/stat_320/data/swiss.csv"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="sums-of-squares-for-one-way-anova-models" class="level1">
+<h1>Sums of Squares for One-way ANOVA Models</h1>
+</section>
+<section id="interpreting-two-way-anova-models" class="level1">
+<h1>Interpreting Two-way ANOVA Models</h1>
+</section>
+<section id="sums-of-squares-for-two-way-anova-models" class="level1">
+<h1>Sums of Squares for Two-way ANOVA models</h1>
+</section>
+<section id="interpreting-ancova-models" class="level1">
+<h1>Interpreting ANCOVA Models</h1>
+</section>
+<section id="sums-of-squares-for-ancova-models" class="level1">
+<h1>Sums of Squares for ANCOVA Models</h1>
 </section>
 <section id="references" class="level1">
 <h1>References</h1>

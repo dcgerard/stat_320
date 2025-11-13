@@ -32,5 +32,26 @@ ggplot2::theme_set(ggplot2::theme_bw() + ggplot2::theme(strip.background = ggplo
 - There are really only two differences:
   1. The notation.
   2. More emphasis on reporting sums of squares.
+  
+# Interpreting One-way ANOVA Models
+
+- The Swiss Analgesic Study aimed to evaluate the impact of phenacetin-containing analgesics on kidney function and health.
+
+It involved 624 women from Basel, Switzerland, who had high phenacetin intake and 626 women with low or no phenacetin intake (control group). The study used urine N-acetyl-P-aminophenyl (NAPAP) levels to measure recent phenacetin use, dividing the study group into high-NAPAP and low-NAPAP subgroups. Both subgroups had higher NAPAP levels than the control group. The women were examined in 1967-1968 and again in 1969, 1970, 1971, 1972, 1975, and 1978, with kidney function assessed through various laboratory tests, including serum-creatinine levels. You can read about the data [here](https://dcgerard.github.io/stat_320/data.html#swiss), and load it in via:
+```{r}
+#| message: false
+swiss <- read_csv("https://dcgerard.github.io/stat_320/data/swiss.csv")
+```
+
+
+# Sums of Squares for One-way ANOVA Models
+
+# Interpreting Two-way ANOVA Models
+
+# Sums of Squares for Two-way ANOVA models
+
+# Interpreting ANCOVA Models
+
+# Sums of Squares for ANCOVA Models
 
 # References
