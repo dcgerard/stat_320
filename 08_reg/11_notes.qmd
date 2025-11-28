@@ -90,9 +90,9 @@ library(broom)
   
 - You've seen me use `tidy()` many times in this class. Below, we will see examples of using `augment()` and `glance()`.
 
-# Estradiol vs Birthweight
+# Estriol vs Birthweight
 
--   For this lesson, we will use the study from @greene1963urinary exploring the association between the estradiol level in pregnant women and birthweight.
+-   For this lesson, we will use the study from @greene1963urinary exploring the association between the estriol level in pregnant women and birthweight.
 
     ```{r}
     #| message: false
