@@ -1,0 +1,202 @@
+---
+title: "Chapter 10 Practice Problems"
+author: "David Gerard"
+date: today
+---
+
+These practice problems mostly come from Rosner's publicly available study sheet at the books [companion website](https://www.cengage.com/cgi-wadsworth/course_products_wp.pl?fid=M20b&product_isbn_issn=9781305268920). The solutions are my own, since we differ slightly on what we are looking for in the solutions.
+
+```{r}
+#| echo: false
+#| eval: true
+#| message: false
+library(tidyverse)
+library(gt)
+library(broom)
+plt_t <- function(
+    mu = 0, 
+    sig = 1, 
+    lb = -Inf,
+    ub = Inf,
+    df = Inf, 
+    rng = c(-3, 3), 
+    two_sided = FALSE,
+    col = "#E69F00",
+    lwd = 1) {
+  tibble(x = seq(mu + rng[[1]] * sig, mu + rng[[2]] * sig, length.out = 500)) |>
+    mutate(y = dt(x = (x - mu) / sig, df = df)) ->
+    df1
+  df1 |>
+    filter(x > lb, x < ub) ->
+    df2
+  ggplot() +
+    geom_line(data = df1, mapping = aes(x = x, y = y), linewidth = lwd) +
+    geom_area(data = df2, mapping = aes(x = x, y = y), fill = col) +
+    geom_line(data = df2, mapping = aes(x = x, y = y), color = col, linewidth = lwd) +
+    theme_classic() +
+    theme(axis.title = element_blank()) ->
+    pl
+  
+  if (two_sided) {
+    df1 |>
+      filter(x > -ub, x < -lb) ->
+      df3
+    pl <- pl + 
+      geom_area(data = df3, mapping = aes(x = x, y = y), fill = col) +
+      geom_line(data = df3, mapping = aes(x = x, y = y), color = col, linewidth = lwd)
+  }
+  pl
+}
+plt_binom <- function(
+    size, 
+    prob = 0.5, 
+    lb = -Inf,
+    ub = Inf, 
+    rng = c(0, size),
+    col = "#E69F00",
+    valmax = NULL,
+    lwd = 1) {
+  
+  tibble(x = seq(rng[[1]], rng[[2]], by = 1)) |>
+    mutate(
+      pmf = stats::dbinom(x = x, size = size, prob = prob)
+      ) ->
+    df
+  
+  if (is.null(valmax)) {
+    df |>
+      mutate(col = (x >= lb & x <= ub)) ->
+      df
+  } else {
+    df |>
+      mutate(col = pmf <= stats::dbinom(x = valmax, size = size, prob = prob)) ->
+      df
+  }
+  df |>
+    ggplot(aes(x = x, xend = x, yend = pmf, color = col)) +
+    geom_segment(y = 0, lwd = lwd) +
+    theme_classic() +
+    theme(axis.title = element_blank()) +
+    scale_color_manual(values = c("black", col), guide = "none") +
+    scale_x_continuous(breaks = seq(rng[[1]], rng[[2]]))
+}
+cont_tab <- function(x11, x12, x21, x22, col_name, row_name) {
+  
+}
+```
+
+
+## Cardiovascular Disease
+In a 1985 study of the effectiveness of streptokinase in the treatment of patients who have been hospitalized after myocardial infarction, 9 of 199 males receiving streptokinase and 13 of 97 males in the control group died within 12 months.
+
+::: {.panel-tabset}
+## 10.1 
+Use the normal-theory method to test for significant differences in 12-month mortality between the two groups.
+
+## Solution
+Let $X_1$ be the number of deaths out of the $n_1 = 199$ males receiving strptokinase. Let $X_2$ be the number of deaths out of the $n_2 = 97$ control males. Then $X_1 \sim \mathrm{Binom}(199, p_1)$ and $X_2 \sim \mathrm{Binom}(97, p_2)$. We are testing $H_0: p_1 = p_2$ versus $H_A: p_1 \neq p_2$. We calculate statistics
+
+- $\hat{p}_1 = 9/199 = 0.04523$
+- $\hat{p}_2 = 13/97 = 0.134$
+- $\hat{p} = (9 + 13) / (97 + 199) = 0.07432$
+
+Using the normal theory, we calculate the test statistic
+$$
+Z = \frac{\hat{p}_1 - \hat{p}_2}{\sqrt{\left(\frac{1}{n_1} + \frac{1}{n_2}\right)\hat{p}(1-\hat{p})}} = \frac{0.04535 - 0.134}{\left(\frac{1}{199} + \frac{1}{97}\right)\times0.07432\times(1-0.07432)}
+$$
+Numerically,
+```{r}
+(0.04535 - 0.134) / sqrt((1/199 + 1/97) * 0.07432 * (1 - 0.07432))
+```
+
+We compare this to the null distribution of $N(0,1)$
+```{r}
+#| echo: false
+plt_t(ub = -2.729, two_sided = TRUE, rng = c(-4, 4))+
+  geom_vline(xintercept = -2.729, lty = 2, col = 2)
+```
+```{r}
+2 * pnorm(-2.729)
+```
+So there is a significant difference of death rates between the two groups.
+
+You can use `prop.test()` to do this. It will give you slightly different (better) results because it will do a continutity correction.
+```{r}
+prop.test(x = c(9, 13), n = c(199, 97)) |>
+  tidy() |>
+  select(p.value)
+```
+:::
+
+::: {.panel-tabset}
+## 10.2 
+Construct the observed and expected contingency tables for these data.
+
+## Solution
+
+
+:::
+
+
+::: {.panel-tabset}
+## 10.3 
+Perform the test in Problem 10.1 using the contingency-table method.
+
+## Solution
+
+:::
+
+
+::: {.panel-tabset}
+## 10.4 
+Compare your results in Problems 10.1 and 10.3.
+
+## Solution
+
+:::
+
+## Cardiovascular Disease
+In the streptokinase study in Problem 10.1, 2 of 15 females receiving streptokinase and 4 of 19 females in the control group died within 12 months.
+
+::: {.panel-tabset}
+## 10.5 
+Why is Fisher’s exact test the appropriate procedure to test for differences in 12-month mortality rates between these two groups?
+
+## Solution
+
+:::
+
+::: {.panel-tabset}
+## 10.6 
+Write down all possible tables with the same row and column margins as given in the observed data.
+
+## Solution
+
+:::
+
+::: {.panel-tabset}
+## 10.7 
+Calculate the probability of each of the tables enumerated in Problem 10.6.
+
+## Solution
+
+:::
+
+::: {.panel-tabset}
+## 10.8 
+Evaluate whether or not there is a significant difference between the mortality rates for streptokinase and control-group females using a two-sided test based on your results in Problem 10.7.
+
+## Solution
+
+:::
+
+## Cardiovascular Disease
+A 1979 study investigated the relationship between cigarette smoking and subsequent mortality in men with a prior history of coronary disease [2]. It was found that 264 out of 1731 non-smokers and 208 out of 1058 smokers had died in the 5-year period after the study began.
+
+::: {.panel-tabset}
+## 10.12 
+Assuming that the age distributions of the two groups are comparable, compare the mortality rates in the two groups.
+
+## Solution
+
+:::

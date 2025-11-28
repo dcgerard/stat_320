@@ -16,4 +16,4 @@ I have only kept the problems most relevant for this course.
 - [Chapter 7](./pp_07.qmd)
 - [Chapter 8](./pp_08.qmd)
 - [Chapter 9](./pp_09.qmd)
-- Chapter 10
+- [Chapter 10](./pp_10.qmd)
