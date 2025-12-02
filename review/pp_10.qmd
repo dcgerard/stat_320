@@ -132,7 +132,7 @@ cont_tab <- function(tab) {
 ```
 
 
-## Cardiovascular Disease
+## Cardiovascular Disease 1
 In a 1985 study of the effectiveness of streptokinase in the treatment of patients who have been hospitalized after myocardial infarction, 9 of 199 males receiving streptokinase and 13 of 97 males in the control group died within 12 months.
 
 ::: {.panel-tabset}
@@ -239,7 +239,7 @@ The $p$-values are the exact same. Theoretically, this should be the case.
 
 :::
 
-## Cardiovascular Disease
+## Cardiovascular Disease 2
 In the streptokinase study in Problem 10.1, 2 of 15 females receiving streptokinase and 4 of 19 females in the control group died within 12 months.
 
 ::: {.panel-tabset}
@@ -333,7 +333,7 @@ matrix(c(2, 13, 4, 15), nrow = 2, ncol = 2, byrow = TRUE) |>
 ```
 :::
 
-## Cardiovascular Disease
+## Cardiovascular Disease 3
 A 1979 study investigated the relationship between cigarette smoking and subsequent mortality in men with a prior history of coronary disease. It was found that 264 out of 1731 non-smokers and 208 out of 1058 smokers had died in the 5-year period after the study began.
 
 ::: {.panel-tabset}
@@ -385,7 +385,7 @@ matrix(c(264, 1467, 208, 850), nrow = 2, ncol = 2, byrow = TRUE) |>
 The p-values differ because of the continuity correction.
 :::
 
-## Obstetrics
+## Obstetrics 1
 Suppose there are 500 pairs of pregnant women who participate in a prematurity study and are paired in such a way that the body weights of the 2 women in a pair are within 5 lb of each other. One of the 2 women is given a placebo and the other drug A to see if drug A has an effect in preventing prematurity. Suppose that in 30 pairs of women, both women in a pair have a premature child; in 420 pairs of women, both women have a normal child; in 35 pairs of women, the woman taking drug A has a normal child and the woman taking the placebo has a premature child; in 15 pairs of women, the woman taking drug A has a premature child and the woman taking the placebo has a normal child.
 
 ::: {.panel-tabset}
@@ -424,4 +424,75 @@ prop.test(x = 15, n = 50, p = 1/2) |>
   select(p.value, conf.low, conf.high)
 ```
 Either way, we have strong evidence that the premature rate differs between drug and control groups. Indeed, our confidence interval indicates that the drug reduces the premature rate.
+:::
+
+## Obstetrics 2
+An issue of current interest is the effect of delayed childbearing on pregnancy outcome. In a recent paper a population of first deliveries was assessed for low-birthweight deliveries (<2500 g) according to the woman’s age and prior pregnancy history. The data in Table 10.3 were presented.
+
+```{r}
+#| echo: false
+tibble(
+  Age = c("≥30", "≥30", "<30", "<30"),
+  History = c("No", "Yes", "No", "Yes"),
+  n = c(225, 88, 906, 503), 
+  `Percentage Low Birthweight` = c(3.56, 6.82, 3.31, 1.31)) |>
+  gt() |>
+  tab_header(
+    title = "Table 10.3",
+    subtitle = "Relationship of age and pregnancy history to low-birthweight deliveries"
+  ) |>
+  tab_footnote(
+    footnote = md("History = Yes if a woman had a prior history of spontaneous abortion or infertility, = no otherwise"),
+    locations = cells_column_labels(columns = History)
+  )
+```
+
+::: {.panel-tabset}
+## 10.35 
+What test can be used to assess the effect of age on low-birthweight deliveries among women with a negative history?
+
+## Solution
+Let's convert this into a 2x2 table. There are 225 women age ≥30 with a negative histroy. Among those, 225 * 0.0356 = 8 have a low birthweight. There are 906 women <30 with a negative history, among those 906 * 0.0331 = 30 have a low birthweight. 
+```{r}
+#| echo: false
+matrix(c(8, 225 - 8, 30, 906 - 30), nrow = 2, ncol = 2, byrow = TRUE,
+       dimnames = list(Age = c("≥30", "<30"), `Low Birthweight` = c("Yes", "No"))) |>
+  cont_tab()
+```
+
+We can do a chi-squared test to test the null that age is independent of low birthweight status, against the alternative that they are dependent.
+
+
+:::
+
+::: {.panel-tabset}
+## 10.36 
+Perform the test in Problem 10.35 and report a p-value.
+
+## Solution
+You should be able to do this by hand now. Calculate the expected counts
+```{r}
+#| echo: false
+matrix(c(28 * 225, 1093 * 225, 38 * 906, 1093 * 906) / 1131, nrow = 2, ncol = 2, byrow = TRUE,
+       dimnames = list(Age = c("≥30", "<30"), `Low Birthweight` = c("Yes", "No"))) |>
+  cont_tab()
+```
+Then calculate the chi-squared statistic, which ends up being about 0.033. The $p$-value then is calculated from a $\chi^2_1$ distribution
+```{r}
+#| echo: false
+plt_chisq(df = 1, lb = 0.033)
+```
+```{r}
+1 - pchisq(q = 0.033, df = 1)
+```
+So we have no evidence of an association between age of first birth and low birthweight status among women without a history.
+
+```{r}
+#| echo: false
+#| eval: false
+matrix(c(8, 217, 30, 876), nrow = 2, byrow = TRUE) |>
+  chisq.test(correct = FALSE) |>
+  tidy()
+```
+
 :::
