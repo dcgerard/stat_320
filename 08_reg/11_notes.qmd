@@ -1883,7 +1883,7 @@ No! This means that we don't have evidence that each variable is associated with
 
 - E.g., in the two explanatory variable case, $H_0: \beta_2 = 0$ versus $H_A: \beta_j \neq 0$ is equivalent to:
   - $H_0: Y_i = \beta_0 + \beta_1X_{i1} + \epsilon_i$
-  - $H_0: Y_i = \beta_0 + \beta_1X_{i1} + \beta_2X_{i2} + \epsilon_i$
+  - $H_A: Y_i = \beta_0 + \beta_1X_{i1} + \beta_2X_{i2} + \epsilon_i$
   
 - This intuitively leads us to the ANOVA approach to hypothesis testing.
 
