@@ -383,6 +383,45 @@ matrix(c(264, 1467, 208, 850), nrow = 2, ncol = 2, byrow = TRUE) |>
   tidy()
 ```
 The p-values differ because of the continuity correction.
- 
+:::
 
+## Obstetrics
+Suppose there are 500 pairs of pregnant women who participate in a prematurity study and are paired in such a way that the body weights of the 2 women in a pair are within 5 lb of each other. One of the 2 women is given a placebo and the other drug A to see if drug A has an effect in preventing prematurity. Suppose that in 30 pairs of women, both women in a pair have a premature child; in 420 pairs of women, both women have a normal child; in 35 pairs of women, the woman taking drug A has a normal child and the woman taking the placebo has a premature child; in 15 pairs of women, the woman taking drug A has a premature child and the woman taking the placebo has a normal child.
+
+::: {.panel-tabset}
+## 10.13 
+Assess the statistical significance of these results.
+
+## Solution
+We wish to test the null hypothesis that the probability of a premature child is the same in both the drug and the control groups, against the alternative that they differ. This is a matched pairs design, so we should be thinking about McNemar's test. Let's build a paired contingency table.
+```{r}
+#| echo: false
+matrix(c(420, 35, 15, 500 - 420 - 35 - 15), nrow = 2, ncol = 2, byrow = FALSE,
+       dimnames = list(control = c("Normal", "Premature"), drug = c("Normal", "Premature"))) |>
+  cont_tab()
+```
+Let $X$ be the number of pairs where the drug woman has a premature baby and the control woman has a normal baby. Then $X \sim \mathrm{Binom}(50, p)$. We are testing the null $H_0: p = 1/2$ versus $H_A: p \neq 1/2$. Since $n \geq 20$, we can use the normal-based approach. We could also use an exact approach. Let's calculate the test statistic
+$$
+Z = \frac{\hat{p} - p_0}{\sqrt{p_0(1-p_0)/n}} = \frac{15/50 - 1/2}{\sqrt{1/2(1 - 1/2)/50}}
+$$
+Numerically (also doing a continuity correction)
+```{r}
+(15/50 - 0.5 + 1/(2 * 50)) / sqrt(0.5 * (1 - 0.5) / 50)
+```
+We compare this to a standard normal distribution
+```{r}
+plt_t(ub = -2.687, two_sided = TRUE, rng = c(-4, 4)) +
+  geom_vline(xintercept = -2.687, lty = 2, col = 2)
+```
+```{r}
+2 * pnorm(-2.687)
+```
+
+This fits the "real-way" using `prop.test()`
+```{r}
+prop.test(x = 15, n = 50, p = 1/2) |>
+  tidy() |>
+  select(p.value, conf.low, conf.high)
+```
+Either way, we have strong evidence that the premature rate differs between drug and control groups. Indeed, our confidence interval indicates that the drug reduces the premature rate.
 :::
