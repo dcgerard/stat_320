@@ -2,12 +2,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.7.32">
+<meta name="generator" content="quarto-1.8.26">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="David Gerard">
-<meta name="dcterms.date" content="2025-10-13">
+<meta name="dcterms.date" content="2025-12-02">
 
 <title>Chapter 3 Practice Problems – Stat 320: Biostatistics</title>
 <style>
@@ -69,18 +69,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <meta name="quarto:offset" content="../">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-2fef5ea3f8957b3e4ecc936fc74692ca.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-587c61ba64f3a5504c4d52d930310e48.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-b758ccaa5987ceb1b75504551e579abf.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-587c61ba64f3a5504c4d52d930310e48.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-fe7d0423cdac4bc5c71520eda626c2a4.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../site_libs/bootstrap/bootstrap-dark-2c3770c401b36bb86bc0f39e202c8652.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="../site_libs/bootstrap/bootstrap-fe7d0423cdac4bc5c71520eda626c2a4.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-f93c2b1f3f0577f377aefa4848a86a36.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark-0d4a9d19931feb4fee1ddab4b2489000.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../site_libs/bootstrap/bootstrap-f93c2b1f3f0577f377aefa4848a86a36.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -123,7 +124,7 @@ const typesetMath = (el) => {
     var macros = [];
     for (var i = 0; i < mathElements.length; i++) {
       var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN") {
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
         window.katex.render(texText.data, mathElements[i], {
           displayMode: mathElements[i].classList.contains('display'),
           throwOnError: false,
@@ -382,7 +383,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">October 13, 2025</p>
+      <p class="date">December 2, 2025</p>
     </div>
   </div>
   
@@ -404,7 +405,7 @@ window.Quarto = {
 <li><span class="math inline">\(C\)</span> = {serum cholesterol <span class="math inline">\(\leq\)</span> 280}.</li>
 </ul>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true">3.1</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false">Solution</a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" href="">3.1</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false" href="">Solution</a></li></ul>
 <div class="tab-content">
 <div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
 <p>Are the events <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span> mutually exclusive?</p>
@@ -415,7 +416,7 @@ window.Quarto = {
 </div>
 </div>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-2-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-1" role="tab" aria-controls="tabset-2-1" aria-selected="true">3.2</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-2" role="tab" aria-controls="tabset-2-2" aria-selected="false">Solution</a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-2-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-1" role="tab" aria-controls="tabset-2-1" aria-selected="true" href="">3.2</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-2" role="tab" aria-controls="tabset-2-2" aria-selected="false" href="">Solution</a></li></ul>
 <div class="tab-content">
 <div id="tabset-2-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-2-1-tab">
 <p>Are the events <span class="math inline">\(A\)</span> and <span class="math inline">\(C\)</span> mutually exclusive?</p>
@@ -426,7 +427,7 @@ window.Quarto = {
 </div>
 </div>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-3-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-1" role="tab" aria-controls="tabset-3-1" aria-selected="true">3.3</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-3-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-2" role="tab" aria-controls="tabset-3-2" aria-selected="false">Solution</a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-3-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-1" role="tab" aria-controls="tabset-3-1" aria-selected="true" href="">3.3</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-3-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-2" role="tab" aria-controls="tabset-3-2" aria-selected="false" href="">Solution</a></li></ul>
 <div class="tab-content">
 <div id="tabset-3-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-3-1-tab">
 <p>Suppose <span class="math inline">\(P(A) = 0.2\)</span>, <span class="math inline">\(P(B) = 0.1\)</span>. What is <span class="math inline">\(P(\text{serum cholesteroal} \geq 250)\)</span>?</p>
@@ -437,7 +438,7 @@ window.Quarto = {
 </div>
 </div>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-4-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-1" role="tab" aria-controls="tabset-4-1" aria-selected="true">3.4</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-4-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-2" role="tab" aria-controls="tabset-4-2" aria-selected="false">Solution</a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-4-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-1" role="tab" aria-controls="tabset-4-1" aria-selected="true" href="">3.4</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-4-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-2" role="tab" aria-controls="tabset-4-2" aria-selected="false" href="">Solution</a></li></ul>
 <div class="tab-content">
 <div id="tabset-4-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-4-1-tab">
 <p>What does <span class="math inline">\(A \cup C\)</span> mean?</p>
@@ -448,7 +449,7 @@ window.Quarto = {
 </div>
 </div>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-5-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-5-1" role="tab" aria-controls="tabset-5-1" aria-selected="true">3.5</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-5-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-5-2" role="tab" aria-controls="tabset-5-2" aria-selected="false">Solution</a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-5-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-5-1" role="tab" aria-controls="tabset-5-1" aria-selected="true" href="">3.5</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-5-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-5-2" role="tab" aria-controls="tabset-5-2" aria-selected="false" href="">Solution</a></li></ul>
 <div class="tab-content">
 <div id="tabset-5-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-5-1-tab">
 <p>What does <span class="math inline">\(A \cap C\)</span> mean?</p>
@@ -459,7 +460,7 @@ window.Quarto = {
 </div>
 </div>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-6-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-6-1" role="tab" aria-controls="tabset-6-1" aria-selected="true">3.6</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-6-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-6-2" role="tab" aria-controls="tabset-6-2" aria-selected="false">Solution</a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-6-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-6-1" role="tab" aria-controls="tabset-6-1" aria-selected="true" href="">3.6</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-6-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-6-2" role="tab" aria-controls="tabset-6-2" aria-selected="false" href="">Solution</a></li></ul>
 <div class="tab-content">
 <div id="tabset-6-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-6-1-tab">
 <p>What does <span class="math inline">\(B \cup C\)</span> mean?</p>
@@ -470,7 +471,7 @@ window.Quarto = {
 </div>
 </div>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-7-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-7-1" role="tab" aria-controls="tabset-7-1" aria-selected="true">3.7</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-7-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-7-2" role="tab" aria-controls="tabset-7-2" aria-selected="false">Solution</a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-7-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-7-1" role="tab" aria-controls="tabset-7-1" aria-selected="true" href="">3.7</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-7-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-7-2" role="tab" aria-controls="tabset-7-2" aria-selected="false" href="">Solution</a></li></ul>
 <div class="tab-content">
 <div id="tabset-7-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-7-1-tab">
 <p>What does <span class="math inline">\(B \cap C\)</span> mean?</p>
@@ -481,7 +482,7 @@ window.Quarto = {
 </div>
 </div>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-8-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-8-1" role="tab" aria-controls="tabset-8-1" aria-selected="true">3.8</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-8-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-8-2" role="tab" aria-controls="tabset-8-2" aria-selected="false">Solution</a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-8-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-8-1" role="tab" aria-controls="tabset-8-1" aria-selected="true" href="">3.8</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-8-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-8-2" role="tab" aria-controls="tabset-8-2" aria-selected="false" href="">Solution</a></li></ul>
 <div class="tab-content">
 <div id="tabset-8-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-8-1-tab">
 <p>Are the events <span class="math inline">\(B\)</span> and <span class="math inline">\(C\)</span> mutually exclusive?</p>
@@ -492,7 +493,7 @@ window.Quarto = {
 </div>
 </div>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-9-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-9-1" role="tab" aria-controls="tabset-9-1" aria-selected="true">3.9</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-9-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-9-2" role="tab" aria-controls="tabset-9-2" aria-selected="false">Solution</a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-9-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-9-1" role="tab" aria-controls="tabset-9-1" aria-selected="true" href="">3.9</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-9-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-9-2" role="tab" aria-controls="tabset-9-2" aria-selected="false" href="">Solution</a></li></ul>
 <div class="tab-content">
 <div id="tabset-9-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-9-1-tab">
 <p>What does the event <span class="math inline">\(\bar{B}\)</span> mean? What is its probability?</p>
@@ -506,7 +507,7 @@ P(\bar{B}) = 1 - P(B) = 1 - 0.1 = 0.9
 </div>
 <p>Suppose that the gender of successive offspring in the same family are independent events and that the probability of a male or female offspring is 0.5.</p>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-10-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-10-1" role="tab" aria-controls="tabset-10-1" aria-selected="true">3.10</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-10-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-10-2" role="tab" aria-controls="tabset-10-2" aria-selected="false">Solution</a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-10-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-10-1" role="tab" aria-controls="tabset-10-1" aria-selected="true" href="">3.10</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-10-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-10-2" role="tab" aria-controls="tabset-10-2" aria-selected="false" href="">Solution</a></li></ul>
 <div class="tab-content">
 <div id="tabset-10-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-10-1-tab">
 <p>What is the probability of two successive female offspring?</p>
@@ -519,7 +520,7 @@ P(A \cap B) = P(A)P(B) = 0.5 \times 0.5  = 0.25
 </div>
 </div>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-11-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-11-1" role="tab" aria-controls="tabset-11-1" aria-selected="true">3.11</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-11-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-11-2" role="tab" aria-controls="tabset-11-2" aria-selected="false">Solution</a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-11-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-11-1" role="tab" aria-controls="tabset-11-1" aria-selected="true" href="">3.11</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-11-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-11-2" role="tab" aria-controls="tabset-11-2" aria-selected="false" href="">Solution</a></li></ul>
 <div class="tab-content">
 <div id="tabset-11-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-11-1-tab">
 <p>What is the probability that exactly one of two successive children will be female?</p>
@@ -535,7 +536,7 @@ P[(\bar{A} \cap B) \cup (A \cap \bar{B})] &amp;= P(\bar{A} \cap B) + P(A \cap \b
 </div>
 </div>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-12-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-12-1" role="tab" aria-controls="tabset-12-1" aria-selected="true">3.12</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-12-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-12-2" role="tab" aria-controls="tabset-12-2" aria-selected="false">Solution</a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-12-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-12-1" role="tab" aria-controls="tabset-12-1" aria-selected="true" href="">3.12</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-12-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-12-2" role="tab" aria-controls="tabset-12-2" aria-selected="false" href="">Solution</a></li></ul>
 <div class="tab-content">
 <div id="tabset-12-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-12-1-tab">
 <p>Suppose that three successive offspring are male. What is the probability that a fourth child will be male?</p>
@@ -550,7 +551,7 @@ P[(\bar{A} \cap B) \cup (A \cap \bar{B})] &amp;= P(\bar{A} \cap B) + P(A \cap \b
 <h2 class="anchored" data-anchor-id="cardiovascular-disease-1">Cardiovascular Disease 1</h2>
 <p>A survey was performed among people 65 years of age and older who underwent open-heart surgery. It was found that 30% of patients died within 90 days of the operation, whereas an additional 25% of those who survived 90 days died within 5 years after the operation.</p>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-13-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-13-1" role="tab" aria-controls="tabset-13-1" aria-selected="true">3.13</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-13-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-13-2" role="tab" aria-controls="tabset-13-2" aria-selected="false">Hint</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-13-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-13-3" role="tab" aria-controls="tabset-13-3" aria-selected="false">Solution</a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-13-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-13-1" role="tab" aria-controls="tabset-13-1" aria-selected="true" href="">3.13</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-13-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-13-2" role="tab" aria-controls="tabset-13-2" aria-selected="false" href="">Hint</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-13-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-13-3" role="tab" aria-controls="tabset-13-3" aria-selected="false" href="">Solution</a></li></ul>
 <div class="tab-content">
 <div id="tabset-13-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-13-1-tab">
 <p>What is the probability that a patient undergoing open-heart surgery will die within 5 years?</p>
@@ -580,7 +581,7 @@ P(A \cup B) = 0.3 + 0.25 \times (1 - 0.3) = 0.475
 </div>
 </div>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-14-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-14-1" role="tab" aria-controls="tabset-14-1" aria-selected="true">3.16</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-14-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-14-2" role="tab" aria-controls="tabset-14-2" aria-selected="false">Solution</a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-14-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-14-1" role="tab" aria-controls="tabset-14-1" aria-selected="true" href="">3.16</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-14-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-14-2" role="tab" aria-controls="tabset-14-2" aria-selected="false" href="">Solution</a></li></ul>
 <div class="tab-content">
 <div id="tabset-14-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-14-1-tab">
 <p>Can you tell if the operation prolongs life from the data presented? If not, then what additional data do you need?</p>
@@ -593,23 +594,23 @@ P(A \cup B) = 0.3 + 0.25 \times (1 - 0.3) = 0.475
 <p>A study relating smoking history to several measures of cardiopulmonary disability was recently reported. The data in the table below were presented relating the number of people with different disabilities according to cigarette-smoking status.</p>
 <div class="cell">
 <div class="cell-output-display">
-<div id="geoubzroyq" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#geoubzroyq table {
+<div id="spwxopnhxz" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#spwxopnhxz table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#geoubzroyq thead, #geoubzroyq tbody, #geoubzroyq tfoot, #geoubzroyq tr, #geoubzroyq td, #geoubzroyq th {
+#spwxopnhxz thead, #spwxopnhxz tbody, #spwxopnhxz tfoot, #spwxopnhxz tr, #spwxopnhxz td, #spwxopnhxz th {
   border-style: none;
 }
 
-#geoubzroyq p {
+#spwxopnhxz p {
   margin: 0;
   padding: 0;
 }
 
-#geoubzroyq .gt_table {
+#spwxopnhxz .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -635,12 +636,12 @@ P(A \cup B) = 0.3 + 0.25 \times (1 - 0.3) = 0.475
   border-left-color: #D3D3D3;
 }
 
-#geoubzroyq .gt_caption {
+#spwxopnhxz .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#geoubzroyq .gt_title {
+#spwxopnhxz .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -652,7 +653,7 @@ P(A \cup B) = 0.3 + 0.25 \times (1 - 0.3) = 0.475
   border-bottom-width: 0;
 }
 
-#geoubzroyq .gt_subtitle {
+#spwxopnhxz .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -664,7 +665,7 @@ P(A \cup B) = 0.3 + 0.25 \times (1 - 0.3) = 0.475
   border-top-width: 0;
 }
 
-#geoubzroyq .gt_heading {
+#spwxopnhxz .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -676,13 +677,13 @@ P(A \cup B) = 0.3 + 0.25 \times (1 - 0.3) = 0.475
   border-right-color: #D3D3D3;
 }
 
-#geoubzroyq .gt_bottom_border {
+#spwxopnhxz .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#geoubzroyq .gt_col_headings {
+#spwxopnhxz .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -697,7 +698,7 @@ P(A \cup B) = 0.3 + 0.25 \times (1 - 0.3) = 0.475
   border-right-color: #D3D3D3;
 }
 
-#geoubzroyq .gt_col_heading {
+#spwxopnhxz .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -717,7 +718,7 @@ P(A \cup B) = 0.3 + 0.25 \times (1 - 0.3) = 0.475
   overflow-x: hidden;
 }
 
-#geoubzroyq .gt_column_spanner_outer {
+#spwxopnhxz .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -729,15 +730,15 @@ P(A \cup B) = 0.3 + 0.25 \times (1 - 0.3) = 0.475
   padding-right: 4px;
 }
 
-#geoubzroyq .gt_column_spanner_outer:first-child {
+#spwxopnhxz .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#geoubzroyq .gt_column_spanner_outer:last-child {
+#spwxopnhxz .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#geoubzroyq .gt_column_spanner {
+#spwxopnhxz .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -749,11 +750,11 @@ P(A \cup B) = 0.3 + 0.25 \times (1 - 0.3) = 0.475
   width: 100%;
 }
 
-#geoubzroyq .gt_spanner_row {
+#spwxopnhxz .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#geoubzroyq .gt_group_heading {
+#spwxopnhxz .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -779,7 +780,7 @@ P(A \cup B) = 0.3 + 0.25 \times (1 - 0.3) = 0.475
   text-align: left;
 }
 
-#geoubzroyq .gt_empty_group_heading {
+#spwxopnhxz .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -794,15 +795,15 @@ P(A \cup B) = 0.3 + 0.25 \times (1 - 0.3) = 0.475
   vertical-align: middle;
 }
 
-#geoubzroyq .gt_from_md > :first-child {
+#spwxopnhxz .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#geoubzroyq .gt_from_md > :last-child {
+#spwxopnhxz .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#geoubzroyq .gt_row {
+#spwxopnhxz .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -821,7 +822,7 @@ P(A \cup B) = 0.3 + 0.25 \times (1 - 0.3) = 0.475
   overflow-x: hidden;
 }
 
-#geoubzroyq .gt_stub {
+#spwxopnhxz .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -834,7 +835,7 @@ P(A \cup B) = 0.3 + 0.25 \times (1 - 0.3) = 0.475
   padding-right: 5px;
 }
 
-#geoubzroyq .gt_stub_row_group {
+#spwxopnhxz .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -848,15 +849,15 @@ P(A \cup B) = 0.3 + 0.25 \times (1 - 0.3) = 0.475
   vertical-align: top;
 }
 
-#geoubzroyq .gt_row_group_first td {
+#spwxopnhxz .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#geoubzroyq .gt_row_group_first th {
+#spwxopnhxz .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#geoubzroyq .gt_summary_row {
+#spwxopnhxz .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -866,16 +867,16 @@ P(A \cup B) = 0.3 + 0.25 \times (1 - 0.3) = 0.475
   padding-right: 5px;
 }
 
-#geoubzroyq .gt_first_summary_row {
+#spwxopnhxz .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#geoubzroyq .gt_first_summary_row.thick {
+#spwxopnhxz .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#geoubzroyq .gt_last_summary_row {
+#spwxopnhxz .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -885,7 +886,7 @@ P(A \cup B) = 0.3 + 0.25 \times (1 - 0.3) = 0.475
   border-bottom-color: #D3D3D3;
 }
 
-#geoubzroyq .gt_grand_summary_row {
+#spwxopnhxz .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -895,7 +896,7 @@ P(A \cup B) = 0.3 + 0.25 \times (1 - 0.3) = 0.475
   padding-right: 5px;
 }
 
-#geoubzroyq .gt_first_grand_summary_row {
+#spwxopnhxz .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -905,7 +906,7 @@ P(A \cup B) = 0.3 + 0.25 \times (1 - 0.3) = 0.475
   border-top-color: #D3D3D3;
 }
 
-#geoubzroyq .gt_last_grand_summary_row_top {
+#spwxopnhxz .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -915,11 +916,11 @@ P(A \cup B) = 0.3 + 0.25 \times (1 - 0.3) = 0.475
   border-bottom-color: #D3D3D3;
 }
 
-#geoubzroyq .gt_striped {
+#spwxopnhxz .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#geoubzroyq .gt_table_body {
+#spwxopnhxz .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -928,7 +929,7 @@ P(A \cup B) = 0.3 + 0.25 \times (1 - 0.3) = 0.475
   border-bottom-color: #D3D3D3;
 }
 
-#geoubzroyq .gt_footnotes {
+#spwxopnhxz .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -942,7 +943,7 @@ P(A \cup B) = 0.3 + 0.25 \times (1 - 0.3) = 0.475
   border-right-color: #D3D3D3;
 }
 
-#geoubzroyq .gt_footnote {
+#spwxopnhxz .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -951,7 +952,7 @@ P(A \cup B) = 0.3 + 0.25 \times (1 - 0.3) = 0.475
   padding-right: 5px;
 }
 
-#geoubzroyq .gt_sourcenotes {
+#spwxopnhxz .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -965,7 +966,7 @@ P(A \cup B) = 0.3 + 0.25 \times (1 - 0.3) = 0.475
   border-right-color: #D3D3D3;
 }
 
-#geoubzroyq .gt_sourcenote {
+#spwxopnhxz .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -973,77 +974,77 @@ P(A \cup B) = 0.3 + 0.25 \times (1 - 0.3) = 0.475
   padding-right: 5px;
 }
 
-#geoubzroyq .gt_left {
+#spwxopnhxz .gt_left {
   text-align: left;
 }
 
-#geoubzroyq .gt_center {
+#spwxopnhxz .gt_center {
   text-align: center;
 }
 
-#geoubzroyq .gt_right {
+#spwxopnhxz .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#geoubzroyq .gt_font_normal {
+#spwxopnhxz .gt_font_normal {
   font-weight: normal;
 }
 
-#geoubzroyq .gt_font_bold {
+#spwxopnhxz .gt_font_bold {
   font-weight: bold;
 }
 
-#geoubzroyq .gt_font_italic {
+#spwxopnhxz .gt_font_italic {
   font-style: italic;
 }
 
-#geoubzroyq .gt_super {
+#spwxopnhxz .gt_super {
   font-size: 65%;
 }
 
-#geoubzroyq .gt_footnote_marks {
+#spwxopnhxz .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#geoubzroyq .gt_asterisk {
+#spwxopnhxz .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#geoubzroyq .gt_indent_1 {
+#spwxopnhxz .gt_indent_1 {
   text-indent: 5px;
 }
 
-#geoubzroyq .gt_indent_2 {
+#spwxopnhxz .gt_indent_2 {
   text-indent: 10px;
 }
 
-#geoubzroyq .gt_indent_3 {
+#spwxopnhxz .gt_indent_3 {
   text-indent: 15px;
 }
 
-#geoubzroyq .gt_indent_4 {
+#spwxopnhxz .gt_indent_4 {
   text-indent: 20px;
 }
 
-#geoubzroyq .gt_indent_5 {
+#spwxopnhxz .gt_indent_5 {
   text-indent: 25px;
 }
 
-#geoubzroyq .katex-display {
+#spwxopnhxz .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#geoubzroyq div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#spwxopnhxz div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
 
-<table class="gt_table caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+<table class="gt_table caption-top table table-sm table-striped small" data-quarto-bootstrap="false">
 <colgroup>
 <col style="width: 20%">
 <col style="width: 20%">
@@ -1053,7 +1054,7 @@ P(A \cup B) = 0.3 + 0.25 \times (1 - 0.3) = 0.475
 </colgroup>
 <thead>
 <tr class="gt_heading header">
-<th colspan="5" class="gt_heading gt_title gt_font_normal gt_bottom_border"><strong>Table 3.1</strong> Number of people with selected cardiopulmonary disabilities versus cigarette-smoking status</th>
+<td colspan="5" class="gt_heading gt_title gt_font_normal gt_bottom_border"><strong>Table 3.1</strong> Number of people with selected cardiopulmonary disabilities versus cigarette-smoking status</td>
 </tr>
 <tr class="gt_col_headings even">
 <th id="Disability" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">Disability</th>
@@ -1092,7 +1093,7 @@ P(A \cup B) = 0.3 + 0.25 \times (1 - 0.3) = 0.475
 </div>
 </div>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-15-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-15-1" role="tab" aria-controls="tabset-15-1" aria-selected="true">3.17</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-15-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-15-2" role="tab" aria-controls="tabset-15-2" aria-selected="false">Solution</a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-15-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-15-1" role="tab" aria-controls="tabset-15-1" aria-selected="true" href="">3.17</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-15-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-15-2" role="tab" aria-controls="tabset-15-2" aria-selected="false" href="">Solution</a></li></ul>
 <div class="tab-content">
 <div id="tabset-15-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-15-1-tab">
 <p>What is the prevalence of angina among light current smokers (&lt; 15g/day)?</p>
@@ -1105,7 +1106,7 @@ P(A \cup B) = 0.3 + 0.25 \times (1 - 0.3) = 0.475
 </div>
 </div>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-16-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-16-1" role="tab" aria-controls="tabset-16-1" aria-selected="true">3.18</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-16-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-16-2" role="tab" aria-controls="tabset-16-2" aria-selected="false">Solution</a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-16-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-16-1" role="tab" aria-controls="tabset-16-1" aria-selected="true" href="">3.18</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-16-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-16-2" role="tab" aria-controls="tabset-16-2" aria-selected="false" href="">Solution</a></li></ul>
 <div class="tab-content">
 <div id="tabset-16-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-16-1-tab">
 <p>What is the relative risk of ex-smokers, light current smokers, and heavy current smokers, respectively, for shortness of breath as compared with nonsmokers?</p>
@@ -1121,7 +1122,7 @@ P(A \cup B) = 0.3 + 0.25 \times (1 - 0.3) = 0.475
 </div>
 </div>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-17-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-17-1" role="tab" aria-controls="tabset-17-1" aria-selected="true">3.19</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-17-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-17-2" role="tab" aria-controls="tabset-17-2" aria-selected="false">Solution</a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-17-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-17-1" role="tab" aria-controls="tabset-17-1" aria-selected="true" href="">3.19</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-17-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-17-2" role="tab" aria-controls="tabset-17-2" aria-selected="false" href="">Solution</a></li></ul>
 <div class="tab-content">
 <div id="tabset-17-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-17-1-tab">
 <p>Answer Problem 3.18 for angina.</p>
@@ -1137,7 +1138,7 @@ P(A \cup B) = 0.3 + 0.25 \times (1 - 0.3) = 0.475
 </div>
 </div>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-18-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-18-1" role="tab" aria-controls="tabset-18-1" aria-selected="true">3.20</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-18-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-18-2" role="tab" aria-controls="tabset-18-2" aria-selected="false">Solution</a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-18-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-18-1" role="tab" aria-controls="tabset-18-1" aria-selected="true" href="">3.20</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-18-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-18-2" role="tab" aria-controls="tabset-18-2" aria-selected="false" href="">Solution</a></li></ul>
 <div class="tab-content">
 <div id="tabset-18-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-18-1-tab">
 <p>Answer Problem 3.18 for possible infarction</p>
@@ -1157,7 +1158,7 @@ P(A \cup B) = 0.3 + 0.25 \times (1 - 0.3) = 0.475
 <h2 class="anchored" data-anchor-id="pulmonary-disease">Pulmonary Disease</h2>
 <p>Pulmonary embolism is a relatively common condition that necessitates hospitalization and also often occurs in patients hospitalized for other reasons. An oxygen tension (arterial Po<span class="math inline">\(_{2}\)</span>) &lt; 90 mm Hg is one of the important criteria used in diagnosing this condition. Suppose that the sensitivity of this test is 95%, the specificity is 75%, and the estimated prevalence is 20% (i.e., a doctor estimates that a patient has a 20% chance of pulmonary embolism before performing the test).</p>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-19-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-19-1" role="tab" aria-controls="tabset-19-1" aria-selected="true">3.21</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-19-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-19-2" role="tab" aria-controls="tabset-19-2" aria-selected="false">Hint</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-19-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-19-3" role="tab" aria-controls="tabset-19-3" aria-selected="false">Solution</a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-19-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-19-1" role="tab" aria-controls="tabset-19-1" aria-selected="true" href="">3.21</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-19-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-19-2" role="tab" aria-controls="tabset-19-2" aria-selected="false" href="">Hint</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-19-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-19-3" role="tab" aria-controls="tabset-19-3" aria-selected="false" href="">Solution</a></li></ul>
 <div class="tab-content">
 <div id="tabset-19-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-19-1-tab">
 <p>What is the predictive value positive of this test? What does it mean in words?</p>
@@ -1198,7 +1199,7 @@ P(D^+|T^+) = \frac{0.95 \times 0.2}{0.95 \times 0.2 + (1 - 0.75)\times(1 - 0.2)}
 </div>
 </div>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-20-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-20-1" role="tab" aria-controls="tabset-20-1" aria-selected="true">3.22</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-20-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-20-2" role="tab" aria-controls="tabset-20-2" aria-selected="false">Solution</a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-20-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-20-1" role="tab" aria-controls="tabset-20-1" aria-selected="true" href="">3.22</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-20-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-20-2" role="tab" aria-controls="tabset-20-2" aria-selected="false" href="">Solution</a></li></ul>
 <div class="tab-content">
 <div id="tabset-20-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-20-1-tab">
 <p>What is the predictive value negative of this test? What does it mean in words?</p>
@@ -1218,7 +1219,7 @@ P(D^-|T^-) &amp;= \frac{P(T^-|D^-)P(D^-)}{P(T^-)}\\
 <section id="environmental-health-pediatrics" class="level2">
 <h2 class="anchored" data-anchor-id="environmental-health-pediatrics">Environmental Health, Pediatrics</h2>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-21-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-21-1" role="tab" aria-controls="tabset-21-1" aria-selected="true">3.25</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-21-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-21-2" role="tab" aria-controls="tabset-21-2" aria-selected="false">Hint</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-21-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-21-3" role="tab" aria-controls="tabset-21-3" aria-selected="false">Solution</a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-21-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-21-1" role="tab" aria-controls="tabset-21-1" aria-selected="true" href="">3.25</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-21-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-21-2" role="tab" aria-controls="tabset-21-2" aria-selected="false" href="">Hint</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-21-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-21-3" role="tab" aria-controls="tabset-21-3" aria-selected="false" href="">Solution</a></li></ul>
 <div class="tab-content">
 <div id="tabset-21-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-21-1-tab">
 <p>Suppose that a company plans to build a lead smelter in a community and that the city council wishes to assess the health effects of the smelter. In particular, there is concern from previous literature that children living very close to the smelter will experience unusually high rates of lead poisoning in the first 3 years of life. The projected rates of lead poisoning over this time period are 50 per 100,000 for those children living within 2 km of the smelter, 20 per 100,000 for children living &gt; 2 km but ≤ 5 km from the smelter, and 5 per 100,000 for children living &gt; 5 km from the smelter. If 80% of the children live more than 5 km from the smelter, 15% live &gt; 2 km but ≤ 5 km from the smelter, and the remainder live ≤ 2 km from the smelter, then what is the overall probability that a child from this community will get lead poisoning?</p>
@@ -1272,23 +1273,23 @@ P(B) &amp;= P(B|A_1)P(A_1) + P(B|A_2)P(A_2) + P(B|A_3)P(A_3)\\
 <p>The prevalence of diabetes in adults at least 20 years old has been studied in Tecumseh, Michigan. The age-sex-specific prevalence (per 1000) is given in Table 3.2.</p>
 <div class="cell">
 <div class="cell-output-display">
-<div id="xhhgpcuflj" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#xhhgpcuflj table {
+<div id="bcqzsiejaz" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#bcqzsiejaz table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#xhhgpcuflj thead, #xhhgpcuflj tbody, #xhhgpcuflj tfoot, #xhhgpcuflj tr, #xhhgpcuflj td, #xhhgpcuflj th {
+#bcqzsiejaz thead, #bcqzsiejaz tbody, #bcqzsiejaz tfoot, #bcqzsiejaz tr, #bcqzsiejaz td, #bcqzsiejaz th {
   border-style: none;
 }
 
-#xhhgpcuflj p {
+#bcqzsiejaz p {
   margin: 0;
   padding: 0;
 }
 
-#xhhgpcuflj .gt_table {
+#bcqzsiejaz .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -1314,12 +1315,12 @@ P(B) &amp;= P(B|A_1)P(A_1) + P(B|A_2)P(A_2) + P(B|A_3)P(A_3)\\
   border-left-color: #D3D3D3;
 }
 
-#xhhgpcuflj .gt_caption {
+#bcqzsiejaz .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#xhhgpcuflj .gt_title {
+#bcqzsiejaz .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -1331,7 +1332,7 @@ P(B) &amp;= P(B|A_1)P(A_1) + P(B|A_2)P(A_2) + P(B|A_3)P(A_3)\\
   border-bottom-width: 0;
 }
 
-#xhhgpcuflj .gt_subtitle {
+#bcqzsiejaz .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -1343,7 +1344,7 @@ P(B) &amp;= P(B|A_1)P(A_1) + P(B|A_2)P(A_2) + P(B|A_3)P(A_3)\\
   border-top-width: 0;
 }
 
-#xhhgpcuflj .gt_heading {
+#bcqzsiejaz .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -1355,13 +1356,13 @@ P(B) &amp;= P(B|A_1)P(A_1) + P(B|A_2)P(A_2) + P(B|A_3)P(A_3)\\
   border-right-color: #D3D3D3;
 }
 
-#xhhgpcuflj .gt_bottom_border {
+#bcqzsiejaz .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#xhhgpcuflj .gt_col_headings {
+#bcqzsiejaz .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1376,7 +1377,7 @@ P(B) &amp;= P(B|A_1)P(A_1) + P(B|A_2)P(A_2) + P(B|A_3)P(A_3)\\
   border-right-color: #D3D3D3;
 }
 
-#xhhgpcuflj .gt_col_heading {
+#bcqzsiejaz .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1396,7 +1397,7 @@ P(B) &amp;= P(B|A_1)P(A_1) + P(B|A_2)P(A_2) + P(B|A_3)P(A_3)\\
   overflow-x: hidden;
 }
 
-#xhhgpcuflj .gt_column_spanner_outer {
+#bcqzsiejaz .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1408,15 +1409,15 @@ P(B) &amp;= P(B|A_1)P(A_1) + P(B|A_2)P(A_2) + P(B|A_3)P(A_3)\\
   padding-right: 4px;
 }
 
-#xhhgpcuflj .gt_column_spanner_outer:first-child {
+#bcqzsiejaz .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#xhhgpcuflj .gt_column_spanner_outer:last-child {
+#bcqzsiejaz .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#xhhgpcuflj .gt_column_spanner {
+#bcqzsiejaz .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -1428,11 +1429,11 @@ P(B) &amp;= P(B|A_1)P(A_1) + P(B|A_2)P(A_2) + P(B|A_3)P(A_3)\\
   width: 100%;
 }
 
-#xhhgpcuflj .gt_spanner_row {
+#bcqzsiejaz .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#xhhgpcuflj .gt_group_heading {
+#bcqzsiejaz .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1458,7 +1459,7 @@ P(B) &amp;= P(B|A_1)P(A_1) + P(B|A_2)P(A_2) + P(B|A_3)P(A_3)\\
   text-align: left;
 }
 
-#xhhgpcuflj .gt_empty_group_heading {
+#bcqzsiejaz .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -1473,15 +1474,15 @@ P(B) &amp;= P(B|A_1)P(A_1) + P(B|A_2)P(A_2) + P(B|A_3)P(A_3)\\
   vertical-align: middle;
 }
 
-#xhhgpcuflj .gt_from_md > :first-child {
+#bcqzsiejaz .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#xhhgpcuflj .gt_from_md > :last-child {
+#bcqzsiejaz .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#xhhgpcuflj .gt_row {
+#bcqzsiejaz .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1500,7 +1501,7 @@ P(B) &amp;= P(B|A_1)P(A_1) + P(B|A_2)P(A_2) + P(B|A_3)P(A_3)\\
   overflow-x: hidden;
 }
 
-#xhhgpcuflj .gt_stub {
+#bcqzsiejaz .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1513,7 +1514,7 @@ P(B) &amp;= P(B|A_1)P(A_1) + P(B|A_2)P(A_2) + P(B|A_3)P(A_3)\\
   padding-right: 5px;
 }
 
-#xhhgpcuflj .gt_stub_row_group {
+#bcqzsiejaz .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1527,15 +1528,15 @@ P(B) &amp;= P(B|A_1)P(A_1) + P(B|A_2)P(A_2) + P(B|A_3)P(A_3)\\
   vertical-align: top;
 }
 
-#xhhgpcuflj .gt_row_group_first td {
+#bcqzsiejaz .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#xhhgpcuflj .gt_row_group_first th {
+#bcqzsiejaz .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#xhhgpcuflj .gt_summary_row {
+#bcqzsiejaz .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1545,16 +1546,16 @@ P(B) &amp;= P(B|A_1)P(A_1) + P(B|A_2)P(A_2) + P(B|A_3)P(A_3)\\
   padding-right: 5px;
 }
 
-#xhhgpcuflj .gt_first_summary_row {
+#bcqzsiejaz .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#xhhgpcuflj .gt_first_summary_row.thick {
+#bcqzsiejaz .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#xhhgpcuflj .gt_last_summary_row {
+#bcqzsiejaz .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1564,7 +1565,7 @@ P(B) &amp;= P(B|A_1)P(A_1) + P(B|A_2)P(A_2) + P(B|A_3)P(A_3)\\
   border-bottom-color: #D3D3D3;
 }
 
-#xhhgpcuflj .gt_grand_summary_row {
+#bcqzsiejaz .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1574,7 +1575,7 @@ P(B) &amp;= P(B|A_1)P(A_1) + P(B|A_2)P(A_2) + P(B|A_3)P(A_3)\\
   padding-right: 5px;
 }
 
-#xhhgpcuflj .gt_first_grand_summary_row {
+#bcqzsiejaz .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1584,7 +1585,7 @@ P(B) &amp;= P(B|A_1)P(A_1) + P(B|A_2)P(A_2) + P(B|A_3)P(A_3)\\
   border-top-color: #D3D3D3;
 }
 
-#xhhgpcuflj .gt_last_grand_summary_row_top {
+#bcqzsiejaz .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1594,11 +1595,11 @@ P(B) &amp;= P(B|A_1)P(A_1) + P(B|A_2)P(A_2) + P(B|A_3)P(A_3)\\
   border-bottom-color: #D3D3D3;
 }
 
-#xhhgpcuflj .gt_striped {
+#bcqzsiejaz .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#xhhgpcuflj .gt_table_body {
+#bcqzsiejaz .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1607,7 +1608,7 @@ P(B) &amp;= P(B|A_1)P(A_1) + P(B|A_2)P(A_2) + P(B|A_3)P(A_3)\\
   border-bottom-color: #D3D3D3;
 }
 
-#xhhgpcuflj .gt_footnotes {
+#bcqzsiejaz .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1621,7 +1622,7 @@ P(B) &amp;= P(B|A_1)P(A_1) + P(B|A_2)P(A_2) + P(B|A_3)P(A_3)\\
   border-right-color: #D3D3D3;
 }
 
-#xhhgpcuflj .gt_footnote {
+#bcqzsiejaz .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -1630,7 +1631,7 @@ P(B) &amp;= P(B|A_1)P(A_1) + P(B|A_2)P(A_2) + P(B|A_3)P(A_3)\\
   padding-right: 5px;
 }
 
-#xhhgpcuflj .gt_sourcenotes {
+#bcqzsiejaz .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1644,7 +1645,7 @@ P(B) &amp;= P(B|A_1)P(A_1) + P(B|A_2)P(A_2) + P(B|A_3)P(A_3)\\
   border-right-color: #D3D3D3;
 }
 
-#xhhgpcuflj .gt_sourcenote {
+#bcqzsiejaz .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -1652,80 +1653,80 @@ P(B) &amp;= P(B|A_1)P(A_1) + P(B|A_2)P(A_2) + P(B|A_3)P(A_3)\\
   padding-right: 5px;
 }
 
-#xhhgpcuflj .gt_left {
+#bcqzsiejaz .gt_left {
   text-align: left;
 }
 
-#xhhgpcuflj .gt_center {
+#bcqzsiejaz .gt_center {
   text-align: center;
 }
 
-#xhhgpcuflj .gt_right {
+#bcqzsiejaz .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#xhhgpcuflj .gt_font_normal {
+#bcqzsiejaz .gt_font_normal {
   font-weight: normal;
 }
 
-#xhhgpcuflj .gt_font_bold {
+#bcqzsiejaz .gt_font_bold {
   font-weight: bold;
 }
 
-#xhhgpcuflj .gt_font_italic {
+#bcqzsiejaz .gt_font_italic {
   font-style: italic;
 }
 
-#xhhgpcuflj .gt_super {
+#bcqzsiejaz .gt_super {
   font-size: 65%;
 }
 
-#xhhgpcuflj .gt_footnote_marks {
+#bcqzsiejaz .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#xhhgpcuflj .gt_asterisk {
+#bcqzsiejaz .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#xhhgpcuflj .gt_indent_1 {
+#bcqzsiejaz .gt_indent_1 {
   text-indent: 5px;
 }
 
-#xhhgpcuflj .gt_indent_2 {
+#bcqzsiejaz .gt_indent_2 {
   text-indent: 10px;
 }
 
-#xhhgpcuflj .gt_indent_3 {
+#bcqzsiejaz .gt_indent_3 {
   text-indent: 15px;
 }
 
-#xhhgpcuflj .gt_indent_4 {
+#bcqzsiejaz .gt_indent_4 {
   text-indent: 20px;
 }
 
-#xhhgpcuflj .gt_indent_5 {
+#bcqzsiejaz .gt_indent_5 {
   text-indent: 25px;
 }
 
-#xhhgpcuflj .katex-display {
+#bcqzsiejaz .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#xhhgpcuflj div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#bcqzsiejaz div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
 
-<table class="gt_table caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+<table class="gt_table caption-top table table-sm table-striped small" data-quarto-bootstrap="false">
 <thead>
 <tr class="gt_heading header">
-<th colspan="3" class="gt_heading gt_title gt_font_normal gt_bottom_border">Table 3.2 Age-sex-specific prevalence of diabetes in Tecumseh, MI (per 1000)</th>
+<td colspan="3" class="gt_heading gt_title gt_font_normal gt_bottom_border">Table 3.2 Age-sex-specific prevalence of diabetes in Tecumseh, MI (per 1000)</td>
 </tr>
 <tr class="gt_col_headings even">
 <th id="Age_Group" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">Age group (years)</th>
@@ -1756,7 +1757,7 @@ P(B) &amp;= P(B|A_1)P(A_1) + P(B|A_2)P(A_2) + P(B|A_3)P(A_3)\\
 </div>
 </div>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-22-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-22-1" role="tab" aria-controls="tabset-22-1" aria-selected="true">3.26</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-22-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-22-2" role="tab" aria-controls="tabset-22-2" aria-selected="false">Hint</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-22-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-22-3" role="tab" aria-controls="tabset-22-3" aria-selected="false">Solution</a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-22-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-22-1" role="tab" aria-controls="tabset-22-1" aria-selected="true" href="">3.26</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-22-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-22-2" role="tab" aria-controls="tabset-22-2" aria-selected="false" href="">Hint</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-22-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-22-3" role="tab" aria-controls="tabset-22-3" aria-selected="false" href="">Solution</a></li></ul>
 <div class="tab-content">
 <div id="tabset-22-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-22-1-tab">
 <p>Suppose we plan a new study in a town that consists of 48% males and 52% females. Of the males, 40% are ages 20–39, 32% are 40–54, and 28% are 55+. Of the females, 44% are ages 20–39, 37% are 40–54, and 19% are 55+. Assuming that the Tecumseh prevalence rates hold, what is the expected prevalence of diabetes in the new study?</p>
@@ -1818,7 +1819,7 @@ P(C) &amp;= \frac{5}{1000} \times 0.4 \times 0.48 + \frac{23}{1000} \times 0.32 
 </div>
 </div>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-23-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-23-1" role="tab" aria-controls="tabset-23-1" aria-selected="true">3.27</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-23-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-23-2" role="tab" aria-controls="tabset-23-2" aria-selected="false">Solution</a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-23-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-23-1" role="tab" aria-controls="tabset-23-1" aria-selected="true" href="">3.27</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-23-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-23-2" role="tab" aria-controls="tabset-23-2" aria-selected="false" href="">Solution</a></li></ul>
 <div class="tab-content">
 <div id="tabset-23-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-23-1-tab">
 <p>What proportion of diabetics in the new study would be expected in each of the six age-sex groups?</p>
@@ -1836,23 +1837,23 @@ P(A \cap B_1 | C) = \frac{P(C|A\cap B_1)P(A\cap B_1)}{P(C)} = \frac{P(C|A\cap B_
 <p>Table 3.3 shows the annual incidence rates for colon cancer, lung cancer, and stomach cancer in males ages 50 years and older from the Connecticut Tumor Registry, 1963–1965.</p>
 <div class="cell">
 <div class="cell-output-display">
-<div id="qwwvasobkl" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#qwwvasobkl table {
+<div id="swiiktbcjf" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#swiiktbcjf table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#qwwvasobkl thead, #qwwvasobkl tbody, #qwwvasobkl tfoot, #qwwvasobkl tr, #qwwvasobkl td, #qwwvasobkl th {
+#swiiktbcjf thead, #swiiktbcjf tbody, #swiiktbcjf tfoot, #swiiktbcjf tr, #swiiktbcjf td, #swiiktbcjf th {
   border-style: none;
 }
 
-#qwwvasobkl p {
+#swiiktbcjf p {
   margin: 0;
   padding: 0;
 }
 
-#qwwvasobkl .gt_table {
+#swiiktbcjf .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -1878,12 +1879,12 @@ P(A \cap B_1 | C) = \frac{P(C|A\cap B_1)P(A\cap B_1)}{P(C)} = \frac{P(C|A\cap B_
   border-left-color: #D3D3D3;
 }
 
-#qwwvasobkl .gt_caption {
+#swiiktbcjf .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#qwwvasobkl .gt_title {
+#swiiktbcjf .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -1895,7 +1896,7 @@ P(A \cap B_1 | C) = \frac{P(C|A\cap B_1)P(A\cap B_1)}{P(C)} = \frac{P(C|A\cap B_
   border-bottom-width: 0;
 }
 
-#qwwvasobkl .gt_subtitle {
+#swiiktbcjf .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -1907,7 +1908,7 @@ P(A \cap B_1 | C) = \frac{P(C|A\cap B_1)P(A\cap B_1)}{P(C)} = \frac{P(C|A\cap B_
   border-top-width: 0;
 }
 
-#qwwvasobkl .gt_heading {
+#swiiktbcjf .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -1919,13 +1920,13 @@ P(A \cap B_1 | C) = \frac{P(C|A\cap B_1)P(A\cap B_1)}{P(C)} = \frac{P(C|A\cap B_
   border-right-color: #D3D3D3;
 }
 
-#qwwvasobkl .gt_bottom_border {
+#swiiktbcjf .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#qwwvasobkl .gt_col_headings {
+#swiiktbcjf .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1940,7 +1941,7 @@ P(A \cap B_1 | C) = \frac{P(C|A\cap B_1)P(A\cap B_1)}{P(C)} = \frac{P(C|A\cap B_
   border-right-color: #D3D3D3;
 }
 
-#qwwvasobkl .gt_col_heading {
+#swiiktbcjf .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1960,7 +1961,7 @@ P(A \cap B_1 | C) = \frac{P(C|A\cap B_1)P(A\cap B_1)}{P(C)} = \frac{P(C|A\cap B_
   overflow-x: hidden;
 }
 
-#qwwvasobkl .gt_column_spanner_outer {
+#swiiktbcjf .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1972,15 +1973,15 @@ P(A \cap B_1 | C) = \frac{P(C|A\cap B_1)P(A\cap B_1)}{P(C)} = \frac{P(C|A\cap B_
   padding-right: 4px;
 }
 
-#qwwvasobkl .gt_column_spanner_outer:first-child {
+#swiiktbcjf .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#qwwvasobkl .gt_column_spanner_outer:last-child {
+#swiiktbcjf .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#qwwvasobkl .gt_column_spanner {
+#swiiktbcjf .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -1992,11 +1993,11 @@ P(A \cap B_1 | C) = \frac{P(C|A\cap B_1)P(A\cap B_1)}{P(C)} = \frac{P(C|A\cap B_
   width: 100%;
 }
 
-#qwwvasobkl .gt_spanner_row {
+#swiiktbcjf .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#qwwvasobkl .gt_group_heading {
+#swiiktbcjf .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2022,7 +2023,7 @@ P(A \cap B_1 | C) = \frac{P(C|A\cap B_1)P(A\cap B_1)}{P(C)} = \frac{P(C|A\cap B_
   text-align: left;
 }
 
-#qwwvasobkl .gt_empty_group_heading {
+#swiiktbcjf .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -2037,15 +2038,15 @@ P(A \cap B_1 | C) = \frac{P(C|A\cap B_1)P(A\cap B_1)}{P(C)} = \frac{P(C|A\cap B_
   vertical-align: middle;
 }
 
-#qwwvasobkl .gt_from_md > :first-child {
+#swiiktbcjf .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#qwwvasobkl .gt_from_md > :last-child {
+#swiiktbcjf .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#qwwvasobkl .gt_row {
+#swiiktbcjf .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2064,7 +2065,7 @@ P(A \cap B_1 | C) = \frac{P(C|A\cap B_1)P(A\cap B_1)}{P(C)} = \frac{P(C|A\cap B_
   overflow-x: hidden;
 }
 
-#qwwvasobkl .gt_stub {
+#swiiktbcjf .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2077,7 +2078,7 @@ P(A \cap B_1 | C) = \frac{P(C|A\cap B_1)P(A\cap B_1)}{P(C)} = \frac{P(C|A\cap B_
   padding-right: 5px;
 }
 
-#qwwvasobkl .gt_stub_row_group {
+#swiiktbcjf .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2091,15 +2092,15 @@ P(A \cap B_1 | C) = \frac{P(C|A\cap B_1)P(A\cap B_1)}{P(C)} = \frac{P(C|A\cap B_
   vertical-align: top;
 }
 
-#qwwvasobkl .gt_row_group_first td {
+#swiiktbcjf .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#qwwvasobkl .gt_row_group_first th {
+#swiiktbcjf .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#qwwvasobkl .gt_summary_row {
+#swiiktbcjf .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -2109,16 +2110,16 @@ P(A \cap B_1 | C) = \frac{P(C|A\cap B_1)P(A\cap B_1)}{P(C)} = \frac{P(C|A\cap B_
   padding-right: 5px;
 }
 
-#qwwvasobkl .gt_first_summary_row {
+#swiiktbcjf .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#qwwvasobkl .gt_first_summary_row.thick {
+#swiiktbcjf .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#qwwvasobkl .gt_last_summary_row {
+#swiiktbcjf .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2128,7 +2129,7 @@ P(A \cap B_1 | C) = \frac{P(C|A\cap B_1)P(A\cap B_1)}{P(C)} = \frac{P(C|A\cap B_
   border-bottom-color: #D3D3D3;
 }
 
-#qwwvasobkl .gt_grand_summary_row {
+#swiiktbcjf .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -2138,7 +2139,7 @@ P(A \cap B_1 | C) = \frac{P(C|A\cap B_1)P(A\cap B_1)}{P(C)} = \frac{P(C|A\cap B_
   padding-right: 5px;
 }
 
-#qwwvasobkl .gt_first_grand_summary_row {
+#swiiktbcjf .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2148,7 +2149,7 @@ P(A \cap B_1 | C) = \frac{P(C|A\cap B_1)P(A\cap B_1)}{P(C)} = \frac{P(C|A\cap B_
   border-top-color: #D3D3D3;
 }
 
-#qwwvasobkl .gt_last_grand_summary_row_top {
+#swiiktbcjf .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2158,11 +2159,11 @@ P(A \cap B_1 | C) = \frac{P(C|A\cap B_1)P(A\cap B_1)}{P(C)} = \frac{P(C|A\cap B_
   border-bottom-color: #D3D3D3;
 }
 
-#qwwvasobkl .gt_striped {
+#swiiktbcjf .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#qwwvasobkl .gt_table_body {
+#swiiktbcjf .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -2171,7 +2172,7 @@ P(A \cap B_1 | C) = \frac{P(C|A\cap B_1)P(A\cap B_1)}{P(C)} = \frac{P(C|A\cap B_
   border-bottom-color: #D3D3D3;
 }
 
-#qwwvasobkl .gt_footnotes {
+#swiiktbcjf .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -2185,7 +2186,7 @@ P(A \cap B_1 | C) = \frac{P(C|A\cap B_1)P(A\cap B_1)}{P(C)} = \frac{P(C|A\cap B_
   border-right-color: #D3D3D3;
 }
 
-#qwwvasobkl .gt_footnote {
+#swiiktbcjf .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -2194,7 +2195,7 @@ P(A \cap B_1 | C) = \frac{P(C|A\cap B_1)P(A\cap B_1)}{P(C)} = \frac{P(C|A\cap B_
   padding-right: 5px;
 }
 
-#qwwvasobkl .gt_sourcenotes {
+#swiiktbcjf .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -2208,7 +2209,7 @@ P(A \cap B_1 | C) = \frac{P(C|A\cap B_1)P(A\cap B_1)}{P(C)} = \frac{P(C|A\cap B_
   border-right-color: #D3D3D3;
 }
 
-#qwwvasobkl .gt_sourcenote {
+#swiiktbcjf .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -2216,83 +2217,83 @@ P(A \cap B_1 | C) = \frac{P(C|A\cap B_1)P(A\cap B_1)}{P(C)} = \frac{P(C|A\cap B_
   padding-right: 5px;
 }
 
-#qwwvasobkl .gt_left {
+#swiiktbcjf .gt_left {
   text-align: left;
 }
 
-#qwwvasobkl .gt_center {
+#swiiktbcjf .gt_center {
   text-align: center;
 }
 
-#qwwvasobkl .gt_right {
+#swiiktbcjf .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#qwwvasobkl .gt_font_normal {
+#swiiktbcjf .gt_font_normal {
   font-weight: normal;
 }
 
-#qwwvasobkl .gt_font_bold {
+#swiiktbcjf .gt_font_bold {
   font-weight: bold;
 }
 
-#qwwvasobkl .gt_font_italic {
+#swiiktbcjf .gt_font_italic {
   font-style: italic;
 }
 
-#qwwvasobkl .gt_super {
+#swiiktbcjf .gt_super {
   font-size: 65%;
 }
 
-#qwwvasobkl .gt_footnote_marks {
+#swiiktbcjf .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#qwwvasobkl .gt_asterisk {
+#swiiktbcjf .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#qwwvasobkl .gt_indent_1 {
+#swiiktbcjf .gt_indent_1 {
   text-indent: 5px;
 }
 
-#qwwvasobkl .gt_indent_2 {
+#swiiktbcjf .gt_indent_2 {
   text-indent: 10px;
 }
 
-#qwwvasobkl .gt_indent_3 {
+#swiiktbcjf .gt_indent_3 {
   text-indent: 15px;
 }
 
-#qwwvasobkl .gt_indent_4 {
+#swiiktbcjf .gt_indent_4 {
   text-indent: 20px;
 }
 
-#qwwvasobkl .gt_indent_5 {
+#swiiktbcjf .gt_indent_5 {
   text-indent: 25px;
 }
 
-#qwwvasobkl .katex-display {
+#swiiktbcjf .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#qwwvasobkl div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#swiiktbcjf div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
 
-<table class="gt_table caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+<table class="gt_table caption-top table table-sm table-striped small" data-quarto-bootstrap="false">
 <thead>
 <tr class="gt_heading header">
-<th colspan="4" class="gt_heading gt_title gt_font_normal">Table 3.3</th>
+<td colspan="4" class="gt_heading gt_title gt_font_normal">Table 3.3</td>
 </tr>
 <tr class="gt_heading even">
-<th colspan="4" class="gt_heading gt_subtitle gt_font_normal gt_bottom_border">Average annual incidence per 100,000 males for colon, lung, and stomach cancer from the Connecticut Tumor Registry 1963–1965</th>
+<td colspan="4" class="gt_heading gt_subtitle gt_font_normal gt_bottom_border">Average annual incidence per 100,000 males for colon, lung, and stomach cancer from the Connecticut Tumor Registry 1963–1965</td>
 </tr>
 <tr class="gt_col_headings header">
 <th id="Type-of-cancer" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">Type of cancer</th>
@@ -2327,7 +2328,7 @@ P(A \cap B_1 | C) = \frac{P(C|A\cap B_1)P(A\cap B_1)}{P(C)} = \frac{P(C|A\cap B_
 </div>
 </div>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-24-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-24-1" role="tab" aria-controls="tabset-24-1" aria-selected="true">3.28</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-24-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-24-2" role="tab" aria-controls="tabset-24-2" aria-selected="false">Solution</a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-24-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-24-1" role="tab" aria-controls="tabset-24-1" aria-selected="true" href="">3.28</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-24-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-24-2" role="tab" aria-controls="tabset-24-2" aria-selected="false" href="">Solution</a></li></ul>
 <div class="tab-content">
 <div id="tabset-24-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-24-1-tab">
 <p>What is the probability that a 57-year-old, disease-free male will develop lung cancer over the next year?</p>
@@ -2338,7 +2339,7 @@ P(A \cap B_1 | C) = \frac{P(C|A\cap B_1)P(A\cap B_1)}{P(C)} = \frac{P(C|A\cap B_
 </div>
 </div>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-25-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-25-1" role="tab" aria-controls="tabset-25-1" aria-selected="true">3.29</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-25-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-25-2" role="tab" aria-controls="tabset-25-2" aria-selected="false">Solution</a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-25-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-25-1" role="tab" aria-controls="tabset-25-1" aria-selected="true" href="">3.29</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-25-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-25-2" role="tab" aria-controls="tabset-25-2" aria-selected="false" href="">Solution</a></li></ul>
 <div class="tab-content">
 <div id="tabset-25-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-25-1-tab">
 <p>What is the probability that a 55-year-old, disease-free male will develop colon cancer over the next 5 years?</p>
@@ -2351,7 +2352,7 @@ P(A \cap B_1 | C) = \frac{P(C|A\cap B_1)P(A\cap B_1)}{P(C)} = \frac{P(C|A\cap B_
 </div>
 </div>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-26-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-26-1" role="tab" aria-controls="tabset-26-1" aria-selected="true">3.30</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-26-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-26-2" role="tab" aria-controls="tabset-26-2" aria-selected="false">Solution</a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-26-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-26-1" role="tab" aria-controls="tabset-26-1" aria-selected="true" href="">3.30</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-26-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-26-2" role="tab" aria-controls="tabset-26-2" aria-selected="false" href="">Solution</a></li></ul>
 <div class="tab-content">
 <div id="tabset-26-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-26-1-tab">
 <p>Suppose there is a cohort of 1000 50-year-old men who have never had cancer. How many colon cancers would be expected to develop in this cohort over a 15-year period?</p>
@@ -2366,14 +2367,14 @@ P(A \cap B_1 | C) = \frac{P(C|A\cap B_1)P(A\cap B_1)}{P(C)} = \frac{P(C|A\cap B_
 </ul>
 <p>Multiply these together:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>(<span class="dv">1</span> <span class="sc">-</span> <span class="fl">35.7</span><span class="sc">/</span><span class="dv">100000</span>)<span class="sc">^</span><span class="dv">5</span> <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> <span class="fl">60.3</span><span class="sc">/</span><span class="dv">100000</span>)<span class="sc">^</span><span class="dv">5</span> <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> <span class="fl">98.9</span><span class="sc">/</span><span class="dv">100000</span>)<span class="sc">^</span><span class="dv">5</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>(<span class="dv">1</span> <span class="sc">-</span> <span class="fl">35.7</span><span class="sc">/</span><span class="dv">100000</span>)<span class="sc">^</span><span class="dv">5</span> <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> <span class="fl">60.3</span><span class="sc">/</span><span class="dv">100000</span>)<span class="sc">^</span><span class="dv">5</span> <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> <span class="fl">98.9</span><span class="sc">/</span><span class="dv">100000</span>)<span class="sc">^</span><span class="dv">5</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.9903</code></pre>
 </div>
 </div>
 <p>This is the probability of getting colon cancer. So the probability of not getting it is one minus this, or</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">-</span> (<span class="dv">1</span> <span class="sc">-</span> <span class="fl">35.7</span><span class="sc">/</span><span class="dv">100000</span>)<span class="sc">^</span><span class="dv">5</span> <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> <span class="fl">60.3</span><span class="sc">/</span><span class="dv">100000</span>)<span class="sc">^</span><span class="dv">5</span> <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> <span class="fl">98.9</span><span class="sc">/</span><span class="dv">100000</span>)<span class="sc">^</span><span class="dv">5</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">-</span> (<span class="dv">1</span> <span class="sc">-</span> <span class="fl">35.7</span><span class="sc">/</span><span class="dv">100000</span>)<span class="sc">^</span><span class="dv">5</span> <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> <span class="fl">60.3</span><span class="sc">/</span><span class="dv">100000</span>)<span class="sc">^</span><span class="dv">5</span> <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> <span class="fl">98.9</span><span class="sc">/</span><span class="dv">100000</span>)<span class="sc">^</span><span class="dv">5</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.009701</code></pre>
 </div>
@@ -2388,23 +2389,23 @@ P(A \cap B_1 | C) = \frac{P(C|A\cap B_1)P(A\cap B_1)}{P(C)} = \frac{P(C|A\cap B_
 <p>The relationship between physical fitness and cardiovascular-disease mortality was recently studied in a group of railroad working men, ages 22–79. Data were presented relating baseline exercise-test heart rate and coronary heart-disease mortality (Table 3.4).</p>
 <div class="cell">
 <div class="cell-output-display">
-<div id="cxdpdryomb" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#cxdpdryomb table {
+<div id="cdbcmuvkqn" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#cdbcmuvkqn table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#cxdpdryomb thead, #cxdpdryomb tbody, #cxdpdryomb tfoot, #cxdpdryomb tr, #cxdpdryomb td, #cxdpdryomb th {
+#cdbcmuvkqn thead, #cdbcmuvkqn tbody, #cdbcmuvkqn tfoot, #cdbcmuvkqn tr, #cdbcmuvkqn td, #cdbcmuvkqn th {
   border-style: none;
 }
 
-#cxdpdryomb p {
+#cdbcmuvkqn p {
   margin: 0;
   padding: 0;
 }
 
-#cxdpdryomb .gt_table {
+#cdbcmuvkqn .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -2430,12 +2431,12 @@ P(A \cap B_1 | C) = \frac{P(C|A\cap B_1)P(A\cap B_1)}{P(C)} = \frac{P(C|A\cap B_
   border-left-color: #D3D3D3;
 }
 
-#cxdpdryomb .gt_caption {
+#cdbcmuvkqn .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#cxdpdryomb .gt_title {
+#cdbcmuvkqn .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -2447,7 +2448,7 @@ P(A \cap B_1 | C) = \frac{P(C|A\cap B_1)P(A\cap B_1)}{P(C)} = \frac{P(C|A\cap B_
   border-bottom-width: 0;
 }
 
-#cxdpdryomb .gt_subtitle {
+#cdbcmuvkqn .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -2459,7 +2460,7 @@ P(A \cap B_1 | C) = \frac{P(C|A\cap B_1)P(A\cap B_1)}{P(C)} = \frac{P(C|A\cap B_
   border-top-width: 0;
 }
 
-#cxdpdryomb .gt_heading {
+#cdbcmuvkqn .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -2471,13 +2472,13 @@ P(A \cap B_1 | C) = \frac{P(C|A\cap B_1)P(A\cap B_1)}{P(C)} = \frac{P(C|A\cap B_
   border-right-color: #D3D3D3;
 }
 
-#cxdpdryomb .gt_bottom_border {
+#cdbcmuvkqn .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#cxdpdryomb .gt_col_headings {
+#cdbcmuvkqn .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -2492,7 +2493,7 @@ P(A \cap B_1 | C) = \frac{P(C|A\cap B_1)P(A\cap B_1)}{P(C)} = \frac{P(C|A\cap B_
   border-right-color: #D3D3D3;
 }
 
-#cxdpdryomb .gt_col_heading {
+#cdbcmuvkqn .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2512,7 +2513,7 @@ P(A \cap B_1 | C) = \frac{P(C|A\cap B_1)P(A\cap B_1)}{P(C)} = \frac{P(C|A\cap B_
   overflow-x: hidden;
 }
 
-#cxdpdryomb .gt_column_spanner_outer {
+#cdbcmuvkqn .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2524,15 +2525,15 @@ P(A \cap B_1 | C) = \frac{P(C|A\cap B_1)P(A\cap B_1)}{P(C)} = \frac{P(C|A\cap B_
   padding-right: 4px;
 }
 
-#cxdpdryomb .gt_column_spanner_outer:first-child {
+#cdbcmuvkqn .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#cxdpdryomb .gt_column_spanner_outer:last-child {
+#cdbcmuvkqn .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#cxdpdryomb .gt_column_spanner {
+#cdbcmuvkqn .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -2544,11 +2545,11 @@ P(A \cap B_1 | C) = \frac{P(C|A\cap B_1)P(A\cap B_1)}{P(C)} = \frac{P(C|A\cap B_
   width: 100%;
 }
 
-#cxdpdryomb .gt_spanner_row {
+#cdbcmuvkqn .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#cxdpdryomb .gt_group_heading {
+#cdbcmuvkqn .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2574,7 +2575,7 @@ P(A \cap B_1 | C) = \frac{P(C|A\cap B_1)P(A\cap B_1)}{P(C)} = \frac{P(C|A\cap B_
   text-align: left;
 }
 
-#cxdpdryomb .gt_empty_group_heading {
+#cdbcmuvkqn .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -2589,15 +2590,15 @@ P(A \cap B_1 | C) = \frac{P(C|A\cap B_1)P(A\cap B_1)}{P(C)} = \frac{P(C|A\cap B_
   vertical-align: middle;
 }
 
-#cxdpdryomb .gt_from_md > :first-child {
+#cdbcmuvkqn .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#cxdpdryomb .gt_from_md > :last-child {
+#cdbcmuvkqn .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#cxdpdryomb .gt_row {
+#cdbcmuvkqn .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2616,7 +2617,7 @@ P(A \cap B_1 | C) = \frac{P(C|A\cap B_1)P(A\cap B_1)}{P(C)} = \frac{P(C|A\cap B_
   overflow-x: hidden;
 }
 
-#cxdpdryomb .gt_stub {
+#cdbcmuvkqn .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2629,7 +2630,7 @@ P(A \cap B_1 | C) = \frac{P(C|A\cap B_1)P(A\cap B_1)}{P(C)} = \frac{P(C|A\cap B_
   padding-right: 5px;
 }
 
-#cxdpdryomb .gt_stub_row_group {
+#cdbcmuvkqn .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2643,15 +2644,15 @@ P(A \cap B_1 | C) = \frac{P(C|A\cap B_1)P(A\cap B_1)}{P(C)} = \frac{P(C|A\cap B_
   vertical-align: top;
 }
 
-#cxdpdryomb .gt_row_group_first td {
+#cdbcmuvkqn .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#cxdpdryomb .gt_row_group_first th {
+#cdbcmuvkqn .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#cxdpdryomb .gt_summary_row {
+#cdbcmuvkqn .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -2661,16 +2662,16 @@ P(A \cap B_1 | C) = \frac{P(C|A\cap B_1)P(A\cap B_1)}{P(C)} = \frac{P(C|A\cap B_
   padding-right: 5px;
 }
 
-#cxdpdryomb .gt_first_summary_row {
+#cdbcmuvkqn .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#cxdpdryomb .gt_first_summary_row.thick {
+#cdbcmuvkqn .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#cxdpdryomb .gt_last_summary_row {
+#cdbcmuvkqn .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2680,7 +2681,7 @@ P(A \cap B_1 | C) = \frac{P(C|A\cap B_1)P(A\cap B_1)}{P(C)} = \frac{P(C|A\cap B_
   border-bottom-color: #D3D3D3;
 }
 
-#cxdpdryomb .gt_grand_summary_row {
+#cdbcmuvkqn .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -2690,7 +2691,7 @@ P(A \cap B_1 | C) = \frac{P(C|A\cap B_1)P(A\cap B_1)}{P(C)} = \frac{P(C|A\cap B_
   padding-right: 5px;
 }
 
-#cxdpdryomb .gt_first_grand_summary_row {
+#cdbcmuvkqn .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2700,7 +2701,7 @@ P(A \cap B_1 | C) = \frac{P(C|A\cap B_1)P(A\cap B_1)}{P(C)} = \frac{P(C|A\cap B_
   border-top-color: #D3D3D3;
 }
 
-#cxdpdryomb .gt_last_grand_summary_row_top {
+#cdbcmuvkqn .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2710,11 +2711,11 @@ P(A \cap B_1 | C) = \frac{P(C|A\cap B_1)P(A\cap B_1)}{P(C)} = \frac{P(C|A\cap B_
   border-bottom-color: #D3D3D3;
 }
 
-#cxdpdryomb .gt_striped {
+#cdbcmuvkqn .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#cxdpdryomb .gt_table_body {
+#cdbcmuvkqn .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -2723,7 +2724,7 @@ P(A \cap B_1 | C) = \frac{P(C|A\cap B_1)P(A\cap B_1)}{P(C)} = \frac{P(C|A\cap B_
   border-bottom-color: #D3D3D3;
 }
 
-#cxdpdryomb .gt_footnotes {
+#cdbcmuvkqn .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -2737,7 +2738,7 @@ P(A \cap B_1 | C) = \frac{P(C|A\cap B_1)P(A\cap B_1)}{P(C)} = \frac{P(C|A\cap B_
   border-right-color: #D3D3D3;
 }
 
-#cxdpdryomb .gt_footnote {
+#cdbcmuvkqn .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -2746,7 +2747,7 @@ P(A \cap B_1 | C) = \frac{P(C|A\cap B_1)P(A\cap B_1)}{P(C)} = \frac{P(C|A\cap B_
   padding-right: 5px;
 }
 
-#cxdpdryomb .gt_sourcenotes {
+#cdbcmuvkqn .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -2760,7 +2761,7 @@ P(A \cap B_1 | C) = \frac{P(C|A\cap B_1)P(A\cap B_1)}{P(C)} = \frac{P(C|A\cap B_
   border-right-color: #D3D3D3;
 }
 
-#cxdpdryomb .gt_sourcenote {
+#cdbcmuvkqn .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -2768,83 +2769,83 @@ P(A \cap B_1 | C) = \frac{P(C|A\cap B_1)P(A\cap B_1)}{P(C)} = \frac{P(C|A\cap B_
   padding-right: 5px;
 }
 
-#cxdpdryomb .gt_left {
+#cdbcmuvkqn .gt_left {
   text-align: left;
 }
 
-#cxdpdryomb .gt_center {
+#cdbcmuvkqn .gt_center {
   text-align: center;
 }
 
-#cxdpdryomb .gt_right {
+#cdbcmuvkqn .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#cxdpdryomb .gt_font_normal {
+#cdbcmuvkqn .gt_font_normal {
   font-weight: normal;
 }
 
-#cxdpdryomb .gt_font_bold {
+#cdbcmuvkqn .gt_font_bold {
   font-weight: bold;
 }
 
-#cxdpdryomb .gt_font_italic {
+#cdbcmuvkqn .gt_font_italic {
   font-style: italic;
 }
 
-#cxdpdryomb .gt_super {
+#cdbcmuvkqn .gt_super {
   font-size: 65%;
 }
 
-#cxdpdryomb .gt_footnote_marks {
+#cdbcmuvkqn .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#cxdpdryomb .gt_asterisk {
+#cdbcmuvkqn .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#cxdpdryomb .gt_indent_1 {
+#cdbcmuvkqn .gt_indent_1 {
   text-indent: 5px;
 }
 
-#cxdpdryomb .gt_indent_2 {
+#cdbcmuvkqn .gt_indent_2 {
   text-indent: 10px;
 }
 
-#cxdpdryomb .gt_indent_3 {
+#cdbcmuvkqn .gt_indent_3 {
   text-indent: 15px;
 }
 
-#cxdpdryomb .gt_indent_4 {
+#cdbcmuvkqn .gt_indent_4 {
   text-indent: 20px;
 }
 
-#cxdpdryomb .gt_indent_5 {
+#cdbcmuvkqn .gt_indent_5 {
   text-indent: 25px;
 }
 
-#cxdpdryomb .katex-display {
+#cdbcmuvkqn .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#cxdpdryomb div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#cdbcmuvkqn div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
 
-<table class="gt_table caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+<table class="gt_table caption-top table table-sm table-striped small" data-quarto-bootstrap="false">
 <thead>
 <tr class="gt_heading header">
-<th colspan="2" class="gt_heading gt_title gt_font_normal">Table 3.4</th>
+<td colspan="2" class="gt_heading gt_title gt_font_normal">Table 3.4</td>
 </tr>
 <tr class="gt_heading even">
-<th colspan="2" class="gt_heading gt_subtitle gt_font_normal gt_bottom_border">Relationship between baseline exercise-test heart rate and coronary heart-disease mortality</th>
+<td colspan="2" class="gt_heading gt_subtitle gt_font_normal gt_bottom_border">Relationship between baseline exercise-test heart rate and coronary heart-disease mortality</td>
 </tr>
 <tr class="gt_col_headings header">
 <th id="Exercise-test-heart-rate-(beats/min)" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">Exercise-test heart rate (beats/min)</th>
@@ -2876,7 +2877,7 @@ P(A \cap B_1 | C) = \frac{P(C|A\cap B_1)P(A\cap B_1)}{P(C)} = \frac{P(C|A\cap B_
 </div>
 <p>Suppose that 20, 30, 30, and 20% of the population, respectively, have exercise-test heart rates of ≤ 105, 106–115, 116–127, &gt; 127 beats/minute. Suppose a test is positive if the exercise-test heart rate is &gt; 127 beats/min and negative otherwise.</p>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-27-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-27-1" role="tab" aria-controls="tabset-27-1" aria-selected="true">3.33</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-27-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-27-2" role="tab" aria-controls="tabset-27-2" aria-selected="false">Hint</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-27-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-27-3" role="tab" aria-controls="tabset-27-3" aria-selected="false">Solution</a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-27-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-27-1" role="tab" aria-controls="tabset-27-1" aria-selected="true" href="">3.33</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-27-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-27-2" role="tab" aria-controls="tabset-27-2" aria-selected="false" href="">Hint</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-27-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-27-3" role="tab" aria-controls="tabset-27-3" aria-selected="false" href="">Solution</a></li></ul>
 <div class="tab-content">
 <div id="tabset-27-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-27-1-tab">
 <p>What is the probability of a positive test among men who have died over the 20-year period? Is there a name for this quantity?</p>
@@ -2936,7 +2937,7 @@ P(A_4|D^+) = \frac{0.132 \times 0.2}{0.1055} = 0.2502
 </div>
 </div>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-28-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-28-1" role="tab" aria-controls="tabset-28-1" aria-selected="true">3.34</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-28-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-28-2" role="tab" aria-controls="tabset-28-2" aria-selected="false">Solution</a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-28-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-28-1" role="tab" aria-controls="tabset-28-1" aria-selected="true" href="">3.34</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-28-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-28-2" role="tab" aria-controls="tabset-28-2" aria-selected="false" href="">Solution</a></li></ul>
 <div class="tab-content">
 <div id="tabset-28-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-28-1-tab">
 <p>What is the probability of a positive test among men who survived the 20-year period? Is there a name for this quantity?</p>
@@ -2949,7 +2950,7 @@ P(A_4|D^-) = \frac{P(D^-|A_4)P(A_4)}{P(D^-)} = \frac{(1 - 0.132) \times 0.2}{1 -
 </div>
 </div>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-29-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-29-1" role="tab" aria-controls="tabset-29-1" aria-selected="true">3.35</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-29-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-29-2" role="tab" aria-controls="tabset-29-2" aria-selected="false">Hint</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-29-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-29-3" role="tab" aria-controls="tabset-29-3" aria-selected="false">Solution</a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-29-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-29-1" role="tab" aria-controls="tabset-29-1" aria-selected="true" href="">3.35</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-29-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-29-2" role="tab" aria-controls="tabset-29-2" aria-selected="false" href="">Hint</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-29-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-29-3" role="tab" aria-controls="tabset-29-3" aria-selected="false" href="">Solution</a></li></ul>
 <div class="tab-content">
 <div id="tabset-29-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-29-1-tab">
 <p>What is the probability of death among men with a negative test? Is there a name for this quantity?</p>
@@ -2978,7 +2979,7 @@ P(D^+|\bar{A_4}) &amp;= P(D^+|A_1 \cup A_2 \cup A_3)\\
 <h2 class="anchored" data-anchor-id="cardiovascular-disease-3">Cardiovascular Disease 3</h2>
 <p>Exercise testing has sometimes been used to diagnose patients with coronary-artery disease. One test criterion that has been used to identify those with disease is the abnormal ejection-fraction criterion; that is, an absolute rise of less than 0.05 with exercise. The validity of this noninvasive test was assessed in 196 patients versus coronary angiography, the gold standard, a procedure that can unequivocally diagnose the disease but the administration of which carries some risk for the patient. A sensitivity of 79% and a specificity of 68% were found for the exercise test in this group.</p>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-30-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-30-1" role="tab" aria-controls="tabset-30-1" aria-selected="true">3.36</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-30-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-30-2" role="tab" aria-controls="tabset-30-2" aria-selected="false">Solution</a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-30-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-30-1" role="tab" aria-controls="tabset-30-1" aria-selected="true" href="">3.36</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-30-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-30-2" role="tab" aria-controls="tabset-30-2" aria-selected="false" href="">Solution</a></li></ul>
 <div class="tab-content">
 <div id="tabset-30-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-30-1-tab">
 <p>What does the sensitivity mean in words in this setting?</p>
@@ -2989,7 +2990,7 @@ P(D^+|\bar{A_4}) &amp;= P(D^+|A_1 \cup A_2 \cup A_3)\\
 </div>
 </div>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-31-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-31-1" role="tab" aria-controls="tabset-31-1" aria-selected="true">3.37</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-31-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-31-2" role="tab" aria-controls="tabset-31-2" aria-selected="false">Solution</a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-31-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-31-1" role="tab" aria-controls="tabset-31-1" aria-selected="true" href="">3.37</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-31-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-31-2" role="tab" aria-controls="tabset-31-2" aria-selected="false" href="">Solution</a></li></ul>
 <div class="tab-content">
 <div id="tabset-31-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-31-1-tab">
 <p>What does the specificity mean in words in this setting?</p>
@@ -3001,7 +3002,7 @@ P(D^+|\bar{A_4}) &amp;= P(D^+|A_1 \cup A_2 \cup A_3)\\
 </div>
 <p>Suppose a new patient undergoes exercise testing and a physician feels before seeing the exercise-test results that the patient has a 20% chance of having coronary-artery disease.</p>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-32-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-32-1" role="tab" aria-controls="tabset-32-1" aria-selected="true">3.38</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-32-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-32-2" role="tab" aria-controls="tabset-32-2" aria-selected="false">Solution</a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-32-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-32-1" role="tab" aria-controls="tabset-32-1" aria-selected="true" href="">3.38</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-32-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-32-2" role="tab" aria-controls="tabset-32-2" aria-selected="false" href="">Solution</a></li></ul>
 <div class="tab-content">
 <div id="tabset-32-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-32-1-tab">
 <p>If the exercise test is positive, then what is the probability that such a patient has disease?</p>
@@ -3025,7 +3026,7 @@ P(D^+|T^+) = \frac{0.79 \times 0.2}{0.414} = 0.3816
 </div>
 </div>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-33-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-33-1" role="tab" aria-controls="tabset-33-1" aria-selected="true">3.39</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-33-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-33-2" role="tab" aria-controls="tabset-33-2" aria-selected="false">Solution</a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-33-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-33-1" role="tab" aria-controls="tabset-33-1" aria-selected="true" href="">3.39</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-33-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-33-2" role="tab" aria-controls="tabset-33-2" aria-selected="false" href="">Solution</a></li></ul>
 <div class="tab-content">
 <div id="tabset-33-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-33-1-tab">
 <p>Answer Problem 3.38 if the exercise test is negative.</p>
@@ -3045,23 +3046,23 @@ P(D^+|T^-) = \frac{P(T^-|D^+)P(D^+)}{P(T^-)}
 <p>The food-frequency questionnaire (FFQ) is a commonly used method for assessing dietary intake, where individuals are asked to record the number of times per week they usually eat for each of about 100 food items over the previous year. It has the advantage of being easy to administer to large groups of people, but has the disadvantage of being subject to recall error. The gold standard instrument for assessing dietary intake is the diet record (DR), where people are asked to record each food item eaten on a daily basis over a 1-week period. To investigate the accuracy of the FFQ, both the FFQ and the DR were administered to 173 participants in the United States. The reporting of alcohol consumption with each instrument is given in Table 3.5, where alcohol is coded as alcohol = some drinking, versus no alcohol = no drinking.</p>
 <div class="cell">
 <div class="cell-output-display">
-<div id="vdpajxhnoz" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#vdpajxhnoz table {
+<div id="bkgurjarpi" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#bkgurjarpi table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#vdpajxhnoz thead, #vdpajxhnoz tbody, #vdpajxhnoz tfoot, #vdpajxhnoz tr, #vdpajxhnoz td, #vdpajxhnoz th {
+#bkgurjarpi thead, #bkgurjarpi tbody, #bkgurjarpi tfoot, #bkgurjarpi tr, #bkgurjarpi td, #bkgurjarpi th {
   border-style: none;
 }
 
-#vdpajxhnoz p {
+#bkgurjarpi p {
   margin: 0;
   padding: 0;
 }
 
-#vdpajxhnoz .gt_table {
+#bkgurjarpi .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -3087,12 +3088,12 @@ P(D^+|T^-) = \frac{P(T^-|D^+)P(D^+)}{P(T^-)}
   border-left-color: #D3D3D3;
 }
 
-#vdpajxhnoz .gt_caption {
+#bkgurjarpi .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#vdpajxhnoz .gt_title {
+#bkgurjarpi .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -3104,7 +3105,7 @@ P(D^+|T^-) = \frac{P(T^-|D^+)P(D^+)}{P(T^-)}
   border-bottom-width: 0;
 }
 
-#vdpajxhnoz .gt_subtitle {
+#bkgurjarpi .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -3116,7 +3117,7 @@ P(D^+|T^-) = \frac{P(T^-|D^+)P(D^+)}{P(T^-)}
   border-top-width: 0;
 }
 
-#vdpajxhnoz .gt_heading {
+#bkgurjarpi .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -3128,13 +3129,13 @@ P(D^+|T^-) = \frac{P(T^-|D^+)P(D^+)}{P(T^-)}
   border-right-color: #D3D3D3;
 }
 
-#vdpajxhnoz .gt_bottom_border {
+#bkgurjarpi .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#vdpajxhnoz .gt_col_headings {
+#bkgurjarpi .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -3149,7 +3150,7 @@ P(D^+|T^-) = \frac{P(T^-|D^+)P(D^+)}{P(T^-)}
   border-right-color: #D3D3D3;
 }
 
-#vdpajxhnoz .gt_col_heading {
+#bkgurjarpi .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -3169,7 +3170,7 @@ P(D^+|T^-) = \frac{P(T^-|D^+)P(D^+)}{P(T^-)}
   overflow-x: hidden;
 }
 
-#vdpajxhnoz .gt_column_spanner_outer {
+#bkgurjarpi .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -3181,15 +3182,15 @@ P(D^+|T^-) = \frac{P(T^-|D^+)P(D^+)}{P(T^-)}
   padding-right: 4px;
 }
 
-#vdpajxhnoz .gt_column_spanner_outer:first-child {
+#bkgurjarpi .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#vdpajxhnoz .gt_column_spanner_outer:last-child {
+#bkgurjarpi .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#vdpajxhnoz .gt_column_spanner {
+#bkgurjarpi .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -3201,11 +3202,11 @@ P(D^+|T^-) = \frac{P(T^-|D^+)P(D^+)}{P(T^-)}
   width: 100%;
 }
 
-#vdpajxhnoz .gt_spanner_row {
+#bkgurjarpi .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#vdpajxhnoz .gt_group_heading {
+#bkgurjarpi .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -3231,7 +3232,7 @@ P(D^+|T^-) = \frac{P(T^-|D^+)P(D^+)}{P(T^-)}
   text-align: left;
 }
 
-#vdpajxhnoz .gt_empty_group_heading {
+#bkgurjarpi .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -3246,15 +3247,15 @@ P(D^+|T^-) = \frac{P(T^-|D^+)P(D^+)}{P(T^-)}
   vertical-align: middle;
 }
 
-#vdpajxhnoz .gt_from_md > :first-child {
+#bkgurjarpi .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#vdpajxhnoz .gt_from_md > :last-child {
+#bkgurjarpi .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#vdpajxhnoz .gt_row {
+#bkgurjarpi .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -3273,7 +3274,7 @@ P(D^+|T^-) = \frac{P(T^-|D^+)P(D^+)}{P(T^-)}
   overflow-x: hidden;
 }
 
-#vdpajxhnoz .gt_stub {
+#bkgurjarpi .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -3286,7 +3287,7 @@ P(D^+|T^-) = \frac{P(T^-|D^+)P(D^+)}{P(T^-)}
   padding-right: 5px;
 }
 
-#vdpajxhnoz .gt_stub_row_group {
+#bkgurjarpi .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -3300,15 +3301,15 @@ P(D^+|T^-) = \frac{P(T^-|D^+)P(D^+)}{P(T^-)}
   vertical-align: top;
 }
 
-#vdpajxhnoz .gt_row_group_first td {
+#bkgurjarpi .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#vdpajxhnoz .gt_row_group_first th {
+#bkgurjarpi .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#vdpajxhnoz .gt_summary_row {
+#bkgurjarpi .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -3318,16 +3319,16 @@ P(D^+|T^-) = \frac{P(T^-|D^+)P(D^+)}{P(T^-)}
   padding-right: 5px;
 }
 
-#vdpajxhnoz .gt_first_summary_row {
+#bkgurjarpi .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#vdpajxhnoz .gt_first_summary_row.thick {
+#bkgurjarpi .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#vdpajxhnoz .gt_last_summary_row {
+#bkgurjarpi .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -3337,7 +3338,7 @@ P(D^+|T^-) = \frac{P(T^-|D^+)P(D^+)}{P(T^-)}
   border-bottom-color: #D3D3D3;
 }
 
-#vdpajxhnoz .gt_grand_summary_row {
+#bkgurjarpi .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -3347,7 +3348,7 @@ P(D^+|T^-) = \frac{P(T^-|D^+)P(D^+)}{P(T^-)}
   padding-right: 5px;
 }
 
-#vdpajxhnoz .gt_first_grand_summary_row {
+#bkgurjarpi .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -3357,7 +3358,7 @@ P(D^+|T^-) = \frac{P(T^-|D^+)P(D^+)}{P(T^-)}
   border-top-color: #D3D3D3;
 }
 
-#vdpajxhnoz .gt_last_grand_summary_row_top {
+#bkgurjarpi .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -3367,11 +3368,11 @@ P(D^+|T^-) = \frac{P(T^-|D^+)P(D^+)}{P(T^-)}
   border-bottom-color: #D3D3D3;
 }
 
-#vdpajxhnoz .gt_striped {
+#bkgurjarpi .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#vdpajxhnoz .gt_table_body {
+#bkgurjarpi .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -3380,7 +3381,7 @@ P(D^+|T^-) = \frac{P(T^-|D^+)P(D^+)}{P(T^-)}
   border-bottom-color: #D3D3D3;
 }
 
-#vdpajxhnoz .gt_footnotes {
+#bkgurjarpi .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -3394,7 +3395,7 @@ P(D^+|T^-) = \frac{P(T^-|D^+)P(D^+)}{P(T^-)}
   border-right-color: #D3D3D3;
 }
 
-#vdpajxhnoz .gt_footnote {
+#bkgurjarpi .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -3403,7 +3404,7 @@ P(D^+|T^-) = \frac{P(T^-|D^+)P(D^+)}{P(T^-)}
   padding-right: 5px;
 }
 
-#vdpajxhnoz .gt_sourcenotes {
+#bkgurjarpi .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -3417,7 +3418,7 @@ P(D^+|T^-) = \frac{P(T^-|D^+)P(D^+)}{P(T^-)}
   border-right-color: #D3D3D3;
 }
 
-#vdpajxhnoz .gt_sourcenote {
+#bkgurjarpi .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -3425,77 +3426,77 @@ P(D^+|T^-) = \frac{P(T^-|D^+)P(D^+)}{P(T^-)}
   padding-right: 5px;
 }
 
-#vdpajxhnoz .gt_left {
+#bkgurjarpi .gt_left {
   text-align: left;
 }
 
-#vdpajxhnoz .gt_center {
+#bkgurjarpi .gt_center {
   text-align: center;
 }
 
-#vdpajxhnoz .gt_right {
+#bkgurjarpi .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#vdpajxhnoz .gt_font_normal {
+#bkgurjarpi .gt_font_normal {
   font-weight: normal;
 }
 
-#vdpajxhnoz .gt_font_bold {
+#bkgurjarpi .gt_font_bold {
   font-weight: bold;
 }
 
-#vdpajxhnoz .gt_font_italic {
+#bkgurjarpi .gt_font_italic {
   font-style: italic;
 }
 
-#vdpajxhnoz .gt_super {
+#bkgurjarpi .gt_super {
   font-size: 65%;
 }
 
-#vdpajxhnoz .gt_footnote_marks {
+#bkgurjarpi .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#vdpajxhnoz .gt_asterisk {
+#bkgurjarpi .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#vdpajxhnoz .gt_indent_1 {
+#bkgurjarpi .gt_indent_1 {
   text-indent: 5px;
 }
 
-#vdpajxhnoz .gt_indent_2 {
+#bkgurjarpi .gt_indent_2 {
   text-indent: 10px;
 }
 
-#vdpajxhnoz .gt_indent_3 {
+#bkgurjarpi .gt_indent_3 {
   text-indent: 15px;
 }
 
-#vdpajxhnoz .gt_indent_4 {
+#bkgurjarpi .gt_indent_4 {
   text-indent: 20px;
 }
 
-#vdpajxhnoz .gt_indent_5 {
+#bkgurjarpi .gt_indent_5 {
   text-indent: 25px;
 }
 
-#vdpajxhnoz .katex-display {
+#bkgurjarpi .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#vdpajxhnoz div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#bkgurjarpi div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
 
-<table class="gt_table caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+<table class="gt_table caption-top table table-sm table-striped small" data-quarto-bootstrap="false">
 <colgroup>
 <col style="width: 25%">
 <col style="width: 25%">
@@ -3504,10 +3505,10 @@ P(D^+|T^-) = \frac{P(T^-|D^+)P(D^+)}{P(T^-)}
 </colgroup>
 <thead>
 <tr class="gt_heading header">
-<th colspan="4" class="gt_heading gt_title gt_font_normal">Table 3.5</th>
+<td colspan="4" class="gt_heading gt_title gt_font_normal">Table 3.5</td>
 </tr>
 <tr class="gt_heading even">
-<th colspan="4" class="gt_heading gt_subtitle gt_font_normal gt_bottom_border">Actual drinking habits as determined from the diet record cross-classified by self-reported drinking status from the food-frequency questionnaire</th>
+<td colspan="4" class="gt_heading gt_subtitle gt_font_normal gt_bottom_border">Actual drinking habits as determined from the diet record cross-classified by self-reported drinking status from the food-frequency questionnaire</td>
 </tr>
 <tr class="gt_col_headings gt_spanner_row header">
 <th rowspan="2" id="a::stub" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col"></th>
@@ -3523,19 +3524,19 @@ Food-frequency questionnaire
 </thead>
 <tbody class="gt_table_body">
 <tr class="odd">
-<td id="stub_1_1" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row">Alcohol</td>
+<th id="stub_1_1" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row">Alcohol</th>
 <td class="gt_row gt_right" headers="stub_1_1 Alcohol">138</td>
 <td class="gt_row gt_right" headers="stub_1_1 No_Alcohol">18</td>
 <td class="gt_row gt_right" headers="stub_1_1 Total">156</td>
 </tr>
 <tr class="even">
-<td id="stub_1_2" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row">No alcohol</td>
+<th id="stub_1_2" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row">No alcohol</th>
 <td class="gt_row gt_right" headers="stub_1_2 Alcohol">1</td>
 <td class="gt_row gt_right" headers="stub_1_2 No_Alcohol">16</td>
 <td class="gt_row gt_right" headers="stub_1_2 Total">17</td>
 </tr>
 <tr class="odd">
-<td id="stub_1_3" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row">Total</td>
+<th id="stub_1_3" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row">Total</th>
 <td class="gt_row gt_right" headers="stub_1_3 Alcohol">139</td>
 <td class="gt_row gt_right" headers="stub_1_3 No_Alcohol">34</td>
 <td class="gt_row gt_right" headers="stub_1_3 Total">173</td>
@@ -3547,7 +3548,7 @@ Food-frequency questionnaire
 </div>
 </div>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-34-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-34-1" role="tab" aria-controls="tabset-34-1" aria-selected="true">3.40</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-34-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-34-2" role="tab" aria-controls="tabset-34-2" aria-selected="false">Solution</a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-34-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-34-1" role="tab" aria-controls="tabset-34-1" aria-selected="true" href="">3.40</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-34-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-34-2" role="tab" aria-controls="tabset-34-2" aria-selected="false" href="">Solution</a></li></ul>
 <div class="tab-content">
 <div id="tabset-34-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-34-1-tab">
 <p>What is the sensitivity of the FFQ?</p>
@@ -3560,7 +3561,7 @@ Food-frequency questionnaire
 </div>
 </div>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-35-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-35-1" role="tab" aria-controls="tabset-35-1" aria-selected="true">3.41</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-35-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-35-2" role="tab" aria-controls="tabset-35-2" aria-selected="false">Solution</a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-35-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-35-1" role="tab" aria-controls="tabset-35-1" aria-selected="true" href="">3.41</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-35-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-35-2" role="tab" aria-controls="tabset-35-2" aria-selected="false" href="">Solution</a></li></ul>
 <div class="tab-content">
 <div id="tabset-35-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-35-1-tab">
 <p>What is the specificity of the FFQ?</p>
@@ -3574,7 +3575,7 @@ Food-frequency questionnaire
 </div>
 <p>Let us treat the 173 participants in this study as representative of people who would use the FFQ.</p>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-36-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-36-1" role="tab" aria-controls="tabset-36-1" aria-selected="true">3.42</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-36-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-36-2" role="tab" aria-controls="tabset-36-2" aria-selected="false">Solution</a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-36-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-36-1" role="tab" aria-controls="tabset-36-1" aria-selected="true" href="">3.42</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-36-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-36-2" role="tab" aria-controls="tabset-36-2" aria-selected="false" href="">Solution</a></li></ul>
 <div class="tab-content">
 <div id="tabset-36-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-36-1-tab">
 <p>What is the predictive value positive of the FFQ?</p>
@@ -3587,7 +3588,7 @@ Food-frequency questionnaire
 </div>
 </div>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-37-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-37-1" role="tab" aria-controls="tabset-37-1" aria-selected="true">3.43</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-37-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-37-2" role="tab" aria-controls="tabset-37-2" aria-selected="false">Solution</a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-37-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-37-1" role="tab" aria-controls="tabset-37-1" aria-selected="true" href="">3.43</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-37-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-37-2" role="tab" aria-controls="tabset-37-2" aria-selected="false" href="">Solution</a></li></ul>
 <div class="tab-content">
 <div id="tabset-37-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-37-1-tab">
 <p>What is the predictive value negative of the FFQ?</p>
@@ -3600,7 +3601,7 @@ Food-frequency questionnaire
 </div>
 </div>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-38-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-38-1" role="tab" aria-controls="tabset-38-1" aria-selected="true">3.44</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-38-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-38-2" role="tab" aria-controls="tabset-38-2" aria-selected="false">Solution</a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-38-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-38-1" role="tab" aria-controls="tabset-38-1" aria-selected="true" href="">3.44</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-38-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-38-2" role="tab" aria-controls="tabset-38-2" aria-selected="false" href="">Solution</a></li></ul>
 <div class="tab-content">
 <div id="tabset-38-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-38-1-tab">
 <p>Suppose the questionnaire is to be administered in a different country where the true proportion of drinkers is 80%. What would be the predictive value positive if administered in this setting?</p>
@@ -3619,7 +3620,7 @@ P(D^+|T^+) &amp;= \frac{P(T^+|D^+)P(D^+)}{P(T^+|D^+)P(D^+) + P(T^+|D^-)P(D^-)} \
 <h2 class="anchored" data-anchor-id="genetics">Genetics</h2>
 <p>Two healthy parents have a child with a severe autosomal recessive condition that cannot be identified by prenatal diagnosis. They realize that the risk of this condition for subsequent offspring is 1/4, but wish to embark on a second pregnancy. During the early stages of the pregnancy, an ultrasound test determines that there are twins.</p>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-39-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-39-1" role="tab" aria-controls="tabset-39-1" aria-selected="true">3.45</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-39-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-39-2" role="tab" aria-controls="tabset-39-2" aria-selected="false">Solution</a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-39-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-39-1" role="tab" aria-controls="tabset-39-1" aria-selected="true" href="">3.45</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-39-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-39-2" role="tab" aria-controls="tabset-39-2" aria-selected="false" href="">Solution</a></li></ul>
 <div class="tab-content">
 <div id="tabset-39-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-39-1-tab">
 <p>Suppose that there are monozygotic, or MZ (identical) twins. What is the probability that both twins are affected? one twin affected? neither twin affected? Are the outcomes for the two MZ twins independent or dependent events?</p>
@@ -3638,7 +3639,7 @@ P(\text{neither}) = P(\bar{A} \cap \bar{B}) = P(\bar{A}|\bar{B})P(\bar{B}) = 1 \
 </div>
 </div>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-40-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-40-1" role="tab" aria-controls="tabset-40-1" aria-selected="true">3.46</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-40-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-40-2" role="tab" aria-controls="tabset-40-2" aria-selected="false">Solution</a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-40-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-40-1" role="tab" aria-controls="tabset-40-1" aria-selected="true" href="">3.46</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-40-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-40-2" role="tab" aria-controls="tabset-40-2" aria-selected="false" href="">Solution</a></li></ul>
 <div class="tab-content">
 <div id="tabset-40-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-40-1-tab">
 <p>Suppose that there are dizygotic, or DZ (fraternal) twins. What is the probability that both twins are affected? one twin affected? neither twin affected? Are the outcomes for the two DZ twins independent or dependent events?</p>
@@ -3655,7 +3656,7 @@ P(\text{neither}) = P(\bar{A} \cap \bar{B}) = P(\bar{A})P(\bar{B}) = (1 - 0.25)^
 </div>
 </div>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-41-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-41-1" role="tab" aria-controls="tabset-41-1" aria-selected="true">3.47</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-41-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-41-2" role="tab" aria-controls="tabset-41-2" aria-selected="false">Solution</a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-41-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-41-1" role="tab" aria-controls="tabset-41-1" aria-selected="true" href="">3.47</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-41-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-41-2" role="tab" aria-controls="tabset-41-2" aria-selected="false" href="">Solution</a></li></ul>
 <div class="tab-content">
 <div id="tabset-41-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-41-1-tab">
 <p>Suppose there is a 1/3 probability of MZ twins and a 2/3 probability of DZ twins. What is the overall probability that both twins are affected? One twin affected? Neither affected?</p>
@@ -3672,7 +3673,7 @@ P(\text{neither}) = P(\text{neither}|MZ)P(MZ) + P(\text{neither}|DZ)P(DZ) = 0.75
 </div>
 </div>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-42-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-42-1" role="tab" aria-controls="tabset-42-1" aria-selected="true">3.48</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-42-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-42-2" role="tab" aria-controls="tabset-42-2" aria-selected="false">Solution</a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-42-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-42-1" role="tab" aria-controls="tabset-42-1" aria-selected="true" href="">3.48</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-42-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-42-2" role="tab" aria-controls="tabset-42-2" aria-selected="false" href="">Solution</a></li></ul>
 <div class="tab-content">
 <div id="tabset-42-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-42-1-tab">
 <p>Suppose we learn that both twins are affected but don’t know whether they are MZ or DZ twins. What is the probability that they are MZ twins given this additional information?</p>
@@ -3754,13 +3755,14 @@ P(MZ|\text{both}) = \frac{P(\text{both}|MZ)P(MZ)}{P(\text{both})} = \frac{0.25 \
       e.clearSelection();
     }
     const getTextToCopy = function(trigger) {
-        const codeEl = trigger.previousElementSibling.cloneNode(true);
-        for (const childEl of codeEl.children) {
-          if (isCodeAnnotation(childEl)) {
-            childEl.remove();
-          }
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
         }
-        return codeEl.innerText;
+      }
+      return codeEl.innerText;
     }
     const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
       text: getTextToCopy

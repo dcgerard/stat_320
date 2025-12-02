@@ -2,12 +2,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.7.32">
+<meta name="generator" content="quarto-1.8.26">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="David Gerard">
-<meta name="dcterms.date" content="2025-11-06">
+<meta name="dcterms.date" content="2025-12-02">
 
 <title>Chapter 9 Practice Problems – Stat 320: Biostatistics</title>
 <style>
@@ -69,18 +69,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <meta name="quarto:offset" content="../">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-2fef5ea3f8957b3e4ecc936fc74692ca.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-587c61ba64f3a5504c4d52d930310e48.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-b758ccaa5987ceb1b75504551e579abf.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-587c61ba64f3a5504c4d52d930310e48.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-fe7d0423cdac4bc5c71520eda626c2a4.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../site_libs/bootstrap/bootstrap-dark-2c3770c401b36bb86bc0f39e202c8652.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="../site_libs/bootstrap/bootstrap-fe7d0423cdac4bc5c71520eda626c2a4.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-f93c2b1f3f0577f377aefa4848a86a36.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark-0d4a9d19931feb4fee1ddab4b2489000.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../site_libs/bootstrap/bootstrap-f93c2b1f3f0577f377aefa4848a86a36.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -123,7 +124,7 @@ const typesetMath = (el) => {
     var macros = [];
     for (var i = 0; i < mathElements.length; i++) {
       var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN") {
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
         window.katex.render(texText.data, mathElements[i], {
           displayMode: mathElements[i].classList.contains('display'),
           throwOnError: false,
@@ -379,7 +380,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">November 6, 2025</p>
+      <p class="date">December 2, 2025</p>
     </div>
   </div>
   
@@ -396,7 +397,7 @@ window.Quarto = {
 <h2 class="anchored" data-anchor-id="ophthalmology">Ophthalmology</h2>
 <p>Suppose an ophthalmologist reviews fundus photographs of 30 patients with macular degeneration both before and 3 months after receiving a laser treatment. To assess the efficacy of treatment, each patient is rated as improved, remained the same, or declined.</p>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true">9.1</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false">Solutions</a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" href="">9.1</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false" href="">Solutions</a></li></ul>
 <div class="tab-content">
 <div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
 <p>If 20 patients improved, 7 declined, and 3 remained the same, then assess whether or not patients undergoing this treatment are showing significant change from baseline to 3 months afterward. Report a p-value.</p>
@@ -404,7 +405,7 @@ window.Quarto = {
 <div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
 <p>This is a sign test. Let <span class="math inline">\(X\)</span> be the number of patients that improved, and let <span class="math inline">\(n\)</span> be the number of patients that showed a change. Then <span class="math inline">\(X \sim \mathrm{Binom}(n, p)\)</span>. We want to test <span class="math inline">\(H_0: p = 1/2\)</span> versus <span class="math inline">\(H_A: p \neq 1/2\)</span>. We are told that <span class="math inline">\(x = 20\)</span> and <span class="math inline">\(n = 27\)</span>. We can use the normal approximation to the binomial since <span class="math inline">\(np_0(1-p_0) \geq 5\)</span></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="dv">27</span> <span class="sc">*</span> <span class="fl">0.5</span> <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> <span class="fl">0.5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="dv">27</span> <span class="sc">*</span> <span class="fl">0.5</span> <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> <span class="fl">0.5</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 6.75</code></pre>
 </div>
@@ -413,7 +414,7 @@ window.Quarto = {
 z = \frac{|\hat{p} - p_0| - 1/(2n)}{\sqrt{p_0(1-p_0)/n}} = \frac{|20/27 - 0.5| - 1/54}{\sqrt{0.5(1-0.5)/27}}
 \]</span></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>(<span class="fu">abs</span>(<span class="dv">20</span><span class="sc">/</span><span class="dv">27</span> <span class="sc">-</span> <span class="fl">0.5</span>) <span class="sc">-</span> <span class="dv">1</span><span class="sc">/</span><span class="dv">54</span>) <span class="sc">/</span> <span class="fu">sqrt</span>(<span class="fl">0.5</span> <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> <span class="fl">0.5</span>) <span class="sc">/</span> <span class="dv">27</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>(<span class="fu">abs</span>(<span class="dv">20</span><span class="sc">/</span><span class="dv">27</span> <span class="sc">-</span> <span class="fl">0.5</span>) <span class="sc">-</span> <span class="dv">1</span><span class="sc">/</span><span class="dv">54</span>) <span class="sc">/</span> <span class="fu">sqrt</span>(<span class="fl">0.5</span> <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> <span class="fl">0.5</span>) <span class="sc">/</span> <span class="dv">27</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 2.309</code></pre>
 </div>
@@ -429,7 +430,7 @@ z = \frac{|\hat{p} - p_0| - 1/(2n)}{\sqrt{p_0(1-p_0)/n}} = \frac{|20/27 - 0.5| -
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span> <span class="sc">*</span> <span class="fu">pnorm</span>(<span class="sc">-</span><span class="fl">2.309</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span> <span class="sc">*</span> <span class="fu">pnorm</span>(<span class="sc">-</span><span class="fl">2.309</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.02094</code></pre>
 </div>
@@ -437,9 +438,9 @@ z = \frac{|\hat{p} - p_0| - 1/(2n)}{\sqrt{p_0(1-p_0)/n}} = \frac{|20/27 - 0.5| -
 <p>So we have evidence that there is a different from baseline.</p>
 <p>The real way in R is</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">prop.test</span>(<span class="at">x =</span> <span class="dv">20</span>, <span class="at">n =</span> <span class="dv">27</span>, <span class="at">p =</span> <span class="fl">0.5</span>) <span class="sc">|&gt;</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">prop.test</span>(<span class="at">x =</span> <span class="dv">20</span>, <span class="at">n =</span> <span class="dv">27</span>, <span class="at">p =</span> <span class="fl">0.5</span>) <span class="sc">|&gt;</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tidy</span>() <span class="sc">|&gt;</span></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(p.value)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(p.value)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1 × 1
   p.value
@@ -458,9 +459,9 @@ z = \frac{|\hat{p} - p_0| - 1/(2n)}{\sqrt{p_0(1-p_0)/n}} = \frac{|20/27 - 0.5| -
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">binom.test</span>(<span class="at">x =</span> <span class="dv">20</span>, <span class="at">n =</span> <span class="dv">27</span>, <span class="at">p =</span> <span class="fl">0.5</span>) <span class="sc">|&gt;</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">binom.test</span>(<span class="at">x =</span> <span class="dv">20</span>, <span class="at">n =</span> <span class="dv">27</span>, <span class="at">p =</span> <span class="fl">0.5</span>) <span class="sc">|&gt;</span></span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tidy</span>() <span class="sc">|&gt;</span></span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(p.value)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(p.value)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1 × 1
   p.value
@@ -473,7 +474,7 @@ z = \frac{|\hat{p} - p_0| - 1/(2n)}{\sqrt{p_0(1-p_0)/n}} = \frac{|20/27 - 0.5| -
 </div>
 <p>Suppose that the patients are divided into two groups according to initial visual acuity (VA). Of the 14 patients with VA 20-40 or better, 8 improved, 5 declined, and 1 stayed the same. Of the 16 patients with VA worse than 20–40, 12 improved, 2 declined, and 2 stayed the same.</p>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-2-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-1" role="tab" aria-controls="tabset-2-1" aria-selected="true">9.2</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-2" role="tab" aria-controls="tabset-2-2" aria-selected="false">Solutions</a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-2-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-1" role="tab" aria-controls="tabset-2-1" aria-selected="true" href="">9.2</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-2" role="tab" aria-controls="tabset-2-2" aria-selected="false" href="">Solutions</a></li></ul>
 <div class="tab-content">
 <div id="tabset-2-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-2-1-tab">
 <p>Assess the results in the subgroup of patients with VA of 20–40 or better.</p>
@@ -481,7 +482,7 @@ z = \frac{|\hat{p} - p_0| - 1/(2n)}{\sqrt{p_0(1-p_0)/n}} = \frac{|20/27 - 0.5| -
 <div id="tabset-2-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-2-tab">
 <p>This is also a sign test with observed <span class="math inline">\(x = 8\)</span> and <span class="math inline">\(n = 13\)</span>. We need to use an exact test since <span class="math inline">\(np_0(1-p_0) &lt; 5\)</span></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="dv">13</span> <span class="sc">*</span> <span class="fl">0.5</span> <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> <span class="fl">0.5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="dv">13</span> <span class="sc">*</span> <span class="fl">0.5</span> <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> <span class="fl">0.5</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 3.25</code></pre>
 </div>
@@ -496,9 +497,9 @@ z = \frac{|\hat{p} - p_0| - 1/(2n)}{\sqrt{p_0(1-p_0)/n}} = \frac{|20/27 - 0.5| -
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">binom.test</span>(<span class="at">x =</span> <span class="dv">8</span>, <span class="at">n =</span> <span class="dv">13</span>, <span class="at">p =</span> <span class="fl">0.5</span>) <span class="sc">|&gt;</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">binom.test</span>(<span class="at">x =</span> <span class="dv">8</span>, <span class="at">n =</span> <span class="dv">13</span>, <span class="at">p =</span> <span class="fl">0.5</span>) <span class="sc">|&gt;</span></span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tidy</span>() <span class="sc">|&gt;</span></span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(p.value)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(p.value)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1 × 1
   p.value
@@ -511,7 +512,7 @@ z = \frac{|\hat{p} - p_0| - 1/(2n)}{\sqrt{p_0(1-p_0)/n}} = \frac{|20/27 - 0.5| -
 </div>
 </div>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-3-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-1" role="tab" aria-controls="tabset-3-1" aria-selected="true">9.3</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-3-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-2" role="tab" aria-controls="tabset-3-2" aria-selected="false">Solutions</a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-3-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-1" role="tab" aria-controls="tabset-3-1" aria-selected="true" href="">9.3</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-3-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-2" role="tab" aria-controls="tabset-3-2" aria-selected="false" href="">Solutions</a></li></ul>
 <div class="tab-content">
 <div id="tabset-3-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-3-1-tab">
 <p>Assess the results in the subgroup of patients with VA worse than 20–40.</p>
@@ -519,7 +520,7 @@ z = \frac{|\hat{p} - p_0| - 1/(2n)}{\sqrt{p_0(1-p_0)/n}} = \frac{|20/27 - 0.5| -
 <div id="tabset-3-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-3-2-tab">
 <p>This is also a sign test with observed <span class="math inline">\(x = 12\)</span> and <span class="math inline">\(n = 14\)</span>. We need to use an exact test since <span class="math inline">\(np_0(1-p_0) &lt; 5\)</span></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="dv">14</span> <span class="sc">*</span> <span class="fl">0.5</span> <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> <span class="fl">0.5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="dv">14</span> <span class="sc">*</span> <span class="fl">0.5</span> <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> <span class="fl">0.5</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 3.5</code></pre>
 </div>
@@ -534,9 +535,9 @@ z = \frac{|\hat{p} - p_0| - 1/(2n)}{\sqrt{p_0(1-p_0)/n}} = \frac{|20/27 - 0.5| -
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">binom.test</span>(<span class="at">x =</span> <span class="dv">12</span>, <span class="at">n =</span> <span class="dv">14</span>, <span class="at">p =</span> <span class="fl">0.5</span>) <span class="sc">|&gt;</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">binom.test</span>(<span class="at">x =</span> <span class="dv">12</span>, <span class="at">n =</span> <span class="dv">14</span>, <span class="at">p =</span> <span class="fl">0.5</span>) <span class="sc">|&gt;</span></span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tidy</span>() <span class="sc">|&gt;</span></span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(p.value)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(p.value)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1 × 1
   p.value
@@ -553,12 +554,12 @@ z = \frac{|\hat{p} - p_0| - 1/(2n)}{\sqrt{p_0(1-p_0)/n}} = \frac{|20/27 - 0.5| -
 <h2 class="anchored" data-anchor-id="diabetes">Diabetes</h2>
 <p>An experiment was conducted to study responses to different methods of taking insulin in patients with type I diabetes. The percentages of glycosolated hemoglobin initially and 3 months after taking insulin by nasal spray are given in the following data frame.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>hemo <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>hemo <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">id =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">8</span>,</span>
 <span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">before =</span> <span class="fu">c</span>(<span class="fl">11.0</span>, <span class="fl">7.7</span>, <span class="fl">5.9</span>, <span class="fl">9.5</span>, <span class="fl">8.7</span>, <span class="fl">8.6</span>, <span class="fl">11.0</span>, <span class="fl">6.9</span>),</span>
 <span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">after3 =</span> <span class="fu">c</span>(<span class="fl">10.2</span>, <span class="fl">7.9</span>, <span class="fl">6.5</span>, <span class="fl">10.4</span>, <span class="fl">8.8</span>, <span class="fl">9.0</span>, <span class="fl">9.5</span>, <span class="fl">7.6</span>)</span>
 <span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>hemo</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>hemo</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 8 × 3
      id before after3
@@ -574,7 +575,7 @@ z = \frac{|\hat{p} - p_0| - 1/(2n)}{\sqrt{p_0(1-p_0)/n}} = \frac{|20/27 - 0.5| -
 </div>
 </div>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-4-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-1" role="tab" aria-controls="tabset-4-1" aria-selected="true">9.4</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-4-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-2" role="tab" aria-controls="tabset-4-2" aria-selected="false">Solutions</a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-4-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-1" role="tab" aria-controls="tabset-4-1" aria-selected="true" href="">9.4</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-4-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-2" role="tab" aria-controls="tabset-4-2" aria-selected="false" href="">Solutions</a></li></ul>
 <div class="tab-content">
 <div id="tabset-4-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-4-1-tab">
 <p>Perform a t test to compare the percentages of glycosolated hemoglobin before and 3 months after treatment.</p>
@@ -582,12 +583,12 @@ z = \frac{|\hat{p} - p_0| - 1/(2n)}{\sqrt{p_0(1-p_0)/n}} = \frac{|20/27 - 0.5| -
 <div id="tabset-4-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-4-2-tab">
 <p>We will do a paired <span class="math inline">\(t\)</span>-test. Let <span class="math inline">\(D_i\)</span> be the difference in percentages of glycosolated hemoglobin (<code>before - after3</code>) for individual <span class="math inline">\(i\)</span>. We assume <span class="math inline">\(D_i \sim N(\mu, \sigma^2)\)</span>. We want to test <span class="math inline">\(H_0: \mu = 0\)</span> versus <span class="math inline">\(H_A: \mu \neq 0\)</span>. We calculate summary statistics</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>hemo <span class="sc">|&gt;</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>hemo <span class="sc">|&gt;</span></span>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">diff =</span> before <span class="sc">-</span> after3) <span class="sc">|&gt;</span></span>
 <span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(</span>
 <span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">mean =</span> <span class="fu">mean</span>(diff),</span>
 <span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">sd =</span> <span class="fu">sd</span>(diff),</span>
-<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">n =</span> <span class="fu">n</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">n =</span> <span class="fu">n</span>())</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1 × 3
      mean    sd     n
@@ -599,15 +600,15 @@ z = \frac{|\hat{p} - p_0| - 1/(2n)}{\sqrt{p_0(1-p_0)/n}} = \frac{|20/27 - 0.5| -
 t = \frac{\bar{x} - \mu_0}{s/\sqrt{n}} = \frac{-0.075 - 0}{0.8207 / \sqrt{8}}
 \]</span> Numerically</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>(<span class="sc">-</span><span class="fl">0.075</span> <span class="sc">-</span> <span class="dv">0</span>) <span class="sc">/</span> (<span class="fl">0.8207</span> <span class="sc">/</span> <span class="fu">sqrt</span>(<span class="dv">8</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>(<span class="sc">-</span><span class="fl">0.075</span> <span class="sc">-</span> <span class="dv">0</span>) <span class="sc">/</span> (<span class="fl">0.8207</span> <span class="sc">/</span> <span class="fu">sqrt</span>(<span class="dv">8</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] -0.2585</code></pre>
 </div>
 </div>
 <p>We compare this to a <span class="math inline">\(t_{7}\)</span> distribution</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plt_t</span>(<span class="at">ub =</span> <span class="sc">-</span><span class="fl">0.2585</span>, <span class="at">two_sided =</span> <span class="cn">TRUE</span>, <span class="at">df =</span> <span class="dv">7</span>) <span class="sc">+</span></span>
-<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="sc">-</span><span class="fl">0.2585</span>, <span class="at">lty =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plt_t</span>(<span class="at">ub =</span> <span class="sc">-</span><span class="fl">0.2585</span>, <span class="at">two_sided =</span> <span class="cn">TRUE</span>, <span class="at">df =</span> <span class="dv">7</span>) <span class="sc">+</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="sc">-</span><span class="fl">0.2585</span>, <span class="at">lty =</span> <span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -617,7 +618,7 @@ t = \frac{\bar{x} - \mu_0}{s/\sqrt{n}} = \frac{-0.075 - 0}{0.8207 / \sqrt{8}}
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span> <span class="sc">*</span> <span class="fu">pt</span>(<span class="sc">-</span><span class="fl">0.2585</span>, <span class="at">df =</span> <span class="dv">9</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span> <span class="sc">*</span> <span class="fu">pt</span>(<span class="sc">-</span><span class="fl">0.2585</span>, <span class="at">df =</span> <span class="dv">9</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.8018</code></pre>
 </div>
@@ -625,10 +626,10 @@ t = \frac{\bar{x} - \mu_0}{s/\sqrt{n}} = \frac{-0.075 - 0}{0.8207 / \sqrt{8}}
 <p>Since the <span class="math inline">\(p\)</span>-value is so large, we do not have evidence that the mean difference in percentage of glycosolated hemoglobin is different from 0.</p>
 <p>The real-way in R uses <code>t.test()</code></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>hemo <span class="ot">&lt;-</span> <span class="fu">mutate</span>(hemo, <span class="at">diff =</span> before <span class="sc">-</span> after3)</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>hemo <span class="ot">&lt;-</span> <span class="fu">mutate</span>(hemo, <span class="at">diff =</span> before <span class="sc">-</span> after3)</span>
 <span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(diff <span class="sc">~</span> <span class="dv">1</span>, <span class="at">data =</span> hemo, <span class="at">mu =</span> <span class="dv">0</span>) <span class="sc">|&gt;</span></span>
 <span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tidy</span>() <span class="sc">|&gt;</span></span>
-<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(p.value)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(p.value)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1 × 1
   p.value
@@ -640,7 +641,7 @@ t = \frac{\bar{x} - \mu_0}{s/\sqrt{n}} = \frac{-0.075 - 0}{0.8207 / \sqrt{8}}
 </div>
 </div>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-5-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-5-1" role="tab" aria-controls="tabset-5-1" aria-selected="true">9.5a</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-5-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-5-2" role="tab" aria-controls="tabset-5-2" aria-selected="false">Solutions</a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-5-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-5-1" role="tab" aria-controls="tabset-5-1" aria-selected="true" href="">9.5a</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-5-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-5-2" role="tab" aria-controls="tabset-5-2" aria-selected="false" href="">Solutions</a></li></ul>
 <div class="tab-content">
 <div id="tabset-5-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-5-1-tab">
 <p>Suppose normality is not assumed. What nonparameteric test would you use?</p>
@@ -651,7 +652,7 @@ t = \frac{\bar{x} - \mu_0}{s/\sqrt{n}} = \frac{-0.075 - 0}{0.8207 / \sqrt{8}}
 </div>
 </div>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-6-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-6-1" role="tab" aria-controls="tabset-6-1" aria-selected="true">9.5b</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-6-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-6-2" role="tab" aria-controls="tabset-6-2" aria-selected="false">Solutions</a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-6-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-6-1" role="tab" aria-controls="tabset-6-1" aria-selected="true" href="">9.5b</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-6-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-6-2" role="tab" aria-controls="tabset-6-2" aria-selected="false" href="">Solutions</a></li></ul>
 <div class="tab-content">
 <div id="tabset-6-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-6-1-tab">
 <p>Calculate the test-statistic for the tetst in 9.5a.</p>
@@ -660,23 +661,23 @@ t = \frac{\bar{x} - \mu_0}{s/\sqrt{n}} = \frac{-0.075 - 0}{0.8207 / \sqrt{8}}
 <p>We first rank by the absolute values</p>
 <div class="cell">
 <div class="cell-output-display">
-<div id="ikwswlgsen" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#ikwswlgsen table {
+<div id="skzytjpdez" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#skzytjpdez table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#ikwswlgsen thead, #ikwswlgsen tbody, #ikwswlgsen tfoot, #ikwswlgsen tr, #ikwswlgsen td, #ikwswlgsen th {
+#skzytjpdez thead, #skzytjpdez tbody, #skzytjpdez tfoot, #skzytjpdez tr, #skzytjpdez td, #skzytjpdez th {
   border-style: none;
 }
 
-#ikwswlgsen p {
+#skzytjpdez p {
   margin: 0;
   padding: 0;
 }
 
-#ikwswlgsen .gt_table {
+#skzytjpdez .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -702,12 +703,12 @@ t = \frac{\bar{x} - \mu_0}{s/\sqrt{n}} = \frac{-0.075 - 0}{0.8207 / \sqrt{8}}
   border-left-color: #D3D3D3;
 }
 
-#ikwswlgsen .gt_caption {
+#skzytjpdez .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#ikwswlgsen .gt_title {
+#skzytjpdez .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -719,7 +720,7 @@ t = \frac{\bar{x} - \mu_0}{s/\sqrt{n}} = \frac{-0.075 - 0}{0.8207 / \sqrt{8}}
   border-bottom-width: 0;
 }
 
-#ikwswlgsen .gt_subtitle {
+#skzytjpdez .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -731,7 +732,7 @@ t = \frac{\bar{x} - \mu_0}{s/\sqrt{n}} = \frac{-0.075 - 0}{0.8207 / \sqrt{8}}
   border-top-width: 0;
 }
 
-#ikwswlgsen .gt_heading {
+#skzytjpdez .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -743,13 +744,13 @@ t = \frac{\bar{x} - \mu_0}{s/\sqrt{n}} = \frac{-0.075 - 0}{0.8207 / \sqrt{8}}
   border-right-color: #D3D3D3;
 }
 
-#ikwswlgsen .gt_bottom_border {
+#skzytjpdez .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#ikwswlgsen .gt_col_headings {
+#skzytjpdez .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -764,7 +765,7 @@ t = \frac{\bar{x} - \mu_0}{s/\sqrt{n}} = \frac{-0.075 - 0}{0.8207 / \sqrt{8}}
   border-right-color: #D3D3D3;
 }
 
-#ikwswlgsen .gt_col_heading {
+#skzytjpdez .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -784,7 +785,7 @@ t = \frac{\bar{x} - \mu_0}{s/\sqrt{n}} = \frac{-0.075 - 0}{0.8207 / \sqrt{8}}
   overflow-x: hidden;
 }
 
-#ikwswlgsen .gt_column_spanner_outer {
+#skzytjpdez .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -796,15 +797,15 @@ t = \frac{\bar{x} - \mu_0}{s/\sqrt{n}} = \frac{-0.075 - 0}{0.8207 / \sqrt{8}}
   padding-right: 4px;
 }
 
-#ikwswlgsen .gt_column_spanner_outer:first-child {
+#skzytjpdez .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#ikwswlgsen .gt_column_spanner_outer:last-child {
+#skzytjpdez .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#ikwswlgsen .gt_column_spanner {
+#skzytjpdez .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -816,11 +817,11 @@ t = \frac{\bar{x} - \mu_0}{s/\sqrt{n}} = \frac{-0.075 - 0}{0.8207 / \sqrt{8}}
   width: 100%;
 }
 
-#ikwswlgsen .gt_spanner_row {
+#skzytjpdez .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#ikwswlgsen .gt_group_heading {
+#skzytjpdez .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -846,7 +847,7 @@ t = \frac{\bar{x} - \mu_0}{s/\sqrt{n}} = \frac{-0.075 - 0}{0.8207 / \sqrt{8}}
   text-align: left;
 }
 
-#ikwswlgsen .gt_empty_group_heading {
+#skzytjpdez .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -861,15 +862,15 @@ t = \frac{\bar{x} - \mu_0}{s/\sqrt{n}} = \frac{-0.075 - 0}{0.8207 / \sqrt{8}}
   vertical-align: middle;
 }
 
-#ikwswlgsen .gt_from_md > :first-child {
+#skzytjpdez .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#ikwswlgsen .gt_from_md > :last-child {
+#skzytjpdez .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#ikwswlgsen .gt_row {
+#skzytjpdez .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -888,7 +889,7 @@ t = \frac{\bar{x} - \mu_0}{s/\sqrt{n}} = \frac{-0.075 - 0}{0.8207 / \sqrt{8}}
   overflow-x: hidden;
 }
 
-#ikwswlgsen .gt_stub {
+#skzytjpdez .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -901,7 +902,7 @@ t = \frac{\bar{x} - \mu_0}{s/\sqrt{n}} = \frac{-0.075 - 0}{0.8207 / \sqrt{8}}
   padding-right: 5px;
 }
 
-#ikwswlgsen .gt_stub_row_group {
+#skzytjpdez .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -915,15 +916,15 @@ t = \frac{\bar{x} - \mu_0}{s/\sqrt{n}} = \frac{-0.075 - 0}{0.8207 / \sqrt{8}}
   vertical-align: top;
 }
 
-#ikwswlgsen .gt_row_group_first td {
+#skzytjpdez .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#ikwswlgsen .gt_row_group_first th {
+#skzytjpdez .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#ikwswlgsen .gt_summary_row {
+#skzytjpdez .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -933,16 +934,16 @@ t = \frac{\bar{x} - \mu_0}{s/\sqrt{n}} = \frac{-0.075 - 0}{0.8207 / \sqrt{8}}
   padding-right: 5px;
 }
 
-#ikwswlgsen .gt_first_summary_row {
+#skzytjpdez .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#ikwswlgsen .gt_first_summary_row.thick {
+#skzytjpdez .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#ikwswlgsen .gt_last_summary_row {
+#skzytjpdez .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -952,7 +953,7 @@ t = \frac{\bar{x} - \mu_0}{s/\sqrt{n}} = \frac{-0.075 - 0}{0.8207 / \sqrt{8}}
   border-bottom-color: #D3D3D3;
 }
 
-#ikwswlgsen .gt_grand_summary_row {
+#skzytjpdez .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -962,7 +963,7 @@ t = \frac{\bar{x} - \mu_0}{s/\sqrt{n}} = \frac{-0.075 - 0}{0.8207 / \sqrt{8}}
   padding-right: 5px;
 }
 
-#ikwswlgsen .gt_first_grand_summary_row {
+#skzytjpdez .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -972,7 +973,7 @@ t = \frac{\bar{x} - \mu_0}{s/\sqrt{n}} = \frac{-0.075 - 0}{0.8207 / \sqrt{8}}
   border-top-color: #D3D3D3;
 }
 
-#ikwswlgsen .gt_last_grand_summary_row_top {
+#skzytjpdez .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -982,11 +983,11 @@ t = \frac{\bar{x} - \mu_0}{s/\sqrt{n}} = \frac{-0.075 - 0}{0.8207 / \sqrt{8}}
   border-bottom-color: #D3D3D3;
 }
 
-#ikwswlgsen .gt_striped {
+#skzytjpdez .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#ikwswlgsen .gt_table_body {
+#skzytjpdez .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -995,7 +996,7 @@ t = \frac{\bar{x} - \mu_0}{s/\sqrt{n}} = \frac{-0.075 - 0}{0.8207 / \sqrt{8}}
   border-bottom-color: #D3D3D3;
 }
 
-#ikwswlgsen .gt_footnotes {
+#skzytjpdez .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1009,7 +1010,7 @@ t = \frac{\bar{x} - \mu_0}{s/\sqrt{n}} = \frac{-0.075 - 0}{0.8207 / \sqrt{8}}
   border-right-color: #D3D3D3;
 }
 
-#ikwswlgsen .gt_footnote {
+#skzytjpdez .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -1018,7 +1019,7 @@ t = \frac{\bar{x} - \mu_0}{s/\sqrt{n}} = \frac{-0.075 - 0}{0.8207 / \sqrt{8}}
   padding-right: 5px;
 }
 
-#ikwswlgsen .gt_sourcenotes {
+#skzytjpdez .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1032,7 +1033,7 @@ t = \frac{\bar{x} - \mu_0}{s/\sqrt{n}} = \frac{-0.075 - 0}{0.8207 / \sqrt{8}}
   border-right-color: #D3D3D3;
 }
 
-#ikwswlgsen .gt_sourcenote {
+#skzytjpdez .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -1040,77 +1041,77 @@ t = \frac{\bar{x} - \mu_0}{s/\sqrt{n}} = \frac{-0.075 - 0}{0.8207 / \sqrt{8}}
   padding-right: 5px;
 }
 
-#ikwswlgsen .gt_left {
+#skzytjpdez .gt_left {
   text-align: left;
 }
 
-#ikwswlgsen .gt_center {
+#skzytjpdez .gt_center {
   text-align: center;
 }
 
-#ikwswlgsen .gt_right {
+#skzytjpdez .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#ikwswlgsen .gt_font_normal {
+#skzytjpdez .gt_font_normal {
   font-weight: normal;
 }
 
-#ikwswlgsen .gt_font_bold {
+#skzytjpdez .gt_font_bold {
   font-weight: bold;
 }
 
-#ikwswlgsen .gt_font_italic {
+#skzytjpdez .gt_font_italic {
   font-style: italic;
 }
 
-#ikwswlgsen .gt_super {
+#skzytjpdez .gt_super {
   font-size: 65%;
 }
 
-#ikwswlgsen .gt_footnote_marks {
+#skzytjpdez .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#ikwswlgsen .gt_asterisk {
+#skzytjpdez .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#ikwswlgsen .gt_indent_1 {
+#skzytjpdez .gt_indent_1 {
   text-indent: 5px;
 }
 
-#ikwswlgsen .gt_indent_2 {
+#skzytjpdez .gt_indent_2 {
   text-indent: 10px;
 }
 
-#ikwswlgsen .gt_indent_3 {
+#skzytjpdez .gt_indent_3 {
   text-indent: 15px;
 }
 
-#ikwswlgsen .gt_indent_4 {
+#skzytjpdez .gt_indent_4 {
   text-indent: 20px;
 }
 
-#ikwswlgsen .gt_indent_5 {
+#skzytjpdez .gt_indent_5 {
   text-indent: 25px;
 }
 
-#ikwswlgsen .katex-display {
+#skzytjpdez .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#ikwswlgsen div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#skzytjpdez div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
 
-<table class="gt_table caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+<table class="gt_table caption-top table table-sm table-striped small" data-quarto-bootstrap="false">
 <thead>
 <tr class="gt_col_headings header">
 <th id="Difference" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">Difference</th>
@@ -1168,14 +1169,14 @@ t = \frac{\bar{x} - \mu_0}{s/\sqrt{n}} = \frac{-0.075 - 0}{0.8207 / \sqrt{8}}
 <p>We then sum the ranks of either all of the negative numbers, or all of the positive numbers (doesn’t matter which one).</p>
 <p>If you sum the ranks of the positives, you get</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="dv">6</span> <span class="sc">+</span> <span class="dv">8</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="dv">6</span> <span class="sc">+</span> <span class="dv">8</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 14</code></pre>
 </div>
 </div>
 <p>If you sum the ranks of the negatives, you get</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">+</span> <span class="dv">2</span> <span class="sc">+</span> <span class="dv">3</span> <span class="sc">+</span> <span class="dv">4</span> <span class="sc">+</span> <span class="dv">5</span> <span class="sc">+</span> <span class="dv">7</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">+</span> <span class="dv">2</span> <span class="sc">+</span> <span class="dv">3</span> <span class="sc">+</span> <span class="dv">4</span> <span class="sc">+</span> <span class="dv">5</span> <span class="sc">+</span> <span class="dv">7</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 22</code></pre>
 </div>
@@ -1184,16 +1185,16 @@ t = \frac{\bar{x} - \mu_0}{s/\sqrt{n}} = \frac{-0.075 - 0}{0.8207 / \sqrt{8}}
 </div>
 </div>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-7-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-7-1" role="tab" aria-controls="tabset-7-1" aria-selected="true">9.5c</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-7-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-7-2" role="tab" aria-controls="tabset-7-2" aria-selected="false">Solutions</a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-7-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-7-1" role="tab" aria-controls="tabset-7-1" aria-selected="true" href="">9.5c</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-7-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-7-2" role="tab" aria-controls="tabset-7-2" aria-selected="false" href="">Solutions</a></li></ul>
 <div class="tab-content">
 <div id="tabset-7-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-7-1-tab">
 <p>Use R to run the test from 9.5 aa and report the p-value.</p>
 </div>
 <div id="tabset-7-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-7-2-tab">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">wilcox.test</span>(diff <span class="sc">~</span> <span class="dv">1</span>, <span class="at">data =</span> hemo) <span class="sc">|&gt;</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">wilcox.test</span>(diff <span class="sc">~</span> <span class="dv">1</span>, <span class="at">data =</span> hemo) <span class="sc">|&gt;</span></span>
 <span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tidy</span>() <span class="sc">|&gt;</span></span>
-<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(statistic, p.value)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(statistic, p.value)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1 × 2
   statistic p.value
@@ -1206,7 +1207,7 @@ t = \frac{\bar{x} - \mu_0}{s/\sqrt{n}} = \frac{-0.075 - 0}{0.8207 / \sqrt{8}}
 </div>
 </div>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-8-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-8-1" role="tab" aria-controls="tabset-8-1" aria-selected="true">9.6</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-8-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-8-2" role="tab" aria-controls="tabset-8-2" aria-selected="false">Solutions</a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-8-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-8-1" role="tab" aria-controls="tabset-8-1" aria-selected="true" href="">9.6</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-8-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-8-2" role="tab" aria-controls="tabset-8-2" aria-selected="false" href="">Solutions</a></li></ul>
 <div class="tab-content">
 <div id="tabset-8-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-8-1-tab">
 <p>Compare your results in Problems 9.4 and 9.5.</p>
@@ -1221,16 +1222,16 @@ t = \frac{\bar{x} - \mu_0}{s/\sqrt{n}} = \frac{-0.075 - 0}{0.8207 / \sqrt{8}}
 <h2 class="anchored" data-anchor-id="pathology">Pathology</h2>
 <p>The data in the following data frame are measurements from a group of 10 normal males and 11 males with left-heart disease taken at autopsy at a particular hospital. Measurements were made on several variables at that time, and the table presents the measurements on total heart weight (THW) and total body weight (BW). Assume that the diagnosis of left-heart disease is made independently of these variables.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>heart <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>heart <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
 <span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">status =</span> <span class="fu">c</span>(<span class="fu">rep</span>(<span class="st">"disease"</span>, <span class="dv">11</span>), <span class="fu">rep</span>(<span class="st">"normal"</span>, <span class="dv">10</span>)),</span>
 <span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">thw =</span> <span class="fu">c</span>(<span class="dv">450</span>, <span class="dv">760</span>, <span class="dv">325</span>, <span class="dv">495</span>, <span class="dv">285</span>, <span class="dv">450</span>, <span class="dv">460</span>, <span class="dv">375</span>, <span class="dv">310</span>, <span class="dv">615</span>, <span class="dv">425</span>,</span>
 <span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a>          <span class="dv">245</span>, <span class="dv">350</span>, <span class="dv">340</span>, <span class="dv">300</span>, <span class="dv">310</span>, <span class="dv">270</span>, <span class="dv">300</span>, <span class="dv">360</span>, <span class="dv">405</span>, <span class="dv">290</span>),</span>
 <span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">bw =</span> <span class="fu">c</span>(<span class="fl">54.6</span>, <span class="fl">73.5</span>, <span class="fl">50.3</span>, <span class="fl">44.6</span>, <span class="fl">58.1</span>, <span class="fl">61.3</span>, <span class="fl">75.3</span>, <span class="fl">41.1</span>, <span class="fl">51.5</span>, <span class="fl">41.7</span>, <span class="fl">59.7</span>,</span>
 <span id="cb36-6"><a href="#cb36-6" aria-hidden="true" tabindex="-1"></a>         <span class="fl">40.8</span>, <span class="fl">67.4</span>, <span class="fl">53.3</span>, <span class="fl">62.2</span>, <span class="fl">65.5</span>, <span class="fl">47.5</span>, <span class="fl">51.2</span>, <span class="fl">74.9</span>, <span class="fl">59.0</span>, <span class="fl">40.5</span>)</span>
-<span id="cb36-7"><a href="#cb36-7" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb36-7"><a href="#cb36-7" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-9-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-9-1" role="tab" aria-controls="tabset-9-1" aria-selected="true">9.7</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-9-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-9-2" role="tab" aria-controls="tabset-9-2" aria-selected="false">Solutions</a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-9-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-9-1" role="tab" aria-controls="tabset-9-1" aria-selected="true" href="">9.7</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-9-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-9-2" role="tab" aria-controls="tabset-9-2" aria-selected="false" href="">Solutions</a></li></ul>
 <div class="tab-content">
 <div id="tabset-9-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-9-1-tab">
 <p>Suppose normality is not assumed. What nonparametric test can be used to compare total heart weight of males with left-heart disease with that of normal males?</p>
@@ -1241,7 +1242,7 @@ t = \frac{\bar{x} - \mu_0}{s/\sqrt{n}} = \frac{-0.075 - 0}{0.8207 / \sqrt{8}}
 </div>
 </div>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-10-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-10-1" role="tab" aria-controls="tabset-10-1" aria-selected="true">9.8a</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-10-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-10-2" role="tab" aria-controls="tabset-10-2" aria-selected="false">Solutions</a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-10-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-10-1" role="tab" aria-controls="tabset-10-1" aria-selected="true" href="">9.8a</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-10-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-10-2" role="tab" aria-controls="tabset-10-2" aria-selected="false" href="">Solutions</a></li></ul>
 <div class="tab-content">
 <div id="tabset-10-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-10-1-tab">
 <p>Calculate a test-statistic for the test in 9.7.</p>
@@ -1250,23 +1251,23 @@ t = \frac{\bar{x} - \mu_0}{s/\sqrt{n}} = \frac{-0.075 - 0}{0.8207 / \sqrt{8}}
 <p>We first rank all of the <code>thw</code> values</p>
 <div class="cell">
 <div class="cell-output-display">
-<div id="vvhszckoho" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#vvhszckoho table {
+<div id="ftjvvacwxf" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#ftjvvacwxf table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#vvhszckoho thead, #vvhszckoho tbody, #vvhszckoho tfoot, #vvhszckoho tr, #vvhszckoho td, #vvhszckoho th {
+#ftjvvacwxf thead, #ftjvvacwxf tbody, #ftjvvacwxf tfoot, #ftjvvacwxf tr, #ftjvvacwxf td, #ftjvvacwxf th {
   border-style: none;
 }
 
-#vvhszckoho p {
+#ftjvvacwxf p {
   margin: 0;
   padding: 0;
 }
 
-#vvhszckoho .gt_table {
+#ftjvvacwxf .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -1292,12 +1293,12 @@ t = \frac{\bar{x} - \mu_0}{s/\sqrt{n}} = \frac{-0.075 - 0}{0.8207 / \sqrt{8}}
   border-left-color: #D3D3D3;
 }
 
-#vvhszckoho .gt_caption {
+#ftjvvacwxf .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#vvhszckoho .gt_title {
+#ftjvvacwxf .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -1309,7 +1310,7 @@ t = \frac{\bar{x} - \mu_0}{s/\sqrt{n}} = \frac{-0.075 - 0}{0.8207 / \sqrt{8}}
   border-bottom-width: 0;
 }
 
-#vvhszckoho .gt_subtitle {
+#ftjvvacwxf .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -1321,7 +1322,7 @@ t = \frac{\bar{x} - \mu_0}{s/\sqrt{n}} = \frac{-0.075 - 0}{0.8207 / \sqrt{8}}
   border-top-width: 0;
 }
 
-#vvhszckoho .gt_heading {
+#ftjvvacwxf .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -1333,13 +1334,13 @@ t = \frac{\bar{x} - \mu_0}{s/\sqrt{n}} = \frac{-0.075 - 0}{0.8207 / \sqrt{8}}
   border-right-color: #D3D3D3;
 }
 
-#vvhszckoho .gt_bottom_border {
+#ftjvvacwxf .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#vvhszckoho .gt_col_headings {
+#ftjvvacwxf .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1354,7 +1355,7 @@ t = \frac{\bar{x} - \mu_0}{s/\sqrt{n}} = \frac{-0.075 - 0}{0.8207 / \sqrt{8}}
   border-right-color: #D3D3D3;
 }
 
-#vvhszckoho .gt_col_heading {
+#ftjvvacwxf .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1374,7 +1375,7 @@ t = \frac{\bar{x} - \mu_0}{s/\sqrt{n}} = \frac{-0.075 - 0}{0.8207 / \sqrt{8}}
   overflow-x: hidden;
 }
 
-#vvhszckoho .gt_column_spanner_outer {
+#ftjvvacwxf .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1386,15 +1387,15 @@ t = \frac{\bar{x} - \mu_0}{s/\sqrt{n}} = \frac{-0.075 - 0}{0.8207 / \sqrt{8}}
   padding-right: 4px;
 }
 
-#vvhszckoho .gt_column_spanner_outer:first-child {
+#ftjvvacwxf .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#vvhszckoho .gt_column_spanner_outer:last-child {
+#ftjvvacwxf .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#vvhszckoho .gt_column_spanner {
+#ftjvvacwxf .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -1406,11 +1407,11 @@ t = \frac{\bar{x} - \mu_0}{s/\sqrt{n}} = \frac{-0.075 - 0}{0.8207 / \sqrt{8}}
   width: 100%;
 }
 
-#vvhszckoho .gt_spanner_row {
+#ftjvvacwxf .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#vvhszckoho .gt_group_heading {
+#ftjvvacwxf .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1436,7 +1437,7 @@ t = \frac{\bar{x} - \mu_0}{s/\sqrt{n}} = \frac{-0.075 - 0}{0.8207 / \sqrt{8}}
   text-align: left;
 }
 
-#vvhszckoho .gt_empty_group_heading {
+#ftjvvacwxf .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -1451,15 +1452,15 @@ t = \frac{\bar{x} - \mu_0}{s/\sqrt{n}} = \frac{-0.075 - 0}{0.8207 / \sqrt{8}}
   vertical-align: middle;
 }
 
-#vvhszckoho .gt_from_md > :first-child {
+#ftjvvacwxf .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#vvhszckoho .gt_from_md > :last-child {
+#ftjvvacwxf .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#vvhszckoho .gt_row {
+#ftjvvacwxf .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1478,7 +1479,7 @@ t = \frac{\bar{x} - \mu_0}{s/\sqrt{n}} = \frac{-0.075 - 0}{0.8207 / \sqrt{8}}
   overflow-x: hidden;
 }
 
-#vvhszckoho .gt_stub {
+#ftjvvacwxf .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1491,7 +1492,7 @@ t = \frac{\bar{x} - \mu_0}{s/\sqrt{n}} = \frac{-0.075 - 0}{0.8207 / \sqrt{8}}
   padding-right: 5px;
 }
 
-#vvhszckoho .gt_stub_row_group {
+#ftjvvacwxf .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1505,15 +1506,15 @@ t = \frac{\bar{x} - \mu_0}{s/\sqrt{n}} = \frac{-0.075 - 0}{0.8207 / \sqrt{8}}
   vertical-align: top;
 }
 
-#vvhszckoho .gt_row_group_first td {
+#ftjvvacwxf .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#vvhszckoho .gt_row_group_first th {
+#ftjvvacwxf .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#vvhszckoho .gt_summary_row {
+#ftjvvacwxf .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1523,16 +1524,16 @@ t = \frac{\bar{x} - \mu_0}{s/\sqrt{n}} = \frac{-0.075 - 0}{0.8207 / \sqrt{8}}
   padding-right: 5px;
 }
 
-#vvhszckoho .gt_first_summary_row {
+#ftjvvacwxf .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#vvhszckoho .gt_first_summary_row.thick {
+#ftjvvacwxf .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#vvhszckoho .gt_last_summary_row {
+#ftjvvacwxf .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1542,7 +1543,7 @@ t = \frac{\bar{x} - \mu_0}{s/\sqrt{n}} = \frac{-0.075 - 0}{0.8207 / \sqrt{8}}
   border-bottom-color: #D3D3D3;
 }
 
-#vvhszckoho .gt_grand_summary_row {
+#ftjvvacwxf .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1552,7 +1553,7 @@ t = \frac{\bar{x} - \mu_0}{s/\sqrt{n}} = \frac{-0.075 - 0}{0.8207 / \sqrt{8}}
   padding-right: 5px;
 }
 
-#vvhszckoho .gt_first_grand_summary_row {
+#ftjvvacwxf .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1562,7 +1563,7 @@ t = \frac{\bar{x} - \mu_0}{s/\sqrt{n}} = \frac{-0.075 - 0}{0.8207 / \sqrt{8}}
   border-top-color: #D3D3D3;
 }
 
-#vvhszckoho .gt_last_grand_summary_row_top {
+#ftjvvacwxf .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1572,11 +1573,11 @@ t = \frac{\bar{x} - \mu_0}{s/\sqrt{n}} = \frac{-0.075 - 0}{0.8207 / \sqrt{8}}
   border-bottom-color: #D3D3D3;
 }
 
-#vvhszckoho .gt_striped {
+#ftjvvacwxf .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#vvhszckoho .gt_table_body {
+#ftjvvacwxf .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1585,7 +1586,7 @@ t = \frac{\bar{x} - \mu_0}{s/\sqrt{n}} = \frac{-0.075 - 0}{0.8207 / \sqrt{8}}
   border-bottom-color: #D3D3D3;
 }
 
-#vvhszckoho .gt_footnotes {
+#ftjvvacwxf .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1599,7 +1600,7 @@ t = \frac{\bar{x} - \mu_0}{s/\sqrt{n}} = \frac{-0.075 - 0}{0.8207 / \sqrt{8}}
   border-right-color: #D3D3D3;
 }
 
-#vvhszckoho .gt_footnote {
+#ftjvvacwxf .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -1608,7 +1609,7 @@ t = \frac{\bar{x} - \mu_0}{s/\sqrt{n}} = \frac{-0.075 - 0}{0.8207 / \sqrt{8}}
   padding-right: 5px;
 }
 
-#vvhszckoho .gt_sourcenotes {
+#ftjvvacwxf .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1622,7 +1623,7 @@ t = \frac{\bar{x} - \mu_0}{s/\sqrt{n}} = \frac{-0.075 - 0}{0.8207 / \sqrt{8}}
   border-right-color: #D3D3D3;
 }
 
-#vvhszckoho .gt_sourcenote {
+#ftjvvacwxf .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -1630,77 +1631,77 @@ t = \frac{\bar{x} - \mu_0}{s/\sqrt{n}} = \frac{-0.075 - 0}{0.8207 / \sqrt{8}}
   padding-right: 5px;
 }
 
-#vvhszckoho .gt_left {
+#ftjvvacwxf .gt_left {
   text-align: left;
 }
 
-#vvhszckoho .gt_center {
+#ftjvvacwxf .gt_center {
   text-align: center;
 }
 
-#vvhszckoho .gt_right {
+#ftjvvacwxf .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#vvhszckoho .gt_font_normal {
+#ftjvvacwxf .gt_font_normal {
   font-weight: normal;
 }
 
-#vvhszckoho .gt_font_bold {
+#ftjvvacwxf .gt_font_bold {
   font-weight: bold;
 }
 
-#vvhszckoho .gt_font_italic {
+#ftjvvacwxf .gt_font_italic {
   font-style: italic;
 }
 
-#vvhszckoho .gt_super {
+#ftjvvacwxf .gt_super {
   font-size: 65%;
 }
 
-#vvhszckoho .gt_footnote_marks {
+#ftjvvacwxf .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#vvhszckoho .gt_asterisk {
+#ftjvvacwxf .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#vvhszckoho .gt_indent_1 {
+#ftjvvacwxf .gt_indent_1 {
   text-indent: 5px;
 }
 
-#vvhszckoho .gt_indent_2 {
+#ftjvvacwxf .gt_indent_2 {
   text-indent: 10px;
 }
 
-#vvhszckoho .gt_indent_3 {
+#ftjvvacwxf .gt_indent_3 {
   text-indent: 15px;
 }
 
-#vvhszckoho .gt_indent_4 {
+#ftjvvacwxf .gt_indent_4 {
   text-indent: 20px;
 }
 
-#vvhszckoho .gt_indent_5 {
+#ftjvvacwxf .gt_indent_5 {
   text-indent: 25px;
 }
 
-#vvhszckoho .katex-display {
+#ftjvvacwxf .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#vvhszckoho div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#ftjvvacwxf div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
 
-<table class="gt_table caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+<table class="gt_table caption-top table table-sm table-striped small" data-quarto-bootstrap="false">
 <thead>
 <tr class="gt_col_headings header">
 <th id="status" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">status</th>
@@ -1824,14 +1825,14 @@ t = \frac{\bar{x} - \mu_0}{s/\sqrt{n}} = \frac{-0.075 - 0}{0.8207 / \sqrt{8}}
 <p>We now sum either all of the ranks of the disease group, or all of the ranks of the normal group (doesn’t matter which).</p>
 <p>For the normal group, we get</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">+</span> <span class="dv">2</span> <span class="sc">+</span> <span class="dv">4</span> <span class="sc">+</span> <span class="fl">5.5</span> <span class="sc">+</span> <span class="fl">5.5</span> <span class="sc">+</span> <span class="fl">7.5</span> <span class="sc">+</span> <span class="dv">10</span> <span class="sc">+</span> <span class="dv">11</span> <span class="sc">+</span> <span class="dv">12</span> <span class="sc">+</span> <span class="dv">14</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">+</span> <span class="dv">2</span> <span class="sc">+</span> <span class="dv">4</span> <span class="sc">+</span> <span class="fl">5.5</span> <span class="sc">+</span> <span class="fl">5.5</span> <span class="sc">+</span> <span class="fl">7.5</span> <span class="sc">+</span> <span class="dv">10</span> <span class="sc">+</span> <span class="dv">11</span> <span class="sc">+</span> <span class="dv">12</span> <span class="sc">+</span> <span class="dv">14</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 72.5</code></pre>
 </div>
 </div>
 <p>For the disease group, we get</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span> <span class="sc">+</span> <span class="fl">7.5</span> <span class="sc">+</span> <span class="dv">9</span> <span class="sc">+</span> <span class="dv">13</span> <span class="sc">+</span> <span class="dv">15</span> <span class="sc">+</span> <span class="fl">16.5</span> <span class="sc">+</span> <span class="fl">16.5</span> <span class="sc">+</span> <span class="dv">18</span> <span class="sc">+</span> <span class="dv">19</span> <span class="sc">+</span> <span class="dv">20</span> <span class="sc">+</span> <span class="dv">21</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span> <span class="sc">+</span> <span class="fl">7.5</span> <span class="sc">+</span> <span class="dv">9</span> <span class="sc">+</span> <span class="dv">13</span> <span class="sc">+</span> <span class="dv">15</span> <span class="sc">+</span> <span class="fl">16.5</span> <span class="sc">+</span> <span class="fl">16.5</span> <span class="sc">+</span> <span class="dv">18</span> <span class="sc">+</span> <span class="dv">19</span> <span class="sc">+</span> <span class="dv">20</span> <span class="sc">+</span> <span class="dv">21</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 158.5</code></pre>
 </div>
@@ -1840,16 +1841,16 @@ t = \frac{\bar{x} - \mu_0}{s/\sqrt{n}} = \frac{-0.075 - 0}{0.8207 / \sqrt{8}}
 </div>
 </div>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-11-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-11-1" role="tab" aria-controls="tabset-11-1" aria-selected="true">9.8a</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-11-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-11-2" role="tab" aria-controls="tabset-11-2" aria-selected="false">Solutions</a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-11-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-11-1" role="tab" aria-controls="tabset-11-1" aria-selected="true" href="">9.8a</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-11-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-11-2" role="tab" aria-controls="tabset-11-2" aria-selected="false" href="">Solutions</a></li></ul>
 <div class="tab-content">
 <div id="tabset-11-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-11-1-tab">
 <p>Run the test from 9.7 in R and report a p-value.</p>
 </div>
 <div id="tabset-11-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-11-2-tab">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="fu">wilcox.test</span>(thw <span class="sc">~</span> status, <span class="at">data =</span> heart, <span class="at">exact =</span> <span class="cn">FALSE</span>) <span class="sc">|&gt;</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="fu">wilcox.test</span>(thw <span class="sc">~</span> status, <span class="at">data =</span> heart, <span class="at">exact =</span> <span class="cn">FALSE</span>) <span class="sc">|&gt;</span></span>
 <span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tidy</span>() <span class="sc">|&gt;</span></span>
-<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(statistic, p.value)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(statistic, p.value)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1 × 2
   statistic p.value
@@ -1859,7 +1860,7 @@ t = \frac{\bar{x} - \mu_0}{s/\sqrt{n}} = \frac{-0.075 - 0}{0.8207 / \sqrt{8}}
 </div>
 <p>Note (but not important for you) that R’s statistic subtract <span class="math inline">\(m(m+1)/2\)</span> from the statistic, where <span class="math inline">\(m\)</span> is the sample size of the group. So</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="fl">158.5</span> <span class="sc">-</span> <span class="dv">11</span> <span class="sc">*</span> (<span class="dv">11</span> <span class="sc">+</span> <span class="dv">1</span>) <span class="sc">/</span> <span class="dv">2</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="fl">158.5</span> <span class="sc">-</span> <span class="dv">11</span> <span class="sc">*</span> (<span class="dv">11</span> <span class="sc">+</span> <span class="dv">1</span>) <span class="sc">/</span> <span class="dv">2</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 92.5</code></pre>
 </div>
@@ -1872,7 +1873,7 @@ t = \frac{\bar{x} - \mu_0}{s/\sqrt{n}} = \frac{-0.075 - 0}{0.8207 / \sqrt{8}}
 <h2 class="anchored" data-anchor-id="cardiology">Cardiology</h2>
 <p>Propranolol is a standard drug given to ease the pain of patients with episodes of unstable angina. A new drug for the treatment of this disease is tested on 30 pairs of patients who are matched on a one-to-one basis according to age, sex, and clinical condition and are assessed as to the severity of their pain. Suppose that in 15 pairs of patients, the patient with the new drug has less pain; in 10 pairs of patients, the patient with propranolol has less pain; and in 5 pairs of patients, the pain is about the same with the two drugs.</p>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-12-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-12-1" role="tab" aria-controls="tabset-12-1" aria-selected="true">9.9</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-12-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-12-2" role="tab" aria-controls="tabset-12-2" aria-selected="false">Solutions</a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-12-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-12-1" role="tab" aria-controls="tabset-12-1" aria-selected="true" href="">9.9</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-12-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-12-2" role="tab" aria-controls="tabset-12-2" aria-selected="false" href="">Solutions</a></li></ul>
 <div class="tab-content">
 <div id="tabset-12-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-12-1-tab">
 <p>What is the appropriate test to use here?</p>
@@ -1883,7 +1884,7 @@ t = \frac{\bar{x} - \mu_0}{s/\sqrt{n}} = \frac{-0.075 - 0}{0.8207 / \sqrt{8}}
 </div>
 </div>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-13-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-13-1" role="tab" aria-controls="tabset-13-1" aria-selected="true">9.10</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-13-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-13-2" role="tab" aria-controls="tabset-13-2" aria-selected="false">Solutions</a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-13-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-13-1" role="tab" aria-controls="tabset-13-1" aria-selected="true" href="">9.10</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-13-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-13-2" role="tab" aria-controls="tabset-13-2" aria-selected="false" href="">Solutions</a></li></ul>
 <div class="tab-content">
 <div id="tabset-13-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-13-1-tab">
 <p>Perform the test in Problem 9.9 and report a p-value.</p>
@@ -1891,7 +1892,7 @@ t = \frac{\bar{x} - \mu_0}{s/\sqrt{n}} = \frac{-0.075 - 0}{0.8207 / \sqrt{8}}
 <div id="tabset-13-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-13-2-tab">
 <p>We are told that we observe <span class="math inline">\(x = 10\)</span> and <span class="math inline">\(n = 25\)</span>. We can use the normal approximation to the binomial since <span class="math inline">\(np_0(1-p_0) \geq 5\)</span></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="dv">25</span> <span class="sc">*</span> <span class="fl">0.5</span> <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> <span class="fl">0.5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="dv">25</span> <span class="sc">*</span> <span class="fl">0.5</span> <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> <span class="fl">0.5</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 6.25</code></pre>
 </div>
@@ -1900,7 +1901,7 @@ t = \frac{\bar{x} - \mu_0}{s/\sqrt{n}} = \frac{-0.075 - 0}{0.8207 / \sqrt{8}}
 z = \frac{|\hat{p} - p_0| - 1/(2n)}{\sqrt{p_0(1-p_0)/n}} = \frac{|10/25 - 0.5| - 1/50}{\sqrt{0.5(1-0.5)/25}}
 \]</span></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>(<span class="fu">abs</span>(<span class="dv">10</span><span class="sc">/</span><span class="dv">25</span> <span class="sc">-</span> <span class="fl">0.5</span>) <span class="sc">-</span> <span class="dv">1</span><span class="sc">/</span><span class="dv">50</span>) <span class="sc">/</span> <span class="fu">sqrt</span>(<span class="fl">0.5</span> <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> <span class="fl">0.5</span>) <span class="sc">/</span> <span class="dv">25</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>(<span class="fu">abs</span>(<span class="dv">10</span><span class="sc">/</span><span class="dv">25</span> <span class="sc">-</span> <span class="fl">0.5</span>) <span class="sc">-</span> <span class="dv">1</span><span class="sc">/</span><span class="dv">50</span>) <span class="sc">/</span> <span class="fu">sqrt</span>(<span class="fl">0.5</span> <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> <span class="fl">0.5</span>) <span class="sc">/</span> <span class="dv">25</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.8</code></pre>
 </div>
@@ -1916,16 +1917,16 @@ z = \frac{|\hat{p} - p_0| - 1/(2n)}{\sqrt{p_0(1-p_0)/n}} = \frac{|10/25 - 0.5| -
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span> <span class="sc">*</span> <span class="fu">pnorm</span>(<span class="sc">-</span><span class="fl">0.8</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span> <span class="sc">*</span> <span class="fu">pnorm</span>(<span class="sc">-</span><span class="fl">0.8</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.4237</code></pre>
 </div>
 </div>
 <p>So we do not have evidence of a difference in pain level. The real way in R is</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="fu">prop.test</span>(<span class="at">x =</span> <span class="dv">10</span>, <span class="at">n =</span> <span class="dv">25</span>, <span class="at">p =</span> <span class="fl">0.5</span>) <span class="sc">|&gt;</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="fu">prop.test</span>(<span class="at">x =</span> <span class="dv">10</span>, <span class="at">n =</span> <span class="dv">25</span>, <span class="at">p =</span> <span class="fl">0.5</span>) <span class="sc">|&gt;</span></span>
 <span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tidy</span>() <span class="sc">|&gt;</span></span>
-<span id="cb51-3"><a href="#cb51-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(p.value)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb51-3"><a href="#cb51-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(p.value)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1 × 1
   p.value
@@ -1944,9 +1945,9 @@ z = \frac{|\hat{p} - p_0| - 1/(2n)}{\sqrt{p_0(1-p_0)/n}} = \frac{|10/25 - 0.5| -
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="fu">binom.test</span>(<span class="at">x =</span> <span class="dv">10</span>, <span class="at">n =</span> <span class="dv">25</span>, <span class="at">p =</span> <span class="fl">0.5</span>) <span class="sc">|&gt;</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="fu">binom.test</span>(<span class="at">x =</span> <span class="dv">10</span>, <span class="at">n =</span> <span class="dv">25</span>, <span class="at">p =</span> <span class="fl">0.5</span>) <span class="sc">|&gt;</span></span>
 <span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tidy</span>() <span class="sc">|&gt;</span></span>
-<span id="cb53-3"><a href="#cb53-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(p.value)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb53-3"><a href="#cb53-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(p.value)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1 × 1
   p.value
@@ -1962,13 +1963,13 @@ z = \frac{|\hat{p} - p_0| - 1/(2n)}{\sqrt{p_0(1-p_0)/n}} = \frac{|10/25 - 0.5| -
 <h2 class="anchored" data-anchor-id="ophthalmology-1">Ophthalmology</h2>
 <p>A camera has been developed to detect the presence of cataract more accurately. Using this camera, the gray level of each point (or pixel) in the lens of a human eye can be characterized into 256 gradations, where a gray level of 1 represents black and a gray level of 256 represents white. To test the camera, photographs were taken of 6 randomly selected normal eyes and 6 randomly selected cataractous eyes (the two groups consist of different people). The median gray level of each eye was computed over the 10,000+ pixels in the lens. The data are given in the data frame below.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a>cateract <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a>cateract <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
 <span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">status =</span> <span class="fu">c</span>(<span class="fu">rep</span>(<span class="st">"cateractous"</span>, <span class="dv">6</span>), <span class="fu">rep</span>(<span class="st">"normal"</span>, <span class="dv">6</span>)),</span>
 <span id="cb55-3"><a href="#cb55-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">gray_level =</span> <span class="fu">c</span>(<span class="dv">161</span>, <span class="dv">140</span>, <span class="dv">136</span>, <span class="dv">171</span>, <span class="dv">106</span>, <span class="dv">149</span>, <span class="dv">158</span>, <span class="dv">182</span>, <span class="dv">185</span>, <span class="dv">145</span>, <span class="dv">167</span>, <span class="dv">177</span>)</span>
-<span id="cb55-4"><a href="#cb55-4" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb55-4"><a href="#cb55-4" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-14-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-14-1" role="tab" aria-controls="tabset-14-1" aria-selected="true">9.11</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-14-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-14-2" role="tab" aria-controls="tabset-14-2" aria-selected="false">Solutions</a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-14-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-14-1" role="tab" aria-controls="tabset-14-1" aria-selected="true" href="">9.11</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-14-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-14-2" role="tab" aria-controls="tabset-14-2" aria-selected="false" href="">Solutions</a></li></ul>
 <div class="tab-content">
 <div id="tabset-14-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-14-1-tab">
 <p>What nonparametric test could be used to compare the median gray levels of normal and cataractous eyes?</p>
@@ -1979,7 +1980,7 @@ z = \frac{|\hat{p} - p_0| - 1/(2n)}{\sqrt{p_0(1-p_0)/n}} = \frac{|10/25 - 0.5| -
 </div>
 </div>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-15-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-15-1" role="tab" aria-controls="tabset-15-1" aria-selected="true">9.12a</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-15-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-15-2" role="tab" aria-controls="tabset-15-2" aria-selected="false">Solutions</a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-15-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-15-1" role="tab" aria-controls="tabset-15-1" aria-selected="true" href="">9.12a</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-15-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-15-2" role="tab" aria-controls="tabset-15-2" aria-selected="false" href="">Solutions</a></li></ul>
 <div class="tab-content">
 <div id="tabset-15-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-15-1-tab">
 <p>Calculate the test-statistic from the test in 9.11.</p>
@@ -1988,23 +1989,23 @@ z = \frac{|\hat{p} - p_0| - 1/(2n)}{\sqrt{p_0(1-p_0)/n}} = \frac{|10/25 - 0.5| -
 <p>We first rank all of the <code>gray_level</code> values</p>
 <div class="cell">
 <div class="cell-output-display">
-<div id="elfwzgfjfu" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#elfwzgfjfu table {
+<div id="wzlymphfkg" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#wzlymphfkg table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#elfwzgfjfu thead, #elfwzgfjfu tbody, #elfwzgfjfu tfoot, #elfwzgfjfu tr, #elfwzgfjfu td, #elfwzgfjfu th {
+#wzlymphfkg thead, #wzlymphfkg tbody, #wzlymphfkg tfoot, #wzlymphfkg tr, #wzlymphfkg td, #wzlymphfkg th {
   border-style: none;
 }
 
-#elfwzgfjfu p {
+#wzlymphfkg p {
   margin: 0;
   padding: 0;
 }
 
-#elfwzgfjfu .gt_table {
+#wzlymphfkg .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -2030,12 +2031,12 @@ z = \frac{|\hat{p} - p_0| - 1/(2n)}{\sqrt{p_0(1-p_0)/n}} = \frac{|10/25 - 0.5| -
   border-left-color: #D3D3D3;
 }
 
-#elfwzgfjfu .gt_caption {
+#wzlymphfkg .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#elfwzgfjfu .gt_title {
+#wzlymphfkg .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -2047,7 +2048,7 @@ z = \frac{|\hat{p} - p_0| - 1/(2n)}{\sqrt{p_0(1-p_0)/n}} = \frac{|10/25 - 0.5| -
   border-bottom-width: 0;
 }
 
-#elfwzgfjfu .gt_subtitle {
+#wzlymphfkg .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -2059,7 +2060,7 @@ z = \frac{|\hat{p} - p_0| - 1/(2n)}{\sqrt{p_0(1-p_0)/n}} = \frac{|10/25 - 0.5| -
   border-top-width: 0;
 }
 
-#elfwzgfjfu .gt_heading {
+#wzlymphfkg .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -2071,13 +2072,13 @@ z = \frac{|\hat{p} - p_0| - 1/(2n)}{\sqrt{p_0(1-p_0)/n}} = \frac{|10/25 - 0.5| -
   border-right-color: #D3D3D3;
 }
 
-#elfwzgfjfu .gt_bottom_border {
+#wzlymphfkg .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#elfwzgfjfu .gt_col_headings {
+#wzlymphfkg .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -2092,7 +2093,7 @@ z = \frac{|\hat{p} - p_0| - 1/(2n)}{\sqrt{p_0(1-p_0)/n}} = \frac{|10/25 - 0.5| -
   border-right-color: #D3D3D3;
 }
 
-#elfwzgfjfu .gt_col_heading {
+#wzlymphfkg .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2112,7 +2113,7 @@ z = \frac{|\hat{p} - p_0| - 1/(2n)}{\sqrt{p_0(1-p_0)/n}} = \frac{|10/25 - 0.5| -
   overflow-x: hidden;
 }
 
-#elfwzgfjfu .gt_column_spanner_outer {
+#wzlymphfkg .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2124,15 +2125,15 @@ z = \frac{|\hat{p} - p_0| - 1/(2n)}{\sqrt{p_0(1-p_0)/n}} = \frac{|10/25 - 0.5| -
   padding-right: 4px;
 }
 
-#elfwzgfjfu .gt_column_spanner_outer:first-child {
+#wzlymphfkg .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#elfwzgfjfu .gt_column_spanner_outer:last-child {
+#wzlymphfkg .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#elfwzgfjfu .gt_column_spanner {
+#wzlymphfkg .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -2144,11 +2145,11 @@ z = \frac{|\hat{p} - p_0| - 1/(2n)}{\sqrt{p_0(1-p_0)/n}} = \frac{|10/25 - 0.5| -
   width: 100%;
 }
 
-#elfwzgfjfu .gt_spanner_row {
+#wzlymphfkg .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#elfwzgfjfu .gt_group_heading {
+#wzlymphfkg .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2174,7 +2175,7 @@ z = \frac{|\hat{p} - p_0| - 1/(2n)}{\sqrt{p_0(1-p_0)/n}} = \frac{|10/25 - 0.5| -
   text-align: left;
 }
 
-#elfwzgfjfu .gt_empty_group_heading {
+#wzlymphfkg .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -2189,15 +2190,15 @@ z = \frac{|\hat{p} - p_0| - 1/(2n)}{\sqrt{p_0(1-p_0)/n}} = \frac{|10/25 - 0.5| -
   vertical-align: middle;
 }
 
-#elfwzgfjfu .gt_from_md > :first-child {
+#wzlymphfkg .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#elfwzgfjfu .gt_from_md > :last-child {
+#wzlymphfkg .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#elfwzgfjfu .gt_row {
+#wzlymphfkg .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2216,7 +2217,7 @@ z = \frac{|\hat{p} - p_0| - 1/(2n)}{\sqrt{p_0(1-p_0)/n}} = \frac{|10/25 - 0.5| -
   overflow-x: hidden;
 }
 
-#elfwzgfjfu .gt_stub {
+#wzlymphfkg .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2229,7 +2230,7 @@ z = \frac{|\hat{p} - p_0| - 1/(2n)}{\sqrt{p_0(1-p_0)/n}} = \frac{|10/25 - 0.5| -
   padding-right: 5px;
 }
 
-#elfwzgfjfu .gt_stub_row_group {
+#wzlymphfkg .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2243,15 +2244,15 @@ z = \frac{|\hat{p} - p_0| - 1/(2n)}{\sqrt{p_0(1-p_0)/n}} = \frac{|10/25 - 0.5| -
   vertical-align: top;
 }
 
-#elfwzgfjfu .gt_row_group_first td {
+#wzlymphfkg .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#elfwzgfjfu .gt_row_group_first th {
+#wzlymphfkg .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#elfwzgfjfu .gt_summary_row {
+#wzlymphfkg .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -2261,16 +2262,16 @@ z = \frac{|\hat{p} - p_0| - 1/(2n)}{\sqrt{p_0(1-p_0)/n}} = \frac{|10/25 - 0.5| -
   padding-right: 5px;
 }
 
-#elfwzgfjfu .gt_first_summary_row {
+#wzlymphfkg .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#elfwzgfjfu .gt_first_summary_row.thick {
+#wzlymphfkg .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#elfwzgfjfu .gt_last_summary_row {
+#wzlymphfkg .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2280,7 +2281,7 @@ z = \frac{|\hat{p} - p_0| - 1/(2n)}{\sqrt{p_0(1-p_0)/n}} = \frac{|10/25 - 0.5| -
   border-bottom-color: #D3D3D3;
 }
 
-#elfwzgfjfu .gt_grand_summary_row {
+#wzlymphfkg .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -2290,7 +2291,7 @@ z = \frac{|\hat{p} - p_0| - 1/(2n)}{\sqrt{p_0(1-p_0)/n}} = \frac{|10/25 - 0.5| -
   padding-right: 5px;
 }
 
-#elfwzgfjfu .gt_first_grand_summary_row {
+#wzlymphfkg .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2300,7 +2301,7 @@ z = \frac{|\hat{p} - p_0| - 1/(2n)}{\sqrt{p_0(1-p_0)/n}} = \frac{|10/25 - 0.5| -
   border-top-color: #D3D3D3;
 }
 
-#elfwzgfjfu .gt_last_grand_summary_row_top {
+#wzlymphfkg .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2310,11 +2311,11 @@ z = \frac{|\hat{p} - p_0| - 1/(2n)}{\sqrt{p_0(1-p_0)/n}} = \frac{|10/25 - 0.5| -
   border-bottom-color: #D3D3D3;
 }
 
-#elfwzgfjfu .gt_striped {
+#wzlymphfkg .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#elfwzgfjfu .gt_table_body {
+#wzlymphfkg .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -2323,7 +2324,7 @@ z = \frac{|\hat{p} - p_0| - 1/(2n)}{\sqrt{p_0(1-p_0)/n}} = \frac{|10/25 - 0.5| -
   border-bottom-color: #D3D3D3;
 }
 
-#elfwzgfjfu .gt_footnotes {
+#wzlymphfkg .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -2337,7 +2338,7 @@ z = \frac{|\hat{p} - p_0| - 1/(2n)}{\sqrt{p_0(1-p_0)/n}} = \frac{|10/25 - 0.5| -
   border-right-color: #D3D3D3;
 }
 
-#elfwzgfjfu .gt_footnote {
+#wzlymphfkg .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -2346,7 +2347,7 @@ z = \frac{|\hat{p} - p_0| - 1/(2n)}{\sqrt{p_0(1-p_0)/n}} = \frac{|10/25 - 0.5| -
   padding-right: 5px;
 }
 
-#elfwzgfjfu .gt_sourcenotes {
+#wzlymphfkg .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -2360,7 +2361,7 @@ z = \frac{|\hat{p} - p_0| - 1/(2n)}{\sqrt{p_0(1-p_0)/n}} = \frac{|10/25 - 0.5| -
   border-right-color: #D3D3D3;
 }
 
-#elfwzgfjfu .gt_sourcenote {
+#wzlymphfkg .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -2368,77 +2369,77 @@ z = \frac{|\hat{p} - p_0| - 1/(2n)}{\sqrt{p_0(1-p_0)/n}} = \frac{|10/25 - 0.5| -
   padding-right: 5px;
 }
 
-#elfwzgfjfu .gt_left {
+#wzlymphfkg .gt_left {
   text-align: left;
 }
 
-#elfwzgfjfu .gt_center {
+#wzlymphfkg .gt_center {
   text-align: center;
 }
 
-#elfwzgfjfu .gt_right {
+#wzlymphfkg .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#elfwzgfjfu .gt_font_normal {
+#wzlymphfkg .gt_font_normal {
   font-weight: normal;
 }
 
-#elfwzgfjfu .gt_font_bold {
+#wzlymphfkg .gt_font_bold {
   font-weight: bold;
 }
 
-#elfwzgfjfu .gt_font_italic {
+#wzlymphfkg .gt_font_italic {
   font-style: italic;
 }
 
-#elfwzgfjfu .gt_super {
+#wzlymphfkg .gt_super {
   font-size: 65%;
 }
 
-#elfwzgfjfu .gt_footnote_marks {
+#wzlymphfkg .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#elfwzgfjfu .gt_asterisk {
+#wzlymphfkg .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#elfwzgfjfu .gt_indent_1 {
+#wzlymphfkg .gt_indent_1 {
   text-indent: 5px;
 }
 
-#elfwzgfjfu .gt_indent_2 {
+#wzlymphfkg .gt_indent_2 {
   text-indent: 10px;
 }
 
-#elfwzgfjfu .gt_indent_3 {
+#wzlymphfkg .gt_indent_3 {
   text-indent: 15px;
 }
 
-#elfwzgfjfu .gt_indent_4 {
+#wzlymphfkg .gt_indent_4 {
   text-indent: 20px;
 }
 
-#elfwzgfjfu .gt_indent_5 {
+#wzlymphfkg .gt_indent_5 {
   text-indent: 25px;
 }
 
-#elfwzgfjfu .katex-display {
+#wzlymphfkg .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#elfwzgfjfu div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#wzlymphfkg div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
 
-<table class="gt_table caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+<table class="gt_table caption-top table table-sm table-striped small" data-quarto-bootstrap="false">
 <thead>
 <tr class="gt_col_headings header">
 <th id="status" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">status</th>
@@ -2516,14 +2517,14 @@ z = \frac{|\hat{p} - p_0| - 1/(2n)}{\sqrt{p_0(1-p_0)/n}} = \frac{|10/25 - 0.5| -
 <p>We then sum either all of the normal ranks or all of the cateractous ranks (doesn’t matter which one).</p>
 <p>For the normal ranks:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="dv">4</span> <span class="sc">+</span> <span class="dv">6</span> <span class="sc">+</span> <span class="dv">8</span> <span class="sc">+</span> <span class="dv">10</span> <span class="sc">+</span> <span class="dv">11</span> <span class="sc">+</span> <span class="dv">12</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="dv">4</span> <span class="sc">+</span> <span class="dv">6</span> <span class="sc">+</span> <span class="dv">8</span> <span class="sc">+</span> <span class="dv">10</span> <span class="sc">+</span> <span class="dv">11</span> <span class="sc">+</span> <span class="dv">12</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 51</code></pre>
 </div>
 </div>
 <p>For the cateractous ranks</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">+</span> <span class="dv">2</span> <span class="sc">+</span> <span class="dv">3</span> <span class="sc">+</span> <span class="dv">5</span> <span class="sc">+</span> <span class="dv">7</span> <span class="sc">+</span> <span class="dv">9</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">+</span> <span class="dv">2</span> <span class="sc">+</span> <span class="dv">3</span> <span class="sc">+</span> <span class="dv">5</span> <span class="sc">+</span> <span class="dv">7</span> <span class="sc">+</span> <span class="dv">9</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 27</code></pre>
 </div>
@@ -2532,16 +2533,16 @@ z = \frac{|\hat{p} - p_0| - 1/(2n)}{\sqrt{p_0(1-p_0)/n}} = \frac{|10/25 - 0.5| -
 </div>
 </div>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-16-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-16-1" role="tab" aria-controls="tabset-16-1" aria-selected="true">9.12b</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-16-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-16-2" role="tab" aria-controls="tabset-16-2" aria-selected="false">Solutions</a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-16-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-16-1" role="tab" aria-controls="tabset-16-1" aria-selected="true" href="">9.12b</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-16-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-16-2" role="tab" aria-controls="tabset-16-2" aria-selected="false" href="">Solutions</a></li></ul>
 <div class="tab-content">
 <div id="tabset-16-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-16-1-tab">
 <p>Use R to carry out the test from 9.11.</p>
 </div>
 <div id="tabset-16-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-16-2-tab">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="fu">wilcox.test</span>(gray_level <span class="sc">~</span> status, <span class="at">data =</span> cateract) <span class="sc">|&gt;</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb60"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="fu">wilcox.test</span>(gray_level <span class="sc">~</span> status, <span class="at">data =</span> cateract) <span class="sc">|&gt;</span></span>
 <span id="cb60-2"><a href="#cb60-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tidy</span>() <span class="sc">|&gt;</span></span>
-<span id="cb60-3"><a href="#cb60-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(p.value)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb60-3"><a href="#cb60-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(p.value)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1 × 1
   p.value
@@ -2558,14 +2559,14 @@ z = \frac{|\hat{p} - p_0| - 1/(2n)}{\sqrt{p_0(1-p_0)/n}} = \frac{|10/25 - 0.5| -
 <h2 class="anchored" data-anchor-id="psychiatry">Psychiatry</h2>
 <p>Suppose we are conducting a study of the effectiveness of lithium therapy for manic-depressive patients. The study is carried out at two different centers, and we want to determine if the patient populations are comparable at baseline. A self-rating questionnaire about their general psychological well-being is administered to the prospective patients at the two different centers. The outcome measure on the questionnaire is a four-category scale: (1) = feel good; (2) = usually feel good, once in a while feel nervous; (3) = feel nervous half the time; (4) = usually feel nervous. Suppose the data at the two different centers are as follows:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb62"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a>quest <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb62"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a>quest <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
 <span id="cb62-2"><a href="#cb62-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">feeling =</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">4</span>, <span class="dv">3</span>, <span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">4</span>, <span class="dv">4</span>,</span>
 <span id="cb62-3"><a href="#cb62-3" aria-hidden="true" tabindex="-1"></a>              <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">3</span>),</span>
 <span id="cb62-4"><a href="#cb62-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">center =</span> <span class="fu">c</span>(<span class="fu">rep</span>(<span class="st">"1"</span>, <span class="dv">14</span>), <span class="fu">rep</span>(<span class="st">"2"</span>, <span class="dv">16</span>))</span>
-<span id="cb62-5"><a href="#cb62-5" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb62-5"><a href="#cb62-5" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-17-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-17-1" role="tab" aria-controls="tabset-17-1" aria-selected="true">9.13</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-17-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-17-2" role="tab" aria-controls="tabset-17-2" aria-selected="false">Solutions</a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-17-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-17-1" role="tab" aria-controls="tabset-17-1" aria-selected="true" href="">9.13</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-17-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-17-2" role="tab" aria-controls="tabset-17-2" aria-selected="false" href="">Solutions</a></li></ul>
 <div class="tab-content">
 <div id="tabset-17-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-17-1-tab">
 <p>What type of data does this type of scale represent?</p>
@@ -2576,7 +2577,7 @@ z = \frac{|\hat{p} - p_0| - 1/(2n)}{\sqrt{p_0(1-p_0)/n}} = \frac{|10/25 - 0.5| -
 </div>
 </div>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-18-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-18-1" role="tab" aria-controls="tabset-18-1" aria-selected="true">9.14</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-18-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-18-2" role="tab" aria-controls="tabset-18-2" aria-selected="false">Solutions</a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-18-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-18-1" role="tab" aria-controls="tabset-18-1" aria-selected="true" href="">9.14</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-18-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-18-2" role="tab" aria-controls="tabset-18-2" aria-selected="false" href="">Solutions</a></li></ul>
 <div class="tab-content">
 <div id="tabset-18-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-18-1-tab">
 <p>Why might a parametric test not be useful with this type of data?</p>
@@ -2587,7 +2588,7 @@ z = \frac{|\hat{p} - p_0| - 1/(2n)}{\sqrt{p_0(1-p_0)/n}} = \frac{|10/25 - 0.5| -
 </div>
 </div>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-19-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-19-1" role="tab" aria-controls="tabset-19-1" aria-selected="true">9.15</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-19-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-19-2" role="tab" aria-controls="tabset-19-2" aria-selected="false">Solutions</a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-19-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-19-1" role="tab" aria-controls="tabset-19-1" aria-selected="true" href="">9.15</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-19-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-19-2" role="tab" aria-controls="tabset-19-2" aria-selected="false" href="">Solutions</a></li></ul>
 <div class="tab-content">
 <div id="tabset-19-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-19-1-tab">
 <p>Assess if there is any significant difference in the responses of the two patient populations using a non-parametric test. Just do this in R. No need to calculate the test statistic.</p>
@@ -2595,9 +2596,9 @@ z = \frac{|\hat{p} - p_0| - 1/(2n)}{\sqrt{p_0(1-p_0)/n}} = \frac{|10/25 - 0.5| -
 <div id="tabset-19-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-19-2-tab">
 <p>We should use a Wilcox rank-sum test.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb63"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a><span class="fu">wilcox.test</span>(feeling <span class="sc">~</span> center, <span class="at">data =</span> quest, <span class="at">exact =</span> <span class="cn">FALSE</span>) <span class="sc">|&gt;</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb63"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a><span class="fu">wilcox.test</span>(feeling <span class="sc">~</span> center, <span class="at">data =</span> quest, <span class="at">exact =</span> <span class="cn">FALSE</span>) <span class="sc">|&gt;</span></span>
 <span id="cb63-2"><a href="#cb63-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tidy</span>() <span class="sc">|&gt;</span></span>
-<span id="cb63-3"><a href="#cb63-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(p.value)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb63-3"><a href="#cb63-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(p.value)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1 × 1
   p.value
@@ -2615,23 +2616,23 @@ z = \frac{|\hat{p} - p_0| - 1/(2n)}{\sqrt{p_0(1-p_0)/n}} = \frac{|10/25 - 0.5| -
 <p>Much attention has been given in recent years to the role of transcendental meditation in improving health, particularly in lowering blood pressure. One hypothesis that emerges from this work is that transcendental meditation might also be useful in treating psychiatric patients with symptoms of anxiety. Suppose that a protocol of meditational therapy is administered once a day to 20 patients with anxiety. The patients are given a psychiatric exam at baseline and at a follow-up exam 2 months later. The degree of improvement is rated on a 10-point scale, with 1 indicating the most improvement and 10 the least improvement. Similarly, 26 comparably affected patients with anxiety are given standard psychotherapy and are asked to come back 2 months later for a follow-up exam. The results are given in Table 9.2.</p>
 <div class="cell">
 <div class="cell-output-display">
-<div id="egbwvgttbb" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#egbwvgttbb table {
+<div id="wxecyshhrh" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#wxecyshhrh table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#egbwvgttbb thead, #egbwvgttbb tbody, #egbwvgttbb tfoot, #egbwvgttbb tr, #egbwvgttbb td, #egbwvgttbb th {
+#wxecyshhrh thead, #wxecyshhrh tbody, #wxecyshhrh tfoot, #wxecyshhrh tr, #wxecyshhrh td, #wxecyshhrh th {
   border-style: none;
 }
 
-#egbwvgttbb p {
+#wxecyshhrh p {
   margin: 0;
   padding: 0;
 }
 
-#egbwvgttbb .gt_table {
+#wxecyshhrh .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -2657,12 +2658,12 @@ z = \frac{|\hat{p} - p_0| - 1/(2n)}{\sqrt{p_0(1-p_0)/n}} = \frac{|10/25 - 0.5| -
   border-left-color: #D3D3D3;
 }
 
-#egbwvgttbb .gt_caption {
+#wxecyshhrh .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#egbwvgttbb .gt_title {
+#wxecyshhrh .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -2674,7 +2675,7 @@ z = \frac{|\hat{p} - p_0| - 1/(2n)}{\sqrt{p_0(1-p_0)/n}} = \frac{|10/25 - 0.5| -
   border-bottom-width: 0;
 }
 
-#egbwvgttbb .gt_subtitle {
+#wxecyshhrh .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -2686,7 +2687,7 @@ z = \frac{|\hat{p} - p_0| - 1/(2n)}{\sqrt{p_0(1-p_0)/n}} = \frac{|10/25 - 0.5| -
   border-top-width: 0;
 }
 
-#egbwvgttbb .gt_heading {
+#wxecyshhrh .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -2698,13 +2699,13 @@ z = \frac{|\hat{p} - p_0| - 1/(2n)}{\sqrt{p_0(1-p_0)/n}} = \frac{|10/25 - 0.5| -
   border-right-color: #D3D3D3;
 }
 
-#egbwvgttbb .gt_bottom_border {
+#wxecyshhrh .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#egbwvgttbb .gt_col_headings {
+#wxecyshhrh .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -2719,7 +2720,7 @@ z = \frac{|\hat{p} - p_0| - 1/(2n)}{\sqrt{p_0(1-p_0)/n}} = \frac{|10/25 - 0.5| -
   border-right-color: #D3D3D3;
 }
 
-#egbwvgttbb .gt_col_heading {
+#wxecyshhrh .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2739,7 +2740,7 @@ z = \frac{|\hat{p} - p_0| - 1/(2n)}{\sqrt{p_0(1-p_0)/n}} = \frac{|10/25 - 0.5| -
   overflow-x: hidden;
 }
 
-#egbwvgttbb .gt_column_spanner_outer {
+#wxecyshhrh .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2751,15 +2752,15 @@ z = \frac{|\hat{p} - p_0| - 1/(2n)}{\sqrt{p_0(1-p_0)/n}} = \frac{|10/25 - 0.5| -
   padding-right: 4px;
 }
 
-#egbwvgttbb .gt_column_spanner_outer:first-child {
+#wxecyshhrh .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#egbwvgttbb .gt_column_spanner_outer:last-child {
+#wxecyshhrh .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#egbwvgttbb .gt_column_spanner {
+#wxecyshhrh .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -2771,11 +2772,11 @@ z = \frac{|\hat{p} - p_0| - 1/(2n)}{\sqrt{p_0(1-p_0)/n}} = \frac{|10/25 - 0.5| -
   width: 100%;
 }
 
-#egbwvgttbb .gt_spanner_row {
+#wxecyshhrh .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#egbwvgttbb .gt_group_heading {
+#wxecyshhrh .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2801,7 +2802,7 @@ z = \frac{|\hat{p} - p_0| - 1/(2n)}{\sqrt{p_0(1-p_0)/n}} = \frac{|10/25 - 0.5| -
   text-align: left;
 }
 
-#egbwvgttbb .gt_empty_group_heading {
+#wxecyshhrh .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -2816,15 +2817,15 @@ z = \frac{|\hat{p} - p_0| - 1/(2n)}{\sqrt{p_0(1-p_0)/n}} = \frac{|10/25 - 0.5| -
   vertical-align: middle;
 }
 
-#egbwvgttbb .gt_from_md > :first-child {
+#wxecyshhrh .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#egbwvgttbb .gt_from_md > :last-child {
+#wxecyshhrh .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#egbwvgttbb .gt_row {
+#wxecyshhrh .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2843,7 +2844,7 @@ z = \frac{|\hat{p} - p_0| - 1/(2n)}{\sqrt{p_0(1-p_0)/n}} = \frac{|10/25 - 0.5| -
   overflow-x: hidden;
 }
 
-#egbwvgttbb .gt_stub {
+#wxecyshhrh .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2856,7 +2857,7 @@ z = \frac{|\hat{p} - p_0| - 1/(2n)}{\sqrt{p_0(1-p_0)/n}} = \frac{|10/25 - 0.5| -
   padding-right: 5px;
 }
 
-#egbwvgttbb .gt_stub_row_group {
+#wxecyshhrh .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2870,15 +2871,15 @@ z = \frac{|\hat{p} - p_0| - 1/(2n)}{\sqrt{p_0(1-p_0)/n}} = \frac{|10/25 - 0.5| -
   vertical-align: top;
 }
 
-#egbwvgttbb .gt_row_group_first td {
+#wxecyshhrh .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#egbwvgttbb .gt_row_group_first th {
+#wxecyshhrh .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#egbwvgttbb .gt_summary_row {
+#wxecyshhrh .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -2888,16 +2889,16 @@ z = \frac{|\hat{p} - p_0| - 1/(2n)}{\sqrt{p_0(1-p_0)/n}} = \frac{|10/25 - 0.5| -
   padding-right: 5px;
 }
 
-#egbwvgttbb .gt_first_summary_row {
+#wxecyshhrh .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#egbwvgttbb .gt_first_summary_row.thick {
+#wxecyshhrh .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#egbwvgttbb .gt_last_summary_row {
+#wxecyshhrh .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2907,7 +2908,7 @@ z = \frac{|\hat{p} - p_0| - 1/(2n)}{\sqrt{p_0(1-p_0)/n}} = \frac{|10/25 - 0.5| -
   border-bottom-color: #D3D3D3;
 }
 
-#egbwvgttbb .gt_grand_summary_row {
+#wxecyshhrh .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -2917,7 +2918,7 @@ z = \frac{|\hat{p} - p_0| - 1/(2n)}{\sqrt{p_0(1-p_0)/n}} = \frac{|10/25 - 0.5| -
   padding-right: 5px;
 }
 
-#egbwvgttbb .gt_first_grand_summary_row {
+#wxecyshhrh .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2927,7 +2928,7 @@ z = \frac{|\hat{p} - p_0| - 1/(2n)}{\sqrt{p_0(1-p_0)/n}} = \frac{|10/25 - 0.5| -
   border-top-color: #D3D3D3;
 }
 
-#egbwvgttbb .gt_last_grand_summary_row_top {
+#wxecyshhrh .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2937,11 +2938,11 @@ z = \frac{|\hat{p} - p_0| - 1/(2n)}{\sqrt{p_0(1-p_0)/n}} = \frac{|10/25 - 0.5| -
   border-bottom-color: #D3D3D3;
 }
 
-#egbwvgttbb .gt_striped {
+#wxecyshhrh .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#egbwvgttbb .gt_table_body {
+#wxecyshhrh .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -2950,7 +2951,7 @@ z = \frac{|\hat{p} - p_0| - 1/(2n)}{\sqrt{p_0(1-p_0)/n}} = \frac{|10/25 - 0.5| -
   border-bottom-color: #D3D3D3;
 }
 
-#egbwvgttbb .gt_footnotes {
+#wxecyshhrh .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -2964,7 +2965,7 @@ z = \frac{|\hat{p} - p_0| - 1/(2n)}{\sqrt{p_0(1-p_0)/n}} = \frac{|10/25 - 0.5| -
   border-right-color: #D3D3D3;
 }
 
-#egbwvgttbb .gt_footnote {
+#wxecyshhrh .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -2973,7 +2974,7 @@ z = \frac{|\hat{p} - p_0| - 1/(2n)}{\sqrt{p_0(1-p_0)/n}} = \frac{|10/25 - 0.5| -
   padding-right: 5px;
 }
 
-#egbwvgttbb .gt_sourcenotes {
+#wxecyshhrh .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -2987,7 +2988,7 @@ z = \frac{|\hat{p} - p_0| - 1/(2n)}{\sqrt{p_0(1-p_0)/n}} = \frac{|10/25 - 0.5| -
   border-right-color: #D3D3D3;
 }
 
-#egbwvgttbb .gt_sourcenote {
+#wxecyshhrh .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -2995,77 +2996,77 @@ z = \frac{|\hat{p} - p_0| - 1/(2n)}{\sqrt{p_0(1-p_0)/n}} = \frac{|10/25 - 0.5| -
   padding-right: 5px;
 }
 
-#egbwvgttbb .gt_left {
+#wxecyshhrh .gt_left {
   text-align: left;
 }
 
-#egbwvgttbb .gt_center {
+#wxecyshhrh .gt_center {
   text-align: center;
 }
 
-#egbwvgttbb .gt_right {
+#wxecyshhrh .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#egbwvgttbb .gt_font_normal {
+#wxecyshhrh .gt_font_normal {
   font-weight: normal;
 }
 
-#egbwvgttbb .gt_font_bold {
+#wxecyshhrh .gt_font_bold {
   font-weight: bold;
 }
 
-#egbwvgttbb .gt_font_italic {
+#wxecyshhrh .gt_font_italic {
   font-style: italic;
 }
 
-#egbwvgttbb .gt_super {
+#wxecyshhrh .gt_super {
   font-size: 65%;
 }
 
-#egbwvgttbb .gt_footnote_marks {
+#wxecyshhrh .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#egbwvgttbb .gt_asterisk {
+#wxecyshhrh .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#egbwvgttbb .gt_indent_1 {
+#wxecyshhrh .gt_indent_1 {
   text-indent: 5px;
 }
 
-#egbwvgttbb .gt_indent_2 {
+#wxecyshhrh .gt_indent_2 {
   text-indent: 10px;
 }
 
-#egbwvgttbb .gt_indent_3 {
+#wxecyshhrh .gt_indent_3 {
   text-indent: 15px;
 }
 
-#egbwvgttbb .gt_indent_4 {
+#wxecyshhrh .gt_indent_4 {
   text-indent: 20px;
 }
 
-#egbwvgttbb .gt_indent_5 {
+#wxecyshhrh .gt_indent_5 {
   text-indent: 25px;
 }
 
-#egbwvgttbb .katex-display {
+#wxecyshhrh .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#egbwvgttbb div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#wxecyshhrh div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
 
-<table class="gt_table caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+<table class="gt_table caption-top table table-sm table-striped small" data-quarto-bootstrap="false">
 <colgroup>
 <col style="width: 25%">
 <col style="width: 25%">
@@ -3074,10 +3075,10 @@ z = \frac{|\hat{p} - p_0| - 1/(2n)}{\sqrt{p_0(1-p_0)/n}} = \frac{|10/25 - 0.5| -
 </colgroup>
 <thead>
 <tr class="gt_heading header">
-<th colspan="4" class="gt_heading gt_title gt_font_normal"><strong>Table 9.2</strong></th>
+<td colspan="4" class="gt_heading gt_title gt_font_normal"><strong>Table 9.2</strong></td>
 </tr>
 <tr class="gt_heading even">
-<th colspan="4" class="gt_heading gt_subtitle gt_font_normal gt_bottom_border">Degree of improvement in patients with anxiety who are treated with transcendental meditation or psychotherapy</th>
+<td colspan="4" class="gt_heading gt_subtitle gt_font_normal gt_bottom_border">Degree of improvement in patients with anxiety who are treated with transcendental meditation or psychotherapy</td>
 </tr>
 <tr class="gt_col_headings gt_spanner_row header">
 <th colspan="2" id="Meditation" class="gt_center gt_columns_top_border gt_column_spanner_outer" data-quarto-table-cell-role="th" scope="colgroup"><div class="gt_column_spanner">
@@ -3162,7 +3163,7 @@ Psychotherapy
 </div>
 </div>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-20-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-20-1" role="tab" aria-controls="tabset-20-1" aria-selected="true">9.16</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-20-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-20-2" role="tab" aria-controls="tabset-20-2" aria-selected="false">Solutions</a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-20-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-20-1" role="tab" aria-controls="tabset-20-1" aria-selected="true" href="">9.16</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-20-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-20-2" role="tab" aria-controls="tabset-20-2" aria-selected="false" href="">Solutions</a></li></ul>
 <div class="tab-content">
 <div id="tabset-20-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-20-1-tab">
 <p>Why might a parametric test not be useful here?</p>
@@ -3173,7 +3174,7 @@ Psychotherapy
 </div>
 </div>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-21-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-21-1" role="tab" aria-controls="tabset-21-1" aria-selected="true">9.17</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-21-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-21-2" role="tab" aria-controls="tabset-21-2" aria-selected="false">Solutions</a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-21-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-21-1" role="tab" aria-controls="tabset-21-1" aria-selected="true" href="">9.17</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-21-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-21-2" role="tab" aria-controls="tabset-21-2" aria-selected="false" href="">Solutions</a></li></ul>
 <div class="tab-content">
 <div id="tabset-21-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-21-1-tab">
 <p>What nonparametric test should be used to analyze these data?</p>
@@ -3252,13 +3253,14 @@ Psychotherapy
       e.clearSelection();
     }
     const getTextToCopy = function(trigger) {
-        const codeEl = trigger.previousElementSibling.cloneNode(true);
-        for (const childEl of codeEl.children) {
-          if (isCodeAnnotation(childEl)) {
-            childEl.remove();
-          }
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
         }
-        return codeEl.innerText;
+      }
+      return codeEl.innerText;
     }
     const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
       text: getTextToCopy

@@ -47,6 +47,26 @@ plt_t <- function(
   }
   pl
 }
+plt_chisq <- function(
+    df,
+    lb,
+    rng = c(0, lb + 1)) {
+  tibble(x = seq(rng[[1]], rng[[2]], length.out = 500)) |>
+    mutate(y = stats::dchisq(x = x, df = df)) ->
+    dat
+  
+  dat |>
+    filter(x >= lb) ->
+    dat_sub
+  
+  ggplot() +
+    geom_line(data = dat, mapping = aes(x = x, y = y)) +
+    geom_area(data = dat_sub, mapping = aes(x = x, y = y), fill = "#E69F00", color = "#E69F00") +
+    theme_classic() +
+    geom_vline(xintercept = lb, lty = 2, col = "red") +
+    xlab(expression(x^2)) +
+    ylab("Density")
+}
 plt_binom <- function(
     size, 
     prob = 0.5, 
@@ -80,8 +100,34 @@ plt_binom <- function(
     scale_color_manual(values = c("black", col), guide = "none") +
     scale_x_continuous(breaks = seq(rng[[1]], rng[[2]]))
 }
-cont_tab <- function(x11, x12, x21, x22, col_name, row_name) {
+#' @param tab a table with dimnames as a list with column names and row names and each dimension is named
+#' 
+#' @examples
+#' tab <- matrix(c(1, 2, 3, 4), nrow = 2, byrow = TRUE)
+#' dimnames(tab) <- list(A = c("B", "C"), D = c("E", "F"))
+#' cont_tab(tab)
+cont_tab <- function(tab) {
+  tib <- as_tibble(tab, rownames = names(dimnames(tab))[[1]]) 
+  tib$Total <- rowSums(tib[-1])
+  tib <- rbind(tib, NA)
+  tib[[1]][[nrow(tib)]] <- "Total"
+  for (i in 2:ncol(tib)) {
+    tib[[i]][[nrow(tib)]] <- sum(tib[[i]], na.rm = TRUE)
+  }
   
+  gt(tib) |>
+    tab_spanner(
+      label = names(dimnames(tab))[[2]],
+      columns = names(tib)[-c(1, ncol(tib))]
+    ) |>
+    tab_style(
+      style = cell_borders(sides = "left", style = "double"),
+      locations = cells_body(columns = c(2, ncol(tib)))
+    ) |>
+    tab_style(
+      style = cell_borders(sides = "top", style = "double"),
+      locations = cells_body(rows = c(1, nrow(tib)))
+    )
 }
 ```
 
@@ -134,7 +180,20 @@ Construct the observed and expected contingency tables for these data.
 
 ## Solution
 
-
+Observed
+```{r}
+#| echo: false
+matrix(c(9, 199 - 9, 13, 97 - 13), nrow = 2, byrow = TRUE,
+       dimnames = list(streptokinase = c("Yes", "No"), died = c("Yes", "No"))) |>
+  cont_tab()
+```
+Expected:
+```{r}
+#| echo: false
+matrix(c(199 * 22 / 296, 199 * 274 / 296, 97 * 22 / 296, 97 * 274 / 296), nrow = 2, byrow = TRUE,
+       dimnames = list(streptokinase = c("Yes", "No"), died = c("Yes", "No"))) |>
+  cont_tab()
+```
 :::
 
 
@@ -143,7 +202,31 @@ Construct the observed and expected contingency tables for these data.
 Perform the test in Problem 10.1 using the contingency-table method.
 
 ## Solution
+We calculate $\sum_{\text{categories}} \frac{(o-e)^2}{e}
+$$
+\frac{(9 - 14.791)^2}{14.791} + \frac{(190 - 184.21)^2}{184.21} + \frac{(13 - 7.209)^2}{7.209} + \frac{(84 - 89.79)^2}{89.79}
+$$
+Numerically
+```{r}
+(9 - 14.791)^2 / 14.791 + (190 - 184.21)^2 / 184.21 + (13 - 7.209)^2 / 7.209 + (84 - 89.79)^2 / 89.79
+```
+Under the null, this follows a chi-squared distribution with 1 degree of freedom ($\chi^2_1$). We get the $p$-value by the area under the curve above 7.475
+```{r}
+#| echo: false
+plt_chisq(df = 1, lb = 7.45)
+```
+```{r}
+1 - pchisq(q = 7.475, df = 1)
+```
+So we have strong evidence of an association between streptokinase use and death.
 
+The real-way in R is to use `chisq.test()`
+```{r}
+matrix(c(9, 190, 13, 84), nrow = 2, ncol = 2, byrow = TRUE) |>
+  chisq.test() |>
+  tidy()
+```
+The $p$-value again differs because before we did not do a continuity correction.
 :::
 
 
@@ -152,6 +235,7 @@ Perform the test in Problem 10.1 using the contingency-table method.
 Compare your results in Problems 10.1 and 10.3.
 
 ## Solution
+The $p$-values are the exact same. Theoretically, this should be the case.
 
 :::
 
@@ -163,6 +247,21 @@ In the streptokinase study in Problem 10.1, 2 of 15 females receiving streptokin
 Why is Fisher’s exact test the appropriate procedure to test for differences in 12-month mortality rates between these two groups?
 
 ## Solution
+The sample size is too low for asymptotic approximation to work well. Our rule of thumb is that we need an expected count of at least five in each cell. Our observed table is
+```{r}
+#| echo: false
+matrix(c(2, 15 - 2, 4, 19 - 4), nrow = 2, byrow = TRUE,
+       dimnames = list(streptokinase = c("Yes", "No"), died = c("Yes", "No"))) |>
+  cont_tab()
+```
+These are small, but we base our decision to do an exact test based on the **expected** counts, which are:
+```{r}
+#| echo: false
+matrix(c(6 * 15 / 34, 28 * 15 / 34, 6 * 19 / 34, 28 * 19 / 34), nrow = 2, byrow = TRUE,
+       dimnames = list(streptokinase = c("Yes", "No"), died = c("Yes", "No"))) |>
+  cont_tab()
+```
+There are two cells here with expected counts under 5, so we cannot use an asymptotic approach.
 
 :::
 
@@ -171,32 +270,119 @@ Why is Fisher’s exact test the appropriate procedure to test for differences i
 Write down all possible tables with the same row and column margins as given in the observed data.
 
 ## Solution
-
+$$
+\begin{pmatrix}
+0 & 15\\
+6 & 13
+\end{pmatrix},
+\begin{pmatrix}
+1 & 14\\
+5 & 14
+\end{pmatrix},
+\begin{pmatrix}
+2 & 13\\
+4 & 15
+\end{pmatrix},
+\begin{pmatrix}
+3 & 12\\
+3 & 16
+\end{pmatrix},
+\begin{pmatrix}
+4 & 11\\
+2 & 17
+\end{pmatrix},
+\begin{pmatrix}
+5 & 10\\
+1 & 18
+\end{pmatrix},
+\begin{pmatrix}
+6 & 9\\
+0 & 19
+\end{pmatrix}
+$$
 :::
 
 ::: {.panel-tabset}
-## 10.7 
-Calculate the probability of each of the tables enumerated in Problem 10.6.
+## 10.8
+The conditional null probabilities for tables in question 10.6 are:
+
+```{r}
+#| echo: false
+## 38 total balls
+## Draw 28 of them
+## 19 are white and 15 are black
+## How many white
+dhyper(x = 13:19, m = 19, n = 15, k = 28)
+```
+Our observed table is the third one (with probability 0.302609
+
+Evaluate whether or not there is a significant difference between the mortality rates for streptokinase and control-group females using a two-sided test.
 
 ## Solution
+The $p$-value is
+```{r}
+0.020174 + 0.129690 + 0.302609 + 0.173555 + 0.042425 + 0.003721
+```
+So we do not have a significance difference between the mortaility rates for the two groups.
 
-:::
-
-::: {.panel-tabset}
-## 10.8 
-Evaluate whether or not there is a significant difference between the mortality rates for streptokinase and control-group females using a two-sided test based on your results in Problem 10.7.
-
-## Solution
-
+We can verify our calculation in R
+```{r}
+matrix(c(2, 13, 4, 15), nrow = 2, ncol = 2, byrow = TRUE) |>
+  fisher.test() |>
+  tidy()
+```
 :::
 
 ## Cardiovascular Disease
-A 1979 study investigated the relationship between cigarette smoking and subsequent mortality in men with a prior history of coronary disease [2]. It was found that 264 out of 1731 non-smokers and 208 out of 1058 smokers had died in the 5-year period after the study began.
+A 1979 study investigated the relationship between cigarette smoking and subsequent mortality in men with a prior history of coronary disease. It was found that 264 out of 1731 non-smokers and 208 out of 1058 smokers had died in the 5-year period after the study began.
 
 ::: {.panel-tabset}
 ## 10.12 
 Assuming that the age distributions of the two groups are comparable, compare the mortality rates in the two groups.
 
 ## Solution
+We have this observed table of counts:
+```{r}
+#| echo: false
+matrix(c(264, 1731 - 264, 208, 1058 - 208), nrow = 2, ncol = 2, byrow = TRUE,
+       dimnames = list(smoker = c("No", "Yes"), died = c("Yes", "No"))) |>
+  cont_tab()
+```
+
+Expected counts:
+```{r}
+#| echo: false
+matrix(c(472 * 1731 / 2789, 2317 * 1731 / 2789, 472 * 1058 / 2789, 2317 * 1058 / 2789),
+       nrow = 2, ncol = 2, byrow = TRUE,
+       dimnames = list(smoker = c("No", "Yes"), died = c("Yes", "No"))) |>
+  cont_tab()
+```
+
+We calculate the test-statistic
+$$
+\frac{(264 - 292.9)^2}{292.9} + \frac{(1467 - 1438.1)^2}{1438.1} + \frac{(208 - 179.1)^2}{179.1} + \frac{(850 - 878.9)^2}{878.9}
+$$
+Numerically
+```{r}
+(264 - 292.9)^2 / 292.9 + (1467 - 1438.1)^2 / 1438.1 + (208 - 179.1)^2 / 179.1 + (850 - 878.9)^2 / 878.9
+```
+We compare this to a chi-squared distribution with one degree of freedom
+```{r}
+#| echo: false
+plt_chisq(df = 1, lb = 9.046)
+```
+```{r}
+1 - pchisq(q = 9.046, df = 1)
+```
+So we have strong evidence that there is an association between smoking status and death.
+
+The real-way in R is
+```{r}
+matrix(c(264, 1467, 208, 850), nrow = 2, ncol = 2, byrow = TRUE) |>
+  chisq.test() |>
+  tidy()
+```
+The p-values differ because of the continuity correction.
+ 
 
 :::

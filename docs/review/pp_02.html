@@ -2,12 +2,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.7.32">
+<meta name="generator" content="quarto-1.8.26">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="David Gerard">
-<meta name="dcterms.date" content="2025-10-13">
+<meta name="dcterms.date" content="2025-12-02">
 
 <title>Chapter 2 Practice Problems – Stat 320: Biostatistics</title>
 <style>
@@ -69,18 +69,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <meta name="quarto:offset" content="../">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-2fef5ea3f8957b3e4ecc936fc74692ca.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-587c61ba64f3a5504c4d52d930310e48.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-b758ccaa5987ceb1b75504551e579abf.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-587c61ba64f3a5504c4d52d930310e48.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-fe7d0423cdac4bc5c71520eda626c2a4.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../site_libs/bootstrap/bootstrap-dark-2c3770c401b36bb86bc0f39e202c8652.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="../site_libs/bootstrap/bootstrap-fe7d0423cdac4bc5c71520eda626c2a4.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-f93c2b1f3f0577f377aefa4848a86a36.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark-0d4a9d19931feb4fee1ddab4b2489000.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../site_libs/bootstrap/bootstrap-f93c2b1f3f0577f377aefa4848a86a36.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -123,7 +124,7 @@ const typesetMath = (el) => {
     var macros = [];
     for (var i = 0; i < mathElements.length; i++) {
       var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN") {
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
         window.katex.render(texText.data, mathElements[i], {
           displayMode: mathElements[i].classList.contains('display'),
           throwOnError: false,
@@ -376,7 +377,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">October 13, 2025</p>
+      <p class="date">December 2, 2025</p>
     </div>
   </div>
   
@@ -393,7 +394,7 @@ window.Quarto = {
 <h2 class="anchored" data-anchor-id="effect-on-statistics">Effect on statistics</h2>
 <p>Suppose the origin for a data set is changed by adding a constant to each observation.</p>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true">2.1</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false">Solution</a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" href="">2.1</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false" href="">Solution</a></li></ul>
 <div class="tab-content">
 <div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
 <p>What is the effect on the median?</p>
@@ -404,7 +405,7 @@ window.Quarto = {
 </div>
 </div>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-2-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-1" role="tab" aria-controls="tabset-2-1" aria-selected="true">2.2</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-2" role="tab" aria-controls="tabset-2-2" aria-selected="false">Solution</a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-2-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-1" role="tab" aria-controls="tabset-2-1" aria-selected="true" href="">2.2</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-2" role="tab" aria-controls="tabset-2-2" aria-selected="false" href="">Solution</a></li></ul>
 <div class="tab-content">
 <div id="tabset-2-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-2-1-tab">
 <p>What is the effect on the mode?</p>
@@ -415,7 +416,7 @@ window.Quarto = {
 </div>
 </div>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-3-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-1" role="tab" aria-controls="tabset-3-1" aria-selected="true">2.3</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-3-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-2" role="tab" aria-controls="tabset-3-2" aria-selected="false">Solution</a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-3-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-1" role="tab" aria-controls="tabset-3-1" aria-selected="true" href="">2.3</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-3-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-2" role="tab" aria-controls="tabset-3-2" aria-selected="false" href="">Solution</a></li></ul>
 <div class="tab-content">
 <div id="tabset-3-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-3-1-tab">
 <p>What is the effect on the arithmetic mean?</p>
@@ -426,7 +427,7 @@ window.Quarto = {
 </div>
 </div>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-4-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-1" role="tab" aria-controls="tabset-4-1" aria-selected="true">2.4</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-4-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-2" role="tab" aria-controls="tabset-4-2" aria-selected="false">Solution</a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-4-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-1" role="tab" aria-controls="tabset-4-1" aria-selected="true" href="">2.4</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-4-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-2" role="tab" aria-controls="tabset-4-2" aria-selected="false" href="">Solution</a></li></ul>
 <div class="tab-content">
 <div id="tabset-4-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-4-1-tab">
 <p>What is the effect on the range?</p>
@@ -441,31 +442,31 @@ window.Quarto = {
 <h2 class="anchored" data-anchor-id="renal-disease">Renal Disease</h2>
 <p>For a study of kidney disease, the following measurements were made on a sample of women working in several factories in Switzerland. They represent concentrations of bacteria in a standard-size urine specimen. High concentrations of these bacteria may indicate possible kidney pathology. The data are presented in the following data frame</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>renal <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">Concentration =</span> <span class="dv">10</span><span class="sc">^</span>(<span class="dv">0</span><span class="sc">:</span><span class="dv">10</span>),</span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">Frequency =</span> <span class="fu">c</span>(<span class="dv">521</span>, <span class="dv">230</span>, <span class="dv">115</span>, <span class="dv">74</span>, <span class="dv">69</span>, <span class="dv">62</span>, <span class="dv">43</span>, <span class="dv">30</span>, <span class="dv">21</span>, <span class="dv">10</span>, <span class="dv">2</span>)</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="cell">
 <div class="cell-output-display">
-<div id="yyguzluqpc" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#yyguzluqpc table {
+<div id="ftfezelbac" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#ftfezelbac table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#yyguzluqpc thead, #yyguzluqpc tbody, #yyguzluqpc tfoot, #yyguzluqpc tr, #yyguzluqpc td, #yyguzluqpc th {
+#ftfezelbac thead, #ftfezelbac tbody, #ftfezelbac tfoot, #ftfezelbac tr, #ftfezelbac td, #ftfezelbac th {
   border-style: none;
 }
 
-#yyguzluqpc p {
+#ftfezelbac p {
   margin: 0;
   padding: 0;
 }
 
-#yyguzluqpc .gt_table {
+#ftfezelbac .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -491,12 +492,12 @@ window.Quarto = {
   border-left-color: #D3D3D3;
 }
 
-#yyguzluqpc .gt_caption {
+#ftfezelbac .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#yyguzluqpc .gt_title {
+#ftfezelbac .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -508,7 +509,7 @@ window.Quarto = {
   border-bottom-width: 0;
 }
 
-#yyguzluqpc .gt_subtitle {
+#ftfezelbac .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -520,7 +521,7 @@ window.Quarto = {
   border-top-width: 0;
 }
 
-#yyguzluqpc .gt_heading {
+#ftfezelbac .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -532,13 +533,13 @@ window.Quarto = {
   border-right-color: #D3D3D3;
 }
 
-#yyguzluqpc .gt_bottom_border {
+#ftfezelbac .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#yyguzluqpc .gt_col_headings {
+#ftfezelbac .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -553,7 +554,7 @@ window.Quarto = {
   border-right-color: #D3D3D3;
 }
 
-#yyguzluqpc .gt_col_heading {
+#ftfezelbac .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -573,7 +574,7 @@ window.Quarto = {
   overflow-x: hidden;
 }
 
-#yyguzluqpc .gt_column_spanner_outer {
+#ftfezelbac .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -585,15 +586,15 @@ window.Quarto = {
   padding-right: 4px;
 }
 
-#yyguzluqpc .gt_column_spanner_outer:first-child {
+#ftfezelbac .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#yyguzluqpc .gt_column_spanner_outer:last-child {
+#ftfezelbac .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#yyguzluqpc .gt_column_spanner {
+#ftfezelbac .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -605,11 +606,11 @@ window.Quarto = {
   width: 100%;
 }
 
-#yyguzluqpc .gt_spanner_row {
+#ftfezelbac .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#yyguzluqpc .gt_group_heading {
+#ftfezelbac .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -635,7 +636,7 @@ window.Quarto = {
   text-align: left;
 }
 
-#yyguzluqpc .gt_empty_group_heading {
+#ftfezelbac .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -650,15 +651,15 @@ window.Quarto = {
   vertical-align: middle;
 }
 
-#yyguzluqpc .gt_from_md > :first-child {
+#ftfezelbac .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#yyguzluqpc .gt_from_md > :last-child {
+#ftfezelbac .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#yyguzluqpc .gt_row {
+#ftfezelbac .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -677,7 +678,7 @@ window.Quarto = {
   overflow-x: hidden;
 }
 
-#yyguzluqpc .gt_stub {
+#ftfezelbac .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -690,7 +691,7 @@ window.Quarto = {
   padding-right: 5px;
 }
 
-#yyguzluqpc .gt_stub_row_group {
+#ftfezelbac .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -704,15 +705,15 @@ window.Quarto = {
   vertical-align: top;
 }
 
-#yyguzluqpc .gt_row_group_first td {
+#ftfezelbac .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#yyguzluqpc .gt_row_group_first th {
+#ftfezelbac .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#yyguzluqpc .gt_summary_row {
+#ftfezelbac .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -722,16 +723,16 @@ window.Quarto = {
   padding-right: 5px;
 }
 
-#yyguzluqpc .gt_first_summary_row {
+#ftfezelbac .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#yyguzluqpc .gt_first_summary_row.thick {
+#ftfezelbac .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#yyguzluqpc .gt_last_summary_row {
+#ftfezelbac .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -741,7 +742,7 @@ window.Quarto = {
   border-bottom-color: #D3D3D3;
 }
 
-#yyguzluqpc .gt_grand_summary_row {
+#ftfezelbac .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -751,7 +752,7 @@ window.Quarto = {
   padding-right: 5px;
 }
 
-#yyguzluqpc .gt_first_grand_summary_row {
+#ftfezelbac .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -761,7 +762,7 @@ window.Quarto = {
   border-top-color: #D3D3D3;
 }
 
-#yyguzluqpc .gt_last_grand_summary_row_top {
+#ftfezelbac .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -771,11 +772,11 @@ window.Quarto = {
   border-bottom-color: #D3D3D3;
 }
 
-#yyguzluqpc .gt_striped {
+#ftfezelbac .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#yyguzluqpc .gt_table_body {
+#ftfezelbac .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -784,7 +785,7 @@ window.Quarto = {
   border-bottom-color: #D3D3D3;
 }
 
-#yyguzluqpc .gt_footnotes {
+#ftfezelbac .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -798,7 +799,7 @@ window.Quarto = {
   border-right-color: #D3D3D3;
 }
 
-#yyguzluqpc .gt_footnote {
+#ftfezelbac .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -807,7 +808,7 @@ window.Quarto = {
   padding-right: 5px;
 }
 
-#yyguzluqpc .gt_sourcenotes {
+#ftfezelbac .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -821,7 +822,7 @@ window.Quarto = {
   border-right-color: #D3D3D3;
 }
 
-#yyguzluqpc .gt_sourcenote {
+#ftfezelbac .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -829,77 +830,77 @@ window.Quarto = {
   padding-right: 5px;
 }
 
-#yyguzluqpc .gt_left {
+#ftfezelbac .gt_left {
   text-align: left;
 }
 
-#yyguzluqpc .gt_center {
+#ftfezelbac .gt_center {
   text-align: center;
 }
 
-#yyguzluqpc .gt_right {
+#ftfezelbac .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#yyguzluqpc .gt_font_normal {
+#ftfezelbac .gt_font_normal {
   font-weight: normal;
 }
 
-#yyguzluqpc .gt_font_bold {
+#ftfezelbac .gt_font_bold {
   font-weight: bold;
 }
 
-#yyguzluqpc .gt_font_italic {
+#ftfezelbac .gt_font_italic {
   font-style: italic;
 }
 
-#yyguzluqpc .gt_super {
+#ftfezelbac .gt_super {
   font-size: 65%;
 }
 
-#yyguzluqpc .gt_footnote_marks {
+#ftfezelbac .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#yyguzluqpc .gt_asterisk {
+#ftfezelbac .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#yyguzluqpc .gt_indent_1 {
+#ftfezelbac .gt_indent_1 {
   text-indent: 5px;
 }
 
-#yyguzluqpc .gt_indent_2 {
+#ftfezelbac .gt_indent_2 {
   text-indent: 10px;
 }
 
-#yyguzluqpc .gt_indent_3 {
+#ftfezelbac .gt_indent_3 {
   text-indent: 15px;
 }
 
-#yyguzluqpc .gt_indent_4 {
+#ftfezelbac .gt_indent_4 {
   text-indent: 20px;
 }
 
-#yyguzluqpc .gt_indent_5 {
+#ftfezelbac .gt_indent_5 {
   text-indent: 25px;
 }
 
-#yyguzluqpc .katex-display {
+#ftfezelbac .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#yyguzluqpc div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#ftfezelbac div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
 
-<table class="gt_table caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+<table class="gt_table caption-top table table-sm table-striped small" data-quarto-bootstrap="false">
 <thead>
 <tr class="gt_col_headings header">
 <th id="Concentration" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">Concentration</th>
@@ -959,8 +960,8 @@ window.Quarto = {
 </div>
 <p>Here is a barplot</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(renal, <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">as.factor</span>(Concentration), <span class="at">y =</span> Frequency)) <span class="sc">+</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(renal, <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">as.factor</span>(Concentration), <span class="at">y =</span> Frequency)) <span class="sc">+</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -970,7 +971,7 @@ window.Quarto = {
 </div>
 </div>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-5-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-5-1" role="tab" aria-controls="tabset-5-1" aria-selected="true">2.5</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-5-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-5-2" role="tab" aria-controls="tabset-5-2" aria-selected="false">Solution</a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-5-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-5-1" role="tab" aria-controls="tabset-5-1" aria-selected="true" href="">2.5</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-5-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-5-2" role="tab" aria-controls="tabset-5-2" aria-selected="false" href="">Solution</a></li></ul>
 <div class="tab-content">
 <div id="tabset-5-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-5-1-tab">
 <p>Compute the arithmetic mean for this sample.</p>
@@ -978,17 +979,17 @@ window.Quarto = {
 <div id="tabset-5-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-5-2-tab">
 <p>By hand:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">521</span> <span class="sc">+</span> <span class="dv">230</span> <span class="sc">+</span> <span class="dv">115</span> <span class="sc">+</span> <span class="dv">74</span> <span class="sc">+</span> <span class="dv">69</span> <span class="sc">+</span> <span class="dv">62</span> <span class="sc">+</span> <span class="dv">43</span> <span class="sc">+</span> <span class="dv">30</span> <span class="sc">+</span> <span class="dv">21</span> <span class="sc">+</span> <span class="dv">10</span> <span class="sc">+</span> <span class="dv">2</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">521</span> <span class="sc">+</span> <span class="dv">230</span> <span class="sc">+</span> <span class="dv">115</span> <span class="sc">+</span> <span class="dv">74</span> <span class="sc">+</span> <span class="dv">69</span> <span class="sc">+</span> <span class="dv">62</span> <span class="sc">+</span> <span class="dv">43</span> <span class="sc">+</span> <span class="dv">30</span> <span class="sc">+</span> <span class="dv">21</span> <span class="sc">+</span> <span class="dv">10</span> <span class="sc">+</span> <span class="dv">2</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>sum_x <span class="ot">&lt;-</span> (<span class="fl">1e0</span> <span class="sc">*</span> <span class="dv">521</span> <span class="sc">+</span> <span class="fl">1e1</span> <span class="sc">*</span> <span class="dv">230</span> <span class="sc">+</span> <span class="fl">1e2</span> <span class="sc">*</span> <span class="dv">115</span> <span class="sc">+</span> <span class="fl">1e3</span> <span class="sc">*</span> <span class="dv">74</span> <span class="sc">+</span> <span class="fl">1e4</span> <span class="sc">*</span> <span class="dv">69</span> <span class="sc">+</span></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>            <span class="fl">1e5</span> <span class="sc">*</span> <span class="dv">62</span> <span class="sc">+</span> <span class="fl">1e6</span> <span class="sc">*</span> <span class="dv">43</span> <span class="sc">+</span> <span class="fl">1e7</span> <span class="sc">*</span> <span class="dv">30</span> <span class="sc">+</span> <span class="fl">1e8</span> <span class="sc">*</span> <span class="dv">21</span> <span class="sc">+</span> <span class="fl">1e9</span> <span class="sc">*</span> <span class="dv">10</span> <span class="sc">+</span> <span class="fl">1e10</span> <span class="sc">*</span> <span class="dv">2</span>)</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>sum_x <span class="sc">/</span> n</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>sum_x <span class="sc">/</span> n</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 27570075</code></pre>
 </div>
 </div>
 <p>Verify using R:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(renal<span class="sc">$</span>Concentration <span class="sc">*</span> renal<span class="sc">$</span>Frequency) <span class="sc">/</span> <span class="fu">sum</span>(renal<span class="sc">$</span>Frequency)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(renal<span class="sc">$</span>Concentration <span class="sc">*</span> renal<span class="sc">$</span>Frequency) <span class="sc">/</span> <span class="fu">sum</span>(renal<span class="sc">$</span>Frequency)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 27570075</code></pre>
 </div>
@@ -997,7 +998,7 @@ window.Quarto = {
 </div>
 </div>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-6-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-6-1" role="tab" aria-controls="tabset-6-1" aria-selected="true">2.6</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-6-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-6-2" role="tab" aria-controls="tabset-6-2" aria-selected="false">Solution</a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-6-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-6-1" role="tab" aria-controls="tabset-6-1" aria-selected="true" href="">2.6</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-6-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-6-2" role="tab" aria-controls="tabset-6-2" aria-selected="false" href="">Solution</a></li></ul>
 <div class="tab-content">
 <div id="tabset-6-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-6-1-tab">
 <p>Compute the median for this sample.</p>
@@ -1005,7 +1006,7 @@ window.Quarto = {
 <div id="tabset-6-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-6-2-tab">
 <p>There are <span class="math inline">\(n = 1177\)</span> individuals</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>n</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>n</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 1177</code></pre>
 </div>
@@ -1015,7 +1016,7 @@ window.Quarto = {
 </div>
 </div>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-7-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-7-1" role="tab" aria-controls="tabset-7-1" aria-selected="true">2.7</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-7-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-7-2" role="tab" aria-controls="tabset-7-2" aria-selected="false">Solution</a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-7-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-7-1" role="tab" aria-controls="tabset-7-1" aria-selected="true" href="">2.7</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-7-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-7-2" role="tab" aria-controls="tabset-7-2" aria-selected="false" href="">Solution</a></li></ul>
 <div class="tab-content">
 <div id="tabset-7-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-7-1-tab">
 <p>Which do you think is a more appropriate measure of location?</p>
@@ -1030,7 +1031,7 @@ window.Quarto = {
 <h2 class="anchored" data-anchor-id="cardiovascular-disease">Cardiovascular Disease</h2>
 <p>The mortality rates from heart disease (per 100,000 population) for each of the 50 states and the District of Columbia in 1973 are given in descending order in the data frame below.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>state_data <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>state_data <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">State =</span> <span class="fu">c</span>(<span class="st">"West Virginia"</span>, <span class="st">"Pennsylvania"</span>, <span class="st">"Maine"</span>, <span class="st">"Missouri"</span>, <span class="st">"Illinois"</span>,</span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>            <span class="st">"Florida"</span>, <span class="st">"Rhode Island"</span>, <span class="st">"Kentucky"</span>, <span class="st">"New York"</span>, <span class="st">"Iowa"</span>,</span>
 <span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>            <span class="st">"Arkansas"</span>, <span class="st">"New Jersey"</span>, <span class="st">"Massachusetts"</span>, <span class="st">"Kansas"</span>, <span class="st">"Oklahoma"</span>,</span>
@@ -1047,13 +1048,13 @@ window.Quarto = {
 <span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>            <span class="fl">332.7</span>, <span class="fl">330.2</span>, <span class="fl">329.1</span>, <span class="fl">328.4</span>, <span class="fl">327.1</span>, <span class="fl">322.4</span>, <span class="fl">319.1</span>, <span class="fl">315.9</span>, <span class="fl">311.8</span>, <span class="fl">311.2</span>,</span>
 <span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a>            <span class="fl">310.6</span>, <span class="fl">306.8</span>, <span class="fl">300.6</span>, <span class="fl">297.4</span>, <span class="fl">274.6</span>, <span class="fl">265.4</span>, <span class="fl">236.9</span>, <span class="fl">214.2</span>, <span class="fl">194.0</span>, <span class="fl">169.0</span>, </span>
 <span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a>            <span class="fl">83.9</span>)</span>
-<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Consider this data set as a sample of size 51. <span class="math display">\[
 (X_1, X_2, \ldots, x_{51})
 \]</span> If <span class="math inline">\(\sum_{i=1}^{51}x_i = 17409\)</span> and <span class="math inline">\(\sum_{i=1}^{51}(x_i - \bar{x})^2 = 249063.65\)</span>, then do the following:</p>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-8-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-8-1" role="tab" aria-controls="tabset-8-1" aria-selected="true">2.8</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-8-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-8-2" role="tab" aria-controls="tabset-8-2" aria-selected="false">Solution</a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-8-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-8-1" role="tab" aria-controls="tabset-8-1" aria-selected="true" href="">2.8</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-8-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-8-2" role="tab" aria-controls="tabset-8-2" aria-selected="false" href="">Solution</a></li></ul>
 <div class="tab-content">
 <div id="tabset-8-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-8-1-tab">
 <p>Compute the arithmetic mean of this sample.</p>
@@ -1063,7 +1064,7 @@ window.Quarto = {
 \sum_{i=1}^{51}x_i / n = 17409 / 51
 \]</span></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="dv">17409</span> <span class="sc">/</span> <span class="dv">51</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="dv">17409</span> <span class="sc">/</span> <span class="dv">51</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 341.4</code></pre>
 </div>
@@ -1072,7 +1073,7 @@ window.Quarto = {
 </div>
 </div>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-9-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-9-1" role="tab" aria-controls="tabset-9-1" aria-selected="true">2.9</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-9-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-9-2" role="tab" aria-controls="tabset-9-2" aria-selected="false">Solution</a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-9-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-9-1" role="tab" aria-controls="tabset-9-1" aria-selected="true" href="">2.9</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-9-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-9-2" role="tab" aria-controls="tabset-9-2" aria-selected="false" href="">Solution</a></li></ul>
 <div class="tab-content">
 <div id="tabset-9-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-9-1-tab">
 <p>Compute the median of this sample.</p>
@@ -1080,7 +1081,7 @@ window.Quarto = {
 <div id="tabset-9-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-9-2-tab">
 <p>We need the (51 + 1) / 2 = 26th largest value. You can count, but you’ll end up with Delaware (or Mississippi), whose rate is</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">median</span>(state_data<span class="sc">$</span>Rate)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">median</span>(state_data<span class="sc">$</span>Rate)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 351.6</code></pre>
 </div>
@@ -1089,7 +1090,7 @@ window.Quarto = {
 </div>
 </div>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-10-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-10-1" role="tab" aria-controls="tabset-10-1" aria-selected="true">2.10</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-10-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-10-2" role="tab" aria-controls="tabset-10-2" aria-selected="false">Solution</a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-10-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-10-1" role="tab" aria-controls="tabset-10-1" aria-selected="true" href="">2.10</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-10-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-10-2" role="tab" aria-controls="tabset-10-2" aria-selected="false" href="">Solution</a></li></ul>
 <div class="tab-content">
 <div id="tabset-10-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-10-1-tab">
 <p>Compute the standard deviation of this sample.</p>
@@ -1099,14 +1100,14 @@ window.Quarto = {
 \sqrt{\frac{1}{n-1}\sum_{i=1}^{51}(x_i - \bar{x})^2} = \sqrt{249063.65 / 50}
 \]</span></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sqrt</span>(<span class="fl">249063.65</span> <span class="sc">/</span> <span class="dv">50</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sqrt</span>(<span class="fl">249063.65</span> <span class="sc">/</span> <span class="dv">50</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 70.58</code></pre>
 </div>
 </div>
 <p>Verifying in R, we have</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sd</span>(state_data<span class="sc">$</span>Rate)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sd</span>(state_data<span class="sc">$</span>Rate)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 70.58</code></pre>
 </div>
@@ -1115,7 +1116,7 @@ window.Quarto = {
 </div>
 </div>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-11-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-11-1" role="tab" aria-controls="tabset-11-1" aria-selected="true">2.11</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-11-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-11-2" role="tab" aria-controls="tabset-11-2" aria-selected="false">Solution</a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-11-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-11-1" role="tab" aria-controls="tabset-11-1" aria-selected="true" href="">2.11</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-11-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-11-2" role="tab" aria-controls="tabset-11-2" aria-selected="false" href="">Solution</a></li></ul>
 <div class="tab-content">
 <div id="tabset-11-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-11-1-tab">
 <p>The national mortality rate for heart disease in 1973 was 360.8 per 100,000. Why does this figure not correspond to your answer for Problem 2.8?</p>
@@ -1126,7 +1127,7 @@ window.Quarto = {
 </div>
 </div>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-12-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-12-1" role="tab" aria-controls="tabset-12-1" aria-selected="true">2.12</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-12-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-12-2" role="tab" aria-controls="tabset-12-2" aria-selected="false">Solution</a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-12-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-12-1" role="tab" aria-controls="tabset-12-1" aria-selected="true" href="">2.12</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-12-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-12-2" role="tab" aria-controls="tabset-12-2" aria-selected="false" href="">Solution</a></li></ul>
 <div class="tab-content">
 <div id="tabset-12-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-12-1-tab">
 <p>Does the differential in raw rates between Florida (417.4) and Georgia (311.8) actually imply that the risk of dying from heart disease is greater in Florida than in Georgia? Why or why not?</p>
@@ -1141,31 +1142,31 @@ window.Quarto = {
 <h2 class="anchored" data-anchor-id="nutrition">Nutrition</h2>
 <p>The data frame below shows the distribution of dietary vitamin-A intake as reported by 14 students who filled out a dietary questionnaire in class. The total intake is a combination of intake from individual food items and from vitamin pills. The units are in IU/100 (International Units/100).</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>vita <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>vita <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">Student_number =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">14</span>,</span>
 <span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">Intake_IU_100 =</span> <span class="fu">c</span>(<span class="fl">31.1</span>, <span class="fl">21.5</span>, <span class="fl">74.7</span>, <span class="fl">95.5</span>, <span class="fl">19.4</span>, <span class="fl">64.8</span>, <span class="fl">108.7</span>,</span>
 <span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>                    <span class="fl">48.1</span>, <span class="fl">24.4</span>, <span class="fl">13.4</span>, <span class="fl">37.1</span>, <span class="fl">21.3</span>, <span class="fl">78.5</span>, <span class="fl">17.7</span>)</span>
-<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="cell">
 <div class="cell-output-display">
-<div id="riwqpxgubg" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#riwqpxgubg table {
+<div id="jkebskqgrg" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#jkebskqgrg table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#riwqpxgubg thead, #riwqpxgubg tbody, #riwqpxgubg tfoot, #riwqpxgubg tr, #riwqpxgubg td, #riwqpxgubg th {
+#jkebskqgrg thead, #jkebskqgrg tbody, #jkebskqgrg tfoot, #jkebskqgrg tr, #jkebskqgrg td, #jkebskqgrg th {
   border-style: none;
 }
 
-#riwqpxgubg p {
+#jkebskqgrg p {
   margin: 0;
   padding: 0;
 }
 
-#riwqpxgubg .gt_table {
+#jkebskqgrg .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -1191,12 +1192,12 @@ window.Quarto = {
   border-left-color: #D3D3D3;
 }
 
-#riwqpxgubg .gt_caption {
+#jkebskqgrg .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#riwqpxgubg .gt_title {
+#jkebskqgrg .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -1208,7 +1209,7 @@ window.Quarto = {
   border-bottom-width: 0;
 }
 
-#riwqpxgubg .gt_subtitle {
+#jkebskqgrg .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -1220,7 +1221,7 @@ window.Quarto = {
   border-top-width: 0;
 }
 
-#riwqpxgubg .gt_heading {
+#jkebskqgrg .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -1232,13 +1233,13 @@ window.Quarto = {
   border-right-color: #D3D3D3;
 }
 
-#riwqpxgubg .gt_bottom_border {
+#jkebskqgrg .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#riwqpxgubg .gt_col_headings {
+#jkebskqgrg .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1253,7 +1254,7 @@ window.Quarto = {
   border-right-color: #D3D3D3;
 }
 
-#riwqpxgubg .gt_col_heading {
+#jkebskqgrg .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1273,7 +1274,7 @@ window.Quarto = {
   overflow-x: hidden;
 }
 
-#riwqpxgubg .gt_column_spanner_outer {
+#jkebskqgrg .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1285,15 +1286,15 @@ window.Quarto = {
   padding-right: 4px;
 }
 
-#riwqpxgubg .gt_column_spanner_outer:first-child {
+#jkebskqgrg .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#riwqpxgubg .gt_column_spanner_outer:last-child {
+#jkebskqgrg .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#riwqpxgubg .gt_column_spanner {
+#jkebskqgrg .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -1305,11 +1306,11 @@ window.Quarto = {
   width: 100%;
 }
 
-#riwqpxgubg .gt_spanner_row {
+#jkebskqgrg .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#riwqpxgubg .gt_group_heading {
+#jkebskqgrg .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1335,7 +1336,7 @@ window.Quarto = {
   text-align: left;
 }
 
-#riwqpxgubg .gt_empty_group_heading {
+#jkebskqgrg .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -1350,15 +1351,15 @@ window.Quarto = {
   vertical-align: middle;
 }
 
-#riwqpxgubg .gt_from_md > :first-child {
+#jkebskqgrg .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#riwqpxgubg .gt_from_md > :last-child {
+#jkebskqgrg .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#riwqpxgubg .gt_row {
+#jkebskqgrg .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1377,7 +1378,7 @@ window.Quarto = {
   overflow-x: hidden;
 }
 
-#riwqpxgubg .gt_stub {
+#jkebskqgrg .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1390,7 +1391,7 @@ window.Quarto = {
   padding-right: 5px;
 }
 
-#riwqpxgubg .gt_stub_row_group {
+#jkebskqgrg .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1404,15 +1405,15 @@ window.Quarto = {
   vertical-align: top;
 }
 
-#riwqpxgubg .gt_row_group_first td {
+#jkebskqgrg .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#riwqpxgubg .gt_row_group_first th {
+#jkebskqgrg .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#riwqpxgubg .gt_summary_row {
+#jkebskqgrg .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1422,16 +1423,16 @@ window.Quarto = {
   padding-right: 5px;
 }
 
-#riwqpxgubg .gt_first_summary_row {
+#jkebskqgrg .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#riwqpxgubg .gt_first_summary_row.thick {
+#jkebskqgrg .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#riwqpxgubg .gt_last_summary_row {
+#jkebskqgrg .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1441,7 +1442,7 @@ window.Quarto = {
   border-bottom-color: #D3D3D3;
 }
 
-#riwqpxgubg .gt_grand_summary_row {
+#jkebskqgrg .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1451,7 +1452,7 @@ window.Quarto = {
   padding-right: 5px;
 }
 
-#riwqpxgubg .gt_first_grand_summary_row {
+#jkebskqgrg .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1461,7 +1462,7 @@ window.Quarto = {
   border-top-color: #D3D3D3;
 }
 
-#riwqpxgubg .gt_last_grand_summary_row_top {
+#jkebskqgrg .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1471,11 +1472,11 @@ window.Quarto = {
   border-bottom-color: #D3D3D3;
 }
 
-#riwqpxgubg .gt_striped {
+#jkebskqgrg .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#riwqpxgubg .gt_table_body {
+#jkebskqgrg .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1484,7 +1485,7 @@ window.Quarto = {
   border-bottom-color: #D3D3D3;
 }
 
-#riwqpxgubg .gt_footnotes {
+#jkebskqgrg .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1498,7 +1499,7 @@ window.Quarto = {
   border-right-color: #D3D3D3;
 }
 
-#riwqpxgubg .gt_footnote {
+#jkebskqgrg .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -1507,7 +1508,7 @@ window.Quarto = {
   padding-right: 5px;
 }
 
-#riwqpxgubg .gt_sourcenotes {
+#jkebskqgrg .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1521,7 +1522,7 @@ window.Quarto = {
   border-right-color: #D3D3D3;
 }
 
-#riwqpxgubg .gt_sourcenote {
+#jkebskqgrg .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -1529,77 +1530,77 @@ window.Quarto = {
   padding-right: 5px;
 }
 
-#riwqpxgubg .gt_left {
+#jkebskqgrg .gt_left {
   text-align: left;
 }
 
-#riwqpxgubg .gt_center {
+#jkebskqgrg .gt_center {
   text-align: center;
 }
 
-#riwqpxgubg .gt_right {
+#jkebskqgrg .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#riwqpxgubg .gt_font_normal {
+#jkebskqgrg .gt_font_normal {
   font-weight: normal;
 }
 
-#riwqpxgubg .gt_font_bold {
+#jkebskqgrg .gt_font_bold {
   font-weight: bold;
 }
 
-#riwqpxgubg .gt_font_italic {
+#jkebskqgrg .gt_font_italic {
   font-style: italic;
 }
 
-#riwqpxgubg .gt_super {
+#jkebskqgrg .gt_super {
   font-size: 65%;
 }
 
-#riwqpxgubg .gt_footnote_marks {
+#jkebskqgrg .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#riwqpxgubg .gt_asterisk {
+#jkebskqgrg .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#riwqpxgubg .gt_indent_1 {
+#jkebskqgrg .gt_indent_1 {
   text-indent: 5px;
 }
 
-#riwqpxgubg .gt_indent_2 {
+#jkebskqgrg .gt_indent_2 {
   text-indent: 10px;
 }
 
-#riwqpxgubg .gt_indent_3 {
+#jkebskqgrg .gt_indent_3 {
   text-indent: 15px;
 }
 
-#riwqpxgubg .gt_indent_4 {
+#jkebskqgrg .gt_indent_4 {
   text-indent: 20px;
 }
 
-#riwqpxgubg .gt_indent_5 {
+#jkebskqgrg .gt_indent_5 {
   text-indent: 25px;
 }
 
-#riwqpxgubg .katex-display {
+#jkebskqgrg .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#riwqpxgubg div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#jkebskqgrg div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
 
-<table class="gt_table caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+<table class="gt_table caption-top table table-sm table-striped small" data-quarto-bootstrap="false">
 <thead>
 <tr class="gt_col_headings header">
 <th id="Student_number" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">Student_number</th>
@@ -1670,7 +1671,7 @@ window.Quarto = {
 </div>
 </div>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-13-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-13-1" role="tab" aria-controls="tabset-13-1" aria-selected="true">2.13</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-13-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-13-2" role="tab" aria-controls="tabset-13-2" aria-selected="false">Solution</a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-13-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-13-1" role="tab" aria-controls="tabset-13-1" aria-selected="true" href="">2.13</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-13-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-13-2" role="tab" aria-controls="tabset-13-2" aria-selected="false" href="">Solution</a></li></ul>
 <div class="tab-content">
 <div id="tabset-13-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-13-1-tab">
 <p>Compute the mean and median from these data.</p>
@@ -1678,11 +1679,11 @@ window.Quarto = {
 <div id="tabset-13-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-13-2-tab">
 <p>The mean</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>sumx <span class="ot">&lt;-</span> <span class="fl">31.1</span> <span class="sc">+</span> <span class="fl">21.5</span> <span class="sc">+</span> <span class="fl">74.7</span> <span class="sc">+</span> <span class="fl">95.5</span> <span class="sc">+</span> <span class="fl">19.4</span> <span class="sc">+</span> <span class="fl">64.8</span> <span class="sc">+</span> <span class="fl">108.7</span> <span class="sc">+</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>sumx <span class="ot">&lt;-</span> <span class="fl">31.1</span> <span class="sc">+</span> <span class="fl">21.5</span> <span class="sc">+</span> <span class="fl">74.7</span> <span class="sc">+</span> <span class="fl">95.5</span> <span class="sc">+</span> <span class="fl">19.4</span> <span class="sc">+</span> <span class="fl">64.8</span> <span class="sc">+</span> <span class="fl">108.7</span> <span class="sc">+</span></span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>  <span class="fl">48.1</span> <span class="sc">+</span> <span class="fl">24.4</span> <span class="sc">+</span> <span class="fl">13.4</span> <span class="sc">+</span> <span class="fl">37.1</span> <span class="sc">+</span> <span class="fl">21.3</span> <span class="sc">+</span> <span class="fl">78.5</span> <span class="sc">+</span> <span class="fl">17.7</span></span>
 <span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">14</span></span>
 <span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>xbar <span class="ot">&lt;-</span> sumx <span class="sc">/</span> n</span>
-<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>xbar</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>xbar</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 46.87</code></pre>
 </div>
@@ -1691,14 +1692,14 @@ window.Quarto = {
 13.4, 17.7, 19.4, 21.3, 21.5, 24.4, 31.1, 37.1, 48.1, 64.8, 74.7, 78.5, 95.5, 108
 \]</span> So the median is</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>(<span class="fl">31.1</span> <span class="sc">+</span> <span class="fl">37.1</span>) <span class="sc">/</span> <span class="dv">2</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>(<span class="fl">31.1</span> <span class="sc">+</span> <span class="fl">37.1</span>) <span class="sc">/</span> <span class="dv">2</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 34.1</code></pre>
 </div>
 </div>
 <p>We can verify in R</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">median</span>(vita<span class="sc">$</span>Intake_IU_100)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">median</span>(vita<span class="sc">$</span>Intake_IU_100)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 34.1</code></pre>
 </div>
@@ -1707,7 +1708,7 @@ window.Quarto = {
 </div>
 </div>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-14-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-14-1" role="tab" aria-controls="tabset-14-1" aria-selected="true">2.14</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-14-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-14-2" role="tab" aria-controls="tabset-14-2" aria-selected="false">Solution</a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-14-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-14-1" role="tab" aria-controls="tabset-14-1" aria-selected="true" href="">2.14</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-14-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-14-2" role="tab" aria-controls="tabset-14-2" aria-selected="false" href="">Solution</a></li></ul>
 <div class="tab-content">
 <div id="tabset-14-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-14-1-tab">
 <p>Compute the standard deviation and coefficient of variation from these data.</p>
@@ -1715,33 +1716,33 @@ window.Quarto = {
 <div id="tabset-14-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-14-2-tab">
 <p>Sum of the squared values</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>sumx2 <span class="ot">&lt;-</span> <span class="fl">31.1</span><span class="sc">^</span><span class="dv">2</span> <span class="sc">+</span> <span class="fl">21.5</span><span class="sc">^</span><span class="dv">2</span> <span class="sc">+</span> <span class="fl">74.7</span><span class="sc">^</span><span class="dv">2</span> <span class="sc">+</span> <span class="fl">95.5</span><span class="sc">^</span><span class="dv">2</span> <span class="sc">+</span> <span class="fl">19.4</span><span class="sc">^</span><span class="dv">2</span> <span class="sc">+</span> <span class="fl">64.8</span><span class="sc">^</span><span class="dv">2</span> <span class="sc">+</span> <span class="fl">108.7</span><span class="sc">^</span><span class="dv">2</span> <span class="sc">+</span></span>
-<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>  <span class="fl">48.1</span><span class="sc">^</span><span class="dv">2</span> <span class="sc">+</span> <span class="fl">24.4</span><span class="sc">^</span><span class="dv">2</span> <span class="sc">+</span> <span class="fl">13.4</span><span class="sc">^</span><span class="dv">2</span> <span class="sc">+</span> <span class="fl">37.1</span><span class="sc">^</span><span class="dv">2</span> <span class="sc">+</span> <span class="fl">21.3</span><span class="sc">^</span><span class="dv">2</span> <span class="sc">+</span> <span class="fl">78.5</span><span class="sc">^</span><span class="dv">2</span> <span class="sc">+</span> <span class="fl">17.7</span><span class="sc">^</span><span class="dv">2</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>sumx2 <span class="ot">&lt;-</span> <span class="fl">31.1</span><span class="sc">^</span><span class="dv">2</span> <span class="sc">+</span> <span class="fl">21.5</span><span class="sc">^</span><span class="dv">2</span> <span class="sc">+</span> <span class="fl">74.7</span><span class="sc">^</span><span class="dv">2</span> <span class="sc">+</span> <span class="fl">95.5</span><span class="sc">^</span><span class="dv">2</span> <span class="sc">+</span> <span class="fl">19.4</span><span class="sc">^</span><span class="dv">2</span> <span class="sc">+</span> <span class="fl">64.8</span><span class="sc">^</span><span class="dv">2</span> <span class="sc">+</span> <span class="fl">108.7</span><span class="sc">^</span><span class="dv">2</span> <span class="sc">+</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>  <span class="fl">48.1</span><span class="sc">^</span><span class="dv">2</span> <span class="sc">+</span> <span class="fl">24.4</span><span class="sc">^</span><span class="dv">2</span> <span class="sc">+</span> <span class="fl">13.4</span><span class="sc">^</span><span class="dv">2</span> <span class="sc">+</span> <span class="fl">37.1</span><span class="sc">^</span><span class="dv">2</span> <span class="sc">+</span> <span class="fl">21.3</span><span class="sc">^</span><span class="dv">2</span> <span class="sc">+</span> <span class="fl">78.5</span><span class="sc">^</span><span class="dv">2</span> <span class="sc">+</span> <span class="fl">17.7</span><span class="sc">^</span><span class="dv">2</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Since <span class="math inline">\(\frac{1}{n}\sum (x_i - \bar{x})^2 = \frac{1}{n}\sum x_i^2 - \bar{x}^2\)</span>, we get variance is</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>(sumx2 <span class="sc">/</span> n <span class="sc">-</span> xbar<span class="sc">^</span><span class="dv">2</span>) <span class="sc">*</span> n <span class="sc">/</span> (n<span class="dv">-1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>(sumx2 <span class="sc">/</span> n <span class="sc">-</span> xbar<span class="sc">^</span><span class="dv">2</span>) <span class="sc">*</span> n <span class="sc">/</span> (n<span class="dv">-1</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 1012</code></pre>
 </div>
 </div>
 <p>And so the standard deviation is</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sqrt</span>(<span class="dv">1012</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sqrt</span>(<span class="dv">1012</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 31.81</code></pre>
 </div>
 </div>
 <p>We can verify in R</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sd</span>(vita<span class="sc">$</span>Intake_IU_100)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sd</span>(vita<span class="sc">$</span>Intake_IU_100)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 31.81</code></pre>
 </div>
 </div>
 <p>The coefficient of variation is the standard deviation divided by the mean. So</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fl">31.8</span> <span class="sc">/</span> <span class="fl">46.9</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fl">31.8</span> <span class="sc">/</span> <span class="fl">46.9</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.678</code></pre>
 </div>
@@ -1750,7 +1751,7 @@ window.Quarto = {
 </div>
 </div>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-15-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-15-1" role="tab" aria-controls="tabset-15-1" aria-selected="true">2.15</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-15-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-15-2" role="tab" aria-controls="tabset-15-2" aria-selected="false">Solution</a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-15-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-15-1" role="tab" aria-controls="tabset-15-1" aria-selected="true" href="">2.15</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-15-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-15-2" role="tab" aria-controls="tabset-15-2" aria-selected="false" href="">Solution</a></li></ul>
 <div class="tab-content">
 <div id="tabset-15-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-15-1-tab">
 <p>Suppose the data are expressed in IU rather than IU/100. What are the mean, standard deviation, and coefficient of variation in the new units?</p>
@@ -1758,18 +1759,18 @@ window.Quarto = {
 <div id="tabset-15-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-15-2-tab">
 <p>Just multiply the mean and sd by 100.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fl">46.9</span> <span class="sc">*</span> <span class="dv">100</span> <span class="do">## mean</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fl">46.9</span> <span class="sc">*</span> <span class="dv">100</span> <span class="do">## mean</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 4690</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fl">31.8</span> <span class="sc">*</span> <span class="dv">100</span> <span class="do">## sd</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fl">31.8</span> <span class="sc">*</span> <span class="dv">100</span> <span class="do">## sd</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 3180</code></pre>
 </div>
 </div>
 <p>The CV is unchanged.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>(<span class="fl">31.8</span> <span class="sc">*</span> <span class="dv">100</span>) <span class="sc">/</span> (<span class="fl">46.9</span> <span class="sc">*</span> <span class="dv">100</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>(<span class="fl">31.8</span> <span class="sc">*</span> <span class="dv">100</span>) <span class="sc">/</span> (<span class="fl">46.9</span> <span class="sc">*</span> <span class="dv">100</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.678</code></pre>
 </div>
@@ -1778,13 +1779,13 @@ window.Quarto = {
 </div>
 </div>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-16-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-16-1" role="tab" aria-controls="tabset-16-1" aria-selected="true">2.17</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-16-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-16-2" role="tab" aria-controls="tabset-16-2" aria-selected="false">Solution</a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-16-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-16-1" role="tab" aria-controls="tabset-16-1" aria-selected="true" href="">2.17</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-16-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-16-2" role="tab" aria-controls="tabset-16-2" aria-selected="false" href="">Solution</a></li></ul>
 <div class="tab-content">
 <div id="tabset-16-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-16-1-tab">
 <p>Do you think the mean or median is a more appropriate measure of location for this data set? Here is a histogram</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(vita, <span class="fu">aes</span>(<span class="at">x =</span> Intake_IU_100)) <span class="sc">+</span> </span>
-<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins =</span> <span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(vita, <span class="fu">aes</span>(<span class="at">x =</span> Intake_IU_100)) <span class="sc">+</span> </span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins =</span> <span class="dv">5</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -1868,13 +1869,14 @@ window.Quarto = {
       e.clearSelection();
     }
     const getTextToCopy = function(trigger) {
-        const codeEl = trigger.previousElementSibling.cloneNode(true);
-        for (const childEl of codeEl.children) {
-          if (isCodeAnnotation(childEl)) {
-            childEl.remove();
-          }
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
         }
-        return codeEl.innerText;
+      }
+      return codeEl.innerText;
     }
     const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
       text: getTextToCopy
