@@ -314,7 +314,7 @@ The conditional null probabilities for tables in question 10.6 are:
 ## How many white
 dhyper(x = 13:19, m = 19, n = 15, k = 28)
 ```
-Our observed table is the third one (with probability 0.302609
+Our observed table is the third one (with probability 0.302609)
 
 Evaluate whether or not there is a significant difference between the mortality rates for streptokinase and control-group females using a two-sided test.
 
