@@ -410,6 +410,7 @@ Numerically (also doing a continuity correction)
 ```
 We compare this to a standard normal distribution
 ```{r}
+#| echo: false
 plt_t(ub = -2.687, two_sided = TRUE, rng = c(-4, 4)) +
   geom_vline(xintercept = -2.687, lty = 2, col = 2)
 ```
