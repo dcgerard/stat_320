@@ -140,7 +140,7 @@ In a 1985 study of the effectiveness of streptokinase in the treatment of patien
 Use the normal-theory method to test for significant differences in 12-month mortality between the two groups.
 
 ## Solution
-Let $X_1$ be the number of deaths out of the $n_1 = 199$ males receiving strptokinase. Let $X_2$ be the number of deaths out of the $n_2 = 97$ control males. Then $X_1 \sim \mathrm{Binom}(199, p_1)$ and $X_2 \sim \mathrm{Binom}(97, p_2)$. We are testing $H_0: p_1 = p_2$ versus $H_A: p_1 \neq p_2$. We calculate statistics
+Let $X_1$ be the number of deaths out of the $n_1 = 199$ males receiving streptokinase. Let $X_2$ be the number of deaths out of the $n_2 = 97$ control males. Then $X_1 \sim \mathrm{Binom}(199, p_1)$ and $X_2 \sim \mathrm{Binom}(97, p_2)$. We are testing $H_0: p_1 = p_2$ versus $H_A: p_1 \neq p_2$. We calculate statistics
 
 - $\hat{p}_1 = 9/199 = 0.04523$
 - $\hat{p}_2 = 13/97 = 0.134$
@@ -202,7 +202,7 @@ matrix(c(199 * 22 / 296, 199 * 274 / 296, 97 * 22 / 296, 97 * 274 / 296), nrow =
 Perform the test in Problem 10.1 using the contingency-table method.
 
 ## Solution
-We calculate $\sum_{\text{categories}} \frac{(o-e)^2}{e}
+We calculate $\sum_{\text{categories}} \frac{(o-e)^2}{e}$
 $$
 \frac{(9 - 14.791)^2}{14.791} + \frac{(190 - 184.21)^2}{184.21} + \frac{(13 - 7.209)^2}{7.209} + \frac{(84 - 89.79)^2}{89.79}
 $$
