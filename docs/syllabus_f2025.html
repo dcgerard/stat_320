@@ -6,10 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="David Gerard">
 <meta name="dcterms.date" content="2025-12-19">
 
-<title>Week 1 Worksheet: Installing R, Rmarkdown, Rbasics – Stat 320: Biostatistics</title>
+<title>STAT 320 - Biostatistics – Stat 320: Biostatistics</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -25,28 +24,28 @@ ul.task-list li input[type="checkbox"] {
 </style>
 
 
-<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
-<script src="../../site_libs/clipboard/clipboard.min.js"></script>
-<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="../../site_libs/quarto-search/fuse.min.js"></script>
-<script src="../../site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="../../">
-<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
-<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="../../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
-<script src="../../site_libs/quarto-html/popper.min.js"></script>
-<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="../../site_libs/quarto-html/anchor.min.js"></script>
-<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-587c61ba64f3a5504c4d52d930310e48.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark-b758ccaa5987ceb1b75504551e579abf.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-587c61ba64f3a5504c4d52d930310e48.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
-<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap-f93c2b1f3f0577f377aefa4848a86a36.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../../site_libs/bootstrap/bootstrap-dark-0d4a9d19931feb4fee1ddab4b2489000.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="../../site_libs/bootstrap/bootstrap-f93c2b1f3f0577f377aefa4848a86a36.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-587c61ba64f3a5504c4d52d930310e48.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-b758ccaa5987ceb1b75504551e579abf.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-587c61ba64f3a5504c4d52d930310e48.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-f93c2b1f3f0577f377aefa4848a86a36.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark-0d4a9d19931feb4fee1ddab4b2489000.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="site_libs/bootstrap/bootstrap-f93c2b1f3f0577f377aefa4848a86a36.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -76,7 +75,7 @@ ul.task-list li input[type="checkbox"] {
 }</script>
 
 
-<link rel="stylesheet" href="../../styles.css">
+<link rel="stylesheet" href="styles.css">
 </head>
 
 <body class="nav-fixed quarto-light"><script id="quarto-html-before-body" type="application/javascript">
@@ -248,7 +247,7 @@ ul.task-list li input[type="checkbox"] {
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a class="navbar-brand" href="../../index.html">
+    <a class="navbar-brand" href="./index.html">
     <span class="navbar-title">Stat 320: Biostatistics</span>
     </a>
   </div>
@@ -259,11 +258,11 @@ ul.task-list li input[type="checkbox"] {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="../../index.html"> 
+    <a class="nav-link" href="./index.html"> 
 <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../../data.html"> 
+    <a class="nav-link" href="./data.html"> 
 <span class="menu-text">Data</span></a>
   </li>  
 </ul>
@@ -279,27 +278,40 @@ ul.task-list li input[type="checkbox"] {
 <!-- sidebar -->
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
-    <div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="yaml_header.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li></ul></div></div>
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#q1-learning-outcomes" id="toc-q1-learning-outcomes" class="nav-link active" data-scroll-target="#q1-learning-outcomes">Q1 Learning Outcomes:</a></li>
+  <li><a href="#q2-learning-outcomes" id="toc-q2-learning-outcomes" class="nav-link" data-scroll-target="#q2-learning-outcomes">Q2 Learning Outcomes:</a></li>
+  <li><a href="#course-description" id="toc-course-description" class="nav-link" data-scroll-target="#course-description">Course Description</a></li>
+  <li><a href="#required-text" id="toc-required-text" class="nav-link" data-scroll-target="#required-text">Required Text</a></li>
+  <li><a href="#grading" id="toc-grading" class="nav-link" data-scroll-target="#grading">Grading</a></li>
+  <li><a href="#study-recommendations" id="toc-study-recommendations" class="nav-link" data-scroll-target="#study-recommendations">Study Recommendations</a></li>
+  <li><a href="#late-work-policy" id="toc-late-work-policy" class="nav-link" data-scroll-target="#late-work-policy">Late Work Policy</a></li>
+  <li><a href="#important-dates" id="toc-important-dates" class="nav-link" data-scroll-target="#important-dates">Important Dates</a></li>
+  <li><a href="#computing-and-software" id="toc-computing-and-software" class="nav-link" data-scroll-target="#computing-and-software">Computing and Software</a></li>
+  <li><a href="#data" id="toc-data" class="nav-link" data-scroll-target="#data">Data</a></li>
+  <li><a href="#academic-integrity" id="toc-academic-integrity" class="nav-link" data-scroll-target="#academic-integrity">Academic Integrity</a></li>
+  <li><a href="#sharing-course-content" id="toc-sharing-course-content" class="nav-link" data-scroll-target="#sharing-course-content">Sharing Course Content:</a></li>
+  <li><a href="#use-of-student-work" id="toc-use-of-student-work" class="nav-link" data-scroll-target="#use-of-student-work">Use of Student Work</a></li>
+  <li><a href="#syllabus-change-policy" id="toc-syllabus-change-policy" class="nav-link" data-scroll-target="#syllabus-change-policy">Syllabus Change Policy</a></li>
+  </ul>
+</nav>
+    </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Week 1 Worksheet: Installing R, Rmarkdown, Rbasics</h1>
+<h1 class="title">STAT 320 - Biostatistics</h1>
 </div>
 
 
 
 <div class="quarto-title-meta">
 
-    <div>
-    <div class="quarto-title-meta-heading">Author</div>
-    <div class="quarto-title-meta-contents">
-             <p>David Gerard </p>
-          </div>
-  </div>
     
     <div>
     <div class="quarto-title-meta-heading">Published</div>
@@ -316,8 +328,292 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
+<ul>
+<li><strong>Instructor</strong>: Dr.&nbsp;David Gerard</li>
+<li><strong>Email</strong>: <a href="mailto:dgerard@american.edu" class="email">dgerard@american.edu</a></li>
+<li><strong>Office</strong>: DMTI 106E</li>
+</ul>
+<section id="q1-learning-outcomes" class="level1">
+<h1>Q1 Learning Outcomes:</h1>
+<p><img src="./q1_banner.png" class="img-fluid">&nbsp;</p>
+<ol type="1">
+<li><p>Students will solve quantitative problems including approaches that go beyond memorized procedures.</p></li>
+<li><p>Students will demonstrate an understanding of mathematical relationships from multiple perspectives, such as functions from graphical, verbal, numerical, and analytic points of view.</p></li>
+</ol>
+</section>
+<section id="q2-learning-outcomes" class="level1">
+<h1>Q2 Learning Outcomes:</h1>
+<p><img src="./q2_banner.png" class="img-fluid">&nbsp;</p>
+<ol type="1">
+<li><p>Translate real-world questions or intellectual inquiries into quantitative frameworks.</p></li>
+<li><p>Select and apply appropriate quantitative methods or reasoning.</p></li>
+<li><p>Draw appropriate insights from the application of a quantitative framework.</p></li>
+<li><p>Explain quantitative reasoning and insights using appropriate forms of representation so that others could replicate the findings.</p></li>
+</ol>
+</section>
+<section id="course-description" class="level1">
+<h1>Course Description</h1>
+<p>STAT-320 is an introduction to the statistical methodology commonly used in public health, medical, and biological studies. This course emphasizes working with data and communicating statistical ideas. A breadth of topics will be covered including: study design, tests of significance, confidence intervals, t-procedures, chi-square and Fisher’s exact test, linear regression, logistic regression, analysis of variance, nonparametric methods, and more advanced topics as time permits. The R computer program will be used to conduct analyses.</p>
+<p>The major focus for this course is the ideas behind, and the methods for, drawing conclusions about a population from a sample. At the end of this course you will be expected to identify the major concepts related to statistical reasoning and to statistical inferences for drawing such conclusions, recognize how these concepts are used in disciplines related to health and medicine, and implement the methods yourself in statistical analyses using the methods covered. In particular, you are expected to be able to (1) identify the appropriate statistical model or models for a given analysis, (2) write the model in the correct notation, (3) implement the model in the R software package on a given set of data, (4) interpret the output in the context of the study, (5) diagnose model deficiences, (6) suggest improvements to the model if necessary, and (7) summarize the results of the analysis. Work will be a balance between understanding the concepts underlying a method, implementation of the method, and interpretation of the results.</p>
+</section>
+<section id="required-text" class="level1">
+<h1>Required Text</h1>
+<blockquote class="blockquote">
+<p>Rosner, B. (2016) <a href="https://a.co/aGy3VyN"><em>Fundamentals of Biostatistics</em></a>, Eighth Edition. Brooks/Cole, Boston, MA, USA.</p>
+</blockquote>
+<ul>
+<li>There will be occasional readings from other sources, such as journal articles, for class discussion or for homework assignments. These will be posted in Canvas or links will be given to find these online.</li>
+</ul>
+</section>
+<section id="grading" class="level1">
+<h1>Grading</h1>
+<div class="cell">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Assignment</th>
+<th style="text-align: left;">Percent</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Homeworks</td>
+<td style="text-align: left;">20%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Participation</td>
+<td style="text-align: left;">20%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Exams 1, 2, and 3</td>
+<td style="text-align: left;">60%</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<!-- - Quarto Notes: -->
+<!--     - Most of my notes are handwritten. Each week, I will assign one student to convert my hand-written notes into a quarto document that can be parsed to HTML. I will (lightly) modify these notes and post them on the course website. You will only have to do this once this semester. -->
+<!--     - I think we have more students than classes, so for some of you I will ask that you convert your exam reference sheets into a Quarto document. -->
+<ul>
+<li>Participation:
+<ul>
+<li>Show up to class. Stay off your phones. Engage with the in-class exercises. You don’t need to complete or turn in the exercises—just make a genuine effort to try them.</li>
+<li>Participation points will only be deducted under the following circumstances:
+<ul>
+<li>You miss many classes without explanation. Occasional absences are fine. I will take attendance most days, and if you start missing a lot of class, I’ll send you warnings about the impact on your grade before deducting any points.</li>
+<li>You’re not making a good-faith effort on in-class exercises. For example, if you’re clearly working on something else, I’ll make a note and begin sending you warnings before deducting points. Again, you just need to <em>try</em> the exercises—you don’t need to complete them perfectly.</li>
+<li>You engage in behavior that is clearly disrespectful to me or your classmates. This includes things like repeated interruptions or dismissive comments. Our classroom is a space for learning, where everyone is respected and discourse remains civil and scholarly.</li>
+</ul></li>
+</ul></li>
+<li>Exams
+<ul>
+<li>Exams are not officially cumulative, but since statistical concepts build on one another, they are effectively cumulative.</li>
+<li>You may bring <strong>one handwritten reference sheet</strong> (8.5’’ × 11’’, both sides). Typed sheets are <strong>not</strong> allowed.</li>
+<li><strong>No other resources are permitted.</strong>
+<ul>
+<li>If you touch your calculator, phone, computer, smartwatch, smart glasses, or any similar device during the exam, it will result in an <strong>automatic fail for the course</strong>.</li>
+</ul></li>
+<li>I will drop your lowest exam score. Because of this:
+<ul>
+<li><strong>No make-up exams</strong> will be offered. If you miss an exam, it will count as your drop.</li>
+<li><strong>You may not leave the room during the exam</strong> unless you are turning it in.
+<ul>
+<li>If you leave mid-exam (even for an emergency), it will count as your drop.</li>
+<li>If you are unable to remain in the room for the full 1 hour and 15 minutes, please contact <a href="https://www.american.edu/provost/academic-access/">ASAC</a> to request an official accommodation.</li>
+</ul></li>
+<li>If you miss <strong>two exams</strong>, you should consider withdrawing from the course. The last day to withdraw is <strong>October 31, 2025</strong>.</li>
+</ul></li>
+</ul></li>
+<li>Homeworks
+<ul>
+<li>Homework assignments are designed to <strong>reinforce your understanding of course concepts</strong> and to <strong>help you prepare for the exams</strong>. You are permitted to use generative AI tools (e.g., ChatGPT) to assist with homework. However, I strongly recommend using such tools <strong>only after you have made a sincere effort to solve the problems on your own</strong>, such as checking your work or seeking clarification.</li>
+<li>Educational research (e.g.&nbsp;<a href="https://doi.org/10.1177/1529100612453266" class="uri">https://doi.org/10.1177/1529100612453266</a>) consistently shows that <strong>actively working through practice problems</strong> is among the most effective ways to learn quantitative material. In contrast, <strong>passively reading solutions—whether written by others or generated by AI—offers minimal learning benefit</strong>. If you rely primarily on AI-generated solutions, you may not be adequately prepared for the exams.</li>
+<li>To allow some flexibility, <strong>your lowest homework score will be dropped</strong>.</li>
+</ul></li>
+</ul>
+<p>Usual grade cutoffs will be used:</p>
+<div class="cell">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Grade</th>
+<th style="text-align: right;">Lower</th>
+<th style="text-align: right;">Upper</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">A</td>
+<td style="text-align: right;">93</td>
+<td style="text-align: right;">100</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">A-</td>
+<td style="text-align: right;">90</td>
+<td style="text-align: right;">92</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">B+</td>
+<td style="text-align: right;">88</td>
+<td style="text-align: right;">89</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">B</td>
+<td style="text-align: right;">83</td>
+<td style="text-align: right;">87</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">B-</td>
+<td style="text-align: right;">80</td>
+<td style="text-align: right;">82</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">C+</td>
+<td style="text-align: right;">78</td>
+<td style="text-align: right;">79</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">C</td>
+<td style="text-align: right;">73</td>
+<td style="text-align: right;">77</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">C-</td>
+<td style="text-align: right;">70</td>
+<td style="text-align: right;">72</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">D</td>
+<td style="text-align: right;">60</td>
+<td style="text-align: right;">69</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">F</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">59</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>Individual assignments will not be curved. However, at the discretion of the instructor, the overall course grade at the end of the semester may be curved.</p>
+</section>
+<section id="study-recommendations" class="level1">
+<h1>Study Recommendations</h1>
+<p>If you are interested, the study techniques in <a href="https://doi.org/10.1177/1529100612453266" class="uri">https://doi.org/10.1177/1529100612453266</a> are listed as</p>
+<ul>
+<li>High Utility:
+<ul>
+<li>Practice testing
+<ul>
+<li>Self-testing or taking practice tests over to-be-learned material</li>
+</ul></li>
+<li>Distributed practice
+<ul>
+<li>Implementing a schedule of practice that spreads out study activities over time</li>
+</ul></li>
+</ul></li>
+<li>Moderate Utility:
+<ul>
+<li>Elaborative interrogation:
+<ul>
+<li>Generating an explanation for why an explicitly stated fact or concept is true</li>
+</ul></li>
+<li>Self-explanation:
+<ul>
+<li>Explaining how new information is related to known information, or explaining steps taken during problem solving</li>
+</ul></li>
+<li>Interleaved practice
+<ul>
+<li>Implementing a schedule of practice that mixes different kinds of problems, or a schedule of study that mixes different kinds of material, within a single study session</li>
+</ul></li>
+</ul></li>
+<li>Low Utility:
+<ul>
+<li>Rereading
+<ul>
+<li>Restudying text material again after an initial reading</li>
+</ul></li>
+<li>Summarization
+<ul>
+<li>Writing summaries (of various lengths) of to-be-learned texts</li>
+</ul></li>
+<li>Highlighting
+<ul>
+<li>Marking potentially important portions of to-be-learned materials while reading</li>
+</ul></li>
+<li>The keyword mnemonic
+<ul>
+<li>Using keywords and mental imagery to associate verbal materials</li>
+</ul></li>
+<li>Imagery use for text learning
+<ul>
+<li>Attempting to form mental images of text materials while reading or listening</li>
+</ul></li>
+</ul></li>
+</ul>
+</section>
+<section id="late-work-policy" class="level1">
+<h1>Late Work Policy</h1>
+<ul>
+<li>All assignments must be submitted on the day they are due.</li>
+<li>Each student will have <strong>two</strong> three-day extensions, where you can turn in the assignment on Thursday by end-of-day.</li>
+<li>Please just let me know ahead of time that you will be using one of your two extensions.</li>
+<li>Please do <strong>not</strong> tell me why you need the extension. Any reason is a fine reason.</li>
+<li>Any homeworks not submitted by the due date will receive a grade of 0.</li>
+</ul>
+</section>
+<section id="important-dates" class="level1">
+<h1>Important Dates</h1>
+<ul>
+<li>09/01: Labor Day (no classes or office hours).</li>
+<li>09/29: (tentative): Exam 1 (Chapters 1 through 5)</li>
+<li>10/30: (tentative): Exam 2 (Chapters 6 though 8)</li>
+<li>10/31: Last day to withdraw.</li>
+<li>11/24: Classes meat online via Zoom (or a recorded lecture). No in-person class.</li>
+<li>11/27: Thanksgiving break (no classes or office hours).</li>
+<li>12/11 from 09:25 AM – 10:40 AM: Exam 3 (Chapters 9 through 11).</li>
+</ul>
+</section>
+<section id="computing-and-software" class="level1">
+<h1>Computing and Software</h1>
+<p>We will use the R computing language to complete some assignment questions. R is free and may be downloaded from the R website (<a href="http://cran.r-project.org/" class="uri">http://cran.r-project.org/</a>). In addition, I highly recommend you interface with R through the free RStudio IDE (<a href="https://www.rstudio.com/" class="uri">https://www.rstudio.com/</a>). R and RStudio are also available on computers in the Anderson Computing Complex in addition to various labs across campus. R Studio may also be run from your web browser using American University’s <a href="https://americanuniversity.service-now.com/help/?id=sc_cat_item&amp;sys_id=1fdf972fdbb3db00771cfce9af961985">Virtual Applications System</a>. Please see me during office hours if you have questions regarding R.</p>
+</section>
+<section id="data" class="level1">
+<h1>Data</h1>
+<p>Data sets for homeworks assignments and examples from the textbook are available on the <a href="./data.html">Data page</a>. Almost all of these are cleaned versions of the data from the book’s <a href="http://www.cengage.com/cgi-wadsworth/course_products_wp.pl?fid=M20b&amp;product_isbn_issn=9781305268920">companion website</a>.</p>
+</section>
+<section id="academic-integrity" class="level1">
+<h1>Academic Integrity</h1>
+<ul>
+<li><p>Standards of academic conduct are set forth in the university’s <a href="http://www.american.edu/academics/integrity/index.cfm">Academic Integrity Code</a>. By registering for this course, students have acknowledged their awareness of the Academic Integrity Code and they are obliged to become familiar with their rights and responsibilities as defined by the Code. Violations of the Academic Integrity Code will not be treated lightly and disciplinary action will be taken should violations occur. This includes cheating, fabrication, and plagiarism.</p></li>
+<li><p>I expect you to work with others and me, and I expect you to use online resources as you work on your assignments. However, your submissions must be composed of your own thoughts, coding, and words. You should be able to explain your work on assignments/projects and your rationale. <strong>Based on your explanation (or lack thereof), I may modify your grade.</strong></p></li>
+<li><p>You can use generative AI (e.g.&nbsp;ChatGPT, CoPilot, etc) on the homeworks if you want. But</p>
+<ul>
+<li>These are your only study exercises for the exams. So I wouldn’t use AI to do them for me except to check my work after I am done.</li>
+<li>You are still expected to “own” all of your responses. I reserve the right to ask you to explain any of your solutions. If you write something weird or too advanced in the homework, I’ll call you in and ask you questions about it. <strong>Based on your explanation (or lack thereof), I may modify your grade.</strong></li>
+</ul></li>
+<li><p>No resources are allowed for the exam except the 1 page (8.5’’ by 11’’) handwritten cheat sheet (and a pen or pencil, of course). If you touch your phone/computer/smart watch/smart glasses/etc during the exam then that is an automatic fail for the course.</p></li>
+<li><p>All solutions that I provide are under my copyright. These solutions are for personal use only and may not be distributed to anyone else. Giving these solutions to others, including other students or posting them on the internet, is a violation of my copyright and a violation of the student code of conduct.</p></li>
+</ul>
+</section>
+<section id="sharing-course-content" class="level1">
+<h1>Sharing Course Content:</h1>
+<p>Students are not permitted to make visual or audio recordings (including livestreams) of lectures or any class-related content or use any type of recording device unless prior permission from the instructor is obtained and there are no objections from any student in the class. If permission is granted, only students registered in the course may use or share recordings and any electronic copies of course materials (e.g., PowerPoints, formulas, lecture notes, and any discussions – online or otherwise). Use is limited to educational purposes even after the end of the course. Exceptions will be made for students who present a signed Letter of Accommodation from the Academic Support and Access Center. Further details are available from the <a href="https://www.american.edu/provost/academic-access/index.cfm">ASAC website</a>.</p>
+</section>
+<section id="use-of-student-work" class="level1">
+<h1>Use of Student Work</h1>
+<p>The professor will use academic work that you complete for educational purposes in this course during this semester. Your registration and continued enrollment constitute your consent.</p>
+</section>
+<section id="syllabus-change-policy" class="level1">
+<h1>Syllabus Change Policy</h1>
+<p>This syllabus is a guide for the course and is subject to change with advanced notice. These changes may come via email or Canvas. Make sure to check Canvas and your university-supplied email regularly. You are accountable for all such communications.</p>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
