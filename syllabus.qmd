@@ -71,8 +71,7 @@ knitr::kable(gradedf)
     - If you touch your calculator, phone, computer, smartwatch, smart glasses, or any similar device during the exam, it will result in an **automatic fail for the course**.
   - **You may not leave the room during the exam** unless you are turning it in.
     - If you are unable to remain in the room for the full exam time, please contact [ASAC](https://www.american.edu/provost/academic-access/) to request an official accommodation.
-  - If you miss an exam: a make-up exam will only be provided under extraordinary circumstances with written documentation to explain any absence.
-
+  - If you miss an exam: a make-up exam will only be provided under extraordinary circumstances. As per the undergraduate university regulations, the instructor has the discretion to determine whether to excuse short-term absences, and thus whether to provide a make-up exam.
 
 - Homeworks
   - Homework assignments are designed to **reinforce your understanding of course concepts** and to **help you prepare for the exams**. 
