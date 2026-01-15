@@ -557,7 +557,7 @@ Multiply these together:
 (1 - 35.7/100000)^5 * (1 - 60.3/100000)^5 * (1 - 98.9/100000)^5
 ```
 
-This is the probability of getting colon cancer. So the probability of not getting it is one minus this, or
+This is the probability of not getting colon cancer. So the probability of getting it is one minus this, or
 ```{r}
 1 - (1 - 35.7/100000)^5 * (1 - 60.3/100000)^5 * (1 - 98.9/100000)^5
 ```
