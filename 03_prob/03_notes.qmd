@@ -151,7 +151,7 @@ What is the probability that Doctor $A$ or $B$ diagnoses $+$?
 
 ## Solution
 $$
-P(A^+ \cup B^+) = 0.1 + 0.17 - 0.08 = 0.19
+P(A^+ \cup B^+) = 0.1 + 0.17 - 0.09 = 0.18
 $$
 :::
 
@@ -187,7 +187,7 @@ $$P(A | B) = \frac{P(A \cap B)}{P(B)}$$
 - What is $P(A^+ | B^+)$?
 - What is $P(B^+ | A^+)$?
 - What is $P(A^- | B^+)$?
-- What is $P(B^- | B^+)$?
+- What is $P(B^- | A^+)$?
 
 ## Solution
 By the definition of conditional probability, we have
@@ -318,9 +318,9 @@ P(B) &= P(B | \overline{A}) \cdot P(\overline{A}) + P(B | A) \cdot P(A)\\
   </td>
   <td style="background:#ffdddd;">False Negative (FN) <br> (Type II Error)
   </td>
-  <td style="background:#eeffee;">Sensitivity <br> (True Positive Rate, Recall, Power) <br> $\frac{TP}{D^+}$
+  <td style="background:#eeffee;">Sensitivity <br> (True Positive Rate, Recall, Power) <br> $\frac{TP}{D^+} = P(T^+|D^+)$ 
   </td>
-  <td style="background:#ffeeee;">False Negative Rate <br> (Type II Error Rate) <br> $\frac{FN}{D^+}$
+  <td style="background:#ffeeee;">False Negative Rate <br> (Type II Error Rate) <br> $\frac{FN}{D^+} = P(T^-|D^+)$
   </td>
   </tr>
   
@@ -331,20 +331,20 @@ P(B) &= P(B | \overline{A}) \cdot P(\overline{A}) + P(B | A) \cdot P(A)\\
   </td>
   <td style="background:#bbeebb;">True Negative (TN)
   </td>
-  <td style="background:#eedddd;">False Positive Rate <br> (Type I Error Rate) <br> $\frac{FP}{D^-}$
+  <td style="background:#eedddd;">False Positive Rate <br> (Type I Error Rate) <br> $\frac{FP}{D^-} = P(T^+|D^-)$
   </td>
-  <td style="background:#ddeedd;"> Specificity <br>(True Negative Rate) <br> $\frac{TN}{D^-}$
+  <td style="background:#ddeedd;"> Specificity <br>(True Negative Rate) <br> $\frac{TN}{D^-} = P(T^-|D^-)$
   </td>
   </tr>
   
   <tr>
   <td style="border:none;" rowspan="2">
   </td>
-  <td style="border-top:double silver; border-right:double silver;">Prevalence <br> $\frac{D^+}{D^+ + D^-}$
+  <td style="border-top:double silver; border-right:double silver;">Prevalence <br> $\frac{D^+}{D^+ + D^-} = P(D^+)$
   </td>
-  <td style="background:#eeffee;">Positive Predictive Value <br> (Precision) <br> $PV^+ = \frac{TP}{T^+}$
+  <td style="background:#eeffee;">Positive Predictive Value <br> (Precision) <br> $PV^+ = \frac{TP}{T^+} = P(D^+|T^+)$
   </td>
-  <td style="background:#ffeeee;border-right:double silver;">False Omission Rate <br> $\frac{FN}{T^-}$
+  <td style="background:#ffeeee;border-right:double silver;">False Omission Rate <br> $\frac{FN}{T^-} = P(D^+|T^-)$
   </td>
   <td>
   </td>
@@ -355,9 +355,9 @@ P(B) &= P(B | \overline{A}) \cdot P(\overline{A}) + P(B | A) \cdot P(A)\\
   <tr>
   <td>
   </td>
-  <td style="background:#eedddd;">False Discovery Rate <br> $\frac{FP}{T^+}$
+  <td style="background:#eedddd;">False Discovery Rate <br> $\frac{FP}{T^+} = P(D^-|T^+)$
   </td>
-  <td style="background:#ddeedd;">Negative Predictive Value <br> $PV^- = \frac{TN}{T^-}$
+  <td style="background:#ddeedd;">Negative Predictive Value <br> $PV^- = \frac{TN}{T^-} = P(D^-|T^-)$
   </td>
   <td>
   </td>
