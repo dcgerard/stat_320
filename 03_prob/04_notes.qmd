@@ -711,7 +711,7 @@ Use the PMF of the Poisson distribution.
 
 ## Solution
 
-Let $X = $ # in first year $\sim \text{Pois}(1.6)$. Then we want $P(X = 0)$.
+Let $X =$ # in first year $\sim \text{Pois}(1.6)$. Then we want $P(X = 0)$.
 ```{r}
 dpois(x = 0, lambda = 1.6)
 ```
@@ -747,7 +747,7 @@ Use the Binomial distribution with the probability from 4.24.
 
 ## Solution
 
-Let $Y = $ # of siblings who have 3 or more episodes in the first 2 years of life. Then
+Let $Y =$ # of siblings who have 3 or more episodes in the first 2 years of life. Then
 
 $$
 Y \sim \text{Bin}(2, 0.6201)
