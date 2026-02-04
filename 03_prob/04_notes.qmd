@@ -116,7 +116,7 @@ F(x) = P(X \leq x) = \text{Probability } X \text{ is less than or equal to } x
 $$
 :::
 
-- Example: Hypergeometric distribution
+- Example: Hypertensive Example
 
   - $F(0) = 0.008$
   - $F(1) = 0.008 + 0.076$
@@ -270,7 +270,7 @@ ggplot(pmf, aes(x = r, y = pr)) +
 
   - Let $X =$ number of neutrophils out of 100 white blood cells
   
-  - $P(\text{neutrophile}) = 0.6$
+  - $P(\text{neutrophil}) = 0.6$
   
   - $\Rightarrow X \sim \text{Bin}(100, 0.6)$
 
@@ -355,7 +355,7 @@ ggplot(pmf, aes(x = r, y = pr)) +
 
 -   The CDF is `pbinom()`:
 
-    The probability of seeing 4 or fewer neutrophiles out of 10 white blood cells is
+    The probability of seeing 4 or fewer neutrophils out of 10 white blood cells is
 
     $$
     Pr(X \leq x) = \sum_{r=0}^x\binom{10}{r} 0.6^r 0.4^{n-r}
