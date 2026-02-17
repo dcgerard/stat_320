@@ -560,6 +560,7 @@ It's fine if you wrote
 ```{r}
 #| fig-height: 2
 #| fig-width: 4
+#| echo: false
 plt_norm(mu = 61.71, sig = 8.876, lb = 61.71)
 ```
 

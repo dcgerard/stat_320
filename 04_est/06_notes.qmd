@@ -367,7 +367,7 @@ And, for a 99% CI we have
 
 ---
 
-[Bone Density Case Study](./http://localhost:3831/04_est/04_boneden.html)
+[Bone Density Case Study](./04_boneden.html)
 
 ---
 
