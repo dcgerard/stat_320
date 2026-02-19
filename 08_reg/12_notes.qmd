@@ -35,13 +35,61 @@ ggplot2::theme_set(ggplot2::theme_bw() + ggplot2::theme(strip.background = ggplo
   
 # Interpreting One-way ANOVA Models
 
-- The Swiss Analgesic Study aimed to evaluate the impact of phenacetin-containing analgesics on kidney function and health.
+-   The Swiss Analgesic Study:
+    - Aimed to evaluate the impact of phenacetin-containing analgesics on kidney function and health. 
+    - The study contains women who took phenacetin and those who didn't. Urine N-acetyl-P-aminophenyl (NAPAP) levels were used to measure recent phenacetin use, dividing the study group into high-NAPAP and low-NAPAP subgroups. 
+    - So there are three groups in total: high-NAPAP, low-NAPAP, and control (no phenacetin use).
+    - The researchers measured Serum Creatinine levels (in mg/dL) across several years. High levels are considered dangerous for the kidneys.
+    - For this analysis, we will just focus on the year 1968. Let's download it:
 
-It involved 624 women from Basel, Switzerland, who had high phenacetin intake and 626 women with low or no phenacetin intake (control group). The study used urine N-acetyl-P-aminophenyl (NAPAP) levels to measure recent phenacetin use, dividing the study group into high-NAPAP and low-NAPAP subgroups. Both subgroups had higher NAPAP levels than the control group. The women were examined in 1967-1968 and again in 1969, 1970, 1971, 1972, 1975, and 1978, with kidney function assessed through various laboratory tests, including serum-creatinine levels. You can read about the data [here](https://dcgerard.github.io/stat_320/data.html#swiss), and load it in via:
-```{r}
-#| message: false
-swiss <- read_csv("https://dcgerard.github.io/stat_320/data/swiss.csv")
-```
+    ```{r}
+    #| message: false
+    swiss <- read_csv("https://dcgerard.github.io/stat_320/data/swiss.csv")
+    swiss |>
+      filter(!is.na(creat_68)) |>
+      mutate(group = parse_factor(group, levels = c("control", "Low NAPAP", "High NAPAP"))) |>
+      select(group, creat_68) ->
+      swiss_68
+    ```
+    
+-   If we plot the data, it looks like this:
+    ```{r}
+    ggplot(swiss_68, aes(x = group, y = creat_68)) +
+      geom_boxplot()
+    ```
+
+- We might have multiple questions about these data:
+  1. Do all three groups have the same average serum creatine levels?
+  2. Does the High NAPAP group have larger serum creatine levels than the other two on average?
+  3. Does the High and Low NAPAP groups have larger serum creatine levels than the control group on average?
+  
+- ANOVA allows us to answer this.
+
+::: {.callout-tip}
+## The One-way ANOVA model
+$$
+Y_{ij} = \mu + \alpha_i + \epsilon_{ij}
+$$
+- $Y_{ij}$ be the $j$th observation in group $i$.
+- $\mu$ is the mean of group 1.
+- $\alpha_1 = 0$
+- $\alpha_i$ is the how much larger the mean of group $i$ is to group 1.
+- $\epsilon_{ij}$ is the noise. Assumed mean 0 and variance $\sigma^2$, may or may not be normal.
+:::
+
+- Let's write it out for our Swiss example.
+
+::: {.callout-tip}
+## Swiss Application
+- $Y_{ij}$ is the serum creatine level of womean $j$ in group $i$.
+- $i = 1$ is the control group, $i = 2$ is the low-NAPAP group, $i = 3$ is the high-NAPAP group.
+- $\mu$ is the mean serum creatine level of the control group.
+- $\mu + \alpha_2$ is the mean serum creatine level of the low-NAPAP group.
+  - $\alpha_2$ is the mean difference between the low-NAPAP and control groups.
+- $\mu + \alpha_3$ is the mean serum creatine level of the high-NAPAP group.
+  - $\alpha_3$ is the mean difference between the high-NAPAP and control groups.
+- $\alpha_3 - \alpha_2$ is the mean difference betweent he high-NAPAP and low-NAPAP groups.
+:::
 
 
 # Sums of Squares for One-way ANOVA Models
