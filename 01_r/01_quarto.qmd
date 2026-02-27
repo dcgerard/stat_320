@@ -1,9 +1,8 @@
 ---
-title: "Introduction to Quarto <img src='./01_figures/kuato_small.png' width='7%'>"
+title: "Introduction to Quarto <img src='./01_figures/kuato_small.png' width='7%' alt='Kuato cartoon'>"
 author: "David Gerard"
 date: today
 format: html
-urlcolor: "blue"
 ---
 
 ```{r setup, include=FALSE}
@@ -16,26 +15,26 @@ ggplot2::theme_set(ggplot2::theme_bw() + ggplot2::theme(strip.background = ggplo
 
 # Introduction
 
-- Quarto <img src="./01_figures/kuato_small.png" width="3%"> is a file format that is a combination of plain text and R code.
+- Quarto <img src="./01_figures/kuato_small.png" width="3%" alt="Kuato cartoon"> is a file format that is a combination of plain text and R code.
 
 - Lots of great educational material is available at <https://quarto.org/>
 
 - You write code and commentary of code in one file. You may then compile 
-  (RStudio calls this "rendering") the Quarto <img src="./01_figures/kuato_small.png" width="3%"> file to many different kinds
+  (RStudio calls this "rendering") the Quarto <img src="./01_figures/kuato_small.png" width="3%" alt="Kuato cartoon"> file to many different kinds
   of output: pdf (including beamer presentations), html (including various
   presentation formats), Word, PowerPoint, etc.
 
-- Quarto <img src="./01_figures/kuato_small.png" width="3%"> is useful for:
+- Quarto <img src="./01_figures/kuato_small.png" width="3%" alt="Kuato cartoon"> is useful for:
 
   1. Communication of statistical results.
   2. Collaborating with other data scientists.
   3. Using it as a modern lab notebook to *do* data science.
   
-- Quarto <img src="./01_figures/kuato_small.png" width="3%"> can also make "literate programming" documents for python, Julia, JavaScript, etc...
+- Quarto <img src="./01_figures/kuato_small.png" width="3%" alt="Kuato cartoon"> can also make "literate programming" documents for python, Julia, JavaScript, etc...
 
 ## Getting Statrted
 
-- Install Quarto <img src="./01_figures/kuato_small.png" width="3%"> via: <https://quarto.org/docs/get-started/>
+- Install Quarto <img src="./01_figures/kuato_small.png" width="3%" alt="Kuato cartoon"> via: <https://quarto.org/docs/get-started/>
   
 - To make PDF files, you will need to install $\LaTeX$ if you don't have it 
   already. To install it, type in R:
@@ -50,36 +49,36 @@ ggplot2::theme_set(ggplot2::theme_bw() + ggplot2::theme(strip.background = ggplo
   - For OS users, go to <https://tug.org/mactex/>
   - For Linux users, go to <https://www.tug.org/texlive/>
   
-## Playing with Quarto <img src="./01_figures/kuato_small.png" width="5%">
+## Playing with Quarto <img src="./01_figures/kuato_small.png" width="5%" alt="Kuato cartoon">
 
-- Open up a new Quarto <img src="./01_figures/kuato_small.png" width="3%"> file:
+- Open up a new Quarto <img src="./01_figures/kuato_small.png" width="3%" alt="Kuato cartoon"> file:
 
-![](./01_figures/quarto_start.png)\ 
+![](./01_figures/quarto_start.png){fig-alt="R studio screenshot of a new Quarto file."}\ 
 
 - Choose the options for the type of output you want
 
-![](./01_figures/quarto_options.png)\ 
+![](./01_figures/quarto_options.png){fig-alt="Options for new Quarto file."}\ 
 
-- You should now have a rudimentary Quarto <img src="./01_figures/kuato_small.png" width="3%"> file.
+- You should now have a rudimentary Quarto <img src="./01_figures/kuato_small.png" width="3%" alt="Kuato cartoon"> file.
 
 - Save a copy of this file in your "analysis" folder in the "week1" project.
 
-- Quarto <img src="./01_figures/kuato_small.png" width="3%"> contains three things
+- Quarto <img src="./01_figures/kuato_small.png" width="3%" alt="Kuato cartoon"> contains three things
 
   1. A YAML (Yet Another Markup Language) header that controls options for
-     the Quarto <img src="./01_figures/kuato_small.png" width="3%"> document. These are surrounded by `---`.
+     the Quarto <img src="./01_figures/kuato_small.png" width="3%" alt="Kuato cartoon"> document. These are surrounded by `---`.
   2. Code **chunks** --- bits of R code that that are 
      surrounded by ` ```{r} ` and ` ``` `. Only valid R code should go in 
      here.
   3. Plain text that contains simple formatting options.
   
-- All of these are are displayed in the default Quarto <img src="./01_figures/kuato_small.png" width="3%"> file. You can compile
+- All of these are are displayed in the default Quarto <img src="./01_figures/kuato_small.png" width="3%" alt="Kuato cartoon"> file. You can compile
   this file by clicking the "Render" button at the top of the screen or by 
   typing CONTROL + SHIFT + K. Do this now.
   
 ### Formatting markdown
 
-- Here is Hadley's brief intro to formatting text in Quarto <img src="./01_figures/kuato_small.png" width="3%">:
+- Here is Hadley's brief intro to formatting text in Quarto <img src="./01_figures/kuato_small.png" width="3%" alt="Kuato cartoon">:
 
   ```{r, comment="", echo=FALSE}
   cat(readr::read_file("./01_figures/formatting.md"))
@@ -130,7 +129,7 @@ as the output of some chunk). You can do this by placing code within
   
 # Writing Math
 
-- You can use the $\LaTeX$ language to write math in Quarto <img src="./01_figures/kuato_small.png" width="3%"> documents.
+- You can use the $\LaTeX$ language to write math in Quarto <img src="./01_figures/kuato_small.png" width="3%" alt="Kuato cartoon"> documents.
 
 - You put inline math between single dollar signs `$math code here$`.
 

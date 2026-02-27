@@ -42,6 +42,7 @@ The **Cumulative Distribution Function** (CDF) is a function $F(x) = \Pr(X \leq 
   - $\Pr(50 \leq X \leq 100)$
     ```{r}
     #| echo: false
+    #| fig-alt: "Area of Serum Triglycerides to be calculated."
     library(ggplot2)
     df <- data.frame(x = seq(0, 200, length.out = 200))
     df$pdf <- dchisq(x = df$x/8, df = 8)
@@ -57,6 +58,7 @@ The **Cumulative Distribution Function** (CDF) is a function $F(x) = \Pr(X \leq 
   - $\Pr(X \leq 100)$
     ```{r}
     #| echo: false
+    #| fig-alt: "CDF of Serum Triglycerides."
     library(ggplot2)
     df <- data.frame(x = seq(0, 200, length.out = 200))
     df$pdf <- dchisq(x = df$x/8, df = 8)
@@ -97,6 +99,7 @@ The **Cumulative Distribution Function** (CDF) is a function $F(x) = \Pr(X \leq 
 ```{r}
 #| echo: false
 #| warning: false
+#| fig-alt: "Normal distribution."
 x_values <- seq(-4, 4, by = 0.01)
 y_values <- dnorm(x_values)
 data <- data.frame(
@@ -117,7 +120,9 @@ ggplot(data, aes(x = x, y = y)) +
 ```
 
 -   Normal densities with different means.
-    ```{r, echo=FALSE}
+    ```{r}
+    #| echo: false
+    #| fig-alt: "Normal distribution with different means."
     library(ggplot2)
     library(ggthemes)
     x <- seq(-10, 10, length = 100)
@@ -139,7 +144,9 @@ ggplot(data, aes(x = x, y = y)) +
     ```
     
 -   Normal densities with different variances
-    ```{r, echo=FALSE}
+    ```{r}
+    #| echo: false
+    #| fig-alt: "Normal distribution with different variances."
     x <- seq(-10, 10, length = 100)
     y1 <- dnorm(x = x, mean = 0, sd = 1)
     y2 <- dnorm(x = x, mean = 0, sd = 2)
@@ -179,7 +186,9 @@ ggplot(data, aes(x = x, y = y)) +
     dnorm(x = 2, mean = 1, sd = 1)
     ```
     
-    ```{r, echo = FALSE}
+    ```{r}
+    #| echo: false
+    #| fig-alt: "dnorm() is height of density curve."
     x <- seq(-2, 4, length = 100)
     y <- dnorm(x, mean = 1, sd = 1)
     data.frame(x = x, y = y) |>
@@ -198,7 +207,9 @@ ggplot(data, aes(x = x, y = y)) +
     pnorm(q = 2, mean = 1, sd = 1)
     ```
     
-    ```{r, echo = FALSE}
+    ```{r}
+    #| echo: false
+    #| fig-alt: "pnorm() is area to the left of some value."
     x <- seq(-2, 4, length = 500)
     y <- dnorm(x, mean = 1, sd = 1)
     polydf <- data.frame(x = c(min(x), x[x < 2], 2, 0), 
@@ -219,7 +230,9 @@ ggplot(data, aes(x = x, y = y)) +
     qnorm(p = 0.8413, mean = 1, sd = 1)
     ```
     
-    ```{r, echo = FALSE}
+    ```{r}
+    #| echo: false
+    #| fig-alt: "qnorm() gives you value such that probability of being to the left of that value is the given probability."
     x <- seq(-2, 4, length = 500)
     y <- dnorm(x, mean = 1, sd = 1)
     polydf <- data.frame(x = c(min(x), x[x < 2], 2, 0), 
@@ -242,7 +255,9 @@ ggplot(data, aes(x = x, y = y)) +
     head(samp)
     ```
     
-    ```{r, echo = FALSE}
+    ```{r}
+    #| echo: false
+    #| fig-alt: "Histogram of random sample of normal distribution."
     data.frame(samp = samp) |>
       ggplot(aes(x = samp)) +
       geom_histogram(fill = "white", color = "black", bins = 20) +
@@ -258,8 +273,8 @@ ggplot(data, aes(x = x, y = y)) +
 
   <div style="text-align: left;">
   $\Pr(90 \leq X \leq 100)$ <br>
-  = ![](./figs/ch5diff/pl1.png){width=20%} <br>
-  = ![](./figs/ch5diff/pl3.png){width=20%} - ![](./figs/ch5diff/pl2.png){width=20%}<br>
+  = ![](./figs/ch5diff/pl1.png){width=20% alt="Normal area to be calculated."} <br>
+  = ![](./figs/ch5diff/pl3.png){width=20% alt="Upper normal area"} - ![](./figs/ch5diff/pl2.png){width=20% alt="Lower normal area"}<br>
   =$\Pr(X \leq 100) - \Pr(X < 90)$<br>
   =`pnorm(100, mean = 80, sd = sqrt(144))} - \texttt{pnorm(90, mean = 80, sd = sqrt(144))`<br>
   = 0.1545
@@ -460,6 +475,7 @@ plt_norm <- function(mu = 0, sig = 1, lb = -Inf, ub = Inf) {
 #| echo: false
 #| fig-height: 2
 #| fig-width: 4
+#| fig-alt: "Upper tail of normal."
 plt_norm(mu = 12.8, sig = 5.1, lb = 20, ub = Inf)
 ```
 
@@ -561,6 +577,7 @@ It's fine if you wrote
 #| fig-height: 2
 #| fig-width: 4
 #| echo: false
+#| fig-alt: "Upper tail of normal"
 plt_norm(mu = 61.71, sig = 8.876, lb = 61.71)
 ```
 

@@ -1,9 +1,8 @@
 ---
 title: "R Graphics with `{ggplot2}`"
 author: "David Gerard"
-date: "`r Sys.Date()`"
+date: today
 format: html
-urlcolor: "blue"
 ---
 
 ```{r setup, include=FALSE}
@@ -61,6 +60,7 @@ set.seed(1)
 -   E.g. here, we are mapping `iqf` to be on the $x$-axis, and different values of `lead_grp` should be different colors.
 
     ```{r, eval = FALSE}
+    #| fig-alt: "Basic ggplot graphic."
     ggplot(data = lead, mapping = aes(x = iqf, color = lead_grp))
     ```
 
@@ -78,6 +78,7 @@ set.seed(1)
 
     ```{r, message=FALSE}
     #| warning: false
+    #| fig-alt: "Histogram of IQF."
     ggplot(data = lead, mapping = aes(x = iqf)) +
       geom_histogram()
     ```
@@ -86,6 +87,7 @@ set.seed(1)
 
     ```{r}
     #| warning: false
+    #| fig-alt: "Histogram of IQF with white fill and block color."
     ggplot(data = lead, mapping = aes(x = iqf)) +
       geom_histogram(bins = 20, color = "black", fill = "white")
     ```
@@ -97,6 +99,7 @@ Load in the [boneden](../data/boneden.csv) data (see [here](../data.qmd#boneden)
 ## Solution
 
 ```{r}
+#| fig-alt: "Histogram of ls1 with red fill."
 library(readr)
 library(ggplot2)
 boneden <- read_csv("https://dcgerard.github.io/stat_320/data/boneden.csv")
@@ -113,6 +116,7 @@ ggplot(data = boneden, mapping = aes(x = ls1)) +
   
     ```{r}
     #| warning: false
+    #| fig-alt: "Barplot of hyperactivity rating."
     ggplot(data = lead, mapping = aes(x = hyperact)) +
       geom_bar()
     ```
@@ -124,6 +128,7 @@ What variables from the `lead` data are appropriately plotted using a bar plot? 
 ## Solution
 ```{r}
 #| eval: false
+#| fig-alt: "Barplots of various variables from the lead data."
 ggplot(data = lead, mapping = aes(x = sex)) +
   geom_bar()
 ggplot(data = lead, mapping = aes(x = area)) +
@@ -163,6 +168,7 @@ ggplot(data = lead, mapping = aes(x = maxfwt)) +
   
     ```{r}
     #| warning: false
+    #| fig-alt: "Scatterplot of IQF and ld73."
     ggplot(data = lead, mapping = aes(x = ld73, y = iqf)) +
       geom_point()
     ```
@@ -172,6 +178,7 @@ ggplot(data = lead, mapping = aes(x = maxfwt)) +
   
     ```{r}
     #| warning: false
+    #| fig-alt: "Jitterplot of totyrs and hyperact"
     ggplot(data = lead, mapping = aes(x = totyrs, y = hyperact)) +
       geom_jitter()
     ```
@@ -180,6 +187,7 @@ ggplot(data = lead, mapping = aes(x = maxfwt)) +
 
     ```{r, message=FALSE}
     #| warning: false
+    #| fig-alt: "Scatterplot of iqf and ld73 with a smoother."
     ggplot(data = lead, mapping = aes(x = ld73, y = iqf)) +
       geom_point() +
       geom_smooth(se = FALSE)
@@ -191,6 +199,7 @@ Using the `boneden` data, make a scatterplot exploring the association between t
 
 ## Solution
 ```{r}
+#| fig-alt: "Scatterplot of ls1 and ls2."
 ggplot(data = boneden, mapping = aes(x = ls1, y = ls2)) +
   geom_point()
 ```
@@ -205,6 +214,7 @@ ggplot(data = boneden, mapping = aes(x = ls1, y = ls2)) +
   
     ```{r}
     #| warning: false
+    #| fig-alt: "Boxplot of IQF by group."
     ggplot(data = lead, mapping = aes(x = Group, y = iqf)) +
       geom_boxplot()
     ```
@@ -215,6 +225,7 @@ Using the `boneden` data, first calculate the difference in lumbar spine densiti
 
 ## Solution
 ```{r}
+#| fig-alt: "Boxplot of ls_diff by zyg."
 boneden <- mutate(boneden, ls_diff = ls1 - ls2)
 ggplot(data = boneden, mapping = aes(x = zyg, y = ls_diff)) +
   geom_boxplot()
@@ -228,6 +239,7 @@ ggplot(data = boneden, mapping = aes(x = zyg, y = ls_diff)) +
   
     ```{r}
     #| warning: false
+    #| fig-alt: "Scatterplot of iqf by ld73 color-coded by lead_grp."
     ggplot(data = lead, mapping = aes(x = ld73, y = iqf, color = lead_grp)) +
       geom_point()
     ```
@@ -239,6 +251,7 @@ Using the `boneden` data, create a scatterplot between the lumbar spine densitie
 
 ## Solution
 ```{r}
+#| fig-alt: "Scatterplot of ls1 and ls2 color coded by zyg."
 ggplot(data = boneden, mapping = aes(x = ls1, y = ls2, color = zyg)) +
   geom_point()
 ```
@@ -250,6 +263,7 @@ ggplot(data = boneden, mapping = aes(x = ls1, y = ls2, color = zyg)) +
 
     ```{r}
     #| warning: false
+    #| fig-alt: "Scatterplot of iqf and ld37, color coded by lead_grp, with a new name on the legend."
     ggplot(data = lead, mapping = aes(x = ld73, y = iqf, color = lead_grp)) +
       geom_point() +
       scale_color_discrete(name = "New Name")
@@ -263,6 +277,7 @@ ggplot(data = boneden, mapping = aes(x = ls1, y = ls2, color = zyg)) +
 
     ```{r}
     #| warning: false
+    #| fig-alt: "Faceting by area scatterplots of iqf and ld73."
     ggplot(data = lead, mapping = aes(x = ld73, y = iqf)) +
       geom_point() +
       facet_grid(. ~ area)
@@ -273,6 +288,7 @@ ggplot(data = boneden, mapping = aes(x = ls1, y = ls2, color = zyg)) +
   
     ```{r, fig.height=2.7, fig.width=3.5}
     #| warning: false
+    #| fig-alt: "Scatterplot of iqf and ld73 faceted by area and group."
     ggplot(data = lead, mapping = aes(x = ld73, y = iqf)) +
       geom_point() +
       facet_grid(area ~ Group)
@@ -284,6 +300,7 @@ Using the `boneden` data, create a histogram of the difference in lumbar spine d
 
 ## Solution
 ```{r}
+#| fig-alt: "Histogram of ls_diff, faceted by zyg."
 ggplot(data = boneden, mapping = aes(x = ls_diff)) +
   geom_histogram(bins = 10) +
   facet_wrap(. ~ zyg)
@@ -296,6 +313,7 @@ ggplot(data = boneden, mapping = aes(x = ls_diff)) +
 
     ```{r}
     #| warning: false
+    #| fig-alt: "Scatterplot if iqf and ld73 with a classic theme."
     ggplot(data = lead, mapping = aes(x = ld73, y = iqf)) +
       geom_point() +
       theme_classic()

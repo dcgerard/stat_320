@@ -74,9 +74,8 @@ date: today
 #| echo: false
 #| eval: true
 #| message: false
+#| fig-alt: "Right skew density plot"
 library(ggplot2)
-
-# Right skew plot
 ggplot(data.frame(x = c(-2, 6)), aes(x = x)) +
   stat_function(fun = dlnorm, args = list(meanlog = 0.5, sdlog = 0.8), geom = "area", fill = "skyblue", alpha = 0.5) +
   geom_vline(xintercept = exp(0.5), linetype = "dashed") +
@@ -85,8 +84,13 @@ ggplot(data.frame(x = c(-2, 6)), aes(x = x)) +
   theme_minimal() +
   theme(axis.text.x = element_blank()) +
   annotate(geom = "text", label = c("median", "mean"), x = exp(c(0.5, 0.5 + 0.8^2/2)) - 0.2, y = c(0.2, 0.2), angle = 90, size = 7)
+```
 
-# Left skew plot
+```{r}
+#| echo: false
+#| eval: true
+#| message: false
+#| fig-alt: "Left skew density plot"
 ggplot(data.frame(x = c(-2, 6)), aes(x = x)) +
   stat_function(fun = dlnorm, args = list(meanlog = -0.5, sdlog = 0.8), geom = "area", fill = "pink", alpha = 0.5) +
   geom_vline(xintercept = exp(-0.5), linetype = "dashed") +
@@ -110,9 +114,8 @@ ggplot(data.frame(x = c(-2, 6)), aes(x = x)) +
     #| echo: false
     #| eval: true
     #| message: false
+    #| fig-alt: "Unimodal density plot."
     library(ggplot2)
-    
-    # Unimodal plot
     ggplot(data.frame(x = c(4.5, 7)), aes(x = x)) +
       stat_function(fun = dnorm, args = list(mean = 5.9, sd = 0.3), geom = "area", fill = "lightblue") +
       labs(x = "Male Height", y = "Count") +
@@ -122,7 +125,7 @@ ggplot(data.frame(x = c(-2, 6)), aes(x = x)) +
     ```{r}
     #| echo: false
     #| eval: true
-    # Bimodal plot
+    #| fig-alt: "Bimodal density plot."
     ggplot(data.frame(x = c(4.5, 7)), aes(x = x)) +
       stat_function(fun = dnorm, args = list(mean = 5.4, sd = 0.3), geom = "area", fill = "lightgreen") +
       stat_function(fun = dnorm, args = list(mean = 5.9, sd = 0.3), geom = "area", fill = "lightgreen") +
@@ -133,7 +136,7 @@ ggplot(data.frame(x = c(-2, 6)), aes(x = x)) +
     ```{r}
     #| echo: false
     #| eval: true
-    # Trimodal plot
+    #| fig-alt: "Trimodal density plot."
     ggplot(data.frame(x = c(-4, 4)), aes(x = x)) +
       stat_function(fun = dnorm, args = list(mean = -2, sd = 0.5), geom = "area", fill = "pink") +
       stat_function(fun = dnorm, args = list(mean = 0, sd = 0.5), geom = "area", fill = "pink") +
@@ -281,8 +284,8 @@ $$
     #| echo: false
     #| message: false
     #| warning: false
+    #| fig-alt: "Original histogram."
     library(ggplot2)
-    
     set.seed(1)
     x <- rnorm(100)
     ggplot(data.frame(x = x), aes(x = x)) +
@@ -290,13 +293,25 @@ $$
       labs(title = "Original Distribution", x = "X", y = "Count") +
       theme_minimal() +
       xlim(-5, 5)
+    ```
     
+    ```{r}
+    #| echo: false
+    #| message: false
+    #| warning: false
+    #| fig-alt: "Histogram shifted."
     ggplot(data.frame(x = x + 2), aes(x = x)) +
       geom_histogram(binwidth = 0.5, fill = "lightgreen", alpha = 0.7) +
       labs(title = "Shifted Distribution (X + C2)", x = "X + C2", y = "Count") +
       theme_minimal() +
       xlim(-5, 5)
+    ```
     
+    ```{r}
+    #| echo: false
+    #| message: false
+    #| warning: false
+    #| fig-alt: "Histogram shifted and scaled."
     ggplot(data.frame(x = x * 2), aes(x = x)) +
       geom_histogram(binwidth = 0.5, fill = "lightcoral", alpha = 0.7) +
       labs(title = "Scaled Distribution (C1 * X + C2)", x = "C1 * X + C2", y = "Count") +
@@ -411,6 +426,7 @@ birthweight <- read_csv("https://dcgerard.github.io/stat_320/data/birthweight.cs
 
 Looks skewed left, so median?
 ```{r}
+#| fig-alt: "Histogram of birthweights."
 ggplot(birthweight, aes(x = weight)) +
   geom_histogram(bins = 30)
 ```

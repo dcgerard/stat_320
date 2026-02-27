@@ -64,11 +64,11 @@ If $E_1$ and $E_2$ are mutually exclusive, then:
   - Each event is a circle. 
   - Area of shapes are proportional to probability of event.
   
-  ![](./figs/me.png)\ 
+  ![](./figs/me.png){fig-alt="Mutually exclusive visualization."}\ 
 
 - Non-mutually Exclusive Events: 
 
-  ![](./figs/not_me.png)\ 
+  ![](./figs/not_me.png){fig-alt="Not mutually exclusive visualization."}\ 
   
 - The **complement** of $A$, denoted $\overline{A}$, is the event that $A$ does not occur.
 
@@ -85,7 +85,7 @@ P(\overline{A}) = 1 - P(A) \Rightarrow P(A) = 1 - P(\overline{A})
 $$
 :::
 
-  ![](./figs/complement.png)\ 
+  ![](./figs/complement.png){fig-alt="Complement rule visualization."}\ 
 
 - **Example**: 
   - $P(\text{Uncertain}) = 1 - P(\{\text{Positive, Negative}\}) = 1 - 0.8 = 0.2$
@@ -105,7 +105,7 @@ Two events are **independent** if and only if
   
 - Intersection:
 
-  ![](./figs/intersection.png)\ 
+  ![](./figs/intersection.png){fig-alt="Intersection visualization."}\ 
   
 - **Example**:
   - $P(\text{Mother DBP > 90}) = P(A) = 0.1$
@@ -222,7 +222,7 @@ P(A) &= P(A \cap B) + P(A \cap \overline{B})\\
 
 - Visualization of Total Probability:
   
-  ![](./figs/lotp.png)\ 
+  ![](./figs/lotp.png){fig-alt="Total probability visualization."}\ 
     
 ::: {.panel-tabset}
 ## Exercise
@@ -252,7 +252,7 @@ P(B) &= P(B | \overline{A}) \cdot P(\overline{A}) + P(B | A) \cdot P(A)\\
   
 - Visualization of Law of Total Probability:
 
-  ![](./figs/lotp2.png)\ 
+  ![](./figs/lotp2.png){fig-alt="Total probability visualization."}\ 
 
 - **Example**:
   - Let:

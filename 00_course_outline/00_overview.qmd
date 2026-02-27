@@ -1,8 +1,7 @@
 ---
 title: "Course Overview"
 author: "David Gerard"
-date: "`r Sys.Date()`"
-urlcolor: "blue"
+date: today
 bibliography: "../bib.bib"
 format: html
 ---
@@ -38,7 +37,7 @@ ggplot2::theme_set(ggplot2::theme_bw())
   
 - The density of birthweights in America:
 
-  ![](./cartoons/birthweights.png)\ 
+  ![](./cartoons/birthweights.png){fig-alt="Density of birthweights."}\ 
   
 - The distribution of many variables in Statistics approximate the 
   **normal distribution**.
@@ -48,118 +47,138 @@ ggplot2::theme_set(ggplot2::theme_bw())
       are both more likely).
     - Mean determines where the data are centered.
 
-- Normal densities with different means.
-  ```{r, echo=FALSE}
-  library(ggplot2)
-  library(ggthemes)
-  x <- seq(-10, 10, length = 100)
-  y1 <- dnorm(x = x, mean = 0, sd = 2)
-  y2 <- dnorm(x = x, mean = -4, sd = 2)
-  y3 <- dnorm(x = x, mean = 4, sd = 2)
-  dfdat <- data.frame(x = rep(x, 3), 
-                      y = c(y1, y2, y3), 
-                      z = factor(rep(c(1, 2, 3), each = length(x))))
-  
-  ggplot(data = dfdat, mapping = aes(x = x, y = y, color = z, lty = z)) +
-    geom_line(lwd=1) + 
-    ggthemes::scale_color_colorblind() +
-    theme(legend.position="none") +
-    ylab("f(x)") +
-    xlab("x")
-  ```
-
-- Normal densities with different standard deviations
-  ```{r, echo=FALSE}
-  x <- seq(-10, 10, length = 100)
-  y1 <- dnorm(x = x, mean = 0, sd = 1)
-  y2 <- dnorm(x = x, mean = 0, sd = 2)
-  y3 <- dnorm(x = x, mean = 0, sd = 4)
-  dfdat <- data.frame(x = rep(x, 3), 
-                      y = c(y1, y2, y3), 
-                      z = factor(rep(c(1, 2, 3), each = length(x))))
-  
-  ggplot(data = dfdat, mapping = aes(x = x, y = y, color = z, lty = z)) +
-    geom_line(lwd=1) + 
-    ggthemes::scale_color_colorblind() +
-    theme(legend.position="none") +
-    ylab("f(x)") +
-    xlab("x")
-  ```
-  
-- Density Function (height of curve, **NOT** probability of a value).
-
-  ```{r}
-  dnorm(x = 2, mean = 1, sd = 1)
-  ```
-  
-  ```{r, echo = FALSE}
-  x <- seq(-2, 4, length = 100)
-  y <- dnorm(x, mean = 1, sd = 1)
-  data.frame(x = x, y = y) |>
-  ggplot(aes(x = x, y = y)) +
-    geom_line() +
-    ylab("f(x)") +
-    geom_segment(dat = data.frame(x = 2, xend = 2, y = 0, 
-                                  yend = dnorm(x = 2, mean = 1, sd = 1)), 
-                 aes(x = x, y = y, xend = xend, yend = yend), lty = 2, col = 2)
-  ```
+-   Normal densities with different means.
+    ```{r}
+    #| echo: false
+    #| fig-alt: "Normal densities with different means."
+    library(ggplot2)
+    library(ggthemes)
+    x <- seq(-10, 10, length = 100)
+    y1 <- dnorm(x = x, mean = 0, sd = 2)
+    y2 <- dnorm(x = x, mean = -4, sd = 2)
+    y3 <- dnorm(x = x, mean = 4, sd = 2)
+    dfdat <- data.frame(x = rep(x, 3), 
+                        y = c(y1, y2, y3), 
+                        z = factor(rep(c(1, 2, 3), each = length(x))))
     
-- Random Generation (generate samples from a given normal distribution).
+    ggplot(data = dfdat, mapping = aes(x = x, y = y, color = z, lty = z)) +
+      geom_line(lwd=1) + 
+      ggthemes::scale_color_colorblind() +
+      theme(legend.position="none") +
+      ylab("f(x)") +
+      xlab("x")
+    ```
 
-  ```{r}
-  samp <- rnorm(n = 1000, mean = 1, sd = 1)
-  head(samp)
-  ```
+-   Normal densities with different standard deviations
+    ```{r}
+    #| echo: false
+    #| fig-alt: "Normal densities with different standard deviations."
+    x <- seq(-10, 10, length = 100)
+    y1 <- dnorm(x = x, mean = 0, sd = 1)
+    y2 <- dnorm(x = x, mean = 0, sd = 2)
+    y3 <- dnorm(x = x, mean = 0, sd = 4)
+    dfdat <- data.frame(x = rep(x, 3), 
+                        y = c(y1, y2, y3), 
+                        z = factor(rep(c(1, 2, 3), each = length(x))))
+    
+    ggplot(data = dfdat, mapping = aes(x = x, y = y, color = z, lty = z)) +
+      geom_line(lwd=1) + 
+      ggthemes::scale_color_colorblind() +
+      theme(legend.position="none") +
+      ylab("f(x)") +
+      xlab("x")
+    ```
   
-  ```{r, echo = FALSE}
-  qplot(samp, geom = "histogram", fill = I("white"), color = I("black"), bins = 20)
-  ```
-  
-- Cumulative Distribution Function (probability of being less than or equal 
-  to some value).
+-   Density Function (height of curve, **NOT** probability of a value).
 
-  ```{r}
-  pnorm(q = 2, mean = 1, sd = 1)
-  ```
+    ```{r}
+    dnorm(x = 2, mean = 1, sd = 1)
+    ```
   
-  ```{r, echo = FALSE}
-  x <- seq(-2, 4, length = 500)
-  y <- dnorm(x, mean = 1, sd = 1)
-  polydf <- data.frame(x = c(min(x), x[x < 2], 2, 0), 
-                       y = c(0, y[x < 2], 0, 0))
-  qplot(x, y, geom = "line", ylab = "f(x)") +
-    geom_polygon(data = polydf, mapping = aes(x = x, y = y), 
-                 fill = "blue", alpha = 1/4)
-  ```
+    ```{r}
+    #| echo: false
+    #| fig-alt: "dnorm() is height of density curve."
+    x <- seq(-2, 4, length = 100)
+    y <- dnorm(x, mean = 1, sd = 1)
+    data.frame(x = x, y = y) |>
+    ggplot(aes(x = x, y = y)) +
+      geom_line() +
+      ylab("f(x)") +
+      geom_segment(dat = data.frame(x = 2, xend = 2, y = 0, 
+                                    yend = dnorm(x = 2, mean = 1, sd = 1)), 
+                   aes(x = x, y = y, xend = xend, yend = yend), lty = 2, col = 2)
+    ```
     
-- Quantile function (find value that has a given the probability of being less 
-  than or equal to it).
-  
-  ```{r}
-  qnorm(p = 0.8413, mean = 1, sd = 1)
-  ```
-  
-  ```{r, echo = FALSE}
-  x <- seq(-2, 4, length = 500)
-  y <- dnorm(x, mean = 1, sd = 1)
-  polydf <- data.frame(x = c(min(x), x[x < 2], 2, 0), 
-                       y = c(0, y[x < 2], 0, 0))
-  qplot(x, y, geom = "line", ylab = "f(x)") +
-    geom_polygon(data = polydf, mapping = aes(x = x, y = y), 
-                 fill = "blue", alpha = 1/4) +
-    annotate(geom = "text", x = 0.5, y = 0.1, label = "0.8413", color = "black")
-  ```  
-  
-- **Exercise**: In Hong Kong, human male height is approximately normally
-  distributed with mean 171.5 cm and standard deviation 5.5 cm. What 
-  proportion of the Hong Kong population is between 170 cm and 180 cm?
+-   Random Generation (generate samples from a given normal distribution).
+
+    ```{r}
+    samp <- rnorm(n = 1000, mean = 1, sd = 1)
+    head(samp)
+    ```
     
-  ```{r, echo = FALSE, eval = FALSE}
-  pless180 <- pnorm(q = 180, mean = 171.5, sd = 5.5)
-  pless170 <- pnorm(q = 170, mean = 171.5, sd = 5.5)
-  pbetween <- pless180 - pless170
-  pbetween
-  ```
+    ```{r}
+    #| echo: false
+    #| fig-alt: "Histogram of random sample from normal distribution."
+    data.frame(x = samp) |>
+      ggplot(aes(x = x)) +
+      geom_histogram(fill = "white", color = "black", bins = 20)
+    ```
+  
+-   Cumulative Distribution Function (probability of being less than or equal to some value).
+
+    ```{r}
+    pnorm(q = 2, mean = 1, sd = 1)
+    ```
+    
+    ```{r}
+    #| echo: false
+    #| fig-alt: "CDF is area below normal curve to the left of some value."
+    x <- seq(-2, 4, length = 500)
+    y <- dnorm(x, mean = 1, sd = 1)
+    polydf <- data.frame(x = c(min(x), x[x < 2], 2, 0), 
+                         y = c(0, y[x < 2], 0, 0))
+    data.frame(x = x, y = y) |>
+      ggplot(aes(x = x, y = y)) +
+      geom_line() +
+      ylab("f(x)") +
+      geom_polygon(data = polydf, mapping = aes(x = x, y = y), 
+                   fill = "blue", alpha = 1/4)
+    ```
+    
+-   Quantile function (find value that has a given the probability of being less than or equal to it).
+  
+    ```{r}
+    qnorm(p = 0.8413, mean = 1, sd = 1)
+    ```
+    
+    ```{r}
+    #| echo: false
+    #| fig-alt: "Quantile is the value at which probability of being smaller than that value is the provided probability."
+    x <- seq(-2, 4, length = 500)
+    y <- dnorm(x, mean = 1, sd = 1)
+    polydf <- data.frame(x = c(min(x), x[x < 2], 2, 0), 
+                         y = c(0, y[x < 2], 0, 0))
+    data.frame(x = x, y = y) |>
+      ggplot(aes(x = x, y = y)) +
+      geom_line() +
+      ylab("f(x)") +
+      geom_polygon(data = polydf, mapping = aes(x = x, y = y), 
+                   fill = "blue", alpha = 1/4) +
+      annotate(geom = "text", x = 0.5, y = 0.1, label = "0.8413", color = "black")
+    ```  
+
+::: {.panel-tabset}
+## Exercise
+In Hong Kong, human male height is approximately normally distributed with mean 171.5 cm and standard deviation 5.5 cm. Whatproportion of the Hong Kong population is between 170 cm and 180 cm?
+
+## Solution
+```{r}
+pless180 <- pnorm(q = 180, mean = 171.5, sd = 5.5)
+pless170 <- pnorm(q = 170, mean = 171.5, sd = 5.5)
+pbetween <- pless180 - pless170
+pbetween
+```
+:::
     
 - The $t$-distribution shows up a lot in Statistics. 
   - It is also bell-curved but has "thicker tails" (more extreme observations 
@@ -173,88 +192,109 @@ ggplot2::theme_set(ggplot2::theme_bw())
     is approximately the same as a normal distribution with mean 0
     and variance 1.
       
-- $t$-distributions with different degrees of freedom:
+-   $t$-distributions with different degrees of freedom:
 
-  ```{r, echo=FALSE}
-  x <- seq(-4, 4, length = 200)
-  data.frame(df = as.factor(c(rep(1, length(x)), rep(5, length(x)), rep(Inf, length(x)))),
-             x = c(x, x, x),
-             y = c(dt(x = x, df = 1),
-                   dt(x = x, df = 5),
-                   dt(x = x, df = Inf))) ->
-    dfdat
-  ggplot(dfdat, mapping = aes(x = x, y = y, color = df, lty = df)) +
-    geom_line() +
-    scale_color_colorblind() +
-    ylab("f(x)")
-  ```
+    ```{r}
+    #| echo: false
+    #| fig-alt: "T-densities with different degrees of freedom."
+    x <- seq(-4, 4, length = 200)
+    data.frame(df = as.factor(c(rep(1, length(x)), rep(5, length(x)), rep(Inf, length(x)))),
+               x = c(x, x, x),
+               y = c(dt(x = x, df = 1),
+                     dt(x = x, df = 5),
+                     dt(x = x, df = Inf))) ->
+      dfdat
+    ggplot(dfdat, mapping = aes(x = x, y = y, color = df, lty = df)) +
+      geom_line() +
+      scale_color_colorblind() +
+      ylab("f(x)")
+    ```
 
-- Density Function
+-   Density Function
 
-  ```{r}
-  dt(x = -6, df = 2)
-  ```
-  
-  ```{r, echo = FALSE}
-  x <- seq(-6, 6, length = 100)
-  y <- dt(x, df = 1)
-  qplot(x, y, geom = "line", ylab = "f(x)") +
-    geom_segment(dat = data.frame(x = 2, xend = 2, y = 0,
-                                  yend = dt(x = 2, df = 2)), 
-                 aes(x = x, y = y, xend = xend, yend = yend), lty = 2, col = 2)
-  ```
+    ```{r}
+    dt(x = -6, df = 2)
+    ```
     
-- Random Generation
-
-  ```{r}
-  samp <- rt(n = 1000, df = 2)
-  head(samp)
-  ```
-  
-  ```{r, echo = FALSE}
-  qplot(samp, geom = "histogram", fill = I("white"), color = I("black"), bins = 20)
-  ```
+    ```{r}
+    #| echo: false
+    #| fig-alt: "dt() is height of t-density curve."
+    x <- seq(-6, 6, length = 100)
+    y <- dt(x, df = 1)
+    data.frame(x = x, y = y) |>
+      ggplot(aes(x = x, y = y)) +
+      geom_line() +
+      ylab("f(x)") +
+      geom_segment(dat = data.frame(x = 2, xend = 2, y = 0,
+                                    yend = dt(x = 2, df = 2)), 
+                   aes(x = x, y = y, xend = xend, yend = yend), lty = 2, col = 2)
+    ```
     
-- Cumulative Distribution Function
+-   Random Generation
 
-  ```{r}
-  pt(q = 2, df = 2)
-  ```
-  
-  ```{r, echo = FALSE}
-  x <- seq(-6, 6, length = 500)
-  y <- dt(x,  df = 2)
-  polydf <- data.frame(x = c(min(x), x[x < 2], 2, 0), 
-                       y = c(0, y[x < 2], 0, 0))
-  qplot(x, y, geom = "line", ylab = "f(x)") +
-    geom_polygon(data = polydf, mapping = aes(x = x, y = y), 
-                 fill = "blue", alpha = 1/4)
-  ```
+    ```{r}
+    samp <- rt(n = 1000, df = 2)
+    head(samp)
+    ```
     
-- Quantile Function
+    ```{r}
+    #| echo: false
+    #| fig-alt: "Histogram of random samples of t-distribution."
+    data.frame(x = samp) |>
+      ggplot(aes(x = x)) +
+      geom_histogram(fill = "white", color = "black", bins = 20)
+    ```
+    
+-   Cumulative Distribution Function
 
-  ```{r}
-  qt(p = 0.9082, df = 2)
-  ```
-  
-  ```{r, echo = FALSE}
-  x <- seq(-6, 6, length = 500)
-  y <- dt(x, df = 2)
-  polydf <- data.frame(x = c(min(x), x[x < 2], 2, 0), 
-                       y = c(0, y[x < 2], 0, 0))
-  qplot(x, y, geom = "line", ylab = "f(x)") +
-    geom_polygon(data = polydf, mapping = aes(x = x, y = y), 
-                 fill = "blue", alpha = 1/4) +
-    annotate(geom = "text", x = 0, y = 0.1, label = "0.9082", color = "black")
-  ```
+    ```{r}
+    pt(q = 2, df = 2)
+    ```
+    
+    ```{r}
+    #| echo: false
+    #| fig-alt: "CDF of t-distribution is area under the density to the left of a given value."
+    x <- seq(-6, 6, length = 500)
+    y <- dt(x,  df = 2)
+    polydf <- data.frame(x = c(min(x), x[x < 2], 2, 0), 
+                         y = c(0, y[x < 2], 0, 0))
+    data.frame(x = x, y = y) |>
+      ggplot(aes(x = x, y = y)) +
+      geom_line() +
+      ylab("f(x)") +
+      geom_polygon(data = polydf, mapping = aes(x = x, y = y), 
+                   fill = "blue", alpha = 1/4)
+    ```
+    
+-   Quantile Function
+
+    ```{r}
+    qt(p = 0.9082, df = 2)
+    ```
+    
+    ```{r}
+    #| echo: false
+    #| fig-alt: "Quantile function is the value at which the probability of being less than that value is the given probability."
+    x <- seq(-6, 6, length = 500)
+    y <- dt(x, df = 2)
+    polydf <- data.frame(x = c(min(x), x[x < 2], 2, 0), 
+                         y = c(0, y[x < 2], 0, 0))
+    data.frame(x = x, y = y) |>
+      ggplot(aes(x = x, y = y)) +
+      geom_line() +
+      ylab("f(x)") +
+      geom_polygon(data = polydf, mapping = aes(x = x, y = y), 
+                   fill = "blue", alpha = 1/4) +
+      annotate(geom = "text", x = 0, y = 0.1, label = "0.9082", color = "black")
+    ```
       
       
-- There are many other distributions implemented in R. To see the most common,
-  run:
+-   There are many other distributions implemented in R. To see the most common, run:
   
-  ```{r,eval=FALSE}
-  help("Distributions")
-  ```
+    ```{r}
+    #| eval: false
+    help("Distributions")
+    ```
 
   
 # All of Statistics
@@ -297,12 +337,12 @@ ggplot2::theme_set(ggplot2::theme_bw())
       
 - Graphic:
     
-  ![](./cartoons/pop_vs_sample.png)\ 
+  ![](./cartoons/pop_vs_sample.png){fig-alt="Population versus sample."}\ 
 
 - **Sampling Distribution**: The distribution of a statistic over
   many hypothetical random samples from the population.
   
-  ![](./cartoons/sampling_dist.png)\ 
+  ![](./cartoons/sampling_dist.png){fig-alt="Sampling distribution visualization."}\ 
 
 - All of Statistics: We see a pattern in the sample.
     - **Estimation**: Guess the pattern in the population based on the sample. 
@@ -314,28 +354,32 @@ ggplot2::theme_set(ggplot2::theme_bw())
       in the population based on the sample. Provide a range of likely 
       parameter values.
 
-- We will go through a lot of examples of this below    
+-   We will go through a lot of examples of this below    
     
-  ```{r, message=FALSE}
-  library(tidyverse)
-  library(broom)
-  ```
+    ```{r}
+    #| message: false
+    library(tidyverse)
+    library(broom)
+    ```
 
-- **Exercise**: Read about the `boneden` data [here](https://dcgerard.github.io/stat_320/data.html#boneden) What are the observational units? What are the variables? Which are quantitative and which are categorical?
+::: {.panel-tabset}
+## Exercise
+Read about the `boneden` data [here](https://dcgerard.github.io/stat_320/data.html#boneden) What are the observational units? What are the variables? Which are quantitative and which are categorical?
+
+## Solution
+- Observational units: Twins
+- Variables: `ID` is a key. `zyg`, `men1`, and `men2` are categorical. The rest are quantitative.
+:::
   
-  ```{block, eval = FALSE, echo = FALSE}
-  - Observational units: Twins
-  - Variables: `ID` is a key. `zyg`, `men1`, and `men2` are categorical. The rest are quantitative.
-  ```
-  
-- **Exercise**: Read about the `lead` data [here](https://dcgerard.github.io/stat_320/data.html#lead). What are the observational units? What are the variables? Which are quantitative and which are categorical?
+::: {.panel-tabset}
+## Exercise
+Read about the `lead` data [here](https://dcgerard.github.io/stat_320/data.html#lead). What are the observational units? What are the variables? Which are quantitative and which are categorical?
 
-  ```{block, eval = FALSE, echo = FALSE}
-  - Children are the observational units.
-  - `id` is a key.
-  - `sex`, `area`, `lead_grp`, `Group`, `fst2yrs`, `iq_type`, `pica`, `colic`, `clumsi`, `irit`, `convul`, and `hyperact` are categorical. The rest are quantitative.
-  ```
-
+## Solution
+- Children are the observational units.
+- `id` is a key.
+- `sex`, `area`, `lead_grp`, `Group`, `fst2yrs`, `iq_type`, `pica`, `colic`, `clumsi`, `irit`, `convul`, and `hyperact` are categorical. The rest are quantitative.
+:::
 
 # Pattern: Mean is shifted (one quantitative variable)
 
@@ -347,35 +391,36 @@ ggplot2::theme_set(ggplot2::theme_bw())
   
 - Sample: The 41 twins in our study.
   
-- Variable: The difference in lumbar spine density (in g/cm^2^) between the twins. We derived this quantitative variable by subtracting one density from another.
-  ```{r}
-  #| message: false
-  boneden <- read_csv("https://dcgerard.github.io/stat_320/data/boneden.csv")
-  boneden <- mutate(boneden, ls_diff = ls1 - ls2)
-  ```
+-   Variable: The difference in lumbar spine density (in g/cm^2^) between the twins. We derived this quantitative variable by subtracting one density from another.
+    ```{r}
+    #| message: false
+    boneden <- read_csv("https://dcgerard.github.io/stat_320/data/boneden.csv")
+    boneden <- mutate(boneden, ls_diff = ls1 - ls2)
+    ```
 
-- Pattern: Use a histogram/boxplot to visualize the shift from 0.
+-   Pattern: Use a histogram/boxplot to visualize the shift from 0.
 
-  ```{r}
-  ggplot(boneden, aes(x = ls_diff)) +
-    geom_histogram(bins = 20, fill = "white", color = "black") +
-    geom_vline(xintercept = 0, lty = 2) +
-    xlab("Difference in Bone Density")
-  ```
+    ```{r}
+    #| fig-alt: "Histogram of bone density difference."
+    ggplot(boneden, aes(x = ls_diff)) +
+      geom_histogram(bins = 20, fill = "white", color = "black") +
+      geom_vline(xintercept = 0, lty = 2) +
+      xlab("Difference in Bone Density")
+    ```
 
 
 - Graphic: 
 
-  ![](./cartoons/twins1.png)\ 
+  ![](./cartoons/twins1.png){fig-alt="Visualization of twin sample."}\ 
     
 - Parameter of interest: Mean difference in bone density for all twins.
 
-- Estimate: Use sample mean
+-   Estimate: Use sample mean
 
-  ```{r}
-  boneden %>%
-    summarize(meandiff = mean(ls_diff))
-  ```
+    ```{r}
+    boneden |>
+      summarize(meandiff = mean(ls_diff))
+    ```
     
 - 0.03585 is our "best guess" for the parameter, but it is almost certainly not
   the value of the parameter (since we didn't measure everyone).
@@ -395,7 +440,7 @@ ggplot2::theme_set(ggplot2::theme_bw())
 
 - Graphic:
 
-  ![](./cartoons/p-value.png)\ 
+  ![](./cartoons/p-value.png){fig-alt="Sampling distribution of sample mean."}\ 
     
 - The distribution of possible null sample means is given by statistical theory.
   Specifically, the $t$-statistic (mean divided by the standard deviation of the
@@ -404,29 +449,26 @@ ggplot2::theme_set(ggplot2::theme_bw())
   It works as long as your data aren't too skewed or if you have a large 
   enough sample size.
 
-- Function: `t.test()`
+-   Function: `t.test()`
 
-  ```{r}
-  tout <- t.test(ls_diff ~ 1, data = boneden)
-  tout
-  ```
+    ```{r}
+    tout <- t.test(ls_diff ~ 1, data = boneden)
+    tout
+    ```
     
-- The `tidy()` function from the broom package will format the output of common
-  procedures to a convenient data frame.
+-   The `tidy()` function from the broom package will format the output of common procedures to a convenient data frame.
   
-  ```{r}
-  tdf <- tidy(tout)
-  tdf$estimate
-  tdf$p.value
-  ```
+    ```{r}
+    tdf <- tidy(tout)
+    tdf$estimate
+    tdf$p.value
+    ```
     
-- We often want a range of "likely" values. These are called confidence
-  intervals. `t.test()` will return these confidence intervals, giving
-  lowest and highest likely values for the mean difference in bone density:
-  ```{r}
-  tdf$conf.low
-  tdf$conf.high
-  ```
+-   We often want a range of "likely" values. These are called confidence intervals. `t.test()` will return these confidence intervals, giving lowest and highest likely values for the mean difference in bone density:
+    ```{r}
+    tdf$conf.low
+    tdf$conf.high
+    ```
     
 - Interpreting confidence intervals:
     - CORRECT: We used a procedure that would capture the true parameter in 95%
@@ -444,7 +486,7 @@ ggplot2::theme_set(ggplot2::theme_bw())
       
 - Graphic:
     
-  ![](./cartoons/ci_graphic.png)\ 
+  ![](./cartoons/ci_graphic.png){fig-alt="Interpretation of confidence intervals."}\ 
       
       
 - Intuition: Statistical theory tells us that the sample mean will be
@@ -454,36 +496,40 @@ ggplot2::theme_set(ggplot2::theme_bw())
   deviations of the sample. So we just add and subtract (approximately)
   two standard deviations of the sampling distribution from the sample mean.
 
-- **Exercise**: The `birthweight` data available [here](https://dcgerard.github.io/stat_320/data/birthweight.csv) contains the birthweights (in ounces) of 1000 newborns born in a Boston area hospital. Wikipedia [says](https://en.wikipedia.org/wiki/Birth_weight) the average birthweight for individuals of European and African descent is 123 ounces. Does this Boston hospital have the same mean as what Wikipedia says? Explain.
+::: {.panel-tabset}
+## Exercise
+The `birthweight` data available [here](https://dcgerard.github.io/stat_320/data/birthweight.csv) contains the birthweights (in ounces) of 1000 newborns born in a Boston area hospital. Wikipedia [says](https://en.wikipedia.org/wiki/Birth_weight) the average birthweight for individuals of European and African descent is 123 ounces. Does this Boston hospital have the same mean as what Wikipedia says? Explain.
+
+## Solution
 
 ```{r}
-#| message: false
-#| echo: false
-#| eval: false
 birthweight <- read_csv("https://dcgerard.github.io/stat_320/data/birthweight.csv")
 ggplot(birthweight, aes(x = weight)) + 
   geom_histogram() +
   geom_vline(xintercept = 123)
 mean(birthweight$weight)
-# Null: mean weight is 123
-# Alternative: mean weight not 123
+```
+- Null: mean weight is 123
+- Alternative: mean weight not 123
+```{r}
 tout <- t.test(birthweight$weight, mu = 123)
 tout$p.value
-# We have strong evidence the mean birthweight at the Boston hospital is different than the what Wikipedia says (p < 0.0001). There are a few possible explanations. First, we don't know if the Wikipedia figure includes premies, while the Boston data certainly does. Second, we the Boston data likely also includes individuals other than those of African and European descent (e.g. Histpanics and Asians). Third, the Wikipedia article figure is from 2023, while these data might be quite a bit older.
 ```
+We have strong evidence the mean birthweight at the Boston hospital is different than the what Wikipedia says (p < 0.0001). There are a few possible explanations. First, we don't know if the Wikipedia figure includes premies, while the Boston data certainly does. Second, we the Boston data likely also includes individuals other than those of African and European descent (e.g. Histpanics and Asians). Third, the Wikipedia article figure is from 2023, while these data might be quite a bit older.
+:::
 
 
 # Pattern: Means of two groups are different (one quantitative, one binary)
 
-- Example: IQ differences between children with high levels of lead (`exposed`) and those with low levels of lead (`control`).
+-   Example: IQ differences between children with high levels of lead (`exposed`) and those with low levels of lead (`control`).
   
-  ```{r}
-  #| warning: false
-  lead <- read_csv("https://dcgerard.github.io/stat_320/data/lead.csv")
-  lead |>
-    select(Group, iqf) |>
-    glimpse()
-  ```
+    ```{r}
+    #| warning: false
+    lead <- read_csv("https://dcgerard.github.io/stat_320/data/lead.csv")
+    lead |>
+      select(Group, iqf) |>
+      glimpse()
+    ```
 
 - Observational Units: Children
 
@@ -494,25 +540,27 @@ tout$p.value
 - Variables: The lead level group (binary/categorical) and the
   full scale IQ (quantitative).
   
-- Pattern: Use a boxplot to see if the groups differ.
+-   Pattern: Use a boxplot to see if the groups differ.
 
-  ```{r}
-  #| warning: false
-  ggplot(lead, aes(x = Group, y = iqf)) +
-    geom_boxplot()
-  ```
+    ```{r}
+    #| warning: false
+    #| fig-alt: "Boxplots of IQF by group."
+    ggplot(lead, aes(x = Group, y = iqf)) +
+      geom_boxplot()
+    ```
 
 - Parameter of interest: Difference in mean IQ levels between the control and exposed groups.
 
-- Estimate: The difference in mean IQ between the two groups in our sample.
-  
-  ```{r}
-  lead |>
-    group_by(Group) |>
-    summarize(meaniq = mean(iqf, na.rm = TRUE))
-  92.55 - 88.02
-  ```
-  The control group is about 4.5 points higher on average
+-   Estimate: The difference in mean IQ between the two groups in our sample.
+    
+    ```{r}
+    lead |>
+      group_by(Group) |>
+      summarize(meaniq = mean(iqf, na.rm = TRUE))
+    92.55 - 88.02
+    ```
+    
+    The control group is about 4.5 points higher on average
   
 
 - Hypothesis Test:
@@ -528,54 +576,54 @@ tout$p.value
       
 - Graphic:
       
-  ![](./cartoons/two_sample_p.png)\ 
+  ![](./cartoons/two_sample_p.png){fig-alt="Sampling distribution of mean difference."}\ 
     
 - The distribution of possible null sample means comes from statistical theory.
   The t-statistic has a $t$ distribution with a complicated degrees of freedom.
 
-- Function: `t.test()`. The quantitative variable goes to the left of the tilde
-  and the binary variable goes to the right of the tilde.
+-   Function: `t.test()`. The quantitative variable goes to the left of the tilde and the binary variable goes to the right of the tilde.
 
-  ```{r}
-  tout <- t.test(iqf ~ Group, data = lead)
-  tdf <- tidy(tout)
-  tdf$estimate
-  tdf$p.value
-  ```
+    ```{r}
+    tout <- t.test(iqf ~ Group, data = lead)
+    tdf <- tidy(tout)
+    tdf$estimate
+    tdf$p.value
+    ```
     
-- `t.test()` also returns a 95% confidence interval for the difference in means.
-  This has the exact same interpretation as in the previous section.
+-   `t.test()` also returns a 95% confidence interval for the difference in means. This has the exact same interpretation as in the previous section.
   
-  ```{r}
-  c(tdf$conf.low, tdf$conf.high)
-  ```
+    ```{r}
+    c(tdf$conf.low, tdf$conf.high)
+    ```
     
 - Assumptions (in decreasing order of importance):
   1. Independence: conditional on group, IQ of one child doesn't give us any information on the IQs of any other children (reasonable).
   2. Approximate normality: The distribution of IQ's is bell-curved in group. Doesn't matter for moderate-large sample sizes because of the central limit theorem.
-     
-- **Exercise**: Is there a difference between control and exposed groups when it comes to the finger-wrist tapping test in the dominant hand (`maxfwt`).
 
+::: {.panel-tabset}
+## Exercise
+Is there a difference between control and exposed groups when it comes to the finger-wrist tapping test in the dominant hand (`maxfwt`).
+
+## Solution
 ```{r}
-#| echo: false
-#| eval: false
 ggplot(lead, aes(x = Group, y = maxfwt)) +
   geom_boxplot()
 t.test(maxfwt ~ Group, data = lead) |>
   tidy()
-# We have some evidence that there is a different in mean performance in this test (p = 0.01125). Control children tap about 7 more times in 10 seconds using the dominant hand (95% CI of 1.6 to 12.4 more times).
 ```
+We have some evidence that there is a different in mean performance in this test (p = 0.01125). Control children tap about 7 more times in 10 seconds using the dominant hand (95% CI of 1.6 to 12.4 more times).
+:::
 
 # Pattern: Proportion is shifted (one binary variable).
 
-- The exposed individuals were mostly males. There were 30 males and 16 females. In the US, about [51.22% of all births are boys](https://en.wikipedia.org/wiki/List_of_sovereign_states_by_sex_ratio). Are boys more likely to be recruited to the study than girls?
+-   The exposed individuals were mostly males. There were 30 males and 16 females. In the US, about [51.22% of all births are boys](https://en.wikipedia.org/wiki/List_of_sovereign_states_by_sex_ratio). Are boys more likely to be recruited to the study than girls?
 
-  ```{r}
-  lead |>
-    filter(Group == "exposed") |>
-    group_by(sex) |>
-    summarize(n = n())
-  ```
+    ```{r}
+    lead |>
+      filter(Group == "exposed") |>
+      group_by(sex) |>
+      summarize(n = n())
+    ```
   
 - Observational Units: U.S. children exposed to lead
 
@@ -585,11 +633,11 @@ t.test(maxfwt ~ Group, data = lead) |>
 
 - Variable: Sex (`male`/`female`)
   
-- Pattern: Calculate sample proportion.
+-   Pattern: Calculate sample proportion.
 
-  ```{r}
-  30 / 46
-  ```
+    ```{r}
+    30 / 46
+    ```
 
 - Parameter of interest: Proportion of children exposed to lead who are boys
   
@@ -606,7 +654,7 @@ t.test(maxfwt ~ Group, data = lead) |>
     
 - Graphic:
 
-  ![](./cartoons/proptest_pvalue.png)\ 
+  ![](./cartoons/proptest_pvalue.png){fig-alt="Sampling distribution of sample proportion."}\ 
     
 - The distribution of possible null sample proportions comes from
   statistical theory. The number of successes has a binomial distribution
@@ -614,33 +662,34 @@ t.test(maxfwt ~ Group, data = lead) |>
   sample size. The sample proportion is the number successes divided by
   the sample size.
 
-- Function: `prop.test()` (when you have a large number of both successes and
-  failures) or `binom.test()` (for any number of successes and failures).
+-   Function: `prop.test()` (when you have a large number of both successes and failures) or `binom.test()` (for any number of successes and failures).
   
-  ```{r}
-  bout <- tidy(binom.test(x = 30, n = 46, p = 0.5122))
-  bout %>%
-    select(estimate, p.value, conf.low, conf.high)
-  ```
-    
-  ```{r}
-  pout <- tidy(prop.test(x = 30, n = 46, p = 0.5122))
-  pout %>%
-    select(estimate, p.value, conf.low, conf.high)
-  ```
-    
-- **Exercise**: Is there a sex bias for the control group?
+    ```{r}
+    bout <- tidy(binom.test(x = 30, n = 46, p = 0.5122))
+    bout |>
+      select(estimate, p.value, conf.low, conf.high)
+    ```
+      
+    ```{r}
+    pout <- tidy(prop.test(x = 30, n = 46, p = 0.5122))
+    pout |>
+      select(estimate, p.value, conf.low, conf.high)
+    ```
+   
+::: {.panel-tabset} 
+## Exercise
+Is there a sex bias for the control group?
 
-  ```{r}
-  #| eval: false
-  #| echo: false
-    lead |>
-      filter(Group == "control") |>
-      group_by(sex) |>
-      summarize(n = n())
-  bout <- binom.test(x = 46, n = 46 + 32)
-  bout$p.value
-  ## no evidence of a sex bias (p = 0.14)
-  ```
+## Solution
+```{r}
+  lead |>
+    filter(Group == "control") |>
+    group_by(sex) |>
+    summarize(n = n())
+bout <- binom.test(x = 46, n = 46 + 32)
+bout$p.value
+```
+No evidence of a sex bias (p = 0.14)
+:::
 
   

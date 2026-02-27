@@ -12,8 +12,8 @@ website:
 
 format:
   html:
-    theme:
-      light: flatly
-      dark: darkly
+    theme: [flatly, theme.scss]
     css: styles.css
     toc: true
+    axe: true
+    highlight-style: a11y

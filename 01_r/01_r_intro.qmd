@@ -3,7 +3,6 @@ title: "Introduction to R"
 author: "David Gerard"
 date: today
 format: html
-urlcolor: "blue"
 ---
 
 ```{r setup, include=FALSE}
@@ -52,7 +51,7 @@ lot of what real data scientists do. Just append what you are Googling with "in 
 
 - When you first open up R Studio, it should look something like this
 
-  ![](./01_figures/rstudio_1.png)\ 
+  ![](./01_figures/rstudio_1.png){fig-alt="R studio screenshot."}\ 
   
 - The area to the right of the carrot "`>`" is called a **prompt**. You insert commands into the prompt.
 
@@ -325,7 +324,7 @@ seq(1, 10, by = 2)
 
 - A data frame has variables in the columns, and observations in the rows. 
 
-  ![](./01_figures/dataframe.png){width=50%}\ 
+  ![](./01_figures/dataframe.png){width=50% fig-alt="Data frame visualization."}\ 
   
 - R comes with a bunch of famous datasets in the form of a data frame. Such as the `airquality` dataset, which contains daily air quality measurements in New York from 1973.
 

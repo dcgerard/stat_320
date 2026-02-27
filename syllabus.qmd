@@ -1,7 +1,6 @@
 ---
 title: "STAT 320 - Biostatistics"
 date: today
-format: html
 urlcolor: blue
 ---
 
@@ -15,7 +14,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 # Q1 Learning Outcomes:
 
-![](./q1_banner.png)\ 
+![](./q1_banner.png){fig-alt="Q1 learning outcomes."}\ 
 
 1. Students will solve quantitative problems including approaches that go beyond memorized procedures.
 
@@ -23,7 +22,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 # Q2 Learning Outcomes:
 
-![](./q2_banner.png)\ 
+![](./q2_banner.png){fig-alt="Q2 learning outcomes."}\ 
 
 1. Translate real-world questions or intellectual inquiries into quantitative frameworks.
 
