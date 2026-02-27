@@ -1,7 +1,6 @@
 ---
 title: "Chapter 6 Notes: Estimation"
 author: "David Gerard"
-format: html
 date: today
 bibliography: est_bib.bib
 ---
@@ -64,7 +63,7 @@ stateDiagram-v2
 - **Hypothesis testing**: How sure are we a parameter is different from some value?  
   - E.g., $H_0: \mu = 0$
   
-![](./04_figs/pop_to_sample/pop_to_sample.png)\ 
+![](./04_figs/pop_to_sample/pop_to_sample.png){fig-alt="Population versus sample"}\ 
 
 ::: {.callout-tip}
 # Reference / Target / Study Population
@@ -142,7 +141,7 @@ ___
 Distribution of statistic across many (hypothetical) samples
 :::
 
-![](./04_figs/sampling_dist/sampling_dist.png)\ 
+![](./04_figs/sampling_dist/sampling_dist.png){fig-alt="Sampling distribution visualization."}\ 
 
 - The sampling distribution is used to describe properties of statistics
 
@@ -207,6 +206,7 @@ We want the area between 98 and 126
 #| echo: false
 #| fig-height: 2
 #| fig-width: 4
+#| fig-alt: "Area under normal curve between 98 and 126."
 plt_norm(mu = 112, sig = 20.6/sqrt(10), lb = 98, ub = 126)
 ```
 
@@ -215,6 +215,7 @@ Which is the area to the left of 126
 #| echo: false
 #| fig-height: 2
 #| fig-width: 4
+#| fig-alt: "Area under the normal curve less than 126."
 plt_norm(mu = 112, sig = 20.6/sqrt(10), ub = 126)
 ```
 Minus the area to the left of 98
@@ -222,6 +223,7 @@ Minus the area to the left of 98
 #| echo: false
 #| fig-height: 2
 #| fig-width: 4
+#| fig-alt: "Area under the normal curve less than 98."
 plt_norm(mu = 112, sig = 20.6/sqrt(10), ub = 98)
 ```
 We can calculate this in R:
@@ -260,6 +262,7 @@ Estimate ± multiplier × standard error
   
 ```{r}
 #| echo: false
+#| fig-alt: "Quantiles of standard normal so that 1-alpha area is between them."
 plt_norm(lb = -1.5, ub = 1.5) +
   theme(axis.text.y = element_blank(), axis.ticks.y = element_blank(),
         axis.text.x = element_text(size = 12)) +
@@ -270,7 +273,7 @@ plt_norm(lb = -1.5, ub = 1.5) +
 
 - CI Interpretation:
 
-  ![](./04_figs/ci_graphic.png)\ 
+  ![](./04_figs/ci_graphic.png){fig-alt="Confidence interval interpretation."}\ 
   
 ## When Variance is Not Known
 
@@ -306,6 +309,7 @@ $$
 
 ```{r}
 #| echo: false
+#| fig-alt: "Quantiles of t distribution so that 1-alpha area is between them."
 plt_norm(lb = -1.5, ub = 1.5) +
   theme(axis.text.y = element_blank(), axis.ticks.y = element_blank(),
         axis.text.x = element_text(size = 12)) +
@@ -410,6 +414,7 @@ And, for a 99% CI we have
   
 ```{r}
 #| echo: false
+#| fig-alt: "Chi-squared quantiles for 1-alpha probability between them."
 nu <- 3
 lb <- qchisq(p = 0.1, df = nu)
 ub <- qchisq(p = 0.9, df = nu)
@@ -556,6 +561,7 @@ Thus, our 95% confidence interval is
 
     ```{r}
     #| echo: false
+    #| fig-alt: "P(X >= 3) when X ~ Binom(10, 0.1158) is 0.1."
     n <- 10
     x <- 3
     p <- 0.2
@@ -581,6 +587,7 @@ Thus, our 95% confidence interval is
 
     ```{r}
     #| echo: false
+    #| fig-alt: "P(X <= 3) when X ~ Binom(10, 0.5517) is 0.1."
     n <- 10
     x <- 3
     p <- 0.2
