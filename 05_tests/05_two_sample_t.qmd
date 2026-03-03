@@ -122,6 +122,7 @@ c(lower, upper)
 -   We are interested in if the exposed and control groups have the same mean full scale IQ. Let's explore the data
 
     ```{r}
+    #| fig-alt: "Boxplots of IQF by group."
     ggplot(lead, aes(x = Group, y = iqf)) +
       geom_boxplot()
     ```

@@ -15,109 +15,125 @@ ggplot2::theme_set(ggplot2::theme_bw() + ggplot2::theme(strip.background = ggplo
 
 ## Learning Objectives
 
-- Work with $t$-distribution
-- Understand $t$-distribution
+-   Work with $t$-distribution
+-   Understand $t$-distribution
 
 # $t$-distribution
 
-- $t$ vs Normal(0, 1)
+-   $t$ vs Normal(0, 1)
 
-  ```{r, echo = FALSE, message=FALSE, warning=FALSE}
-  library(tidyverse)
-  library(ggthemes)
-  x <- seq(-4, 4, length = 200)
-  data.frame(df = as.factor(c(rep(1, length(x)), rep(5, length(x)), rep(Inf, length(x)))),
-             x = c(x, x, x),
-             y = c(dt(x = x, df = 1),
-                   dt(x = x, df = 5),
-                   dt(x = x, df = Inf))) ->
-    dfdat
-  ggplot(dfdat, mapping = aes(x = x, y = y, color = df, lty = df)) +
-    geom_line() +
-    scale_color_colorblind() +
-    ylab("f(x)")
-  ```
+    ```{r}
+    #| echo: false
+    #| message: false
+    #| warning: false
+    #| fig-alt: "Density plots of t-distributions with different degrees of freedom."
+    library(tidyverse)
+    library(ggthemes)
+    x <- seq(-4, 4, length = 200)
+    data.frame(df = as.factor(c(rep(1, length(x)), rep(5, length(x)), rep(Inf, length(x)))),
+               x = c(x, x, x),
+               y = c(dt(x = x, df = 1),
+                     dt(x = x, df = 5),
+                     dt(x = x, df = Inf))) ->
+      dfdat
+    ggplot(dfdat, mapping = aes(x = x, y = y, color = df, lty = df)) +
+      geom_line() +
+      scale_color_colorblind() +
+      ylab("f(x)")
+    ```
 
-- A lot more extreme values in a t
+-   A lot more extreme values in a t
 
-  ```{r, echo = FALSE}
-  set.seed(1)
-  tibble(samp = rnorm(1000)) |>
-    ggplot(aes(x = samp)) +
-    geom_histogram(bins = 30, fill = "white", color = "black") +
-    ggtitle("Normal") +
-    xlab("Sample Values")
-  ```
-
-  ```{r, echo = FALSE}
-  set.seed(1)
-  tibble(samp = rt(1000, df = 2)) |>
-    ggplot(aes(x = samp)) +
-    geom_histogram(bins = 30, fill = "white", color = "black") +
-    ggtitle("t with 2 df") +
-    xlab("Sample Values")
-  ```
+    ```{r}
+    #| echo: false
+    #| fig-alt: "Histogram from normal distribution."
+    set.seed(1)
+    tibble(samp = rnorm(1000)) |>
+      ggplot(aes(x = samp)) +
+      geom_histogram(bins = 30, fill = "white", color = "black") +
+      ggtitle("Normal") +
+      xlab("Sample Values")
+    ```
+  
+    ```{r}
+    #| echo: false
+    #| fig-alt: "Histogram from t-distribution with 2 degrees of freedom."
+    set.seed(1)
+    tibble(samp = rt(1000, df = 2)) |>
+      ggplot(aes(x = samp)) +
+      geom_histogram(bins = 30, fill = "white", color = "black") +
+      ggtitle("t with 2 df") +
+      xlab("Sample Values")
+    ```
 
 # Working with $t$ Distribution in R:
 
-- Density Function
+-   Density Function
 
-  ```{r}
-  dt(x = -6, df = 2)
-  ```
-  
-  ```{r, echo = FALSE}
-  library(ggplot2)
-  x <- seq(-6, 6, length = 100)
-  y <- dt(x, df = 1)
-  qplot(x, y, geom = "line", ylab = "f(x)") +
-    geom_segment(dat = data.frame(x = 2, xend = 2, y = 0, yend = dt(x = 2, df = 2)), aes(x = x, y = y, xend = xend, yend = yend), lty = 2, col = 2)
-  ```
+    ```{r}
+    dt(x = -6, df = 2)
+    ```
+    
+    ```{r}
+    #| echo: false
+    #| fig-alt: "dt() is height of density curve."
+    library(ggplot2)
+    x <- seq(-6, 6, length = 100)
+    y <- dt(x, df = 1)
+    qplot(x, y, geom = "line", ylab = "f(x)") +
+      geom_segment(dat = data.frame(x = 2, xend = 2, y = 0, yend = dt(x = 2, df = 2)), aes(x = x, y = y, xend = xend, yend = yend), lty = 2, col = 2)
+    ```
 
-- Random Generation
+-   Random Generation
 
-  ```{r}
-  samp <- rt(n = 1000, df = 2)
-  head(samp)
-  ```
-  
-  ```{r, echo = FALSE}
-  qplot(samp, geom = "histogram", fill = I("white"), color = I("black"), bins = 20)
-  ```
+    ```{r}
+    samp <- rt(n = 1000, df = 2)
+    head(samp)
+    ```
+    
+    ```{r}
+    #| echo: false
+    #| fig-alt: "rt() gives you random samples."
+    qplot(samp, geom = "histogram", fill = I("white"), color = I("black"), bins = 20)
+    ```
 
 
-- Cumulative Distribution Function
+-   Cumulative Distribution Function
 
-  ```{r}
-  pt(q = 2, df = 2)
-  ```
-  
-  ```{r, echo = FALSE}
-  x <- seq(-6, 6, length = 500)
-  y <- dt(x,  df = 2)
-  polydf <- data.frame(x = c(min(x), x[x < 2], 2, 0), 
-                       y = c(0, y[x < 2], 0, 0))
-  qplot(x, y, geom = "line", ylab = "f(x)") +
-    geom_polygon(data = polydf, mapping = aes(x = x, y = y), 
-                 fill = "red", alpha = 3/4)
-  ```
+    ```{r}
+    pt(q = 2, df = 2)
+    ```
+    
+    ```{r}
+    #| echo: false
+    #| fig-alt: "pt() gives you probability of being less than a value."
+    x <- seq(-6, 6, length = 500)
+    y <- dt(x,  df = 2)
+    polydf <- data.frame(x = c(min(x), x[x < 2], 2, 0), 
+                         y = c(0, y[x < 2], 0, 0))
+    qplot(x, y, geom = "line", ylab = "f(x)") +
+      geom_polygon(data = polydf, mapping = aes(x = x, y = y), 
+                   fill = "red", alpha = 3/4)
+    ```
 
-- Quantile Function: Rosner denotes the following $t_{2,0.9082}$
+-   Quantile Function: Rosner denotes the following $t_{2,0.9082}$
 
-  ```{r}
-  qt(p = 0.9082, df = 2)
-  ```
-  
-  ```{r, echo = FALSE}
-  x <- seq(-6, 6, length = 500)
-  y <- dt(x, df = 2)
-  polydf <- data.frame(x = c(min(x), x[x < 2], 2, 0), 
-                       y = c(0, y[x < 2], 0, 0))
-  qplot(x, y, geom = "line", ylab = "f(x)") +
-    geom_polygon(data = polydf, mapping = aes(x = x, y = y), 
-                 fill = "red", alpha = 3/4) +
-    annotate(geom = "text", x = 0, y = 0.1, label = "0.9082", color = "white")
-  ```
+    ```{r}
+    qt(p = 0.9082, df = 2)
+    ```
+    
+    ```{r}
+    #| echo: false
+    #| fig-alt: "qt() is inverse of pt()"
+    x <- seq(-6, 6, length = 500)
+    y <- dt(x, df = 2)
+    polydf <- data.frame(x = c(min(x), x[x < 2], 2, 0), 
+                         y = c(0, y[x < 2], 0, 0))
+    qplot(x, y, geom = "line", ylab = "f(x)") +
+      geom_polygon(data = polydf, mapping = aes(x = x, y = y), 
+                   fill = "red", alpha = 3/4) +
+      annotate(geom = "text", x = 0, y = 0.1, label = "0.9082", color = "white")
+    ```
 
 ::: {.panel-tabset}
 ## Exercise

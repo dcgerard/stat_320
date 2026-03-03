@@ -25,6 +25,7 @@ ggplot2::theme_set(ggplot2::theme_bw() + ggplot2::theme(strip.background = ggplo
 -   Recall that this is a twin study with a heavier smoking twin and a lighter smoking twin. We are interested in the difference in bone density between these pairs of twins.
 
     ```{r}
+    #| fig-alt: "Histogram of bone density difference."
     boneden |>
       mutate(ls_diff = ls1 - ls2) ->
       boneden
@@ -101,6 +102,7 @@ ggplot2::theme_set(ggplot2::theme_bw() + ggplot2::theme(strip.background = ggplo
 -   A visualization: The true distribution is the curve, symmetric about 0. A sample of 10 individuals is the rug plot. The ranks of the magnitudes are above the rug plot. The red numbers are the rank sums of the positive and negative values.
     ```{r}
     #| echo: false
+    #| fig-alt: "Normal density plot centered at 0 with rug plot and rankings of positive and negative values."
     set.seed(88)
     df_density <- tibble(
       x = seq(-3, 3, length.out = 1000)
@@ -127,6 +129,7 @@ ggplot2::theme_set(ggplot2::theme_bw() + ggplot2::theme(strip.background = ggplo
 -   Same as before, but the true distribution is symmetric about 1.
     ```{r}
     #| echo: false
+    #| fig-alt: "Normal density plot centered above 0 with rug plot and rankings of positive and negative values."
     set.seed(88)
     df_density <- tibble(
       x = seq(-3, 4, length.out = 1000)
@@ -184,9 +187,13 @@ t.test(fn_diff ~ 1, data = boneden) |>
 
 We'll do a histogram and a QQ-plot to check symmetry and normality.
 ```{r}
+#| fig-alt: "Histogram of bone density difference."
 ggplot(boneden, aes(x = fn_diff)) +
   geom_histogram(bins = 10, color = "black", fill = "white")
+```
 
+```{r}
+#| fig-alt: "QQ-plot of bone density difference."
 ggplot(boneden, aes(sample = fn_diff)) +
   geom_qq() +
   geom_qq_line()

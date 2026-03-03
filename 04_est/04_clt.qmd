@@ -65,6 +65,7 @@ ggplot2::theme_set(ggplot2::theme_bw() + ggplot2::theme(strip.background = ggplo
 -   Consider the birthweight data:
     ```{r}
     #| message: false
+    #| fig-alt: "Histogram of birthweights."
     library(tidyverse)
     birthweight <- read_csv("https://dcgerard.github.io/stat_320/data/birthweight.csv")
     ggplot(birthweight, aes(x = weight)) +
@@ -75,11 +76,11 @@ ggplot2::theme_set(ggplot2::theme_bw() + ggplot2::theme(strip.background = ggplo
 
 - The distribution of the $\bar{X}$'s has smaller and smaller variance as the sample size increases since $\mathrm{var}(\bar{X}) = \sigma^2/n$.
 
-  ![](./04_figs/var_decrease.gif)\ 
+  ![](./04_figs/var_decrease.gif){alt="Histogram showing variance of sample mean decreases with larger n."}\ 
   
 - The distribution of the $\bar{X}$'s gets closer to a normal as the sample size increases. Though it's already sufficiently normal for most purposes once $n = 10$.
 
-  ![](./04_figs/clt.gif)\ 
+  ![](./04_figs/clt.gif){alt="Histogram showing distribution of sample mean gets closer to normal for larger n."}\ 
   
 - The true mean $\mu$ is the vertical dashed red line. You see that the distribution of the sample mean has a mean of $\mu$, $\mathrm{E}[\bar{X}] = \mu$.
 

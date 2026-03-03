@@ -173,6 +173,7 @@ Let $X = \#(A > B)$ and $n = \#(A>B) + \#(A<B)$
     
     ```{r}
     #| echo: false
+    #| fig-alt: "Density plot showing p-value is two times area to the right of the absolute value of the observed value."
     plt_t(lb = 0.4743, two_sided = TRUE) +
       scale_x_continuous(breaks = c(-0.4743, 0.4743), labels = c(-0.4743, 0.4743)) +
       geom_vline(xintercept = 0.4743, linetype = "dashed") +
@@ -190,6 +191,7 @@ Let $X = \#(A > B)$ and $n = \#(A>B) + \#(A<B)$
     - Or, we can do exact method with `binom.test()`. Sum all probabilities less probabe than or equally probable to our observed value of $X = 22$:
     ```{r}
     #| echo: false
+    #| fig-alt: "Bar plot showing mass for exact p-value from binomial test."
     dval <- dbinom(x = 22, size = 40, prob = 0.5) + 1e-6
     tibble(x = 0:40) |>
       mutate(
@@ -288,6 +290,7 @@ Let $X = \#(A > B)$ and $n = \#(A>B) + \#(A<B)$
 
     ```{r}
     #| echo: false
+    #| fig-alt: "Faceted density plots, where two groups have same density."
     tibble(x = seq(0, 15, length.out = 200)) |>
       mutate(y = dchisq(x = x, df = 3),
              x1 = x / 3,
@@ -307,7 +310,11 @@ Let $X = \#(A > B)$ and $n = \#(A>B) + \#(A<B)$
       facet_grid(.~Group) +
       guides(color = "none") +
       scale_color_manual(values = palette.colors(2))
+    ```
     
+    ```{r}
+    #| echo: false
+    #| fig-alt: "Faceted density plots where one group is shifted."
     df |>
       pivot_longer(cols = c("x1", "x2")) |>
       mutate(Group = if_else(name == "x1", "Group 1", "Group 2")) |>
@@ -363,6 +370,7 @@ Let $X = \#(A > B)$ and $n = \#(A>B) + \#(A<B)$
   
 ```{r}
 #| echo: false
+#| fig-alt: "Density plot showing p-value is two times area to the right of the absolute value of the observed value."
 n1 <- 5
 n2 <- 3
 mu = n1 * (n1 + n2 + 1)/2

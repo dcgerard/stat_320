@@ -166,11 +166,11 @@ ggplot2::theme_set(ggplot2::theme_bw() + ggplot2::theme(strip.background = ggplo
 
 - Find a $p_1$ such that being greater than or equal to $x$ is 0.025.
 
-  ![](./04_figs/lower_binom.gif)\ 
+  ![](./04_figs/lower_binom.gif){alt="GIF demonstrating calculation of lower bound of binomial exact confidence interval"}\ 
 
 - Find a $p_2$ such that being less than or equal to $x$ is 0.025.
 
-  ![](./04_figs/upper_binom.gif)\ 
+  ![](./04_figs/upper_binom.gif){alt="GIF demonstrating calculation of upper bound of binomial exact confidence interval"}\ 
 
 - In practice, you do this using `binom.test()`.
 

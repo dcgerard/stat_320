@@ -173,6 +173,7 @@ Calculate
     #| echo: false
     #| fig-height: 2
     #| fig-width: 3
+    #| fig-alt: "Density plot showing p-value is twice area to the right of absolute value of observed value."
     plt_t(lb = 1.5, two_sided = TRUE) +
       scale_x_continuous(breaks = c(-1.5, 1.5), labels = c("-z", "z")) +
       geom_vline(xintercept = 1.5, linetype = "dashed") +
@@ -189,6 +190,7 @@ Calculate
     #| echo: false
     #| fig-height: 2
     #| fig-width: 3
+    #| fig-alt: "Density curve showing p-value is area to the right of observed value."
     plt_t(lb = 1.5) +
       scale_x_continuous(breaks = c(1.5), labels = c("z")) +
       geom_vline(xintercept = 1.5, linetype = "dashed") +
@@ -205,6 +207,7 @@ Calculate
     #| echo: false
     #| fig-height: 2
     #| fig-width: 3
+    #| fig-alt: "Density curve showing p-value is area to the left of observed value."
     plt_t(ub = 1.5) +
       scale_x_continuous(breaks = c(1.5), labels = c("z")) +
       geom_vline(xintercept = 1.5, linetype = "dashed") +
@@ -337,6 +340,7 @@ Calculate
 
     ```{r}
     #| echo: false
+    #| fig-alt: "P-value is area to the right of observed value."
     tibble(x = seq(0, 80, length.out = 500)) |>
       mutate(y = dchisq(x = x, df = 1),
              up = x > 77.89) |>
@@ -653,6 +657,7 @@ Cannot use `mcnemar.test()` here because it uses a normal approximation.
 
     ```{r}
     #| echo: false
+    #| fig-alt: "P-value is area to the right of observed value."
     tibble(x = seq(0, 15, length.out = 200)) |>
       mutate(y = dchisq(x = x, df = 3)) ->
       df1
