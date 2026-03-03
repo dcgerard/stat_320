@@ -113,6 +113,7 @@ Input: $X_1,X_2,\ldots,X_n$ and $Y_1,Y_2,\ldots,Y_n$ where $X_i$ and $Y_i$ are m
     #| echo: false
     #| fig-height: 2
     #| fig-width: 3
+    #| fig-alt: "Density plot showing p-value is twice area to the right of observed value."
     plt_t(lb = 1.5, two_sided = TRUE) +
       scale_x_continuous(breaks = c(-1.5, 1.5), labels = c("-t", "t")) +
       geom_vline(xintercept = 1.5, linetype = "dashed") +
@@ -129,6 +130,7 @@ Input: $X_1,X_2,\ldots,X_n$ and $Y_1,Y_2,\ldots,Y_n$ where $X_i$ and $Y_i$ are m
     #| echo: false
     #| fig-height: 2
     #| fig-width: 3
+    #| fig-alt: "Density plot showing p-value is area to the right of observed value."
     plt_t(lb = 1.5) +
       scale_x_continuous(breaks = c(1.5), labels = c("t")) +
       geom_vline(xintercept = 1.5, linetype = "dashed") +
@@ -145,6 +147,7 @@ Input: $X_1,X_2,\ldots,X_n$ and $Y_1,Y_2,\ldots,Y_n$ where $X_i$ and $Y_i$ are m
     #| echo: false
     #| fig-height: 2
     #| fig-width: 3
+    #| fig-alt: "Density plot showing p-value is area to the left of observed value."
     plt_t(ub = 1.5) +
       scale_x_continuous(breaks = c(1.5), labels = c("t")) +
       geom_vline(xintercept = 1.5, linetype = "dashed") +
@@ -288,6 +291,7 @@ Input: $X_1, X_2, \ldots, X_{n_1}$ and $Y_1, Y_2, \ldots, Y_{n_2}$ (sample sizes
     #| echo: false
     #| fig-height: 2
     #| fig-width: 3
+    #| fig-alt: "Density plot showing p-value is twice area to the right of the absolute value of the observed value."
     plt_t(lb = 1.5, two_sided = TRUE) +
       scale_x_continuous(breaks = c(-1.5, 1.5), labels = c("-t", "t")) +
       geom_vline(xintercept = 1.5, linetype = "dashed") +
@@ -305,6 +309,7 @@ Input: $X_1, X_2, \ldots, X_{n_1}$ and $Y_1, Y_2, \ldots, Y_{n_2}$ (sample sizes
     #| echo: false
     #| fig-height: 2
     #| fig-width: 3
+    #| fig-alt: "Density plot showing p-value is area to the right of observed value."
     plt_t(lb = 1.5) +
       scale_x_continuous(breaks = c(1.5), labels = c("t")) +
       geom_vline(xintercept = 1.5, linetype = "dashed") +
@@ -321,6 +326,7 @@ Input: $X_1, X_2, \ldots, X_{n_1}$ and $Y_1, Y_2, \ldots, Y_{n_2}$ (sample sizes
     #| echo: false
     #| fig-height: 2
     #| fig-width: 3
+    #| fig-alt: "Density plot showing p-value is area to the left of observed value."
     plt_t(ub = 1.5) +
       scale_x_continuous(breaks = c(1.5), labels = c("t")) +
       geom_vline(xintercept = 1.5, linetype = "dashed") +
@@ -365,7 +371,7 @@ Input: $X_1, X_2, \ldots, X_{n_1}$ and $Y_1, Y_2, \ldots, Y_{n_2}$ (sample sizes
 - Nobody does this in real life because:
   1. Very sensitive to non-normality. In contrast, the $t$-test is not sensitive because of the CLT
   2. The equal variance $t$-test is robust to violations in equal variance assumption.
-  3. Nobody assumes equal variances anyway because they all use Welch's <img src="./05_figs/grapes_small.png" width="3%"> 2-sample $t$-test (§8.7)
+  3. Nobody assumes equal variances anyway because they all use Welch's <img src="./05_figs/grapes_small.png" width="3%" alt="Grapes"> 2-sample $t$-test (§8.7)
 
 - If your boss asks you to test for equal variances, use `var.test()`
 
@@ -380,7 +386,7 @@ Input: $X_1, X_2, \ldots, X_{n_1}$ and $Y_1, Y_2, \ldots, Y_{n_2}$ (sample sizes
 - We'll now relax the equal variance assumption
   - This is a mathy way to say that we won't assume equal variances.
   
-- Our approach is called Welch's <img src="./05_figs/grapes_small.png" width="3%"> t-test 
+- Our approach is called Welch's <img src="./05_figs/grapes_small.png" width="3%" alt="Grapes"> t-test 
 
 - Always use this unless you know for sure that the variances are equal.
 
@@ -440,6 +446,7 @@ Input: $X_1, X_2, \ldots, X_{n_1}$ and $Y_1, Y_2, \ldots, Y_{n_2}$ (sample sizes
     #| echo: false
     #| fig-height: 2
     #| fig-width: 3
+    #| fig-alt: "Density plot showing p-value is twice area to the right of absolute value of observed value."
     plt_t(lb = 1.5, two_sided = TRUE) +
       scale_x_continuous(breaks = c(-1.5, 1.5), labels = c("-t", "t")) +
       geom_vline(xintercept = 1.5, linetype = "dashed") +
@@ -457,6 +464,7 @@ Input: $X_1, X_2, \ldots, X_{n_1}$ and $Y_1, Y_2, \ldots, Y_{n_2}$ (sample sizes
     #| echo: false
     #| fig-height: 2
     #| fig-width: 3
+    #| fig-alt: "Density plot showing p-value is area to the right of observed value."
     plt_t(lb = 1.5) +
       scale_x_continuous(breaks = c(1.5), labels = c("t")) +
       geom_vline(xintercept = 1.5, linetype = "dashed") +
@@ -473,6 +481,7 @@ Input: $X_1, X_2, \ldots, X_{n_1}$ and $Y_1, Y_2, \ldots, Y_{n_2}$ (sample sizes
     #| echo: false
     #| fig-height: 2
     #| fig-width: 3
+    #| fig-alt: "Density plot showing p-value is area to the left of observed value."
     plt_t(ub = 1.5) +
       scale_x_continuous(breaks = c(1.5), labels = c("t")) +
       geom_vline(xintercept = 1.5, linetype = "dashed") +
@@ -532,8 +541,8 @@ There are three assumptions, in decreasing order of importance (first is most im
      - Anova, multiple linear regression, longitudinal approaches
 
 2. **Equal variance**  
-   - Not required for Welch's <img src="./05_figs/grapes_small.png" width="3%"> t-test  
-   - Just use Welch’s <img src="./05_figs/grapes_small.png" width="3%"> t-test
+   - Not required for Welch's <img src="./05_figs/grapes_small.png" width="3%" alt="Grapes"> t-test  
+   - Just use Welch’s <img src="./05_figs/grapes_small.png" width="3%" alt="Grapes"> t-test
 
 3. **Normality**
    - Violated if there are outliers or skew
@@ -547,6 +556,7 @@ There are three assumptions, in decreasing order of importance (first is most im
 
     ```{r}
     #| echo: false
+    #| fig-alt: "Histogram showing non-normality marginally, but normality within each color."
     set.seed(1)
     bind_rows(
       tibble(x = rnorm(n = 100, mean = -2, sd = 1), group = "A"),
@@ -579,9 +589,9 @@ The mean ±1 sd of ln [calcium intake (mg)] among 25 females, 12 to 14 years of 
 What is the appropriate procedure to test for a significant difference in means between the two groups?
 
 ## Solution
-A two-sample t-test. Equal variance would probably be OK, but why not just use Welch <img src="./05_figs/grapes_small.png" width="3%">?
+A two-sample t-test. Equal variance would probably be OK, but why not just use Welch <img src="./05_figs/grapes_small.png" width="3%" alt="Grapes">?
 
-I think Rosner has you run a test for equal variance to determine if we assume equal variances or not. But don't do this. In real life, just run Welch <img src="./05_figs/grapes_small.png" width="3%">.
+I think Rosner has you run a test for equal variance to determine if we assume equal variances or not. But don't do this. In real life, just run Welch <img src="./05_figs/grapes_small.png" width="3%" alt="Grapes">.
 
 But it's easier for me to test the equal variance approach. So in subsequent problems, assume the variances are equal.
 :::
@@ -639,6 +649,7 @@ What is the p-value corresponding to your answer to Problem 8.4?
 
 ```{r}
 #| echo: false
+#| fig-alt: "Density plot showing shaded area in two tails."
 plt_t(ub = -1.314, two_sided = TRUE) +
   theme_void()
 ```
@@ -654,6 +665,7 @@ We compare the t-statistic of -1.314 for a $t$ distribution with 25 + 40 - 2 = 6
 #| echo: false
 #| fig-height: 2
 #| fig-width: 3
+#| fig-alt: "Density plot showing p-value is twice area to the left of observed value."
 plt_t(ub = -1.314, two_sided = TRUE) +
   scale_x_continuous(breaks = c(-1.314, 1.314), labels = c("-1.314", 1.314)) +
   geom_vline(xintercept = -1.314, linetype = "dashed") +
