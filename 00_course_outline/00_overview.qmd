@@ -503,6 +503,7 @@ The `birthweight` data available [here](https://dcgerard.github.io/stat_320/data
 ## Solution
 
 ```{r}
+#| fig-alt: "Histogram of birthweights with vertical line at 123 ounces."
 birthweight <- read_csv("https://dcgerard.github.io/stat_320/data/birthweight.csv")
 ggplot(birthweight, aes(x = weight)) + 
   geom_histogram() +
@@ -606,6 +607,7 @@ Is there a difference between control and exposed groups when it comes to the fi
 
 ## Solution
 ```{r}
+#| fig-alt: "Boxplots of finger-wrist tapping test scores by group (control vs exposed)."
 ggplot(lead, aes(x = Group, y = maxfwt)) +
   geom_boxplot()
 t.test(maxfwt ~ Group, data = lead) |>

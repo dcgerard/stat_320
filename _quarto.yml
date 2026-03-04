@@ -17,3 +17,7 @@ format:
     toc: true
     axe: true
     highlight-style: a11y
+    include-before-body: skip-nav.html
+    include-after-body: fix-aria.html
+
+

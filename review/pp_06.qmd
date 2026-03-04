@@ -404,6 +404,7 @@ A spirometric tracing is a standard technique used to measure pulmonary function
 #| echo: false
 #| fig-width: 3
 #| fig-height: 3
+#| fig-alt: "Typical spirometric tracing: a logarithmic curve showing volume expelled over time."
 ggplot() + 
   geom_function(fun = log) +
   xlim(1, 5) +
@@ -445,6 +446,7 @@ We have to assume normality to use the standard variance CI. The following QQ pl
 ```{r}
 #| fig-width: 3
 #| fig-height: 3
+#| fig-alt: "Normal QQ plot of manual flow rate differences showing approximate normality."
 ggplot(data = flow_rates, mapping = aes(sample = Manual_diff)) +
   geom_qq() +
   geom_qq_line() +

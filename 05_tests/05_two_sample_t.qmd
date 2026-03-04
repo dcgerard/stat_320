@@ -186,6 +186,7 @@ lead <- read_csv("https://dcgerard.github.io/stat_320/data/lead.csv")
 
 It appears that the exposed group might have a lower mean tapping value than the control group. But it is unclear.
 ```{r}
+#| fig-alt: "Boxplots of finger-wrist tapping test scores by group (control vs exposed)."
 lead |>
   filter(!is.na(maxfwt)) |>
   ggplot(aes(x = Group, y = maxfwt)) +

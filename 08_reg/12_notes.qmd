@@ -54,6 +54,7 @@ ggplot2::theme_set(ggplot2::theme_bw() + ggplot2::theme(strip.background = ggplo
     
 -   If we plot the data, it looks like this:
     ```{r}
+    #| fig-alt: "Boxplots of serum creatine levels by group (control, Low NAPAP, High NAPAP)."
     ggplot(swiss_68, aes(x = group, y = creat_68)) +
       geom_boxplot()
     ```
