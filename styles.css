@@ -1,1 +1,16 @@
 /* css styles */
+
+/* Skip navigation link for WCAG 2.4.1 */
+.skip-nav {
+  position: absolute;
+  top: -40px;
+  left: 0;
+  background: #000000;
+  color: #ffffff;
+  padding: 8px;
+  z-index: 10000;
+  text-decoration: underline;
+}
+.skip-nav:focus {
+  top: 0;
+}

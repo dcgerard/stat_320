@@ -15,7 +15,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 # Q1 Learning Outcomes:
 
-![](./q1_banner.png)\ 
+![](./q1_banner.png){fig-alt="AU Core: Foundation Courses > Quantitative Literacy I (Q1)"}\ 
 
 1. Students will solve quantitative problems including approaches that go beyond memorized procedures.
 
@@ -23,7 +23,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 # Q2 Learning Outcomes:
 
-![](./q2_banner.png)\ 
+![](./q2_banner.png){fig-alt="AU Core: Integrative Courses > Quantitative Literacy II (Q2)"}\ 
 
 1. Translate real-world questions or intellectual inquiries into quantitative frameworks.
 
